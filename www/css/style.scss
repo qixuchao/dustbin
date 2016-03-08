@@ -9,9 +9,9 @@
 }
 .main{
   .top-back{
-    background: #406eb3;width: 100%;height: 23%;
+    background: #2b60ab;width: 100%;height: 122px;
     .months{
-      padding-top: 15%;font-size: 20px;color: white;padding-bottom: 0;
+      padding-top: 35px;font-size: 15px;color: white;padding-bottom: 0;
       .year{
         padding-left: 3%;
       }
@@ -20,10 +20,10 @@
       }
     }
     .day{
-      color: #9fb7d9;font-size: 20px;padding-top: 1%;padding-top: 0;
+      color: rgba(255,255,255,0.5);font-size: 16px;padding-top: 0;
     }
     .today{
-      font-size: 12px;
+      font-size: 8px;
       color: white;
       position: relative;
     }
