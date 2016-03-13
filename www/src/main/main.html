@@ -1,26 +1,44 @@
 <ion-view view-title="Friends">
-    <ion-content class="main">
+    <ion-content class="main" has-bouncing="false">
         <div class="top-back">
-            <div class="row months">
-                <div class="text-right year">2016</div>
-                <div class="month">03</div>
+            <div class="row months" on-swipe-left="onMonthSwipeLeft()" on-swipe-right="onMonthSwipeRight()">
+                <div class="text-right year">{{year}}</div>
+                <div class="month">{{month<10?('0'+month):month}}</div>
             </div>
-            <!--<table class="month">-->
-                <!--<tr>-->
-                    <!--<th>2016</th>-->
-                    <!--<td>03</td>-->
-                <!--</tr>-->
-            <!--</table>-->
             <div class="row day">
-                <div class="col text-center" ng-repeat="x in weeks" ng-click="selectDay(x)">
-                    <div class="today" ng-if="x.today">{{x.today}}</div>
-                    <div class="today" ng-if="!x.today">&nbsp;</div>{{x.value}}
+                <div class="col text-center" ng-repeat="x in weeks" ng-class="x.class">
+                    <div class="today" ng-if="x.flag">今</div>
+                    <div class="today" ng-if="!x.flag">&nbsp;</div>
+                    <div on-swipe-left="onDaySwipeLeft()" on-swipe-right="onDaySwipeRight()">{{x.value}}</div>
                 </div>
             </div>
+            <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)">
+                <ion-slide ng-repeat="x in days">
+                    <div class="row day">
+                        <div class="col text-center nopadding" ng-repeat="y in x.arr"
+                             ng-class="(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6)?'edgeDay':''">{{y}}
+                        </div>
+                    </div>
+                </ion-slide>
+                <!--<ion-slide>-->
+                    <!--<div class="row day">-->
+                        <!--<div class="col text-center nopadding" ng-repeat="x in days_two"-->
+                             <!--ng-class="(days.indexOf(x)==0||days.indexOf(x)==6)?'edgeDay':''">{{x}}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</ion-slide>-->
+                <!--<ion-slide>-->
+                    <!--<div class="row day">-->
+                        <!--<div class="col text-center nopadding" ng-repeat="x in days_three"-->
+                             <!--ng-class="(days.indexOf(x)==0||days.indexOf(x)==6)?'edgeDay':''">{{x}}-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</ion-slide>-->
+            </ion-slide-box>
         </div>
     </ion-content>
     <div class="bar bar-footer">
-        <div class="tabs tabs-icon-top">
+        <div class="tabs tabs-icon-top tabs-dark">
             <a ui-sref="login" class="tab-item"><i class="icon ion-home"></i>
                 Home
             </a>

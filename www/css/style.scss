@@ -20,13 +20,25 @@
       }
     }
     .day{
-      color: rgba(255,255,255,0.5);font-size: 16px;padding-top: 0;
+      color: rgba(255,255,255,0.5);font-size: 16px;padding-top: 0;padding-bottom: 0;
+      .col{
+        padding: 0 5px;
+      }
     }
     .today{
-      font-size: 8px;
+      font-size: 12px;
       color: white;
-      position: relative;
+      -webkit-transform: scale(0.7,0.7);
     }
-  }
+    .edgeDay{
+      color: rgba(255,255,255,0.25);
+    }
+    .slider{
+      height:30px;
+      .slider-slide{
+        padding-top: 5px;
+      }
+    }
 
+  }
 }
