@@ -1,12 +1,16 @@
 var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
+var tabsModule = angular.module('tabsModule', []);
+var appModule = angular.module('appModule', []);
 
 var ATLApp = angular.module('ATLApp', ['ionic',
     'ATLApp.controllers',
     'ionic-material',
     'ionMdInput',
     'loginModule',
-    'mainModule'
+    'mainModule',
+    'tabsModule',
+    'appModule'
 ])
 
 ATLApp.run(function ($ionicPlatform) {
@@ -40,14 +44,15 @@ ATLApp.run(function ($ionicPlatform) {
                 templateUrl: 'src/login/login.html',
                 controller: 'LoginCtrl'
             })
-            .state('main', {
-                url: '/main',
-                //views: {
-                //    'main': {
-                        templateUrl: 'src/main/main.html',
-                        controller: 'MainCtrl'
-                //    }
-                //}
+            .state('tabs', {
+                url: '/tabs',
+                templateUrl: 'src/tabs/tabs.html',
+                controller: 'TabsCtrl'
+            })
+            .state('test', {
+                url: '/test',
+                templateUrl: 'src/test.html'
+                //controller: 'TabsCtrl'
             })
 
         ;

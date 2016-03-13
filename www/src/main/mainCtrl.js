@@ -103,6 +103,9 @@ mainModule
             }
             return true;
         }
+        $scope.doubleClick = function(){
+            console.log('doubleClick')
+        }
         $scope.onMonthSwipeLeft = function () {
             //当前周一对应的日期
             //nextDays(7);
