@@ -1,7 +1,7 @@
 <!--<ion-view view-title="Friends">-->
     <ion-content class="main" has-bouncing="false">
         <div class="top-back">
-            <div class="row months" on-double-tap="doubleClick()" on-swipe-left="onMonthSwipeLeft()"
+            <div class="row months" on-double-tap="doubleClick()" ng-click="returnToday()" on-swipe-left="onMonthSwipeLeft()"
                  on-swipe-right="onMonthSwipeRight()">
                 <div class="text-right year">{{year}}</div>
                 <div class="month">{{month<10?('0'+month):month}}</div>

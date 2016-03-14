@@ -1,3 +1,5 @@
+@charset "UTF-8";
+/*公共样式*/
 .scroll {
   height: 100%; }
 
@@ -7,6 +9,8 @@
 .nomargin {
   margin: 0; }
 
+/*公共样式 end*/
+/*首页*/
 .main .top-back {
   background: #2b60ab;
   width: 100%;
@@ -37,5 +41,7 @@
     height: 30px; }
     .main .top-back .slider .slider-slide {
       padding-top: 5px; }
+
+/*首页 end*/
 
 /*# sourceMappingURL=style.css.map */

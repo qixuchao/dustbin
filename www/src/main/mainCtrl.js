@@ -3,7 +3,7 @@
  */
 'use strict';
 mainModule
-    .controller('MainCtrl', ['$scope', 'ionicMaterialInk', 'ionicMaterialMotion', function ($scope, ionicMaterialInk, ionicMaterialMotion) {
+    .controller('MainCtrl', ['$scope','$ionicSlideBoxDelegate', 'ionicMaterialInk', 'ionicMaterialMotion', function ($scope,$ionicSlideBoxDelegate, ionicMaterialInk, ionicMaterialMotion) {
 
         //$timeout(function () {
         //    document.getElementsByClassName('animate-day').toggle('on');
@@ -105,6 +105,15 @@ mainModule
         }
         $scope.doubleClick = function(){
             console.log('doubleClick')
+        };
+        $scope.returnToday = function(){
+            if($ionicSlideBoxDelegate.currentIndex == 0){
+                if(($scope.year+'/'+$scope.month+'/'+$scope.days[0].arr[6])<todayDate){
+                    $ionicSlideBoxDelegate.previous(300);
+                }
+            }
+            //$ionicSlideBoxDelegate.slide(0, 300);
+            $scope.init();
         }
         $scope.onMonthSwipeLeft = function () {
             //当前周一对应的日期
@@ -123,12 +132,20 @@ mainModule
         } else {
             last_day = today;
         }
-        $scope.days[0].arr = getDays(addDate(todayDate, last_day).getMonth() + 1, addDate(todayDate, last_day).getDate());
-        isToday($scope.days[0].arr);
-        $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
-        $scope.days[2].arr = nextDays(-7, $scope.days[0].arr, $scope.days[2]);
+        $scope.init = function(){
+            console.log(todayDate)
+            var addDateTemp = addDate(todayDate, last_day);
+            $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
+            $scope.year = addDateTemp.getFullYear();
+            $scope.month = addDateTemp.getMonth()+1;
+            isToday($scope.days[0].arr);
+            $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
+            $scope.days[2].arr = nextDays(-7, $scope.days[0].arr, $scope.days[2]);
+        }
+        $scope.init();
 //滚动日视图
         $scope.slideHasChanged = function (page_now) {
+            console.log(page_now)
             $scope.year = $scope.days[page_now].year;
             $scope.month = $scope.days[page_now].month;
             if (isLeapYear($scope.year)) {
