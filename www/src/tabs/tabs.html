@@ -1,4 +1,4 @@
-<ion-view ng-init="tabs.name='main'"
+<ion-view ng-init="tabs.name='main'">
     <!--<ion-content class="main" has-bouncing="false">-->
         <div ng-include="'src/main/main.html'" ng-if="tabs.name=='main'" ng-controller="MainCtrl"></div>
         <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='app'" ng-controller="AppCtrl"></div>

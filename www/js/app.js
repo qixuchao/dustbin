@@ -30,7 +30,7 @@ ATLApp.run(function ($ionicPlatform) {
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
         // Turn off caching for demo simplicity's sake
-        $ionicConfigProvider.views.maxCache(0);
+        //$ionicConfigProvider.views.maxCache(0);
 
         /*
          // Turn off back button text

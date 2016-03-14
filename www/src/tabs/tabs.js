@@ -4,6 +4,9 @@
 
 'use strict';
 tabsModule
-    .controller('TabsCtrl',['$scope','$state','ionicMaterialInk',function($scope,$state,ionicMaterialInk){
+    .controller('TabsCtrl',['$scope','$rootScope','$state','$ionicHistory','ionicMaterialInk',function($scope,$rootScope,$state,$ionicHistory,ionicMaterialInk){
         ionicMaterialInk.displayEffect();
+        $rootScope.goBack = function(){
+            $ionicHistory.goBack();
+        }
     }]);
