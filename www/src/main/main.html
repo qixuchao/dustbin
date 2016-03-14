@@ -1,27 +1,48 @@
 <!--<ion-view view-title="Friends">-->
-    <ion-content class="main" has-bouncing="false">
-        <div class="top-back">
-            <div class="row months" on-double-tap="doubleClick()" ng-click="returnToday()" on-swipe-left="onMonthSwipeLeft()"
+<ion-content class="main" has-bouncing="false">
+    <div class="top-back">
+        <div class="dayView">
+            <div class="row months" on-double-tap="doubleClick()" ng-click="returnToday()"
+                 on-swipe-left="onMonthSwipeLeft()"
                  on-swipe-right="onMonthSwipeRight()">
                 <div class="text-right year">{{year}}</div>
                 <div class="month">{{month<10?('0'+month):month}}</div>
             </div>
-            <div class="row day">
-                <div class="col text-center" ng-repeat="x in weeks" ng-class="x.class">
-                    <div class="today" ng-if="x.flag">今</div>
-                    <div class="today" ng-if="!x.flag">&nbsp;</div>
-                    <div on-swipe-left="onDaySwipeLeft()">{{x.value}}</div>
+            <div on-swipe-down="changeView()" ng-if="viewFlag">
+                <div class="row day">
+                    <div class="col text-center" ng-repeat="x in weeks" ng-class="x.class">
+                        <div class="today" ng-if="x.flag">今</div>
+                        <div class="today" ng-if="!x.flag">&nbsp;</div>
+                        <div>{{x.value}}</div>
+                    </div>
+                </div>
+                <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)">
+                    <ion-slide ng-repeat="x in days">
+                        <div class="row day">
+                            <div class="col text-center nopadding" ng-repeat="y in x.arr"
+                                 ng-class="(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6)?'edgeDay':''">{{y.value}}
+                            </div>
+                        </div>
+                    </ion-slide>
+                </ion-slide-box>
+            </div>
+        </div>
+        <div on-swipe-down="changeView()" ng-show="!viewFlag" class="monthView">
+            <div class="row week">
+                <div class="col text-center" ng-repeat="x in weeks">
+                    <div>{{x.value}}</div>
                 </div>
             </div>
-            <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)">
-                <ion-slide ng-repeat="x in days">
-                    <div class="row day">
-                        <div class="col text-center nopadding" ng-repeat="y in x.arr"
-                             ng-class="(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6)?'edgeDay':''">{{y}}
+            <ion-slide-box does-continue="true" on-slide-changed="monthHasChanged($index)">
+                <ion-slide ng-repeat="x in monthView track by $index">
+                    <div class="row row-wrap">
+                        <div class="col col-14" ng-repeat="y in x.arr track by $index"
+                             ng-class="(year+'/'+month+'/'+y.value)==myTodayDate?'today_text':''">{{y.value}}
                         </div>
                     </div>
                 </ion-slide>
             </ion-slide-box>
         </div>
-    </ion-content>
+    </div>
+</ion-content>
 <!--</ion-view>-->

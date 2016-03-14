@@ -2,48 +2,86 @@
 .scroll {
   height: 100%;
 }
-.nopadding{
-  padding:0;
+
+.nopadding {
+  padding: 0;
 }
-.nomargin{
-  margin:0;
+
+.nomargin {
+  margin: 0;
 }
+
+$main-backColor: #2b60ab;
+$mian-dayColor: rgba(255, 255, 255, 0.5);
+$main-edgeColor:rgba(255, 255, 255, 0.25);
 /*公共样式 end*/
 
 /*首页*/
-.main{
-  .top-back{
-    background: #2b60ab;width: 100%;height: 122px;
-    .months{
-      padding-top: 35px;font-size: 15px;color: white;padding-bottom: 0;
-      .year{
-        padding-left: 3%;
+.main {
+  .top-back {
+    background: $main-backColor;
+    width: 100%;
+    height: 130px;
+    .dayView{
+      .months {
+        padding-top: 35px;
+        font-size: 15px;
+        color: white;
+        padding-bottom: 0;
+        .year {
+          padding-left: 3%;
+        }
+        .month {
+          padding-left: 8px;
+        }
       }
-      .month{
-        padding-left: 8px;
+      .day {
+        color: $mian-dayColor;
+        font-size: 16px;
+        padding-top: 0;
+        padding-bottom: 0;
+        .col {
+          padding: 0 5px;
+        }
+      }
+      .today {
+        font-size: 8px;
+        color: white;
+        -webkit-transform: scale(0.7, 0.7);
+      }
+      .edgeDay {
+        color: $main-edgeColor;
+      }
+      .slider {
+        height: 30px;
+        .slider-slide {
+          padding-top: 5px;
+        }
       }
     }
-    .day{
-      color: rgba(255,255,255,0.5);font-size: 16px;padding-top: 0;padding-bottom: 0;
-      .col{
-        padding: 0 5px;
+    .monthView {
+      color: $mian-dayColor;
+      background: $main-backColor;
+      .week{
+        font-size: 12px;
+        .col{
+          padding: 0 5px;
+        }
+      }
+      .row{
+        padding:0 0 3px 0;
+      }
+      .col-14 {
+        text-align: center;
+        max-width: 15%;
+        min-width: 14.28%;
+        padding:0 3px 6px 3px;
+      }
+      .today_text{
+        color: rgb(243, 129, 91);
       }
     }
-    .today{
-      font-size: 12px;
-      color: white;
-      -webkit-transform: scale(0.7,0.7);
-    }
-    .edgeDay{
-      color: rgba(255,255,255,0.25);
-    }
-    .slider{
-      height:30px;
-      .slider-slide{
-        padding-top: 5px;
-      }
-    }
-
   }
 }
+
 /*首页 end*/

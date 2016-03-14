@@ -1,56 +1,50 @@
-<ion-view view-title="Friends">
-    <ion-content class="main" has-bouncing="false">
-        <div class="top-back">
-            <div class="row months" on-swipe-left="onMonthSwipeLeft()" on-swipe-right="onMonthSwipeRight()">
-                <div class="text-right year">{{year}}</div>
-                <div class="month">{{month<10?('0'+month):month}}</div>
-            </div>
+<!--<ion-view view-title="Friends">-->
+<ion-content class="main" has-bouncing="false">
+    <div class="top-back">
+        <div class="row months" on-double-tap="doubleClick()" ng-click="returnToday()"
+             on-swipe-left="onMonthSwipeLeft()"
+             on-swipe-right="onMonthSwipeRight()">
+            <div class="text-right year">{{year}}</div>
+            <div class="month">{{month<10?('0'+month):month}}</div>
+        </div>
+        <div on-drag-down="changeView()" ng-if="viewFlag">
             <div class="row day">
                 <div class="col text-center" ng-repeat="x in weeks" ng-class="x.class">
                     <div class="today" ng-if="x.flag">今</div>
                     <div class="today" ng-if="!x.flag">&nbsp;</div>
-                    <div on-swipe-left="onDaySwipeLeft()" on-swipe-right="onDaySwipeRight()">{{x.value}}</div>
+                    <div on-swipe-left="onDaySwipeLeft()">{{x.value}}</div>
                 </div>
             </div>
             <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)">
-                <ion-slide>
+                <ion-slide ng-repeat="x in days">
                     <div class="row day">
-                        <div class="col text-center nopadding" ng-repeat="x in days_one"
-                             ng-class="(days.indexOf(x)==0||days.indexOf(x)==6)?'edgeDay':''">{{x}}
-                        </div>
-                    </div>
-                </ion-slide>
-                <ion-slide>
-                    <div class="row day">
-                        <div class="col text-center nopadding" ng-repeat="x in days_two"
-                             ng-class="(days.indexOf(x)==0||days.indexOf(x)==6)?'edgeDay':''">{{x}}
-                        </div>
-                    </div>
-                </ion-slide>
-                <ion-slide>
-                    <div class="row day">
-                        <div class="col text-center nopadding" ng-repeat="x in days_three"
-                             ng-class="(days.indexOf(x)==0||days.indexOf(x)==6)?'edgeDay':''">{{x}}
+                        <div class="col text-center nopadding" ng-repeat="y in x.arr"
+                             ng-class="(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6)?'edgeDay':''">{{y}}
                         </div>
                     </div>
                 </ion-slide>
             </ion-slide-box>
         </div>
-    </ion-content>
-    <div class="bar bar-footer">
-        <div class="tabs tabs-icon-top tabs-dark">
-            <a ui-sref="login" class="tab-item"><i class="icon ion-home"></i>
-                Home
-            </a>
-            <a class="tab-item"><i class="icon ion-star"></i>
-                Favorites
-            </a>
-            <a class="tab-item"><i class="icon ion-gear-a"></i>
-                Settings
-            </a>
-            <a class="tab-item"><i class="icon ion-gear-a"></i>
-                Settings
-            </a>
+        <div on-drag-down="changeView()" ng-if="!viewFlag">
+            <div class="row day">
+                <div class="col text-center" ng-repeat="x in weeks" ng-class="x.class">
+                    <!--<div class="today" ng-if="x.flag">今</div>-->
+                    <!--<div class="today" ng-if="!x.flag">&nbsp;</div>-->
+                    <div on-swipe-left="onDaySwipeLeft()">{{x.value}}</div>
+                </div>
+                <!--<div class="row day">-->
+                <!--</div>-->
+            </div>
+            <table>
+                <tr>
+                    <th>6</th>
+                    <th>6</th>
+                    <th>6</th>
+                </tr>
+            </table>
+
+
         </div>
     </div>
-</ion-view>
+</ion-content>
+<!--</ion-view>-->
