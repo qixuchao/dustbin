@@ -1,4 +1,33 @@
 @charset "UTF-8";
+.fill-parent {
+  width: 100%;
+  height: 100%; }
+
+.fill-width {
+  width: 100%; }
+
+.fill-height {
+  height: 100%; }
+
+.max-fill-parent {
+  max-height: 100%;
+  max-width: 100%; }
+
+/**
+ * 公共的 mixin  
+ */
+/*公共样式*/
+.scroll {
+  height: 100%; }
+
+.nopadding {
+  padding: 0; }
+
+.nomargin {
+  margin: 0; }
+
+/*公共样式 end*/
+/*# sourceMappingURL=style.css.map */
 /*公共样式*/
 .scroll {
   height: 100%; }
@@ -120,4 +149,4 @@
 
 /*首页 end*/
 
-/*# sourceMappingURL=main.css.map */
+/*# sourceMappingURL=CRMApp.css.map */

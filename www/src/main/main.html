@@ -1,11 +1,12 @@
 <!--<ion-view view-title="Friends">-->
-<ion-content class="main" has-bouncing="false">
+<ion-content class="main animate-fade-slide-in" has-bouncing="false" ng-class="{expanded:isExpanded}">
     <div class="top-back">
+        <!--周视图-->
         <div class="dayView">
-            <div class="row months" on-double-tap="doubleClick()" ng-click="returnToday()"
+            <div class="row months" on-double-tap="doubleClick()"
                  on-swipe-left="onMonthSwipeLeft()"
                  on-swipe-right="onMonthSwipeRight()">
-                <div class="text-right year">{{year}}</div>
+                <div class="text-right year" ng-click="returnToday()">{{year}}</div>
                 <div class="month">{{month<10?('0'+month):month}}</div>
             </div>
             <div on-swipe-down="changeView()" ng-if="viewFlag">
@@ -19,15 +20,17 @@
                 <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)">
                     <ion-slide ng-repeat="x in days">
                         <div class="row day">
-                            <div class="col text-center nopadding" ng-repeat="y in x.arr"
-                                 ng-class="(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6)?'edgeDay':''">{{y.value}}<br>
-                                <div class="dot"></div>
+                            <div class="col text-center nopadding myDay" ng-repeat="y in x.arr"
+                                 ng-class="(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6)?'edgeDay':'';y.checked?'checked':''"
+                                 ng-click="selectDay(x.arr,y)">{{y.value}}<br>
+                                <div class="dot" ng-show="y.toDo"></div>
                             </div>
                         </div>
                     </ion-slide>
                 </ion-slide-box>
             </div>
         </div>
+        <!--月视图-->
         <div on-swipe-down="changeView()" ng-show="!viewFlag" class="monthView">
             <div class="row week">
                 <div class="col text-center" ng-repeat="x in weeks">
@@ -44,6 +47,20 @@
                 </ion-slide>
             </ion-slide-box>
         </div>
+    </div>
+    <!--bar-->
+    <div class="mainBar">
+        <div class="row">
+            <div class="col-10"><div class="dot"></div></div>
+            <div class="col-25">销售活动<i class="icon ion-ios-arrow-down"></i></div>
+            <div class="col-20">
+                <div class="num">2</div>待办
+            </div>
+        </div>
+        <button id="app-funcs" class="button button-fab button-fab-top-right button-energized-900 flap ink"><i class="icon ion-ios-plus-empty"></i></button>
+    </div>
+    <div class="content">
+        <div class="line-vertical"></div>
     </div>
 </ion-content>
 <!--</ion-view>-->

@@ -3,8 +3,7 @@ var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
 
-var ATLApp = angular.module('ATLApp', ['ionic',
-    'ATLApp.controllers',
+var CRMApp = angular.module('CRMApp', ['ionic',
     'ionic-material',
     'ionMdInput',
     'loginModule',
@@ -13,7 +12,7 @@ var ATLApp = angular.module('ATLApp', ['ionic',
     'appModule'
 ])
 
-ATLApp.run(function ($ionicPlatform) {
+CRMApp.run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)

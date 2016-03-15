@@ -10,7 +10,11 @@ mainModule
         //}, 900);
 
         //ionicMaterialMotion.fadeSlideInRight();
-        ionicMaterialInk.displayEffect();
+
+        $timeout(function(){
+            document.getElementById('app-funcs').classList.toggle('on');
+            ionicMaterialInk.displayEffect();
+        },100);
 
         /*--------------------------------------------日历--------------------------------------------*/
         //判断是否是闰年,2月平年28天、闰年29天
@@ -122,6 +126,7 @@ mainModule
             console.log('doubleClick')
         };
         $scope.returnToday = function () {
+            console.log('returnToday')
             var page_index = $ionicSlideBoxDelegate.currentIndex();
             if (page_index == 0) {
                 for (var i = 0; i < 7; i++) {
@@ -149,7 +154,12 @@ mainModule
             //nextDays(-7);
             alert('月份右滑动')
         }
-
+        $scope.selectDay = function(x,y){
+            for(var i=0;i< x.length;i++){
+                x[i].checked = false;
+            }
+            y.checked = true;
+        }
         //初始化数据
         var last_day = 0;
         if (today != 0) {
@@ -161,6 +171,17 @@ mainModule
             console.log(todayDate)
             var addDateTemp = addDate(todayDate, last_day);
             $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
+            if(today==0){
+                today=6;
+            }else{
+                today=today-1;
+            }
+            //默认选中当天
+            $scope.days[0].arr[today].checked=true;
+            //模拟有代办事项
+            $scope.days[0].arr[today].toDo=true;
+            $scope.days[0].arr[today+1].toDo=true;
+
             $scope.year = addDateTemp.getFullYear();
             $scope.month = addDateTemp.getMonth() + 1;
             isToday($scope.days[0].arr);

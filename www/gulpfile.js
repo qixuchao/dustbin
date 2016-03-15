@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var clean = require('gulp-clean');
 var concat = require('gulp-concat');
 var gulpif = require('gulp-if');
 var sass = require('gulp-sass');

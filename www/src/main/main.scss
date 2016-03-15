@@ -13,7 +13,9 @@
 
 $main-backColor: #2b60ab;
 $mian-dayColor: rgba(255, 255, 255, 0.5);
-$main-edgeColor:rgba(255, 255, 255, 0.25);
+$main-edgeColor: rgba(255, 255, 255, 0.25);
+$main-dotColor:#9ec92a;
+$main-lineColor:#d2d2d2;
 /*公共样式 end*/
 
 /*首页*/
@@ -21,8 +23,8 @@ $main-edgeColor:rgba(255, 255, 255, 0.25);
   .top-back {
     background: $main-backColor;
     width: 100%;
-    height: 126px;
-    .dayView{
+    min-height: 125px;
+    .dayView {
       .months {
         padding-top: 35px;
         font-size: 15px;
@@ -44,13 +46,20 @@ $main-edgeColor:rgba(255, 255, 255, 0.25);
         top: -4px;
         .col {
           padding: 0 5px;
-          .dot{
-            background: #9ec92a;
+          .dot {
+            background: $main-dotColor;
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            margin-left: 47%;
+            margin-left: 47.5%;
           }
+        }
+        .myDay {
+          height: 29px;
+        }
+        .checked {
+          background: url('../../img/main/Rectangle2x.png') no-repeat center;
+          background-size: contain;
         }
       }
       .today {
@@ -71,24 +80,83 @@ $main-edgeColor:rgba(255, 255, 255, 0.25);
     .monthView {
       color: $mian-dayColor;
       background: $main-backColor;
-      .week{
+      .week {
         font-size: 12px;
-        .col{
+        .col {
           padding: 0 5px;
         }
       }
-      .row{
-        padding:0 0 3px 0;
+      .row {
+        padding: 0 0 3px 0;
       }
       .col-14 {
         text-align: center;
         max-width: 15%;
         min-width: 14.28%;
-        padding:0 3px 6px 3px;
+        padding: 0 3px 6px 3px;
       }
-      .today_text{
+      .today_text {
         color: rgb(243, 129, 91);
       }
+    }
+  }
+  .mainBar{
+    height:73px;
+    background: url("../../img/main/bar3x.png") no-repeat;
+    background-size: 100% 100%;
+    .row{
+      padding:0;
+      .col-10{
+        padding-top: 20px;
+        padding-left: 7%;
+        .dot{
+          background: $main-dotColor;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+        }
+      }
+      .col-25{
+        padding-top: 15px;
+        color: white;
+        font-size: 15px;
+        padding-left: 5px;
+        .icon{
+          padding-left: 5px;
+        }
+      }
+      .col-20{
+        text-align: center;
+        margin-left: 45%;
+        padding-top: 2%;
+        color:white;
+        font-size: 12px;
+        .num{
+          font-size: 20px;
+        }
+      }
+    }
+    .button-fab-top-right{
+      background: #e24976;
+      position: absolute;
+      right:3.2%;
+      top:auto;
+      width: 52px;
+      height: 52px;
+      .icon::before{
+        font-size: 36px!important;
+      }
+    }
+  }
+  .content{
+    height: 70%;
+    .line-vertical{
+      height: 103.3%;
+      width: 1px;
+      background: $main-lineColor;
+      margin-left: 8.2%;
+      position: relative;
+      top:-3.3%;
     }
   }
 }
