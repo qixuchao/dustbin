@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="02c04fcf-9192-4b6a-aba4-616bd27df0e2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/main.css" afterPath="$PROJECT_DIR$/www/src/main/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/main.css.map" afterPath="$PROJECT_DIR$/www/src/main/main.css.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/main.html" afterPath="$PROJECT_DIR$/www/src/main/main.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/main.scss" afterPath="$PROJECT_DIR$/www/src/main/main.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/mainCtrl.js" afterPath="$PROJECT_DIR$/www/src/main/mainCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/public/CRMApp.css" afterPath="$PROJECT_DIR$/www/src/public/CRMApp.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/public/CRMApp.css.map" afterPath="$PROJECT_DIR$/www/src/public/CRMApp.css.map" />
     </list>
     <ignored path="atlenergy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -80,8 +72,8 @@
       <file leaf-file-name="mainCtrl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/src/main/mainCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7696793">
-              <caret line="363" column="8" selection-start-line="363" selection-start-column="8" selection-end-line="363" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.5510204">
+              <caret line="75" column="60" selection-start-line="75" selection-start-column="60" selection-end-line="75" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -883,8 +875,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/src/main/mainCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7696793">
-          <caret line="363" column="8" selection-start-line="363" selection-start-column="8" selection-end-line="363" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.5510204">
+          <caret line="75" column="60" selection-start-line="75" selection-start-column="60" selection-end-line="75" selection-end-column="60" />
           <folding />
         </state>
       </provider>

@@ -73,7 +73,7 @@ mainModule
                 $timeout(function(){
                     var year = angular.copy($scope.year);
                     var month = angular.copy($scope.month);
-                    if(arr[0].value>arr[6].value){
+                    if(arr[0].value>arr[6].value&&select_day>=arr[0].value){
                         if(month==1){
                             month=12;
                             year--;
