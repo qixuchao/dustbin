@@ -20,7 +20,8 @@
                     <ion-slide ng-repeat="x in days">
                         <div class="row day">
                             <div class="col text-center nopadding" ng-repeat="y in x.arr"
-                                 ng-class="(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6)?'edgeDay':''">{{y.value}}
+                                 ng-class="(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6)?'edgeDay':''">{{y.value}}<br>
+                                <div class="dot"></div>
                             </div>
                         </div>
                     </ion-slide>
