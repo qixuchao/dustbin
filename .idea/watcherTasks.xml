@@ -9,11 +9,11 @@
       <option name="fileExtension" value="scss" />
       <option name="immediateSync" value="true" />
       <option name="name" value="SCSS" />
-      <option name="output" value="$FileNameWithoutExtension$.css" />
+      <option name="output" value="../dev/CRMApp.css" />
       <option name="outputFilters">
         <array />
       </option>
-      <option name="outputFromStdout" value="false" />
+      <option name="outputFromStdout" value="true" />
       <option name="program" value="$USER_HOME$/.rvm/gems/ruby-2.2.1/bin/scss" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="true" />

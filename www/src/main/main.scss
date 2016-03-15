@@ -1,15 +1,4 @@
-/*公共样式*/
-.scroll {
-  height: 100%;
-}
 
-.nopadding {
-  padding: 0;
-}
-
-.nomargin {
-  margin: 0;
-}
 
 $main-backColor: #2b60ab;
 $mian-dayColor: rgba(255, 255, 255, 0.5);
@@ -60,6 +49,7 @@ $main-lineColor:#d2d2d2;
         .checked {
           background: url('../../img/main/Rectangle2x.png') no-repeat center;
           background-size: contain;
+          color: white;
         }
       }
       .today {
@@ -94,9 +84,22 @@ $main-lineColor:#d2d2d2;
         max-width: 15%;
         min-width: 14.28%;
         padding: 0 3px 6px 3px;
+        .checked{
+          width: 20px;
+          height: 20px;
+          background: #7794B7;
+          border-radius: 50%;
+          position: relative;
+          margin: auto;
+          color: white;
+        }
+        .back-today{
+          background: $main-dotColor;
+        }
       }
+
       .today_text {
-        color: rgb(243, 129, 91);
+        color: $main-dotColor;
       }
     }
   }

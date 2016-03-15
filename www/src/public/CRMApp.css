@@ -28,16 +28,6 @@
 
 /*公共样式 end*/
 /*# sourceMappingURL=style.css.map */
-/*公共样式*/
-.scroll {
-  height: 100%; }
-
-.nopadding {
-  padding: 0; }
-
-.nomargin {
-  margin: 0; }
-
 /*公共样式 end*/
 /*首页*/
 .main .top-back {
@@ -72,7 +62,8 @@
       height: 29px; }
     .main .top-back .dayView .day .checked {
       background: url("../../img/main/Rectangle2x.png") no-repeat center;
-      background-size: contain; }
+      background-size: contain;
+      color: white; }
   .main .top-back .dayView .today {
     font-size: 8px;
     color: white;
@@ -97,8 +88,18 @@
       max-width: 15%;
       min-width: 14.28%;
       padding: 0 3px 6px 3px; }
+      .main .top-back .monthView .col-14 .checked {
+        width: 20px;
+        height: 20px;
+        background: #7794B7;
+        border-radius: 50%;
+        position: relative;
+        margin: auto;
+        color: white; }
+      .main .top-back .monthView .col-14 .back-today {
+        background: #9ec92a; }
     .main .top-back .monthView .today_text {
-      color: #f3815b; }
+      color: #9ec92a; }
 .main .mainBar {
   height: 73px;
   background: url("../../img/main/bar3x.png") no-repeat;

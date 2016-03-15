@@ -7,7 +7,7 @@
                  on-swipe-left="onMonthSwipeLeft()"
                  on-swipe-right="onMonthSwipeRight()">
                 <div class="text-right year" ng-click="returnToday()">{{year}}</div>
-                <div class="month">{{month<10?('0'+month):month}}</div>
+                <div class="month" ng-click="returnToday()">{{month<10?('0'+month):month}}</div>
             </div>
             <div on-swipe-down="changeView()" ng-if="viewFlag">
                 <div class="row day">
@@ -17,11 +17,12 @@
                         <div>{{x.value}}</div>
                     </div>
                 </div>
-                <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)">
+                <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)"
+                               delegate-handle="dayView-handle">
                     <ion-slide ng-repeat="x in days">
                         <div class="row day">
                             <div class="col text-center nopadding myDay" ng-repeat="y in x.arr"
-                                 ng-class="(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6)?'edgeDay':'';y.checked?'checked':''"
+                                 ng-class="{'edgeDay':(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6),'checked':y.checked}"
                                  ng-click="selectDay(x.arr,y)">{{y.value}}<br>
                                 <div class="dot" ng-show="y.toDo"></div>
                             </div>
@@ -37,11 +38,14 @@
                     <div>{{x.value}}</div>
                 </div>
             </div>
-            <ion-slide-box does-continue="true" on-slide-changed="monthHasChanged($index)">
+            <ion-slide-box does-continue="true" on-slide-changed="monthHasChanged($index)" delegate-handle="monthView-handle">
                 <ion-slide ng-repeat="x in monthView track by $index">
                     <div class="row row-wrap">
                         <div class="col col-14" ng-repeat="y in x.arr track by $index"
-                             ng-class="(year+'/'+month+'/'+y.value)==myTodayDate?'today_text':''">{{y.value}}
+                             ng-class="(year+'/'+month+'/'+y.value)==myTodayDate?'today_text':''"
+                             ng-click="selectDay(x.arr,y)">
+                            <!--<div ng-class="y.checked?'checked':'';y.isToday?'back-today':''">{{y.value}}</div>-->
+                            <div ng-class="{'checked':y.checked,'back-today':y.isToday}">{{y.value}}</div>
                         </div>
                     </div>
                 </ion-slide>
@@ -51,13 +55,17 @@
     <!--bar-->
     <div class="mainBar">
         <div class="row">
-            <div class="col-10"><div class="dot"></div></div>
+            <div class="col-10">
+                <div class="dot"></div>
+            </div>
             <div class="col-25">销售活动<i class="icon ion-ios-arrow-down"></i></div>
             <div class="col-20">
-                <div class="num">2</div>待办
+                <div class="num">2</div>
+                待办
             </div>
         </div>
-        <button id="app-funcs" class="button button-fab button-fab-top-right button-energized-900 flap ink"><i class="icon ion-ios-plus-empty"></i></button>
+        <button id="app-funcs" class="button button-fab button-fab-top-right button-energized-900 flap ink"><i
+                class="icon ion-ios-plus-empty"></i></button>
     </div>
     <div class="content">
         <div class="line-vertical"></div>
