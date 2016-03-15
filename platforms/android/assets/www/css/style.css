@@ -1,3 +1,5 @@
+@charset "UTF-8";
+/*公共样式*/
 .scroll {
   height: 100%; }
 
@@ -7,6 +9,8 @@
 .nomargin {
   margin: 0; }
 
+/*公共样式 end*/
+/*首页*/
 .main .top-back {
   background: #2b60ab;
   width: 100%;
@@ -26,12 +30,18 @@
     padding-top: 0;
     padding-bottom: 0; }
     .main .top-back .day .col {
-      padding-top: 0; }
+      padding: 0 5px; }
   .main .top-back .today {
     font-size: 12px;
     color: white;
     -webkit-transform: scale(0.7, 0.7); }
   .main .top-back .edgeDay {
     color: rgba(255, 255, 255, 0.25); }
+  .main .top-back .slider {
+    height: 30px; }
+    .main .top-back .slider .slider-slide {
+      padding-top: 5px; }
+
+/*首页 end*/
 
 /*# sourceMappingURL=style.css.map */
