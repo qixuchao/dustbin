@@ -63,7 +63,7 @@ mainModule
             $scope.viewFlag = !$scope.viewFlag
             if ($scope.viewFlag == false) {
                 $timeout(function(){
-                    monthInit();
+                    monthInit($scope.year,$scope.month);
                 },5)
                 $ionicSlideBoxDelegate.update();
             }
@@ -198,7 +198,7 @@ mainModule
             }
         }
 
-        /*月视图*/
+        /*----------------------------月视图----------------------------*/
         $scope.monthView = [{}, {}, {}];
         //默认是当前年月
         var getMonthView = function (year, month) {
@@ -241,7 +241,6 @@ mainModule
         //monthInit();
         console.log($scope.monthView)
         $scope.monthHasChanged = function (page_now) {
-            console.log(page_now)
             $scope.year = $scope.monthView[page_now].year;
             $scope.month = $scope.monthView[page_now].month;
             if (isLeapYear($scope.year)) {
@@ -265,7 +264,7 @@ mainModule
                     break;
             }
         }
-        /*月视图 end*/
+        /*----------------------------月视图 end----------------------------*/
 
         /*-------------------------------------------日历 end-------------------------------------------*/
     }
