@@ -508,7 +508,7 @@ mainModule
         },{
             title:'LOL拿首胜',
             year:2016,
-            month:3,
+            month:3,  
             day:16,
             startTime:'19:00',
             endTime:'21:00',
