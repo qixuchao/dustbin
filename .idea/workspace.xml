@@ -2,8 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="02c04fcf-9192-4b6a-aba4-616bd27df0e2" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/main/dash.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/main/delete.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/main/mark.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/src/main/tab-animate.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/main.html" afterPath="$PROJECT_DIR$/www/src/main/main.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/main.scss" afterPath="$PROJECT_DIR$/www/src/main/main.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/mainCtrl.js" afterPath="$PROJECT_DIR$/www/src/main/mainCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/public/CRMApp.css" afterPath="$PROJECT_DIR$/www/src/public/CRMApp.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/public/CRMApp.css.map" afterPath="$PROJECT_DIR$/www/src/public/CRMApp.css.map" />
     </list>
     <ignored path="atlenergy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,43 +36,22 @@
       <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/main/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-19.333334">
-              <caret line="47" column="54" selection-start-line="47" selection-start-column="54" selection-end-line="47" selection-end-column="54" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="applications.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/src/applications/applications.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="24" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+            <state vertical-scroll-proportion="-6.7647057">
+              <caret line="70" column="57" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
               <folding>
-                <element signature="e#0#42#0" expanded="false" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#ion-content#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#i#0;n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#ion-content#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#div#1;n#div#3;n#div#1;n#div#1;n#div#0;n#ion-content#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.css.map" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/src/main/main.css.map">
-          <provider editor-type-id="sourcemapFileViewerProvider">
-            <state />
-          </provider>
+      <file leaf-file-name="tab-animate.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/main/tab-animate.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.6981132">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="applications.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/src/applications/applications.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.625">
-              <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+            <state vertical-scroll-proportion="-163.08333">
+              <caret line="347" column="30" selection-start-line="347" selection-start-column="30" selection-end-line="347" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -72,18 +60,48 @@
       <file leaf-file-name="mainCtrl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/src/main/mainCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5510204">
-              <caret line="75" column="60" selection-start-line="75" selection-start-column="60" selection-end-line="75" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.95454544">
+              <caret line="525" column="9" selection-start-line="525" selection-start-column="9" selection-end-line="525" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EcmaScript.js" pinned="false" current-in-tab="false">
-        <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+      <file leaf-file-name="main.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/main/main.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="274" column="0" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
+            <state vertical-scroll-proportion="-9.375">
+              <caret line="154" column="14" selection-start-line="154" selection-start-column="14" selection-end-line="154" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_public.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/public/_public.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-17.5">
+              <caret line="28" column="9" selection-start-line="28" selection-start-column="9" selection-end-line="29" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CRMApp.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-24.958334">
+              <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.5">
+              <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -99,22 +117,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.scss" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/src/main/main.scss">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.958333">
-              <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CRMApp.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/dev/CRMApp.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.083334">
-              <caret line="151" column="0" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="-12.5">
+              <caret line="143" column="16" selection-start-line="143" selection-start-column="16" selection-end-line="143" selection-end-column="16" />
+              <folding>
+                <marker date="1458137308000" expanded="true" signature="31:65" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="79:97" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="112:131" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="150:192" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="266:283" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="295:311" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="400:462" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="498:586" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="763:906" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="1018:1147" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="1189:1212" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="1420:1501" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="1538:1579" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="1688:1715" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="1745:1810" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="1848:1874" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="1983:2012" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="2052:2158" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="2209:2384" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="2737:2789" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="2829:2930" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="2963:3059" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="3100:3130" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="3163:3282" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="3322:3350" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="3390:3509" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="3565:3602" placeholder="{...}" />
+                <marker date="1458137308000" expanded="true" signature="3619:3638" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -122,8 +159,8 @@
       <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/main/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.458333">
-              <caret line="93" column="8" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
+            <state vertical-scroll-proportion="-20.0">
+              <caret line="100" column="16" selection-start-line="100" selection-start-column="16" selection-end-line="100" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -163,12 +200,13 @@
         <option value="$PROJECT_DIR$/www/gulpfile.js" />
         <option value="$PROJECT_DIR$/www/package.json" />
         <option value="$PROJECT_DIR$/www/css/col.css" />
-        <option value="$PROJECT_DIR$/www/src/public/_public.scss" />
         <option value="$PROJECT_DIR$/www/index.html" />
         <option value="$PROJECT_DIR$/www/src/public/CRMApp.js" />
         <option value="$PROJECT_DIR$/www/src/dev/CRMApp.css" />
-        <option value="$PROJECT_DIR$/www/src/public/CRMApp.css" />
         <option value="$PROJECT_DIR$/www/src/public/CRMApp.scss" />
+        <option value="$PROJECT_DIR$/www/src/public/CRMApp.css" />
+        <option value="$PROJECT_DIR$/www/src/main/tab-animate.html" />
+        <option value="$PROJECT_DIR$/www/src/public/_public.scss" />
         <option value="$PROJECT_DIR$/www/src/main/main.scss" />
         <option value="$PROJECT_DIR$/www/src/main/main.html" />
         <option value="$PROJECT_DIR$/www/src/main/mainCtrl.js" />
@@ -280,6 +318,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -354,6 +414,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -361,7 +443,7 @@
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../test/ionic-material/www" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/www/src/public" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
@@ -374,6 +456,7 @@
       <recent name="$PROJECT_DIR$/www/src/main" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/www/src/main" />
       <recent name="$PROJECT_DIR$/www/img/main" />
       <recent name="$PROJECT_DIR$/www/img" />
       <recent name="$PROJECT_DIR$/resources" />
@@ -490,13 +573,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/www/src/login/loginCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/lib/angular-animate/angular-animate.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.444445">
@@ -711,14 +787,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.5">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -748,14 +816,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/src/public/_public.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.25">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/src/public/ionic_sass/_mixins.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -780,22 +840,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.083334">
-          <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.375">
-          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/src/main/main.css.map">
       <provider editor-type-id="sourcemapFileViewerProvider">
         <state />
@@ -803,22 +847,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.6981132">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/src/dev/CRMApp.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-23.083334">
-          <caret line="151" column="0" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/src/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.875">
-          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -841,22 +869,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/src/main/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.458333">
-          <caret line="93" column="8" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/src/main/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-19.333334">
-          <caret line="47" column="54" selection-start-line="47" selection-start-column="54" selection-end-line="47" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/src/applications/applications.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.625">
@@ -865,18 +877,123 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.125">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.5">
+          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-24.958334">
+          <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.875">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/main/tab-animate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-163.08333">
+          <caret line="347" column="30" selection-start-line="347" selection-start-column="30" selection-end-line="347" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/public/_public.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.5">
+          <caret line="28" column="9" selection-start-line="28" selection-start-column="9" selection-end-line="29" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/main/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.0">
+          <caret line="100" column="16" selection-start-line="100" selection-start-column="16" selection-end-line="100" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/dev/CRMApp.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.5">
+          <caret line="143" column="16" selection-start-line="143" selection-start-column="16" selection-end-line="143" selection-end-column="16" />
+          <folding>
+            <marker date="1458137308000" expanded="true" signature="31:65" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="79:97" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="112:131" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="150:192" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="266:283" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="295:311" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="400:462" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="498:586" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="763:906" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="1018:1147" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="1189:1212" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="1420:1501" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="1538:1579" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="1688:1715" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="1745:1810" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="1848:1874" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="1983:2012" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="2052:2158" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="2209:2384" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="2737:2789" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="2829:2930" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="2963:3059" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="3100:3130" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="3163:3282" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="3322:3350" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="3390:3509" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="3565:3602" placeholder="{...}" />
+            <marker date="1458137308000" expanded="true" signature="3619:3638" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/src/main/main.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.958333">
-          <caret line="51" column="5" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+        <state vertical-scroll-proportion="-9.375">
+          <caret line="154" column="14" selection-start-line="154" selection-start-column="14" selection-end-line="154" selection-end-column="14" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/main/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.7647057">
+          <caret line="70" column="57" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#1;n#div#0;n#ion-content#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#i#0;n#div#1;n#div#1;n#div#1;n#div#1;n#div#0;n#ion-content#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#div#1;n#div#3;n#div#1;n#div#1;n#div#0;n#ion-content#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/src/main/mainCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5510204">
-          <caret line="75" column="60" selection-start-line="75" selection-start-column="60" selection-end-line="75" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.95454544">
+          <caret line="525" column="9" selection-start-line="525" selection-start-column="9" selection-end-line="525" selection-end-column="9" />
           <folding />
         </state>
       </provider>

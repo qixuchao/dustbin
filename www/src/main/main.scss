@@ -1,10 +1,8 @@
-
-
 $main-backColor: #2b60ab;
 $mian-dayColor: rgba(255, 255, 255, 0.5);
 $main-edgeColor: rgba(255, 255, 255, 0.25);
-$main-dotColor:#9ec92a;
-$main-lineColor:#d2d2d2;
+$main-dotColor: #9ec92a;
+$main-lineColor: #d2d2d2;
 /*公共样式 end*/
 
 /*首页*/
@@ -84,7 +82,7 @@ $main-lineColor:#d2d2d2;
         max-width: 15%;
         min-width: 14.28%;
         padding: 0 3px 6px 3px;
-        .checked{
+        .checked {
           width: 20px;
           height: 20px;
           background: #7794B7;
@@ -93,7 +91,7 @@ $main-lineColor:#d2d2d2;
           margin: auto;
           color: white;
         }
-        .back-today{
+        .back-today {
           background: $main-dotColor;
         }
       }
@@ -103,63 +101,159 @@ $main-lineColor:#d2d2d2;
       }
     }
   }
-  .mainBar{
-    height:73px;
+  .mainBar {
+    height: 73px;
     background: url("../../img/main/bar3x.png") no-repeat;
     background-size: 100% 100%;
-    .row{
-      padding:0;
-      .col-10{
+    .row {
+      padding: 0;
+      .col-10 {
         padding-top: 20px;
         padding-left: 7%;
-        .dot{
+        .dot {
           background: $main-dotColor;
           width: 8px;
           height: 8px;
           border-radius: 50%;
         }
       }
-      .col-25{
+      .col-25 {
         padding-top: 15px;
         color: white;
         font-size: 15px;
         padding-left: 5px;
-        .icon{
+        .icon {
           padding-left: 5px;
         }
       }
-      .col-20{
+      .col-20 {
         text-align: center;
         margin-left: 45%;
         padding-top: 2%;
-        color:white;
+        color: white;
         font-size: 12px;
-        .num{
+        .num {
           font-size: 20px;
         }
       }
     }
-    .button-fab-top-right{
+    .button-fab-top-right {
       background: #e24976;
       position: absolute;
-      right:3.2%;
-      top:auto;
+      right: 3.2%;
+      top: auto;
       width: 52px;
       height: 52px;
-      .icon::before{
-        font-size: 36px!important;
+      .icon::before {
+        font-size: 36px !important;
       }
     }
   }
-  .content{
-    height: 70%;
-    .line-vertical{
-      height: 103.3%;
+  $main-marginLeft: 16%;
+  $main-textColor: #9B9B9B;
+  .content {
+    height: 100% ;
+    .row {
+      padding: 0;
+    }
+    .col {
+      padding: 0;
+    }
+    .line-vertical {
+      position: absolute;
+      height: 100%;
       width: 1px;
       background: $main-lineColor;
       margin-left: 8.2%;
-      position: relative;
-      top:-3.3%;
+      top: -3.3%;
+    }
+    .main-content {
+      padding-left: $main-marginLeft;
+      .obj {
+        margin-bottom: 4%;
+      }
+      .await-apl {
+        padding: 2% 0 12px 0;
+        font-size: 18px;
+        color: $main-textColor;
+      }
+      .circleNum {
+        background: white;
+        margin-left: 8.2%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 1px solid #9ec92a;
+        position: absolute;
+        text-align: center;
+        padding-top: 8px;
+        left: -20px;
+        margin-top: 1px;
+      }
+      .apl-content {
+        font-size: 17px;
+        color: black;
+        .text {
+          padding-bottom: 3px;
+        }
+        .time {
+          font-size: 13px;
+          color: $main-textColor;
+          text-align: center;
+          .paddingLeft {
+            padding-left: 3px;
+          }
+        }
+        .more {
+          height: 20px;
+          width: 5px;
+        }
+        .ion-ios-arrow-right {
+          font-size: 25px;
+          color: $main-lineColor;
+        }
+      }
+      .border-bottom {
+        height: 1px;
+        background-color: #d2d2d2;
+        width: 96%;
+        margin-top: 2px;
+      }
+      .mark {
+        padding: 5px 0;
+        border-bottom: 1px solid $main-lineColor;
+        .markImg {
+          width: 25px;
+        }
+        .markText {
+          color: $main-textColor;
+          padding-left: 5px;
+          position: relative;
+          top: -1px;
+        }
+        .markSelect {
+          padding-left: 10px;
+          .col {
+            text-align: right;
+          }
+          button {
+            border: 1px solid #B7A9A9;
+            width: 16px;
+            height: 16px;
+            min-width: 0px;
+            min-height: 0px;
+            box-shadow: none;
+            position: relative;
+            top: -2px;
+            margin-right: 5px;
+          }
+        }
+        .deleteImg {
+          width: 25px;
+          margin-left: 3%;
+        }
+
+      }
     }
   }
 }

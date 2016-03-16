@@ -13,11 +13,11 @@
       <option name="outputFilters">
         <array />
       </option>
-      <option name="outputFromStdout" value="true" />
+      <option name="outputFromStdout" value="false" />
       <option name="program" value="$USER_HOME$/.rvm/gems/ruby-2.2.1/bin/scss" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="true" />
-      <option name="workingDir" value="$FileDir$" />
+      <option name="workingDir" value="$PROJECT_DIR$/www/src/public" />
       <envs />
     </TaskOptions>
   </component>
