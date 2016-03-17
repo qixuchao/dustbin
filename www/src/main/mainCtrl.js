@@ -11,8 +11,12 @@ mainModule
         $timeout(function(){
             document.getElementById('app-funcs').classList.toggle('on');
             ionicMaterialInk.displayEffect();
+            ionicMaterialMotion.fadeSlideInRight({
+                startVelocity: 3000,
+                selector: '.animate-fade-slide-in-right .item'
+            });
         },100);
-
+        //$scope.more={flag:false};
         /*--------------------------------------------日历--------------------------------------------*/
         //判断是否是闰年,2月平年28天、闰年29天
         var isLeapYear = function (year) {
@@ -114,9 +118,18 @@ mainModule
         var daysChangedInit = function(day){
             $timeout(function () {
                 $scope.topHeight = {
-                    'margin-top':document.getElementById('mainTopId').clientHeight+'px'
+                    'margin-top':'198px'
                 }
-            },10)
+                document.getElementById('mainContentId').style.marginTop = '198px';
+                $scope.$apply();
+            },100)
+            $timeout(function () {
+                $scope.topHeight = {
+                    'margin-top':'198px'
+                }
+                document.getElementById('mainContentId').style.marginTop = '198px';
+                $scope.$apply();
+            },500)
             //当天周几
             var init_day = new Date($scope.year+'/'+$scope.month+'/'+day).getDay();
             //当天与周日差了几天
@@ -401,7 +414,8 @@ mainModule
                 $scope.topHeight = {
                     'margin-top':document.getElementById('mainTopId').clientHeight+'px'
                 }
-            },10)
+                //document.getElementById('mainContentId').style.marginTop = document.getElementById('mainTopId').clientHeight+'px';
+            },50)
             var month_page_now = $ionicSlideBoxDelegate.$getByHandle('monthView-handle').currentIndex();
             var addTemp = month_page_now+1;
             var decTemp = month_page_now-1;
@@ -492,6 +506,18 @@ mainModule
         $scope.chooseMark = function(x,color){
             x.showMarks = false;
             x.mark = color;
+        }
+        $scope.delete = function(x){
+            x.class='animated zoomOutRight';
+            var arr = document.getElementsByClassName('obj');
+            console.log(arr)
+            for(var i=0;i<arr.length;i++){
+                arr[i].style.transitionDelay = '0s';
+            }
+            $timeout(function () {
+                $scope.thingsToDo.splice($scope.thingsToDo.indexOf(x),1);
+            },10)
+            //$scope.thingsToDo.splice($scope.thingsToDo.indexOf(x),1);
         }
     }
     ])

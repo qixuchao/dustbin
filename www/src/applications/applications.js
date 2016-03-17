@@ -3,27 +3,32 @@
  */
 'use strict';
 appModule
-    .controller('AppCtrl',['$scope','$state','ionicMaterialInk',function($scope,$state,ionicMaterialInk){
+    .controller('AppCtrl',['$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function($scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
         console.log('app')
         ionicMaterialInk.displayEffect();
 
         $scope.imgs = [{
-            url:'../../img/apps/partner.png'
+            url:'img/apps/partner.png'
         },{
-            url:'../../img/apps/saleAct.png'
+            url:'img/apps/saleAct.png'
         },{
-            url:'../../img/apps/acPlan.png'
+            url:'img/apps/acPlan.png'
         },{
-            url:'../../img/apps/saleChance.png'
+            url:'img/apps/saleChance.png'
         },{
-            url:'../../img/apps/saleClue.png'
+            url:'img/apps/saleClue.png'
         },{
-            url:'../../img/apps/saleQuote.png'
+            url:'img/apps/saleQuote.png'
         },{
-            url:'../../img/apps/sparePart.png'
+            url:'img/apps/sparePart.png'
         },{
-            url:'../../img/apps/empInfo.png'
+            url:'img/apps/empInfo.png'
         },{
-            url:'../../img/apps/searchCar.png'
-        }]
+            url:'img/apps/searchCar.png'
+        }];
+        $timeout(function(){
+            ionicMaterialMotion.fadeSlideInRight({
+                selector: '.animate-fade-slide-in .col-33'
+            });
+        },50)
     }]);

@@ -11,12 +11,12 @@ tabsModule
         }
         $scope.tabs = [{
             name:'主页',
-            isActive:false,
+            isActive:true,
             onClass:'main-on',
             offClass:'main-off'
         },{
             name:'应用',
-            isActive:true,
+            isActive:false,
             onClass:'app-on',
             offClass:'app-off'
         },{
