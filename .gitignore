@@ -2,7 +2,7 @@ platforms/
 platforms/*
 .DS_Store
 */.DS_Store
-.idea
+.idea/
 npm-debug.log
 www/npm-debug.log
 www/src/dev/

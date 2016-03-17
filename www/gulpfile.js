@@ -48,11 +48,6 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
-
-
-
-
-
 gulp.task('patch-html', function (done) {
     // 合并所有html文件至 --> {buildConfig.distDir}\crm-templates.js
     //                        {buildConfig.distDir}\crm-templates.min.js
