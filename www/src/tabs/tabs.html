@@ -1,12 +1,10 @@
 <ion-view ng-init="tabs.name='main'">
-    <!--<ion-content class="main" has-bouncing="false">-->
-        <div ng-include="'src/main/main.html'" ng-if="tabs.name=='main'" ng-controller="MainCtrl"></div>
-        <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='app'" ng-controller="AppCtrl"></div>
-        <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='mainww'"></div>
-        <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='mawein'"></div>
-    <!--</ion-content>-->
+    <div ng-include="'src/main/main.html'" ng-if="tabs.name=='main'" ng-controller="MainCtrl"></div>
+    <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='app'" ng-controller="AppCtrl"></div>
+    <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='mainww'"></div>
+    <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='mawein'"></div>
     <div class="bar bar-footer">
-        <div class="tabs tabs-icon-top tabs-dark">
+        <div class="tabs tabs-icon-top">
             <a class="tab-item" ng-click="tabs.name = 'main'"><i class="icon ion-home"></i>
                 Home
             </a>
@@ -21,5 +19,4 @@
             </a>
         </div>
     </div>
-
 </ion-view>

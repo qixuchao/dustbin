@@ -487,42 +487,6 @@ mainModule
             endTime:'21:00',
             mark:'#4a90e2',
             showMarks:false
-        },{
-            title:'LOL拿首胜',
-            year:2016,
-            month:3,
-            day:16,
-            startTime:'19:00',
-            endTime:'21:00',
-            mark:'#4a90e2',
-            showMarks:false
-        },{
-            title:'LOL拿首胜',
-            year:2016,
-            month:3,
-            day:16,
-            startTime:'19:00',
-            endTime:'21:00',
-            mark:'#4a90e2',
-            showMarks:false
-        },{
-            title:'LOL拿首胜',
-            year:2016,
-            month:3,  
-            day:16,
-            startTime:'19:00',
-            endTime:'21:00',
-            mark:'#4a90e2',
-            showMarks:false
-        },{
-            title:'LOL拿首胜',
-            year:2016,
-            month:3,
-            day:16,
-            startTime:'19:00',
-            endTime:'21:00',
-            mark:'#4a90e2',
-            showMarks:false
         }];
 
         $scope.chooseMark = function(x,color){

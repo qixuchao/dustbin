@@ -9,3 +9,5 @@ www/src/dev/
 
 www/node_modulesOld/
 www/node_modules/
+www/src/public/*.css
+www/src/public/*.map
