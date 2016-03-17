@@ -53,13 +53,14 @@ loginModule
             }
         });
        $scope.login = function(){
-           if($scope.loginData.username === "" || $scope.loginData.username === undefined || $scope.loginData.password === "" || $scope.loginData.password === undefined){
-               $ionicLoading.show({template: '<div style="color: black;">请输入用户名或密码</div>', noBackdrop: true, duration: 1000})
-           }else{
-               //去掉空格
-               alert($scope.loginData.password.replace(/\s/g,""))
-               $scope.show()
-           };
+           //if($scope.loginData.username === "" || $scope.loginData.username === undefined || $scope.loginData.password === "" || $scope.loginData.password === undefined){
+           //    $ionicLoading.show({template: '<div style="color: black;">请输入用户名或密码</div>', noBackdrop: true, duration: 1000})
+           //}else{
+           //    //去掉空格
+           //    alert($scope.loginData.password.replace(/\s/g,""))
+           //    $scope.show()
+           //};
+           $state.go('tabs')
        }
 
         $scope.show = function() {
