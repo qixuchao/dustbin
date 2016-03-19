@@ -1,9 +1,39 @@
-<ion-nav-view>
+<ion-view class="saleActDetail">
+    <div class="top-back">
+        <div class="row row-center title">
+            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+            <div class="col col-70 text-center">活动详情</div>
+            <div class="col col-15 text-right">后续</div>
+        </div>
+        <div class="mainInfo">
+            <div class="row row-center">
+                <i class="ion-android-radio-button-off"></i>
+                <div>郑州金龙客车(福州)客户拜访</div>
+            </div>
+            <div class="row row-center">
+                <div>客户:&nbsp;&nbsp;金龙客车</div>
+            </div>
+            <div class="row row-center">
+                <div>地点:&nbsp;&nbsp;福建省&nbsp;&nbsp;福州市</div>
+            </div>
+            <div class="row row-center">
+                <div>类型:&nbsp;&nbsp;关系维护</div>
+            </div>
+            <div class="row row-center">
+                <div>状态:</div>
+                <div class="status">&nbsp;&nbsp;进行中</div>
+                <div class="num">NO.100036</div>
+                <div class="edit">编辑</div>
+            </div>
+        </div>
+        <div class="selector" ng-init="select='detail'">
+            <div class="detail" ng-class="{checked:select=='detail'}"  ng-click="select='detail'">详细信息</div>
+            <div class="relative" ng-class="{checked:select=='relative'}" ng-click="select='relative'">相关方</div>
+        </div>
+    </div>
+    <ion-content class="has-header" style="margin-top: 200px">
+        <div class="content">
 
-    <ion-content >
-        <button ng-click="goBack()">返回</button>
-        <div class="content has-header">
-           销售活动详情
         </div>
     </ion-content>
-</ion-nav-view>
+</ion-view>

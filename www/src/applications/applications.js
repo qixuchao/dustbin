@@ -13,7 +13,8 @@ appModule
             url:'img/apps/saleAct.png',
             go:"saleActList"
         },{
-            url:'img/apps/acPlan.png'
+            url:'img/apps/acPlan.png',
+            go:'saleActDetail'
         },{
             url:'img/apps/saleChance.png'
         },{

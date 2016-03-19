@@ -1,3 +1,74 @@
-.saleList{
+.saleList {
 
+}
+
+.saleActDetail {
+  .top-back {
+    background: #4c8ccb;
+    height: 255px;
+    color: white;
+    font-size: 16px;
+    .title {
+      padding-top: 20px;
+      color: white;
+      i {
+        font-size: 25px;
+        color: #c9ddf0;
+        padding-left: 8px;
+      }
+    }
+    .mainInfo {
+      padding-left: 26px;
+      .row {
+        padding-bottom: 13px;
+        .status {
+          color: #9fca17;
+        }
+        .num {
+          margin-left: 20px;
+          color: #9f9d99;
+        }
+        .edit {
+          position: fixed;
+          right: 10px;
+        }
+      }
+      i {
+        color: #9fca17;
+        margin-right: 5px;
+        font-size: 12px;
+        padding-top: 2px;
+      }
+
+    }
+    .selector {
+      height: 27px;
+      margin: 0 10px;
+      border: 1px solid white;
+      border-radius: 12px;
+      font-size: 14px;
+      .detail{
+        width: 50%;
+        float: left;
+        text-align: center;
+        height: 100%;
+        border-bottom-left-radius: 12px;
+        border-top-left-radius: 12px;
+        padding-top: 2px;
+      }
+      .relative{
+        width: 50%;
+        float: right;
+        text-align: center;
+        height: 100%;
+        border-bottom-right-radius: 12px;
+        border-top-right-radius: 12px;
+        padding-top: 2px;
+      }
+      .checked{
+        background: #c0d1e7;
+        color: #3f6eb2;
+      }
+    }
+  }
 }
