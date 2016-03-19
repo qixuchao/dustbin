@@ -6,6 +6,19 @@ $main-lineColor: #d2d2d2;
 /*公共样式 end*/
 
 /*首页*/
+.own-backDrop{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 11;
+  visibility: visible;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,.4);
+  opacity: 1;
+  //-webkit-transition: .1s opacity linear;
+  //transition: .1s opacity linear;
+}
 .main {
   .top-back {
     background: $main-backColor;
@@ -67,7 +80,6 @@ $main-lineColor: #d2d2d2;
     }
     .monthView {
       color: $mian-dayColor;
-      background: $main-backColor;
       .week {
         font-size: 12px;
         .col {
@@ -154,6 +166,42 @@ $main-lineColor: #d2d2d2;
     .more-on {
       @include more(150);
       background: #e24976;
+      .activity{
+        width: 45px;
+        position: absolute;
+        top: 60px;
+        left: 3px;
+      }
+      .clue{
+        width: 22px;
+        position: absolute;
+        top: 11px;
+        right: 48px;
+      }
+      .price{
+        height: 18px;
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+      .opportunity{
+        position: absolute;
+        top: 103px;
+        height: 21px;
+        left: 22px;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+      }
+      .contacts{
+        position: absolute;
+        width: 33px;
+        bottom: 12px;
+        right: 45px;
+      }
     }
     .lightColor {
       background: #e24976;
@@ -319,14 +367,14 @@ $main-lineColor: #d2d2d2;
     from {
       -webkit-transform-origin: center;
       transform-origin: center;
-      /*-webkit-transform: rotate3d(0, 0, 1, 135deg);*/
+      -webkit-transform: rotate3d(0, 0, 1,-90deg);
       transform: rotate3d(0, 0, 1, -90deg);
       opacity: 0;
     }
     to {
       -webkit-transform-origin: center;
       transform-origin: center;
-      /*-webkit-transform: rotate3d(0, 0, 1, 45deg);*/
+      -webkit-transform: rotate3d(0, 0, 1, 0deg);
       transform: rotate3d(0, 0, 1, 0deg);
       opacity: 1;
     }

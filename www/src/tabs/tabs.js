@@ -7,6 +7,7 @@ tabsModule
     .controller('TabsCtrl',['$scope','$rootScope','$state','$ionicHistory','ionicMaterialInk',function($scope,$rootScope,$state,$ionicHistory,ionicMaterialInk){
         //ionicMaterialInk.displayEffect();
         $rootScope.goBack = function(){
+            console.log('goback')
             $ionicHistory.goBack();
         }
         $scope.tabs = [{

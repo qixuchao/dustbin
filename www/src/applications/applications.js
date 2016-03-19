@@ -10,7 +10,8 @@ appModule
         $scope.imgs = [{
             url:'img/apps/partner.png'
         },{
-            url:'img/apps/saleAct.png'
+            url:'img/apps/saleAct.png',
+            go:"saleActList"
         },{
             url:'img/apps/acPlan.png'
         },{
@@ -31,4 +32,16 @@ appModule
                 selector: '.animate-fade-slide-in .col-33'
             });
         },50)
+
+        $scope.returnToMain = function(){
+            for(var i=0;i<$scope.tabs.length;i++){
+                $scope.tabs[i].isActive = false;
+            }
+            $scope.tabs[0].isActive = true;
+        };
+        $scope.go = function(x){
+            if(x.go){
+                $state.go(x.go);
+            }
+        }
     }]);

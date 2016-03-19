@@ -1,13 +1,16 @@
+<div class="own-backDrop" ng-show="moreflag" ng-click="moreflag=false"></div>
 <div class="main" id="mainTopId">
     <div class="top-back">
-        <!--周视图-->
         <div class="dayView">
-            <div class="row months" on-double-tap="doubleClick()"
+            <div id="yearMonthId" class="row months" on-double-tap="doubleClick()"
                  on-swipe-left="onMonthSwipeLeft()"
                  on-swipe-right="onMonthSwipeRight()">
                 <div class="text-right year" ng-click="returnToday()">{{year}}</div>
                 <div class="month" ng-click="returnToday()">{{month<10?('0'+month):month}}</div>
             </div>
+        </div>
+        <!--周视图-->
+        <div id="dayViewId" class="dayView">
             <div on-swipe-down="changeView()" ng-if="viewFlag">
                 <div class="row day">
                     <div class="col text-center" ng-repeat="x in weeks" ng-class="x.class">
@@ -32,7 +35,7 @@
             </div>
         </div>
         <!--月视图-->
-        <div on-swipe-down="changeView()" ng-show="!viewFlag" class="monthView">
+        <div id="monthViewId" on-swipe-down="changeView()" ng-show="!viewFlag" class="monthView">
             <div class="row week">
                 <div class="col text-center" ng-repeat="x in weeks">
                     <div>{{x.value}}</div>
@@ -65,8 +68,13 @@
             </div>
         </div>
         <div class="own-animated more-off" ng-class="{'more-on fadeIn':moreflag}">
+            <img src="img/main/activity.png" ng-class="{activity:moreflag}" ng-show="moreflag">
+            <img src="img/main/clue.png" ng-class="{clue:moreflag}" ng-show="moreflag">
+            <img src="img/main/price.png" ng-class="{price:moreflag}" ng-show="moreflag">
+            <img src="img/main/opportunity.png" ng-class="{opportunity:moreflag}" ng-show="moreflag">
+            <img src="img/main/contacts.png" ng-class="{contacts:moreflag}" ng-show="moreflag">
             <button id="app-funcs" class="button button-fab button-fab-top-right button-energized-900 flap ink"
-                    ng-click="moreflag=!moreflag" ng-class="{'darkColor':moreflag}">
+                    ng-click="moreflag=!moreflag;moreApps()" ng-class="{'darkColor':moreflag}">
                 <div class="own-animated" ng-class="moreflag?'rotateIn':'rotateLeave'"><i
                         class="icon ion-ios-plus-empty"></i></div>
             </button>
