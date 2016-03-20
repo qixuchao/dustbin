@@ -317,7 +317,7 @@ mainModule
             $scope.days[0].arr[todayTemp].checked = true;
             //模拟有代办事项
             $scope.days[0].arr[todayTemp].toDo = true;
-            $scope.days[0].arr[todayTemp + 1].toDo = true;
+            //$scope.days[0].arr[todayTemp + 1].toDo = true;
 
             $scope.year = addDateTemp.getFullYear();
             $scope.month = addDateTemp.getMonth() + 1;

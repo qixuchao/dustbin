@@ -3,6 +3,14 @@
 }
 
 .saleActDetail {
+  .absolute{
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
   .top-back {
     background: #4c8ccb;
     height: 255px;
@@ -52,8 +60,8 @@
         float: left;
         text-align: center;
         height: 100%;
-        border-bottom-left-radius: 12px;
-        border-top-left-radius: 12px;
+        border-bottom-left-radius: 11px;
+        border-top-left-radius: 11px;
         padding-top: 2px;
       }
       .relative{
@@ -61,8 +69,8 @@
         float: right;
         text-align: center;
         height: 100%;
-        border-bottom-right-radius: 12px;
-        border-top-right-radius: 12px;
+        border-bottom-right-radius: 11px;
+        border-top-right-radius: 11px;
         padding-top: 2px;
       }
       .checked{
