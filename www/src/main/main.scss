@@ -217,6 +217,7 @@ $main-lineColor: #d2d2d2;
       top: auto;
       width: 52px;
       height: 52px;
+      z-index:999;
       .icon::before {
         font-size: 36px !important;
       }

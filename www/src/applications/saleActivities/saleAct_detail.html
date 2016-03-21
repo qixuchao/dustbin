@@ -1,5 +1,6 @@
 <ion-view class="saleActDetail">
-    <div id="sdTitleId" class="top-back absolute fadeIn" style="height: 75px;background: none" ng-show="showTitle">
+    <div class="top-back absolute fadeIn" style="height: 75px;background: none" ng-show="showTitle"
+         ng-class="!TitleFlag?'animated fadeOut':'animated fadeIn'">
         <div class="row row-center title">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">活动详情
@@ -8,11 +9,11 @@
             <div class="col col-15 text-right">后续</div>
         </div>
     </div>
-    <div class="top-back absolute top-back2" style="height: 112px;" ng-show="showTitleStatus">
+    <div class="top-back absolute top-back2" ng-show="showTitleStatus">
         <div class="row row-center title" style="padding-bottom: 0">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">活动详情
-            <div style="font-size: 10px">郑州金龙客车(福州)客户拜访</div>
+                <div style="font-size: 10px">郑州金龙客车(福州)客户拜访</div>
             </div>
             <div class="col col-15 text-right">后续</div>
         </div>
@@ -21,8 +22,8 @@
             <div class="relative" ng-class="{checked:!select}" ng-click="changeStatus(false)">相关方</div>
         </div>
     </div>
-    <ion-content has-bouncing="false" on-scroll="onScroll()">
-        <div class="top-back">
+    <ion-content has-bouncing="false" on-scroll="onScroll()" scrollbar-y="false">
+        <div id="saleTopBackId" class="top-back">
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">活动详情</div>
@@ -31,6 +32,7 @@
             <div class="mainInfo">
                 <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                     <i class="ion-android-radio-button-off"></i>
+
                     <div>郑州金龙客车(福州)客户拜访</div>
                 </div>
                 <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
@@ -54,57 +56,86 @@
                 <div class="relative" ng-class="{checked:!select}" ng-click="changeStatus(false)">相关方</div>
             </div>
         </div>
-        <div class="content">
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div><div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div><div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div><div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div><div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div><div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div><div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
+
+        <div class="content" id="saleContentId">
+            <!--详细信息-->
+            <div ng-show="select">
+                <div class="row">
+                    <div class="col-15">注释:</div>
+                    <div class="text">In the tumultuous business of cutting-in and attending to a whale, there is much
+                        running backwards and forwards among
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row row-center">
+                        <div class="col col-85">
+                            <div class="row">
+                                <div class="col-30 text-left">开始时间:</div>
+                                <div class="text col-70 startTime">2016-3-1&nbsp;&nbsp;12:00</div>
+                            </div>
+                            <div class="row endTime">
+                                <div class="col-30 text-left">结束时间:</div>
+                                <div class="text col-70">2016-3-1&nbsp;&nbsp;12:00</div>
+                            </div>
+                        </div>
+                        <div class="col -col-10 text-right rewrite">修改</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="row row-center">
+                        <div class="col col-85">
+                            <div class="row">
+                                <div class="col-30 text-left">参考:</div>
+                                <div class="text col-70 underline">商机-郑州客车销售机会</div>
+                            </div>
+                        </div>
+                        <div class="col col-15 text-right rewrite"><img src="img/saleDetail/Shape.png"></div>
+                    </div>
+                </div>
+                <div class="progress animate-fade-slide-in-right">
+                    <div class="row">进展:</div>
+                    <div class="obj item" ng-repeat="x in progressArr">
+                        <div class="row row-center">
+                            <img class="oval" src="img/saleDetail/oval.png">
+
+                            <div class="triAngle">
+                                <div class="text">{{x.content}}</div>
+                            </div>
+                        </div>
+                        <div class="row row-center timeRow">
+                            <div class="time">{{x.time}}</div>
+                            <div class="hr-line"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="submit">
+                    <div class="row row-center">
+                        <div class="col col-82 no-padding">
+                            <div class="input"><input type="text"/></div>
+                        </div>
+                        <div class="col col-18 no-padding">
+                            <button>提交</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--相关方-->
+            <div id="relativeId" class="relative" ng-show="!select">
+                <div class="row">
+                    <div class="col">王紫薇&nbsp;&nbsp;女士</div>
+                    <div class="col text-center position">CATL销售</div>
+                </div>
+                <div class="row">
+                    <div class="col">王紫薇&nbsp;&nbsp;女士</div>
+                    <div class="col text-center position">CATL销售</div>
+                </div>
+                <div class="row">
+                    <div class="col">王紫薇&nbsp;&nbsp;女士</div>
+                    <div class="col text-center position">CATL销售</div>
+                </div>
+                <div class="row row-center add"><div class="col"><i class="ion-ios-plus-outline"></i>添加相关方</div></div>
+            </div>
         </div>
+
     </ion-content>
 </ion-view>
