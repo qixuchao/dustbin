@@ -68,7 +68,7 @@ mainModule
             //},1)
             //切换至月视图
             if ($scope.viewFlag == false) {
-                document.getElementById('monthViewId').className='monthView animated fadeInDown';
+                document.getElementById('monthViewId').className='monthView own-animated fadeInDown';
                 document.getElementById('dayViewId').className='dayView';
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
@@ -103,7 +103,7 @@ mainModule
                 $ionicSlideBoxDelegate.update();
             } else {
                 document.getElementById('monthViewId').className='monthView';
-                document.getElementById('dayViewId').className='dayView animated fadeInDown';
+                document.getElementById('dayViewId').className='dayView own-animated fadeInDown';
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('monthView-handle');
                 var page_index = dayViewHandle.currentIndex();
                 var arr = $scope.monthView[page_index].arr;
@@ -529,9 +529,8 @@ mainModule
             x.mark = color;
         }
         $scope.delete = function (x) {
-            x.class = 'animated zoomOutRight';
+            x.class = 'own-animated zoomOutRight';
             var arr = document.getElementsByClassName('obj');
-            console.log(arr)
             for (var i = 0; i < arr.length; i++) {
                 arr[i].style.transitionDelay = '0s';
             }

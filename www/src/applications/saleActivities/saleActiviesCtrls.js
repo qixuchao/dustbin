@@ -18,26 +18,47 @@ salesModule
             $scope.select=flag;
         };
 
-        var position,title;
+        var position;
         $scope.onScroll = function(){
             position = $ionicScrollDelegate.getScrollPosition().top;
-            //title = document.getElementById('sdTitleId');
             console.log(position)
-            if(position>0){
+            if(position>10){
                 $('#sdTitleId').removeClass('fadeOut');
                 $('#sdTitleId').addClass('animated fadeIn');
+                $scope.TitleFlag = true;
                 $scope.showTitle=true;
-                if(position>137){
-                    //$scope.showTitle = false;
+                if(position>26){
+                    $scope.customerFlag = true;
+                }else{
+                    $scope.customerFlag = false;
+                }
+                if(position>54){
+                    $scope.placeFlag = true;
+                }else{
+                    $scope.placeFlag = false;
+                }
+                if(position>80){
+                    $scope.typeFlag = true;
+                }else{
+                    $scope.typeFlag = false;
+                    console.log($scope.typeFlag)
+                }
+                if(position>109){
+                    $scope.statusFlag = true;
+                }else{
+                    $scope.statusFlag = false;
+
+                }
+                if(position>143){
                     $scope.showTitleStatus = true;
                 }else{
-                    //$scope.showTitle = false;
                     $scope.showTitleStatus = false;
                 }
             }else{
                 $('#sdTitleId').removeClass('fadeIn');
                 $('#sdTitleId').addClass('fadeOut');
                 $scope.showTitle=false;
+                $scope.TitleFlag = false;
             }
             $scope.$apply();
         }

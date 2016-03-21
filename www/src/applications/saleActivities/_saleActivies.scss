@@ -11,8 +11,14 @@
     left: 0;
     bottom: 0;
   }
+  .top-back2{
+    background:url("../../img/saleDetail/BG-2.png") no-repeat!important;
+    background-size:100% 100%!important;
+    margin-top:-1px;
+  }
   .top-back {
-    background: #4c8ccb;
+    background:url("../../img/saleDetail/BG-1.png") no-repeat;
+    background-size:100% 100%;
     height: 255px;
     color: white;
     font-size: 16px;

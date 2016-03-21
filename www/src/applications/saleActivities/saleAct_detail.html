@@ -1,5 +1,5 @@
 <ion-view class="saleActDetail">
-    <div id="sdTitleId" class="top-back absolute fadeIn" style="height: 75px;" ng-show="showTitle">
+    <div id="sdTitleId" class="top-back absolute fadeIn" style="height: 75px;background: none" ng-show="showTitle">
         <div class="row row-center title">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">活动详情
@@ -8,8 +8,8 @@
             <div class="col col-15 text-right">后续</div>
         </div>
     </div>
-    <div class="top-back absolute" style="height: 117px;" ng-show="showTitleStatus">
-        <div class="row row-center title">
+    <div class="top-back absolute top-back2" style="height: 112px;" ng-show="showTitleStatus">
+        <div class="row row-center title" style="padding-bottom: 0">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">活动详情
             <div style="font-size: 10px">郑州金龙客车(福州)客户拜访</div>
@@ -23,27 +23,26 @@
     </div>
     <ion-content has-bouncing="false" on-scroll="onScroll()">
         <div class="top-back">
-            <div class="row row-center title">
+            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">活动详情</div>
                 <div class="col col-15 text-right">后续</div>
             </div>
             <div class="mainInfo">
-                <div class="row row-center">
+                <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                     <i class="ion-android-radio-button-off"></i>
-
                     <div>郑州金龙客车(福州)客户拜访</div>
                 </div>
-                <div class="row row-center">
+                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
                     <div>客户:&nbsp;&nbsp;金龙客车</div>
                 </div>
-                <div class="row row-center">
+                <div class="row row-center" ng-class="placeFlag?'animated fadeOut':'animated fadeIn'">
                     <div>地点:&nbsp;&nbsp;福建省&nbsp;&nbsp;福州市</div>
                 </div>
-                <div class="row row-center">
+                <div class="row row-center" ng-class="typeFlag?'animated fadeOut':'animated fadeIn'">
                     <div>类型:&nbsp;&nbsp;关系维护</div>
                 </div>
-                <div class="row row-center">
+                <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div>状态:</div>
                     <div class="status">&nbsp;&nbsp;进行中</div>
                     <div class="num">NO.100036</div>
