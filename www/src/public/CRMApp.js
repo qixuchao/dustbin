@@ -4,6 +4,7 @@ var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
 var carModule = angular.module('carModule',[]);
 var salesModule = angular.module('salesModule', []);
+var spareModule = angular.module('spareModule',[]);
 
 var CRMApp = angular.module('CRMApp', ['ionic',
     'ionic-material',
@@ -13,6 +14,7 @@ var CRMApp = angular.module('CRMApp', ['ionic',
     'tabsModule',
     'appModule',
     'carModule',
+    'spareModule',
     'salesModule'
 ])
 
@@ -84,6 +86,17 @@ CRMApp.run(function ($ionicPlatform) {
                 url:'/maintenance',
                 templateUrl:'src/car/maintenance.html',
                 controller:'MaintenanceCtrl'
+            })
+           //备件列表
+            .state('spareList',{
+                url:'apps/spareList',
+                templateUrl:'src/spare/spareList.html',
+                controller:'SpareListCtrl'
+            })
+            .state('spareDetail',{
+                url:'/spareDetail',
+                templateUrl:'src/spare/spareDetail.html',
+                controller:'SpareDetailCtrl'
             })
         ;
 

@@ -21,11 +21,11 @@
   line-height: 44px;
   color: rgb(250, 250, 250);
 }
-.bar{
+.bar-header{
   border-bottom: none;
   padding: 0;
-  height: 3.28em;
-  background-color: rgba(43, 96, 171, 0.90);
+  //height: 3.28em;
+  fill:#2B60AB 90%;
   background-size: 0;
 }
 .bar .button.button-clear {
@@ -73,7 +73,7 @@ input{
   color: #aaa;
   position: absolute;
   z-index: 2;
-  top: 1em;
+  top: .8em;
   left: 1em;
 }
 .pointImg{
@@ -90,6 +90,12 @@ input{
 
 //车辆查询
 .CarList{
+  .bar-subheader {
+    height: 2.7em;
+    top: 60px;
+    display: block;
+    fill: #2B60AB 90%;
+  }
    .textImg{
      -webkit-user-drag: none;
      position: absolute;
@@ -120,6 +126,7 @@ input{
   .car2{
     color: #4A4A4A;
     font-size: 14px;
+    font-weight: 500;
   }
    .colType{
     padding-left: 0;
@@ -136,9 +143,21 @@ input{
     bottom: 0;
   }
   .top-back2{
-    background:url("../../img/car/barBg.png") no-repeat!important;
+    background:url("../../img/car/barBg.png") no-repeat;
     background-size:100% 100%!important;
     margin-top:-1px;
+    color: white;
+    height:3.28em;
+    font-size: 16px;
+    .title {
+      padding-top: 15px;
+      color: white;
+      i {
+        font-size: 25px;
+        color: #c9ddf0;
+        padding-left: 8px;
+      }
+    }
   }
   .top-back {
     background:url("../../img/car/headerBg.png") no-repeat;
@@ -234,8 +253,9 @@ input{
     padding-right: 0;
    }
   b, strong {
-    font-weight: 500;
-    font-size: 14px;
+    font-weight: 600;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.66);
   }
    .rowType {
      position: relative;
@@ -298,24 +318,51 @@ input{
     top: -0.1em;
     padding-bottom: 0.5em;
   }
-  .arrow-shadow{
-    border: 2px solid #0c63ee;
-    height: 40px;
+   .bgColor{
+     background-color: #fafafa;
+     position: absolute;
+     height: 20px;
+     width: 13px;
+     background-size: cover;
+     left: 22%;
+     z-index: 55;
+     i{
+       position: relative;
+       left: -1px;
+       font-size: 1.2em;
+       top: -7px;
+       color: #387ef5;
+     }
+   }
+  .bgColor1{
+    background-color: #fafafa;
     position: absolute;
-    width: 40px;
-    left: 20%;
+    height: 20px;
+    width: 13px;
+    background-size: cover;
+    left: 72%;
+    z-index: 55;
+    i{
+      position: relative;
+      left: -1px;
+      font-size: 1.2em;
+      top: -7px;
+      color: #28a54c;
+    }
   }
-  .arrow-shadow1{
-    border: 2px solid rgba(51, 205, 95, 0.77);
-    height: 40px;
-    position: absolute;
-    width: 40px;
-    left: 68%;
-  }
-  //
-  //.triangle-up:before {
-  //  border-left-color: #f00;
-  //  right: -21px;
+  //.arrow-shadow{
+  //  border: 2px solid #0c63ee;
+  //  height: 40px;
+  //  position: absolute;
+  //  width: 40px;
+  //  left: 20%;
+  //}
+  //.arrow-shadow1{
+  //  border: 2px solid rgba(51, 205, 95, 0.77);
+  //  height: 40px;
+  //  position: absolute;
+  //  width: 40px;
+  //  left: 68%;
   //}
   .lineImg{
     height: 2px;
@@ -347,7 +394,7 @@ input{
     }
   }
   .selected{
-    background-color: blue;
+    background-color:rgba(43, 96, 171, 0.9);
   }
   .sortType {
     position: relative;
@@ -365,9 +412,13 @@ input{
     border-bottom: 1px solid rgba(170, 170, 170, 0.24);
     font-size: 1em;
     text-indent: 1.5em;
-    color: rgba(17, 17, 17, 0.63);
   }
-
+  .color1{
+   color:rgba(43, 96, 171, 0.9);
+  }
+ .color2{
+   color: #B4B4B4;
+ }
   .ion-chevron-right:before {
     content: "";
     position: relative;
@@ -376,14 +427,13 @@ input{
   .liType {
     height: 2.4em;
     line-height: 2em;
-    color: #B4B4B4;
   }
   .liType ul {
     margin-top: 0.15em;
   }
   .animated {
     -webkit-animation-duration: 0.5s;
-    animation-duration: 0.3s;
+    animation-duration: 0.5s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
   }
@@ -513,7 +563,13 @@ input{
     opacity: 1;
   }
 }
-.SpareList{
+.SpareList1{
+  .bar-subheader {
+    height: 2.7em;
+    top: 60px;
+    display: block;
+    fill: #2B60AB 90%;
+  }
    .divContent{
      position: relative;
      top: 2em;
@@ -525,7 +581,7 @@ input{
   }
   .col{
     span{
-      font-size: 1.1em;
+      font-size: 14px;
       color: gray;
     }
     .spareName{

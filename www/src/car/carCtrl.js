@@ -28,35 +28,35 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
 .controller('CarDetailCtrl',['$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk','ionicMaterialMotion','$timeout',
         function($scope,$state,CarService,$ionicHistory,$ionicScrollDelegate,ionicMaterialInk,ionicMaterialMotion,$timeout){
         ionicMaterialInk.displayEffect();
-        $scope.select = true;
+        //$scope.select = true;
         $scope.showTitle = false;
         $scope.showTitleStatus = false;
-        $scope.changeStatus = function(flag){
-            $scope.select=flag;
-        };
+        //$scope.changeStatus = function(flag){
+        //    $scope.select=flag;
+        //};
 
         var position;
         $scope.onScroll = function(){
             position = $ionicScrollDelegate.getScrollPosition().top;
-            if(position>10){
+            if(position>5){
                 $('#sdTitleId').removeClass('fadeOut');
                 $('#sdTitleId').addClass('animated fadeIn');
                 $scope.TitleFlag = true;
                 $scope.showTitle=true;
-                if(position>16){
+                if(position>13){
+                    $scope.titleFlag = true;
+                }else{
+                    $scope.titleFlag = false;
+                }
+                if(position>45){
                     $scope.qualityFlag = true;
                 }else{
                     $scope.qualityFlag = false;
                 }
-                if(position>54){
+                if(position>75){
                     $scope.projectFlag = true;
                 }else{
                     $scope.projectFlag = false;
-                }
-                if(position>60){
-                    $scope.showTitleStatus = true;
-                }else{
-                    $scope.showTitleStatus = false;
                 }
             }else{
                 $('#sdTitleId').removeClass('fadeIn');
@@ -88,6 +88,9 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
         };
         $scope.clicked1=function(row){
             $scope.selectedRow1=row;
+        };
+        $scope.choice=function(num){
+            $scope.selectRow=num;
         };
         //$scope.color1=false;
         //$scope.color2=false;

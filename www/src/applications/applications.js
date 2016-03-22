@@ -22,7 +22,8 @@ appModule
         },{
             url:'img/apps/saleQuote.png'
         },{
-            url:'img/apps/sparePart.png'
+            url:'img/apps/sparePart.png',
+            go:'spareList'
         },{
             url:'img/apps/empInfo.png'
         },{

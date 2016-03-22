@@ -8,11 +8,16 @@
             <div class="col col-50 col-center colType" ng-click="changeSort()">
                 <span class="sort">排序</span>
                 <img ng-src="img/car/sort.png" class="sortType">
-                <i class="ion-ios-arrow-up"></i>
+                <div class="bgColor" ng-show="showSort">
+                    <i class="ion-ios-arrow-up"></i>
+                </div>
             </div>
             <div class="col col-50 col-center colType icon-right" ng-click="changeSelect()">
                 <span class="select">筛选</span>
                 <img ng-src="img/car/select.png" class="selectType">
+                <div class="bgColor1"ng-show="showSelect">
+                    <i class="ion-ios-arrow-up"></i>
+                </div>
             </div>
         </div>
         <div class="arrow-outer">
@@ -53,7 +58,7 @@
         </div>
         <div class="myPro"ng-show="showSort">
             <ul class="ulType">
-                <li class="liType animated fadeInDown"ng-repeat="list in List" ng-click="choicePro()">{{list}}</li>
+                <li class="liType animated fadeInDown" ng-class="{true:'color1',false:'color2'}[$index===selectRow]"  ng-repeat="list in List" ng-click="choice($index)">{{list}}</li>
             </ul>
             <div class="shadowDiv1" ng-click="changeSort()"></div>
         </div>
