@@ -24,7 +24,8 @@ appModule
         },{
             url:'img/apps/sparePart.png'
         },{
-            url:'img/apps/empInfo.png'
+            url:'img/apps/empInfo.png',
+            go:'userQuery'
         },{
             url:'img/apps/searchCar.png'
         }];

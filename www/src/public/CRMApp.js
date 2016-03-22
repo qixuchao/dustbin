@@ -3,6 +3,8 @@ var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
 var salesModule = angular.module('salesModule', []);
+var employeeModule = angular.module('employeeModule', []);
+var employeeModuleServive = angular.module('employeeModuleServive', []);
 
 var CRMApp = angular.module('CRMApp', ['ionic',
     'ionic-material',
@@ -11,7 +13,9 @@ var CRMApp = angular.module('CRMApp', ['ionic',
     'mainModule',
     'tabsModule',
     'appModule',
-    'salesModule'
+    'salesModule',
+    'employeeModule',
+    'employeeModuleServive'
 ])
 
 CRMApp.run(function ($ionicPlatform) {
@@ -60,7 +64,22 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl: 'src/applications/saleActivities/saleAct_detail.html',
                 controller: 'saleActDetailCtrl'
             })
-        ;
+            //员工信息
+            .state('userQuery', {
+                url: '/userQuery',
+                templateUrl: 'src/employee/userQuery.html',
+                controller: 'userQueryCtrl'
+            })
+            .state('userDetail', {
+                url: '/userDetail',
+                templateUrl: 'src/employee/userDetail.html',
+                controller: 'userDetailCtrl'
+            })
+            .state('customerList', {
+                url: '/customerList',
+                templateUrl: 'src/employee/customerList.html',
+                controller: 'customerListCtrl'
+            });
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tabs');

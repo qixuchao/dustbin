@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02c04fcf-9192-4b6a-aba4-616bd27df0e2" name="Default" comment="">
+<<<<<<< HEAD
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/saleDetail/Shape.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/saleDetail/Triangle.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/saleDetail/oval.png" />
@@ -17,6 +18,699 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/main.html" afterPath="$PROJECT_DIR$/www/src/main/main.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/main.scss" afterPath="$PROJECT_DIR$/www/src/main/main.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/public/_public.scss" afterPath="$PROJECT_DIR$/www/src/public/_public.scss" />
+=======
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/src/public/common.js" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\hooks\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\hooks\after_prepare\010_add_platform_class.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\hooks\after_prepare\020_remove_sass_from_platforms.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\hooks\before_platform_add\init_directories.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\css\col.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\css\ionic.app.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\css\ionic.app.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\css\style.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\css\style.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\css\style.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\arya.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\crown.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\daenerys.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\google-material.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\impin-bg.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\ionic.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\jon-snow.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\login.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\logo.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\material-graphite.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\material1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\material2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\material3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\material4.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\profile-bg.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\sansa-snowcastle.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\sansa-snowcastle2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\sansa-snowcastle3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\sansa-snowcastle4.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\sansa.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\img\tyrion.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\js\app.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\android\assets\www\js\controllers.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDV.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVAvailability.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVAvailabilityDeprecated.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVCommandDelegate.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVCommandDelegateImpl.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVCommandDelegateImpl.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVCommandQueue.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVCommandQueue.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVConfigParser.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVConfigParser.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVDebug.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVHandleOpenURL.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVHandleOpenURL.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVInvokedUrlCommand.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVInvokedUrlCommand.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVJSON.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVJSON.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVJSON_private.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVJSON_private.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVLocalStorage.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVLocalStorage.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVPlugin.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVPlugin.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVPluginResult.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVPluginResult.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVScreenOrientationDelegate.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVShared.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVTimer.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVTimer.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVURLProtocol.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVURLProtocol.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVUserAgentUtil.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVUserAgentUtil.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVViewController.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVViewController.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVWebViewDelegate.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVWebViewDelegate.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVWhitelist.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\CDVWhitelist.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\NSArray+Comparisons.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\NSArray+Comparisons.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\NSData+Base64.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\NSData+Base64.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\NSDictionary+Extensions.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\NSDictionary+Extensions.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\NSMutableArray+QueueAdditions.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\NSMutableArray+QueueAdditions.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\UIDevice+Extensions.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\Classes\UIDevice+Extensions.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\CordovaLib.xcodeproj\project.pbxproj" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\CordovaLib.xcodeproj\xcuserdata\zhangren.xcuserdatad\xcschemes\CordovaLib.xcscheme" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\CordovaLib.xcodeproj\xcuserdata\zhangren.xcuserdatad\xcschemes\xcschememanagement.plist" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\CordovaLib_Prefix.pch" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\VERSION" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\CordovaLib\cordova.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\apple_ios_version" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\apple_osx_version" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\apple_xcode_version" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\build" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\build-debug.xcconfig" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\build-extras.xcconfig" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\build-release.xcconfig" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\build.xcconfig" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\check_reqs" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\check_reqs.bat" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\clean" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\clean.bat" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\defaults.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\build.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\check_reqs.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\clean.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\copy-www-build-step.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\list-devices" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\list-emulator-images" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\list-started-emulators" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\run.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\spawn.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\start-emulator" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\lib\versions.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\log" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\common.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\glob.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\.eslintrc" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\inflight.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\node_modules\wrappy\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\node_modules\wrappy\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\node_modules\wrappy\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\node_modules\wrappy\test\basic.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\node_modules\wrappy\wrappy.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inflight\test.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inherits\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inherits\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inherits\inherits.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inherits\inherits_browser.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inherits\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\inherits\test.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\browser.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\minimatch.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\.npmignore" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\.travis.yml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\example.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\index.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\balanced-match\.npmignore" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\balanced-match\.travis.yml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\balanced-match\Makefile" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\balanced-match\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\balanced-match\example.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\balanced-match\index.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\balanced-match\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\balanced-match\test\balanced.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\concat-map\.travis.yml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\concat-map\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\concat-map\README.markdown" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\concat-map\example\map.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\concat-map\index.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\concat-map\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\node_modules\concat-map\test\map.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\bash-comparison.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\bash-results.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\cases.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\dollar.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\empty-option.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\generate.sh" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\negative-increment.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\nested.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\order.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\pad.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\same-type.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\node_modules\brace-expansion\test\sequence.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\minimatch\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\once\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\once\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\once\node_modules\wrappy\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\once\node_modules\wrappy\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\once\node_modules\wrappy\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\once\node_modules\wrappy\test\basic.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\once\node_modules\wrappy\wrappy.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\once\once.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\once\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\once\test\once.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\path-is-absolute\index.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\path-is-absolute\license" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\path-is-absolute\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\node_modules\path-is-absolute\readme.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\glob\sync.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\nopt\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\nopt\lib\nopt.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\nopt\node_modules\abbrev\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\nopt\node_modules\abbrev\abbrev.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\nopt\node_modules\abbrev\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\nopt\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\q\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\q\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\q\q.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\q\queue.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\shelljs\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\shelljs\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\node_modules\shelljs\shell.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\run" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\run.bat" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\version" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\cordova\version.bat" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\platform_www\cordova-js-src\exec.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\platform_www\cordova-js-src\platform.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\platform_www\cordova.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample.xcodeproj\project.pbxproj" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample.xcodeproj\project.xcworkspace\contents.xcworkspacedata" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample.xcodeproj\project.xcworkspace\xcuserdata\zhangren.xcuserdatad\UserInterfaceState.xcuserstate" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample.xcodeproj\xcuserdata\zhangren.xcuserdatad\xcschemes\sample.xcscheme" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample.xcodeproj\xcuserdata\zhangren.xcuserdatad\xcschemes\xcschememanagement.plist" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Classes\AppDelegate.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Classes\AppDelegate.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Classes\MainViewController.h" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Classes\MainViewController.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Classes\MainViewController.xib" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Plugins\README" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-40.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-40@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-50.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-50@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-60.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-60@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-60@3x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-72.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-72@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-76.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-76@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-small.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon-small@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\icons\icon@2x.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\splash\Default-568h@2x~iphone.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\splash\Default-667h.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\splash\Default-736h.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\splash\Default-Landscape-736h.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\splash\Default-Landscape@2x~ipad.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\splash\Default-Landscape~ipad.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\splash\Default-Portrait@2x~ipad.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\splash\Default-Portrait~ipad.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\splash\Default@2x~iphone.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\Resources\splash\Default~iphone.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\config.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\main.m" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\sample-Info.plist" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\sample\sample-Prefix.pch" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\cordova.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\cordova_plugins.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\css\col.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\css\col.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\css\ionic.app.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\css\ionic.app.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\css\style.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\css\style.css.map" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\css\style.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\css\style.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\arya.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\crown.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\daenerys.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\google-material.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\impin-bg.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\ionic.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\jon-snow.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\login.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\logo.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\material-graphite.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\material1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\material2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\material3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\material4.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\profile-bg.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\sansa-snowcastle.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\sansa-snowcastle2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\sansa-snowcastle3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\sansa-snowcastle4.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\sansa.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\img\tyrion.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\js\app.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\js\controllers.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-animate\.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-animate\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-animate\angular-animate.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-animate\angular-animate.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-animate\angular-animate.min.js.map" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-animate\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-animate\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-sanitize\.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-sanitize\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-sanitize\angular-sanitize.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-sanitize\angular-sanitize.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-sanitize\angular-sanitize.min.js.map" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-sanitize\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-sanitize\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\CHANGELOG.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\CONTRIBUTING.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\api\angular-ui-router.d.ts" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\release\angular-ui-router.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\release\angular-ui-router.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\common.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\resolve.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\state.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\stateDirectives.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\stateFilters.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\templateFactory.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\urlMatcherFactory.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\urlRouter.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\view.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\viewDirective.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular-ui-router\src\viewScroll.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular\.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular\angular-csp.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular\angular.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular\angular.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular\angular.min.js.gzip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular\angular.min.js.map" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular\index.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\angular\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\css\ion-md-input.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\css\ion-md-input.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\config.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\gulpfile.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\hooks\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\hooks\after_prepare\010_add_platform_class.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\ionic.project" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\scss\ionic.app.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\css\ion-md-input.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\css\ion-md-input.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\img\ionic.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\js\app.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\js\ion-md-input.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\js\ion-md-input.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\css\ionic.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\css\ionic.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\fonts\ionicons.eot" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\fonts\ionicons.svg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\fonts\ionicons.ttf" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\fonts\ionicons.woff" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\angular-ui\angular-ui-router.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\angular-ui\angular-ui-router.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\angular\angular-animate.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\angular\angular-animate.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\angular\angular-resource.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\angular\angular-resource.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\angular\angular-sanitize.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\angular\angular-sanitize.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\angular\angular.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\angular\angular.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\ionic-angular.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\ionic-angular.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\ionic.bundle.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\ionic.bundle.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\ionic.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\js\ionic.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_action-sheet.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_animations.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_backdrop.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_badge.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_bar.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_button-bar.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_button.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_checkbox.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_form.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_grid.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_items.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_list.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_loading.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_menu.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_mixins.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_modal.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_platform.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_popover.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_popup.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_progress.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_radio.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_range.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_reset.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_scaffolding.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_select.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_slide-box.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_tabs.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_toggle.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_transitions.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_type.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_util.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\_variables.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\ionic.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\ionicons\_ionicons-animation.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\ionicons\_ionicons-font.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\ionicons\_ionicons-icons.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\ionicons\_ionicons-variables.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\scss\ionicons\ionicons.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\demo\www\lib\ionic\version.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\gulpfile.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\ion-md-input.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\ion-md-input.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\js\ion-md-input.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\js\ion-md-input.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ion-md-input\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\.cz.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\.jshintrc" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\CONTRIBUTING.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\dist\ionic.material.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\dist\ionic.material.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\dist\ionic.material.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\dist\ionic.material.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\dist\ionic.material.min.js.map" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\js\ionic-material.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\js\lib\_ink.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\js\lib\_motion.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\directives\md-label.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\bar-header-expanded.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\bar.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\button-bar.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\button-fab.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\button-floating.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\button.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\card.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\hero.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\item.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\list.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\loading.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\login.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\mask.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\menu.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\elements\motion-elements.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\helpers\colors.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\helpers\sizes.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\helpers\utilities.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\index.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\motion\blinds.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\motion\pan-in-left.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\motion\ripple.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\motion\slide-fade-in.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\motion\slide-in-right.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\motion\slide-up.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\overrides\ink.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\src\scss\overrides\ionic.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic-material\webpack.config.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\css\ionic.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\css\ionic.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\fonts\ionicons.eot" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\fonts\ionicons.svg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\fonts\ionicons.ttf" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\fonts\ionicons.woff" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\js\ionic-angular.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\js\ionic-angular.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\js\ionic.bundle.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\js\ionic.bundle.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\js\ionic.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\ionic\js\ionic.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\.bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\Gruntfile.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\LICENSE" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\README.md" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\bower.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\dist\waves.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\dist\waves.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\dist\waves.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\dist\waves.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\dist\waves.min.js.map" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\docs\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\docs\static\jquery.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\docs\static\prims.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\docs\static\prims.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\docs\static\snarl.min.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\docs\static\snarl.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\docs\static\style.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\package.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\situs.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\src\js\waves.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\src\less\waves.less" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\src\sass\waves.sass" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\src\scss\waves.scss" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\lib\waves\src\stylus\waves.styl" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\src\login\login.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\src\login\loginCtrl.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\src\main\main.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\src\main\mainCtrl.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\templates\activity.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\templates\friends.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\templates\gallery.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\templates\menu.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\platforms\ios\www\templates\profile.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\plugins\ios.json" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\www\399CRM 项目说明.docx" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\gongke\Desktop\new_energy\atlenergy\www\src\employee\userInfo.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/.documentup.json" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/.documentup.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/.gitignore" afterPath="$PROJECT_DIR$/platforms/android/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/.jshintrc" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/.jshintrc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/.npmignore" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/.npmignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/.travis.yml" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/.travis.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/AndroidManifest.xml" afterPath="$PROJECT_DIR$/platforms/android/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/AndroidManifest.xml" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/AuthenticationToken.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/AuthenticationToken.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/CONTRIBUTING.md" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/CONTRIBUTING.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/public/CRMApp.js" afterPath="$PROJECT_DIR$/www/src/public/CRMApp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/public/CRMApp.scss" afterPath="$PROJECT_DIR$/www/src/public/CRMApp.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CallbackContext.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CallbackContext.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/Config.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/Config.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/ConfigXmlParser.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/ConfigXmlParser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaActivity.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaArgs.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaArgs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaBridge.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaBridge.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaClientCertRequest.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaClientCertRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaDialogsHelper.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaDialogsHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaHttpAuthHandler.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaHttpAuthHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaInterface.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaInterfaceImpl.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaInterfaceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaPlugin.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaPlugin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaPreferences.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaPreferences.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaResourceApi.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaResourceApi.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaWebView.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaWebView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaWebViewEngine.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaWebViewEngine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaWebViewImpl.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CordovaWebViewImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CoreAndroid.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/CoreAndroid.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/ExposedJsApi.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/ExposedJsApi.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/ICordovaClientCertRequest.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/ICordovaClientCertRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/ICordovaCookieManager.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/ICordovaCookieManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/ICordovaHttpAuthHandler.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/ICordovaHttpAuthHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/LICENSE" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/node_modules/abbrev/LICENSE" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/node_modules/abbrev/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/LICENSE" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/LICENSE" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/which/LICENSE" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/which/LICENSE" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/LOG.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/LOG.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/src/com/ionicframework/atlenergy/MainActivity.java" afterPath="$PROJECT_DIR$/platforms/android/src/com/ionicframework/atlenergy/MainActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/NativeToJsMessageQueue.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/NativeToJsMessageQueue.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/PluginEntry.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/PluginEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/PluginManager.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/PluginManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/PluginResult.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/PluginResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/README.md" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/README.md" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/which/README.md" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/which/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemCookieManager.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemCookieManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemExposedJsApi.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemExposedJsApi.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemWebChromeClient.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemWebChromeClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemWebView.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemWebView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemWebViewClient.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemWebViewClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemWebViewEngine.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/engine/SystemWebViewEngine.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/Whitelist.java" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/src/org/apache/cordova/Whitelist.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/employee/_employee.scss" afterPath="$PROJECT_DIR$/www/src/employee/_employee.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/node_modules/abbrev/abbrev.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/node_modules/abbrev/abbrev.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/android.json" afterPath="$PROJECT_DIR$/plugins/android.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/android_sdk_version.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/android_sdk_version.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/android_sdk_version" afterPath="$PROJECT_DIR$/platforms/android/cordova/android_sdk_version" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/cordova-js-src/plugin/android/app.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/cordova-js-src/plugin/android/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/platform_www/cordova-js-src/plugin/android/app.js" afterPath="$PROJECT_DIR$/platforms/android/platform_www/cordova-js-src/plugin/android/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/appinfo.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/appinfo.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/build.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/build.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/build.gradle" afterPath="$PROJECT_DIR$/platforms/android/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build.gradle" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/build.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/build.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/build" afterPath="$PROJECT_DIR$/platforms/android/cordova/build" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/cat.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/cat.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/cd.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/cd.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/check_reqs.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/check_reqs.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/check_reqs.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/check_reqs.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/check_reqs" afterPath="$PROJECT_DIR$/platforms/android/cordova/check_reqs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/chmod.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/chmod.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/clean.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/clean.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/clean" afterPath="$PROJECT_DIR$/platforms/android/cordova/clean" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/css/col.min.css" afterPath="$PROJECT_DIR$/platforms/android/assets/www/css/col.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/common.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/common.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/benchmark/compare-with-callbacks.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/benchmark/compare-with-callbacks.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.xml" afterPath="$PROJECT_DIR$/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/res/xml/config.xml" afterPath="$PROJECT_DIR$/platforms/android/res/xml/config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/public/controllers.js" afterPath="$PROJECT_DIR$/www/src/public/controllers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/cordova.gradle" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/cordova.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/cordova.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/cordova.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/platform_www/cordova.js" afterPath="$PROJECT_DIR$/platforms/android/platform_www/cordova.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/cordova_plugins.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/cordova_plugins.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/cp.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/cp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/defaults.xml" afterPath="$PROJECT_DIR$/platforms/android/cordova/defaults.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/device.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/device.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/dirs.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/dirs.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/echo.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/echo.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/employee/employeeCtrls.js" afterPath="$PROJECT_DIR$/www/src/employee/employeeCtrls.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/employee/employeeModule.js" afterPath="$PROJECT_DIR$/www/src/employee/employeeModule.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/emulator.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/emulator.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/error.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/error.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/cordova-js-src/exec.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/cordova-js-src/exec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/exec.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/exec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/exec.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/exec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/platform_www/cordova-js-src/exec.js" afterPath="$PROJECT_DIR$/platforms/android/platform_www/cordova-js-src/exec.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/find.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/find.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/scripts/generate-docs.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/scripts/generate-docs.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/global.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/global.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/grep.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/grep.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/index.html" afterPath="$PROJECT_DIR$/platforms/android/assets/www/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/index.html" afterPath="$PROJECT_DIR$/www/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/install-device.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/install-device.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/install-device" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/install-device" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/install-emulator.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/install-emulator.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/install-emulator" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/install-emulator" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/list-devices.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/list-devices.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/list-devices" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/list-devices" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/list-emulator-images.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/list-emulator-images.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/list-emulator-images" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/list-emulator-images" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/list-started-emulators.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/list-started-emulators.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/list-started-emulators" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/list-started-emulators" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/log.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/log.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/log.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/log.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/log" afterPath="$PROJECT_DIR$/platforms/android/cordova/log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/src/login/login.html" afterPath="$PROJECT_DIR$/platforms/android/assets/www/src/login/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/login/login.html" afterPath="$PROJECT_DIR$/www/src/login/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/src/login/loginCtrl.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/src/login/loginCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/login/login_Css.scss" afterPath="$PROJECT_DIR$/www/src/login/login_Css.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/ls.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/ls.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/src/main/main.html" afterPath="$PROJECT_DIR$/platforms/android/assets/www/src/main/main.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/src/main/mainCtrl.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/src/main/mainCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/make.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/make.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/mkdir.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/mkdir.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/mv.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/mv.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/cordova-js-src/android/nativeapiprovider.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/cordova-js-src/android/nativeapiprovider.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/platform_www/cordova-js-src/android/nativeapiprovider.js" afterPath="$PROJECT_DIR$/platforms/android/platform_www/cordova-js-src/android/nativeapiprovider.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/lib/nopt.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/lib/nopt.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/package.json" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/node_modules/abbrev/package.json" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/nopt/node_modules/abbrev/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/package.json" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/package.json" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/which/package.json" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/which/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/cordova-js-src/platform.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/cordova-js-src/platform.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/platform_www/cordova-js-src/platform.js" afterPath="$PROJECT_DIR$/platforms/android/platform_www/cordova-js-src/platform.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/platforms.json" afterPath="$PROJECT_DIR$/platforms/platforms.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/plugin-build.gradle" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/plugin-build.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/project.properties" afterPath="$PROJECT_DIR$/platforms/android/project.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/project.properties" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/project.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/cordova-js-src/android/promptbasednativeapi.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/cordova-js-src/android/promptbasednativeapi.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/platform_www/cordova-js-src/android/promptbasednativeapi.js" afterPath="$PROJECT_DIR$/platforms/android/platform_www/cordova-js-src/android/promptbasednativeapi.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/pwd.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/pwd.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/q.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/q.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/queue.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/queue.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/retry.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/retry.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/rm.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/rm.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/scripts/run-tests.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/scripts/run-tests.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/run.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/run.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/run.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/run.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/run" afterPath="$PROJECT_DIR$/platforms/android/cordova/run" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/benchmark/scenarios.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/q/benchmark/scenarios.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/sed.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/sed.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/settings.gradle" afterPath="$PROJECT_DIR$/platforms/android/settings.gradle" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/shell.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/shell.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/bin/shjs" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/bin/shjs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/spawn.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/spawn.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/start-emulator.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/start-emulator.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/lib/start-emulator" afterPath="$PROJECT_DIR$/platforms/android/cordova/lib/start-emulator" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/res/values/strings.xml" afterPath="$PROJECT_DIR$/platforms/android/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/css/style.css.map" afterPath="$PROJECT_DIR$/platforms/android/assets/www/css/style.css.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/src/tabs/tabs.html" afterPath="$PROJECT_DIR$/platforms/android/assets/www/src/tabs/tabs.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/tabs/tabs.html" afterPath="$PROJECT_DIR$/www/src/tabs/tabs.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/tempdir.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/tempdir.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/test.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/test.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/to.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/to.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/toEnd.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/toEnd.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/employee/userDetail.html" afterPath="$PROJECT_DIR$/www/src/employee/userDetail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/employee/userQuery.html" afterPath="$PROJECT_DIR$/www/src/employee/userQuery.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/version.bat" afterPath="$PROJECT_DIR$/platforms/android/cordova/version.bat" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/version" afterPath="$PROJECT_DIR$/platforms/android/cordova/version" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/which.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/shelljs/src/which.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/which/which.js" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/which/which.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/cordova/node_modules/which/bin/which" afterPath="$PROJECT_DIR$/platforms/android/cordova/node_modules/which/bin/which" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+>>>>>>> gongkedev
     </list>
     <ignored path="atlenergy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,6 +730,7 @@
     <favorites_list name="atlenergy" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/main/main.html">
@@ -52,11 +747,20 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.625">
               <caret line="219" column="17" selection-start-line="219" selection-start-column="17" selection-end-line="219" selection-end-column="17" />
+=======
+    <leaf>
+      <file leaf-file-name="_employee.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/employee/_employee.scss">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="142" column="20" selection-start-line="142" selection-start-column="20" selection-end-line="142" selection-end-column="20" />
+>>>>>>> gongkedev
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="mainCtrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/main/mainCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -78,10 +782,19 @@
                 <element signature="n#style#0;n#div#0;n#div#1;n#ion-view#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#ion-view#0;n#!!top" expanded="true" />
               </folding>
+=======
+      <file leaf-file-name="employeeCtrls.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/employee/employeeCtrls.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="56" column="11" selection-start-line="56" selection-start-column="11" selection-end-line="56" selection-end-column="11" />
+              <folding />
+>>>>>>> gongkedev
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="saleAct_List.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_List.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -97,11 +810,19 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/public/common.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="98" column="23" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="23" />
+>>>>>>> gongkedev
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="saleActiviesCtrls.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleActiviesCtrls.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -117,26 +838,54 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-10.784314">
               <caret line="1376" column="8" selection-start-line="1376" selection-start-column="1" selection-end-line="1376" selection-end-column="8" />
+=======
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="48" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
+>>>>>>> gongkedev
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="_saleActivies.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/_saleActivies.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-22.458334">
               <caret line="233" column="19" selection-start-line="233" selection-start-column="19" selection-end-line="233" selection-end-column="19" />
               <folding />
+=======
+      <file leaf-file-name="userQuery.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/employee/userQuery.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.392858">
+              <caret line="32" column="77" selection-start-line="32" selection-start-column="77" selection-end-line="32" selection-end-column="77" />
+              <folding>
+                <element signature="n#style#0;n#ion-header-bar#0;n#ion-nav-view#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#ion-content#0;n#ion-nav-view#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#ion-content#0;n#ion-nav-view#0;n#!!top" expanded="true" />
+              </folding>
+>>>>>>> gongkedev
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="_animations.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/lib/ionic/scss/_animations.scss">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.42972535">
+              <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+>>>>>>> gongkedev
               <folding />
             </state>
           </provider>
@@ -147,10 +896,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+<<<<<<< HEAD
         <option value="JavaScript File" />
         <option value="CSS File" />
         <option value="SCSS File" />
         <option value="HTML File" />
+=======
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="SCSS File" />
+        <option value="JavaScript File" />
+>>>>>>> gongkedev
       </list>
     </option>
   </component>
@@ -162,7 +918,14 @@
       <list>
         <option value="$PROJECT_DIR$/www/src/application/applications.html" />
         <option value="$PROJECT_DIR$/www/src/applications/appliations.js" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/www/src/login/login.html" />
+=======
+        <option value="$PROJECT_DIR$/www/src/applications/applications.html" />
+        <option value="$PROJECT_DIR$/www/src/applications/applications.js" />
+        <option value="$PROJECT_DIR$/www/src/test.html" />
+        <option value="$PROJECT_DIR$/www/src/tabs/tabs.js" />
+>>>>>>> gongkedev
         <option value="$PROJECT_DIR$/www/js/app.js" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/scss/ionic.app.scss" />
@@ -181,6 +944,7 @@
         <option value="$PROJECT_DIR$/platforms/android/project.properties" />
         <option value="$PROJECT_DIR$/platforms/android/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/www/src/public/CRMApp.scss" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/www/src/applications/applications.html" />
         <option value="$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_List.html" />
         <option value="$PROJECT_DIR$/www/src/applications/applications.js" />
@@ -198,6 +962,30 @@
         <option value="$PROJECT_DIR$/www/src/applications/saleActivities/saleActiviesCtrls.js" />
         <option value="$PROJECT_DIR$/www/src/applications/saleActivities/_saleActivies.scss" />
         <option value="$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_detail.html" />
+=======
+        <option value="$PROJECT_DIR$/www/src/login/loginCtrl.js" />
+        <option value="$PROJECT_DIR$/plugins/fetch.json" />
+        <option value="$PROJECT_DIR$/hooks/after_prepare/010_add_platform_class.js" />
+        <option value="$PROJECT_DIR$/platforms/android/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/plugins/android.json" />
+        <option value="$PROJECT_DIR$/platforms/platforms.json" />
+        <option value="$PROJECT_DIR$/config.xml" />
+        <option value="$PROJECT_DIR$/www/src/public/CRMApp.js" />
+        <option value="$PROJECT_DIR$/www/src/dev/CRMApp.css" />
+        <option value="$PROJECT_DIR$/www/src/login/login.html" />
+        <option value="$PROJECT_DIR$/www/index.html" />
+        <option value="$PROJECT_DIR$/www/src/employee/customerList.html" />
+        <option value="$PROJECT_DIR$/www/src/login/login_Css.scss" />
+        <option value="$PROJECT_DIR$/www/src/employee/userDetail.html" />
+        <option value="$PROJECT_DIR$/www/src/employee/employeeList.json" />
+        <option value="$PROJECT_DIR$/www/src/public/controllers.js" />
+        <option value="$PROJECT_DIR$/www/src/employee/employeeModule.js" />
+        <option value="$PROJECT_DIR$/www/src/employee/_employee.scss" />
+        <option value="$PROJECT_DIR$/www/src/public/common.js" />
+        <option value="$PROJECT_DIR$/www/src/employee/employeeCtrls.js" />
+        <option value="$PROJECT_DIR$/www/src/employee/userQuery.html" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+>>>>>>> gongkedev
       </list>
     </option>
   </component>
@@ -206,10 +994,14 @@
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
   </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="833" />
+    <option name="x" value="-28" />
+    <option name="y" value="15" />
+    <option name="width" value="1620" />
+    <option name="height" value="846" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -235,8 +1027,6 @@
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
-      <manualOrder />
-      <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
       <pane id="Scratches" />
@@ -334,7 +1124,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -396,11 +1186,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="applications" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="saleActivities" />
+=======
+              <option name="myItemId" value="employee" />
+>>>>>>> gongkedev
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -418,7 +1212,75 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
               <option name="myItemId" value="lib" />
+=======
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dev" />
+>>>>>>> gongkedev
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scss" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="plugins" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="atlenergy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="platforms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -430,27 +1292,39 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SVN/noah" />
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../luoya/code" />
+>>>>>>> gongkedev
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
+    <property name="FullScreen" value="false" />
   </component>
   <component name="RecentsManager">
+<<<<<<< HEAD
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/www/src/applications" />
       <recent name="$PROJECT_DIR$/www/img/main" />
       <recent name="$PROJECT_DIR$/www/src/main" />
     </key>
+=======
+>>>>>>> gongkedev
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/www/img/saleDetail" />
       <recent name="$PROJECT_DIR$/www/img/main" />
       <recent name="$PROJECT_DIR$/node_modules" />
       <recent name="$PROJECT_DIR$/www/scripts" />
       <recent name="$PROJECT_DIR$/www/css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/www/img/main" />
+      <recent name="$PROJECT_DIR$/www/src/main" />
     </key>
   </component>
   <component name="RunManager">
@@ -467,6 +1341,13 @@
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
+    <configuration default="true" type="JsTestDriver-test-runner" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
     <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
       <method />
     </configuration>
@@ -481,12 +1362,7 @@
       <gulpfile />
       <tasks />
       <arguments />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
-      <command value="run-script" />
-      <scripts />
+      <pass-parent-envs>true</pass-parent-envs>
       <envs />
       <method />
     </configuration>
@@ -497,7 +1373,6 @@
       <envs />
       <ui>bdd</ui>
       <extra-mocha-options />
-      <test-kind>DIRECTORY</test-kind>
       <test-directory />
       <recursive>false</recursive>
       <method />
@@ -530,9 +1405,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="833" extended-state="6" />
+    <frame x="-28" y="15" width="1620" height="846" extended-state="0" />
     <editor active="true" />
     <layout>
+<<<<<<< HEAD
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17547569" sideWeight="0.4845222" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928476" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -550,7 +1426,47 @@
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20164348" sideWeight="0.4845222" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928476" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.054545455" sideWeight="0.50758535" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928476" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24947146" sideWeight="0.48990577" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.054545455" sideWeight="0.49241465" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17547569" sideWeight="0.5154778" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928476" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+>>>>>>> gongkedev
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928476" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928476" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928476" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.062937066" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18268014" sideWeight="0.4845222" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24947146" sideWeight="0.48990577" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17547569" sideWeight="0.5154778" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -568,6 +1484,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/scripts/jquery-1.9.1.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -601,6 +1518,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/img/main/contacts.png">
+=======
+    <entry file="file://$PROJECT_DIR$/www/img/main/Rectangle2x.png">
+>>>>>>> gongkedev
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
@@ -617,6 +1537,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/contacts/contactDetail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -625,6 +1546,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/src/contacts/contactEdit.html">
+=======
+    <entry file="file://$PROJECT_DIR$/scss/ionic.app.scss">
+>>>>>>> gongkedev
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -661,6 +1585,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/tabs/tabs.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.375">
@@ -678,6 +1603,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/css/animate.css">
+=======
+    <entry file="file://$PROJECT_DIR$/www/src/public/ionic_sass/_mixins.scss">
+>>>>>>> gongkedev
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.5">
           <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
@@ -727,9 +1655,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/src/main/tab-animate.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-0.625">
           <caret line="267" column="0" selection-start-line="267" selection-start-column="0" selection-end-line="267" selection-end-column="0" />
           <folding />
+=======
+        <state vertical-scroll-proportion="-12.458333">
+          <caret line="347" column="30" selection-start-line="347" selection-start-column="30" selection-end-line="347" selection-end-column="30" />
+>>>>>>> gongkedev
         </state>
       </provider>
     </entry>
@@ -751,29 +1684,44 @@
     <entry file="file://$PROJECT_DIR$/www/src/applications/applications.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
           <folding />
+=======
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> gongkedev
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/src/applications/applications.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-8.75">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
+=======
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> gongkedev
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/src/dev/CRMApp.min.css">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="148" selection-start-line="0" selection-start-column="148" selection-end-line="0" selection-end-column="148" />
           <folding />
+=======
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
+>>>>>>> gongkedev
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/src/public/_public.scss">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-17.458334">
           <caret line="34" column="10" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="10" />
           <folding />
@@ -797,13 +1745,35 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/motion/pan-in-left.scss">
-      <provider selected="true" editor-type-id="text-editor">
+=======
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <caret line="1" column="2" selection-start-line="1" selection-start-column="2" selection-end-line="1" selection-end-column="62" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/scripts/web-server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/login/loginServe.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.scss">
+>>>>>>> gongkedev
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.875">
+          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/motion/blinds.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="28.791666">
@@ -813,29 +1783,96 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/motion/slide-up.scss">
+=======
+    <entry file="file://$PROJECT_DIR$/www/src/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="-1.875">
+          <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/main/main.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="154" column="14" selection-start-line="154" selection-start-column="14" selection-end-line="154" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/login/login_Css.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6921676">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/main/mainCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48087433">
+          <caret line="489" column="9" selection-start-line="489" selection-start-column="9" selection-end-line="489" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/main/main.html">
+>>>>>>> gongkedev
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="70" column="57" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/motion/slide-fade-in.scss">
+=======
+    <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.660596">
+          <caret line="71" column="35" selection-start-line="71" selection-start-column="23" selection-end-line="71" selection-end-column="35" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/public/services.js">
+>>>>>>> gongkedev
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/overrides/ink.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="49.416668">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+=======
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="59" selection-start-line="0" selection-start-column="59" selection-end-line="0" selection-end-column="59" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="6.107143">
+          <caret line="12" column="3965" selection-start-line="12" selection-start-column="3965" selection-end-line="12" selection-end-column="3965" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/dev/CRMApp.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.0357144">
+          <caret line="0" column="791" selection-start-line="0" selection-start-column="791" selection-end-line="0" selection-end-column="791" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/fetch.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+>>>>>>> gongkedev
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/elements/loading.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -861,23 +1898,51 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.min.css">
+=======
+    <entry file="file://$PROJECT_DIR$/platforms/platforms.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.05775076">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/login/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7001522">
+          <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/dev/CRMApp.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="292" column="14" selection-start-line="292" selection-start-column="14" selection-end-line="292" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.xml">
+>>>>>>> gongkedev
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.js">
+=======
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.min.css">
+>>>>>>> gongkedev
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.css">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-10.784314">
           <caret line="1376" column="8" selection-start-line="1376" selection-start-column="1" selection-end-line="1376" selection-end-column="8" />
           <folding />
@@ -897,12 +1962,59 @@
         <state vertical-scroll-proportion="-0.625">
           <caret line="219" column="17" selection-start-line="219" selection-start-column="17" selection-end-line="219" selection-end-column="17" />
           <folding />
+=======
+        <state vertical-scroll-proportion="0.0">
+          <caret line="723" column="23" selection-start-line="723" selection-start-column="23" selection-end-line="723" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/login/login_Css.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.321428">
+          <caret line="83" column="1" selection-start-line="83" selection-start-column="1" selection-end-line="83" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/employee/userDetail.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6713781">
+          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/employee/customerList.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8377425">
+          <caret line="25" column="101" selection-start-line="25" selection-start-column="101" selection-end-line="25" selection-end-column="101" />
+>>>>>>> gongkedev
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/src/main/mainCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.031932775">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/employee/employeeList.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.79461277">
+          <caret line="29" column="37" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/employee/employeeModule.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8553055">
+          <caret line="28" column="7" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/public/controllers.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
           <caret line="17" column="16" selection-start-line="10" selection-start-column="8" selection-end-line="17" selection-end-column="16" />
           <folding />
         </state>
@@ -912,30 +2024,81 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.125">
           <caret line="5" column="41" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="41" />
+=======
+          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="48" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
+>>>>>>> gongkedev
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleActiviesCtrls.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="43" column="74" selection-start-line="43" selection-start-column="74" selection-end-line="43" selection-end-column="74" />
+=======
+    <entry file="file://$PROJECT_DIR$/www/src/public/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="98" column="23" selection-start-line="98" selection-start-column="16" selection-end-line="98" selection-end-column="23" />
+>>>>>>> gongkedev
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/_saleActivies.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-22.458334">
           <caret line="233" column="19" selection-start-line="233" selection-start-column="19" selection-end-line="233" selection-end-column="19" />
+=======
+    <entry file="file://$PROJECT_DIR$/www/src/employee/_employee.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="142" column="20" selection-start-line="142" selection-start-column="20" selection-end-line="142" selection-end-column="20" />
+>>>>>>> gongkedev
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/main/main.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.5416667">
           <caret line="83" column="65" selection-start-line="83" selection-start-column="44" selection-end-line="83" selection-end-column="65" />
+=======
+    <entry file="file://$PROJECT_DIR$/www/src/employee/employeeCtrls.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="11" selection-start-line="56" selection-start-column="11" selection-end-line="56" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/employee/userQuery.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.392858">
+          <caret line="32" column="77" selection-start-line="32" selection-start-column="77" selection-end-line="32" selection-end-column="77" />
+          <folding>
+            <element signature="n#style#0;n#ion-header-bar#0;n#ion-nav-view#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#ion-content#0;n#ion-nav-view#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#1;n#ion-content#0;n#ion-nav-view#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42972535">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+>>>>>>> gongkedev
           <folding />
         </state>
       </provider>
