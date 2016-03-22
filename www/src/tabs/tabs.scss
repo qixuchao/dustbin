@@ -1,4 +1,49 @@
-.tabs{
-  background-image: linear-gradient(to right,#2B60AB,#9EC92A);
-
+@mixin tab-icon($imgUrl) {
+  background: url($imgUrl) no-repeat center;
+  background-size: contain;
+  width: 25px;
+}
+.myTab{
+  .scroll{
+ //height:  calc(100% - 49px)
+  }
+}
+.tabs {
+  background-image: linear-gradient(to right, #2B60AB, #9EC92A);
+  .tab-item{
+    opacity: 1;
+  }
+  .tab-item.activated{
+    height: 100%!important;
+  }
+  .backColor-on {
+    color: #072F65;
+  }
+  .backColor-off{
+    color:#d2d2d2;
+  }
+  .main-on {
+    @include tab-icon("../../img/tabs/main-on.png");
+  }
+  .main-off {
+    @include tab-icon("../../img/tabs/main-off.png");
+  }
+  .contacts-on {
+    @include tab-icon("../../img/tabs/contacts-on.png");
+  }
+  .contacts-off {
+    @include tab-icon("../../img/tabs/contacts-off.png");
+  }
+  .app-on {
+    @include tab-icon("../../img/tabs/app-on.png");
+  }
+  .app-off {
+    @include tab-icon("../../img/tabs/app-off.png");
+  }
+  .my-on {
+    @include tab-icon("../../img/tabs/my-on.png");
+  }
+  .my-off {
+    @include tab-icon("../../img/tabs/my-off.png");
+  }
 }
