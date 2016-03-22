@@ -1,5 +1,17 @@
-worksheetModule.controller("WorksheetListCtrl",["$scope", "ionicMaterialInk", "$ionicPopup", function($scope, ionicMaterialInk, $ionicPopup){
+worksheetModule.controller("WorksheetListCtrl",[
+	"$scope", 
+	"ionicMaterialInk", 
+	"ionicMaterialMotion",
+	"$ionicPopup", "$timeout", 
+	function($scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout){
 	
+	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
+        //ionicMaterialInk.displayEffect();
+        ionicMaterialMotion.fadeSlideIn({
+            selector: '.animate-fade-slide-in .item'
+        });
+    }, 100);
+
 	$scope.config = {
 		searchText: '',
 		//showXbrModel: false, //是否显示遮罩层
@@ -106,10 +118,39 @@ worksheetModule.controller("WorksheetListCtrl",["$scope", "ionicMaterialInk", "$
 				timeEnd: '2012.12.31 12:00:00',
 				desc: '车辆电池出现重大问题'
 			},
+			{
+				category: '现场维修工单',
+				timeStart: '2016.01.01 10:00:01',
+				timeEnd: '2012.12.31 12:00:00',
+				desc: '车辆电池出现重大问题'
+			},
+			{
+				category: '现场维修工单',
+				timeStart: '2016.01.01 10:00:01',
+				timeEnd: '2012.12.31 12:00:00',
+				desc: '车辆电池出现重大问题'
+			},
+			{
+				category: '现场维修工单',
+				timeStart: '2016.01.01 10:00:01',
+				timeEnd: '2012.12.31 12:00:00',
+				desc: '车辆电池出现重大问题'
+			},
+			{
+				category: '现场维修工单---end',
+				timeStart: '2016.01.01 10:00:01',
+				timeEnd: '2012.12.31 12:00:00',
+				desc: '车辆电池出现重大问题'
+			}
 		]
 	};
 
-
+	$scope.clickHeadTopSearchIcon = function(){
+		$scope.enterQueryMode();
+	};
+	$scope.onSearchTextChangeFromHeaderBar = function(){
+		
+	};
 
 	$scope.clickEnterListMode = function($event){ //点击遮罩层，取消排序和筛选界面 
 		if(!$event){ return; }
@@ -156,6 +197,7 @@ worksheetModule.controller("WorksheetListCtrl",["$scope", "ionicMaterialInk", "$
 		$scope.config.isSorteMode = false;
 		$scope.config.isQueryMode = false;
 		$scope.config.isListMode = false;
+		//ionicMaterialMotion.pushDown(".tab-filter-content ,tab-filter-content-inner");
 	};
 	$scope.enterSorteMode = function(){
 		if($scope.config.isSorteMode){
@@ -281,7 +323,7 @@ worksheetModule.controller("WorksheetListCtrl",["$scope", "ionicMaterialInk", "$
 
 	$scope.init = function(){
 		$scope.enterListMode();
-		ionicMaterialInk.displayEffect();
+		
 		/*$ionicPopup.alert({
 			title: '你好',
 			template: '你好不'

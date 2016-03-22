@@ -1,10 +1,22 @@
 <ion-view canClickEnterListMode id="worksheetlist-view"  align-title="center">
-	<ion-header-bar align-title="center" class="bar-positive">
+	<ion-header-bar align-title="center" class="bar-positive" ng-class="{'query-mode':config.isQueryMode}">
 		<div class="left-back" ng-click="goBack();">
 			<i class="ion-ios-arrow-back"></i>
 		</div>
-		<h1 class="title" canClickEnterListMode ng-click="clickEnterListMode($event);">服务工单列表</h1>
+		<div class="title" canClickEnterListMode ng-click="clickEnterListMode($event);">服务工单列表</div>
+        <div class="buttons right" ng-class="{'right-buttons-actives':config.isQueryMode}" style="transition: width .3s linear 0s;">
+            <div class="search-header-bar">
+                    <div class="button button-clear right search" ng-click="clickHeadTopSearchIcon();">
+                        <i class="icon ion-ios-search-strong"></i>
+                    </div>
+                    <input class="search-input" type="text" ng-change="onSearchTextChangeFromHeaderBar($event);" ng-model="config.searchText" placeholder="{{config.searchPlaceholder}}">
+                <div class="cancle-search-mode" ng-click="enterListMode();">
+                    <span>取消</span>
+                </div>
+            </div>
+        </div>
 	</ion-header-bar>
+    <div class="search-hearder-bar"></div>
     <ion-content  class="" style="" scroll="false" has-bouncing="false">
     	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);">
     		<div class="search-box">
@@ -24,14 +36,14 @@
     		</div>
     	</div>
         <div class="tab-buttons-line-border" ng-class="{'right-filter':config.isFilterMode,'left-sort':config.isSorteMode}" ></div>
-        <div class="tab-buttons-line-border2" ng-if="config.isSorteMode || config.isFilterMode" ng-class="{'right-filter':config.isFilterMode,'left-sort':config.isSorteMode}">
+        <div class="tab-buttons-line-border2" ng-class="{'noShowColor':(!config.isFilterMode&&!config.isSorteMode),'right-filter':config.isFilterMode,'left-sort':config.isSorteMode}">
             <div class="left"></div>
             <div class="center"></div>
             <div class="right"></div>
         </div>
 
-        <div class="divs-wrapper" ng-class="{'show-model':showXbrModel()}" >
-                <div canClickEnterListMode class="tab-sort-content" ng-show="config.isSorteMode" ng-click="clickEnterListMode($event);">
+        <div class="divs-wrapper animate-fade-slide-in" ng-class="{'show-model':showXbrModel()}" >
+                <div canClickEnterListMode class="tab-sort-content" ng-class="{'active':config.isSorteMode}" ng-show="config.isSorteMode" ng-click="clickEnterListMode($event);">
                     <div canClickEnterListMode class="tab-sort-content-inner fill-parent">
                         <div canNotClickEnterListMode class="time-desc sort-type-item" ng-class="{'selected':config.sortedTypeTimeDesc}"  ng-click="sorteTimeDesc();">
                             <span>开始时间倒序</span>
@@ -48,7 +60,7 @@
                     </div>
                 </div>
                 
-                <div canClickEnterListMode class="tab-filter-content" ng-show="config.isFilterMode" ng-click="clickEnterListMode($event);">
+                <div canClickEnterListMode class="tab-filter-content" ng-class="{'active':config.isFilterMode}" ng-show="config.isFilterMode" ng-click="clickEnterListMode($event);">
                     <div canClickEnterListMode class="tab-filter-content-inner" style="">
                         <div canNotClickEnterListMode class="filter-time">
                             <div class="filter-time-title filter-title">日期区间</div>
@@ -86,7 +98,7 @@
                 
                 <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
                     <ion-scroll class="fill-parent" on-refresh="" has-bouncing="false">
-                        <div class="list fill-parent">
+                        <div class="list">
                             <div class="item" ng-repeat="item in datas.testDates">
                                 <div class="left">
                                     <span></span>

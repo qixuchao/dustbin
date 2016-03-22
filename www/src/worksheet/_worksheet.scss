@@ -3,6 +3,8 @@ $worksheetlist-selected-color: #236CE6;
 	
 	ion-header-bar{
 		background-color: $crm-header-bar-bgcolor;
+		transition: left 0.2s ease-out 0s;
+		left: 0;
 		.left-back{
 			@include display-flex;
 			@include align-items(center);
@@ -11,6 +13,72 @@ $worksheetlist-selected-color: #236CE6;
 		    padding-right: 1.5rem;
 		    justify-content: center;
 		    font-size: 1.8rem;
+		}
+		.left-back, .title, {
+			transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
+		}
+		.buttons.right{
+			background-color: #3259A4;
+			width: 2.5rem;
+			overflow: hidden;
+			display: inline-block;
+			min-height: 1.5rem;
+		}
+		.search-header-bar{
+			@include display-flex;
+			.button-clear.search{
+				width: 2rem;
+				min-height: 1rem;
+			}
+			input.search-input{
+				@include flex(1);
+				display: inline-block;
+			}
+			.cancle-search-mode{
+				display: inline-block;
+				width: 3rem;
+				line-height: 2rem;
+				text-align: center;
+				font-size: 1rem;
+			}
+		}
+		.right-buttons-active{
+			width: 100%;
+			border: 1px solid red;
+		}
+		&.query-mode{
+			.buttons.right{
+				width: 96%;
+				margin: auto;
+				.button-clear.search{
+					width: 1.8rem;
+					min-width: 1.8rem;
+					background-color: white;
+					color: $crm-header-bar-bgcolor;
+					border-radius: 10px 0px 0px 0px;
+					i:before{
+						font-size: 1.2rem;
+					}
+				}
+				input{
+					border-radius: 0px 0px 10px 0px;
+				}
+			}
+			.left-back, .title{
+				width: 0rem;
+				min-width: 0px;
+			}
+			.left-back{
+				overflow: hidden;
+			    margin: 0px;
+			    padding: 0px;
+			}
+			.title{
+				overflow: hidden;
+			    margin: 0px;
+			    padding: 0px;
+			    left: 0 !important;
+			}
 		}
 	}
 	ion-content{
@@ -69,7 +137,15 @@ $worksheetlist-selected-color: #236CE6;
 		width: 100%;
 		height: 100%;
 		position: absolute;
-		z-index: 0;		
+		z-index: 0;	
+		padding-bottom: 3rem;
+		.item.ng-enter{
+			transition: 0.4s linear all;
+			opacity: 0;
+		}
+		.item.ng-enter.ng-enter-active{
+			opacity: 1;
+		}
 	}
 	.xbr-model-div.show{
 		min-height: 400px;
@@ -138,9 +214,10 @@ $worksheetlist-selected-color: #236CE6;
 			//transform: translate(100%,0);
 		}
 	}
-	.tab-buttons-line-border2{
+	.tab-buttons-line-border2{	
 		height: 1px;
 		width: 100%;
+		display: inline-block;
 		//position: relative;
 		@include display-flex;
 		.left{
@@ -192,16 +269,29 @@ $worksheetlist-selected-color: #236CE6;
 				padding-left: .3rem;
 			}
 		}
+		&.noShowColor{
+			background-color: white;
+			.left,.center,.right{
+				background-color: white;
+			}
+			.center{
+				display: none;
+			}
+		}
 	}
 
 	
 	.tab-sort-content{
+		@include transition(left .2s linear 0.0s);
 		height: 100%;
 		position: absolute;
-	    left: 0px;
-	    right: 0px;
+	    left: -100%;
+	    width: 100%;
 		z-index: $divs-wrapper-z-index;
 		margin-top: 0rem;
+		&.active{
+			left: 0px;
+		}
 		.tab-sort-content-inner{			
 		}
 		.sort-type-item{
@@ -233,12 +323,16 @@ $worksheetlist-selected-color: #236CE6;
 	}
 	
 	.tab-filter-content{
+		@include transition(left .2s linear 0.0s);
 		position: absolute;
-	    left: 0px;
-	    right: 0px;
+	    left: 100%;
+	    width: 100%;
 		z-index: $divs-wrapper-z-index;
 		margin-top: 0rem;
 		background-color: white;
+		&.active{
+			left: 0px;
+		}
 		.filter-title{
 			height: 2rem;
 		    line-height: 2rem;
@@ -258,7 +352,7 @@ $worksheetlist-selected-color: #236CE6;
 			.filter-time-title{
 				@include flex(2.5);
 				height: 100%;
-				line-height:  $filter-time-line-height;	
+				line-height:  $filter-time-line-height;
 			}
 			.filter-times-start-end{
 				height:  $filter-time-line-height;	
