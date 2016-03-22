@@ -1,0 +1,550 @@
+@charset "UTF-8";
+/* 公共样式*/
+.bar.bar-header .button+.title {
+  text-align: center;
+}
+.bar .title{
+  position: absolute;
+  top: 0.5em;
+  right: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+  margin: 0 10px;
+  min-width: 30px;
+  height: 43px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 44px;
+  color: rgb(250, 250, 250);
+}
+.bar{
+  border-bottom: none;
+  padding: 0;
+  height: 3.28em;
+  background-color: rgba(43, 96, 171, 0.90);
+  background-size: 0;
+}
+.bar .button.button-clear {
+  color: #fff;
+  padding-left: 0.8em;
+  padding-top: 0.8em;
+}
+.bar-subheader {
+  height: 2.7em;
+  top: 60px;
+  display: block;
+  fill: #2B60AB 90%;
+}
+.row .col{
+  padding:0;
+  margin:0;
+}
+b, strong {
+  font-weight: 500;
+}
+.row+.row {
+  margin-top: 0;
+  padding-top: 0;
+}
+input[type=text]{
+  padding-left: 2em;
+}
+input{
+   display: block;
+   padding-top: 2px;
+   padding-left: 2em;
+   height: 40px;
+   color: #ccc;
+   vertical-align: middle;
+   font-size: 15px;
+   line-height: 16px;
+   width: 96%;
+   position: fixed;
+   top: 9px;
+   right: 6px;
+   border: 1px solid #dedede;
+   border-radius:5px;
+ }
+.placeholder-icon {
+  color: #aaa;
+  position: absolute;
+  z-index: 2;
+  top: 1em;
+  left: 1em;
+}
+.pointImg{
+  height: 0.7em;
+  position: relative;
+  left: 30%;
+}
+.buttonText{
+  left: 30%;
+  font-size: 1em;
+  color: rgba(128,128,128,0.48);
+}
+//@media not all, (-webkit-min-device-pixel-ratio: 1.5), not all, (min-resolution: 144dpi), (min-resolution: 1.5dppx)
+
+//车辆查询
+.CarList{
+   .textImg{
+     -webkit-user-drag: none;
+     position: absolute;
+     top: 3em;
+     height: 3.0em;
+     width: 100%;
+   }
+  .shapeImg{
+    height:1.2em;
+  }
+   .contentType{
+    position: relative;
+    top: 6em;
+     border-bottom: 1px solid gray;
+  }
+  .rowType{
+    padding-top:1em;
+  }
+  .row+.row .row {
+    /* margin-top: -5px; */
+    padding-top: 0;
+    height: 4em;
+  }
+ .car1{
+    padding-left: 0.4em;
+    color: rgba(17, 116, 243, 0.88);
+  }
+  .car2{
+    color: #4A4A4A;
+    font-size: 14px;
+  }
+   .colType{
+    padding-left: 0;
+  }
+}
+//车辆详情列表
+.CarDetail {
+  .absolute{
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+  .top-back2{
+    background:url("../../img/car/barBg.png") no-repeat!important;
+    background-size:100% 100%!important;
+    margin-top:-1px;
+  }
+  .top-back {
+    background:url("../../img/car/headerBg.png") no-repeat;
+    background-size:100% 100%;
+    color: white;
+    font-size: 16px;
+    .title {
+      padding-top: 20px;
+      color: white;
+      i {
+        font-size: 25px;
+        color: #c9ddf0;
+        padding-left: 8px;
+      }
+    }
+    .mainInfo {
+      .row {
+        padding-bottom: 10px;
+        .status {
+          color: #9fca17;
+        }
+        .num {
+          margin-left: 20px;
+          color: #9f9d99;
+        }
+        .edit {
+          position: fixed;
+          right: 10px;
+        }
+      }
+      i {
+        color: #9fca17;
+        margin-right: 5px;
+        font-size: 12px;
+        padding-top: 2px;
+      }
+
+    }
+  }
+  .row1 {
+    height: 3em;
+    font-size: 1em;
+    position: relative;
+    left: 0.5em;
+    color: white;
+  }
+  .colText{
+    font-size: 14px;
+  }
+  .col-70{
+    font-size:1.1em;
+    color:rgba(155, 155, 155,0.9) ;
+    padding-left: 2em;
+  }
+  u{
+    color: #0074d6;
+    font-size: 0.8em;
+  }
+  .col-80{
+    font-size:13px;
+    color:rgba(155, 155, 155,0.9) ;
+  }
+  .row2 {
+    font-size: 14px;
+    position: relative;
+    left: 4%;
+    margin-top: 0;
+    color: white;
+  }
+  .contentType{
+    position: relative;
+  }
+  .btType {
+    padding: 0 0.5em 0 0.5em;
+    height:38px;
+  }
+  .rowBt{
+    position: relative;
+    margin-bottom: 0.5em;
+  }
+  .titleType {
+    position: relative;
+    margin-top: 1.2em;
+    padding-top: 5px;
+    height: 2.1em;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .titleImg{
+    height:2.5em;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+   }
+  b, strong {
+    font-weight: 500;
+    font-size: 14px;
+  }
+   .rowType {
+     position: relative;
+     left: 4%;
+     padding-top: 1em;
+     padding-bottom: 1em;
+     padding-right: 0;
+     //border-bottom: 1px solid #ccc;
+     padding-left: 0;
+  }
+   .rowType1 {
+     position: relative;
+     left: 4%;
+     padding-top: 1em;
+     padding-bottom: 1em;
+     padding-right:0;
+     padding-left: 0;
+     //border-bottom: 1px solid #ccc;
+  }
+  .lineType1{
+    border-bottom: 1px solid #ccc;
+  }
+   .colType {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .rowType2 {
+    padding: 0;
+    margin: 0;
+  }
+ .lastRow {
+    padding-left: 0.9em;
+    padding-top: 5px;
+    border-left: 1px solid rgba(128, 128, 128, 0.54);
+  }
+}
+
+.Maintenance {
+  ion-content {
+    top: 5em;
+  }
+  .colType {
+    text-align: center;
+    font-size: 1.5em;
+    color:rgba(155, 155, 155,0.9) ;
+  }
+  .select {
+    font-size: 1em;
+    color:rgba(155, 155, 155,0.9) ;
+  }
+  .sort {
+    font-size: 1em;
+    color:rgba(155, 155, 155,0.9) ;
+  }
+  .rowType{
+    background-color: white;
+    position: relative;
+    top: -0.1em;
+    padding-bottom: 0.5em;
+  }
+  .arrow-shadow{
+    border: 2px solid #0c63ee;
+    height: 40px;
+    position: absolute;
+    width: 40px;
+    left: 20%;
+  }
+  .arrow-shadow1{
+    border: 2px solid rgba(51, 205, 95, 0.77);
+    height: 40px;
+    position: absolute;
+    width: 40px;
+    left: 68%;
+  }
+  //
+  //.triangle-up:before {
+  //  border-left-color: #f00;
+  //  right: -21px;
+  //}
+  .lineImg{
+    height: 2px;
+    position: relative;
+    background:-moz-linear-gradient(left, #0c63ee, #33cd5f);/*Mozilla*/
+    background:-webkit-gradient(linear,0 50%,100% 50%,from(#0c63ee),to(#33cd5f));/*Old gradient for webkit*/
+    background:-webkit-linear-gradient(left, #0c63ee, #33cd5f);/*new gradient for Webkit*/
+    background:-o-linear-gradient(left, #0c63ee, #33cd5f); /*Opera11*/
+  }
+  .borderLine{
+    border-bottom: 2px solid rgba(221, 221, 221, 0.59);
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+  .row-center {
+    background-color: white;
+    position: relative;
+  }
+  .borderLine{
+    b{
+      font-weight: 600;
+      color: rgba(68, 68, 68, 0.98);
+      font-size: 1.1em;
+    }
+    span{
+      font-size: 14px;
+      color:rgba(17, 17, 17, 0.43) ;
+      font-weight: 500;
+    }
+  }
+  .selected{
+    background-color: blue;
+  }
+  .sortType {
+    position: relative;
+    height: 0.8em;
+    right: -0.5em;
+  }
+  .colType {
+    .row-center{
+       padding: 0;
+    }
+  }
+  .myPro ul li {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.24);
+    font-size: 1em;
+    text-indent: 1.5em;
+    color: rgba(17, 17, 17, 0.63);
+  }
+
+  .ion-chevron-right:before {
+    content: "";
+    position: relative;
+    top: -0.3em;
+  }
+  .liType {
+    height: 2.4em;
+    line-height: 2em;
+    color: #B4B4B4;
+  }
+  .liType ul {
+    margin-top: 0.15em;
+  }
+  .animated {
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  .ulType {
+    position: absolute;
+    background-color: white;
+    z-index: 22;
+    margin-top: 0.2em;
+    width: 100%;
+    top: 3em;
+    box-shadow: 0 3px rgba(128,128,128,0.51);
+  }
+  .selectType {
+    position: relative;
+    height: 0.8em;
+    right: -0.5em;
+    transform: rotate(360deg);
+    transition: transform 0.3s;
+  }
+  .selectContent {
+    position: absolute;
+    z-index: 22;
+    width: 100%;
+    top: 3em;
+    background-color: white;
+    box-shadow: 0 3px rgba(128,128,128,0.51);
+  }
+
+  .titleType {
+    padding-top: 5px;
+    height: 2.1em;
+    padding-bottom: 0;
+  }
+  .line{
+    border-bottom: 1px solid black;
+    margin-right: 1em;
+  }
+  input[type=text]{
+    text-align: center;
+  }
+  input{
+    display: block;
+    padding-top: 2px;
+    height: 35px;
+    color: #ccc;
+    vertical-align: middle;
+    font-size: 15px;
+    line-height: 16px;
+    width: 100%;
+    position: relative;
+    top: -0.1em;
+    border-radius: 0;
+    background-color: rgba(204, 204, 204, 0.28);
+  }
+  input[type=text]{
+    padding-left: 0;
+  }
+  .lineType{
+    border-bottom: 1px solid #aaa;
+    width: 90%;
+    margin-left: 5%;
+  }
+  .classColor{
+    background-color: rgba(204, 204, 204, 0.29);
+  }
+  .btType {
+    color: #aaa;
+    box-shadow: none;
+    padding: 0 0.5em;
+    min-height: 30px;
+    vertical-align: top;
+    text-align: center;
+    text-overflow: ellipsis;
+    line-height: 28px;
+    height: 18px;
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
+  }
+  .btType1 {
+    color: #aaa;
+    box-shadow: none;
+    padding: 0 2px;
+    min-height: 30px;
+    min-width: 4em;
+    vertical-align: top;
+    text-align: center;
+    text-overflow: ellipsis;
+    line-height: 2em;
+    height: 1px;
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
+  }
+  .col-20, .col-33 {
+    padding: 15px 0;
+  }
+  .col-50 {
+    padding-left: 1em;
+  }
+  .button-light.button-outline {
+    border-color: rgba(43, 96, 171, 0.90);
+    color: rgba(43, 96, 171, 0.90);
+    min-height: 2em;
+    box-shadow: none;
+    border-radius: 0.5em;
+    line-height: 2.4em;
+  }
+  .shadowDiv1{
+      position: fixed;
+      top: 5em;
+      left: 0;
+      z-index: 11;
+      visibility: visible;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(128, 128, 128, 0.27);
+      opacity: 1;
+    }
+  .shadowDiv2{
+    position: fixed;
+    top: 22.5em;
+    left: 0;
+    z-index: 11;
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.27);
+    opacity: 1;
+  }
+}
+.SpareList{
+   .divContent{
+     position: relative;
+     top: 2em;
+     border-bottom: 1px solid rgba(128, 128, 128, 0.41);
+     padding: 0.5em 0;
+   }
+  img{
+    height: 0.8em;
+  }
+  .col{
+    span{
+      font-size: 1.1em;
+      color: gray;
+    }
+    .spareName{
+       font-size: 1.2em;
+     }
+  }
+  b strong{
+    font-weight: 500;
+  }
+  .rowType{
+    position: relative;
+    top:2em;
+  }
+  .buttonText span{
+    left: 30%;
+    font-size: 1em;
+    color: rgba(128,128,128,0.48);
+  }
+  .col-45{
+    text-align: center;
+  }
+}
