@@ -2,15 +2,17 @@ var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
+var worksheetModule = angular.module('worksheetModule', []); // 工单模块
 
-var CRMApp = angular.module('CRMApp', ['ionic',
+var CRMApp = angular.module('CRMApp', ['ngAnimate','ionic',
     'ionic-material',
     'ionMdInput',
     'loginModule',
     'mainModule',
     'tabsModule',
-    'appModule'
-])
+    'appModule',
+    'worksheetModule'
+]);
 
 CRMApp.run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -25,7 +27,7 @@ CRMApp.run(function ($ionicPlatform) {
             }
         });
     })
-
+    
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
         // Turn off caching for demo simplicity's sake
@@ -54,8 +56,30 @@ CRMApp.run(function ($ionicPlatform) {
                 //controller: 'TabsCtrl'
             })
 
+            // 工单模块相关
+            .state('worksheetlist', {
+                url: '/worksheetlist',
+                templateUrl: 'src/worksheet/worksheet_list.html',
+                controller: 'WorksheetListCtrl'
+            })
+            .state('worksheetdetail', {
+                url: '/worksheetdetail',
+                templateUrl: 'src/worksheet/worksheet_detail.html',
+                controller: 'WorksheetDetailCtrl'
+            })
+
         ;
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/login');
     });
+
+
+
+
+
+
+
+
+
+

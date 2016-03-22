@@ -13,6 +13,14 @@
 	max-width: 100%;
 }
 
+
+/**
+ * 公共的 变量  
+ */
+ $crm-header-bar-bgcolor: rgb(50, 89, 164); // =#3259A4
+ $crm-content-bgcolor: #F5F5F5;
+
+
 /**
  * 公共的 mixin  
  */
@@ -23,6 +31,9 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
+
+
+
 
 
 /*公共样式*/
