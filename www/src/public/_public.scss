@@ -26,12 +26,17 @@
 
 
 /*公共样式*/
+$lineColor:#d2d2d2;
 .scroll {
-  height: 100%; }
-.nopadding {
-  padding: 0; }
-.nomargin {
-  margin: 0; }
+  height: 100%
+}
+.no-padding {
+  padding: 0!important; }
+.no-margin {
+  margin: 0!important; }
+.no-border{
+  border:none!important;
+}
 /*公共样式 end*/
 
 /*# sourceMappingURL=style.css.map */

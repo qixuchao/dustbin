@@ -3,6 +3,7 @@
  */
 'use strict';
 mainModule
+<<<<<<< HEAD
     .controller('MainCtrl', ['$scope', '$ionicSlideBoxDelegate','$ionicScrollDelegate', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate,$timeout, ionicMaterialInk, ionicMaterialMotion) {
 
 
@@ -12,7 +13,22 @@ mainModule
             document.getElementById('app-funcs').classList.toggle('on');
             ionicMaterialInk.displayEffect();
         },100);
+=======
+    .controller('MainCtrl', ['$scope', '$ionicSlideBoxDelegate', '$ionicScrollDelegate', '$timeout', '$ionicBackdrop','ionicMaterialInk', 'ionicMaterialMotion', function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,$ionicBackdrop, ionicMaterialInk, ionicMaterialMotion) {
 
+
+        //ionicMaterialMotion.fadeSlideInRight();
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+
+        $timeout(function () {
+            document.getElementById('app-funcs').classList.toggle('on');
+            ionicMaterialInk.displayEffect();
+            ionicMaterialMotion.fadeSlideInRight({
+                startVelocity: 3000,
+                selector: '.animate-fade-slide-in-right .item'
+            });
+        }, 100);
+        //$scope.more={flag:false};
         /*--------------------------------------------日历--------------------------------------------*/
         //判断是否是闰年,2月平年28天、闰年29天
         var isLeapYear = function (year) {
@@ -58,6 +74,7 @@ mainModule
             $ionicScrollDelegate.resize();
             $ionicScrollDelegate.scrollTop(true)
             //$timeout(function () {
+<<<<<<< HEAD
                 $scope.topHeight = {
                     'margin-top':document.getElementById('mainTopId').clientHeight+'px'
                 }
@@ -83,10 +100,40 @@ mainModule
                             month=12;
                             year--;
                         }else{
+=======
+            $scope.topHeight = {
+                'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
+            }
+            //},1)
+            //切换至月视图
+            if ($scope.viewFlag == false) {
+                document.getElementById('monthViewId').className='monthView animated fadeInDown';
+                document.getElementById('dayViewId').className='dayView';
+                var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
+                var page_index = dayViewHandle.currentIndex();
+                var arr = $scope.days[page_index].arr;
+                var select_day;
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i].checked == true) {
+                        select_day = arr[i].value;
+                        break
+                    }
+                }
+                $timeout(function () {
+                    var year = angular.copy($scope.year);
+                    var month = angular.copy($scope.month);
+                    if (arr[0].value > arr[6].value && select_day >= arr[0].value) {
+
+                        if (month == 1) {
+                            month = 12;
+                            year--;
+                        } else {
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
                             month--;
                         }
                         $scope.year = year;
                         $scope.month = month;
+<<<<<<< HEAD
                         monthInit(year,month,select_day);
                     }else{
                         $scope.year = year;
@@ -104,6 +151,27 @@ mainModule
                 for(var i=0;i<arr.length;i++){
                     if(arr[i].checked == true){
                         select_day=arr[i].value;
+=======
+                        monthInit(year, month, select_day);
+                    } else {
+                        $scope.year = year;
+                        $scope.month = month;
+                        monthInit(year, month, select_day);
+                    }
+                }, 5)
+                $ionicSlideBoxDelegate.update();
+            } else {
+                document.getElementById('monthViewId').className='monthView';
+                document.getElementById('dayViewId').className='dayView animated fadeInDown';
+                var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('monthView-handle');
+                var page_index = dayViewHandle.currentIndex();
+                var arr = $scope.monthView[page_index].arr;
+                //默认为当月一号
+                var select_day = 1;
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i].checked == true) {
+                        select_day = arr[i].value;
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
                         break
                     }
                 }
@@ -111,6 +179,7 @@ mainModule
             }
         }
 
+<<<<<<< HEAD
         var daysChangedInit = function(day){
             $timeout(function () {
                 $scope.topHeight = {
@@ -119,6 +188,25 @@ mainModule
             },10)
             //当天周几
             var init_day = new Date($scope.year+'/'+$scope.month+'/'+day).getDay();
+=======
+        var daysChangedInit = function (day) {
+            $timeout(function () {
+                $scope.topHeight = {
+                    'margin-top': '198px'
+                }
+                document.getElementById('mainContentId').style.marginTop = '198px';
+                $scope.$apply();
+            }, 10)
+            $timeout(function () {
+                $scope.topHeight = {
+                    'margin-top': '198px'
+                }
+                document.getElementById('mainContentId').style.marginTop = '198px';
+                $scope.$apply();
+            }, 200)
+            //当天周几
+            var init_day = new Date($scope.year + '/' + $scope.month + '/' + day).getDay();
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
             //当天与周日差了几天
             last_day = 0;
             if (init_day != 0) {
@@ -127,6 +215,7 @@ mainModule
                 last_day = init_day;
             }
             console.log(last_day)
+<<<<<<< HEAD
             var addDateTemp = addDate($scope.year+'/'+$scope.month+'/'+day, last_day);
             $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
             //if(day!=1){
@@ -140,6 +229,25 @@ mainModule
                 $scope.month++;
                 if($scope.month==13){
                     $scope.month=1;
+=======
+            var addDateTemp = addDate($scope.year + '/' + $scope.month + '/' + day, last_day);
+            $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
+            //if(day!=1){
+            var countTem;
+            for (var i = 0; i < $scope.days[0].arr.length; i++) {
+                if ($scope.days[0].arr[i].value == day) {
+                    countTem=i;
+                }
+            }
+            $timeout(function () {
+                $scope.days[0].arr[countTem].checked = true;
+            },450)
+            //}
+            if ($scope.days[0].arr[6].value < $scope.days[0].arr[0].value && day > $scope.days[0].arr[6].value) {
+                $scope.month++;
+                if ($scope.month == 13) {
+                    $scope.month = 1;
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
                     $scope.year++;
                 }
             }
@@ -206,7 +314,11 @@ mainModule
             var page_index = dayViewHandle.currentIndex();
             console.log(page_index)
             //当前在周视图
+<<<<<<< HEAD
             if(page_index!=undefined){
+=======
+            if (page_index != undefined) {
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
                 if (page_index == 0) {
                     for (var i = 0; i < 7; i++) {
                         if (($scope.year + '/' + $scope.month + '/' + $scope.days[0].arr[i].value) == todayDate) {
@@ -223,6 +335,7 @@ mainModule
                     dayViewHandle.slide(0, 300);
                     $scope.init();
                 }
+<<<<<<< HEAD
             }else{
                 var monthViewHanle = $ionicSlideBoxDelegate.$getByHandle('monthView-handle');
                 page_index = monthViewHanle.currentIndex();
@@ -244,6 +357,29 @@ mainModule
                     $scope.year=new Date().getFullYear();
                     $scope.month=new Date().getMonth()+1;
                     monthInit(mydate.getFullYear(),mydate.getMonth()+1,mydate.getDate());
+=======
+            } else {
+                var monthViewHanle = $ionicSlideBoxDelegate.$getByHandle('monthView-handle');
+                page_index = monthViewHanle.currentIndex();
+                if (page_index == 0) {
+                    if ($scope.month == (mydate.getMonth() + 1)) {
+                        initFirstMonth(mydate.getDate());
+                        return
+                    } else {
+                        monthViewHanle.previous(300);
+                        $timeout(function () {
+                            monthViewHanle.slide(0, 300);
+                            $scope.year = mydate.getFullYear();
+                            $scope.month = mydate.getMonth() + 1;
+                            monthInit(mydate.getFullYear(), mydate.getMonth() + 1, mydate.getDate());
+                        }, 100)
+                    }
+                } else {
+                    monthViewHanle.slide(0, 300);
+                    $scope.year = new Date().getFullYear();
+                    $scope.month = new Date().getMonth() + 1;
+                    monthInit(mydate.getFullYear(), mydate.getMonth() + 1, mydate.getDate());
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
                 }
             }
 
@@ -258,6 +394,7 @@ mainModule
             //nextDays(-7);
             alert('月份右滑动')
         }
+<<<<<<< HEAD
         $scope.selectDay = function(x,y){
             for(var i=0;i< x.length;i++){
                 x[i].checked = false;
@@ -265,6 +402,18 @@ mainModule
             }
             if(todayDate==$scope.year+'/'+$scope.month+'/'+y.value){
                 y.isToday=true;
+=======
+        $scope.selectDay = function (x, y) {
+            if(y.value==''){
+                return
+            }
+            for (var i = 0; i < x.length; i++) {
+                x[i].checked = false;
+                x[i].isToday = false;
+            }
+            if (todayDate == $scope.year + '/' + $scope.month + '/' + y.value) {
+                y.isToday = true;
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
             }
             y.checked = true;
         }
@@ -276,12 +425,17 @@ mainModule
             last_day = today;
         }
         $scope.topHeight = {
+<<<<<<< HEAD
             'margin-top':'198px'
+=======
+            'margin-top': '198px'
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
         }
         $scope.init = function () {
             var addDateTemp = addDate(todayDate, last_day);
             $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
             var todayTemp = angular.copy(today);
+<<<<<<< HEAD
             if(todayTemp==0){
                 todayTemp=6;
             }else{
@@ -292,6 +446,18 @@ mainModule
             //模拟有代办事项
             $scope.days[0].arr[todayTemp].toDo=true;
             $scope.days[0].arr[todayTemp+1].toDo=true;
+=======
+            if (todayTemp == 0) {
+                todayTemp = 6;
+            } else {
+                todayTemp = todayTemp - 1;
+            }
+            //默认选中当天
+            $scope.days[0].arr[todayTemp].checked = true;
+            //模拟有代办事项
+            $scope.days[0].arr[todayTemp].toDo = true;
+            $scope.days[0].arr[todayTemp + 1].toDo = true;
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
 
             $scope.year = addDateTemp.getFullYear();
             $scope.month = addDateTemp.getMonth() + 1;
@@ -304,9 +470,15 @@ mainModule
         $scope.slideHasChanged = function (page_now) {
             $timeout(function () {
                 $scope.topHeight = {
+<<<<<<< HEAD
                     'margin-top':document.getElementById('mainTopId').clientHeight+'px'
                 }
             },10)
+=======
+                    'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
+                }
+            }, 10)
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
             $scope.year = $scope.days[page_now].year;
             $scope.month = $scope.days[page_now].month;
             if (isLeapYear($scope.year)) {
@@ -371,6 +543,7 @@ mainModule
             }
             return monthObj;
         }
+<<<<<<< HEAD
         var initFirstMonth = function(day){
             console.log(day);
             var month_page_now = $ionicSlideBoxDelegate.$getByHandle('monthView-handle').currentIndex();
@@ -382,20 +555,42 @@ mainModule
                         if(day==mydate.getDate()){
                             arr[i].isToday = true;
                         }else{
+=======
+        var initFirstMonth = function (day) {
+            console.log(day);
+            var month_page_now = $ionicSlideBoxDelegate.$getByHandle('monthView-handle').currentIndex();
+            var arr = $scope.monthView[month_page_now].arr;
+            $timeout(function () {
+                for (var i = 0; i < arr.length; i++) {
+                    if (day == arr[i].value) {
+                        arr[i].checked = true;
+                        if (day == mydate.getDate()) {
+                            arr[i].isToday = true;
+                        } else {
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
                             arr[i].isToday = false;
                         }
                         continue;
                     }
+<<<<<<< HEAD
                     arr[i].isToday=false;
                     arr[i].checked=false;
                 }
                 $scope.$apply();
             },1)
+=======
+                    arr[i].isToday = false;
+                    arr[i].checked = false;
+                }
+                $scope.$apply();
+            }, 1)
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
             //$timeout(function(){
             //    $scope.$apply();
             //},1)
         }
 
+<<<<<<< HEAD
         var monthInit = function (year,month,day) {
             $timeout(function () {
                 $scope.topHeight = {
@@ -410,6 +605,29 @@ mainModule
             }
             if(decTemp==-1){
                 decTemp=2;
+=======
+        var monthInit = function (year, month, day) {
+            $timeout(function () {
+                $scope.topHeight = {
+                    'margin-top': '284px'
+                }
+                document.getElementById('mainContentId').style.marginTop = '284px';
+            }, 10)
+            $timeout(function () {
+                $scope.topHeight = {
+                    'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
+                }
+                document.getElementById('mainContentId').style.marginTop = document.getElementById('mainTopId').clientHeight + 'px';
+            }, 50)
+            var month_page_now = $ionicSlideBoxDelegate.$getByHandle('monthView-handle').currentIndex();
+            var addTemp = month_page_now + 1;
+            var decTemp = month_page_now - 1;
+            if (addTemp == 3) {
+                addTemp = 0;
+            }
+            if (decTemp == -1) {
+                decTemp = 2;
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
             }
             $scope.monthView[month_page_now] = getMonthView(year, month);
             initFirstMonth(day);
@@ -423,9 +641,15 @@ mainModule
         $scope.monthHasChanged = function (page_now) {
             $timeout(function () {
                 $scope.topHeight = {
+<<<<<<< HEAD
                     'margin-top':document.getElementById('mainTopId').clientHeight+'px'
                 }
             },10)
+=======
+                    'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
+                }
+            }, 10)
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
             $scope.year = $scope.monthView[page_now].year;
             $scope.month = $scope.monthView[page_now].month;
             if (isLeapYear($scope.year)) {
@@ -450,6 +674,7 @@ mainModule
         }
         /*----------------------------月视图 end----------------------------*/
         /*-------------------------------------------日历 end-------------------------------------------*/
+<<<<<<< HEAD
         $scope.marks = ['#cf021b','#f5a623','#4a90e2','#f8e71c','#417505'];
         $scope.thingsToDo = [{
             title:'到青浦购买机械装备',
@@ -493,6 +718,65 @@ mainModule
             x.showMarks = false;
             x.mark = color;
         }
+=======
+        $scope.marks = ['#cf021b', '#f5a623', '#4a90e2', '#f8e71c', '#417505'];
+        $scope.thingsToDo = [{
+            title: '到青浦购买机械装备',
+            year: 2016,
+            month: 3,
+            day: 12,
+            startTime: '15:00',
+            endTime: '18:00',
+            mark: '#417505',
+            showMarks: true
+        }, {
+            title: '浦东新区工程监督',
+            year: 2016,
+            month: 3,
+            day: 16,
+            startTime: '15:00',
+            endTime: '18:00',
+            mark: '#cf021b',
+            showMarks: false
+        }, {
+            title: 'LOL拿首胜',
+            year: 2016,
+            month: 3,
+            day: 16,
+            startTime: '19:00',
+            endTime: '21:00',
+            mark: '#4a90e2',
+            showMarks: false
+        }, {
+            title: 'LOL拿首胜',
+            year: 2016,
+            month: 3,
+            day: 16,
+            startTime: '19:00',
+            endTime: '21:00',
+            mark: '#4a90e2',
+            showMarks: false
+        }];
+        $scope.moreApps = function(){
+            //$ionicBackdrop.retain();
+        }
+        $scope.chooseMark = function (x, color) {
+            x.showMarks = false;
+            x.mark = color;
+        }
+        $scope.delete = function (x) {
+            x.class = 'animated zoomOutRight';
+            var arr = document.getElementsByClassName('obj');
+            console.log(arr)
+            for (var i = 0; i < arr.length; i++) {
+                arr[i].style.transitionDelay = '0s';
+            }
+            $timeout(function () {
+                $scope.thingsToDo.splice($scope.thingsToDo.indexOf(x), 1);
+            }, 10)
+            //$scope.thingsToDo.splice($scope.thingsToDo.indexOf(x),1);
+        }
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
     }
     ])
 ;
