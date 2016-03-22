@@ -8,10 +8,10 @@
     },
     "installed_plugins": {
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.atlenergy"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-contacts": {
-            "PACKAGE_NAME": "com.ionicframework.atlenergy"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         }
     },
     "dependent_plugins": {}

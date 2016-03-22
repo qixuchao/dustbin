@@ -26,7 +26,8 @@ appModule
         },{
             url:'img/apps/empInfo.png'
         },{
-            url:'img/apps/searchCar.png'
+            url:'img/apps/searchCar.png',
+            go: 'worksheetlist'
         }];
         $timeout(function(){
             ionicMaterialMotion.fadeSlideInRight({
