@@ -1,12 +1,13 @@
 @charset "UTF-8";
-
-@import
-	"ionic_sass/_mixins.scss",
-	"ionic_sass/_variables.scss",
-	"public",
-	"../main/main.scss",
-	"../tabs/tabs.scss",
-    "../login/login_Css.scss",
-    "../car/car.scss"
+@import "ionic_sass/_mixins.scss",
+"ionic_sass/_variables.scss",
+"public",
+"../main/main.scss",
+"../tabs/tabs.scss",
+"../login/login_Css.scss",
+"../applications/apps.scss",
+"../applications/saleActivities/_saleActivies.scss",
+"../car/car.scss",
+"../spare/spare.scss"
 ;
 

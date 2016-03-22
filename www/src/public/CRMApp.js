@@ -3,6 +3,9 @@ var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
 var carModule = angular.module('carModule',[]);
+var salesModule = angular.module('salesModule', []);
+var spareModule = angular.module('spareModule',[]);
+
 var CRMApp = angular.module('CRMApp', ['ionic',
     'ionic-material',
     'ionMdInput',
@@ -10,7 +13,9 @@ var CRMApp = angular.module('CRMApp', ['ionic',
     'mainModule',
     'tabsModule',
     'appModule',
-    'carModule'
+    'carModule',
+    'spareModule',
+    'salesModule'
 ])
 
 CRMApp.run(function ($ionicPlatform) {
@@ -49,14 +54,19 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl: 'src/tabs/tabs.html',
                 controller: 'TabsCtrl'
             })
-            .state('test', {
-                url: '/test',
-                templateUrl: 'src/test.html'
-                //controller: 'TabsCtrl'
+            .state('saleActList', {
+                url: 'apps/saleActList',
+                templateUrl: 'src/applications/saleActivities/saleAct_List.html',
+                controller: 'saleActListCtrl'
+            })
+            .state('saleActDetail', {
+                url: 'apps/saleActList/detail',
+                templateUrl: 'src/applications/saleActivities/saleAct_detail.html',
+                controller: 'saleActDetailCtrl'
             })
             //汽车列表
             .state('car',{
-                url:'/car',
+                url:'apps/car',
                 templateUrl:'src/car/car.html',
                 controller:'CarCtrl'
             })
@@ -77,13 +87,19 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl:'src/car/maintenance.html',
                 controller:'MaintenanceCtrl'
             })
-            .state('search',{
-                url:'/search',
-                templateUrl:'src/car/search.html',
-                controller:'SearchCtrl'
+           //备件列表
+            .state('spareList',{
+                url:'apps/spareList',
+                templateUrl:'src/spare/spareList.html',
+                controller:'SpareListCtrl'
+            })
+            .state('spareDetail',{
+                url:'/spareDetail',
+                templateUrl:'src/spare/spareDetail.html',
+                controller:'SpareDetailCtrl'
             })
         ;
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/tabs');
     });

@@ -1,5 +1,5 @@
 <ion-view class="CarDetail">
-    <div id="sdTitleId" class="top-back absolute fadeIn" style="height: 75px;background: none" ng-show="showTitle">
+    <div id="sdTitleId" class="top-back2 absolute fadeIn" ng-show="showTitle">
         <div class="row row-center title" >
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-69 text-center">车辆详情</div>
@@ -7,16 +7,16 @@
     </div>
     <ion-content has-bouncing="false" on-scroll="onScroll()">
         <div class="top-back">
-            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+            <div class="row row-center title " ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-69 text-center">车辆详情</div>
             </div>
             <div class="mainInfo">
-                <div class="row row1 row-center">
+                <div class="row row1 row-center" ng-class="titleFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="col col-center col-8">
                         <img ng-src="img/car/Oval.png" class="pointImg">
                     </div>
-                    <div class="col col-90 col-center colText" ng-class="titleFlag?'animated fadeOut':'animated fadeIn'">
+                    <div class="col col-90 col-center colText" >
                         {{carInfo.describe}}
                     </div>
                 </div>
