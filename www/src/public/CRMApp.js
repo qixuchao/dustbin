@@ -2,14 +2,15 @@ var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
-
+var carModule = angular.module('carModule',[]);
 var CRMApp = angular.module('CRMApp', ['ionic',
     'ionic-material',
     'ionMdInput',
     'loginModule',
     'mainModule',
     'tabsModule',
-    'appModule'
+    'appModule',
+    'carModule'
 ])
 
 CRMApp.run(function ($ionicPlatform) {
@@ -53,7 +54,34 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl: 'src/test.html'
                 //controller: 'TabsCtrl'
             })
-
+            //汽车列表
+            .state('car',{
+                url:'/car',
+                templateUrl:'src/car/car.html',
+                controller:'CarCtrl'
+            })
+            .state('carDetail',{
+                url:'/carDetail',
+                templateUrl:'src/car/carDetail.html',
+                controller:'CarDetailCtrl'
+            })
+            //备件列表
+            .state('spare',{
+                url:'/spare',
+                templateUrl:'src/car/spare.html',
+                controller:'SpareCtrl'
+            })
+            //维修记录
+            .state('maintenance',{
+                url:'/maintenance',
+                templateUrl:'src/car/maintenance.html',
+                controller:'MaintenanceCtrl'
+            })
+            .state('search',{
+                url:'/search',
+                templateUrl:'src/car/search.html',
+                controller:'SearchCtrl'
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback
