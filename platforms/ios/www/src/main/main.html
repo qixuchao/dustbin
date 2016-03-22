@@ -1,13 +1,27 @@
+<<<<<<< HEAD
 <div class="main" id="mainTopId">
     <div class="top-back">
         <!--周视图-->
         <div class="dayView">
             <div class="row months" on-double-tap="doubleClick()"
+=======
+<div class="own-backDrop" ng-show="moreflag" ng-click="moreflag=false"></div>
+<div class="main" id="mainTopId">
+    <div class="top-back">
+        <div class="dayView">
+            <div id="yearMonthId" class="row months" on-double-tap="doubleClick()"
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
                  on-swipe-left="onMonthSwipeLeft()"
                  on-swipe-right="onMonthSwipeRight()">
                 <div class="text-right year" ng-click="returnToday()">{{year}}</div>
                 <div class="month" ng-click="returnToday()">{{month<10?('0'+month):month}}</div>
             </div>
+<<<<<<< HEAD
+=======
+        </div>
+        <!--周视图-->
+        <div id="dayViewId" class="dayView">
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
             <div on-swipe-down="changeView()" ng-if="viewFlag">
                 <div class="row day">
                     <div class="col text-center" ng-repeat="x in weeks" ng-class="x.class">
@@ -15,6 +29,8 @@
                         <div class="today" ng-if="!x.flag">&nbsp;</div>
                         <div>{{x.value}}</div>
                     </div>
+<<<<<<< HEAD
+=======
                 </div>
                 <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)"
                                delegate-handle="dayView-handle">
@@ -32,12 +48,37 @@
             </div>
         </div>
         <!--月视图-->
+        <div id="monthViewId" on-swipe-down="changeView()" ng-show="!viewFlag" class="monthView">
+            <div class="row week">
+                <div class="col text-center" ng-repeat="x in weeks">
+                    <div>{{x.value}}</div>
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+                </div>
+                <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)"
+                               delegate-handle="dayView-handle">
+                    <ion-slide ng-repeat="x in days">
+                        <div class="row day">
+                            <div class="col text-center nopadding myDay" ng-repeat="y in x.arr"
+                                 ng-class="{'edgeDay':(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6),'checked':y.checked}"
+                                 ng-click="selectDay(x.arr,y)">{{y.value}}<br>
+
+                                <div class="dot" ng-show="y.toDo"></div>
+                            </div>
+                        </div>
+                    </ion-slide>
+                </ion-slide-box>
+            </div>
+<<<<<<< HEAD
+        </div>
+        <!--月视图-->
         <div on-swipe-down="changeView()" ng-show="!viewFlag" class="monthView">
             <div class="row week">
                 <div class="col text-center" ng-repeat="x in weeks">
                     <div>{{x.value}}</div>
                 </div>
             </div>
+=======
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
             <ion-slide-box does-continue="true" on-slide-changed="monthHasChanged($index)"
                            delegate-handle="monthView-handle">
                 <ion-slide ng-repeat="x in monthView track by $index">
@@ -64,6 +105,7 @@
                 待办
             </div>
         </div>
+<<<<<<< HEAD
         <button id="app-funcs" class="button button-fab button-fab-top-right button-energized-900 flap ink"><i
                 class="icon ion-ios-plus-empty"></i></button>
     </div>
@@ -74,6 +116,29 @@
         <div class="main-content">
             <div class="await-apl">待处理</div>
             <div class="obj" ng-repeat="x in thingsToDo">
+=======
+        <div class="own-animated more-off" ng-class="{'more-on fadeIn':moreflag}">
+            <img src="img/main/activity.png" ng-class="{activity:moreflag}" ng-show="moreflag">
+            <img src="img/main/clue.png" ng-class="{clue:moreflag}" ng-show="moreflag">
+            <img src="img/main/price.png" ng-class="{price:moreflag}" ng-show="moreflag">
+            <img src="img/main/opportunity.png" ng-class="{opportunity:moreflag}" ng-show="moreflag">
+            <img src="img/main/contacts.png" ng-class="{contacts:moreflag}" ng-show="moreflag">
+            <button id="app-funcs" class="button button-fab button-fab-top-right button-energized-900 flap ink"
+                    ng-click="moreflag=!moreflag;moreApps()" ng-class="{'darkColor':moreflag}">
+                <div class="own-animated" ng-class="moreflag?'rotateIn':'rotateLeave'"><i
+                        class="icon ion-ios-plus-empty"></i></div>
+            </button>
+        </div>
+    </div>
+</div>
+<ion-content id="mainContentId" class="main animate-fade-slide-in has-footer" has-bouncing="false" ng-class="{expanded:isExpanded}"
+             ng-style="topHeight">
+    <div class="content">
+        <div class="line-vertical"></div>
+        <div class="main-content animate-fade-slide-in-right">
+            <div class="await-apl">待处理</div>
+            <div class="obj item" ng-repeat="x in thingsToDo" ng-class="x.class">
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
                 <div class="circleNum" style="{{'border-color:'+x.mark}}">{{$index+1}}</div>
                 <div class="row row-center apl-content nopadding">
                     <div class="col col-80">
@@ -89,26 +154,47 @@
                                                            style="{{'color:'+ (x.mark=='#417505'?'':x.mark)}}"></i>
                     </div>
                     <div class="col col-10 text-center" ng-click="x.showMarks=!x.showMarks"><img
+<<<<<<< HEAD
                             src="../../img/main/dash.png" class="more"></div>
                 </div>
                 <div class="border-bottom"></div>
                 <div class="row row-center mark" ng-if="x.showMarks">
                     <img src="../../img/main/mark.png" class="markImg">
+=======
+                            src="img/main/dash.png" class="more"></div>
+                </div>
+                <div class="border-bottom"></div>
+                <div class="row row-center mark" ng-if="x.showMarks">
+                    <img src="img/main/mark.png" class="markImg">
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
 
                     <div class="markText">标记:</div>
                     <div class="col-48 markSelect">
                         <div class="row">
+<<<<<<< HEAD
                             <div class="col" ng-repeat="color in marks">
+=======
+                            <div class="col own-animated fadeInRight" ng-repeat="color in marks">
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
                                 <button class="button button-fab" style="{{'background:'+color}}"
                                         ng-click="chooseMark(x,color)"></button>
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <img src="../../img/main/delete.png" class="deleteImg">
 
                     <div class="markText">删除</div>
+=======
+                    <img src="img/main/delete.png" class="deleteImg" ng-click="delete(x)">
+                    <div class="markText" ng-click="delete(x)">删除</div>
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
                 </div>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 </ion-content>
+=======
+</ion-content>
+>>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41

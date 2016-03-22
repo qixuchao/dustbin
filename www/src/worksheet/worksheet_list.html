@@ -15,19 +15,24 @@
         
     	<div class="tab-buttons-line">
     		<div class="tab-button-block" ng-class="{'selected':config.isSorteMode}" ng-click="enterSorteMode();">
-    			<span>排序</span>
+    			<span>排 序</span>
     			<i class="icon ion-arrow-down-b"></i>
     		</div>
     		<div class="tab-button-block" ng-class="{'selected':config.isFilterMode}" ng-click="enterFilterMode();">
-    			<span>筛选</span>
+    			<span>筛 选</span>
     			<i class="icon ion-arrow-down-b"></i>
     		</div>
     	</div>
         <div class="tab-buttons-line-border" ng-class="{'right-filter':config.isFilterMode,'left-sort':config.isSorteMode}" ></div>
+        <div class="tab-buttons-line-border2" ng-if="config.isSorteMode || config.isFilterMode" ng-class="{'right-filter':config.isFilterMode,'left-sort':config.isSorteMode}">
+            <div class="left"></div>
+            <div class="center"></div>
+            <div class="right"></div>
+        </div>
 
         <div class="divs-wrapper" ng-class="{'show-model':showXbrModel()}" >
                 <div canClickEnterListMode class="tab-sort-content" ng-show="config.isSorteMode" ng-click="clickEnterListMode($event);">
-                    <div class="tab-sort-content-inner">
+                    <div canClickEnterListMode class="tab-sort-content-inner fill-parent">
                         <div canNotClickEnterListMode class="time-desc sort-type-item" ng-class="{'selected':config.sortedTypeTimeDesc}"  ng-click="sorteTimeDesc();">
                             <span>开始时间倒序</span>
                         </div>
@@ -44,24 +49,13 @@
                 </div>
                 
                 <div canClickEnterListMode class="tab-filter-content" ng-show="config.isFilterMode" ng-click="clickEnterListMode($event);">
-                    <div class="tab-filter-content-inner" style="">
+                    <div canClickEnterListMode class="tab-filter-content-inner" style="">
                         <div canNotClickEnterListMode class="filter-time">
                             <div class="filter-time-title filter-title">日期区间</div>
                             <div class="filter-times-start-end">
-                                <div class="filter-start-time">
-                                    <span>开始日期</span>
-                                    <input type="data">
-                                    <div class="data-picker">
-                                        <i class="icon ion-ios-calendar-outline"></i>
-                                    </div>
-                                </div>
-                                <div class="filter-end-time">
-                                    <span>开始日期</span>
-                                    <input type="data">
-                                    <div class="data-picker">
-                                        <i class="icon ion-ios-calendar-outline"></i>
-                                    </div>
-                                </div>
+                                <div class="filter-start-time" ng-bind="config.timeStart"></div>
+                                <div class="filter-time-center-line">-</div>
+                                <div class="filter-end-time" ng-bind="config.timeEnd"></div>
                             </div>
                         </div>
                         <div canNotClickEnterListMode class="filter-worksheet-type">
@@ -88,17 +82,29 @@
                         </div>
                     </div>
                 </div>
-
                 
-                <div class="worksheet-query-result"><!-- ng-show="config.isSorteMode" -->
-                    <div class="list">
-                        <div class="item" ng-repeat="item in datas.testDates">
-                            <div class="title">{{item.title}}</div>
-                            <div class="button button-clear">{{item.content}}</div>
-                        </div>         
-                    </div>
+                
+                <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
+                    <ion-scroll class="fill-parent" on-refresh="" has-bouncing="false">
+                        <div class="list fill-parent">
+                            <div class="item" ng-repeat="item in datas.testDates">
+                                <div class="left">
+                                    <span></span>
+                                </div>
+                                <div class="right">
+                                    <div class="category" ng-bind="item.category"></div>
+                                    <div class="time">
+                                        <span class="start" ng-bind="item.timeStart"></span>
+                                        <span class="line">-</span>
+                                        <span class="end" ng-bind="item.timeEnd"></span>
+                                    </div>
+                                    <div class="desc" ng-bind="item.desc"></div>
+                                </div>
+                            </div>         
+                        </div>
+                    </ion-scroll>                    
                 </div>
-                <div class="divs-wrapper-bg" ng-if="config.isSorteMode || config.isFilterMode"></div>
+                <div canClickEnterListMode class="divs-wrapper-bg" ng-if="config.isSorteMode || config.isFilterMode" ng-click="clickEnterListMode($event);"></div>
         </div>
 
 

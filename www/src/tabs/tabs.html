@@ -1,11 +1,11 @@
-<ion-view ng-init="tabs.name='main'">
-    <div ng-include="'src/main/main.html'" ng-if="tabs.name=='main'" ng-controller="MainCtrl"></div>
-    <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='app'" ng-controller="AppCtrl"></div>
-    <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='mainww'"></div>
-    <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='mawein'"></div>
+<ion-view class="myTab">
+    <div  ng-include="'src/main/main.html'" ng-if="tabs[0].isActive" ng-controller="MainCtrl"></div>
+    <div ng-include="'src/applications/applications.html'" ng-if="tabs[1].isActive" ng-controller="AppCtrl"></div>
+    <div ng-include="'src/applications/applications.html'" ng-if="tabs[2].isActive"></div>
+    <div ng-include="'src/applications/applications.html'" ng-if="tabs[3].isActive"></div>
     <div class="bar bar-footer">
         <div class="tabs tabs-icon-top">
-            <a class="tab-item" ng-click="tabs.name = 'main'"><i class="icon ion-home"></i>
+            <!--a class="tab-item" ng-click="tabs.name = 'main'"><i class="icon ion-home"></i>
                 Home
             </a>
             <a class="tab-item" ng-click="tabs.name = 'app'"><i class="icon ion-star"></i>
@@ -16,7 +16,11 @@
             </a>
             <a class="tab-item" ui-sref="worksheetlist"><i class="icon ion-gear-a"></i>
                 Settings
-            </a>
+            </a-->
+            <div class="tab-item ink" ng-repeat="tab in tabs" ng-click="clickTab(tab)" ng-class="tab.isActive?'backColor-on':'backColor-off'">
+                <i class="icon main-on" ng-class="tab.isActive?tab.onClass:tab.offClass"></i>
+                {{tab.name}}
+            </div>
         </div>
     </div>
 </ion-view>

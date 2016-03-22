@@ -32,17 +32,29 @@
 	text-overflow: ellipsis;
 }
 
-
+@mixin bg-linear-gradient($deg, $color-steps...){
+    background: -moz-linear-gradient($deg, $color-steps);
+    //background: -webkit-gradient(linear, deg, left bottom, color-stop(0%,#000000), color-stop(100%,#ffffff));
+    background: -webkit-linear-gradient($deg, $color-steps);
+    background: -o-linear-gradient($deg, $color-steps);
+    background: -ms-linear-gradient($deg, $color-steps);
+    background: linear-gradient($deg, $color-steps);
+}
 
 
 
 /*公共样式*/
+$lineColor:#d2d2d2;
 .scroll {
-  height: 100%; }
-.nopadding {
-  padding: 0; }
-.nomargin {
-  margin: 0; }
+  height: 100%
+}
+.no-padding {
+  padding: 0!important; }
+.no-margin {
+  margin: 0!important; }
+.no-border{
+  border:none!important;
+}
 /*公共样式 end*/
 
 /*# sourceMappingURL=style.css.map */

@@ -3,6 +3,7 @@ var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
+var salesModule = angular.module('salesModule', []);
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate','ionic',
     'ionic-material',
@@ -11,6 +12,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate','ionic',
     'mainModule',
     'tabsModule',
     'appModule',
+    'salesModule',
     'worksheetModule'
 ]);
 
@@ -50,10 +52,15 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl: 'src/tabs/tabs.html',
                 controller: 'TabsCtrl'
             })
-            .state('test', {
-                url: '/test',
-                templateUrl: 'src/test.html'
-                //controller: 'TabsCtrl'
+            .state('saleActList', {
+                url: 'apps/saleActList',
+                templateUrl: 'src/applications/saleActivities/saleAct_List.html',
+                controller: 'saleActListCtrl'
+            })
+            .state('saleActDetail', {
+                url: 'apps/saleActList/detail',
+                templateUrl: 'src/applications/saleActivities/saleAct_detail.html',
+                controller: 'saleActDetailCtrl'
             })
 
             // 工单模块相关
@@ -67,11 +74,10 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl: 'src/worksheet/worksheet_detail.html',
                 controller: 'WorksheetDetailCtrl'
             })
-
         ;
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/tabs');
     });
 
 

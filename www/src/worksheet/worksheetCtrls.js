@@ -26,9 +26,13 @@ worksheetModule.controller("WorksheetListCtrl",["$scope", "ionicMaterialInk", "$
 		filterImpactLow: false,
 		filterImpactNone: false,
 		filterImpactNoSelected: true,
+		timeStart: '20150101',
+		timeEnd: '20150609',
 
 
 		searchPlaceholder: '输入服务订单描述模糊搜索',
+
+
 
 
 		ok: true
@@ -67,61 +71,41 @@ worksheetModule.controller("WorksheetListCtrl",["$scope", "ionicMaterialInk", "$
 	$scope.datas = {
 		testDates: [
 			{
-				title: '标题111111',
-				content: '详情内容111111'
+				category: '现场维修工单',
+				timeStart: '2016.01.01 10:00:01',
+				timeEnd: '2012.12.31 12:00:00',
+				desc: '车辆电池出现重大问题'
 			},
 			{
-				title: '标题',
-				content: '详情内容'
+				category: '现场维修工单',
+				timeStart: '2016.01.01 10:00:01',
+				timeEnd: '2012.12.31 12:00:00',
+				desc: '车辆电池出现重大问题'
 			},
 			{
-				title: '标题',
-				content: '详情内容'
+				category: '现场维修工单',
+				timeStart: '2016.01.01 10:00:01',
+				timeEnd: '2012.12.31 12:00:00',
+				desc: '车辆电池出现重大问题'
 			},
 			{
-				title: '标题',
-				content: '详情内容'
+				category: '现场维修工单',
+				timeStart: '2016.01.01 10:00:01',
+				timeEnd: '2012.12.31 12:00:00',
+				desc: '车辆电池出现重大问题'
 			},
 			{
-				title: '标题',
-				content: '详情内容'
+				category: '现场维修工单',
+				timeStart: '2016.01.01 10:00:01',
+				timeEnd: '2012.12.31 12:00:00',
+				desc: '车辆电池出现重大问题'
 			},
 			{
-				title: '标题',
-				content: '详情内容'
+				category: '现场维修工单',
+				timeStart: '2016.01.01 10:00:01',
+				timeEnd: '2012.12.31 12:00:00',
+				desc: '车辆电池出现重大问题'
 			},
-			{
-				title: '标题',
-				content: '详情内容'
-			},
-			{
-				title: '标题',
-				content: '详情内容'
-			},
-			{
-				title: '标题',
-				content: '详情内容'
-			},
-			{
-				title: '标题',
-				content: '详情内容'
-			},
-			{
-				title: '标题',
-				content: '详情内容'
-			},
-			{
-				title: '标题',
-				content: '详情内容'
-			},
-			{
-				title: '标题',
-				content: '详情内容'
-			},
-			{
-				title: '标题',
-				content: '详情内容'
-			}
 		]
 	};
 
@@ -310,7 +294,7 @@ worksheetModule.controller("WorksheetListCtrl",["$scope", "ionicMaterialInk", "$
 worksheetModule.controller("WorksheetDetailCtrl",["$scope", "ionicMaterialInk", function($scope, ionicMaterialInk){
 
 	$scope.config = {
-		
+
 	};
 
 	$scope.datas = {

@@ -1,0 +1,21 @@
+.apps{
+  .scroll{
+    background: url("../../img/apps/background.png") no-repeat;
+    background-size: contain;
+    padding:60px 0px 0 10px;
+    ion-item{
+      text-align: center;
+      padding: 18px;
+      img{
+       width: 100%;
+      }
+    }
+    .cancel{
+      width: 50px;
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      margin-left: -25px;
+    }
+  }
+}
