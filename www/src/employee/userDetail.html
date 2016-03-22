@@ -1,0 +1,98 @@
+<ion-nav-view class="employee_detail">
+    <ion-header-bar style="min-height:160px;padding:0">
+        <div class="employee_detail_head">
+            <div class="employee_detailtitle">
+                <i class="icon ion-ios-arrow-back employeedeatil_headtitlei" ng-click="goBack()"></i>
+                <span class="employeedeatil_headtitlespan">员工详细信息</span>
+            </div>
+            <div class="employee_detailcontent">
+                <div class="employee_detailcontentname">
+                    <div class="employee_detailcontentcicle"></div><span class="employee_detailcontentspan">{{userdetailval.name}}-销售人员</span>
+                </div>
+                <div class="employee_detailcontentstep">销售阶段:<span style="margin-left:10px">SOP阶段</span></div>
+                <div class="employee_detailcontentphone">
+                    <i class="icon ion-ios-telephone-outline employee_detailcontentphonei"></i>
+                    <span style="margin-left: 4px;">{{userdetailval.mobilenumber}}</span>
+                </div>
+            </div>
+        </div>
+        </ion-header-bar>
+    <ion-content style="margin-top:114px">
+        <div class="employee_detail_countentbu" ng-click="gocustomerList()">
+            <img style="width:50px;height:50px" src="img/employee/employee_cus@2x1.png" alt=""/>
+            <div class="employee_detail_countentimgbase">
+                基本信息
+            </div>
+        </div>
+        <div class="employee_detail_countentbasic">
+            <div class="employee_detail_countentbasicinfo">基本信息</div>
+            <div class="employee_detail_countentbasicline"></div>
+            <div class="employee_detail_countentbasicclok"></div>
+        </div>
+        <div class="employee_detail_countentlist">
+            <div class="row" style="padding:10px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    员工标识
+                </div>
+                <div class="col col-60" style="color:#D2D2D2;">
+                    {{userdetailval.useid}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:10px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    姓名
+                </div>
+                <div class="col col-60" style="color:#D2D2D2">
+                    {{userdetailval.name}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:10px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    性别
+                </div>
+                <div class="col col-60" style="color:#D2D2D2">
+                    {{userdetailval.sex}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:10px 5px" ng-click="employeeshowphone()">
+                <div class="col col-40">
+                    <img src="img/employee/ephone@2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 2px"/>
+                    电话/分机
+                </div>
+                <div class="col col-60" style="color:#4A90E2;margin-left: 7px;">
+                    {{userdetailval.phoneNumber}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:10px 5px">
+                <div class="col col-40" ng-click="employeeshowmoblie()">
+                    <img src="img/employee/ephonemu@2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 2px"/>
+                    手机
+                </div>
+                <div class="col col-60" style="color:#4A90E2;margin-left: 7px;">
+                    {{userdetailval.mobilenumber}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:10px 5px">
+                <div class="col col-25">
+                    <img src="img/employee/eemail@2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 2px"/>
+                    邮箱
+                </div>
+                <div class="col col-75" style="color:#4A90E2;margin-left: 7px;">
+                    {{userdetailval.email}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+        </div>
+    </ion-content>
+</ion-nav-view>

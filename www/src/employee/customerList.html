@@ -1,0 +1,39 @@
+<ion-view class="employee_customer">
+    <ion-header-bar style="height:120px;padding: 0">
+        <div class="employeecustomer_head">
+            <div class="employeecustomer_headtitle">
+                <i class="icon ion-ios-arrow-back employeecustomer_headtitlei" ng-click="goBack()"></i>
+                <span class="employeecustomer_headtitlespan">客户列表</span>
+                <img class="employeecustomer_headtitleimg" src="img/employee/increase @2x.png"/>
+            </div>
+            <div class="employeecustomer_headquery">
+                <i class="ion-ios-search employeecustomer_headqueryimg"></i>
+                <input class="employeecustomer_headqueryinput" placeholder="请输入客户公司名称" type="text"/>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content style="margin-top:76px">
+       <ion-list>
+        <ion-item class="employee_customerlist" ng-repeat="x in employcustomerlist track by $index">
+            <div class="row" style="line-height:30px;">
+                <div class="col col-6" style="text-align: left;margin-top:1px">
+                    <div class="employee_customerlistcicle"></div>
+                </div>
+                <div class="col col-84" style="text-align: left;padding-left: 15px;">
+                    <span style="vertical-align: middle">{{x}}</span>
+                </div>
+                <div class="col col-10">
+                    <img class="employee_customerlist_listfor" src="img/employee/Shape@2x.png"></img>
+                </div>
+            </div>
+            <ion-option-button style="width:30px;text-align: center" class="button-assertive">
+                <i class="icon ion-ios-trash-outline" style="font-size: 50px;"></i>
+            </ion-option-button>
+            <div class="employee_query_listline">
+            </div>
+        </ion-item>
+       </ion-list>
+    </ion-content>
+</ion-view>
+
+

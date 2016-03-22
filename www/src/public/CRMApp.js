@@ -2,6 +2,8 @@ var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
+var employeeModule = angular.module('employeeModule', []);
+var employeeModuleServive = angular.module('employeeModuleServive', []);
 
 var CRMApp = angular.module('CRMApp', ['ionic',
     'ionic-material',
@@ -9,7 +11,9 @@ var CRMApp = angular.module('CRMApp', ['ionic',
     'loginModule',
     'mainModule',
     'tabsModule',
-    'appModule'
+    'appModule',
+    'employeeModule',
+    'employeeModuleServive'
 ])
 
 CRMApp.run(function ($ionicPlatform) {
@@ -53,8 +57,22 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl: 'src/test.html'
                 //controller: 'TabsCtrl'
             })
-
-        ;
+            //员工信息
+            .state('userQuery', {
+                url: '/userQuery',
+                templateUrl: 'src/employee/userQuery.html',
+                controller: 'userQueryCtrl'
+            })
+            .state('userDetail', {
+                url: '/userDetail',
+                templateUrl: 'src/employee/userDetail.html',
+                controller: 'userDetailCtrl'
+            })
+            .state('customerList', {
+                url: '/customerList',
+                templateUrl: 'src/employee/customerList.html',
+                controller: 'customerListCtrl'
+            });
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/login');
