@@ -43,7 +43,7 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
                 $('#sdTitleId').addClass('animated fadeIn');
                 $scope.TitleFlag = true;
                 $scope.showTitle=true;
-                if(position>13){
+                if(position>18){
                     $scope.titleFlag = true;
                 }else{
                     $scope.titleFlag = false;

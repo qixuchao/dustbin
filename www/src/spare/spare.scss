@@ -19,19 +19,20 @@
   line-height: 44px;
   color: rgb(250, 250, 250);
 }
-.bar{
-  border-bottom: none;
-  padding: 0;
-  height: 3.28em;
-  background-color: rgba(43, 96, 171, 0.90);
-  background-size: 0;
-}
 .bar .button.button-clear {
   color: #fff;
   padding-left: 0.8em;
   padding-top: 0.8em;
 }
 .SpareList{
+  .bar{
+    border-bottom: none;
+    padding: 0;
+    height: 3.28em;
+    background-color: rgba(43, 96, 171, 0.90);
+    background-size: 0;
+    box-shadow: none;
+  }
   .bar-subheader {
     height: 2.7em;
     top: 60px;
@@ -107,6 +108,14 @@
   }
 }
 .Detail{
+  .bar{
+    border-bottom: none;
+    padding: 0;
+    height: 3.28em;
+    background-color: rgba(43, 96, 171, 0.90);
+    background-size: 0;
+    box-shadow: none;
+  }
   ion-content {
     position: relative;
     top:5em;
