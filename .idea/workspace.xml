@@ -9,6 +9,9 @@
 
 
     <list default="true" id="02c04fcf-9192-4b6a-aba4-616bd27df0e2" name="Default" comment="">
+<<<<<<< HEAD
+      <change type="DELETED" beforePath="$PROJECT_DIR$/www/src/main/tab-animate.html" afterPath="" />
+=======
 
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/car/BMU.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/car/CSC.png" />
@@ -722,13 +725,19 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/saleDetail/oval.png" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/www/img/saleDetail/BG-1.png" afterPath="$PROJECT_DIR$/www/img/saleDetail/BG1.png" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/www/img/saleDetail/BG-2.png" afterPath="$PROJECT_DIR$/www/img/saleDetail/BG2.png" />
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/src/main/main.html" afterPath="$PROJECT_DIR$/platforms/ios/www/src/main/main.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/src/main/mainCtrl.js" afterPath="$PROJECT_DIR$/platforms/ios/www/src/main/mainCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/index.html" afterPath="$PROJECT_DIR$/www/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.css" afterPath="$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.js" afterPath="$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/applications/apps.scss" afterPath="$PROJECT_DIR$/www/src/applications/apps.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/applications/saleActivities/_saleActivies.scss" afterPath="$PROJECT_DIR$/www/src/applications/saleActivities/_saleActivies.scss" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_detail.html" afterPath="$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_detail.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/applications/saleActivities/saleActiviesCtrls.js" afterPath="$PROJECT_DIR$/www/src/applications/saleActivities/saleActiviesCtrls.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/main.html" afterPath="$PROJECT_DIR$/www/src/main/main.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/main.scss" afterPath="$PROJECT_DIR$/www/src/main/main.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/public/_public.scss" afterPath="$PROJECT_DIR$/www/src/public/_public.scss" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/main/mainCtrl.js" afterPath="$PROJECT_DIR$/www/src/main/mainCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/src/public/CRMApp.js" afterPath="$PROJECT_DIR$/www/src/public/CRMApp.js" />
     </list>
     <ignored path="atlenergy.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -752,6 +761,10 @@
       <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/main/main.html">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state vertical-scroll-proportion="5.0">
+              <caret line="0" column="24" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="24" />
+=======
             <state vertical-scroll-proportion="0.0">
 
       <file leaf-file-name="car.html" pinned="false" current-in-tab="false">
@@ -765,11 +778,16 @@
 
             <state vertical-scroll-proportion="2.5416667">
               <caret line="83" column="65" selection-start-line="83" selection-start-column="44" selection-end-line="83" selection-end-column="65" />
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="ionic.material.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.css">
+=======
       <file leaf-file-name="car.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/car/car.scss">
           <provider selected="true" editor-type-id="text-editor">
@@ -777,14 +795,19 @@
               <caret line="310" column="23" selection-start-line="310" selection-start-column="23" selection-end-line="310" selection-end-column="23" />
       <file leaf-file-name="main.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/main/main.scss">
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.625">
-              <caret line="219" column="17" selection-start-line="219" selection-start-column="17" selection-end-line="219" selection-end-column="17" />
+            <state vertical-scroll-proportion="35.686275">
+              <caret line="868" column="11" selection-start-line="868" selection-start-column="6" selection-end-line="868" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="CRMApp.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.js">
+=======
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
       <file leaf-file-name="loginCtrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/login/loginCtrl.js">
@@ -799,17 +822,23 @@
               <folding />
       <file leaf-file-name="mainCtrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/main/mainCtrl.js">
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="16" selection-start-line="10" selection-start-column="8" selection-end-line="17" selection-end-column="16" />
+              <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="saleAct_detail.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_detail.html">
+      <file leaf-file-name="main.scss" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/main/main.scss">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state vertical-scroll-proportion="-11.25">
+              <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+              <folding />
+=======
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
@@ -826,10 +855,15 @@
                 <element signature="n#style#0;n#div#0;n#div#1;n#ion-view#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#ion-view#0;n#!!top" expanded="true" />
               </folding>
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="mainCtrl.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/src/main/mainCtrl.js">
+=======
       <file leaf-file-name="tabs.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/src/tabs/tabs.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -848,14 +882,19 @@
               <caret line="0" column="48" selection-start-line="0" selection-start-column="48" selection-end-line="0" selection-end-column="48" />
       <file leaf-file-name="saleAct_List.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_List.html">
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.125">
-              <caret line="5" column="41" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="41" />
+            <state vertical-scroll-proportion="2.6180758">
+              <caret line="510" column="6" selection-start-line="510" selection-start-column="6" selection-end-line="510" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/index.html">
+=======
       <file leaf-file-name="carCtrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/car/carCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -870,14 +909,19 @@
               <caret line="145" column="38" selection-start-line="145" selection-start-column="38" selection-end-line="145" selection-end-column="38" />
       <file leaf-file-name="ionic.material.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.js">
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-8.458333">
+              <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="saleAct_detail.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_detail.html">
+=======
       <file leaf-file-name="CRMApp.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -887,14 +931,25 @@
               <caret line="73" column="18" selection-start-line="73" selection-start-column="18" selection-end-line="73" selection-end-column="18" />
       <file leaf-file-name="saleActiviesCtrls.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleActiviesCtrls.js">
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="43" column="74" selection-start-line="43" selection-start-column="74" selection-end-line="43" selection-end-column="74" />
-              <folding />
+            <state vertical-scroll-proportion="-4.3116884">
+              <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#ion-view#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#ion-view#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#ion-view#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#ion-view#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#input#0;n#div#3;n#div#1;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="saleActiviesCtrls.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleActiviesCtrls.js">
+=======
       <file leaf-file-name="spare.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/car/spare.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -903,9 +958,10 @@
               <caret line="13" column="51" selection-start-line="13" selection-start-column="51" selection-end-line="13" selection-end-column="51" />
       <file leaf-file-name="ionic.material.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.css">
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.784314">
-              <caret line="1376" column="8" selection-start-line="1376" selection-start-column="1" selection-end-line="1376" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -928,14 +984,26 @@
       <file leaf-file-name="_saleActivies.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/_saleActivies.scss">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state vertical-scroll-proportion="-12.5">
+              <caret line="171" column="11" selection-start-line="171" selection-start-column="11" selection-end-line="171" selection-end-column="11" />
+=======
             <state vertical-scroll-proportion="-22.458334">
               <caret line="233" column="19" selection-start-line="233" selection-start-column="19" selection-end-line="233" selection-end-column="19" />
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
+      <file leaf-file-name="ionic.material.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.81132">
+              <caret line="879" column="9" selection-start-line="879" selection-start-column="9" selection-end-line="879" selection-end-column="9" />
+=======
 <<<<<<< HEAD
       <file leaf-file-name="maintenance.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/src/car/maintenance.html">
@@ -961,6 +1029,7 @@
             <state vertical-scroll-proportion="-0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
               <folding />
             </state>
           </provider>
@@ -1022,6 +1091,8 @@
         <option value="$PROJECT_DIR$/www/package.json" />
         <option value="$PROJECT_DIR$/www/src/tabs/tabs.scss" />
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/www/src/login/loginCtrl.js" />
         <option value="$PROJECT_DIR$/www/src/tabs/tabs.html" />
         <option value="$PROJECT_DIR$/www/index.html" />
@@ -1038,27 +1109,34 @@
         <option value="$PROJECT_DIR$/www/src/car/car.html" />
 =======
         <option value="$PROJECT_DIR$/www/src/applications/apps.scss" />
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
         <option value="$PROJECT_DIR$/platforms/android/project.properties" />
         <option value="$PROJECT_DIR$/platforms/android/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/www/src/public/CRMApp.scss" />
-        <option value="$PROJECT_DIR$/www/src/applications/applications.html" />
         <option value="$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_List.html" />
-        <option value="$PROJECT_DIR$/www/src/applications/applications.js" />
-        <option value="$PROJECT_DIR$/www/index.html" />
         <option value="$PROJECT_DIR$/www/css/animate.css" />
         <option value="$PROJECT_DIR$/config.xml" />
-        <option value="$PROJECT_DIR$/www/src/public/CRMApp.js" />
-        <option value="$PROJECT_DIR$/www/src/tabs/tabs.js" />
-        <option value="$PROJECT_DIR$/www/src/main/main.scss" />
         <option value="$PROJECT_DIR$/www/src/dev/CRMApp.min.css" />
         <option value="$PROJECT_DIR$/www/src/main/main.html" />
         <option value="$PROJECT_DIR$/www/src/public/_public.scss" />
         <option value="$PROJECT_DIR$/www/src/dev/CRMApp.css" />
-        <option value="$PROJECT_DIR$/www/src/main/mainCtrl.js" />
-        <option value="$PROJECT_DIR$/www/src/applications/saleActivities/saleActiviesCtrls.js" />
+        <option value="$PROJECT_DIR$/www/src/applications/apps.scss" />
+        <option value="$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.css" />
+        <option value="$PROJECT_DIR$/www/src/public/CRMApp.js" />
+        <option value="$PROJECT_DIR$/www/src/applications/applications.html" />
+        <option value="$PROJECT_DIR$/www/src/applications/applications.js" />
+        <option value="$PROJECT_DIR$/www/src/tabs/tabs.js" />
+        <option value="$PROJECT_DIR$/www/src/main/main.scss" />
         <option value="$PROJECT_DIR$/www/src/applications/saleActivities/_saleActivies.scss" />
+        <option value="$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.js" />
+        <option value="$PROJECT_DIR$/www/index.html" />
+        <option value="$PROJECT_DIR$/www/src/applications/saleActivities/saleActiviesCtrls.js" />
         <option value="$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_detail.html" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/www/src/main/mainCtrl.js" />
+=======
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
       </list>
     </option>
   </component>
@@ -1351,11 +1429,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
+              <option name="myItemId" value="lib" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ionic-material" />
+=======
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="car" />
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1369,6 +1455,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+<<<<<<< HEAD
+              <option name="myItemId" value="platforms" />
+=======
               <option name="myItemId" value="www" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1396,6 +1485,7 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="car" />
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1424,10 +1514,14 @@
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
 <<<<<<< HEAD
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SVN/华润/app/www" />
+=======
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="D:/appStore/pld_demo" />
 =======
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../SVN/noah" />
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
@@ -1615,6 +1709,8 @@
   </component>
   <component name="editorHistoryManager">
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/car/maintenance.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1665,6 +1761,7 @@
         <state />
       </provider>
     </entry>
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
     <entry file="file://$PROJECT_DIR$/www/img/main/opportunity.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1755,14 +1852,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.333333">
-          <caret line="18" column="55" selection-start-line="18" selection-start-column="55" selection-end-line="18" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/css/animate.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.5">
@@ -1779,6 +1868,8 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
     <entry file="file://$PROJECT_DIR$/www/src/tabs/tabs.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1809,6 +1900,7 @@
         <state vertical-scroll-proportion="-12.458333">
           <caret line="347" column="30" selection-start-line="347" selection-start-column="30" selection-end-line="347" selection-end-column="30" />
 =======
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
     <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.25">
@@ -1817,6 +1909,8 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
     <entry file="file://$PROJECT_DIR$/www/src/main/tab-animate.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.625">
@@ -1826,6 +1920,7 @@
         </state>
       </provider>
     </entry>
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
     <entry file="file://$PROJECT_DIR$/www/img/saleDetail/Triangle.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1841,6 +1936,8 @@
         <state />
       </provider>
     </entry>
+<<<<<<< HEAD
+=======
     <entry file="file://$PROJECT_DIR$/www/src/applications/applications.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1870,6 +1967,7 @@
         </state>
       </provider>
     </entry>
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
     <entry file="file://$PROJECT_DIR$/www/src/dev/CRMApp.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
@@ -1950,13 +2048,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/overrides/ink.scss">
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/elements/loading.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="49.416668">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/js/ionic-material.js">
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/test.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -2011,6 +2112,7 @@
           <caret line="70" column="57" selection-start-line="70" selection-start-column="57" selection-end-line="70" selection-end-column="57" />
 =======
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/elements/loading.scss">
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2020,7 +2122,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/js/ionic-material.js">
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.min.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2028,7 +2130,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.min.js">
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic/scss/_animations.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2038,14 +2140,45 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
+=======
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/js/ionic-material.js">
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="1525" column="0" selection-start-line="1525" selection-start-column="0" selection-end-line="1525" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_List.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.625">
+          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/overrides/ionic.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.9411764">
+          <caret line="10" column="16" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/src/scss/overrides/ink.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/www/gulpfile.js">
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.min.js">
 =======
@@ -2055,6 +2188,7 @@
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.js">
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
 >>>>>>> dev
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2064,6 +2198,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.min.css">
+<<<<<<< HEAD
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+=======
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2157,10 +2296,14 @@
         <state vertical-scroll-proportion="-10.784314">
           <caret line="1376" column="8" selection-start-line="1376" selection-start-column="1" selection-end-line="1376" selection-end-column="8" />
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.min.js.map">
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/login/login.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -2168,6 +2311,7 @@
           <caret line="0" column="48" selection-start-line="0" selection-start-column="48" selection-end-line="0" selection-end-column="48" />
 =======
     <entry file="file://$PROJECT_DIR$/www/lib/ionic/scss/_animations.scss">
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2175,7 +2319,24 @@
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
+      </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/.bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/tabs/tabs.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.625">
+          <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/car/carDetail.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -2194,10 +2355,33 @@
         <state vertical-scroll-proportion="-0.625">
           <caret line="219" column="17" selection-start-line="219" selection-start-column="17" selection-end-line="219" selection-end-column="17" />
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/www/src/applications/applications.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="46" selection-start-line="0" selection-start-column="26" selection-end-line="0" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/applications/apps.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.875">
+          <caret line="3" column="30" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/applications/applications.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="6" selection-start-line="31" selection-start-column="6" selection-end-line="31" selection-end-column="6" />
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/car/carCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -2218,10 +2402,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="16" selection-start-line="10" selection-start-column="8" selection-end-line="17" selection-end-column="16" />
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/www/src/tabs/tabs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="26" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/car/car.scss">
       <provider selected="true" editor-type-id="text-editor">
@@ -2240,10 +2431,49 @@
         <state vertical-scroll-proportion="-3.125">
           <caret line="5" column="41" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="41" />
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="35.686275">
+          <caret line="868" column="11" selection-start-line="868" selection-start-column="6" selection-end-line="868" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-material/dist/ionic.material.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.81132">
+          <caret line="879" column="9" selection-start-line="879" selection-start-column="9" selection-end-line="879" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.458333">
+          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/main/main.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.25">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/public/CRMApp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+=======
 <<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/www/src/car/maintenance.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -2264,6 +2494,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="43" column="74" selection-start-line="43" selection-start-column="74" selection-end-line="43" selection-end-column="74" />
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <folding />
         </state>
       </provider>
@@ -2283,15 +2514,24 @@
 =======
     <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/_saleActivies.scss">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state vertical-scroll-proportion="-12.5">
+          <caret line="171" column="11" selection-start-line="171" selection-start-column="11" selection-end-line="171" selection-end-column="11" />
+=======
         <state vertical-scroll-proportion="-22.458334">
           <caret line="233" column="19" selection-start-line="233" selection-start-column="19" selection-end-line="233" selection-end-column="19" />
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/src/main/main.html">
+    <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleActiviesCtrls.js">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="14" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
+=======
 <<<<<<< HEAD
 <<<<<<< HEAD
         <state vertical-scroll-proportion="-7.2777777">
@@ -2314,6 +2554,7 @@
         <state vertical-scroll-proportion="2.5416667">
           <caret line="83" column="65" selection-start-line="83" selection-start-column="44" selection-end-line="83" selection-end-column="65" />
 >>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
+>>>>>>> 119a76740b81f9a4d6ff4c237402b8aed20b7780
           <folding />
         </state>
       </provider>
@@ -2327,15 +2568,32 @@
 =======
     <entry file="file://$PROJECT_DIR$/www/src/applications/saleActivities/saleAct_detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7169811">
-          <caret line="134" column="22" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
+        <state vertical-scroll-proportion="-4.3116884">
+          <caret line="96" column="36" selection-start-line="96" selection-start-column="36" selection-end-line="96" selection-end-column="36" />
           <folding>
             <element signature="n#style#0;n#div#0;n#ion-view#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#ion-view#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#ion-view#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#ion-view#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#input#0;n#div#3;n#div#1;n#div#0;n#ion-content#0;n#ion-view#0;n#!!top" expanded="true" />
           </folding>
 >>>>>>> developer
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/main/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.0">
+          <caret line="0" column="24" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/src/main/mainCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.6180758">
+          <caret line="510" column="6" selection-start-line="510" selection-start-column="6" selection-end-line="510" selection-end-column="6" />
+          <folding />
         </state>
       </provider>
     </entry>

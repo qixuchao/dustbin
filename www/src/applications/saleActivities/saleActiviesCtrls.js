@@ -11,22 +11,58 @@ salesModule
     }])
     .controller('saleActDetailCtrl', ['$scope', '$state', '$ionicHistory', '$ionicScrollDelegate', 'ionicMaterialInk', 'ionicMaterialMotion', '$timeout', function ($scope, $state, $ionicHistory, $ionicScrollDelegate, ionicMaterialInk, ionicMaterialMotion, $timeout) {
         ionicMaterialInk.displayEffect();
-        $timeout(function () {
-            console.log('fade')
-            ionicMaterialMotion.fadeSlideInRight({
-                startVelocity: 3000,
-                selector: '.animate-fade-slide-in-right .item'
-            });
-        }, 100);
+        $scope.statusArr = [{
+            value: '未处理',
+            code: ''
+        }, {
+            value: '处理中',
+            code: ''
+        }, {
+            value: '已完成',
+            code: ''
+        }, {
+            value: '已取消',
+            code: ''
+        }];
+        $scope.mySelect = {
+            status: $scope.statusArr[2]
+        };
+        $scope.isEdit = false;
+        $scope.editText = "编辑";
+        $scope.edit = function () {
+            if ($scope.editText == '编辑') {
+                $scope.isEdit = true;
+                $scope.editText = "保存";
+            } else {
+                //执行保存操作
+                $scope.isEdit = false;
+                $scope.editText = "编辑";
+            }
+            console.log($scope.mySelect.status)
+        }
         $scope.select = true;
         $scope.showTitle = false;
         $scope.showTitleStatus = false;
-        $timeout(function () {
-            $('#relativeId').css('height', window.screen.height-112+'px');
-        },100)
+        //$timeout(function () {
+        //    $('#relativeId').css('height', window.screen.height-112+'px');
+        //},100)
         $scope.changeStatus = function (flag) {
             $scope.select = flag;
-            $ionicScrollDelegate.resize();
+            //$timeout(function () {
+            //    $ionicScrollDelegate.resize();
+            //},10)
+
+            $ionicScrollDelegate.scrollTop(true);
+            $timeout(function () {
+                $scope.customerFlag = false;
+                $scope.placeFlag = false;
+                $scope.typeFlag = false;
+                $scope.statusFlag = false;
+                $scope.showTitle = false;
+                $scope.TitleFlag = false;
+                $scope.showTitleStatus = false;
+            },20)
+
         };
         $scope.progressArr = [{
             content: '与客户进行了初次交涉,效果良好',
@@ -39,9 +75,10 @@ salesModule
             time: '2016-3-8  12:11'
         }];
         var position;
+        var maxTop;
         $scope.onScroll = function () {
             position = $ionicScrollDelegate.getScrollPosition().top;
-            $('#relativeId').css('height', window.screen.height-112+'px');
+            //console.log(position)
             if (position > 10) {
                 $scope.TitleFlag = true;
                 $scope.showTitle = true;
@@ -67,9 +104,16 @@ salesModule
 
                 }
                 if (position > 143) {
+                    if(maxTop==undefined){
+
+                        maxTop = $ionicScrollDelegate.getScrollView().__maxScrollTop;
+                    }
                     $scope.showTitleStatus = true;
                 } else {
                     $scope.showTitleStatus = false;
+                }
+                if(position>maxTop){
+                    //$ionicScrollDelegate.scrollBottom(false)
                 }
             } else {
                 $scope.customerFlag = false;
@@ -80,6 +124,23 @@ salesModule
                 $scope.TitleFlag = false;
             }
             $scope.$apply();
+        };
+        $scope.input = {
+            progress: ''
+        }
+        $scope.submit = function () {
+            $scope.progressArr.push({
+                content: $scope.input.progress,
+                time: '2016-6-8  12:11'
+            });
+            $scope.input.progress = '';;
+            $ionicScrollDelegate.resize();
+            $timeout(function () {
+                maxTop = $ionicScrollDelegate.getScrollView().__maxScrollTop;
+                console.log($ionicScrollDelegate.getScrollView());
+                console.log(maxTop);
+                $ionicScrollDelegate.scrollBottom(true);
+            },20)
         }
     }])
 ;

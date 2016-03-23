@@ -424,22 +424,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                parent.className.indexOf('item') !== -1) {
 	                                return false;
 	                            }
-	
+
 	                            // Put element class and style to the specified parent
 	                            var wrapper = document.createElement('i');
 	                            wrapper.className = el.className + ' ink-input-wrapper';
-	
+
 	                            var elementStyle = el.getAttribute('style');
-	
+
 	                            if (!elementStyle) {
 	                                elementStyle = '';
 	                            }
-	
+
 	                            wrapper.setAttribute('style', elementStyle);
-	
+
 	                            el.className = 'ink-button-input';
 	                            el.removeAttribute('style');
-	
+
 	                            // Put element as child
 	                            parent.replaceChild(wrapper, el);
 	                            wrapper.appendChild(el);
@@ -447,18 +447,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                }
 	            };
-	
+
 	            Ink.displayEffect = function(options) {
 	                options = options || {};
-	
+
 	                if ('duration' in options) {
 	                    Effect.duration = options.duration;
 	                }
-	
+
 	                //Wrap input inside <i> tag
 	                var selectors = '.ink,.tab-item,.button-fab,.button-raised,.button-flat,.button-clear,a.item,.popup .button';
 	                Effect.wrapInput($$(selectors));
-	
+
 	                Array.prototype.forEach.call($$(selectors), function(i) {
 	                    if ('ontouchstart' in window) {
 	                        i.addEventListener('touchstart', Effect.show, false);
@@ -471,10 +471,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                });
 	            };
-	
+
 	            return Ink;
 	    }
-	
+
 	    ink.inject = [];
 	};
 
@@ -485,27 +485,27 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = function(angularApp) {
 	    angularApp.factory('ionicMaterialMotion', Motion);
-	
+
 	    function Motion() {
 	        /*global document, window*/
-	
+
 	        'use strict';
-	
+
 	        /*============================================================================*/
 	        /* HELPERS (non-exports)
 	        /=============================================================================*
 	        /   Abstract common lookups and manipulations in case better alternatives
 	        /   arise or future cross-platform differences warrant separate handling
 	        /=============================================================================*/
-	
+
 	        function getViewportHeight() {
 	            return window.innerHeight;
 	        }
-	
+
 	        function getBoundingClientRect(domNode) {
 	            return domNode.getBoundingClientRect;
 	        }
-	
+
 	        function showNotAnimatedElements(elements, total) {
 	            // Load the elements without effect
 	            for (var i = 0; i < total; i++) {
@@ -514,15 +514,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                child.className += ' done';
 	            }
 	        }
-	
-	
-	
+
+
+
 	        /*============================================================================*/
 	        /* MOTION (EXPORT)
 	        /=============================================================================*
 	        /   Animation methods for the library
 	        /=============================================================================*/
-	
+
 	        var motion = {
 	            blinds: blinds,
 	            fadeSlideIn: fadeSlideIn,
@@ -532,9 +532,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            ripple: ripple,
 	            slideUp: slideUp
 	        };
-	
+
 	        function blinds(options) {
-	
+
 	            // Declare our defaults
 	            var defaults = {
 	                finishDelayThrottle: 2,
@@ -543,39 +543,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	                selector: '.animate-blinds .item',
 	                startVelocity: 1100
 	            };
-	
+
 	            // Apply defaults if properties are not passed
 	            if (typeof options === 'undefined') {
 	                options = {};
 	            }
-	
+
 	            options.finishDelayThrottle = options.finishDelayThrottle || defaults.finishDelayThrottle;
 	            options.finishSpeedPercent = options.finishSpeedPercent || defaults.finishSpeedPercent;
 	            options.leftOffsetPercentage = options.leftOffsetPercentage || defaults.leftOffsetPercentage;
 	            options.startVelocity = options.startVelocity || defaults.startVelocity;
-	
+
 	            if (typeof options.selector == 'undefined') {
 	                options.selector = defaults.selector;
 	            }
-	
+
 	            // Fail early & silently log
 	            var isInvalidSelector = typeof options.selector === 'undefined' || options.selector === '';
-	
+
 	            if (isInvalidSelector) {
 	                console.log('invalid blinds selector');
 	                return false;
 	            }
-	
+
 	            var animateBlindsDom = document.querySelectorAll(options.selector);
 	            var elementsCount = animateBlindsDom.length;
 	            var elementAnimationCount = 0;
-	
+
 	            // Count the elements within the starting viewport so we're not exacting
 	            // more effort than required...
 	            //
 	            // We use css visiblity: hidden instead of display: none so the elements
 	            // maintain their DOM flow
-	
+
 	            var viewportHeight = getViewportHeight();
 	            for (var i = 0; i < elementsCount; i++) {
 	                if (animateBlindsDom[i].offsetTop < viewportHeight) {
@@ -584,7 +584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	                break;
 	            }
-	
+
 	            // Sequentially animate with a delay based on proximity
 	            var speed = options.startVelocity;
 	            for (var i = 0; i < elementAnimationCount; i++) {
@@ -596,7 +596,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                child.style.transitionDelay = delay + "s";
 	                child.className += ' in';
 	            }
-	
+
 	            // When we're done animating, switch the class to 'done'
 	            setTimeout(function() {
 	                for (var i = 0; i < elementAnimationCount; i++) {
@@ -609,15 +609,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    //child.querySelector('img').className += ' in';
 	                    animateBlindsDom[i].className += ' done';
 	                }
-	
+
 	            }, speed * options.finishSpeedPercent);
-	
+
 	            // Load the elements without effect
 	            showNotAnimatedElements(animateBlindsDom, elementsCount);
 	        }
-	
+
 	        function fadeSlideIn(options) {
-	
+
 	            // Declare our defaults
 	            var defaults = {
 	                finishDelayThrottle: 2,
@@ -626,39 +626,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	                selector: '.animate-fade-slide-in .item',
 	                startVelocity: 1100
 	            };
-	
+
 	            // Apply defaults if properties are not passed
 	            if (typeof options === 'undefined') {
 	                options = {};
 	            }
-	
+
 	            options.finishDelayThrottle = options.finishDelayThrottle || defaults.finishDelayThrottle;
 	            options.finishSpeedPercent = options.finishSpeedPercent || defaults.finishSpeedPercent;
 	            options.leftOffsetPercentage = options.leftOffsetPercentage || defaults.leftOffsetPercentage;
 	            options.startVelocity = options.startVelocity || defaults.startVelocity;
-	
+
 	            if (typeof options.selector == 'undefined') {
 	                options.selector = defaults.selector;
 	            }
-	
+
 	            // Fail early & silently log
 	            var isInvalidSelector = typeof options.selector === 'undefined' || options.selector === '';
-	
+
 	            if (isInvalidSelector) {
 	                console.log('invalid fadeSlideIn selector');
 	                return false;
 	            }
-	
+
 	            var animateFadeSlideInDom = document.querySelectorAll(options.selector);
 	            var elementsCount = animateFadeSlideInDom.length;
 	            var elementAnimationCount = 0;
-	
+
 	            // Count the elements within the starting viewport so we're not exacting
 	            // more effort than required...
 	            //
 	            // We use css visiblity: hidden instead of display: none so the elements
 	            // maintain their DOM flow
-	
+
 	            var viewportHeight = getViewportHeight();
 	            for (var i = 0; i < elementsCount; i++) {
 	                if (animateFadeSlideInDom[i].offsetTop < viewportHeight) {
@@ -667,7 +667,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	                break;
 	            }
-	
+
 	            // Sequentially animate with a delay based on proximity
 	            var speed = options.startVelocity;
 	            for (var i = 0; i < elementAnimationCount; i++) {
@@ -679,7 +679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                child.style.transitionDelay = delay + "s";
 	                child.className += ' in';
 	            }
-	
+
 	            // When we're done animating, switch the class to 'done'
 	            setTimeout(function() {
 	                for (var i = 0; i < elementAnimationCount; i++) {
@@ -690,15 +690,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    var delay = parseFloat(delayValue).toFixed(2);
 	                }
 	                animateFadeSlideInDom[0].className += ' done';
-	
+
 	            }, speed * options.finishSpeedPercent);
-	
+
 	            // Load the elements without effect
 	            showNotAnimatedElements(animateFadeSlideInDom, elementsCount);
 	        }
-	
+
 	        function fadeSlideInRight(options) {
-	
+
 	            // Declare our defaults
 	            var defaults = {
 	                finishDelayThrottle: 2,
@@ -707,39 +707,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	                selector: '.animate-fade-slide-in-right .item',
 	                startVelocity: 1100
 	            };
-	
+
 	            // Apply defaults if properties are not passed
 	            if (typeof options === 'undefined') {
 	                options = {};
 	            }
-	
+
 	            options.finishDelayThrottle = options.finishDelayThrottle || defaults.finishDelayThrottle;
 	            options.finishSpeedPercent = options.finishSpeedPercent || defaults.finishSpeedPercent;
 	            options.leftOffsetPercentage = options.leftOffsetPercentage || defaults.leftOffsetPercentage;
 	            options.startVelocity = options.startVelocity || defaults.startVelocity;
-	
+
 	            if (typeof options.selector == 'undefined') {
 	                options.selector = defaults.selector;
 	            }
-	
+
 	            // Fail early & silently log
 	            var isInvalidSelector = typeof options.selector === 'undefined' || options.selector === '';
-	
+
 	            if (isInvalidSelector) {
 	                console.log('invalid fadeSlideInRight selector');
 	                return false;
 	            }
-	
+
 	            var animateSlideInRightDom = document.querySelectorAll(options.selector);
 	            var elementsCount = animateSlideInRightDom.length;
 	            var elementAnimationCount = 0;
-	
+
 	            // Count the elements within the starting viewport so we're not
 	            // exacting more effort than required...
 	            //
 	            // We use css visiblity: hidden instead of display: none so the
 	            // elements maintain their DOM flow
-	
+
 	            var viewportHeight = getViewportHeight();
 	            for (var i = 0; i < elementsCount; i++) {
 	                if (animateSlideInRightDom[i].offsetTop < viewportHeight) {
@@ -748,7 +748,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	                break;
 	            }
-	
+
 	            // Sequentially animate with a delay based on proximity
 	            var speed = options.startVelocity;
 	            for (var i = 0; i < elementAnimationCount; i++) {
@@ -760,7 +760,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                child.style.transitionDelay = delay + "s";
 	                child.className += ' in';
 	            }
-	
+
 	            // When we're done animating, switch the class to 'done'
 	            setTimeout(function() {
 	                for (var i = 0; i < elementAnimationCount; i++) {
@@ -771,16 +771,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    var delay = parseFloat(delayValue).toFixed(2);
 	                }
 	                animateSlideInRightDom[0].className += ' done';
-	
+
 	            }, speed * options.finishSpeedPercent);
-	
+
 	            // Load the elements without effect
 	            showNotAnimatedElements(animateSlideInRightDom, elementsCount);
-	
+
 	        }
-	
+
 	        function ripple(options) {
-	
+
 	            // Declare our defaults
 	            var defaults = {
 	                finishDelayThrottle: 2,
