@@ -4,6 +4,7 @@ $worksheetlist-selected-color: #236CE6;
 	ion-header-bar{
 		background-color: $crm-header-bar-bgcolor;
 		transition: left 0.2s ease-out 0s;
+	//border: 1px solid red;
 		left: 0;
 		.left-back{
 			@include display-flex;
@@ -22,13 +23,15 @@ $worksheetlist-selected-color: #236CE6;
 			width: 2.5rem;
 			overflow: hidden;
 			display: inline-block;
-			min-height: 1.5rem;
+			//min-height: 1.5rem;			
+	//border: 1px solid green;			
 		}
 		.search-header-bar{
 			@include display-flex;
 			.button-clear.search{
 				width: 2rem;
-				min-height: 1rem;
+				height: 100%;
+				//min-height: 1rem;
 			}
 			input.search-input{
 				@include flex(1);
@@ -138,7 +141,9 @@ $worksheetlist-selected-color: #236CE6;
 		height: 100%;
 		position: absolute;
 		z-index: 0;	
-		padding-bottom: 3rem;
+		.list{
+			padding-bottom: 2rem;
+		}
 		.item.ng-enter{
 			transition: 0.4s linear all;
 			opacity: 0;
@@ -229,7 +234,7 @@ $worksheetlist-selected-color: #236CE6;
 		.center{
 			width: 10px;
 			height: 10px;
-			background-color: transparent;
+			background-color: white;
 			position: relative;
 			top: -5px;
 			border-left: 1px solid red;
@@ -604,7 +609,7 @@ $worksheetlist-selected-color: #236CE6;
 				min-width: 2rem;
 				padding: 0px;
 				height: $detail-header-bar-height;
-				min-height: 10px;
+				//min-height: 10px;
 				color: white;
 				i{
 					font-size: 1.8rem;
@@ -663,5 +668,42 @@ $worksheetlist-selected-color: #236CE6;
 
 	        }
 		}
+	}
+}
+
+#worksheetdetail-content{
+	@include display-flex;
+	@include flex-direction(column);
+	.detail-header{
+	    .detail-header-bar{
+	        .left{
+
+	        }
+	        .center{
+	            .title{
+	                
+	            }
+	            .sub-title{
+
+	            }
+	        }
+	    }
+	    .detail-header-info{
+	        .detail-line{
+
+	        }
+	        .info-title .circle-span{
+
+	        }
+	    }
+	    .detail-tab-bar{
+	        .detail-tab-btn{
+
+	        }
+	    }
+	}
+	.detail-content{
+	    @include flex(1);
+	    border: 1px solid red;
 	}
 }

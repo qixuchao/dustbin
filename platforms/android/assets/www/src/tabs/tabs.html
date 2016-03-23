@@ -1,34 +1,3 @@
-<<<<<<< HEAD
-<ion-view ng-init="tabs.name='main'">
-    <div ng-include="'src/main/main.html'" ng-if="tabs.name=='main'" ng-controller="MainCtrl"></div>
-    <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='app'" ng-controller="AppCtrl"></div>
-    <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='mainww'"></div>
-    <div ng-include="'src/applications/applications.html'" ng-if="tabs.name=='mawein'"></div>
-<<<<<<< HEAD
-    <div ng-include="src/car/car.html" ng-if="tab.name=='car'" ng-controller="CarCtrl"></div>
-
-=======
->>>>>>> 635da8fa72c4d9700a780bb9439ecd95c2923378
-    <div class="bar bar-footer">
-        <div class="tabs tabs-icon-top">
-            <a class="tab-item" ng-click="tabs.name = 'main'"><i class="icon ion-home"></i>
-                Home
-            </a>
-            <a class="tab-item" ng-click="tabs.name = 'app'"><i class="icon ion-star"></i>
-                Favorites
-            </a>
-            <a class="tab-item" ui-sref="test"><i class="icon ion-gear-a"></i>
-                Settings
-            </a>
-<<<<<<< HEAD
-            <a class="tab-item" ui-sref="car"><i class="icon ion-gear-a"></i>
-                car
-=======
-            <a class="tab-item" ui-sref="worksheetlist"><i class="icon ion-gear-a"></i>
-                Settings
->>>>>>> 635da8fa72c4d9700a780bb9439ecd95c2923378
-            </a>
-=======
 <ion-view class="myTab">
     <div  ng-include="'src/main/main.html'" ng-if="tabs[0].isActive" ng-controller="MainCtrl"></div>
     <div ng-include="'src/applications/applications.html'" ng-if="tabs[1].isActive" ng-controller="AppCtrl"></div>
@@ -40,7 +9,6 @@
                 <i class="icon main-on" ng-class="tab.isActive?tab.onClass:tab.offClass"></i>
                 {{tab.name}}
             </div>
->>>>>>> 3030c285d3c4943c68860da505946e4b0a416f41
         </div>
     </div>
 </ion-view>

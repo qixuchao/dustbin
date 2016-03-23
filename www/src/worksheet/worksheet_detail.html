@@ -22,9 +22,9 @@
                     <span>状态:处理中</span>
                 </div>
             </div>
-        </div>
+        </div> 
 	</ion-header-bar-->
-    <div class="detail-header-bar">
+    <!--div class="detail-header-bar">
         <div class="top-buttons">
             <div class="left button button-clear">
                 <i class="ion-ios-arrow-back"></i>
@@ -51,10 +51,47 @@
                 </div>
             </div>
         </div>
-    </div>
-    <ion-content class="" style="" scroll="false" has-bouncing="false">
-    	
-        
-
+    </div-->
+    <ion-content id="worksheetdetail-content" style="" scroll="false" has-bouncing="false">
+        <div class="detail-header">
+            <div class="detail-header-bar">
+                <div class="left"> <i class="ion-ios-arrow-back"></i> </div>
+                <div class="center">
+                    <span class="title">活动详情</span>
+                    <span class="sub-title" ng-bind="datas.header.title"></span>
+                </div>
+                <div class="right"><span>后续</span></div>
+            </div>
+            <div class="detail-header-info">
+                <div class="detail-line info-title">
+                    <span class="circle-span"></span>
+                    <span ng-bind="datas.header.title"></span>
+                </div>
+                <div class="detail-line">
+                    <span class="line-title">客户:</span>
+                    <span class="line-value" ng-bind="datas.header.customer"></span>
+                </div>
+                <div class="detail-line">
+                    <span class="line-title">地点:</span>
+                    <span class="line-value" ng-bind="datas.header.place"></span>
+                </div>
+                <div class="detail-line">
+                    <span class="line-title">类型:</span>
+                    <span class="line-value" ng-bind="datas.header.category"></span>
+                </div>
+                <div class="detail-line">
+                    <span class="line-title">状态:</span>
+                    <span class="line-value-status" ng-bind="datas.header.status"></span>
+                    <span class="line-value-nostr" ng-bind="datas.header.noStr"></span>
+                </div>
+            </div>
+            <div class="detail-tab-bar">
+                <div class="detail-tab-btn"><span>详细信息</span></div>
+                <div class="detail-tab-btn"><span>相关方</span></div>
+            </div>
+        </div>
+        <div class="detail-content">
+            
+        </div>
     </ion-content>
 </ion-view>

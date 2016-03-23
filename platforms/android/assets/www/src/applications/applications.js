@@ -10,9 +10,11 @@ appModule
         $scope.imgs = [{
             url:'img/apps/partner.png'
         },{
-            url:'img/apps/saleAct.png'
+            url:'img/apps/saleAct.png',
+            go:"saleActList"
         },{
-            url:'img/apps/acPlan.png'
+            url:'img/apps/acPlan.png',
+            go:'saleActDetail'
         },{
             url:'img/apps/saleChance.png'
         },{
@@ -24,7 +26,8 @@ appModule
         },{
             url:'img/apps/empInfo.png'
         },{
-            url:'img/apps/searchCar.png'
+            url:'img/apps/searchCar.png',
+            go: 'worksheetlist'
         }];
         $timeout(function(){
             ionicMaterialMotion.fadeSlideInRight({
@@ -37,5 +40,10 @@ appModule
                 $scope.tabs[i].isActive = false;
             }
             $scope.tabs[0].isActive = true;
+        };
+        $scope.go = function(x){
+            if(x.go){
+                $state.go(x.go);
+            }
         }
     }]);
