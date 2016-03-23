@@ -20,7 +20,8 @@ appModule
         },{
             url:'img/apps/saleClue.png'
         },{
-            url:'img/apps/saleQuote.png'
+            url:'img/apps/saleQuote.png',
+            go:'worksheetlist'
         },{
             url:'img/apps/sparePart.png',
             go:'spareList'

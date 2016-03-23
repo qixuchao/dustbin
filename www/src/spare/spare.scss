@@ -38,6 +38,28 @@
     top: 60px;
     display: block;
     fill: #2B60AB 90%;
+    .placeholder-icon {
+      color: #aaa;
+      position: absolute;
+      z-index: 2;
+      top: .8em;
+      left: 1em;
+    }
+    input {
+      display: block;
+      padding-top: 2px;
+      padding-left: 2em;
+      color: #ccc;
+      vertical-align: middle;
+      font-size: 15px;
+      line-height: 16px;
+      width: 96%;
+      position: fixed;
+      top: 9px;
+      right: 6px;
+      border: 1px solid #dedede;
+      border-radius: 5px;
+    }
   }
   .row .col{
     padding:0;

@@ -21,23 +21,10 @@
   line-height: 44px;
   color: rgb(250, 250, 250);
 }
-.bar-header{
-  border-bottom: none;
-  padding: 0;
-  //height: 3.28em;
-  fill:#2B60AB 90%;
-  background-size: 0;
-}
 .bar .button.button-clear {
   color: #fff;
   padding-left: 0.8em;
   padding-top: 0.8em;
-}
-.bar-subheader {
-  height: 2.7em;
-  top: 60px;
-  display: block;
-  fill: #2B60AB 90%;
 }
 .row .col{
   padding:0;
@@ -49,32 +36,6 @@ b, strong {
 .row+.row {
   margin-top: 0;
   padding-top: 0;
-}
-input[type=text]{
-  padding-left: 2em;
-}
-input{
-   display: block;
-   padding-top: 2px;
-   padding-left: 2em;
-   height: 40px;
-   color: #ccc;
-   vertical-align: middle;
-   font-size: 15px;
-   line-height: 16px;
-   width: 96%;
-   position: fixed;
-   top: 9px;
-   right: 6px;
-   border: 1px solid #dedede;
-   border-radius:5px;
- }
-.placeholder-icon {
-  color: #aaa;
-  position: absolute;
-  z-index: 2;
-  top: .8em;
-  left: 1em;
 }
 .pointImg{
   height: 0.7em;
@@ -90,7 +51,7 @@ input{
 
 //车辆查询
 .CarList{
-  .bar{
+  .bar {
     border-bottom: none;
     padding: 0;
     height: 3.28em;
@@ -98,12 +59,41 @@ input{
     background-size: 0;
     box-shadow: none;
   }
-  .bar-subheader {
-    height: 2.7em;
-    top: 60px;
-    display: block;
-    fill: #2B60AB 90%;
-  }
+    .bar-header {
+      border-bottom: none;
+      padding: 0;
+      //height: 3.28em;
+      fill: #2B60AB 90%;
+      background-size: 0;
+    }
+    .bar-subheader {
+      height: 2.7em;
+      top: 60px;
+      display: block;
+      fill: #2B60AB 90%;
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .8em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-top: 2px;
+        padding-left: 2em;
+        color: #ccc;
+        vertical-align: middle;
+        font-size: 15px;
+        line-height: 16px;
+        width: 96%;
+        position: fixed;
+        top: 9px;
+        right: 6px;
+        border: 1px solid #dedede;
+        border-radius: 5px;
+      }
+    }
    .textImg{
      -webkit-user-drag: none;
      position: absolute;
@@ -487,26 +477,6 @@ input{
     border-bottom: 1px solid black;
     margin-right: 1em;
   }
-  input[type=text]{
-    text-align: center;
-  }
-  input{
-    display: block;
-    padding-top: 2px;
-    height: 35px;
-    color: #ccc;
-    vertical-align: middle;
-    font-size: 15px;
-    line-height: 16px;
-    width: 100%;
-    position: relative;
-    top: -0.1em;
-    border-radius: 0;
-    background-color: rgba(204, 204, 204, 0.28);
-  }
-  input[type=text]{
-    padding-left: 0;
-  }
   .lineType{
     border-bottom: 1px solid #aaa;
     width: 90%;
@@ -593,6 +563,28 @@ input{
     top: 60px;
     display: block;
     fill: #2B60AB 90%;
+    .placeholder-icon {
+      color: #aaa;
+      position: absolute;
+      z-index: 2;
+      top: .8em;
+      left: 1em;
+    }
+    input {
+      display: block;
+      padding-top: 2px;
+      padding-left: 2em;
+      color: #ccc;
+      vertical-align: middle;
+      font-size: 15px;
+      line-height: 16px;
+      width: 96%;
+      position: fixed;
+      top: 9px;
+      right: 6px;
+      border: 1px solid #dedede;
+      border-radius: 5px;
+    }
   }
    .divContent{
      position: relative;
