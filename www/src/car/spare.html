@@ -1,0 +1,48 @@
+<ion-view class="SpareList1">
+    <ion-header-bar class="bar">
+        <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
+        <div class="title"><b>车辆备件信息列表</b></div>
+    </ion-header-bar>
+    <ion-header-bar class="bar bar-subheader ">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="text" placeholder="请输入备件描述搜索"ng-model="carInfo">
+    </ion-header-bar>
+    <ion-content>
+        <div class="divContent" ng-repeat="spare in spareList">
+            <div class="row row-center">
+                <div class="col col-5">
+                    <img ng-src="img/car/Oval.png">
+                </div>
+                <div class="col col-center">
+                    <span class="spareName">{{spare.spareName}}</span>
+                </div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-5"></div>
+                <div class="col col-50 col-center">
+                    <b>备件编码:</b>
+                    <span>{{spare.spareNum}}</span>
+                </div>
+                <div class="col col-45 col-center">
+                    <b>标准使用数量:</b>
+                    <span>{{spare.count}}</span>
+                </div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-5"></div>
+                <div class="col col-50 col-center">
+                    <b>质保:</b>
+                    <span>{{spare.qualityTime}}</span>
+                </div>
+                <div class="col col-45 col-center">
+                    <span>{{spare.qualityDate}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row row-center rowType">
+            <a class="button button-clear buttonText">
+                <span>点击加载更多</span>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

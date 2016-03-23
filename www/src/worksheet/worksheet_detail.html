@@ -1,0 +1,97 @@
+<ion-view id="worksheetdetail-view"  align-title="center">
+	<!--ion-header-bar align-title="center" class="bar-positive">
+        <div class="buttons left-buttons">
+            <div class="left-button button button-clear" ng-click="goBack();">
+                <i class="ion-ios-arrow-back"></i>
+            </div>
+        </div>
+		<h1 class="title" canClickEnterListMode ng-click="clickEnterListMode($event);">工单详细信息</h1>
+        <div class="buttons">
+            <div class="button right-button button-clear">
+                <i class="ion-ios-more"></i>
+            </div>
+        </div>
+        <div class="detail-header-messages">
+            <div class="title">车辆出现重大问题,需要维修</div>
+            <div class="company">郑州金龙客车股份有限公司福州分公司1部</div>
+            <div class="user-status">
+                <div class="user">
+                    <span>外服人员: 张三</span>
+                </div>
+                <div class="status">
+                    <span>状态:处理中</span>
+                </div>
+            </div>
+        </div> 
+	</ion-header-bar-->
+    <!--div class="detail-header-bar">
+        <div class="top-buttons">
+            <div class="left button button-clear">
+                <i class="ion-ios-arrow-back"></i>
+            </div>
+            <div class="center">工单详细信息</div>
+            <div class="right button button-clear">
+                <i class="ion-ios-more"></i>
+            </div>
+        </div>
+        <div class="detail-msgs">
+            <div class="title">车辆出现重大问题,需要维修</div>
+            <div class="company">
+                <i class="ion-ios-more"></i>
+                <span>郑州金龙客车股份有限公司福州分公司1部</span>
+            </div>
+            <div class="user-status">
+                <div class="user">
+                    <i class="ion-ios-more"></i>
+                    <span>外服人员:张三</span>
+                </div>
+                <div class="status">
+                    <i class="ion-ios-more"></i>
+                    <span>状态:处理中</span>
+                </div>
+            </div>
+        </div>
+    </div-->
+    <ion-content id="worksheetdetail-content" style="" scroll="false" has-bouncing="false">
+        <div class="detail-header">
+            <div class="detail-header-bar">
+                <div class="left"> <i class="ion-ios-arrow-back"></i> </div>
+                <div class="center">
+                    <span class="title">活动详情</span>
+                    <span class="sub-title" ng-bind="datas.header.title"></span>
+                </div>
+                <div class="right"><span>后续</span></div>
+            </div>
+            <div class="detail-header-info">
+                <div class="detail-line info-title">
+                    <span class="circle-span"></span>
+                    <span ng-bind="datas.header.title"></span>
+                </div>
+                <div class="detail-line">
+                    <span class="line-title">客户:</span>
+                    <span class="line-value" ng-bind="datas.header.customer"></span>
+                </div>
+                <div class="detail-line">
+                    <span class="line-title">地点:</span>
+                    <span class="line-value" ng-bind="datas.header.place"></span>
+                </div>
+                <div class="detail-line">
+                    <span class="line-title">类型:</span>
+                    <span class="line-value" ng-bind="datas.header.category"></span>
+                </div>
+                <div class="detail-line">
+                    <span class="line-title">状态:</span>
+                    <span class="line-value-status" ng-bind="datas.header.status"></span>
+                    <span class="line-value-nostr" ng-bind="datas.header.noStr"></span>
+                </div>
+            </div>
+            <div class="detail-tab-bar">
+                <div class="detail-tab-btn"><span>详细信息</span></div>
+                <div class="detail-tab-btn"><span>相关方</span></div>
+            </div>
+        </div>
+        <div class="detail-content">
+            
+        </div>
+    </ion-content>
+</ion-view>

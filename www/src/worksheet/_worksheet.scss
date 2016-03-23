@@ -1,0 +1,709 @@
+$worksheetlist-selected-color: #236CE6;
+#worksheetlist-view{
+	
+	ion-header-bar{
+		background-color: $crm-header-bar-bgcolor;
+		transition: left 0.2s ease-out 0s;
+	//border: 1px solid red;
+		left: 0;
+		.left-back{
+			@include display-flex;
+			@include align-items(center);
+			margin-left: .4rem;
+			width: 2.5rem;
+		    padding-right: 1.5rem;
+		    justify-content: center;
+		    font-size: 1.8rem;
+		}
+		.left-back, .title, {
+			transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
+		}
+		.buttons.right{
+			background-color: #3259A4;
+			width: 2.5rem;
+			overflow: hidden;
+			display: inline-block;
+			//min-height: 1.5rem;			
+	//border: 1px solid green;			
+		}
+		.search-header-bar{
+			@include display-flex;
+			.button-clear.search{
+				width: 2rem;
+				height: 100%;
+				//min-height: 1rem;
+			}
+			input.search-input{
+				@include flex(1);
+				display: inline-block;
+			}
+			.cancle-search-mode{
+				display: inline-block;
+				width: 3rem;
+				line-height: 2rem;
+				text-align: center;
+				font-size: 1rem;
+			}
+		}
+		.right-buttons-active{
+			width: 100%;
+			border: 1px solid red;
+		}
+		&.query-mode{
+			.buttons.right{
+				width: 96%;
+				margin: auto;
+				.button-clear.search{
+					width: 1.8rem;
+					min-width: 1.8rem;
+					background-color: white;
+					color: $crm-header-bar-bgcolor;
+					border-radius: 10px 0px 0px 0px;
+					i:before{
+						font-size: 1.2rem;
+					}
+				}
+				input{
+					border-radius: 0px 0px 10px 0px;
+				}
+			}
+			.left-back, .title{
+				width: 0rem;
+				min-width: 0px;
+			}
+			.left-back{
+				overflow: hidden;
+			    margin: 0px;
+			    padding: 0px;
+			}
+			.title{
+				overflow: hidden;
+			    margin: 0px;
+			    padding: 0px;
+			    left: 0 !important;
+			}
+		}
+	}
+	ion-content{
+		background-color: $crm-content-bgcolor;
+		@include display-flex;
+		@include flex-direction(column);
+	}
+	
+	
+	
+	.search-box-wrapper{
+		.search-box{
+			width: 94%;
+		    border: 1px solid #DAD7D7;
+		    margin: auto;
+		    border-radius: 5px;
+		    margin-top: .4rem;
+		    margin-bottom: .4rem;
+		    background-color: white;		    
+		}
+		i{
+			width: 9%;
+		    display: inline-block;
+		    margin: auto;
+		    text-align: center;
+		    background-color: white;
+		    font-size: 1.2rem;
+		    vertical-align: middle;
+		}
+		input{
+			display: inline-block;
+		    height: 2rem;
+		    line-height: 2rem;
+		    width: 87%;
+		}
+	}
+	
+	
+	.divs-wrapper{
+		position: relative;
+		@include flex(1);
+		&.show-model{
+			background-color: rgba(0, 0, 0, 0.14);
+		}
+		pointer-events:auto;
+		.divs-wrapper-bg{
+			position: absolute;
+			top: 0px; bottom: 0px;
+			left: 0px; right: 0px;
+			pointer-events:auto;
+		}
+	}
+
+	$divs-wrapper-z-index: 1;
+	.worksheet-query-result{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 0;	
+		.list{
+			padding-bottom: 2rem;
+		}
+		.item.ng-enter{
+			transition: 0.4s linear all;
+			opacity: 0;
+		}
+		.item.ng-enter.ng-enter-active{
+			opacity: 1;
+		}
+	}
+	.xbr-model-div.show{
+		min-height: 400px;
+    	background-color: rgba(6, 6, 6, 0.14);
+	}
+	
+	
+	.tab-buttons-line{
+		background-color: white;
+		//background-color: blue;
+		@include display-flex;
+		.tab-button-block{
+			display: inline-block;
+			//width: 48%;
+			height: 3rem;
+		    line-height: 3rem;
+		    text-align: center;
+		    @include flex(1);
+		    span{
+				font-size: 1rem;
+		    }
+		    i{
+		    	color: #B7B6B6;
+		    	display: inline-block;
+		        position: relative;
+    			left: .3rem;
+		    	&:before{
+		    		@include transition(transform 0.4s ease-out 0.0s);
+		    	}		    	
+		    }
+		    &.selected{
+		    	//color: #ECB11B;
+		    	color: $worksheetlist-selected-color;
+		    	//border-bottom: 1px solid #ECB11B;
+		    	i:before{
+		    		//color: #ECB11B;
+		    		color: $worksheetlist-selected-color;
+		    		@include rotate(180deg);
+		    	}
+		    }
+		    //box-shadow: none;
+		    //background-color: white;
+		    &.activited{
+		    	//border-color: red;
+		    	//background-color: red;
+		    	//box-shadow: ;
+		    }
+		}
+	}
+	.tab-buttons-line-border{
+		display: none;
+		//display: block;
+		width: 50%;
+		height: 1px;		
+		@include transition(transform 0.2s ease-out 0.0s);
+		//transition: transform 0.2s linear 0.0s;
+		&.left-sort{
+			@include translate(0,0);
+			//background-color: #ECB11B;
+			background-color: $worksheetlist-selected-color;
+			//transform: translate(0px,0);
+		}
+		&.right-filter{
+			@include translate(100%,0);
+			background-color: $worksheetlist-selected-color;
+			//transform: translate(100%,0);
+		}
+	}
+	.tab-buttons-line-border2{	
+		height: 1px;
+		width: 100%;
+		display: inline-block;
+		//position: relative;
+		@include display-flex;
+		.left{
+			background-color: rgba(0,49,136,1);
+			@include flex(0);
+			@include transition(flex 0.2s ease-out 0.0s);
+			margin-right: 1px;
+		}
+		.center{
+			width: 10px;
+			height: 10px;
+			background-color: white;
+			position: relative;
+			top: -5px;
+			border-left: 1px solid red;
+			border-top: 1px solid red;
+			@include rotate(45deg);
+			@include transition(border-color 0.2s ease-out 0.0s);
+		}
+		.right{
+			background-color: rgba(98,157,3,1);
+			@include flex(4);
+			margin-left: 1px;
+		}
+		&.left-sort{
+			.left{
+				@include flex(1);
+			}
+			.center{
+				border-color: rgba(0,49,136,1);
+			}
+			.right{
+				@include flex(3);
+				background: linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
+				padding-left: 2.6rem;
+			}
+		}
+		&.right-filter{
+			.left{
+				@include flex(3);
+				//background: linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
+				@include bg-linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
+			}
+			.center{
+				border-color: rgba(98,157,3,1);
+			}
+			.right{
+				@include flex(1);
+				padding-left: .3rem;
+			}
+		}
+		&.noShowColor{
+			background-color: white;
+			.left,.center,.right{
+				background-color: white;
+			}
+			.center{
+				display: none;
+			}
+		}
+	}
+
+	
+	.tab-sort-content{
+		@include transition(left .2s linear 0.0s);
+		height: 100%;
+		position: absolute;
+	    left: -100%;
+	    width: 100%;
+		z-index: $divs-wrapper-z-index;
+		margin-top: 0rem;
+		&.active{
+			left: 0px;
+		}
+		.tab-sort-content-inner{			
+		}
+		.sort-type-item{
+			background-color: white;
+			
+			height: 2rem;
+		    line-height: 2rem;
+		    padding: 0px 0.8rem;
+		    span{
+		    	border-bottom: 1px solid #D2D0D0;
+		    	display: block;
+		    	width: 100%;
+		    	height: 100%;
+		    }
+			&.time-desc{ }
+			&.time-asc{ }
+			&.impact-desc{ }
+			&.none{
+				height: 3rem;
+			    line-height: 3rem;
+			    text-align: center;
+			    font-size: 1rem;
+			}
+			&.selected{
+				//color: #ECB11B;
+				color: $worksheetlist-selected-color;
+			}
+		}
+	}
+	
+	.tab-filter-content{
+		@include transition(left .2s linear 0.0s);
+		position: absolute;
+	    left: 100%;
+	    width: 100%;
+		z-index: $divs-wrapper-z-index;
+		margin-top: 0rem;
+		background-color: white;
+		&.active{
+			left: 0px;
+		}
+		.filter-title{
+			height: 2rem;
+		    line-height: 2rem;
+		    font-size: 1rem;
+		    padding-left: .6rem;
+		}
+		$filter-name-color: #828282;
+		$filter-item-bg: rgba(223,226,228,1);
+		$filter-item-selected-bg: rgb(50,89,164);
+		padding-left: .6rem;
+		padding-right: .4rem;
+		.filter-time{
+			$filter-time-line-height: 4rem;			
+			@include display-flex;
+			height: $filter-time-line-height;
+			border-bottom: 1px solid #eee;
+			.filter-time-title{
+				@include flex(2.5);
+				height: 100%;
+				line-height:  $filter-time-line-height;
+			}
+			.filter-times-start-end{
+				height:  $filter-time-line-height;	
+				line-height:  $filter-time-line-height;	
+				@include flex(7.5);
+				.filter-time-center-line{
+					display: inline-block;
+				}
+				.filter-start-time, .filter-end-time{
+					line-height:  $filter-time-line-height;	
+					display: inline-block;
+					max-width: 5.5rem;
+					width: 5.5rem;
+					height: 2.5rem;
+					line-height: 2.5rem;
+					//margin-top: $filter-time-line-height - 1rem;
+					border: 1px solid white;
+					border-radius: 6px;
+					background-color: $filter-item-bg;
+					text-align: center;
+					color: $filter-name-color;
+					margin-right: .6rem;
+				}
+				.filter-end-time{
+					margin-left: .6rem;
+				}
+			}
+			/*.filter-time-title{ }
+			.filter-times-start-end{
+				background-color: white;
+				.filter-start-time{
+					height: 2.5rem;
+    				line-height: 2.4rem;
+    				margin-left: 1rem;
+					span{
+						display: inline-block;
+						width: 30%;
+					}
+					input{
+						display: inline-block;
+					}
+					.data-picker{
+						display: inline-block;
+						margin-left: .4rem;
+					}
+				}
+				.filter-end-time{
+					height: 2.5rem;
+    				line-height: 2.4rem;
+    				margin-left: 1rem;
+					span{
+						display: inline-block;
+						width: 30%;
+					}
+					input{
+						display: inline-block;
+					}
+					.data-picker{
+						display: inline-block;
+						margin-left: .4rem;
+					}
+				}
+			}*/
+    	}
+    	.filter-worksheet-type{
+			border-bottom: 1px solid #eee;
+			padding-bottom: .6rem;
+    		.filter-worksheet-type-title{ }
+    		.filter-types{
+				height: 3rem;
+				line-height: 3rem;
+				.filter-type{
+					display: inline-block;
+					height: 2.5rem;
+					line-height: 2.5rem;
+					font-size: .9rem;
+					padding: 0px .3rem;
+					text-align: center;
+					border: 1px solid #EFEFEF;
+					border-radius: 6px;
+					background-color: $filter-item-bg;
+					color: $filter-name-color;
+					&.selected{
+    					background-color: $filter-item-selected-bg;
+    					color: white;
+					}
+				}
+			}
+			/*
+			.filter-types{
+				height: 3rem;
+				line-height: 3rem;
+				background-color: white;
+				.filter-type{
+					display: inline-block;					
+					height: 1.5rem;
+					font-size: .8rem;
+					line-height: 1.5rem;
+					margin-left: 1rem;
+					padding-left: .4rem;
+					padding-right: .4rem;
+					text-align: center;
+					border: 1px solid #EFEFEF;
+					&.selected{
+						border: 1px solid #BDBAB1;
+    					background-color: #FDDC87;
+					}
+					&.local-service{
+
+					}
+					&.batch-update{
+
+					}
+					&.newcar-online{
+
+					}
+				}
+			}*/
+    	}
+    	.filter-impact{
+    		border-bottom: 1px solid #eee;
+    		padding-bottom: .8rem;
+    		.filter-impact-title{ }
+    		.filter-impacts{
+    			height: 2.5rem;
+    			line-height: 2.5rem;
+    			.filter-impact{
+    				width: 3rem;
+    				display: inline-block;
+					border: 1px solid #EFEFEF;
+					font-size: .9rem;
+					line-height: 2.5rem;
+					height: 2.5rem;
+					border: 1px solid white;
+					border-radius: 6px;
+					background-color: $filter-item-bg;
+					text-align: center;
+					color: $filter-name-color;
+					margin-left: .4rem;
+					&.selected{
+    					background-color: $filter-item-selected-bg;
+    					color: white;
+					}
+    				&.damage{ }
+    				&.hight{
+    					 margin-left: .4rem;
+    				}
+    				&.middle{
+						margin-left: .4rem;
+    				}
+    				&.low{
+    					margin-left: .4rem;
+    				}
+    				&.none{
+    					margin-left: .4rem;
+    				}
+    			}
+    		}
+    		/*.filter-impacts{
+    			height: 2.5rem;
+    			line-height: 2.5rem;
+    			background-color: white;
+    			.filter-impact{
+    				display: inline-block;
+					border: 1px solid #EFEFEF;
+					height: 1.2rem;
+					font-size: .8rem;
+					line-height: 1.2rem;
+					margin-left: 1rem;
+					padding-left: .4rem;
+					padding-right: .4rem;
+					text-align: center;
+					&.selected{
+						border: 1px solid #BDBAB1;
+    					background-color: #FDDC87;
+					}			
+    				&.damage{ }
+    				&.hight{ }
+    				&.middle{ }
+    				&.low{ }
+    				&.none{ }
+    			}
+    		}*/
+    	}
+    	.filter-action-buttons{
+    		//z-index: $divs-wrapper-z-index;
+    		//position: absolute;
+    		//bottom: 1rem;
+    		//left: 0px;
+    		//right: 0px;
+    		height: 4rem;
+    		text-align: right;
+    		.filter-action-button{
+    			text-align: center; 			
+				height: 2.4rem;
+				margin-top: .8rem;
+			    display: inline-block;
+			    text-align: center;
+			    background-color: white;
+			    border-radius: 10px;
+			    margin-left: 2%;
+			    height: 2rem;
+			    line-height: 2rem;
+			    font-size: 1rem;
+			    min-width: 5rem;
+			    border: 1px solid rgb(49,89,162);
+			    border-radius: 5px;
+    			&.reset{				
+    			}
+    			&.confirm{					
+    			}
+    		}
+    	}
+	}
+
+	.tab-sort-content.ng-show{
+		
+	}
+
+}
+
+#worksheetdetail-view{
+	/*ion-header-bar{
+		i{
+			font-size: 1.5rem;
+    		line-height: 2.5rem;
+		}
+		.left-button{
+			width: 2rem;
+    		min-width: 2rem;
+    		height: 100%;
+		}
+		.right-button{
+			width: 1.5rem;
+		}		
+	}*/
+	$detail-header-bar-height: 2.5rem;
+	.detail-header-bar{
+		width: 100%;
+		background-color: #3F81FB;
+		color: white;
+		.top-buttons{
+			height: $detail-header-bar-height;
+			@include display-flex;
+			@include align-items(center);
+			color: white;
+			.left{
+				width: 2rem;
+				min-width: 2rem;
+				padding: 0px;
+				height: $detail-header-bar-height;
+				//min-height: 10px;
+				color: white;
+				i{
+					font-size: 1.8rem;
+				}
+			}
+			.center{
+				@include flex;
+				height: 100%;
+				line-height: $detail-header-bar-height;
+				text-align: center;
+				font-size: 1rem;				 
+    			font-weight: bolder;
+			}
+			.right{
+				width: 2rem;
+				padding: 0px;
+				color: white;
+				i{
+					font-size: 1.8rem;
+				}
+			}
+		}
+		.detail-msgs{
+			padding: .2em .2rem .2rem .6rem;
+			.title{
+				font-weight: bolder;
+    			font-size: 1rem;
+	        }
+	        i{
+				font-size: 1.4rem;
+				display: inline-block;
+			    width: 1.2rem;
+			    line-height: 2rem;
+			    height: 100%;
+			}
+		    span{
+		    	display: inline-block;
+		    	height: 100%;
+		    	line-height: 2rem;
+		    }
+	        .company{
+	        	height: 2rem;
+	        }
+	        .user-status{
+	        	display: block;
+	        	width: 100%;
+	        	height: 2rem;
+	            .user{
+					display: inline-block;
+					float: left;
+	            }
+	            .status{
+	            	display: inline-block;
+	            	float: right;
+	            }
+
+	        }
+		}
+	}
+}
+
+#worksheetdetail-content{
+	@include display-flex;
+	@include flex-direction(column);
+	.detail-header{
+	    .detail-header-bar{
+	        .left{
+
+	        }
+	        .center{
+	            .title{
+	                
+	            }
+	            .sub-title{
+
+	            }
+	        }
+	    }
+	    .detail-header-info{
+	        .detail-line{
+
+	        }
+	        .info-title .circle-span{
+
+	        }
+	    }
+	    .detail-tab-bar{
+	        .detail-tab-btn{
+
+	        }
+	    }
+	}
+	.detail-content{
+	    @include flex(1);
+	    border: 1px solid red;
+	}
+}

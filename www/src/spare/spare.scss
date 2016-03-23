@@ -1,0 +1,145 @@
+.bar.bar-header .button+.title {
+  text-align: center;
+}
+.bar .title{
+  position: absolute;
+  top: 0.5em;
+  right: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+  margin: 0 10px;
+  min-width: 30px;
+  height: 43px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 44px;
+  color: rgb(250, 250, 250);
+}
+.bar .button.button-clear {
+  color: #fff;
+  padding-left: 0.8em;
+  padding-top: 0.8em;
+}
+.SpareList{
+  .bar{
+    border-bottom: none;
+    padding: 0;
+    height: 3.28em;
+    background-color: rgba(43, 96, 171, 0.90);
+    background-size: 0;
+    box-shadow: none;
+  }
+  .bar-subheader {
+    height: 2.7em;
+    top: 60px;
+    display: block;
+    fill: #2B60AB 90%;
+  }
+  .row .col{
+    padding:0;
+    margin:0;
+  }
+  b, strong {
+    font-weight: 500;
+  }
+  .row+.row {
+    margin-top: 0;
+    padding-top: 0;
+  }
+  input[type=text]{
+    padding-left: 2em;
+  }
+  input{
+    display: block;
+    padding-top: 2px;
+    padding-left: 2em;
+    height: 33px;
+    color: #ccc;
+    vertical-align: middle;
+    font-size: 15px;
+    line-height: 16px;
+    width: 96%;
+    position: fixed;
+    top: 9px;
+    right: 6px;
+    border: 1px solid #dedede;
+    border-radius:5px;
+  }
+  .placeholder-icon {
+    color: #aaa;
+    position: absolute;
+    z-index: 2;
+    top: 0.8em;
+    left: 1em;
+  }
+  .pointImg{
+    height: 0.7em;
+    position: relative;
+    left: 30%;
+  }
+  .textImg{
+    -webkit-user-drag: none;
+    position: absolute;
+    top: 3em;
+    height: 3.0em;
+    width: 100%;
+  }
+  .shapeImg{
+    position: relative;
+    top: 2px;
+    height: 16px;
+  }
+  .contentType{
+    position: relative;
+    top: 6em;
+  }
+  .rowType1{
+    padding: 1.2em 0 0.6em;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.36);
+  }
+  .col span {
+    font-size: 16px;
+    color: rgba(17, 17, 17, 0.78);
+    font-weight: 600;
+  }
+}
+.Detail{
+  .bar{
+    border-bottom: none;
+    padding: 0;
+    height: 3.28em;
+    background-color: rgba(43, 96, 171, 0.90);
+    background-size: 0;
+    box-shadow: none;
+  }
+  ion-content {
+    position: relative;
+    top:5em;
+    .rowType {
+      position: relative;
+      left: 4%;
+      padding: 0.8em 0;
+    }
+    img{
+      -webkit-user-drag: none;
+      height: 2.5em;
+      width: 100%;
+    }
+    span{
+      font-size: 15px;
+      color: gray;
+    }
+    b, strong {
+      font-weight: 600;
+      color: rgba(0, 0, 0, 0.7);
+      font-size: 16px;
+    }
+    .line{
+      border-bottom: 1px solid #d2d2d2;
+    }
+  }
+}

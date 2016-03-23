@@ -2,16 +2,24 @@ var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
+var carModule = angular.module('carModule',[]);
+var salesModule = angular.module('salesModule', []);
+var spareModule = angular.module('spareModule',[]);
+var worksheetModule = angular.module('worksheetModule', []); // 工单模块
 var salesModule = angular.module('salesModule', []);
 
-var CRMApp = angular.module('CRMApp', ['ionic',
+var CRMApp = angular.module('CRMApp', ['ngAnimate','ionic',
     'ionic-material',
     //'ionMdInput',
     'loginModule',
     'mainModule',
     'tabsModule',
     'appModule',
-    'salesModule'
+    'carModule',
+    'spareModule',
+    'salesModule',
+    'salesModule',
+    'worksheetModule'
 ])
 
 CRMApp.run(function ($ionicPlatform) {
@@ -27,7 +35,7 @@ CRMApp.run(function ($ionicPlatform) {
             }
         });
     })
-
+    
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
         // Turn off caching for demo simplicity's sake
@@ -60,8 +68,63 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl: 'src/applications/saleActivities/saleAct_detail.html',
                 controller: 'saleActDetailCtrl'
             })
+            //车辆查询
+            .state('car',{
+                url:'apps/car',
+                templateUrl:'src/car/car.html',
+                controller:'CarCtrl'
+            })
+            .state('carDetail',{
+                url:'/carDetail',
+                templateUrl:'src/car/carDetail.html',
+                controller:'CarDetailCtrl'
+            })
+            //车辆备件列表
+            .state('spare',{
+                url:'/spare',
+                templateUrl:'src/car/spare.html',
+                controller:'SpareCtrl'
+            })
+            .state('maintenance',{
+                url:'/maintenance',
+                templateUrl:'src/car/maintenance.html',
+                controller:'MaintenanceCtrl'
+            })
+           //备件信息
+            .state('spareList',{
+                url:'apps/spareList',
+                templateUrl:'src/spare/spareList.html',
+                controller:'SpareListCtrl'
+            })
+            .state('spareDetail', {
+                url: '/spareDetail',
+                templateUrl: 'src/spare/spareDetail.html',
+                controller: 'SpareDetailCtrl'
+            })
+
+            // 工单模块相关
+            .state('worksheetlist', {
+                url: '/worksheetlist',
+                templateUrl: 'src/worksheet/worksheet_list.html',
+                controller: 'WorksheetListCtrl'
+            })
+            .state('worksheetdetail', {
+                url: '/worksheetdetail',
+                templateUrl: 'src/worksheet/worksheet_detail.html',
+                controller: 'WorksheetDetailCtrl'
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tabs');
     });
+
+
+
+
+
+
+
+
+
+
