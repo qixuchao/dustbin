@@ -11,7 +11,7 @@ worksheetModule.controller("WorksheetListCtrl",[
             selector: '.animate-fade-slide-in .item'
         });
     }, 100);
-
+    
 	$scope.config = {
 		searchText: '',
 		//showXbrModel: false, //是否显示遮罩层
@@ -340,7 +340,14 @@ worksheetModule.controller("WorksheetDetailCtrl",["$scope", "ionicMaterialInk", 
 	};
 
 	$scope.datas = {
-
+		header:{
+			title: '郑州金龙客车(福州)客户拜访',
+			customer: '金龙客车',
+			place: '福建省 福州市',
+			category: '关系维护',
+			status: '进行中',
+			noStr: 'N0.100036',
+		}
 	};
 
 	$scope.init = function(){

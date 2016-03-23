@@ -4,7 +4,7 @@ $worksheetlist-selected-color: #236CE6;
 	ion-header-bar{
 		background-color: $crm-header-bar-bgcolor;
 		transition: left 0.2s ease-out 0s;
-//border: 1px solid red;
+	//border: 1px solid red;
 		left: 0;
 		.left-back{
 			@include display-flex;
@@ -24,7 +24,7 @@ $worksheetlist-selected-color: #236CE6;
 			overflow: hidden;
 			display: inline-block;
 			//min-height: 1.5rem;			
-//border: 1px solid green;			
+	//border: 1px solid green;			
 		}
 		.search-header-bar{
 			@include display-flex;
@@ -668,5 +668,42 @@ $worksheetlist-selected-color: #236CE6;
 
 	        }
 		}
+	}
+}
+
+#worksheetdetail-content{
+	@include display-flex;
+	@include flex-direction(column);
+	.detail-header{
+	    .detail-header-bar{
+	        .left{
+
+	        }
+	        .center{
+	            .title{
+	                
+	            }
+	            .sub-title{
+
+	            }
+	        }
+	    }
+	    .detail-header-info{
+	        .detail-line{
+
+	        }
+	        .info-title .circle-span{
+
+	        }
+	    }
+	    .detail-tab-bar{
+	        .detail-tab-btn{
+
+	        }
+	    }
+	}
+	.detail-content{
+	    @include flex(1);
+	    border: 1px solid red;
 	}
 }
