@@ -6,8 +6,10 @@ platforms/*
 npm-debug.log
 www/npm-debug.log
 www/src/dev/
+www/.sass-cache
 
 www/node_modulesOld/
 www/node_modules/
+node_modules/
 www/src/public/*.css
 www/src/public/*.map

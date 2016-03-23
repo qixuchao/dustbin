@@ -2,20 +2,34 @@ var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
+<<<<<<< HEAD
 var carModule = angular.module('carModule',[]);
 var salesModule = angular.module('salesModule', []);
 var spareModule = angular.module('spareModule',[]);
 var CRMApp = angular.module('CRMApp', ['ionic',
+=======
+var worksheetModule = angular.module('worksheetModule', []); // å·¥å•æ¨¡å—
+var salesModule = angular.module('salesModule', []);
+
+var CRMApp = angular.module('CRMApp', ['ngAnimate','ionic',
+>>>>>>> 635da8fa72c4d9700a780bb9439ecd95c2923378
     'ionic-material',
     'ionMdInput',
     'loginModule',
     'mainModule',
     'tabsModule',
     'appModule',
+<<<<<<< HEAD
     'carModule',
     'spareModule',
     'salesModule'
 ]);
+=======
+    'salesModule',
+    'worksheetModule'
+]);
+
+>>>>>>> 635da8fa72c4d9700a780bb9439ecd95c2923378
 CRMApp.run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -29,7 +43,7 @@ CRMApp.run(function ($ionicPlatform) {
             }
         });
     })
-
+    
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
 
         // Turn off caching for demo simplicity's sake
@@ -62,6 +76,7 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl: 'src/applications/saleActivities/saleAct_detail.html',
                 controller: 'saleActDetailCtrl'
             })
+<<<<<<< HEAD
             //Æû³µÁÐ±í
             .state('car',{
                 url:'apps/car',
@@ -95,9 +110,32 @@ CRMApp.run(function ($ionicPlatform) {
                 url:'/spareDetail',
                 templateUrl:'src/spare/spareDetail.html',
                 controller:'SpareDetailCtrl'
+=======
+
+            // å·¥å•æ¨¡å—ç›¸å…³
+            .state('worksheetlist', {
+                url: '/worksheetlist',
+                templateUrl: 'src/worksheet/worksheet_list.html',
+                controller: 'WorksheetListCtrl'
+            })
+            .state('worksheetdetail', {
+                url: '/worksheetdetail',
+                templateUrl: 'src/worksheet/worksheet_detail.html',
+                controller: 'WorksheetDetailCtrl'
+>>>>>>> 635da8fa72c4d9700a780bb9439ecd95c2923378
             })
         ;
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tabs');
     });
+
+
+
+
+
+
+
+
+
+
