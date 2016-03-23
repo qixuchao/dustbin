@@ -5,7 +5,6 @@ var appModule = angular.module('appModule', []);
 var carModule = angular.module('carModule',[]);
 var salesModule = angular.module('salesModule', []);
 var spareModule = angular.module('spareModule',[]);
-
 var CRMApp = angular.module('CRMApp', ['ionic',
     'ionic-material',
     'ionMdInput',
@@ -16,8 +15,7 @@ var CRMApp = angular.module('CRMApp', ['ionic',
     'carModule',
     'spareModule',
     'salesModule'
-])
-
+]);
 CRMApp.run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
