@@ -3,24 +3,6 @@
 .bar.bar-header .button+.title {
   text-align: center;
 }
-.bar .title{
-  position: absolute;
-  top: 0.5em;
-  right: 0;
-  left: 0;
-  z-index: 0;
-  overflow: hidden;
-  margin: 0 10px;
-  min-width: 30px;
-  height: 43px;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 44px;
-  color: rgb(250, 250, 250);
-}
 .bar .button.button-clear {
   color: #fff;
   padding-left: 0.8em;
@@ -51,6 +33,24 @@ b, strong {
 
 //车辆查询
 .CarList{
+  .bar .title{
+    position: absolute;
+    top: 0.5em;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    margin: 0 10px;
+    min-width: 30px;
+    height: 43px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 44px;
+    color: rgb(250, 250, 250);
+  }
   .bar {
     border-bottom: none;
     padding: 0;
@@ -59,41 +59,40 @@ b, strong {
     background-size: 0;
     box-shadow: none;
   }
-    .bar-header {
-      border-bottom: none;
-      padding: 0;
-      //height: 3.28em;
-      fill: #2B60AB 90%;
-      background-size: 0;
+  .bar-header {
+    border-bottom: none;
+    padding: 0;
+    fill: #2B60AB 90%;
+    background-size: 0;
+  }
+  .bar-subheader {
+    height: 2.7em;
+    top: 60px;
+    display: block;
+    fill: #2B60AB 90%;
+    .placeholder-icon {
+      color: #aaa;
+      position: absolute;
+      z-index: 2;
+      top: .8em;
+      left: 1em;
     }
-    .bar-subheader {
-      height: 2.7em;
-      top: 60px;
+    input {
       display: block;
-      fill: #2B60AB 90%;
-      .placeholder-icon {
-        color: #aaa;
-        position: absolute;
-        z-index: 2;
-        top: .8em;
-        left: 1em;
-      }
-      input {
-        display: block;
-        padding-top: 2px;
-        padding-left: 2em;
-        color: #ccc;
-        vertical-align: middle;
-        font-size: 15px;
-        line-height: 16px;
-        width: 96%;
-        position: fixed;
-        top: 9px;
-        right: 6px;
-        border: 1px solid #dedede;
-        border-radius: 5px;
-      }
+      padding-top: 2px;
+      padding-left: 2em;
+      color: #ccc;
+      vertical-align: middle;
+      font-size: 15px;
+      line-height: 16px;
+      width: 96%;
+      position: fixed;
+      top: 9px;
+      right: 6px;
+      border: 1px solid #dedede;
+      border-radius: 5px;
     }
+  }
    .textImg{
      -webkit-user-drag: none;
      position: absolute;
