@@ -16,7 +16,8 @@ appModule
             url:'img/apps/acPlan.png',
             go:'saleActDetail'
         },{
-            url:'img/apps/saleChance.png'
+            url:'img/apps/saleChance.png',
+            go:'saleChanDetail'
         },{
             url:'img/apps/saleClue.png'
         },{

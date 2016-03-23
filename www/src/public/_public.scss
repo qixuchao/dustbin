@@ -12,8 +12,17 @@
 	max-height: 100%;
 	max-width: 100%;
 }
-
-
+.own-animated {
+  -webkit-animation-duration: .5s;
+  animation-duration: .5s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.scroll-content{
+  margin-top: 0;
+  padding-top: 0;
+  margin-bottom: 0;
+}
 /**
  * 公共的 变量  
  */

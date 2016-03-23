@@ -6,7 +6,6 @@ var carModule = angular.module('carModule',[]);
 var salesModule = angular.module('salesModule', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
-var salesModule = angular.module('salesModule', []);
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate','ionic',
     'ionic-material',
@@ -17,7 +16,6 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate','ionic',
     'appModule',
     'carModule',
     'spareModule',
-    'salesModule',
     'salesModule',
     'worksheetModule'
 ])
@@ -31,7 +29,7 @@ CRMApp.run(function ($ionicPlatform) {
             }
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
-                StatusBar.styleDefault();
+                StatusBar.styleLightContent();
             }
         });
     })
@@ -67,6 +65,11 @@ CRMApp.run(function ($ionicPlatform) {
                 url: 'apps/saleActList/detail',
                 templateUrl: 'src/applications/saleActivities/saleAct_detail.html',
                 controller: 'saleActDetailCtrl'
+            })
+            .state('saleChanDetail', {
+                url: 'apps/saleChanSearch/detail',
+                templateUrl: 'src/applications/saleChance/chanceDetail.html',
+                controller: 'saleChanDetailCtrl'
             })
             //车辆查询
             .state('car',{
