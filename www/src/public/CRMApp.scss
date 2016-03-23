@@ -1,16 +1,4 @@
 @charset "UTF-8";
-<<<<<<< HEAD
-@import "ionic_sass/_mixins.scss",
-"ionic_sass/_variables.scss",
-"public",
-"../main/main.scss",
-"../tabs/tabs.scss",
-"../login/login_Css.scss",
-"../applications/apps.scss",
-"../applications/saleActivities/_saleActivies.scss",
-"../car/car.scss",
-"../spare/spare.scss"
-=======
 
 @import 
 	"ionic_sass/_mixins.scss",
@@ -21,7 +9,8 @@
     "../login/login_Css.scss",
     "../applications/apps.scss",
 	"../applications/saleActivities/_saleActivies.scss",
-    "../worksheet/worksheet"
->>>>>>> 635da8fa72c4d9700a780bb9439ecd95c2923378
+    "../worksheet/worksheet",
+	"../car/car.scss",
+	"../spare/spare.scss"
 ;
 

@@ -2,34 +2,26 @@ var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
-<<<<<<< HEAD
 var carModule = angular.module('carModule',[]);
 var salesModule = angular.module('salesModule', []);
 var spareModule = angular.module('spareModule',[]);
-var CRMApp = angular.module('CRMApp', ['ionic',
-=======
 var worksheetModule = angular.module('worksheetModule', []); // 宸ュ崟妯″潡
 var salesModule = angular.module('salesModule', []);
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate','ionic',
->>>>>>> 635da8fa72c4d9700a780bb9439ecd95c2923378
     'ionic-material',
     'ionMdInput',
     'loginModule',
     'mainModule',
     'tabsModule',
     'appModule',
-<<<<<<< HEAD
     'carModule',
     'spareModule',
-    'salesModule'
-]);
-=======
+    'salesModule',
     'salesModule',
     'worksheetModule'
-]);
+])
 
->>>>>>> 635da8fa72c4d9700a780bb9439ecd95c2923378
 CRMApp.run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -76,8 +68,7 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl: 'src/applications/saleActivities/saleAct_detail.html',
                 controller: 'saleActDetailCtrl'
             })
-<<<<<<< HEAD
-            //汽车列表
+            //杞﹁締鏌ヨ
             .state('car',{
                 url:'apps/car',
                 templateUrl:'src/car/car.html',
@@ -88,29 +79,28 @@ CRMApp.run(function ($ionicPlatform) {
                 templateUrl:'src/car/carDetail.html',
                 controller:'CarDetailCtrl'
             })
-            //备件列表
+            //杞﹁締澶囦欢鍒楄〃
             .state('spare',{
                 url:'/spare',
                 templateUrl:'src/car/spare.html',
                 controller:'SpareCtrl'
             })
-            //维修记录
             .state('maintenance',{
                 url:'/maintenance',
                 templateUrl:'src/car/maintenance.html',
                 controller:'MaintenanceCtrl'
             })
-           //备件列表
+           //澶囦欢淇℃伅
             .state('spareList',{
                 url:'apps/spareList',
                 templateUrl:'src/spare/spareList.html',
                 controller:'SpareListCtrl'
             })
-            .state('spareDetail',{
-                url:'/spareDetail',
-                templateUrl:'src/spare/spareDetail.html',
-                controller:'SpareDetailCtrl'
-=======
+            .state('spareDetail', {
+                url: '/spareDetail',
+                templateUrl: 'src/spare/spareDetail.html',
+                controller: 'SpareDetailCtrl'
+            })
 
             // 宸ュ崟妯″潡鐩稿叧
             .state('worksheetlist', {
@@ -122,7 +112,6 @@ CRMApp.run(function ($ionicPlatform) {
                 url: '/worksheetdetail',
                 templateUrl: 'src/worksheet/worksheet_detail.html',
                 controller: 'WorksheetDetailCtrl'
->>>>>>> 635da8fa72c4d9700a780bb9439ecd95c2923378
             })
         ;
 
