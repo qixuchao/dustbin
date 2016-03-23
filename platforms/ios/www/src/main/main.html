@@ -23,7 +23,7 @@
                                delegate-handle="dayView-handle">
                     <ion-slide ng-repeat="x in days">
                         <div class="row day">
-                            <div class="col text-center nopadding myDay" ng-repeat="y in x.arr"
+                            <div class="col text-center no-padding myDay" ng-repeat="y in x.arr"
                                  ng-class="{'edgeDay':(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6),'checked':y.checked}"
                                  ng-click="selectDay(x.arr,y)">{{y.value}}<br>
 
@@ -89,7 +89,7 @@
             <div class="await-apl">待处理</div>
             <div class="obj item" ng-repeat="x in thingsToDo" ng-class="x.class">
                 <div class="circleNum" style="{{'border-color:'+x.mark}}">{{$index+1}}</div>
-                <div class="row row-center apl-content nopadding">
+                <div class="row row-center apl-content no-padding">
                     <div class="col col-80">
                         <div class="text">{{x.title}}</div>
                         <div class="row time">

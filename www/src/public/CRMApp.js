@@ -6,7 +6,7 @@ var salesModule = angular.module('salesModule', []);
 
 var CRMApp = angular.module('CRMApp', ['ionic',
     'ionic-material',
-    'ionMdInput',
+    //'ionMdInput',
     'loginModule',
     'mainModule',
     'tabsModule',

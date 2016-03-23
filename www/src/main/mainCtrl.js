@@ -317,7 +317,7 @@ mainModule
             $scope.days[0].arr[todayTemp].checked = true;
             //模拟有代办事项
             $scope.days[0].arr[todayTemp].toDo = true;
-            //$scope.days[0].arr[todayTemp + 1].toDo = true;
+            $scope.days[0].arr[todayTemp + 1].toDo = true;
 
             $scope.year = addDateTemp.getFullYear();
             $scope.month = addDateTemp.getMonth() + 1;
@@ -531,6 +531,7 @@ mainModule
         $scope.delete = function (x) {
             x.class = 'own-animated zoomOutRight';
             var arr = document.getElementsByClassName('obj');
+            console.log(arr)
             for (var i = 0; i < arr.length; i++) {
                 arr[i].style.transitionDelay = '0s';
             }

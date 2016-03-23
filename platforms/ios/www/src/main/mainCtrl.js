@@ -531,7 +531,6 @@ mainModule
         $scope.delete = function (x) {
             x.class = 'own-animated zoomOutRight';
             var arr = document.getElementsByClassName('obj');
-            console.log(arr)
             for (var i = 0; i < arr.length; i++) {
                 arr[i].style.transitionDelay = '0s';
             }
