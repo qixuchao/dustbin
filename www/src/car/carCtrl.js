@@ -30,7 +30,6 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
         ionicMaterialInk.displayEffect();
         //$scope.select = true;
         $scope.showTitle = false;
-        $scope.showTitleStatus = false;
         //$scope.changeStatus = function(flag){
         //    $scope.select=flag;
         //};
@@ -43,17 +42,17 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
                 $('#sdTitleId').addClass('animated fadeIn');
                 $scope.TitleFlag = true;
                 $scope.showTitle=true;
-                if(position>18){
+                if(position>11){
                     $scope.titleFlag = true;
                 }else{
                     $scope.titleFlag = false;
                 }
-                if(position>45){
+                if(position>42){
                     $scope.qualityFlag = true;
                 }else{
                     $scope.qualityFlag = false;
                 }
-                if(position>75){
+                if(position>70){
                     $scope.projectFlag = true;
                 }else{
                     $scope.projectFlag = false;

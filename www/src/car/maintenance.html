@@ -25,28 +25,30 @@
             </div>
         </div>
         <div class="lineImg"></div>
-        <div class="row row-center borderLine" ng-repeat="record in carInfo">
-            <div class="col col-center col-10">
-                <img ng-src="img/car/Oval.png" class="pointImg">
-            </div>
-            <div class="col col-90 col-center colType1">
-                <div class="row row-center">
-                    <div class="col col-center col-25">
-                        <b>工单类型</b>
-                    </div>
-                    <div class="col col-center col-75">
-                        <span>{{record.listType}}</span>
-                    </div>
+        <div class="divLine" ng-repeat="record in carInfo">
+            <div class="row row-center rowContent">
+                <div class="col col-center col-5">
+                    <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
-                <div class="row row-center">
-                    <span>{{record.maintenanceDate}}</span>
-                </div>
-                <div class="row row-center">
-                    <div class="col col-center col-25">
-                        <b>工单描述</b>
+                <div class="col col-95 col-center colType1">
+                    <div class="row row-center">
+                        <div class="col col-center col-28">
+                            <b>工单类型</b>
+                        </div>
+                        <div class="col col-center col-72">
+                            <span>{{record.listType}}</span>
+                        </div>
                     </div>
-                    <div class="col col-center col-75">
-                        <span>{{record.maintenanceDescribe}}</span>
+                    <div class="row row-center">
+                        <span>{{record.maintenanceDate}}</span>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col col-center col-28">
+                            <b>工单描述</b>
+                        </div>
+                        <div class="col col-center col-72">
+                            <span>{{record.maintenanceDescribe}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,74 +65,46 @@
             <div class="shadowDiv1" ng-click="changeSort()"></div>
         </div>
         <div  class="selectContent" ng-show="showSelect">
-            <div class="row row-center">
+            <div class="row row-center row1">
                 <div class="col col-5"></div>
                 <div class="col col-20">
                     <span>日期区间</span>
                 </div>
-                <div class="col col-25 col-center">
+                <div class="col col-26 col-center">
                     <input type="text" placeholder="20150101" class="textDate">
                 </div>
                 <div class="col col-10 col-center">
                     <div class="line"></div>
                 </div>
-                <div class="col col-25 col-center">
+                <div class="col col-26 col-center">
                     <input type="text" placeholder="20150609" class="textDate">
                 </div>
             </div>
             <div class="lineType"></div>
-            <div class="row row-center ">
+            <div class="row row-center row2">
                 <div class="col col-5"></div>
                 <div class="col col-center titleType">
                     <b>工单类型</b>
                 </div>
             </div>
-            <!--<ion-radio ng-model="listType" ng-repeat="list in List1">-->
-                <!--<a class="button button-outline">{{list}}</a>-->
-            <!--</ion-radio>-->
-            <div class="row row-center">
+            <div class="row row-center row3">
                 <div class="col col-5"></div>
                 <div class="col col-center col-30" ng-click="clicked($index)" ng-repeat="list in List1">
                     <a class="button button-outline btType" ng-class="{true:'selected',false:'classColor'}[$index===selectedRow]" >{{list}}</a>
                </div>
-                <!--<div class="col col-center col-30">-->
-                    <!--<a class="button button-clear btType" ng-class="{selected:1===selectedRow}" ng-click="clicked(1)">现场维修工单</a>-->
-                <!--</div>-->
-                <!--<div class="col col-center col-30">-->
-                    <!--<a class="button button-clear btType" ng-class="{true:'colorClass',false:''}[color2]" ng-click="clicked('2')">批量改进工单</a>-->
-                <!--</div>-->
-                <!--<div class="col col-center col-30">-->
-                    <!--<a class="button button-clear btType" ng-class="{true:'colorClass',false:''}[color3]" ng-click="clicked('3')">新车上线工单</a>-->
-                <!--</div>-->
             </div>
             <div class="lineType"></div>
-            <div class="row row-center ">
+            <div class="row row-center row2">
                 <div class="col col-5"></div>
                 <div class="col col-center titleType">
                     <b>影响</b>
                 </div>
             </div>
-            <div class="row row-center">
+            <div class="row row-center row4">
                 <div class="col col-5"></div>
                 <div class="col col-center col-18" ng-repeat="list in List2" ng-click="clicked1($index)">
                     <a class="button button-outline btType1" ng-class="{true:'selected',false:'classColor'}[$index===selectedRow1]">{{list}}</a>
                 </div>
-
-                <!--<div class="col col-center col-18">-->
-                    <!--<a class="button button-clear btType1">灾难</a>-->
-                <!--</div>-->
-                <!--<div class="col col-center col-18">-->
-                    <!--<a class="button button-clear btType1">高</a>-->
-                <!--</div>-->
-                <!--<div class="col col-center col-18">-->
-                    <!--<a class="button button-clear btType1">中</a>-->
-                <!--</div>-->
-                <!--<div class="col col-center col-18">-->
-                    <!--<a class="button button-clear btType1">低</a>-->
-                <!--</div>-->
-                <!--<div class="col col-center col-18">-->
-                    <!--<a class="button button-clear btType1">无</a>-->
-                <!--</div>-->
             </div>
             <div class="lineType"></div>
             <div class="row">
