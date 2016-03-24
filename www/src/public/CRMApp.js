@@ -2,19 +2,23 @@ var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
-var worksheetModule = angular.module('worksheetModule', []); // 工单模块
+var carModule = angular.module('carModule',[]);
 var salesModule = angular.module('salesModule', []);
+var spareModule = angular.module('spareModule',[]);
+var worksheetModule = angular.module('worksheetModule', []); // 工单模块
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic',
     'ionic-material',
-    'ionMdInput',
+    //'ionMdInput',
     'loginModule',
     'mainModule',
     'tabsModule',
     'appModule',
+    'carModule',
+    'spareModule',
     'salesModule',
     'worksheetModule'
-]);
+])
 
 CRMApp.run(function ($ionicPlatform, $rootScope, $state) {
         $ionicPlatform.ready(function () {
@@ -25,7 +29,7 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $state) {
             }
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
-                StatusBar.styleDefault();
+                StatusBar.styleLightContent();
             }
         });
         $rootScope.goState = function(state){
@@ -64,6 +68,44 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $state) {
                 url: 'apps/saleActList/detail',
                 templateUrl: 'src/applications/saleActivities/saleAct_detail.html',
                 controller: 'saleActDetailCtrl'
+            })
+            .state('saleChanDetail', {
+                url: 'apps/saleChanSearch/detail',
+                templateUrl: 'src/applications/saleChance/chanceDetail.html',
+                controller: 'saleChanDetailCtrl'
+            })
+            //车辆查询
+            .state('car',{
+                url:'apps/car',
+                templateUrl:'src/car/car.html',
+                controller:'CarCtrl'
+            })
+            .state('carDetail',{
+                url:'/carDetail',
+                templateUrl:'src/car/carDetail.html',
+                controller:'CarDetailCtrl'
+            })
+            //车辆备件列表
+            .state('spare',{
+                url:'/spare',
+                templateUrl:'src/car/spare.html',
+                controller:'SpareCtrl'
+            })
+            .state('maintenance',{
+                url:'/maintenance',
+                templateUrl:'src/car/maintenance.html',
+                controller:'MaintenanceCtrl'
+            })
+           //备件信息
+            .state('spareList',{
+                url:'apps/spareList',
+                templateUrl:'src/spare/spareList.html',
+                controller:'SpareListCtrl'
+            })
+            .state('spareDetail', {
+                url: '/spareDetail',
+                templateUrl: 'src/spare/spareDetail.html',
+                controller: 'SpareDetailCtrl'
             })
 
             // 工单模块相关

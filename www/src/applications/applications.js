@@ -16,18 +16,21 @@ appModule
             url:'img/apps/acPlan.png',
             go:'saleActDetail'
         },{
-            url:'img/apps/saleChance.png'
+            url:'img/apps/saleChance.png',
+            go:'saleChanDetail'
         },{
             url:'img/apps/saleClue.png'
         },{
-            url:'img/apps/saleQuote.png'
+            url:'img/apps/saleQuote.png',
+            go:'worksheetlist'
         },{
-            url:'img/apps/sparePart.png'
+            url:'img/apps/sparePart.png',
+            go:'spareList'
         },{
             url:'img/apps/empInfo.png'
         },{
             url:'img/apps/searchCar.png',
-            go: 'worksheetlist'
+            go:'car'
         }];
         $timeout(function(){
             ionicMaterialMotion.fadeSlideInRight({
