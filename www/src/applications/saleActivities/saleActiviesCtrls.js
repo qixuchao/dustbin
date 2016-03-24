@@ -7,7 +7,7 @@ salesModule
         console.log('销售活动列表')
         ionicMaterialInk.displayEffect();
         //ionicMaterialMotion.fadeSlideInRight();
-
+    
     }])
     .controller('saleActDetailCtrl', ['$scope', '$state', '$ionicHistory', '$ionicScrollDelegate', 'ionicMaterialInk', 'ionicMaterialMotion', '$timeout', function ($scope, $state, $ionicHistory, $ionicScrollDelegate, ionicMaterialInk, ionicMaterialMotion, $timeout) {
         ionicMaterialInk.displayEffect();

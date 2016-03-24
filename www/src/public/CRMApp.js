@@ -5,7 +5,7 @@ var appModule = angular.module('appModule', []);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
 var salesModule = angular.module('salesModule', []);
 
-var CRMApp = angular.module('CRMApp', ['ngAnimate','ionic',
+var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic',
     'ionic-material',
     'ionMdInput',
     'loginModule',
@@ -16,7 +16,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate','ionic',
     'worksheetModule'
 ]);
 
-CRMApp.run(function ($ionicPlatform) {
+CRMApp.run(function ($ionicPlatform, $rootScope, $state) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -28,6 +28,9 @@ CRMApp.run(function ($ionicPlatform) {
                 StatusBar.styleDefault();
             }
         });
+        $rootScope.goState = function(state){
+            $state.go(state);
+        };
     })
     
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
