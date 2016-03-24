@@ -62,7 +62,7 @@
             <ul class="ulType">
                 <li class="liType animated fadeInDown" ng-class="{true:'color1',false:'color2'}[$index===selectRow]"  ng-repeat="list in List" ng-click="choice($index)">{{list}}</li>
             </ul>
-            <div class="shadowDiv1" ng-click="changeSort()"></div>
+            <div class="shadowDiv1" ng-click="shadowUp()"></div>
         </div>
         <div  class="selectContent" ng-show="showSelect">
             <div class="row row-center row1">
@@ -117,7 +117,7 @@
                     <a class="button button-outline button-light">确认</a>
                 </div>
             </div>
-            <div class="shadowDiv2" ng-click="changeSelect()"></div>
+            <div class="shadowDiv2" ng-click="shadowUp()"></div>
         </div>
     </ion-content>
 </ion-view>

@@ -30,19 +30,19 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
         ionicMaterialInk.displayEffect();
         //$scope.select = true;
         $scope.showTitle = false;
+        $scope.titleStatus=false;
         //$scope.changeStatus = function(flag){
         //    $scope.select=flag;
         //};
 
         var position;
+        var maxPosition;
         $scope.onScroll = function(){
             position = $ionicScrollDelegate.getScrollPosition().top;
             if(position>5){
-                $('#sdTitleId').removeClass('fadeOut');
-                $('#sdTitleId').addClass('animated fadeIn');
                 $scope.TitleFlag = true;
                 $scope.showTitle=true;
-                if(position>11){
+                if(position>10){
                     $scope.titleFlag = true;
                 }else{
                     $scope.titleFlag = false;
@@ -57,11 +57,18 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
                 }else{
                     $scope.projectFlag = false;
                 }
+                if(position>110){
+                    if(maxPosition===null){
+                        maxPosition=$ionicScrollDelegate.getScrollView().__maxScrollTop;
+                    }
+                    $scope.titleStatus=true;
+                }else{
+                    $scope.titleStatus=false;
+                }
             }else{
-                $('#sdTitleId').removeClass('fadeIn');
-                $('#sdTitleId').addClass('fadeOut');
                 $scope.showTitle=false;
                 $scope.TitleFlag = false;
+                $scope.titleStatus=false;
             }
             $scope.$apply();
         };
@@ -91,25 +98,6 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
         $scope.choice=function(num){
             $scope.selectRow=num;
         };
-        //$scope.color1=false;
-        //$scope.color2=false;
-        //$scope.color3=false;
-        //$scope.clicked= function (num) {
-        //    console.log(num);
-        //    $scope.color1=false;
-        //    $scope.color2=false;
-        //    $scope.color3=false;
-        //    switch (num) {
-        //        case 1:
-        //            $(".btType").css("background-color","yellow");
-        //            break;
-        //        case 2:
-        //            $scope.color2=true;
-        //            break;
-        //        case 3:
-        //            $scope.color1=true;
-        //    }
-        //};
         $scope.List2 = [
             "灾难", "高", "中", "低", "无"
         ];
@@ -119,15 +107,11 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
             //$(".sortType").css("color","FF8300");
 
         };
-        var sortUp = function () {
+        var Up = function () {
             $(".sort").css("color", "black");
-            $(".sortType").css("color", "black");
-            //$(".sortType").css("color","FF8300");
-        };
-        var selectUp = function () {
             $(".select").css("color", "black");
-            $(".selectType").css("color", "black");
         };
+
         var selectDown = function () {
             $(".select").css("color", "rgba(12,99,238,0.78)");
             $(".selectType").css("color", "rgba(12,99,238,0.78)");
@@ -137,52 +121,21 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
         //设置两个变量，通过值的变化来控制按钮的状态
         $scope.showSort = false;
         $scope.showSelect = false;
-        $scope.shadowUp=function(type){
-            if(type==='sort'){
-                count1+=1;
+        $scope.shadowUp=function(){
                 $scope.showSort = false;
                 $scope.showSelect = false;
-            }
-            count2+=1;
-            $scope.showSort = false;
-            $scope.showSelect = false;
+                 Up();
         };
         //实现下拉以及按钮状态的改变
         $scope.changeSort = function (){
-        if (count1 % 2 === 0) {
-            if ($scope.showSort === false && $scope.showSelect === false) {
-                $scope.showSort = true;
-                sortDown();
-            } else if ($scope.showSort === false && $scope.showSelect === true) {
-                $scope.showSort = true;
-                $scope.showSelect = false;
-                selectUp();
-            } else {
-                $scope.showSort = true;
-            }
-        } else {
-            sortUp();
-            $scope.showSort = false;
-        }
-            count1+=1;
-    };
+            $scope.showSort = true;
+            $scope.showSelect = false;
+            sortDown();
+        };
         $scope.changeSelect=function(){
-            if(count2%2===0){
-                if($scope.showSort===false&&$scope.showSelect===false){
-                    $scope.showSelect=true;
-                    selectDown();
-                }else if($scope.showSort===true&&$scope.showSelect===false){
                     $scope.showSort=false;
                     $scope.showSelect=true;
-                    sortUp();
-                }else{
-                    $scope.showSelect=true;
-                }
-            }else{
-                selectUp();
-                $scope.showSelect=false;
-            }
-            count2+=1;
+                    selectDown();
         };
 
 }])

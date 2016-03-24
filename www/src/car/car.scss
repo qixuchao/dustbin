@@ -148,6 +148,21 @@
     left: 0;
     bottom: 0;
   }
+  .top-back3{
+    margin-top:-1px;
+    color: white;
+    height:3.28em;
+    font-size: 16px;
+    .title {
+      padding-top: 20px;
+      color: white;
+      i {
+        font-size: 25px;
+        color: #c9ddf0;
+        padding-left: 8px;
+      }
+    }
+  }
   .top-back2{
     background:url("../../img/car/barBg.png") no-repeat;
     background-size:100% 100%!important;
