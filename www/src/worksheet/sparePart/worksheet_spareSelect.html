@@ -1,0 +1,69 @@
+
+<ion-view  id="worksheet_spareSelect"  align-title="center">
+    <ion-header-bar align-title="center" class="bar-positive" >
+        <div class="row row-center title rowTitle" >
+            <div class="col col-15 left-back" ng-click="goBack()">
+                <i class="ion-ios-arrow-back left"></i>
+            </div>
+            <div class="col col-70 text-center">备件申请
+            </div>
+            <div class="col col-15 text-right">重新选择</div>
+        </div>
+    </ion-header-bar>
+
+    <ion-header-bar  class="bar bar-subheader" >
+        <div class="list  search-bar">
+            <div class="bar item-input-inset" style="background-color: #3259A4; ">
+                <label class="item-input-wrapper" style="background-color: white;margin-left:10px">
+                    <i class="icon ion-ios-search placeholder-icon" class="backColor"></i>
+                    <input type="search" placeholder="请输入备件描述" class="backColor">
+                </label>
+                <a class="textInfo">
+                    传输至SAP
+                </a>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content class="" style="" scroll="" has-bouncing="false" style="padding-top: 15px">
+
+        <div class="list" style="background-color: white" >
+            <div class="item itemAdd" ng-repeat="items in spareDetail">
+                <div class="row" ng-click="showDetail(items)">
+                    <div class="col-95" ><h2 style="color: #276DAC">{{items.name}}</h2></div>
+                    <div class="col-5"><i ng-class="{true:'ion-chevron-up',false:'ion-chevron-down'}[items.flag]" style="color: #3259A4"></i></div>
+                </div>
+                <div align="center"><hr color="#276DAC" class="line" size="2"></div>
+                    <div class="item itemDetail" style="" ng-repeat="item in items.detail" ng-hide="items.flag">
+                        <div class="row">
+                            <div class="col-65">
+                                <div class="row">
+                                    <div class="col-13">
+                                        <div  class="pic"style=""></div>
+                                    </div>
+                                    <div class="col-80">
+                                        <h2 style="">{{item.nameDetais}}</h2>
+                                    </div>
+                                </div>
+                                <p>
+                                    备件编码：{{item.code}}
+                                </p>
+                            </div>
+                            <div class="col-35">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <p class="little">
+                                申请数量：{{item.sqq}}  已发数量：{{item.yfq}} 已还数量：{{item.yhq}} 旧件数量：{{item.jjq}}
+                            </p>
+                        </div>
+                        <div class="row">
+                            <p class="colorInfo">
+                                备注：{{item.remark}}
+                            </p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

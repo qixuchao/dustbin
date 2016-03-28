@@ -1,11 +1,11 @@
 <ion-view class="SpareList1">
     <ion-header-bar class="bar">
         <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
-        <div class="title"><b>车辆备件信息列表</b></div>
+        <div class="title"><b>车辆备件信息</b></div>
     </ion-header-bar>
     <ion-header-bar class="bar bar-subheader ">
         <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="text" placeholder="请输入备件描述搜索"ng-model="carInfo">
+        <input type="text" placeholder="请输入备件描述"ng-model="carInfo">
     </ion-header-bar>
     <ion-content>
         <div class="divContent" ng-repeat="spare in spareList">

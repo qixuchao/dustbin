@@ -1,0 +1,57 @@
+
+<ion-view  id="worksheet_sparePart"  align-title="center">
+    <ion-header-bar align-title="center" class="bar-positive" >
+        <div class="row row-center title rowTitle" >
+            <div class="col col-15 left-back" ng-click="goBack()">
+                <i class="ion-ios-arrow-back left"></i>
+            </div>
+            <div class="col col-70 text-center">备件申请
+            </div>
+            <div class="col col-15 text-right" ui-sref="worksheetSelect">暂存</div>
+        </div>
+    </ion-header-bar>
+
+    <ion-header-bar  class="bar bar-subheader" >
+        <div class="list  search-bar">
+            <div class="bar item-input-inset" style="background-color: #3259A4; ">
+                <label class="item-input-wrapper" style="background-color: white;margin-left:10px">
+                    <i class="icon ion-ios-search placeholder-icon" class="backColor"></i>
+                    <input type="search" placeholder="请输入备件描述" class="backColor">
+                </label>
+                <a class="textInfo">
+                    传输至SAP
+                </a>
+            </div>
+    </div>
+    </ion-header-bar>
+    <ion-content class="" style="" scroll="false" has-bouncing="false">
+        <div class="list" style="background-color: white;margin-bottom: 0px">
+            <div class="item" style="height: 65px">
+                <h2 style="color: #276DAC">请选择</h2>
+                <p>
+                    <select class="selectC">
+                        <option selected>客服/售后服务仓-备件中心-北京</option>
+                    </select>
+                </p>
+            </div>
+            <div align="center"><hr color="#276DAC" class="line" size="2"></div>
+            </div>
+            <div class="list" style="background-color: white;overflow: scroll">
+                <div class="row" style="height: 65px;border-bottom: 1px solid #D6D3CE;margin-top: 0px;padding-bottom: 0px" ng-repeat="i in infos">
+                    <ion-checkbox   style="padding: 5px 16px 5px 16px" >
+                    <div class="col-75" style="margin-left: 28px;margin-top: 5px">
+                        <h2>{{i.name}}</h2>
+                        <p style="font-size: 12px;margin-top: 5px">
+                            备件编码：{{i.code}}   标准使用数量：{{i.num}}
+                        </p>
+                    </div>
+                    </ion-checkbox>
+                    <div class="col-25" style="margin:auto;">
+                        <i class="ion-ios-minus-outline iStyle" ng-click="reduce(i)"></i>
+                        <input type="text" class="inputSmall" style="" ng-model="i.selectNum">
+                        <i class="ion-ios-plus-outline iStyle" ng-click="add(i)"></i>
+                    </div>
+                </div>
+        </div>
+    </ion-content>
+</ion-view>

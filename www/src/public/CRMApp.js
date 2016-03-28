@@ -7,7 +7,7 @@ var salesModule = angular.module('salesModule', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
 
-var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic',
+var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'ionic-material',
     //'ionMdInput',
     'loginModule',

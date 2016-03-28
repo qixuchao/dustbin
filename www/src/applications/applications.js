@@ -5,7 +5,7 @@
 appModule
     .controller('AppCtrl',['$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function($scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
         console.log('app')
-        ionicMaterialInk.displayEffect();
+        //ionicMaterialInk.displayEffect();
 
         $scope.imgs = [{
             url:'img/apps/partner.png'

@@ -1,3 +1,4 @@
+
 <ion-view class="saleActDetail saleChanDetail">
     <div class="top-back absolute animated fadeIn" style="height: 75px;background: none"
          ng-class="!TitleFlag?'fadeOut':''" ng-show="TitleFlag">
@@ -13,7 +14,7 @@
         <div class="row row-center title" style="padding-bottom: 0">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">机会详情
-                <div style="font-size: 10px">郑州金龙客车(福州)客户拜访</div>
+                <div style="font-size: 10px">{{chanceDetails.title}}</div>
             </div>
             <div class="col col-15 text-right">后续</div>
         </div>
@@ -31,26 +32,26 @@
             </div>
             <div class="mainInfo">
                 <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
-                    <i class="ion-android-radio-button-off"></i>
-                    <!--<div>郑州金龙客车(福州)客户拜访</div>-->
-                    <input type="text" value="APP&nbsp;120KWh&nbsp;PHEV&nbsp;Pack需求" ng-readonly="!isEdit"
+                    <img class="title_oval" src="img/saleDetail/title_oval.png">
+                    <input type="text" ng-model="chanceDetails.title" ng-readonly="!isEdit"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="chanSubTitle">潜在客户:</div>
-                    <input type="text" value="BYD" ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
+                    <div class="editText" ng-if="isEdit">BYD<i class="ion-arrow-right-c right-arrow"></i></div>
+                    <input type="text" ng-model="chanceDetails.hideCustomer" ng-if="!isEdit" readonly>
+                    <div class="feel">{{chanceDetails.feelNum+'%'}}</div>
                 </div>
                 <div class="row row-center" ng-class="placeFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="chanSubTitle">销售阶段:</div>
-                    <input type="text" value="SOP阶段" ng-readonly="!isEdit"
-                           ng-class="{'border-bottom-white':isEdit}">
+                    <div class="editText" ng-click="openPopover()" ng-if="isEdit">{{chanceDetails.saleStage}}<i class="ion-arrow-right-c right-arrow"></i></div>
+                    <input type="text" ng-model="chanceDetails.saleStage" ng-if="!isEdit" readonly>
                 </div>
                 <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div>状态:</div>
                     <select ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
-
-                    <div class="num">NO.100036</div>
+                    <div class="num">{{'NO.'+chanceDetails.saleNum}}</div>
                     <div class="edit" ng-click="edit()"><img ng-show="!isEdit" src="img/saleDetail/edit.png">{{editText}}
                     </div>
                 </div>
@@ -66,9 +67,7 @@
             <div ng-show="select">
                 <div class="row">
                     <div class="col-15">注释:</div>
-                    <div class="text">In the tumultuous business of cutting-in and attending to a whale, there is much
-                        running backwards and forwards among
-                    </div>
+                    <textarea rows="3" ng-readonly="!isEdit">In the tumultuous business of cutting-in and attending to a whale, there is much running backwards and forwards among</textarea>
                 </div>
                 <div class="row no-padding-right">
                     <div class="row row-center">
@@ -76,6 +75,7 @@
                             <div class="row">
                                 <div class="col-30 text-left">开始时间:</div>
                                 <div class="text col-70 startTime">2016-3-1&nbsp;&nbsp;12:00<i class="ion-arrow-down-b time-icon"></i></div>
+                                <!--<input type="datetime"  value="2014-06-01T10:55Z">-->
                             </div>
                             <div class="row endTime">
                                 <div class="col-30 text-left">结束时间:</div>
@@ -127,6 +127,30 @@
                 </div>
             </div>
         </div>
-
     </ion-content>
 </ion-view>
+<script id="saleDetailSelect-popover.html" type="text/ng-template">
+    <ion-popover-view class="saleDetailPop own-animated slideInUp" style="animation-duration:.4s">
+        <div class="myHeader">
+            <div class="headerText">请选择</div>
+        </div>
+        <ion-content has-bouncing="false" scroll="false">
+            <div class="row row-center">
+                <div class="col">销售阶段</div>
+                <div class="col">
+                    <select ng-model="pop.stage" ng-options="x as x.value for x in saleStages">{{pop.stage}}</select>
+                </div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-50">信心指数</div>
+                <div class="col"><input type="text" ng-model="pop.feel" placeholder="请输入"></div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-50">销售编号</div>
+                <div class="col"><input type="text" ng-model="pop.saleNum" placeholder="请输入"></div>
+            </div>
+            <button ng-click="savePop()" class="save">完成</button>
+            <div><button ng-click="closePop()" class="cancel">取消</button></div>
+        </ion-content>
+    </ion-popover-view>
+</script>

@@ -1,16 +1,4 @@
 @charset "UTF-8";
-/* 公共样式*/
-//.row .col{
-//  padding:0;
-//  margin:0;
-//}
-//.buttonText{
-//  left: 30%;
-//  font-size: 1em;
-//  color: rgba(128,128,128,0.48);
-//}
-//@media not all, (-webkit-min-device-pixel-ratio: 1.5), not all, (min-resolution: 144dpi), (min-resolution: 1.5dppx)
-
 //车辆查询
 .CarList{
   .bar .title{
@@ -34,11 +22,6 @@
   .bar.bar-header .button+.title {
     text-align: center;
   }
-  .bar .button.button-clear {
-    color: #fff;
-    padding-left: 0.8em;
-    padding-top: 0.8em;
-  }
   .bar {
     border-bottom: none;
     padding: 0;
@@ -52,6 +35,11 @@
     padding: 0;
     fill: #2B60AB 90%;
     background-size: 0;
+    .button-clear {
+      color: #fff;
+      padding-left: 0.8em;
+      padding-top: 0.8em;
+    }
   }
   .bar-subheader {
     height: 2.7em;
@@ -81,44 +69,77 @@
       border-radius: 5px;
     }
   }
-   .textImg{
+   .borderLine{
      -webkit-user-drag: none;
      position: absolute;
-     top: 3em;
-     height: 3.0em;
+     top: 2.5em;
      width: 100%;
+     .row {
+       padding: 0;
+       .col-23 {
+         span {
+           position: relative;
+           left: 1.5em;
+           color: #2B60AB;
+           text-align: right;
+           font-size: 15px;
+           font-weight: 600;
+         }
+       }
+       .col-77 {
+         border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+       }
+     }
+       .col-15{
+         margin-top: 0.3em;
+         height: 1.2em;
+         border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+         border-right: 1px solid rgba(43, 96, 171, 0.90);
+
+     }
    }
   .shapeImg{
-    height:1.2em;
+    height: 1.2em;
+    position: relative;
+    left: .8em;
+    top: 0.4em;
   }
    .contentType{
     position: relative;
     top: 6em;
-     border-bottom: 1px solid gray;
+    border-bottom: 1px solid rgba(43, 43, 43, 0.17);
+  }
+  .row .col{
+     padding:0;
   }
   .rowType{
-    padding-top:1em;
+    padding-top:.8em;
+    position: relative;
+    left:4%;
+    .pointImg{
+      height: 0.7em;
+    }
+    .colType{
+      padding-left: 0;
+      span{
+        font-size: 1em;
+        color: #4a4a4a;
+      }
+    }
+
   }
   .row+.row .row {
     /* margin-top: -5px; */
     padding-top: 0;
     height: 4em;
   }
- .car1{
-    padding-left: 0.4em;
-    color: rgba(17, 116, 243, 0.88);
-  }
-  .car2{
-    color: #4A4A4A;
-    font-size: 14px;
-    font-weight: 500;
-  }
-   .colType{
-    padding-left: 0;
-  }
 }
 //车辆详情列表
 .CarDetail {
+  .row .col{
+    padding:0;
+    margin: 0;
+  }
   .absolute{
     position: absolute;
     z-index: 9;
@@ -126,6 +147,21 @@
     right: 0;
     left: 0;
     bottom: 0;
+  }
+  .top-back3{
+    margin-top:-1px;
+    color: white;
+    height:3.28em;
+    font-size: 16px;
+    .title {
+      padding-top: 20px;
+      color: white;
+      i {
+        font-size: 25px;
+        color: #c9ddf0;
+        padding-left: 8px;
+      }
+    }
   }
   .top-back2{
     background:url("../../img/car/barBg.png") no-repeat;
@@ -135,7 +171,7 @@
     height:3.28em;
     font-size: 16px;
     .title {
-      padding-top: 15px;
+      padding-top: 20px;
       color: white;
       i {
         font-size: 25px;
@@ -149,6 +185,7 @@
     background-size:100% 100%;
     color: white;
     font-size: 16px;
+    height: 164px;
     .title {
       padding-top: 20px;
       color: white;
@@ -183,19 +220,35 @@
     }
   }
   .row1 {
-    height: 3em;
-    font-size: 1em;
+    font-size: 16px;
     position: relative;
-    left: 0.5em;
+    left: 4%;
+    top: 0.5em;
     color: white;
+    padding-left: 0;
+    .col{
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .pointImg {
+      height: 0.7em;
+    }
+    .colText{
+      font-size: 15px;
+    }
   }
-  .colText{
+  .row2 {
     font-size: 14px;
+    position: relative;
+    left: 4%;
+    top: 1em;
+    margin-top: 0;
+    color: white;
+    padding-left: 0;
   }
-  .col-70{
+  .col-60{
     font-size:1.1em;
     color:rgba(155, 155, 155,0.9) ;
-    padding-left: 2em;
   }
   u{
     color: #0074d6;
@@ -205,13 +258,7 @@
     font-size:13px;
     color:rgba(155, 155, 155,0.9) ;
   }
-  .row2 {
-    font-size: 14px;
-    position: relative;
-    left: 4%;
-    margin-top: 0;
-    color: white;
-  }
+
   .contentType{
     position: relative;
   }
@@ -219,13 +266,70 @@
     padding: 0 0.5em 0 0.5em;
     height:38px;
   }
-  .rowBt{
+  .borderLine{
+    -webkit-user-drag: none;
     position: relative;
-    margin-bottom: 0.5em;
+    width: 100%;
+    top: 0.5em;
+    .row{
+      padding: 0;
+    }
+    .rowLine{
+      padding:0;
+      position: relative;
+      left: 4%;
+    }
+    .col-18{
+      span{
+        position: relative;
+        color: #2B60AB;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+    .col-82{
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+    }
+    .col-15{
+      margin-top: 0.3em;
+      height: 1.2em;
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+      border-right: 1px solid rgba(43, 96, 171, 0.90);
+    }
+  }
+  .borderLine{
+    -webkit-user-drag: none;
+    position: relative;
+    width: 100%;
+    top: 0.5em;
+    .row{
+      padding: 0;
+    }
+    .rowLine{
+      padding:0;
+      position: relative;
+      left: 4%;
+    }
+    .col-23{
+      span{
+        position: relative;
+        color: #2B60AB;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+    .col-77{
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+    }
+    .col-15{
+      margin-top: 0.3em;
+      height: 1.2em;
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+      border-right: 1px solid rgba(43, 96, 171, 0.90);
+    }
   }
   .titleType {
     position: relative;
-    margin-top: 1.2em;
     padding-top: 5px;
     height: 2.1em;
     padding-left: 0;
@@ -240,7 +344,7 @@
   b, strong {
     font-weight: 600;
     font-size: 15px;
-    color: rgba(0, 0, 0, 0.66);
+    color: rgba(0, 0, 0, 0.63);
   }
    .rowType {
      position: relative;
@@ -248,8 +352,10 @@
      padding-top: 1em;
      padding-bottom: 1em;
      padding-right: 0;
-     //border-bottom: 1px solid #ccc;
      padding-left: 0;
+     .col{
+       padding:0;
+     }
   }
    .rowType1 {
      position: relative;
@@ -258,7 +364,9 @@
      padding-bottom: 1em;
      padding-right:0;
      padding-left: 0;
-     //border-bottom: 1px solid #ccc;
+     .col{
+       padding:0;
+     }
   }
   .lineType1{
     border-bottom: 1px solid #ccc;
@@ -272,6 +380,9 @@
   .rowType2 {
     padding: 0;
     margin: 0;
+    .col{
+      padding:0;
+    }
   }
  .lastRow {
     padding-left: 0.9em;
@@ -281,6 +392,16 @@
 }
 
 .Maintenance {
+  .bar.bar-header .button + .title {
+    text-align: center;
+    color: white;
+    line-height: 60px;
+  }
+  .bar .button.button-clear {
+    color: #fff;
+    padding-left: 0.8em;
+    padding-top: 0.8em;
+  }
   .bar{
     border-bottom: none;
     padding: 0;
@@ -312,7 +433,7 @@
     padding-bottom: 0.5em;
   }
    .bgColor{
-     background-color: #fafafa;
+     background-color: rgb(255, 255, 255);
      position: absolute;
      height: 20px;
      width: 13px;
@@ -323,12 +444,12 @@
        position: relative;
        left: -1px;
        font-size: 1.2em;
-       top: -7px;
+       top: -2px;
        color: #387ef5;
      }
    }
   .bgColor1{
-    background-color: #fafafa;
+    background-color: rgb(255, 255, 255);
     position: absolute;
     height: 20px;
     width: 13px;
@@ -339,24 +460,10 @@
       position: relative;
       left: -1px;
       font-size: 1.2em;
-      top: -7px;
+      top: -2px;
       color: #28a54c;
     }
   }
-  //.arrow-shadow{
-  //  border: 2px solid #0c63ee;
-  //  height: 40px;
-  //  position: absolute;
-  //  width: 40px;
-  //  left: 20%;
-  //}
-  //.arrow-shadow1{
-  //  border: 2px solid rgba(51, 205, 95, 0.77);
-  //  height: 40px;
-  //  position: absolute;
-  //  width: 40px;
-  //  left: 68%;
-  //}
   .lineImg{
     height: 2px;
     position: relative;
@@ -365,26 +472,36 @@
     background:-webkit-linear-gradient(left, #0c63ee, #33cd5f);/*new gradient for Webkit*/
     background:-o-linear-gradient(left, #0c63ee, #33cd5f); /*Opera11*/
   }
-  .borderLine{
-    border-bottom: 2px solid rgba(221, 221, 221, 0.59);
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-  }
   .row-center {
     background-color: white;
     position: relative;
   }
-  .borderLine{
+  .divLine{
+    border-bottom: 1px solid rgba(128, 128, 128, 0.26);
+  }
+  .rowContent{
+    position: relative;
+    padding-left: 0;
+    left: 4%;
+    .col{
+      padding:0;
+    }
+    .pointImg{
+        height:0.7em;
+    }
     b{
       font-weight: 600;
-      color: rgba(68, 68, 68, 0.98);
-      font-size: 1.1em;
+      color: rgba(68, 68, 68, 0.89);;
+      font-size: 16px;
     }
     span{
       font-size: 14px;
       color:rgba(17, 17, 17, 0.43) ;
       font-weight: 500;
     }
+  }
+  .buttonText{
+    left: 25%;
   }
   .selected{
     background-color:rgba(43, 96, 171, 0.9);
@@ -393,6 +510,30 @@
     position: relative;
     height: 0.8em;
     right: -0.5em;
+  }
+  input {
+    position: relative;
+    color: #ccc;
+    vertical-align: middle;
+    font-size: 15px;
+    text-align: center;
+    height: 30px;
+    line-height: 16px;
+    width: 100%;
+    border: 1px solid #dedede;
+    background-color: rgb(238,242,243);
+  }
+  .row1,.row2,.row3,.row4{
+    padding-left: 0;
+    .col{
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .row1{
+    .col-10{
+      padding: 0 0.5em;
+    }
   }
   .colType {
     .row-center{
@@ -443,14 +584,12 @@
     position: relative;
     height: 0.8em;
     right: -0.5em;
-    transform: rotate(360deg);
-    transition: transform 0.3s;
   }
   .selectContent {
     position: absolute;
     z-index: 22;
     width: 100%;
-    top: 3em;
+    top: 3.2em;
     background-color: white;
     box-shadow: 0 3px rgba(128,128,128,0.51);
   }
@@ -462,7 +601,6 @@
   }
   .line{
     border-bottom: 1px solid black;
-    margin-right: 1em;
   }
   .lineType{
     border-bottom: 1px solid #aaa;
@@ -475,7 +613,7 @@
   .btType {
     color: #aaa;
     box-shadow: none;
-    padding: 0 0.5em;
+    padding: 0 0.2em;
     min-height: 30px;
     vertical-align: top;
     text-align: center;
@@ -490,7 +628,7 @@
     box-shadow: none;
     padding: 0 2px;
     min-height: 30px;
-    min-width: 4em;
+    min-width: 3.5em;
     vertical-align: top;
     text-align: center;
     text-overflow: ellipsis;
@@ -512,6 +650,7 @@
     box-shadow: none;
     border-radius: 0.5em;
     line-height: 2.4em;
+    right:1.2em;
   }
   .shadowDiv1{
       position: fixed;
@@ -526,18 +665,33 @@
     }
   .shadowDiv2{
     position: fixed;
-    top: 22.5em;
+    top: 20.7em;
     left: 0;
     z-index: 11;
     visibility: visible;
     width: 100%;
-    height: 100%;
+    height: 24em;
     background-color: rgba(128, 128, 128, 0.27);
     opacity: 1;
   }
 }
-.SpareList1{
-  .bar{
+.SpareList1 {
+  .bar.bar-header .button + .title {
+    text-align: center;
+    color: white;
+    line-height: 60px;
+  }
+  .bar .button.button-clear {
+    color: #fff;
+    padding-left: 0.8em;
+    padding-top: 0.8em;
+  }
+  .bar .title {
+    position: absolute;
+    font-size: 16px;
+    color: white;
+  }
+  .bar {
     border-bottom: none;
     padding: 0;
     height: 3.28em;
@@ -573,37 +727,48 @@
       border-radius: 5px;
     }
   }
-   .divContent{
-     position: relative;
-     top: 2em;
-     border-bottom: 1px solid rgba(128, 128, 128, 0.41);
-     padding: 0.5em 0;
-   }
-  img{
+  .divContent {
+    position: relative;
+    top: 1.2em;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.41);
+    padding: 0.5em 0;
+  }
+  .row+.row {
+    margin-top: -5px;
+    padding-top: 5px;
+  }
+  img {
     height: 0.8em;
   }
-  .col{
-    span{
+  .col {
+    padding: 0;
+    span {
       font-size: 14px;
       color: gray;
     }
-    .spareName{
-       font-size: 1.2em;
-     }
+    .spareName {
+      font-size: 1.2em;
+    }
   }
-  b strong{
+  .row-center {
+    b {
+      font-weight: 600;
+      color: rgba(17, 17, 17, 0.8);
+      font-size: 14px;
+    }
+  }
+  b strong {
     font-weight: 500;
   }
-  .rowType{
+  .rowType {
     position: relative;
-    top:2em;
+    top: 1.2em;
+    .button-clear{
+      left: 25%;
+    }
   }
-  .buttonText span{
-    left: 25%;
-    font-size: 1em;
-    color: rgba(128,128,128,0.48);
-  }
-  .col-45{
+  .col-45 {
     text-align: center;
+    padding: 0;
   }
 }
