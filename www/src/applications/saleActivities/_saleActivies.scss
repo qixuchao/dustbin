@@ -145,6 +145,15 @@
       font-size: 14px;
       color: #9B9B9B;
     }
+    textarea{
+      font-size: 14px;
+      color: #9B9B9B;
+      width: 100%;
+      background: none;
+      border:none;
+      word-break: break-all;
+      word-wrap: break-word;
+    }
     .startTime{
       padding-bottom: 3%;
       border-bottom: 1px solid $lineColor;
@@ -192,7 +201,7 @@
         margin-left: 2%;
       }
       .triAngle{
-        background: url('rl(../../img/saleDetail/Triangle.png') no-repeat;
+        background: url('../../img/saleDetail/Triangle.png') no-repeat;
         background-size:100% 100%;
         width: 95%;
         .text{
