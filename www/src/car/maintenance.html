@@ -7,15 +7,17 @@
         <div class="row row-center rowType">
             <div class="col col-50 col-center colType" ng-click="changeSort()">
                 <span class="sort">排序</span>
-                <img ng-src="img/car/sort.png" class="sortType">
+                <img ng-src="img/car/sort.png" class="sortType" ng-show="!showSort">
+                <img ng-src="img/car/sortImg.png" class="sortType" ng-show="showSort">
                 <div class="bgColor" ng-show="showSort">
                     <i class="ion-ios-arrow-up"></i>
                 </div>
             </div>
             <div class="col col-50 col-center colType icon-right" ng-click="changeSelect()">
                 <span class="select">筛选</span>
-                <img ng-src="img/car/select.png" class="selectType">
-                <div class="bgColor1"ng-show="showSelect">
+                <img ng-src="img/car/select.png" class="selectType" ng-show="!showSelect">
+                <img ng-src="img/car/selectImg.png" class="selectType" ng-show="showSelect">
+                <div class="bgColor1" ng-show="showSelect">
                     <i class="ion-ios-arrow-up"></i>
                 </div>
             </div>
@@ -72,13 +74,13 @@
                         <span>日期区间</span>
                     </div>
                     <div class="col col-26 col-center">
-                        <input type="text" placeholder="20150101" class="textDate">
+                        <input type="date" placeholder="20150101" class="textDate">
                     </div>
                     <div class="col col-10 col-center">
                         <div class="line"></div>
                     </div>
                     <div class="col col-26 col-center">
-                        <input type="text" placeholder="20150609" class="textDate">
+                        <input type="date" placeholder="20150609" class="textDate">
                     </div>
                 </div>
                 <div class="lineType"></div>
@@ -111,7 +113,7 @@
                 <div class="row">
                     <div class="col col-37"></div>
                     <div class="col col-25 ">
-                        <a class="button button-outline button-light">重置</a>
+                        <a class="button button-outline button-light" ng-click="reset()">重置</a>
                     </div>
                     <div class="col col-8"></div>
                     <div class="col col-25 ">

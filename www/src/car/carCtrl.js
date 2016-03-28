@@ -155,6 +155,11 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
                 selectDown();
                 sortUp();
         };
+        $scope.reset=function(){
+            $('.btType').removeClass('selected');
+            $('.btType').addClass('colorClass');
+            $('.btType1').removeClass('selected');
+        }
 
 }])
 
