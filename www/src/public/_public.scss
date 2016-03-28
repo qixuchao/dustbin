@@ -26,10 +26,12 @@
 /**
  * 公共的 变量  
  */
- $crm-header-bar-bgcolor: rgb(50, 89, 164); // =#3259A4
+ $crm-header-bar-bgcolor: #2B60AB;
  $crm-content-bgcolor: #F5F5F5;
 
-
+$crm-subject-green:#9ec92a;
+$crm-subject-blue:#2B60AB;
+$lineColor:#d2d2d2;
 /**
  * 公共的 mixin  
  */
@@ -53,7 +55,7 @@
 
 
 /*公共样式*/
-$lineColor:#d2d2d2;
+
 .scroll {
   height: 100%
 }

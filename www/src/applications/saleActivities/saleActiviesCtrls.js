@@ -7,6 +7,8 @@ salesModule
         console.log('销售活动列表')
         ionicMaterialInk.displayEffect();
         //ionicMaterialMotion.fadeSlideInRight();
+        $scope.searchFlag = true;
+
     
     }])
     .controller('saleActDetailCtrl', [
