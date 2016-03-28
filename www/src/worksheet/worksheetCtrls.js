@@ -3,8 +3,8 @@ worksheetModule.controller("WorksheetListCtrl",[
 	"ionicMaterialInk", 
 	"ionicMaterialMotion",
 	"$ionicPopup", "$timeout", 
-	"$ionicPosition",
-	function($scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition){
+	"$ionicPosition","$state",
+	function($scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition, $state){
 	
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
@@ -87,6 +87,15 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.filterImpactNoSelected = true;
 		//筛选 规则 ----> 状态
 		__resetStatus();
+	};
+
+	$scope.goDetailState = function(i){
+		console.log("goDetailState");
+		if(i == 0){
+			$state.go("worksheetdetailnewcar");
+		}else{
+			$state.go("worksheetdetailsiterepair");
+		}
 	};
 
 	$scope.onSearchTextChange = function($event){

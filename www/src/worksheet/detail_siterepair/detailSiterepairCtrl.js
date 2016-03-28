@@ -9,6 +9,8 @@ worksheetModule.controller("WorksheetDetailSiterepairCtrl",[
 	"$ionicModal",
 	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout, $ionicBackdrop, $ionicPosition, $ionicGesture, $ionicModal){
 	
+	
+
 	$scope.config = {
 		scrollDelegateHandler: null,
 		contentDetegateHandler: null,
