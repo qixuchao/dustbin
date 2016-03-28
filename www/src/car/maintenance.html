@@ -58,66 +58,68 @@
                 <span>点击加载更多</span>
             </a>
         </div>
-        <div class="myPro"ng-show="showSort">
-            <ul class="ulType">
-                <li class="liType animated fadeInDown" ng-class="{true:'color1',false:'color2'}[$index===selectRow]"  ng-repeat="list in List" ng-click="choice($index)">{{list}}</li>
+        <div class="myPro" ng-show="showSort">
+            <ul class="ulType animated fadeInDown">
+                <li class="liType " ng-class="{true:'color1',false:'color2'}[$index===selectRow]"  ng-repeat="list in List" ng-click="choice($index)">{{list}}</li>
             </ul>
             <div class="shadowDiv1" ng-click="shadowUp()"></div>
         </div>
-        <div  class="selectContent" ng-show="showSelect">
-            <div class="row row-center row1">
-                <div class="col col-5"></div>
-                <div class="col col-20">
-                    <span>日期区间</span>
+        <div ng-show="showSelect">
+            <div  class="selectContent animated fadeInDown" >
+                <div class="row row-center row1">
+                    <div class="col col-5"></div>
+                    <div class="col col-20">
+                        <span>日期区间</span>
+                    </div>
+                    <div class="col col-26 col-center">
+                        <input type="text" placeholder="20150101" class="textDate">
+                    </div>
+                    <div class="col col-10 col-center">
+                        <div class="line"></div>
+                    </div>
+                    <div class="col col-26 col-center">
+                        <input type="text" placeholder="20150609" class="textDate">
+                    </div>
                 </div>
-                <div class="col col-26 col-center">
-                    <input type="text" placeholder="20150101" class="textDate">
+                <div class="lineType"></div>
+                <div class="row row-center row2">
+                    <div class="col col-5"></div>
+                    <div class="col col-center titleType">
+                        <b>工单类型</b>
+                    </div>
                 </div>
-                <div class="col col-10 col-center">
-                    <div class="line"></div>
+                <div class="row row-center row3">
+                    <div class="col col-5"></div>
+                    <div class="col col-center col-30" ng-click="clicked($index)" ng-repeat="list in List1">
+                        <a class="button button-outline btType" ng-class="{true:'selected',false:'classColor'}[$index===selectedRow]" >{{list}}</a>
+                   </div>
                 </div>
-                <div class="col col-26 col-center">
-                    <input type="text" placeholder="20150609" class="textDate">
+                <div class="lineType"></div>
+                <div class="row row-center row2">
+                    <div class="col col-5"></div>
+                    <div class="col col-center titleType">
+                        <b>影响</b>
+                    </div>
                 </div>
+                <div class="row row-center row4">
+                    <div class="col col-5"></div>
+                    <div class="col col-center col-18" ng-repeat="list in List2" ng-click="clicked1($index)">
+                        <a class="button button-outline btType1" ng-class="{true:'selected',false:'classColor'}[$index===selectedRow1]">{{list}}</a>
+                    </div>
+                </div>
+                <div class="lineType"></div>
+                <div class="row">
+                    <div class="col col-37"></div>
+                    <div class="col col-25 ">
+                        <a class="button button-outline button-light">重置</a>
+                    </div>
+                    <div class="col col-8"></div>
+                    <div class="col col-25 ">
+                        <a class="button button-outline button-light">确认</a>
+                    </div>
+                </div>
+                <div class="shadowDiv2" ng-click="shadowUp()"></div>
             </div>
-            <div class="lineType"></div>
-            <div class="row row-center row2">
-                <div class="col col-5"></div>
-                <div class="col col-center titleType">
-                    <b>工单类型</b>
-                </div>
-            </div>
-            <div class="row row-center row3">
-                <div class="col col-5"></div>
-                <div class="col col-center col-30" ng-click="clicked($index)" ng-repeat="list in List1">
-                    <a class="button button-outline btType" ng-class="{true:'selected',false:'classColor'}[$index===selectedRow]" >{{list}}</a>
-               </div>
-            </div>
-            <div class="lineType"></div>
-            <div class="row row-center row2">
-                <div class="col col-5"></div>
-                <div class="col col-center titleType">
-                    <b>影响</b>
-                </div>
-            </div>
-            <div class="row row-center row4">
-                <div class="col col-5"></div>
-                <div class="col col-center col-18" ng-repeat="list in List2" ng-click="clicked1($index)">
-                    <a class="button button-outline btType1" ng-class="{true:'selected',false:'classColor'}[$index===selectedRow1]">{{list}}</a>
-                </div>
-            </div>
-            <div class="lineType"></div>
-            <div class="row">
-                <div class="col col-37"></div>
-                <div class="col col-25 ">
-                    <a class="button button-outline button-light">重置</a>
-                </div>
-                <div class="col col-8"></div>
-                <div class="col col-25 ">
-                    <a class="button button-outline button-light">确认</a>
-                </div>
-            </div>
-            <div class="shadowDiv2" ng-click="shadowUp()"></div>
         </div>
     </ion-content>
 </ion-view>

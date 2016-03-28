@@ -108,16 +108,21 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
 
         };
         var Up = function () {
-            $(".sort").css("color", "black");
-            $(".select").css("color", "black");
+            $(".sort").css("color", "");
+            $(".select").css("color", "");
+        };
+        var sortUp = function () {
+            $(".sort").css("color", "");
+        };
+        var selectUp = function () {
+            $(".select").css("color", "");
+            //$(".selectContent").addClass('animated fadeInUp');
         };
 
         var selectDown = function () {
             $(".select").css("color", "rgba(12,99,238,0.78)");
             $(".selectType").css("color", "rgba(12,99,238,0.78)");
         };
-        var count1 = 0;
-        var count2 = 0;
         //设置两个变量，通过值的变化来控制按钮的状态
         $scope.showSort = false;
         $scope.showSelect = false;
@@ -128,14 +133,27 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
         };
         //实现下拉以及按钮状态的改变
         $scope.changeSort = function (){
+            if($scope.showSort){
+                $scope.showSort=false;
+                sortUp();
+                return;
+            }
             $scope.showSort = true;
             $scope.showSelect = false;
             sortDown();
+            selectUp();
+
         };
         $scope.changeSelect=function(){
-                    $scope.showSort=false;
-                    $scope.showSelect=true;
-                    selectDown();
+            if($scope.showSelect){
+                $scope.showSelect=false;
+                selectUp();
+                return;
+            }
+                $scope.showSort=false;
+                $scope.showSelect=true;
+                selectDown();
+                sortUp();
         };
 
 }])
