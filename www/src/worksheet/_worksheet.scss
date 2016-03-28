@@ -172,7 +172,6 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			}
         }
         &.filter-from-click{
-			
         }
         &.filter-from-sort{
 			.tab-sort-content-inner{
@@ -1125,7 +1124,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             }
             &.has-right-icon{
             	.line-right-icon{
-            		@include flex(1);
+            		//@include flex(1);
+            		width: 2rem;
             	}
             }
         }
