@@ -69,35 +69,39 @@
       border-radius: 5px;
     }
   }
-   .borderLine{
-     -webkit-user-drag: none;
-     position: absolute;
-     top: 2.5em;
-     width: 100%;
-     .row {
-       padding: 0;
-       .col-23 {
-         span {
-           position: relative;
-           left: 1.5em;
-           color: #2B60AB;
-           text-align: right;
-           font-size: 15px;
-           font-weight: 600;
-         }
-       }
-       .col-77 {
-         border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-       }
-     }
-       .col-15{
-         margin-top: 0.3em;
-         height: 1.2em;
-         border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-         border-right: 1px solid rgba(43, 96, 171, 0.90);
-
-     }
-   }
+  .borderLine{
+    -webkit-user-drag: none;
+    position: relative;
+    width: 100%;
+    top:2em;
+    .row{
+      padding: 0;
+    }
+    .rowLine {
+      padding: 0;
+      position: relative;
+      left: 4%;
+      .col-18 {
+        padding: 0;
+        span {
+          position: relative;
+          color: #2B60AB;
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+      .col-82 {
+        padding: 0;
+        border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+      }
+    }
+    .col-12{
+      margin-top: 0.3em;
+      height: 1.2em;
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+      border-right: 1px solid rgba(43, 96, 171, 0.90);
+    }
+  }
   .shapeImg{
     height: 1.2em;
     position: relative;
@@ -106,7 +110,7 @@
   }
    .contentType{
     position: relative;
-    top: 6em;
+    top: 2em;
     border-bottom: 1px solid rgba(43, 43, 43, 0.17);
   }
   .row .col{
@@ -116,6 +120,7 @@
     padding-top:.8em;
     position: relative;
     left:4%;
+    padding-left: 0;
     .pointImg{
       height: 0.7em;
     }
@@ -290,7 +295,7 @@
     .col-82{
       border-bottom: 1px solid rgba(43, 96, 171, 0.90);
     }
-    .col-15{
+    .col-12{
       margin-top: 0.3em;
       height: 1.2em;
       border-bottom: 1px solid rgba(43, 96, 171, 0.90);
@@ -298,36 +303,36 @@
     }
   }
   .borderLine{
-    -webkit-user-drag: none;
-    position: relative;
-    width: 100%;
-    top: 0.5em;
-    .row{
-      padding: 0;
-    }
-    .rowLine{
-      padding:0;
-      position: relative;
-      left: 4%;
-    }
-    .col-23{
-      span{
-        position: relative;
-        color: #2B60AB;
-        font-size: 14px;
-        font-weight: 600;
-      }
-    }
-    .col-77{
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-    }
-    .col-15{
-      margin-top: 0.3em;
-      height: 1.2em;
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-      border-right: 1px solid rgba(43, 96, 171, 0.90);
-    }
-  }
+     -webkit-user-drag: none;
+     position: relative;
+     width: 100%;
+     top: 0.5em;
+     .row{
+       padding: 0;
+     }
+     .rowLine{
+       padding:0;
+       position: relative;
+       left: 4%;
+     }
+     .col-23{
+       span{
+         position: relative;
+         color: #2B60AB;
+         font-size: 14px;
+         font-weight: 600;
+       }
+     }
+     .col-77{
+       border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+     }
+     .col-13{
+       margin-top: 0.3em;
+       height: 1.2em;
+       border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+       border-right: 1px solid rgba(43, 96, 171, 0.90);
+     }
+   }
   .titleType {
     position: relative;
     padding-top: 5px;
@@ -356,6 +361,37 @@
      .col{
        padding:0;
      }
+  }
+  .borderLine{
+    -webkit-user-drag: none;
+    position: relative;
+    width: 100%;
+    top: 0.5em;
+    .row{
+      padding: 0;
+    }
+    .rowLine{
+      padding:0;
+      position: relative;
+      left: 4%;
+    }
+    .col-19{
+      span{
+        position: relative;
+        color: #2B60AB;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+    .col-81{
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+    }
+    .col-12{
+      margin-top: 0.3em;
+      height: 1.2em;
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+      border-right: 1px solid rgba(43, 96, 171, 0.90);
+    }
   }
    .rowType1 {
      position: relative;
@@ -410,8 +446,13 @@
     background-size: 0;
     box-shadow: none;
   }
-  ion-content {
+  .barLine{
+    position: fixed;
     top: 5em;
+    width: 100%;
+  }
+  ion-content {
+    top: 8.3em;
   }
   .colType {
     text-align: center;
@@ -577,7 +618,7 @@
     z-index: 22;
     margin-top: 0.2em;
     width: 100%;
-    top: 3em;
+    top: 0.3em;
     box-shadow: 0 3px rgba(128,128,128,0.51);
   }
   .selectType {
@@ -589,7 +630,7 @@
     position: absolute;
     z-index: 22;
     width: 100%;
-    top: 3.2em;
+    top: 0.5em;
     background-color: white;
     box-shadow: 0 3px rgba(128,128,128,0.51);
   }

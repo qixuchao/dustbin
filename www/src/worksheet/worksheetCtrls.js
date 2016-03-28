@@ -350,7 +350,7 @@ worksheetModule.controller("WorksheetDetailCtrl",[
 		headerScrollCan: true,
 		headerBarInitHeight: null,
 		headerInfoInitHeight: null,
-		headerBarTitleInitHeight: null,
+		headerBarTitleInitHeight: null
 	};
 
 	$scope.datas = {
