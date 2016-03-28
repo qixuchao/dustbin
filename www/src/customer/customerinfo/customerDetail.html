@@ -1,0 +1,209 @@
+<ion-view class="customer_detail">
+    <div class="customer_backtop absolute fadeIn" style="height:48px;z-index:1" ng-show="customer_showTitle"
+         ng-class="!customer_TitleFlag?'animated fadeOut':'animated fadeIn'">
+        <div class="customer_detailtitleview">
+            <i class="icon ion-ios-arrow-back customerdeatil_headtitleiview" ng-click="goBack()"></i>
+            <span class="customerdeatil_headtitlespanview">客户详细信息</span>
+            <div class="customer_detailname">
+                {{customerdetails.customername}}
+            </div>
+        </div>
+    </div>
+    <ion-content has-bouncing="false" on-scroll="customer_onScroll()">
+        <div class="customer_backtop" style="z-index:-1">
+            <div class="customer_detailtitle" ng-class="customer_TitleFlag?'animated fadeOut':'animated fadeIn'">
+                <i class="icon ion-ios-arrow-back customerdeatil_headtitlei" ng-click="goBack()"></i>
+                <span class="customerdeatil_headtitlespan">客户详细信息</span>
+            </div>
+            <div class="customer_detailcontent">
+                <div class="customer_detailcontentname" ng-class="customer_customerFlag?'animated fadeOut':'animated fadeIn'">
+                    <div class="customer_detailcontentcicle"></div><span>{{customerdetails.customername}}</span>
+                </div>
+                <div class="customer_detailcontentaddress" ng-class="customer_placeFlag?'animated fadeOut':'animated fadeIn'">
+                    地址:<span>{{customerdetails.customeraddress}}</span>
+                </div>
+                <div class="customer_detailcontentphone" ng-class="customer_typeFlag?'animated fadeOut':'animated fadeIn'" ng-click="customershowphone(customerdetails.customerphonenumber)">
+                    <i class="icon ion-ios-telephone-outline customer_detailcontentphonei"></i>
+                    <span style="margin-left: 4px;">{{customerdetails.customerphonenumber}}</span><span style=" margin-left: 90px;">NO-100034</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="item item-list-detail" style="padding: 0px 3px;border: none;margin-top: 5px;">
+            <ion-scroll direction="x">
+                    <span style="position: relative;margin-right:55px;" ng-repeat="lists in customer_detailstypes"  ng-click="gocustomerLists(lists)" >
+                        <img class="customer_detail_countentbu image-list-thumb" ng-src="{{lists.imgurl}}" alt=""/>
+                        <span class="customer_detail_countentimgbase">
+                            {{lists.typemane}}
+                        </span>
+                    </span>
+            </ion-scroll>
+        </div>
+        <div class="customer_detail_countentbasic">
+            <div class="customer_detail_countentbasicinfo">基本信息</div>
+            <div class="customer_detail_countentbasicline"></div>
+            <div class="customer_detail_countentbasicclok"></div>
+        </div>
+        <div class="customer_detail_countentlist">
+            </div>
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    角色
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customerposition}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    付款方式
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customerpayway}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    付款日历
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customerpaydate}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    验收周期(天)
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customercheckperiod}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    预验收周期(天)
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customerwillcheckperiod}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px" ng-click="employeeshowphone(userdetailval.phoneNumber)">
+                <div class="col col-40">
+                    <img src="img/employee/ephone@2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
+                    传真
+                </div>
+                <div class="col col-60" style="color:#AEA3A3;margin-left: 7px;">
+                    {{customerdetails.customerfax}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px" ng-click="customermailcopyvalue(userdetailval.email)">
+                <div class="col col-25">
+                    <img src="img/customer/customerchuanz2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
+                    邮箱
+                </div>
+                <div class="col col-75" style="color:#4A90E2;margin-left: 10px;">
+                    {{customerdetails.customermail}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px" ng-click="customeropenbrser(userdetailval.email)">
+                <div class="col col-40">
+                    <img src="img/customer/customerwangz@2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
+                    网站
+                </div>
+                <div class="col col-60" style="color:#4A90E2;margin-left: 10px;">
+                    {{customerdetails.customerwebsite}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    国家
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customercontrary}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    地区
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customerregion}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    城市
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customercity}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    街道
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customerstreet}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    门牌号
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customerborad}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    邮编
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    {{customerdetails.customerpostal}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-15" style="margin-left: 7px;">
+                    注释
+                </div>
+                <div class="col col-85" style="color:#AEA3A3">
+                    {{customerdetails.customerzhushi}}
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+        </div>
+        <div class="customercontentbutton">
+            编辑
+        </div>
+    </ion-content>
+</ion-view>

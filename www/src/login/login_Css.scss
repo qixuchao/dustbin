@@ -1,8 +1,16 @@
-.login{
-  width: 100%;
+
+.login {
+    background: url(../../img/login/login_bg@3x.png);
+    background-repeat: no-repeat;
+  background-position: center;
+    width: 100%;
+    background-size: cover;
+}
+.login .scroll {
+  height: 0;
 }
 .login .login_bg{
-  margin-left:16%;
+  text-align: center;
 
   /*text-align: center;*/
   margin-top:20%;
@@ -60,6 +68,7 @@
   float: right;
   margin-top:-1px;
   margin-left: 2px;
+  display: inline-block;
 }
 .login .login_button{
   width:70%;
@@ -72,14 +81,4 @@
   border: none;
   border-radius:15px;
 
-}
-.loading-container .loading {
-  padding: 20px;
-  border-radius: 5px;
-  background-color: #ffffff;
-  opacity:.5;
-  color: #fff;
-  text-align: center;
-  text-overflow: ellipsis;
-  font-size: 15px;
 }

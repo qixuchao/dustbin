@@ -1,0 +1,32 @@
+
+{ "employee_query_list":
+[{
+    "name":"王雨薇",
+    "sex":"女",
+    "phoneNumber":"021-67534444",
+    "mobilenumber":13759941764,
+    "useid":"100000220",
+    "email":"yuwei.wang@hand-china.com"
+    },{
+  "name":"王雨薇",
+  "sex":"女",
+  "phoneNumber":"021-67534444",
+  "mobilenumber":13759941764,
+  "useid":"100000220",
+  "email":"yuwei.wang@hand-china.com"
+    },{
+  "name":"王雨薇",
+  "sex":"女",
+  "phoneNumber":"021-67534444",
+  "mobilenumber":13759941764,
+  "useid":"100000220",
+  "email":"yuwei.wang@hand-china.com"
+    },{
+  "name":"王雨薇",
+  "sex":"女",
+  "phoneNumber":"021-67534444",
+  "mobilenumber":13759941764,
+  "useid":"100000220",
+  "email":"yuwei.wang@hand-china.com"
+    }
+]}

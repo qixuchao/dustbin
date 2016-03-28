@@ -1,0 +1,39 @@
+<ion-view class="customerContacts_Query">
+    <ion-header-bar style="height:110px;padding: 0">
+        <div class="employeecustomer_head">
+            <div class="employeecustomer_headtitle">
+                <i class="icon ion-ios-arrow-back employeecustomer_headtitlei" ng-click="goBack()"></i>
+                <span class="employeecustomer_headtitlespan">联系人</span>
+                <img style="height:22px;width:22px;float: right;margin-top:13px;margin-right:18px" src="img/employee/increase@2x.png" ng-click="customerContactsopenpopv()"></img>
+            </div>
+            <form ng-submit="">
+                <div class="employeecustomer_headquery">
+                    <input class="employeecustomer_headqueryinput" placeholder="请输入客户关键字" type="text"/>
+                    <i class="ion-ios-search employeecustomer_headqueryimg"></i>
+                </div>
+            </form>
+        </div>
+    </ion-header-bar>
+    <ion-content style="margin-top:66px">
+        <div class="customerContacts_query_list" ng-repeat="x in customerContacts_query_list" ng-click="customerContacts_godetails(x)">
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-6" style="margin-left:5px">
+                    <div class="customerContacts_query_listcicle" ng-class="{customerContactse_query_listcicleA: !$odd, customerContacts_query_listcicleB: !$even}"></div>
+                </div>
+                <div class="col col-24" style="text-align: left">
+                    <span style="vertical-align: middle">{{x.name}}</span>
+                </div>
+                <div class="col col-60" style="text-align: center">
+                    <span style="vertical-align: middle">{{x.phoneNumber}}</span>
+                </div>
+                <div class="col col-10">
+                    <img class="customerContacts_query_listfor" src="img/employee/Shape@2x.png"></img>
+                </div>
+            </div>
+            <div class="customerContacts_query_listline">
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+
+

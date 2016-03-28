@@ -3,7 +3,8 @@ worksheetModule.controller("WorksheetListCtrl",[
 	"ionicMaterialInk", 
 	"ionicMaterialMotion",
 	"$ionicPopup", "$timeout", 
-	function($scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout){
+	"$ionicPosition","$state",
+	function($scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition, $state){
 	
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
@@ -19,7 +20,11 @@ worksheetModule.controller("WorksheetListCtrl",[
 		isFilterMode: false,
 		isSorteMode: false,
 		isQueryMode: false,
-		isListMode: false, 
+		isListMode: false,
+		sortModeFromFilterMode: false,
+		sortModeFromClick: false,
+		filterModeFromSortMode: false,
+		filterModeFromClick: false,
 
 		//排序 规则
 		sortedTypeNone: true,    //不排序（默认）
@@ -38,11 +43,23 @@ worksheetModule.controller("WorksheetListCtrl",[
 		filterImpactLow: false,
 		filterImpactNone: false,
 		filterImpactNoSelected: true,
+		//筛选 规则 ----> 状态
+		filterStatusNew: false, //新建
+		filterStatusSendedWorker: false,		//已派工
+		filterStatusRefused: false,		//已拒绝
+		filterStatusHandling: false,		//处理中
+		filterStatusReported: false,		//已报工
+		filterStatusFinished: false,		//已完工
+		filterStatusRevisited: false,		//已回访
+		filterStatusAudited: false,		//已审核
+		filterStatusReturned: false, 		//已打回
+		filterStatusCancled: false, // 已经取消
+
 		timeStart: '20150101',
 		timeEnd: '20150609',
 
 
-		searchPlaceholder: '输入服务订单描述模糊搜索',
+		searchPlaceholder: '请输入服务订单描述',
 
 
 
@@ -53,7 +70,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	//依据所选 筛选条件 进行筛选操作
 	$scope.filterConfirm = function(){
 		// TODO
-	};
+	}; 
 	//重置筛选条件
 	$scope.resetFilters = function(){
 		//筛选 规则 ----> 工单类型
@@ -68,6 +85,17 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.filterImpactLow = false;
 		$scope.config.filterImpactNone = false;
 		$scope.config.filterImpactNoSelected = true;
+		//筛选 规则 ----> 状态
+		__resetStatus();
+	};
+
+	$scope.goDetailState = function(i){
+		console.log("goDetailState");
+		if(i == 0){
+			$state.go("worksheetdetailnewcar");
+		}else{
+			$state.go("worksheetdetailsiterepair");
+		}
 	};
 
 	$scope.onSearchTextChange = function($event){
@@ -83,64 +111,74 @@ worksheetModule.controller("WorksheetListCtrl",[
 	$scope.datas = {
 		testDates: [
 			{
-				category: '现场维修工单',
-				timeStart: '2016.01.01 10:00:01',
-				timeEnd: '2012.12.31 12:00:00',
-				desc: '车辆电池出现重大问题'
+				costomer: '金龙客车',
+				desc: '现场维修工单',
+				lastModifyTime: '2016.01.01 10:00:01',
+				status: '新建',
+				statusType: 'NEW',
 			},
 			{
-				category: '现场维修工单',
-				timeStart: '2016.01.01 10:00:01',
-				timeEnd: '2012.12.31 12:00:00',
-				desc: '车辆电池出现重大问题'
+				costomer: '郑州宇通客车',
+				desc: '现场维修工单',
+				lastModifyTime: '2016.01.01 10:00:01',
+				status: '处理中',
+				statusType: 'HANDLING',
 			},
 			{
-				category: '现场维修工单',
-				timeStart: '2016.01.01 10:00:01',
-				timeEnd: '2012.12.31 12:00:00',
-				desc: '车辆电池出现重大问题'
+				costomer: '金龙客车',
+				desc: '现场维修工单',
+				lastModifyTime: '2016.01.01 10:00:01',
+				status: '新建',
+				statusType: 'NEW',
 			},
 			{
-				category: '现场维修工单',
-				timeStart: '2016.01.01 10:00:01',
-				timeEnd: '2012.12.31 12:00:00',
-				desc: '车辆电池出现重大问题'
+				costomer: '郑州宇通客车',
+				desc: '现场维修工单',
+				lastModifyTime: '2016.01.01 10:00:01',
+				status: '处理中',
+				statusType: 'HANDLING',
 			},
 			{
-				category: '现场维修工单',
-				timeStart: '2016.01.01 10:00:01',
-				timeEnd: '2012.12.31 12:00:00',
-				desc: '车辆电池出现重大问题'
+				costomer: '金龙客车',
+				desc: '现场维修工单',
+				lastModifyTime: '2016.01.01 10:00:01',
+				status: '新建',
+				statusType: 'NEW',
 			},
 			{
-				category: '现场维修工单',
-				timeStart: '2016.01.01 10:00:01',
-				timeEnd: '2012.12.31 12:00:00',
-				desc: '车辆电池出现重大问题'
+				costomer: '郑州宇通客车',
+				desc: '现场维修工单',
+				lastModifyTime: '2016.01.01 10:00:01',
+				status: '处理中',
+				statusType: 'HANDLING',
 			},
 			{
-				category: '现场维修工单',
-				timeStart: '2016.01.01 10:00:01',
-				timeEnd: '2012.12.31 12:00:00',
-				desc: '车辆电池出现重大问题'
+				costomer: '金龙客车',
+				desc: '现场维修工单',
+				lastModifyTime: '2016.01.01 10:00:01',
+				status: '新建',
+				statusType: 'NEW',
 			},
 			{
-				category: '现场维修工单',
-				timeStart: '2016.01.01 10:00:01',
-				timeEnd: '2012.12.31 12:00:00',
-				desc: '车辆电池出现重大问题'
+				costomer: '郑州宇通客车',
+				desc: '现场维修工单',
+				lastModifyTime: '2016.01.01 10:00:01',
+				status: '处理中',
+				statusType: 'HANDLING',
 			},
 			{
-				category: '现场维修工单',
-				timeStart: '2016.01.01 10:00:01',
-				timeEnd: '2012.12.31 12:00:00',
-				desc: '车辆电池出现重大问题'
+				costomer: '金龙客车',
+				desc: '现场维修工单',
+				lastModifyTime: '2016.01.01 10:00:01',
+				status: '新建',
+				statusType: 'NEW',
 			},
 			{
-				category: '现场维修工单---end',
-				timeStart: '2016.01.01 10:00:01',
-				timeEnd: '2012.12.31 12:00:00',
-				desc: '车辆电池出现重大问题'
+				costomer: '郑州宇通客车',
+				desc: '现场维修工单',
+				lastModifyTime: '2016.01.01 10:00:01',
+				status: '处理中',
+				statusType: 'HANDLING',
 			}
 		]
 	};
@@ -174,7 +212,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		while(parent && parent.nodeName.toLowerCase()!= 'body' && parent.nodeName.toLowerCase()!= 'html'){
 			var attrs2 = parent.attributes;
 			for(var j = 0; j<attrs2.length; j++){
-				var attr2 = attrs2[i];
+				var attr2 = attrs2[j];
 				if(attr2 && attr2.name!= null && attr2.name.toLowerCase()=='canNotClickEnterListMode'.toLowerCase()){
 					return;
 				}
@@ -193,6 +231,13 @@ worksheetModule.controller("WorksheetListCtrl",[
 			$scope.enterListMode();
 			return;
 		}
+		if($scope.config.isSorteMode){
+			$scope.config.filterModeFromSortMode = true;
+			$scope.config.filterModeFromClick = false;
+		}else{
+			$scope.config.filterModeFromClick = true;
+			$scope.config.filterModeFromSortMode = false;
+		}
 		$scope.config.isFilterMode = true;
 		$scope.config.isSorteMode = false;
 		$scope.config.isQueryMode = false;
@@ -203,6 +248,13 @@ worksheetModule.controller("WorksheetListCtrl",[
 		if($scope.config.isSorteMode){
 			$scope.enterListMode();
 			return;
+		}
+		if($scope.config.isFilterMode){
+			$scope.config.sortModeFromFilterMode = true;
+			$scope.config.sortModeFromClick = false;
+		}else{
+			$scope.config.sortModeFromFilterMode = false;
+			$scope.config.sortModeFromClick = true;
 		}
 		$scope.config.isFilterMode = false;
 		$scope.config.isSorteMode = true;
@@ -320,6 +372,19 @@ worksheetModule.controller("WorksheetListCtrl",[
 			$scope.config.filterImpactNoSelected = false;
 		}
 	};
+	$scope.selectFilterStatus = function(statusName){
+		__resetStatus();
+		$scope.config[statusName] = true;
+	}
+	function __resetStatus(){
+		var status = ['filterStatusNew','filterStatusSendedWorker',
+		'filterStatusRefused', 'filterStatusHandling',
+		'filterStatusReported', 'filterStatusFinished', 'filterStatusRevisited',
+		'filterStatusAudited', 'filterStatusReturned', 'filterStatusCancled'];
+		for(var i = 0; i < status.length; i++){
+			$scope.config[status[i]] = false;
+		}
+	}
 
 	$scope.init = function(){
 		$scope.enterListMode();
@@ -333,6 +398,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 }]);
 
+<<<<<<< HEAD
 worksheetModule.controller("WorksheetDetailCtrl",[
 	"$scope", 
 	"ionicMaterialInk",
@@ -510,214 +576,9 @@ worksheetModule.controller("WorksheetDetailCtrl",[
 			}
 			
 			//console.log(e.x+"    "+e.y);
+=======
+>>>>>>> ebeb531394220f6c611f889af1cdf89fdbeb15bb
 
-			var directionDown = null,directionDownLast = null;  //手指滑动的方向
-			//判断 directionDown 相关代码 
-			posLastMove = posCurrentMove;
-			posCurrentMove = e;
-			posLastMove = posLastMove || posTouchStart || e;
-			offsetY = posCurrentMove.y - posTouchStart.y;
-			var offsetYlast = posCurrentMove.y - posLastMove.y;
-			var offsetYlastForTop = offsetYlast * ($scope.config.headerBarInitHeight / $scope.config.headerInfoInitHeight); //每次偏移量 != top与height改变量 ： 要把headerbar中的最上方title行考虑进行
-			directionDown = offsetY > 0 ? true : false;
-			directionDownLast = offsetYlast > 0 ? true : false;
-
-			if(directionDown){
-				if($scope.config.headerScrollStart){
-					$scope.freezeBottomScroll(false, 0);
-					return;
-				}else{
-					$scope.freezeBottomScroll(true, 0);
-				}
-			}else{
-				if($scope.config.headerScrollEnd){
-					$scope.freezeBottomScroll(false, 0);
-					return;
-				}else{
-					$scope.freezeBottomScroll(true, 0);
-				}
-			}
-			//console.log(eleHeaderBar.offsetHeight + "     " + offsetYlast);
-			var headerBarHeight, headerBarBgImageWidth, headerBarBgImageHeight,headerBarInfoTop; //headerBarInfoHeight
-			//计算 headerBarHeight、headerBarInfoHeight 高度及 headerBarInfo的top偏移量: 单位全部为 px
-			if(directionDown){
-				//headerBarInfoHeight = $scope.config.headerInfoInitHeight+ offsetY;
-				//headerBarHeight = $scope.config.headerBarTitleInitHeight + headerBarInfoHeight;
-				headerBarHeight = eleHeaderBar.offsetHeight + offsetYlast;
-				//headerBarInfoTop =  headerBarInfoTopLast+offsetYlastForTop;
-				if(headerBarInfoTopLast+offsetYlastForTop > 0){
-					headerBarInfoTop = headerBarInfoTopLast+offsetYlastForTop/3;
-				}else{
-					headerBarInfoTop = headerBarInfoTopLast+offsetYlastForTop;
-				}
-				//headerBarInfoTop = Math.min(headerBarInfoTop, 0);
-				//headerBarInfoTop = headerBarInfoTop > 0 ? 0 : headerBarInfoTop;
-			}else{
-				//headerBarInfoHeight = $scope.config.headerInfoInitHeight + offsetY;
-				//headerBarHeight = $scope.config.headerBarTitleInitHeight + headerBarInfoHeight;
-				headerBarHeight = eleHeaderBar.offsetHeight + offsetYlast;
-				//headerBarInfoTop =  headerBarInfoTopLast+offsetYlastForTop;
-				if(headerBarInfoTopLast+offsetYlastForTop > 0){
-					headerBarInfoTop = headerBarInfoTopLast+offsetYlastForTop/3;
-				}else{
-					headerBarInfoTop = headerBarInfoTopLast+offsetYlastForTop;
-				}
-			}
-
-			headerBarHeight = Math.min(headerBarHeight, $scope.config.headerBarInitHeight+90); //最多可多往下拉50px，会在__touchEnd中恢复过来的
-			//headerBarHeight = Math.max(headerBarHeight, $scope.config.headerBarTitleInitHeight);
-			if(headerBarHeight <= $scope.config.headerBarTitleInitHeight){ // headerbar 缩小为最小状态时，将scroll设置为可以滚动
-				headerBarHeight = $scope.config.headerBarTitleInitHeight;
-				$scope.config.headerScrollEnd = true;
-				$scope.config.headerScrolling = false;
-				$scope.config.headerScrollStart = false;
-			}else if(headerBarHeight == $scope.config.headerBarInitHeight+45){ //hearderbar 为最初高度时执行
-				$scope.config.headerScrollEnd = false;
-				$scope.config.headerScrolling = false;
-				$scope.config.headerScrollStart = true;
-			}else{
-				$scope.config.headerScrollEnd = false;
-				$scope.config.headerScrolling = false;
-				$scope.config.headerScrollStart = false;
-			}
-			if(headerBarHeight <= $scope.config.headerBarTitleInitHeight+5 && $scope.config.scrollDelegateHandler.getScrollPosition().top>0){ // headerbar 缩小为最小状态，且scroll未滚动到最上面时则，设置scroll可以滚动，并且禁止headerbar状态改变
-				/*$scope.config.headerScrollEnd = false;
-				$scope.config.headerScrolling = false;
-				$scope.config.headerScrollStart = false;*/
-				$scope.config.headerScrollCan = false;
-				$scope.freezeBottomScroll(false, 0);
-				return;
-			}
-			headerBarInfoTop = Math.min(headerBarInfoTop, 45);
-			headerBarInfoTop = Math.max(-$scope.config.headerBarInitHeight, headerBarInfoTop);
-			if(headerBarHeight - $scope.config.headerBarInitHeight > 0){
-				headerBarBgImageHeight = $scope.config.headerBarInitHeight +(headerBarHeight - $scope.config.headerBarInitHeight)*4/3;
-				//headerBarBgImageHeight = $scope.config.headerBarInitHeight +(eleHeaderInfo.offsetHeight - $scope.config.headerInfoInitHeight)*4/3;
-				headerBarBgImageWidth = eleHeaderBar.offsetWidth + (headerBarHeight - $scope.config.headerBarInitHeight)*4/3;				
-			}else{
-				headerBarBgImageHeight = $scope.config.headerBarInitHeight +(headerBarHeight - $scope.config.headerBarInitHeight)/3;
-				//headerBarBgImageHeight = $scope.config.headerBarInitHeight +(eleHeaderInfo.offsetHeight - $scope.config.headerInfoInitHeight)/3;
-				headerBarBgImageWidth = eleHeaderBar.offsetWidth + (headerBarHeight - $scope.config.headerBarInitHeight)/3;
-			}
-			headerBarBgImageWidth = Math.max(headerBarBgImageWidth, eleHeaderBar.offsetWidth);
-
-			var headerBarInfoTopOld = headerBarInfoTop;
-			if(headerBarInfoTop > 0){ // 往下多拉的情况 
-				//headerBarInfoTop = headerBarInfoTop - Math.abs((headerBarHeight - $scope.config.headerBarInitHeight)*3/4);
-				//headerBarHeight =  headerBarHeight - Math.abs((headerBarHeight - $scope.config.headerBarInitHeight)/2);;
-			}
-			//console.log(headerBarInfoTopOld+"     "+headerBarInfoTop);
-
-			
-			//判断并设置子项的透明动画
-			var barInfoChilds = eleHeaderInfo.children;
-			var childsTop = barInfoChilds[0].offsetHeight/2;
-			if(!directionDown){
-				//for(var i = barInfoChilds.length-1; i >= 0; i--,childsTop = barInfoChilds[0].offsetHeight/2){
-				for(var i = 0; i < barInfoChilds.length; i++){
-					if(-headerBarInfoTop >= childsTop){
-						childsTop += barInfoChilds[i].offsetHeight;
-						var eleChildJQ = angular.element(barInfoChilds[i]);
-						if(angular.element(barInfoChilds[i]).hasClass("fadeIn")){
-							angular.element(barInfoChilds[i]).removeClass("fadeIn");
-						}
-						if(!angular.element(barInfoChilds[i]).hasClass("fadeOut")){
-							angular.element(barInfoChilds[i]).addClass("fadeOut");
-						}
-						continue;
-					}
-				}				
-			}else{
-				var childsTop2 = $scope.config.headerInfoInitHeight - barInfoChilds[0].offsetHeight/2;
-				for(var i = barInfoChilds.length-1; i >= 0; i--){
-					if(-headerBarInfoTop < childsTop2){
-						childsTop2 -= barInfoChilds[0].offsetHeight;
-						var eleChildJQ = angular.element(barInfoChilds[i]);
-						if(eleChildJQ.hasClass("fadeOut")){
-							eleChildJQ.removeClass("fadeOut");
-						}
-						if(!eleChildJQ.hasClass("fadeIn")){
-							eleChildJQ.addClass("fadeIn");
-						}
-						continue;
-					}
-				}
-				
-			}
-			if(directionDownLast){
-				if(headerBarInfoTop <= eleHeaderInfo.offsetHeight/2){
-					eleHeaderSubTitleJQ = angular.element(eleHeaderSubTitle);
-					if(eleHeaderSubTitleJQ.hasClass("fadeIn")){
-						eleHeaderSubTitleJQ.removeClass("fadeIn");
-					}
-					if(!eleHeaderSubTitleJQ.hasClass("fadeOut")){
-						eleHeaderSubTitleJQ.addClass("fadeOut");
-					}					
-				}
-			}else{
-				if(-headerBarInfoTop <= eleHeaderInfo.offsetHeight/2){
-					eleHeaderSubTitleJQ = angular.element(eleHeaderSubTitle);
-					if(eleHeaderSubTitleJQ.hasClass("fadeOut")){
-						eleHeaderSubTitleJQ.removeClass("fadeOut");
-					}
-					if(!eleHeaderSubTitleJQ.hasClass("fadeIn")){
-						eleHeaderSubTitleJQ.addClass("fadeIn");
-					}
-				}
-			}
-
-			// 设置计算出来的高度、top偏移量，使其生效
-			eleHeaderBar.style.height = headerBarHeight+"px";
-			eleHeaderBar.style.backgroundSize = headerBarBgImageWidth+"px "+headerBarBgImageHeight+"px";
-			eleHeaderInfo.style.top = headerBarInfoTop+"px";
-			
-			headerBarInfoTopLast = headerBarInfoTop;
-			//console.log(" __touchMove :   "+offsetY+"     "+offsetYlast+"     "+headerBarInfoTop+"     "+eleHeaderInfo.style.top);
-			//console.log("__touchMove over :   "+eleHeaderBar.offsetHeight+"     "+eleHeaderInfo.style.top);
-		}
-		function __touchEnd(event){
-			//startSingleTouch = false;	
-			//console.log("__touchEnd ");
-			posTouchStart = null;
-			var e = __getSingleEventTouches(event);
-			//if(e == null){ return; }
-			
-
-			//判断 headerBarHeight 是否大于初始化高度,若大于则还原
-			var currentHeaderBarHeight = eleHeaderBar.offsetHeight;
-			if(currentHeaderBarHeight > $scope.config.headerBarInitHeight){
-				eleHeaderBar.style.transition = "height .2s linear 0s,background-size .2s linear 0s";
-				eleHeaderInfo.style.transition = "top .2s linear 0s";
-				currentHeaderBarHeight = $scope.config.headerBarInitHeight;				
-				$timeout(function (){
-					eleHeaderBar.style.transition = "";
-					eleHeaderInfo.style.transition = "";
-					headerBarInfoTopLast = 0;
-				}, 200);
-				eleHeaderBar.style.height = currentHeaderBarHeight+"px";
-				eleHeaderBar.style.backgroundSize = "100% 100%";
-				eleHeaderInfo.style.top = "0px";
-			}
-			
-
-			posTouchStart = null;
-			posLastMove = null;
-			posCurrentMove = null;
-			//headerBarInfoTopLast = 0;
-
-		}
-
-		function __getSingleEventTouches(e){
-			return e.touches && e.touches.length && e.touches.length > 0 ? {
-				x: e.touches[0].pageX,
-				y: e.touches[0].pageY
-			} : null;
-		}
-	}
-
-	
-	
-}]);
 /*
 $swipe.bind(viewEleJQ, {
 	start: function(pos, event){

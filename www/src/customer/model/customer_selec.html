@@ -1,0 +1,38 @@
+<style>
+    .customer_selec {
+        text-align: center;
+        position: relative;
+        float: right;
+        top:44px;
+        left:0;
+        margin-right:5px;
+        z-index: 10;
+        display: block;
+        margin-top: 12px;
+        margin-left:0;
+        height: 260px;
+        width: 130px;
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,.4);
+        opacity: 0;
+    }
+    .popover-arrow {
+        position: absolute;
+        display: block;
+        /*top: -17px;*/
+        right: 13px;
+        width: 30px;
+        height: 19px;
+        overflow: hidden;
+    }
+</style>
+    <ion-popover-view class="customer_selec">
+        <ion-content>
+            <div ng-repeat="types in customer_types track by $index" ng-click="customerqueryType(types)">
+               <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:16px;">
+                   {{types}}
+               </ion-item>
+                <div style="width:80%;height: 1px;background-color: #9B9B9B;margin-left:10%"></div>
+            </div>
+        </ion-content>
+    </ion-popover-view>'
