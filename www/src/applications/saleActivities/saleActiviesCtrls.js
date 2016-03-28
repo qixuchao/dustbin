@@ -17,9 +17,10 @@ salesModule
         'ionicMaterialInk',
         'ionicMaterialMotion',
         '$timeout',
+        '$cordovaDialogs',
         'saleActService',
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, $timeout, saleActService) {
+                  ionicMaterialInk, ionicMaterialMotion, $timeout,$cordovaDialogs, saleActService) {
             ionicMaterialInk.displayEffect();
             $scope.statusArr = saleActService.getStatusArr();
             $scope.mySelect = {
@@ -31,6 +32,10 @@ salesModule
                 if ($scope.editText == '编辑') {
                     $scope.isEdit = true;
                     $scope.editText = "保存";
+                    $cordovaDialogs.alert('你已进入编辑模式', '提示', '确定')
+                        .then(function() {
+                            // callback success
+                        });
                 } else {
                     //执行保存操作
                     $scope.isEdit = false;
