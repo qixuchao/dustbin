@@ -1,9 +1,5 @@
 <ion-view class="CarList">
-<<<<<<< HEAD
     <ion-header-bar class="bar bar-header ">
-=======
-    <ion-header-bar class="bar ">
->>>>>>> Feature/T00022
         <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
         <div class="title"><b>车辆查询</b></div>
     </ion-header-bar>
@@ -12,17 +8,16 @@
         <input type="text" placeholder="输入客户信息"ng-model="carInfo">
     </ion-header-bar>
     <ion-content>
-<<<<<<< HEAD
         <!--<img ng-src="img/car/oftenCar.png" class="textImg">-->
         <div class="borderLine">
-            <div class="row row-center">
-                <div class="col col-23 col-center">
-                   <span>常用车辆</span>
+            <div class="row row-center rowLine">
+                <div class="col col-18 col-center">
+                    <span>常用车辆</span>
                 </div>
-                <div class="col col-center col-77"></div>
+                <div class="col col-center col-82"></div>
             </div>
             <div class="row row-center">
-                <div class="col col-15"></div>
+                <div class="col col-12"></div>
             </div>
         </div>
         <div class="contentType" ng-repeat="car in cars|filter:carInfo" ng-click="goDetail(car)">
@@ -37,22 +32,6 @@
             <div class="row row-center">
                 <div class="col col-88 col-center"></div>
                 <div class="col col-12 col-center">
-=======
-        <img ng-src="img/car/oftenCar.png" class="textImg">
-        <div class="row row-center"></div>
-        <div class="contentType" ng-repeat="car in cars|filter:carInfo" ng-click="goDetail(car)">
-            <div class="row row-center rowType " >
-                <div class="col col-8 col-center">
-                   <img ng-src="img/car/Oval.png" class="pointImg">
-                </div>
-                <div class="col col-92 col-center colType">
-                    <span class="car2">{{car.describe}}</span>
-                </div>
-            </div>
-            <div class="row row-center">
-                <div class="col col-90 col-center"></div>
-                <div class="col col-10 col-center">
->>>>>>> Feature/T00022
                     <img ng-src="img/car/Shape.png" class="shapeImg">
                 </div>
             </div>

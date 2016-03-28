@@ -1,3 +1,4 @@
+var utilsModule = angular.module('utilsModule', []);
 var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
@@ -6,11 +7,19 @@ var carModule = angular.module('carModule',[]);
 var salesModule = angular.module('salesModule', []);
 var employeeModule = angular.module('employeeModule', []);
 var employeeModuleServive = angular.module('employeeModuleServive', []);
+var customerModule = angular.module('customerModule', []);
+var ContactsModule = angular.module('ContactsModule', []);
+var contactModuleServive = angular.module('contactModuleServive', []);
+var customerVehicleModule = angular.module('customerVehicleModule', []);
+var customerContactsModule = angular.module('customerContactsModule', []);
+var customerModuleServive = angular.module('customerModuleServive', []);
+//var directiveModule = angular.module('directiveModule', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'ionic-material',
+    'utilsModule',
     'loginModule',
     'mainModule',
     'tabsModule',
@@ -21,9 +30,15 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'carModule',
     'spareModule',
     'salesModule',
-    'worksheetModule'
+    'worksheetModule',
+    'ContactsModule',
+    'contactModuleServive',
+    'customerModule',
+    'customerVehicleModule',
+    'customerContactsModule',
+    'customerModuleServive'
 ])
-CRMApp.run(function ($ionicPlatform) {
+CRMApp.run(function ($ionicPlatform,$rootScope) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -92,6 +107,56 @@ CRMApp.run(function ($ionicPlatform) {
                 url: 'apps/saleChanSearch/detail',
                 templateUrl: 'src/applications/saleChance/chanceDetail.html',
                 controller: 'saleChanDetailCtrl'
+            })
+            //联系人
+            .state('ContactQuery', {
+                url: '/contactQuery',
+                templateUrl: 'src/contacts/contactQuery.html',
+                controller: 'contactQueryCtrl'
+            })
+            .state('ContactDetail', {
+                url: '/contactDetail',
+                templateUrl: 'src/contacts/contactDetail.html',
+                controller: 'contactDetailCtrl'
+            })
+            .state('ContactCreate', {
+                url: '/contactsCreate',
+                templateUrl: 'src/contacts/contactCreate.html',
+                controller: 'contactCreateCtrl'
+            })
+            .state('ContactsEdit', {
+                url: '/contactEdit',
+                templateUrl: 'src/contacts/contactEdit.html',
+                controller: 'contactEditCtrl'
+            })
+
+            //客户
+            .state('customerQuery', {
+                url: '/customerQuery',
+                templateUrl: 'src/customer/customerinfo/customerQuery.html',
+                controller: 'customerQueryCtrl'
+            })
+            .state('customerDetail', {
+                url: '/customerDetail',
+                templateUrl: 'src/customer/customerinfo/customerDetail.html',
+                controller: 'customerDetailCtrl'
+            })
+            //客户-联系人
+            .state('customerContactQuery', {
+                url: '/customerContactQuery',
+                templateUrl: 'src/customer/customerContacts/customerContactsQuery.html',
+                controller: 'customerContactQueryCtrl'
+            })
+            .state('customerContactDetail', {
+                url: '/customerContactDetail',
+                templateUrl: 'src/customer/customerContacts/customerContactsDetail.html',
+                controller: 'customerContactDetailCtrl'
+            })
+            //客户-车辆
+            .state('customerVehicleQuery', {
+                url: '/customerVehicleQuery',
+                templateUrl: 'src/customer/customerVehicle/customerVehicleQuery.html',
+                controller: 'customerVehicleQueryCtrl'
             })
             //车辆查询
             .state('car',{

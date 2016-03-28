@@ -8,7 +8,8 @@ appModule
         //ionicMaterialInk.displayEffect();
 
         $scope.imgs = [{
-            url:'img/apps/partner.png'
+            url:'img/apps/partner.png',
+            go:'customerQuery'
         },{
             url:'img/apps/saleAct.png',
             go:"saleActList"

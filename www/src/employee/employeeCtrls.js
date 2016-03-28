@@ -3,32 +3,27 @@
  */
 'use strict';
 employeeModule
-    .controller('userQueryCtrl',['$scope','$state','$http','$timeout','ionicMaterialInk','employeeService','$ionicLoading',function($scope,$state,$http,$timeout,ionicMaterialInk,employeeService,$ionicLoading){
-        ionicMaterialInk.displayEffect();
+    .controller('userQueryCtrl',['$scope','$state','$http','$timeout','$ionicScrollDelegate','ionicMaterialInk','employeeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicScrollDelegate,ionicMaterialInk,employeeService,$ionicLoading){
+       //头部上拉滑动
+       ionicMaterialInk.displayEffect();
         $scope.employeefiledvalue ='';
-        //var timer;
-        //$scope.$watch('employeefiledvalue', function(v1,v2) {
-        //    clearTimeout(timer);
-        //    timer = setTimeout(function() {
-        //        $http({
-        //            url: 'src/employee/employeeList.json',
-        //            method: 'GET'
-        //        }).success(function (data, header, config, status) {
-        //
-        //        }).error(function (data, header, config, status) {
-        //        });
-        //    }, 1000);
-        //});
+        var timer;
+        $scope.$watch('employeefiledvalue', function(v1,v2) {
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                $http({
+                    url: 'src/employee/employeeList.json',
+                    method: 'GET'
+                }).success(function (data, header, config, status) {
 
+                }).error(function (data, header, config, status) {
+                });
+            }, 1000);
+        });
         $scope.employee_userqueryflag = false;
-
-        //$scope.employee_query_historylist = [{
-        //    name:'王娇',
-        //},{
-        //    name:'王娇交',
-        //},{
-        //    name:'王欢',
-        //}];
+        $scope.employeeQuery = function(){
+            console.log(1);
+        }
         $scope.ll = function() {
             storedb('todo').insert({"name": $scope.employeefiledvalue}, function (err) {
                 if (!err) {
@@ -81,76 +76,57 @@ employeeModule
             $state.go('userDetail');
         }
     }])
-    .controller('userDetailCtrl',['$scope','$state','$ionicLoading','$ionicPopup','ionicMaterialInk','employeeService','$window','$ionicActionSheet',function($scope,$state,$ionicLoading,$ionicPopup,ionicMaterialInk,employeeService,$window,$ionicActionSheet){
+    .controller('userDetailCtrl',['$scope','$state','Prompter','$cordovaInAppBrowser','$ionicLoading','$cordovaClipboard','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','employeeService','$window','$ionicActionSheet',function($scope,$state,Prompter,$cordovaInAppBrowser,$ionicLoading,$cordovaClipboard,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,employeeService,$window,$ionicActionSheet){
         ionicMaterialInk.displayEffect();
+
+        $scope.employ_showTitle = false;
+        $scope.employee_showTitleStatus = false;
+        $scope.employee_TitleFlag=false;
+
+        var employee_position;
+        $scope.employ_onScroll = function () {
+            employee_position = $ionicScrollDelegate.getScrollPosition().top;
+            if (employee_position > 24) {
+                $scope.employ_TitleFlag=true;
+                $scope.employ_showTitle = true;
+
+                if (employee_position > 25) {
+                    $scope.employ_customerFlag = true;
+                }else{
+                    $scope.employ_customerFlag = false;
+                }
+                if (employee_position > 26) {
+                    $scope.employ_placeFlag = true;
+                }else{
+                    $scope.employ_placeFlag = false;
+                }
+                if (employee_position > 36) {
+                    $scope.employ_typeFlag = true;
+                }else{
+                    $scope.employ_typeFlag = false;
+                }
+            } else {
+                $scope.employ_customerFlag = false;
+                $scope.employ_placeFlag = false;
+                $scope.employ_typeFlag = false;
+                $scope.employ_TitleFlag = false;
+            }
+            $scope.$apply();
+        }
+
         $scope.gocustomerList = function(){
             $state.go('customerList');
         }
         $scope.userdetailval = employeeService.get_employeeListvalue();
-        var phone_number;
-        $scope.callphone = function (phone_number) {
-            $window.location.href = "tel:" + phone_number;
-        };
-
-        $scope.employeeshowphone = function () {
-            $ionicActionSheet.show({
-                buttons: [
-                    {text: '确定'},
-                ],
-                titleText: '是否拨打电话',
-                cancelText: '取消',
-                buttonClicked: function (index) {
-                    if (index == 0) {
-                        $scope.callphone($scope.userdetailval.phoneNumber);
-                        return true;
-                    }
-                }
-            });
-        };
-
-        $scope.employeeshowmoblie = function () {
-            $ionicActionSheet.show({
-                buttons: [
-                    {text: '确定'},
-                    {text: '保存到通讯录'},
-                ],
-                titleText: '是否拨打电话',
-                cancelText: '取消',
-                buttonClicked: function (index) {
-                    if (index == 0) {
-                        try{
-                            $scope.callphone($scope.userdetailval.mobilenumber);
-                            return true;
-                        }catch(e){alert(e.message)}
-                    };
-                    if (index == 1) {
-                        var Contact = navigator.contacts.create();
-                        var phoneNumbers = [];
-                        phoneNumbers[0] = new ContactField('mobile', $scope.userdetailval.mobilenumber, true);
-                        if (detectOS() == "Android") {
-                            Contact.displayName = $scope.userdetailval.name; // ios 不支持 displayName
-                        }
-                        // 判断是否是ios设备
-                        if (detectOS() == "iPhone") {
-                            var name = new ContactName();// add by ciwei for ios
-                            name.givenName = $scope.userdetailval.name.substring(1, $scope.userdetailval.name.length);// add by ciwei  for ios
-                            name.familyName = $scope.userdetailval.name.substring(0, 1);
-                            Contact.name = name; // add by ciwei  for ios
-                        };
-                        Contact.phoneNumbers = phoneNumbers;
-                        Contact.save(onSaveSuccess, onSaveError);
-                    };
-
-                    function onSaveSuccess() {
-                        $ionicLoading.show({template: '添加成功', noBackdrop: true, duration: 1500});
-                    }
-                    function onSaveError() {
-                        $ionicLoading.show({template: '添加失败', noBackdrop: true, duration: 1500});
-                    }
-                    return true;
-                }
-            })
+        //电话
+        $scope.employeeshowphone =function(types){
+            Prompter.showphone(types)
         }
+        //邮箱
+        $scope.mailcopyvalue = function(valuecopy){
+            Prompter.showpcopy(valuecopy)
+        }
+
     }])
     .controller('customerListCtrl',['$scope','$state','ionicMaterialInk',function($scope,$state,ionicMaterialInk){
         ionicMaterialInk.displayEffect();
@@ -158,6 +134,9 @@ employeeModule
             '福州景龙汽车有限个公司哈哈',
             '福州景龙汽车有限个公司哈哈',
             '福州景龙汽车有限个公司哈哈'
-        ]
+        ];
+        $scope.employeecustomerQuery = function(){
+            console.log(2);
+        }
 
     }])

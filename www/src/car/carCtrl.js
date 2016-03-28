@@ -28,41 +28,47 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
 .controller('CarDetailCtrl',['$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk','ionicMaterialMotion','$timeout',
         function($scope,$state,CarService,$ionicHistory,$ionicScrollDelegate,ionicMaterialInk,ionicMaterialMotion,$timeout){
         ionicMaterialInk.displayEffect();
-        $scope.select = true;
+        //$scope.select = true;
         $scope.showTitle = false;
-        $scope.showTitleStatus = false;
-        $scope.changeStatus = function(flag){
-            $scope.select=flag;
-        };
+        $scope.titleStatus=false;
+        //$scope.changeStatus = function(flag){
+        //    $scope.select=flag;
+        //};
 
         var position;
+        var maxPosition;
         $scope.onScroll = function(){
             position = $ionicScrollDelegate.getScrollPosition().top;
-            if(position>10){
-                $('#sdTitleId').removeClass('fadeOut');
-                $('#sdTitleId').addClass('animated fadeIn');
+            if(position>5){
                 $scope.TitleFlag = true;
                 $scope.showTitle=true;
-                if(position>16){
+                if(position>10){
+                    $scope.titleFlag = true;
+                }else{
+                    $scope.titleFlag = false;
+                }
+                if(position>42){
                     $scope.qualityFlag = true;
                 }else{
                     $scope.qualityFlag = false;
                 }
-                if(position>54){
+                if(position>70){
                     $scope.projectFlag = true;
                 }else{
                     $scope.projectFlag = false;
                 }
-                if(position>60){
-                    $scope.showTitleStatus = true;
+                if(position>110){
+                    if(maxPosition===null){
+                        maxPosition=$ionicScrollDelegate.getScrollView().__maxScrollTop;
+                    }
+                    $scope.titleStatus=true;
                 }else{
-                    $scope.showTitleStatus = false;
+                    $scope.titleStatus=false;
                 }
             }else{
-                $('#sdTitleId').removeClass('fadeIn');
-                $('#sdTitleId').addClass('fadeOut');
                 $scope.showTitle=false;
                 $scope.TitleFlag = false;
+                $scope.titleStatus=false;
             }
             $scope.$apply();
         };
@@ -89,25 +95,9 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
         $scope.clicked1=function(row){
             $scope.selectedRow1=row;
         };
-        //$scope.color1=false;
-        //$scope.color2=false;
-        //$scope.color3=false;
-        //$scope.clicked= function (num) {
-        //    console.log(num);
-        //    $scope.color1=false;
-        //    $scope.color2=false;
-        //    $scope.color3=false;
-        //    switch (num) {
-        //        case 1:
-        //            $(".btType").css("background-color","yellow");
-        //            break;
-        //        case 2:
-        //            $scope.color2=true;
-        //            break;
-        //        case 3:
-        //            $scope.color1=true;
-        //    }
-        //};
+        $scope.choice=function(num){
+            $scope.selectRow=num;
+        };
         $scope.List2 = [
             "灾难", "高", "中", "低", "无"
         ];
@@ -117,76 +107,85 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
             //$(".sortType").css("color","FF8300");
 
         };
+        var Up = function () {
+            $(".sort").css("color", "");
+            $(".select").css("color", "");
+        };
         var sortUp = function () {
-            $(".sort").css("color", "black");
-            $(".sortType").css("color", "black");
-            //$(".sortType").css("color","FF8300");
+            $(".sort").css("color", "");
         };
         var selectUp = function () {
-            $(".select").css("color", "black");
-            $(".selectType").css("color", "black");
+            $(".select").css("color", "");
+            //$(".selectContent").addClass('animated fadeInUp');
         };
+
         var selectDown = function () {
             $(".select").css("color", "rgba(12,99,238,0.78)");
             $(".selectType").css("color", "rgba(12,99,238,0.78)");
         };
-        var count1 = 0;
-        var count2 = 0;
         //设置两个变量，通过值的变化来控制按钮的状态
         $scope.showSort = false;
         $scope.showSelect = false;
-        $scope.shadowUp=function(type){
-            if(type==='sort'){
-                count1+=1;
+        $scope.shadowUp=function(){
                 $scope.showSort = false;
                 $scope.showSelect = false;
-            }
-            count2+=1;
-            $scope.showSort = false;
-            $scope.showSelect = false;
+                 Up();
         };
         //实现下拉以及按钮状态的改变
         $scope.changeSort = function (){
-        if (count1 % 2 === 0) {
-            if ($scope.showSort === false && $scope.showSelect === false) {
-                $scope.showSort = true;
-                sortDown();
-            } else if ($scope.showSort === false && $scope.showSelect === true) {
-                $scope.showSort = true;
-                $scope.showSelect = false;
-                selectUp();
-            } else {
-                $scope.showSort = true;
+            if($scope.showSort){
+                $scope.showSort=false;
+                sortUp();
+                return;
             }
-        } else {
-            sortUp();
-            $scope.showSort = false;
-        }
-            count1+=1;
-    };
-        $scope.changeSelect=function(){
-            if(count2%2===0){
-                if($scope.showSort===false&&$scope.showSelect===false){
-                    $scope.showSelect=true;
-                    selectDown();
-                }else if($scope.showSort===true&&$scope.showSelect===false){
-                    $scope.showSort=false;
-                    $scope.showSelect=true;
-                    sortUp();
-                }else{
-                    $scope.showSelect=true;
-                }
-            }else{
-                selectUp();
-                $scope.showSelect=false;
-            }
-            count2+=1;
-        };
+            $scope.showSort = true;
+            $scope.showSelect = false;
+            sortDown();
+            selectUp();
 
+        };
+        $scope.changeSelect=function(){
+            if($scope.showSelect){
+                $scope.showSelect=false;
+                selectUp();
+                return;
+            }
+                $scope.showSort=false;
+                $scope.showSelect=true;
+                selectDown();
+                sortUp();
+        };
+        $scope.reset=function(){
+            $('.btType').removeClass('selected');
+            $('.btType1').removeClass('selected');
+        };
+        var i=0;
+        $scope.loadMore=function(){
+            var carInfo1={
+                listType:'现场维修工单'+i,
+                maintenanceDate:'2016.01.01 10:00:01-2016.12.31 12:00:00',
+                maintenanceDescribe:'车辆电池出现重大问题1'
+            };
+            i+=1;
+            $scope.carInfo.push(carInfo1);
+
+        };
 }])
 
 .controller('SpareCtrl',['$scope','CarService',function($scope,CarService){
-     $scope.spareList=CarService.getData().spare;
+        $scope.spareList=CarService.getData().spare;
+        var i=0;
+        $scope.loadMore=function(){
+            var spareInfo1={
+                spareName:'高压箱-BD3'+i,
+                spareNum:'17240-0026',
+                count:'7',
+                qualityTime:'CATL两年质保',
+                qualityDate:'2016.01.01-2018.01.01'
+            };
+            i+=1;
+            $scope.spareList.push(spareInfo1);
+        };
 }])
 .controller('SearchCtrl',['$scope',function(){
 

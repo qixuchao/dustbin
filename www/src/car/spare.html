@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 <ion-view class="SpareList1">
     <ion-header-bar class="bar">
         <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
@@ -8,21 +6,6 @@
     <ion-header-bar class="bar bar-subheader ">
         <i class="icon ion-ios-search placeholder-icon"></i>
         <input type="text" placeholder="请输入备件描述"ng-model="carInfo">
-=======
-=======
->>>>>>> Feature/T00022
-<ion-view class="SpareList">
-    <ion-header-bar class="bar">
-        <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
-        <div class="title"><b>车辆备件信息列表</b></div>
-    </ion-header-bar>
-    <ion-header-bar class="bar bar-subheader ">
-        <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="text" placeholder="请输入备件描述搜索"ng-model="carInfo">
-<<<<<<< HEAD
->>>>>>> Feature/T00022
-=======
->>>>>>> Feature/T00022
     </ion-header-bar>
     <ion-content>
         <div class="divContent" ng-repeat="spare in spareList">
@@ -57,7 +40,7 @@
             </div>
         </div>
         <div class="row row-center rowType">
-            <a class="button button-clear buttonText">
+            <a class="button button-clear buttonText" ng-click="loadMore()">
                 <span>点击加载更多</span>
             </a>
         </div>

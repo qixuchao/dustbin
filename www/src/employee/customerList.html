@@ -1,21 +1,24 @@
 <ion-view class="employee_customer">
-    <ion-header-bar style="height:120px;padding: 0">
+    <ion-header-bar style="height:110px;padding: 0">
         <div class="employeecustomer_head">
             <div class="employeecustomer_headtitle">
                 <i class="icon ion-ios-arrow-back employeecustomer_headtitlei" ng-click="goBack()"></i>
                 <span class="employeecustomer_headtitlespan">客户列表</span>
-                <img class="employeecustomer_headtitleimg" src="img/employee/increase @2x.png"/>
+                <img class="employeecustomer_headtitleimg" src="img/employee/increase@2x.png"/>
             </div>
-            <div class="employeecustomer_headquery">
-                <i class="ion-ios-search employeecustomer_headqueryimg"></i>
-                <input class="employeecustomer_headqueryinput" placeholder="请输入客户公司名称" type="text"/>
-            </div>
+            <form ng-submit="employeecustomerQuery()">
+                <div class="employeecustomer_headquery">
+                    <input class="employeecustomer_headqueryinput" placeholder="请输入客户公司名称" type="text"/>
+                    <i class="ion-ios-search employeecustomer_headqueryimg"></i>
+                </div>
+
+            </form>
         </div>
     </ion-header-bar>
-    <ion-content style="margin-top:76px">
+    <ion-content style="margin-top:66px">
        <ion-list>
-        <ion-item class="employee_customerlist" ng-repeat="x in employcustomerlist track by $index">
-            <div class="row" style="line-height:30px;">
+        <ion-item class="employee_customerlist" style="border-bottom: 1px solid #ddd;margin-top:1px" ng-repeat="x in employcustomerlist track by $index">
+            <div class="row">
                 <div class="col col-6" style="text-align: left;margin-top:1px">
                     <div class="employee_customerlistcicle"></div>
                 </div>
@@ -29,8 +32,8 @@
             <ion-option-button style="width:30px;text-align: center" class="button-assertive">
                 <i class="icon ion-ios-trash-outline" style="font-size: 50px;"></i>
             </ion-option-button>
-            <div class="employee_query_listline">
-            </div>
+            <!--<div class="employee_query_listline">-->
+            <!--</div>-->
         </ion-item>
        </ion-list>
     </ion-content>
