@@ -21,10 +21,15 @@ worksheetModule.controller("WorksheetListCtrl",[
 		isSorteMode: false,
 		isQueryMode: false,
 		isListMode: false,
+		//为动画而生
 		sortModeFromFilterMode: false,
 		sortModeFromClick: false,
 		filterModeFromSortMode: false,
 		filterModeFromClick: false,
+		sorteGoneByClick: false,
+		filterGoneByClick: false,
+		filterGoneByModelClick: false,
+		sorteGoneByModelClick: false,
 
 		//排序 规则
 		sortedTypeNone: true,    //不排序（默认）
@@ -187,7 +192,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.enterQueryMode();
 	};
 	$scope.onSearchTextChangeFromHeaderBar = function(){
-		
+	
 	};
 
 	$scope.clickEnterListMode = function($event){ //点击遮罩层，取消排序和筛选界面 
@@ -225,35 +230,48 @@ worksheetModule.controller("WorksheetListCtrl",[
 		}
 	};
 
-
 	$scope.enterFilterMode = function(){
+		__setSoftFilterAnimationProAllFalse();
 		if($scope.config.isFilterMode){
+			//__setSoftFilterAnimationProAllFalse();
+			$scope.config.filterGoneByClick = true;
 			$scope.enterListMode();
 			return;
 		}
+		$timeout(function (){
+				$scope.config.filterGoneByClick = false;
+		}, 400);
+		//$scope.config.sorteGoneByClick = false;
 		if($scope.config.isSorteMode){
 			$scope.config.filterModeFromSortMode = true;
-			$scope.config.filterModeFromClick = false;
+			//$scope.config.filterModeFromClick = false;			
 		}else{
 			$scope.config.filterModeFromClick = true;
-			$scope.config.filterModeFromSortMode = false;
+			//$scope.config.filterModeFromSortMode = false;
 		}
 		$scope.config.isFilterMode = true;
 		$scope.config.isSorteMode = false;
 		$scope.config.isQueryMode = false;
 		$scope.config.isListMode = false;
 		//ionicMaterialMotion.pushDown(".tab-filter-content ,tab-filter-content-inner");
-	};
+	};	
 	$scope.enterSorteMode = function(){
+		__setSoftFilterAnimationProAllFalse();
 		if($scope.config.isSorteMode){
+			//__setSoftFilterAnimationProAllFalse();
+			$scope.config.sorteGoneByClick = true;
 			$scope.enterListMode();
 			return;
 		}
+		$timeout(function (){
+				$scope.config.sorteGoneByClick = false;
+		}, 400);
+		//$scope.config.filterGoneByClick = false;
 		if($scope.config.isFilterMode){
 			$scope.config.sortModeFromFilterMode = true;
-			$scope.config.sortModeFromClick = false;
+			//$scope.config.sortModeFromClick = false;
 		}else{
-			$scope.config.sortModeFromFilterMode = false;
+			//$scope.config.sortModeFromFilterMode = false;
 			$scope.config.sortModeFromClick = true;
 		}
 		$scope.config.isFilterMode = false;
@@ -261,6 +279,28 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.isQueryMode = false;
 		$scope.config.isListMode = false;
 	};
+	function __setSoftFilterAnimationProAllFalse(){
+		$scope.config.filterGoneByClick = false;
+		$scope.config.sorteGoneByClick = false;
+		$scope.config.sortModeFromFilterMode = false;
+		$scope.config.sortModeFromClick = false;
+		$scope.config.filterModeFromSortMode = false;
+		$scope.config.filterModeFromClick = false;
+	}
+	function __checkSoftAndFilterAnimation(){
+		if($scope.config.isFilterMode){
+			$scope.config.filterGoneByModelClick = true;
+			$timeout(function() {
+				$scope.config.filterGoneByModelClick = false;
+			}, 300);
+		}else if($scope.config.isSorteMode){
+			$scope.config.sorteGoneByModelClick = true;
+			$timeout(function() {
+				$scope.config.sorteGoneByModelClick = false;
+			}, 300);
+		}		
+	}
+
 	$scope.enterQueryMode = function(){
 		$scope.config.isFilterMode = false;
 		$scope.config.isSorteMode = false;
@@ -268,6 +308,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.isListMode = false;
 	};
 	$scope.enterListMode = function(){
+		__checkSoftAndFilterAnimation();
 		$scope.config.isFilterMode = false;
 		$scope.config.isSorteMode = false;
 		$scope.config.isQueryMode = false;

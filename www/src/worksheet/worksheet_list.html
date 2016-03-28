@@ -49,17 +49,20 @@
             'sort-from-click ':(config.isSorteMode&& config.sortModeFromClick),
             'sort-from-filter':(config.isSorteMode&&config.sortModeFromFilterMode),
             'filter-from-sort':(config.isFilterMode&&config.filterModeFromSortMode),
-            'filter-from-click':(config.isFilterMode&&config.filterModeFromClick)}">
+            'filter-from-click':(config.isFilterMode&&config.filterModeFromClick),
+            'filter-click-gone':(config.filterGoneByClick),
+            'sort-click-gone':(config.sorteGoneByClick),
+            'filter-gone-bymodelclick':(config.filterGoneByModelClick),
+            'sorte-gone-bymodelclick':(config.sorteGoneByModelClick)}">
                 <!-- ng-show="config.isSorteMode" ng-class="{
                     'active-from-click top-animation':(config.isSorteMode&&config.sortModeFromClick),
                     'active-from-filter left-animation':(config.isSorteMode&&config.sortModeFromFilterMode)
-                    }"  ng-click="clickEnterListMode($event);"-->
-                <div canClickEnterListMode class="tab-sort-content" ng-click="clickEnterListMode($event);">
-                    <div canClickEnterListMode class="tab-sort-content-inner" ng-class="{
-                    'active-from-click top-animation':(config.isSorteMode&&config.sortModeFromClick),
-                    'active-from-filter left-animation':(config.isSorteMode&&config.sortModeFromFilterMode)
-                    }"  ><!-- fill-parent -->
-
+                    }"  ng-click="clickEnterListMode($event);"   
+                    ng-class="{
+                    'active-click-enter top-animation':(config.isSorteMode&&config.sortModeFromClick),
+                    'active-filter-enter left-animation':(config.isSorteMode&&config.sortModeFromFilterMode)
+                    }"-->
+                <div canClickEnterListMode class="tab-sort-content tab-sort-content-inner" ng-click="clickEnterListMode($event);" >
                         <div canNotClickEnterListMode class="time-desc sort-type-item" ng-class="{'selected':config.sortedTypeTimeDesc}"  ng-click="sorteTimeDesc();">
                             <span>开始时间倒序</span>
                         </div>
@@ -72,13 +75,12 @@
                         <div canNotClickEnterListMode class="none sort-type-item" ng-click="sorteNone();">
                             <span>取消</span>
                         </div>
-                    </div>
                 </div>
-                <!-- ng-show="config.isFilterMode" -->
-                <div canClickEnterListMode class="tab-filter-content" ng-class="{
+                <!-- ng-show="config.isFilterMode"  ng-class="{
                     'active-from-click top-animation': (config.isFilterMode&&config.filterModeFromClick),
                     'active-from-sort left-animation': (config.isFilterMode&&config.filterModeFromSortMode)
-                    }"  ng-click="clickEnterListMode($event);">
+                    }"  ng-click="clickEnterListMode($event);" -->
+                <div canClickEnterListMode class="tab-filter-content" >
                     <ion-scroll canNotClickEnterListMode scrollbar-y="false" has-bouncing="false" class="tab-filter-content-inner">
                         <div canNotClickEnterListMode class="filter-time">
                             <div class="filter-time-title filter-title">日期区间</div>
