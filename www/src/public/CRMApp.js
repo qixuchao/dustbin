@@ -24,7 +24,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'worksheetModule'
 ])
 
-CRMApp.run(function ($ionicPlatform, $rootScope, $state) {
+CRMApp.run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -127,7 +127,6 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $state) {
                 templateUrl: 'src/spare/spareDetail.html',
                 controller: 'SpareDetailCtrl'
             })
-
             // 工单模块相关
             .state('worksheetlist', {
                 url: '/worksheetlist',
