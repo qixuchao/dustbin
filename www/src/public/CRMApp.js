@@ -114,10 +114,15 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $state) {
                 templateUrl: 'src/worksheet/worksheet_list.html',
                 controller: 'WorksheetListCtrl'
             })
-            .state('worksheetdetail', {
-                url: '/worksheetdetail',
-                templateUrl: 'src/worksheet/worksheet_detail.html',
-                controller: 'WorksheetDetailCtrl'
+            .state('worksheetdetailnewcar', {
+                url: '/worksheetdetailnewcar',
+                templateUrl: 'src/worksheet/detail_newcar/worksheet_detail_newcar.html',
+                controller: 'WorksheetDetailNewcarCtrl'
+            })
+            .state('worksheetdetailsiterepair', {
+                url: '/worksheetdetailsiterepair',
+                templateUrl: 'src/worksheet/detail_siterepair/worksheet_detail_siterepair.html',
+                controller: 'WorksheetDetailSiterepairCtrl'
             })
         ;
 
