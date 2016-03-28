@@ -10,6 +10,8 @@ www/.sass-cache
 www/.sass-cache/
 www/.sass-cache/*
 
+www/src/dev/*
+
 www/node_modulesOld/
 www/node_modules/
 node_modules/
