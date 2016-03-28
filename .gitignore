@@ -7,7 +7,6 @@ plugins/
 plugins/*
 npm-debug.log
 www/npm-debug.log
-www/src/dev/
 www/.sass-cache
 www/.sass-cache/
 www/.sass-cache/*
