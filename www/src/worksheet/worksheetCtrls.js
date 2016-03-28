@@ -387,7 +387,6 @@ worksheetModule.controller("WorksheetDetailCtrl",[
 		var top = position.top;
 		var directionDown = top < 0 ? true : false;
 		var topOffset = top < 0 ? -top : top;
-
 		var viewEle = document.getElementById('worksheetdetail-view');
 		viewEleJQ = angular.element(viewEle);
 		var eleHeaderBar = document.getElementsByClassName("detail-header")[0];

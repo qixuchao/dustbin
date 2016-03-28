@@ -157,10 +157,19 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
         };
         $scope.reset=function(){
             $('.btType').removeClass('selected');
-            $('.btType').addClass('colorClass');
             $('.btType1').removeClass('selected');
-        }
+        };
+        var i=0;
+        $scope.loadMore=function(){
+            var carInfo1={
+                listType:'现场维修工单'+i,
+                maintenanceDate:'2016.01.01 10:00:01-2016.12.31 12:00:00',
+                maintenanceDescribe:'车辆电池出现重大问题1'
+            };
+            i+=1;
+            $scope.carInfo.push(carInfo1);
 
+        };
 }])
 
 .controller('SpareCtrl',['$scope','CarService',function($scope,CarService){
