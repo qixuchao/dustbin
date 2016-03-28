@@ -1,0 +1,182 @@
+<ion-view id="worksheetdetail-view"  align-title="center">
+	<!--ion-header-bar align-title="center" class="bar-positive">
+        <div class="buttons left-buttons">
+            <div class="left-button button button-clear" ng-click="goBack();">
+                <i class="ion-ios-arrow-back"></i>
+            </div>
+        </div>
+		<h1 class="title" canClickEnterListMode ng-click="clickEnterListMode($event);">工单详细信息</h1>
+        <div class="buttons">
+            <div class="button right-button button-clear">
+                <i class="ion-ios-more"></i>
+            </div>
+        </div>
+        <div class="detail-header-messages">
+            <div class="title">车辆出现重大问题,需要维修</div>
+            <div class="company">郑州金龙客车股份有限公司福州分公司1部</div>
+            <div class="user-status">
+                <div class="user">
+                    <span>外服人员: 张三</span>
+                </div>
+                <div class="status">
+                    <span>状态:处理中</span>
+                </div>
+            </div>
+        </div>
+	</ion-header-bar-->
+    <!--div class="detail-header-bar">
+        <div class="top-buttons">
+            <div class="left button button-clear">
+                <i class="ion-ios-arrow-back"></i>
+            </div>
+            <div class="center">工单详细信息</div>
+            <div class="right button button-clear">
+                <i class="ion-ios-more"></i>
+            </div>
+        </div>
+        <div class="detail-msgs">
+            <div class="title">车辆出现重大问题,需要维修</div>
+            <div class="company">
+                <i class="ion-ios-more"></i>
+                <span>郑州金龙客车股份有限公司福州分公司1部</span>
+            </div>
+            <div class="user-status">
+                <div class="user">
+                    <i class="ion-ios-more"></i>
+                    <span>外服人员:张三</span>
+                </div>
+                <div class="status">
+                    <i class="ion-ios-more"></i>
+                    <span>状态:处理中</span>
+                </div>
+            </div>
+        </div>
+    </div-->
+    <ion-content id="worksheetdetail-content-new-car" class="fill-parent" scrollbar-y="false" scroll="true" has-bouncing="false" on-scroll="onContentScroll($event);" delegate-handle="xbrDelegateContent" ng-init="freezeContentScroll(true, 100);">
+        <div class="detail-header">
+            <div class="detail-header-bar">
+                <div class="left" ng-click="goBack();"> <i class="ion-ios-arrow-back"></i> </div> 
+                <div class="center">
+                    <span class="title">工单详细信息</span>
+                    <span class="sub-title animated fadeOut" ng-bind="datas.header.title"></span>
+                </div>
+                <div class="right show-more-modal-content-source" ng-click="showMoreModel($event);"><span><i class="ion-ios-more"></i></span></div>
+            </div>
+            <div class="detail-header-info">
+                <div class="detail-header-line header-title animated fadeIn">
+                    <span class="line-title" ng-bind="datas.header.title"></span>
+                </div>
+                <div class="detail-header-line  animated fadeIn">
+                    <span class="line-title"><i class="ion-ios-copy-outline"></i></span>
+                    <span class="line-value" ng-bind="datas.header.company"></span>
+                </div>
+                <div class="detail-header-line customer-status  animated fadeIn">
+                    <div class="left">
+                        <span class="line-title"><i class="ion-ios-person-outline"></i></span>
+                        <span class="line-value" ng-bind="datas.header.customer"></span>
+                    </div>
+                    <div class="right">
+                        <span class="line-title"><i class="ion-flag"></i></span>
+                        <span class="line-value" ng-bind="datas.header.status"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
+            <div class="fill-height line-inner">
+                <div class="relation-box left-1">
+                    <i class="ion-ios-more"></i>                             
+                    <span>相关方</span>
+                </div>
+                <div class="history-box left-2">
+                    <i class="ion-ios-more"></i>                               
+                    <span>交易历史</span>
+                </div>
+                <div class="info-box left-3">
+                    <i class="ion-ios-more"></i>
+                    <span>报工信息</span>
+                </div>
+                <div class="info-box left-3">
+                    <i class="ion-ios-more"></i>                               
+                    <span>报工信息</span>
+                </div>
+            </div>
+        </ion-scroll>
+
+        <ion-scroll class="detail-content" delegate-handle="xbrDelegateScroll" scrollbar-y="false" has-bouncing="false" ng-init="freezeBottomScroll(true, 100);">
+            <div class="basic-info">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">工单类型&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfo.category"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">工单单号&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfo.num"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfo.simpleDesc"></div>
+                </div>
+                <div class="text-row">
+                    <div class="">备注&nbsp;:</div>
+                    <div class="" ng-bind="datas.basicInfo.desc"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">终端客户&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfo.terminalUser"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">上线客户&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfo.onlinePro"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfo.status"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">外服人员&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfo.user"></div>
+                </div>
+            </div>
+            <div class="time-info">
+                <div class="crm-line-title word-2">
+                    <div class="title-top">
+                        <span >日期</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">上线开始时间:</div>
+                    <div class="col-60" ng-bind="datas.basicInfo.timeOnlineStart"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">上线结束时间:</div>
+                    <div class="col-60" ng-bind="datas.basicInfo.timeOnlineStart"></div>
+                </div>
+            </div>
+
+            <div class="button button-crm-edit">
+                编辑
+            </div>
+
+            <!--div ng-repeat="item in datas.temp" style="height:4rem;width:100%;">
+                <div ng-bind="item.title" style="font-size:1rem;height:2rem;"></div>
+                <div ng-bind="item.content" style="font-size:1rem;height:2rem;padding-left:4rem;"></div>
+            </div-->
+        </ion-scroll>
+        
+        <div>
+            <!-- on-scroll="onContentScroll2($event);" -->
+            
+        </div>
+    </ion-content>
+</ion-view>

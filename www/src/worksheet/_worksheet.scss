@@ -1,0 +1,1151 @@
+$worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
+// transtition 未替换为scss 的minix类
+
+#worksheetlist-view{
+	background-color: $crm-header-bar-bgcolor;
+	
+	ion-header-bar{ 
+		background-color: $crm-header-bar-bgcolor;
+		transition: left 0.2s ease-out 0s;
+		//border: 1px solid red;
+		left: 0;
+		.left-back{
+			@include display-flex;
+			@include align-items(center);
+			margin-left: .4rem;
+			width: 2.5rem;
+		    padding-right: 1.5rem;
+		    justify-content: center;
+		    font-size: 1.8rem;
+		} 
+		.left-back, .title, {
+			transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
+		}
+		.buttons.right{ 
+			background-color: #3259A4;
+			width: 2.5rem;
+			overflow: hidden;
+			display: inline-block;
+			//min-height: 1.5rem;			
+			//border: 1px solid green;			
+		}
+		.search-header-bar{
+			@include display-flex;
+			.button-clear.search{
+				width: 2rem;
+				height: 100%;
+				//min-height: 1rem;
+			}
+			input.search-input{
+				@include flex(1);
+				display: inline-block;
+			}
+			.cancle-search-mode{
+				display: inline-block;
+				width: 3rem;
+				line-height: 2rem;
+				text-align: center;
+				font-size: 1rem;
+			}
+		}
+		.right-buttons-active{
+			width: 100%;
+			border: 1px solid red;
+		}
+		&.query-mode{
+			.buttons.right{
+				width: 96%;
+				margin: auto;
+				.button-clear.search{
+					width: 1.8rem;
+					min-width: 1.8rem;
+					background-color: white;
+					color: $crm-header-bar-bgcolor;
+					border-radius: 10px 0px 0px 0px;
+					i:before{
+						font-size: 1.2rem;
+					}
+				}
+				input{
+					border-radius: 0px 0px 10px 0px;
+				}
+			}
+			.left-back, .title{
+				width: 0rem;
+				min-width: 0px;
+			}
+			.left-back{
+				overflow: hidden;
+			    margin: 0px;
+			    padding: 0px;
+			}
+			.title{
+				overflow: hidden;
+			    margin: 0px;
+			    padding: 0px;
+			    left: 0 !important;
+			}
+		}
+	}
+	ion-content{
+		background-color: $crm-content-bgcolor;
+		@include display-flex;
+		@include flex-direction(column);
+	}
+	
+	
+	
+	.search-box-wrapper{
+		background-color: $crm-header-bar-bgcolor;
+		.search-box{
+			width: 94%;
+		    border: 1px solid #DAD7D7;
+		    margin: auto;
+		    border-radius: 5px;
+		    margin-top: .4rem;
+		    margin-bottom: .4rem;
+		    background-color: white;
+		    color: #969494;	    
+		}
+		i{
+			width: 9%;
+		    display: inline-block;
+		    margin: auto;
+		    text-align: center;
+		    background-color: white;
+		    font-size: 1.2rem;
+		    vertical-align: middle;
+		}
+		input{
+			display: inline-block;
+		    height: 2rem;
+		    line-height: 2rem;
+		    width: 87%;
+		}
+	}
+	
+	
+	.divs-wrapper{
+		position: relative;
+		@include flex(1);
+		overflow: hidden;
+		&.show-model{
+			//background-color: rgba(0, 0, 0, 0.14);
+			.divs-wrapper-bg{
+				background-color: rgba(2, 2, 2, 0.36);
+			}
+		}
+		pointer-events:auto;
+		.divs-wrapper-bg{
+			position: absolute;
+			top: 0px; bottom: 0px;
+			left: 0px; right: 0px;
+			pointer-events:auto;
+			//background-color: rgba(2, 2, 2, 0.36);
+			@include transition(background-color .4s linear 0s);
+		}
+		&.sort-from-filter{
+			.tab-sort-content{
+				height: 100%;
+			}
+		}
+		&.sort-from-click{
+			.tab-sort-content{
+				height: 100%;
+			}
+		}
+
+
+        /*&.sort-from-click{
+			.tab-filter-content{
+				transition: none;
+				top: 0px;
+				left: 100%;
+			}
+        }
+        &.sort-from-filter{
+			.tab-filter-content{
+				top: 0px !important;
+				//@include transition(left .2s linear 0.0s);
+				//transition: left .2s linear 0s !important;
+				left: 100%;
+			}
+        }
+        &.filter-from-click{
+			
+        }
+        &.filter-from-sort{
+			.tab-sort-content-inner{
+				top: 0px;
+				//@include transition(left .2s linear 0.0s);
+				//transition: left .2s linear 0s !important;
+				left: -100%;
+			}
+        }*/
+		//动画相关
+		.tab-sort-content-inner{
+			@include transition(top .2s linear 0.0s, left .2s linear 0.0s);
+			position: relative;
+			top: -9rem;
+			//left: 0%;
+			//.top-animation{}
+			//.left-animation{}
+			&.active-from-click{
+					//@include transition(top .2s linear 0.0s);
+					top: 0px;
+			}
+			&.active-from-filter{
+					//@include transition(left .2s linear 0.0s);
+					//left: 0px;
+					top: 0px;
+			}
+		}
+		.tab-filter-content{
+			@include transition(top .2s linear 0.0s, left .2s linear 0.0s);
+			//left: 0px;
+	    	top: -100%;
+	    	&.active-from-click{
+				//@include transition(top .2s linear 0.0s);
+				top: 0px;
+			}
+			&.active-from-sort{
+				//@include transition(left .2s linear 0.0s);
+				//left: 0px;
+				top: 0px;
+			}
+		}
+	}
+
+	$divs-wrapper-z-index: 1;
+	.worksheet-query-result{
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 0;	
+		background-color: white;
+		.loading-more{
+			height: 3rem;
+			line-height: 3rem;
+			text-align: center;
+			color: #ADAAAA;
+		}
+		.list{
+			padding-bottom: 0rem;
+			margin-bottom: 0px;
+		}
+		.item.ng-enter{
+			transition: 0.4s linear all;
+			opacity: 0;
+		}
+		.item.ng-enter.ng-enter-active{
+			opacity: 1;
+		}
+		.item{
+			background-color: transparent;
+			border-bottom: 1px solid #CCC9C9;
+			padding: .3rem .6rem;
+			@include display-flex;
+			//@include flex-direction(column);
+            .left{
+            	@include flex(75);
+                .item-line{
+                	line-height: 2rem;
+    				height: 2rem;
+    				margin-top: 0px;
+    				padding: 0px;
+                    .name{
+						
+                    }
+                    .value{
+                    	color: #888282;
+                    }
+                }
+            }
+            .right{
+            	@include flex(25);
+            	@include display-flex;
+            	@include flex-direction(column);
+            	@include justify-content(flex-end);
+                .enter-detail-btn{
+                	@include flex(1);
+                	@include align-self(flex-end);
+                	text-align: right;
+                	padding-right: .8rem;
+                	width: 3rem;
+                	@include display-flex;
+                	@include align-items(center);
+                	@include justify-content(flex-end);
+                    i{
+						font-size: 1.8rem;
+    					color: #A29F9F;
+    					margin-top: 1rem;
+                    }
+                }
+                .status{
+                	height: 2rem;
+    				line-height: 2rem;
+                    .name{
+					
+                    }
+                    .value{
+						font-size: 1rem;    					
+    					&.new{
+							color: #3259A4;
+    					}
+    					&.handling{
+    						color: #6EB150;
+    					}
+                    }
+                }
+            }
+        }
+	}
+	.xbr-model-div.show{
+		min-height: 400px;
+    	background-color: rgba(6, 6, 6, 0.14);
+	}
+	
+	
+	.tab-buttons-line{
+		background-color: white;
+		//background-color: blue;
+		@include display-flex;
+		    color: #969494;
+		.tab-button-block{
+			display: inline-block;
+			//width: 48%;
+			height: 3rem;
+		    line-height: 3rem;
+		    text-align: center;
+		    @include flex(1);
+		    span{
+				font-size: 1rem;
+		    }
+		    i{
+		    	color: #B7B6B6;
+		    	display: inline-block;
+		        position: relative;
+    			left: .3rem;
+		    	&:before{
+		    		@include transition(transform 0.4s ease-out 0.0s);
+		    	}		    	
+		    }
+		    &.selected{
+		    	//color: #ECB11B;
+		    	color: $worksheetlist-selected-color;
+		    	//border-bottom: 1px solid #ECB11B;
+		    	i:before{
+		    		//color: #ECB11B;
+		    		color: $worksheetlist-selected-color;
+		    		@include rotate(180deg);
+		    	}
+		    }
+		    //box-shadow: none;
+		    //background-color: white;
+		    &.activited{
+		    	//border-color: red;
+		    	//background-color: red;
+		    	//box-shadow: ;
+		    }
+		}
+	}
+	.tab-buttons-line-border{
+		display: none;
+		//display: block;
+		width: 50%;
+		height: 1px;		
+		@include transition(transform 0.2s ease-out 0.0s);
+		//transition: transform 0.2s linear 0.0s;
+		&.left-sort{
+			@include translate(0,0);
+			//background-color: #ECB11B;
+			background-color: $worksheetlist-selected-color;
+			//transform: translate(0px,0);
+		}
+		&.right-filter{
+			@include translate(100%,0);
+			background-color: $worksheetlist-selected-color;
+			//transform: translate(100%,0);
+		}
+	}
+	.tab-buttons-line-border2{	
+		height: 1px;
+		width: 100%;
+		display: inline-block;
+		//position: relative;
+		@include display-flex;
+		.left{
+			background-color: rgba(0,49,136,1);
+			@include flex(0);
+			@include transition(flex 0.2s ease-out 0.0s);
+			margin-right: 1px;
+		}
+		.center{
+			width: 10px;
+			height: 10px;
+			background-color: white;
+			position: relative;
+			top: -5px;
+			border-left: 1px solid red;
+			border-top: 1px solid red;
+			@include rotate(45deg);
+			@include transition(border-color 0.2s ease-out 0.0s);
+		}
+		.right{
+			background-color: rgba(98,157,3,1);
+			@include flex(4);
+			margin-left: 1px;
+		}
+		&.left-sort{
+			.left{
+				@include flex(1);
+			}
+			.center{
+				border-color: rgba(0,49,136,1);
+			}
+			.right{
+				@include flex(3);
+				background: linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
+				padding-left: 2.6rem;
+			}
+		}
+		&.right-filter{
+			.left{
+				@include flex(3);
+				//background: linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
+				@include bg-linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
+			}
+			.center{
+				border-color: rgba(98,157,3,1);
+			}
+			.right{
+				@include flex(1);
+				padding-left: .3rem;
+			}
+		}
+		&.noShowColor{
+			//background-color: white;
+			background: linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
+			width: 100%;
+    		display: block;
+			.left,.center,.right{
+				background-color: white;
+			}
+			.center{
+				display: none;
+			}
+		}
+	}
+
+	
+	.tab-sort-content{		
+		//height: 100%;
+		height: 0px;
+		position: absolute;	    
+	    width: 100%;
+	    //top: -100%;
+		z-index: $divs-wrapper-z-index;
+		margin-top: 0rem;
+		overflow: hidden;
+		//background-color: rgba(2, 2, 2, 0.36);		
+		.sort-type-item{
+			background-color: white;
+			
+			height: 2rem;
+		    line-height: 2rem;
+		    padding: 0px 0.8rem;
+		    span{
+		    	border-bottom: 1px solid #D2D0D0;
+		    	display: block;
+		    	width: 100%;
+		    	height: 100%;
+		    }
+			&.time-desc{ }
+			&.time-asc{ }
+			&.impact-desc{ }
+			&.none{
+				height: 3rem;
+			    line-height: 3rem;
+			    text-align: center;
+			    font-size: 1rem;
+			    border-radius: 0px 0px 10px 10px;
+			}
+			&.selected{
+				//color: #ECB11B;
+				color: $worksheetlist-selected-color;
+			}
+		}
+		&.sort-model-show{
+			.tab-sort-content{
+				//@include transition(left .2s linear 0.0s);
+			}
+			.tab-filter-content{
+				//left: 100%;
+				//@include transition(left .2s linear 0.0s);
+			}
+		}
+		&.filter-model-show{
+			.tab-sort-content{
+				//left: -100%;
+				//top: 0px;
+				//@include transition(left .2s linear 0.0s);
+			}
+			.tab-filter-content{
+				//@include transition(left .2s linear 0.0s);
+			}
+		}
+		&.sort-model-show.filter-model-show{
+			.tab-sort-content{
+				//left: -100%;
+				//@include transition(left .2s linear 0.0s);
+				.tab-sort-content-inner{
+					@include transition(top 1s linear 1s);
+					background-color: red;
+				}
+			}
+			.tab-filter-content{
+				@include transition(left .2s linear 0.0s,top 1s linear 1s);
+				background-color: green;
+			}
+		}
+		&.sort-to-filter-ing{
+			.tab-sort-content{
+				.tab-sort-content-inner{
+					
+				}
+			}
+			.tab-filter-content{
+				@include transition(left .2s linear 0.0s,top 0s linear 2s);
+				left: 100%;
+				top: 0px;				
+			}
+		}
+		&.filter-to-sort-ing{
+			.tab-sort-content{
+				.tab-sort-content-inner{
+				}
+			}
+			.tab-filter-content{
+			}
+		}
+	}
+	
+	.tab-filter-content{		
+		position: absolute;	    
+	    width: 100%;
+		z-index: $divs-wrapper-z-index;
+		margin-top: 0rem;
+		background-color: white;
+		border-radius: 0px 0px 10px 10px;	
+		height: 95%;
+		overflow: hidden;
+		ion-scroll{
+			height: 100%;
+		}
+		.filter-title{
+			height: 2rem;
+		    line-height: 2rem;
+		    font-size: 1rem;
+		    padding-left: .6rem;
+		}
+		$filter-name-color: #828282;
+		$filter-item-bg: rgba(223,226,228,1);
+		$filter-item-selected-bg: rgb(50,89,164);
+		padding-left: .6rem;
+		padding-right: .4rem;
+		.filter-time{
+			$filter-time-line-height: 4rem;			
+			@include display-flex;
+			height: $filter-time-line-height;
+			border-bottom: 1px solid #eee;
+			.filter-time-title{
+				@include flex(2.5);
+				height: 100%;
+				line-height:  $filter-time-line-height;
+			}
+			.filter-times-start-end{
+				height:  $filter-time-line-height;	
+				line-height:  $filter-time-line-height;	
+				@include flex(7.5);
+				.filter-time-center-line{
+					display: inline-block;
+				}
+				.filter-start-time, .filter-end-time{
+					line-height:  $filter-time-line-height;	
+					display: inline-block;
+					max-width: 5.5rem;
+					width: 5.5rem;
+					height: 2.5rem;
+					line-height: 2.5rem;
+					//margin-top: $filter-time-line-height - 1rem;
+					border: 1px solid white;
+					border-radius: 6px;
+					background-color: $filter-item-bg;
+					text-align: center;
+					color: $filter-name-color;
+					margin-right: .6rem;
+				}
+				.filter-end-time{
+					margin-left: .6rem;
+				}
+			}
+			/*.filter-time-title{ }
+			.filter-times-start-end{
+				background-color: white;
+				.filter-start-time{
+					height: 2.5rem;
+    				line-height: 2.4rem;
+    				margin-left: 1rem;
+					span{
+						display: inline-block;
+						width: 30%;
+					}
+					input{
+						display: inline-block;
+					}
+					.data-picker{
+						display: inline-block;
+						margin-left: .4rem;
+					}
+				}
+				.filter-end-time{
+					height: 2.5rem;
+    				line-height: 2.4rem;
+    				margin-left: 1rem;
+					span{
+						display: inline-block;
+						width: 30%;
+					}
+					input{
+						display: inline-block;
+					}
+					.data-picker{
+						display: inline-block;
+						margin-left: .4rem;
+					}
+				}
+			}*/
+    	}
+    	.filter-worksheet-type{
+			border-bottom: 1px solid #eee;
+			padding-bottom: .6rem;
+    		.filter-worksheet-type-title{ }
+    		.filter-types{
+				height: 3rem;
+				line-height: 3rem;
+				.filter-type{
+					display: inline-block;
+					height: 2.5rem;
+					line-height: 2.5rem;
+					font-size: .9rem;
+					padding: 0px .3rem;
+					text-align: center;
+					border: 1px solid #EFEFEF;
+					border-radius: 6px;
+					background-color: $filter-item-bg;
+					color: $filter-name-color;
+					&.selected{
+    					background-color: $filter-item-selected-bg;
+    					color: white;
+					}
+				}
+			}
+			/*
+			.filter-types{
+				height: 3rem;
+				line-height: 3rem;
+				background-color: white;
+				.filter-type{
+					display: inline-block;					
+					height: 1.5rem;
+					font-size: .8rem;
+					line-height: 1.5rem;
+					margin-left: 1rem;
+					padding-left: .4rem;
+					padding-right: .4rem;
+					text-align: center;
+					border: 1px solid #EFEFEF;
+					&.selected{
+						border: 1px solid #BDBAB1;
+    					background-color: #FDDC87;
+					}
+					&.local-service{
+
+					}
+					&.batch-update{
+
+					}
+					&.newcar-online{
+
+					}
+				}
+			}*/
+    	}
+    	.filter-impact{
+    		border-bottom: 1px solid #eee;
+    		padding-bottom: .8rem;
+    		.filter-impact-title{ }
+    		.filter-impacts{
+    			height: 2.5rem;
+    			line-height: 2.5rem;
+    			.filter-impact{
+    				width: 3rem;
+    				display: inline-block;
+					border: 1px solid #EFEFEF;
+					font-size: .9rem;
+					line-height: 2.5rem;
+					height: 2.5rem;
+					border: 1px solid white;
+					border-radius: 6px;
+					background-color: $filter-item-bg;
+					text-align: center;
+					color: $filter-name-color;
+					margin-left: .4rem;
+					&.selected{
+    					background-color: $filter-item-selected-bg;
+    					color: white;
+					}
+    				&.damage{ }
+    				&.hight{
+    					 margin-left: .4rem;
+    				}
+    				&.middle{
+						margin-left: .4rem;
+    				}
+    				&.low{
+    					margin-left: .4rem;
+    				}
+    				&.none{
+    					margin-left: .4rem;
+    				}
+    			}
+    		}
+    		/*.filter-impacts{
+    			height: 2.5rem;
+    			line-height: 2.5rem;
+    			background-color: white;
+    			.filter-impact{
+    				display: inline-block;
+					border: 1px solid #EFEFEF;
+					height: 1.2rem;
+					font-size: .8rem;
+					line-height: 1.2rem;
+					margin-left: 1rem;
+					padding-left: .4rem;
+					padding-right: .4rem;
+					text-align: center;
+					&.selected{
+						border: 1px solid #BDBAB1;
+    					background-color: #FDDC87;
+					}			
+    				&.damage{ }
+    				&.hight{ }
+    				&.middle{ }
+    				&.low{ }
+    				&.none{ }
+    			}
+    		}*/
+    	}
+    	.filter-status-wrapper{
+    		border-bottom: 1px solid #eee;
+    		padding-bottom: .8rem;
+	        .filter-title{ }
+	        .filter-status{
+	        	//height: 5rem;
+    			//line-height: 5rem;
+	            .filter-statu{
+	                width: 4rem;
+    				display: inline-block;
+					border: 1px solid #EFEFEF;
+					font-size: .9rem;
+					line-height: 2.5rem;
+					height: 2.5rem;
+					border: 1px solid white;
+					border-radius: 6px;
+					background-color: $filter-item-bg;
+					text-align: center;
+					color: $filter-name-color;
+					margin-left: .4rem;
+					padding: 0px .4rem;
+					&.selected{
+    					background-color: $filter-item-selected-bg;
+    					color: white;
+					}
+	            }
+	        }
+	    }
+    	.filter-action-buttons{
+    		//z-index: $divs-wrapper-z-index;
+    		//position: absolute;
+    		//bottom: 1rem;
+    		//left: 0px;
+    		//right: 0px;
+    		height: 4rem;
+    		text-align: right;
+    		.filter-action-button{
+    			text-align: center; 			
+				height: 2.4rem;
+				margin-top: .8rem;
+			    display: inline-block;
+			    text-align: center;
+			    background-color: white;
+			    border-radius: 10px;
+			    margin-left: 2%;
+			    height: 2rem;
+			    line-height: 2rem;
+			    font-size: 1rem;
+			    min-width: 5rem;
+			    border: 1px solid rgb(49,89,162);
+			    border-radius: 5px;
+    			&.reset{				
+    			}
+    			&.confirm{					
+    			}
+    		}
+    	}
+	}
+
+	.tab-sort-content.ng-show{
+	}
+
+}
+
+#worksheetdetail-view{
+	/*ion-header-bar{
+		i{
+			font-size: 1.5rem;
+    		line-height: 2.5rem;
+		}
+		.left-button{
+			width: 2rem;
+    		min-width: 2rem;
+    		height: 100%;
+		}
+		.right-button{
+			width: 1.5rem;
+		}		
+	}*/
+	/*$detail-header-bar-height: 2.5rem;
+	.detail-header-bar{
+		width: 100%;
+		background-color: #3F81FB;
+		color: white;
+		.top-buttons{
+			height: $detail-header-bar-height;
+			@include display-flex;
+			@include align-items(center);
+			color: white;
+			.left{
+				width: 2rem;
+				min-width: 2rem;
+				padding: 0px;
+				height: $detail-header-bar-height;
+				//min-height: 10px;
+				color: white;
+				i{
+					font-size: 1.8rem;
+				}
+			}
+			.center{
+				@include flex;
+				height: 100%;
+				line-height: $detail-header-bar-height;
+				text-align: center;
+				font-size: 1rem;				 
+    			font-weight: bolder;
+			}
+			.right{
+				width: 2rem;
+				padding: 0px;
+				color: white;
+				i{
+					font-size: 1.8rem;
+				}
+			}
+		}
+		.detail-msgs{
+			padding: .2em .2rem .2rem .6rem;
+			.title{
+				font-weight: bolder;
+    			font-size: 1rem;
+	        }
+	        i{
+				font-size: 1.4rem;
+				display: inline-block;
+			    width: 1.2rem;
+			    line-height: 2rem;
+			    height: 100%;
+			}
+		    span{
+		    	display: inline-block;
+		    	height: 100%;
+		    	line-height: 2rem;
+		    }
+	        .company{
+	        	height: 2rem;
+	        }
+	        .user-status{
+	        	display: block;
+	        	width: 100%;
+	        	height: 2rem;
+	            .user{
+					display: inline-block;
+					float: left;
+	            }
+	            .status{
+	            	display: inline-block;
+	            	float: right;
+	            }
+
+	        }
+		}
+	}*/
+}
+
+.modal-wrapper{
+    width: 0px;
+	.show-more-modal-content{
+        position: relative;
+        min-width: 7rem;
+        //left: 296px;
+        //margin-right: .4rem; (10px)
+        top: 48px;
+        z-index: -2;
+        display: inline-block !important;
+        .top-line{
+            width: 14px;
+		    height: 14px;
+		    //background-color: rgba(255, 255, 255, 0.89);
+		    background-color: white;
+		    transform: rotate(45deg);
+		    position: relative;
+		    left: 5.3rem;
+		    top: 0px;
+        }
+        .content-lines{
+            //background-color: rgba(255, 255, 255, 0.89);
+            background-color: white;
+            padding: 0px .6rem .4rem .6rem;
+            border-radius: 10px;
+            border-radius: 10px;
+		    position: relative;
+		    top: -7px;
+        }
+        .content-line{
+            border-bottom: 1px solid #eee;
+            color: #8E8B8B;
+            text-align: center;
+            padding: .4rem 0px;
+            font-size: 1rem;
+        }
+    }
+}
+
+.worksheetdetail-content-public{
+	
+}
+
+
+// 详情界面公共 styles
+
+//.worksheet-detail-view-public{
+#worksheetdetail-newcar-view, #worksheetdetail-siterepair-view{
+	.scroll{
+        @include display-flex;
+        @include flex-direction(column);
+    }
+    .detail-header{
+        background: #eee url("../../img/saleDetail/BG1.png") no-repeat;
+        background-position: 0px 0px;
+        background-size: cover;
+        color: white;
+        .detail-header-bar{
+            @include display-flex;
+            @include justify-content(center);
+            @include align-items(center);
+            height: 3rem;
+            font-size: 1rem;
+            font-weight: bolder;
+            .left{
+                width: 2rem;
+                text-align: center;
+                font-size: 2rem;
+            }
+            .center{
+                @include flex(1);
+                text-align: center;
+                .title{
+                    display: block;
+                }
+                .sub-title{
+                    //display: block;   
+                    display: none;
+                    font-size: .4rem;
+                    line-height: 1rem;
+                    height: 0rem;
+                }
+            }
+            .right{
+                width: 3rem;
+                text-align: center;
+                font-size: 3rem;
+            }
+        }
+        .detail-header-info{
+            //border: 1px solid red;
+            top: 0rem;
+            position: relative;
+            height: 6rem;
+            overflow: hidden;
+            //transition: top .2s linear 0s, width .2s linear 0s;
+
+            padding: 0px .8rem;
+            font-size: 1rem;
+            .detail-header-line{
+                height: 2rem;
+                line-height: 2rem;
+            }
+            .header-title span{
+                width: 100%;
+            }
+            .customer-status{
+                .left{
+                    display: inline-block;
+                    float: left;
+                }
+                .right{
+                    display: inline-block;
+                    float: right;
+                }
+            }
+            .header-info-title-icon{
+                display: inline-block;
+                width: 12px !important;
+                height: 12px;
+                border: 2px solid #9ED85F;
+                border-radius: 13px;
+                margin-right: .2rem;
+            }
+        }
+    }
+    // detail-header想着动画：上拉、下拉
+    .detail-header{
+        //transition: height .2s linear 0s, background-size .2s linear 0s;
+        .detail-header-info{
+            //transition: top .2s linear 0s;
+        }
+    }
+
+    .history-info-relation-line{
+        padding: .4rem 0rem;
+        .line-inner{
+            @include display-flex;
+            display: -webkit-box;
+        }
+        .relation-box, .history-box, .info-box{
+            @include display-flex;
+            //border: 1px solid red;
+            height: 2rem;
+            vertical-align: middle;
+            //float: left;
+            //position: relative;
+            left: 0rem;
+            @for $i from 1 through 10{
+                &.left-#{$i}{
+                	position: relative;
+                    left: -#{0.9*$i}rem;
+                }
+            }
+            i{
+                display: inline-block;
+                background-color: rgb(158, 216, 95);
+                width: 2.2rem;
+                height: 2.2rem;
+                font-size: 2.2rem;
+                text-align: center;
+                border-radius: 2.2rem;
+                color: white;
+                position: relative;
+                left: 1.1rem;
+                top: -.1rem;                
+            }
+            span{
+                display: inline-block;
+                border: 0px solid green;
+                height: 2rem;
+                line-height: 2rem;
+                background-color: rgb(225,225,225);
+                border-radius: 1rem;
+                padding: 0px .8rem 0px 1.2rem;
+            }
+        }
+    }
+    .worksheetdetail-content-siterepair, .worksheetdetail-content-newcar{
+        @include flex(1);
+    }
+
+	font-size: .9rem;
+	.commment-info-lines{
+		margin-top: .8rem;
+		&.first-line{
+			margin-top: .6rem;
+		}
+		.row{
+            border-bottom: 1px solid #eee;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            padding: 0px;
+            div:first-child{
+                padding-left: 1rem;
+            }
+            div:nth-child(2){
+                color: #8E8B8B;
+                @include single-line-ellipsis;
+                padding-right: .2rem;
+            }
+            &.line-right-icon{
+            	font-size: 1.2rem;
+    			color: #969393;
+            }
+        }
+        .text-row{
+            line-height: 1.2rem;
+            @include display-flex;
+            font-size: 1rem;
+            padding: .6rem 0px;
+            border-bottom: 1px solid #eee;
+            div:first-child{
+                padding-left: 1rem;
+                width: 4.5rem;
+            }
+            div:nth-child(2){
+                @include flex(5);
+                color: #8E8B8B;
+                padding-right: .2rem;
+            }
+            &.has-right-icon{
+            	.line-right-icon{
+            		@include flex(1);
+            	}
+            }
+        }
+	}
+	.button-crm-edit-public{ //编辑按钮
+		width: 90%;
+        border-radius: 10px;
+        margin: 1rem auto 2rem auto;
+        font-size: 1rem;
+        word-spacing: .6rem;
+        letter-spacing: .6rem;
+        text-align: center;
+	}
+	.status-handleing{
+		color: #9ED85F !important;
+	}
+	.status-not-handle{
+		color: red !important;
+	}
+	.color-common-blue{
+		color: #4C8AC7 !important;
+	}
+}

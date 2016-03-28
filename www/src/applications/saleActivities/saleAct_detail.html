@@ -1,6 +1,6 @@
 <ion-view class="saleActDetail">
-    <div class="top-back absolute fadeIn" style="height: 75px;background: none" ng-show="showTitle"
-         ng-class="!TitleFlag?'animated fadeOut':'animated fadeIn'">
+    <div class="top-back absolute animated fadeIn" style="height: 75px;background: none"
+         ng-class="!TitleFlag?'fadeOut':''" ng-show="TitleFlag">
         <div class="row row-center title">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">活动详情
@@ -32,23 +32,25 @@
             <div class="mainInfo">
                 <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                     <i class="ion-android-radio-button-off"></i>
-
-                    <div>郑州金龙客车(福州)客户拜访</div>
+                    <!--<div>郑州金龙客车(福州)客户拜访</div>-->
+                    <input type="text" value="郑州金龙客车(福州)客户拜访"  ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
-                    <div>客户:&nbsp;&nbsp;金龙客车</div>
+                    <div class="col col-16">客户:</div><input type="text" value="金龙客车"  ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center" ng-class="placeFlag?'animated fadeOut':'animated fadeIn'">
-                    <div>地点:&nbsp;&nbsp;福建省&nbsp;&nbsp;福州市</div>
+                    <div class="col col-16">地点:</div>
+                    <input type="text" value="福建省&nbsp;&nbsp;福州市" ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
                 </div>
-                <div class="row row-center" ng-class="typeFlag?'animated fadeOut':'animated fadeIn'">
-                    <div>类型:&nbsp;&nbsp;关系维护</div>
+                <div class="row row-center" ng-class="{'animated fadeOut':typeFlag,'animated fadeIn':!typeFlag}">
+                    <div class="col col-16">类型:</div>
+                    <input type="text"  value="关系维护" style="border: none;" readonly>
                 </div>
                 <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div>状态:</div>
-                    <div class="status">&nbsp;&nbsp;进行中</div>
+                    <select ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select>
                     <div class="num">NO.100036</div>
-                    <div class="edit">编辑</div>
+                    <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png">{{editText}}</div>
                 </div>
             </div>
             <div class="selector">
@@ -92,9 +94,9 @@
                         <div class="col col-15 text-right rewrite"><img src="img/saleDetail/Shape.png"></div>
                     </div>
                 </div>
-                <div class="progress animate-fade-slide-in-right">
+                <div class="progress">
                     <div class="row">进展:</div>
-                    <div class="obj item" ng-repeat="x in progressArr">
+                    <div class="obj own-animated zoomInRight" ng-repeat="x in progressArr">
                         <div class="row row-center">
                             <img class="oval" src="img/saleDetail/oval.png">
 
@@ -111,9 +113,9 @@
                 <div class="submit">
                     <div class="row row-center">
                         <div class="col col-82 no-padding">
-                            <div class="input"><input type="text"/></div>
+                            <div class="input"><input type="text" ng-model="input.progress"/></div>
                         </div>
-                        <div class="col col-18 no-padding">
+                        <div class="col col-18 no-padding" ng-click="submit()">
                             <button>提交</button>
                         </div>
                     </div>

@@ -5,6 +5,18 @@
     <div ng-include="'src/applications/applications.html'" ng-if="tabs[3].isActive"></div>
     <div class="bar bar-footer">
         <div class="tabs tabs-icon-top">
+            <!--a class="tab-item" ng-click="tabs.name = 'main'"><i class="icon ion-home"></i>
+                Home
+            </a>
+            <a class="tab-item" ng-click="tabs.name = 'app'"><i class="icon ion-star"></i>
+                Favorites
+            </a>
+            <a class="tab-item" ui-sref="test"><i class="icon ion-gear-a"></i>
+                Settings
+            </a>
+            <a class="tab-item" ui-sref="worksheetlist"><i class="icon ion-gear-a"></i>
+                Settings
+            </a-->
             <div class="tab-item ink" ng-repeat="tab in tabs" ng-click="clickTab(tab)" ng-class="tab.isActive?'backColor-on':'backColor-off'">
                 <i class="icon main-on" ng-class="tab.isActive?tab.onClass:tab.offClass"></i>
                 {{tab.name}}

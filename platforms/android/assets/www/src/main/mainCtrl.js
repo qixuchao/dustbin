@@ -81,7 +81,7 @@ mainModule
             //},1)
             //切换至月视图
             if ($scope.viewFlag == false) {
-                document.getElementById('monthViewId').className='monthView animated fadeInDown';
+                document.getElementById('monthViewId').className='monthView own-animated fadeInDown';
                 document.getElementById('dayViewId').className='dayView';
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
@@ -144,7 +144,7 @@ mainModule
                 $ionicSlideBoxDelegate.update();
             } else {
                 document.getElementById('monthViewId').className='monthView';
-                document.getElementById('dayViewId').className='dayView animated fadeInDown';
+                document.getElementById('dayViewId').className='dayView own-animated fadeInDown';
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('monthView-handle');
                 var page_index = dayViewHandle.currentIndex();
                 var arr = $scope.monthView[page_index].arr;
@@ -417,13 +417,7 @@ mainModule
             }
             y.checked = true;
         }
-        //初始化数据
-        var last_day = 0;
-        if (today != 0) {
-            last_day = 7 - today;
-        } else {
-            last_day = today;
-        }
+
         $scope.topHeight = {
 <<<<<<< HEAD
             'margin-top': '198px'
@@ -431,7 +425,15 @@ mainModule
             'margin-top':'198px'
 >>>>>>> gongkedev
         }
+        var last_day;
         $scope.init = function () {
+            //初始化数据
+            last_day = 0;
+            if (today != 0) {
+                last_day = 7 - today;
+            } else {
+                last_day = today;
+            }
             var addDateTemp = addDate(todayDate, last_day);
             $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
             var todayTemp = angular.copy(today);
@@ -721,7 +723,7 @@ mainModule
             x.mark = color;
         }
         $scope.delete = function (x) {
-            x.class = 'animated zoomOutRight';
+            x.class = 'own-animated zoomOutRight';
             var arr = document.getElementsByClassName('obj');
             console.log(arr)
             for (var i = 0; i < arr.length; i++) {

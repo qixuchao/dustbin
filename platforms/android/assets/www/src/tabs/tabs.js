@@ -7,16 +7,17 @@ tabsModule
     .controller('TabsCtrl',['$scope','$rootScope','$state','$ionicHistory','ionicMaterialInk',function($scope,$rootScope,$state,$ionicHistory,ionicMaterialInk){
         //ionicMaterialInk.displayEffect();
         $rootScope.goBack = function(){
+            console.log('goback')
             $ionicHistory.goBack();
         }
         $scope.tabs = [{
             name:'主页',
-            isActive:true,
+            isActive:false,
             onClass:'main-on',
             offClass:'main-off'
         },{
             name:'应用',
-            isActive:false,
+            isActive:true,
             onClass:'app-on',
             offClass:'app-off'
         },{

@@ -1,0 +1,774 @@
+@charset "UTF-8";
+//车辆查询
+.CarList{
+  .bar .title{
+    position: absolute;
+    top: 0.5em;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    margin: 0 10px;
+    min-width: 30px;
+    height: 43px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 44px;
+    color: rgb(250, 250, 250);
+  }
+  .bar.bar-header .button+.title {
+    text-align: center;
+  }
+  .bar {
+    border-bottom: none;
+    padding: 0;
+    height: 3.28em;
+    background-color: rgba(43, 96, 171, 0.90);
+    background-size: 0;
+    box-shadow: none;
+  }
+  .bar-header {
+    border-bottom: none;
+    padding: 0;
+    fill: #2B60AB 90%;
+    background-size: 0;
+    .button-clear {
+      color: #fff;
+      padding-left: 0.8em;
+      padding-top: 0.8em;
+    }
+  }
+  .bar-subheader {
+    height: 2.7em;
+    top: 60px;
+    display: block;
+    fill: #2B60AB 90%;
+    .placeholder-icon {
+      color: #aaa;
+      position: absolute;
+      z-index: 2;
+      top: .8em;
+      left: 1em;
+    }
+    input {
+      display: block;
+      padding-top: 2px;
+      padding-left: 2em;
+      color: #ccc;
+      vertical-align: middle;
+      font-size: 15px;
+      line-height: 16px;
+      width: 96%;
+      position: fixed;
+      top: 9px;
+      right: 6px;
+      border: 1px solid #dedede;
+      border-radius: 5px;
+    }
+  }
+   .borderLine{
+     -webkit-user-drag: none;
+     position: absolute;
+     top: 2.5em;
+     width: 100%;
+     .row {
+       padding: 0;
+       .col-23 {
+         span {
+           position: relative;
+           left: 1.5em;
+           color: #2B60AB;
+           text-align: right;
+           font-size: 15px;
+           font-weight: 600;
+         }
+       }
+       .col-77 {
+         border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+       }
+     }
+       .col-15{
+         margin-top: 0.3em;
+         height: 1.2em;
+         border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+         border-right: 1px solid rgba(43, 96, 171, 0.90);
+
+     }
+   }
+  .shapeImg{
+    height: 1.2em;
+    position: relative;
+    left: .8em;
+    top: 0.4em;
+  }
+   .contentType{
+    position: relative;
+    top: 6em;
+    border-bottom: 1px solid rgba(43, 43, 43, 0.17);
+  }
+  .row .col{
+     padding:0;
+  }
+  .rowType{
+    padding-top:.8em;
+    position: relative;
+    left:4%;
+    .pointImg{
+      height: 0.7em;
+    }
+    .colType{
+      padding-left: 0;
+      span{
+        font-size: 1em;
+        color: #4a4a4a;
+      }
+    }
+
+  }
+  .row+.row .row {
+    /* margin-top: -5px; */
+    padding-top: 0;
+    height: 4em;
+  }
+}
+//车辆详情列表
+.CarDetail {
+  .row .col{
+    padding:0;
+    margin: 0;
+  }
+  .absolute{
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+  .top-back3{
+    margin-top:-1px;
+    color: white;
+    height:3.28em;
+    font-size: 16px;
+    .title {
+      padding-top: 20px;
+      color: white;
+      i {
+        font-size: 25px;
+        color: #c9ddf0;
+        padding-left: 8px;
+      }
+    }
+  }
+  .top-back2{
+    background:url("../../img/car/barBg.png") no-repeat;
+    background-size:100% 100%!important;
+    margin-top:-1px;
+    color: white;
+    height:3.28em;
+    font-size: 16px;
+    .title {
+      padding-top: 20px;
+      color: white;
+      i {
+        font-size: 25px;
+        color: #c9ddf0;
+        padding-left: 8px;
+      }
+    }
+  }
+  .top-back {
+    background:url("../../img/car/headerBg.png") no-repeat;
+    background-size:100% 100%;
+    color: white;
+    font-size: 16px;
+    height: 164px;
+    .title {
+      padding-top: 20px;
+      color: white;
+      i {
+        font-size: 25px;
+        color: #c9ddf0;
+        padding-left: 8px;
+      }
+    }
+    .mainInfo {
+      .row {
+        padding-bottom: 10px;
+        .status {
+          color: #9fca17;
+        }
+        .num {
+          margin-left: 20px;
+          color: #9f9d99;
+        }
+        .edit {
+          position: fixed;
+          right: 10px;
+        }
+      }
+      i {
+        color: #9fca17;
+        margin-right: 5px;
+        font-size: 12px;
+        padding-top: 2px;
+      }
+
+    }
+  }
+  .row1 {
+    font-size: 16px;
+    position: relative;
+    left: 4%;
+    top: 0.5em;
+    color: white;
+    padding-left: 0;
+    .col{
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .pointImg {
+      height: 0.7em;
+    }
+    .colText{
+      font-size: 15px;
+    }
+  }
+  .row2 {
+    font-size: 14px;
+    position: relative;
+    left: 4%;
+    top: 1em;
+    margin-top: 0;
+    color: white;
+    padding-left: 0;
+  }
+  .col-60{
+    font-size:1.1em;
+    color:rgba(155, 155, 155,0.9) ;
+  }
+  u{
+    color: #0074d6;
+    font-size: 0.8em;
+  }
+  .col-80{
+    font-size:13px;
+    color:rgba(155, 155, 155,0.9) ;
+  }
+
+  .contentType{
+    position: relative;
+  }
+  .btType {
+    padding: 0 0.5em 0 0.5em;
+    height:38px;
+  }
+  .borderLine{
+    -webkit-user-drag: none;
+    position: relative;
+    width: 100%;
+    top: 0.5em;
+    .row{
+      padding: 0;
+    }
+    .rowLine{
+      padding:0;
+      position: relative;
+      left: 4%;
+    }
+    .col-18{
+      span{
+        position: relative;
+        color: #2B60AB;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+    .col-82{
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+    }
+    .col-15{
+      margin-top: 0.3em;
+      height: 1.2em;
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+      border-right: 1px solid rgba(43, 96, 171, 0.90);
+    }
+  }
+  .borderLine{
+    -webkit-user-drag: none;
+    position: relative;
+    width: 100%;
+    top: 0.5em;
+    .row{
+      padding: 0;
+    }
+    .rowLine{
+      padding:0;
+      position: relative;
+      left: 4%;
+    }
+    .col-23{
+      span{
+        position: relative;
+        color: #2B60AB;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+    .col-77{
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+    }
+    .col-15{
+      margin-top: 0.3em;
+      height: 1.2em;
+      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
+      border-right: 1px solid rgba(43, 96, 171, 0.90);
+    }
+  }
+  .titleType {
+    position: relative;
+    padding-top: 5px;
+    height: 2.1em;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .titleImg{
+    height:2.5em;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+   }
+  b, strong {
+    font-weight: 600;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.63);
+  }
+   .rowType {
+     position: relative;
+     left: 4%;
+     padding-top: 1em;
+     padding-bottom: 1em;
+     padding-right: 0;
+     padding-left: 0;
+     .col{
+       padding:0;
+     }
+  }
+   .rowType1 {
+     position: relative;
+     left: 4%;
+     padding-top: 1em;
+     padding-bottom: 1em;
+     padding-right:0;
+     padding-left: 0;
+     .col{
+       padding:0;
+     }
+  }
+  .lineType1{
+    border-bottom: 1px solid #ccc;
+  }
+   .colType {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .rowType2 {
+    padding: 0;
+    margin: 0;
+    .col{
+      padding:0;
+    }
+  }
+ .lastRow {
+    padding-left: 0.9em;
+    padding-top: 5px;
+    border-left: 1px solid rgba(128, 128, 128, 0.54);
+  }
+}
+
+.Maintenance {
+  .bar.bar-header .button + .title {
+    text-align: center;
+    color: white;
+    line-height: 60px;
+  }
+  .bar .button.button-clear {
+    color: #fff;
+    padding-left: 0.8em;
+    padding-top: 0.8em;
+  }
+  .bar{
+    border-bottom: none;
+    padding: 0;
+    height: 3.28em;
+    background-color: rgba(43, 96, 171, 0.90);
+    background-size: 0;
+    box-shadow: none;
+  }
+  ion-content {
+    top: 5em;
+  }
+  .colType {
+    text-align: center;
+    font-size: 1.5em;
+    color:rgba(155, 155, 155,0.9) ;
+  }
+  .select {
+    font-size: 1em;
+    color:rgba(155, 155, 155,0.9) ;
+  }
+  .sort {
+    font-size: 1em;
+    color:rgba(155, 155, 155,0.9) ;
+  }
+  .rowType{
+    background-color: white;
+    position: relative;
+    top: -0.1em;
+    padding-bottom: 0.5em;
+  }
+   .bgColor{
+     background-color: rgb(255, 255, 255);
+     position: absolute;
+     height: 20px;
+     width: 13px;
+     background-size: cover;
+     left: 22%;
+     z-index: 55;
+     i{
+       position: relative;
+       left: -1px;
+       font-size: 1.2em;
+       top: -2px;
+       color: #387ef5;
+     }
+   }
+  .bgColor1{
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    height: 20px;
+    width: 13px;
+    background-size: cover;
+    left: 72%;
+    z-index: 55;
+    i{
+      position: relative;
+      left: -1px;
+      font-size: 1.2em;
+      top: -2px;
+      color: #28a54c;
+    }
+  }
+  .lineImg{
+    height: 2px;
+    position: relative;
+    background:-moz-linear-gradient(left, #0c63ee, #33cd5f);/*Mozilla*/
+    background:-webkit-gradient(linear,0 50%,100% 50%,from(#0c63ee),to(#33cd5f));/*Old gradient for webkit*/
+    background:-webkit-linear-gradient(left, #0c63ee, #33cd5f);/*new gradient for Webkit*/
+    background:-o-linear-gradient(left, #0c63ee, #33cd5f); /*Opera11*/
+  }
+  .row-center {
+    background-color: white;
+    position: relative;
+  }
+  .divLine{
+    border-bottom: 1px solid rgba(128, 128, 128, 0.26);
+  }
+  .rowContent{
+    position: relative;
+    padding-left: 0;
+    left: 4%;
+    .col{
+      padding:0;
+    }
+    .pointImg{
+        height:0.7em;
+    }
+    b{
+      font-weight: 600;
+      color: rgba(68, 68, 68, 0.89);;
+      font-size: 16px;
+    }
+    span{
+      font-size: 14px;
+      color:rgba(17, 17, 17, 0.43) ;
+      font-weight: 500;
+    }
+  }
+  .buttonText{
+    left: 25%;
+  }
+  .selected{
+    background-color:rgba(43, 96, 171, 0.9);
+  }
+  .sortType {
+    position: relative;
+    height: 0.8em;
+    right: -0.5em;
+  }
+  input {
+    position: relative;
+    color: #ccc;
+    vertical-align: middle;
+    font-size: 15px;
+    text-align: center;
+    height: 30px;
+    line-height: 16px;
+    width: 100%;
+    border: 1px solid #dedede;
+    background-color: rgb(238,242,243);
+  }
+  .row1,.row2,.row3,.row4{
+    padding-left: 0;
+    .col{
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .row1{
+    .col-10{
+      padding: 0 0.5em;
+    }
+  }
+  .colType {
+    .row-center{
+       padding: 0;
+    }
+  }
+  .myPro ul li {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid rgba(170, 170, 170, 0.24);
+    font-size: 1em;
+    text-indent: 1.5em;
+  }
+  .color1{
+   color:rgba(43, 96, 171, 0.9);
+  }
+ .color2{
+   color: #B4B4B4;
+ }
+  .ion-chevron-right:before {
+    content: "";
+    position: relative;
+    top: -0.3em;
+  }
+  .liType {
+    height: 2.4em;
+    line-height: 2em;
+  }
+  .liType ul {
+    margin-top: 0.15em;
+  }
+  .animated {
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  .ulType {
+    position: absolute;
+    background-color: white;
+    z-index: 22;
+    margin-top: 0.2em;
+    width: 100%;
+    top: 3em;
+    box-shadow: 0 3px rgba(128,128,128,0.51);
+  }
+  .selectType {
+    position: relative;
+    height: 0.8em;
+    right: -0.5em;
+  }
+  .selectContent {
+    position: absolute;
+    z-index: 22;
+    width: 100%;
+    top: 3.2em;
+    background-color: white;
+    box-shadow: 0 3px rgba(128,128,128,0.51);
+  }
+
+  .titleType {
+    padding-top: 5px;
+    height: 2.1em;
+    padding-bottom: 0;
+  }
+  .line{
+    border-bottom: 1px solid black;
+  }
+  .lineType{
+    border-bottom: 1px solid #aaa;
+    width: 90%;
+    margin-left: 5%;
+  }
+  .classColor{
+    background-color: rgba(204, 204, 204, 0.29);
+  }
+  .btType {
+    color: #aaa;
+    box-shadow: none;
+    padding: 0 0.2em;
+    min-height: 30px;
+    vertical-align: top;
+    text-align: center;
+    text-overflow: ellipsis;
+    line-height: 28px;
+    height: 18px;
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
+  }
+  .btType1 {
+    color: #aaa;
+    box-shadow: none;
+    padding: 0 2px;
+    min-height: 30px;
+    min-width: 3.5em;
+    vertical-align: top;
+    text-align: center;
+    text-overflow: ellipsis;
+    line-height: 2em;
+    height: 1px;
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
+  }
+  .col-20, .col-33 {
+    padding: 15px 0;
+  }
+  .col-50 {
+    padding-left: 1em;
+  }
+  .button-light.button-outline {
+    border-color: rgba(43, 96, 171, 0.90);
+    color: rgba(43, 96, 171, 0.90);
+    min-height: 2em;
+    box-shadow: none;
+    border-radius: 0.5em;
+    line-height: 2.4em;
+    right:1.2em;
+  }
+  .shadowDiv1{
+      position: fixed;
+      top: 5em;
+      left: 0;
+      z-index: 11;
+      visibility: visible;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(128, 128, 128, 0.27);
+      opacity: 1;
+    }
+  .shadowDiv2{
+    position: fixed;
+    top: 20.7em;
+    left: 0;
+    z-index: 11;
+    visibility: visible;
+    width: 100%;
+    height: 24em;
+    background-color: rgba(128, 128, 128, 0.27);
+    opacity: 1;
+  }
+}
+.SpareList1 {
+  .bar.bar-header .button + .title {
+    text-align: center;
+    color: white;
+    line-height: 60px;
+  }
+  .bar .button.button-clear {
+    color: #fff;
+    padding-left: 0.8em;
+    padding-top: 0.8em;
+  }
+  .bar .title {
+    position: absolute;
+    font-size: 16px;
+    color: white;
+  }
+  .bar {
+    border-bottom: none;
+    padding: 0;
+    height: 3.28em;
+    background-color: rgba(43, 96, 171, 0.90);
+    background-size: 0;
+    box-shadow: none;
+  }
+  .bar-subheader {
+    height: 2.7em;
+    top: 60px;
+    display: block;
+    fill: #2B60AB 90%;
+    .placeholder-icon {
+      color: #aaa;
+      position: absolute;
+      z-index: 2;
+      top: .8em;
+      left: 1em;
+    }
+    input {
+      display: block;
+      padding-top: 2px;
+      padding-left: 2em;
+      color: #ccc;
+      vertical-align: middle;
+      font-size: 15px;
+      line-height: 16px;
+      width: 96%;
+      position: fixed;
+      top: 9px;
+      right: 6px;
+      border: 1px solid #dedede;
+      border-radius: 5px;
+    }
+  }
+  .divContent {
+    position: relative;
+    top: 1.2em;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.41);
+    padding: 0.5em 0;
+  }
+  .row+.row {
+    margin-top: -5px;
+    padding-top: 5px;
+  }
+  img {
+    height: 0.8em;
+  }
+  .col {
+    padding: 0;
+    span {
+      font-size: 14px;
+      color: gray;
+    }
+    .spareName {
+      font-size: 1.2em;
+    }
+  }
+  .row-center {
+    b {
+      font-weight: 600;
+      color: rgba(17, 17, 17, 0.8);
+      font-size: 14px;
+    }
+  }
+  b strong {
+    font-weight: 500;
+  }
+  .rowType {
+    position: relative;
+    top: 1.2em;
+    .button-clear{
+      left: 25%;
+    }
+  }
+  .col-45 {
+    text-align: center;
+    padding: 0;
+  }
+}

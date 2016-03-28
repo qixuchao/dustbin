@@ -64,16 +64,37 @@ module.exports = [
         ]
     },
     {
+<<<<<<< HEAD
         "file": "plugins/cordova-plugin-whitelist/whitelist.js",
         "id": "cordova-plugin-whitelist.whitelist",
         "runs": true
+=======
+        "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+        "id": "cordova-plugin-dialogs.notification",
+        "merges": [
+            "navigator.notification"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+        "id": "cordova-plugin-dialogs.notification_android",
+        "merges": [
+            "navigator.notification"
+        ]
+>>>>>>> a08b835e775f4eeb53515fec3153f3eaa7787733
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
+<<<<<<< HEAD
     "cordova-plugin-contacts": "2.0.1",
     "cordova-plugin-whitelist": "1.2.1"
+=======
+    "cordova-plugin-console": "1.0.2",
+    "cordova-plugin-contacts": "2.0.1",
+    "cordova-plugin-dialogs": "1.2.0"
+>>>>>>> a08b835e775f4eeb53515fec3153f3eaa7787733
 }
 // BOTTOM OF METADATA
 });

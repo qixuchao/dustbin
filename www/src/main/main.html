@@ -87,7 +87,7 @@
         <div class="line-vertical"></div>
         <div class="main-content animate-fade-slide-in-right">
             <div class="await-apl">待处理</div>
-            <div class="obj item" ng-repeat="x in thingsToDo" ng-class="x.class">
+            <div class="obj item" ng-repeat="x in thingsToDo">
                 <div class="circleNum" style="{{'border-color:'+x.mark}}">{{$index+1}}</div>
                 <div class="row row-center apl-content no-padding">
                     <div class="col col-80">
@@ -108,7 +108,6 @@
                 <div class="border-bottom"></div>
                 <div class="row row-center mark" ng-if="x.showMarks">
                     <img src="img/main/mark.png" class="markImg">
-
                     <div class="markText">标记:</div>
                     <div class="col-48 markSelect">
                         <div class="row">

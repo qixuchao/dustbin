@@ -5,7 +5,7 @@
 appModule
     .controller('AppCtrl',['$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function($scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
         console.log('app')
-        ionicMaterialInk.displayEffect();
+        //ionicMaterialInk.displayEffect();
 
         $scope.imgs = [{
             url:'img/apps/partner.png'
@@ -16,18 +16,22 @@ appModule
             url:'img/apps/acPlan.png',
             go:'saleActDetail'
         },{
-            url:'img/apps/saleChance.png'
+            url:'img/apps/saleChance.png',
+            go:'saleChanDetail'
         },{
             url:'img/apps/saleClue.png'
         },{
-            url:'img/apps/saleQuote.png'
+            url:'img/apps/saleQuote.png',
+            go:'worksheetlist'
         },{
-            url:'img/apps/sparePart.png'
+            url:'img/apps/sparePart.png',
+            go:'spareList'
         },{
             url:'img/apps/empInfo.png',
             go:'userQuery'
         },{
-            url:'img/apps/searchCar.png'
+            url:'img/apps/searchCar.png',
+            go:'car'
         }];
         $timeout(function(){
             ionicMaterialMotion.fadeSlideInRight({
