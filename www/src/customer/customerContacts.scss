@@ -1,0 +1,202 @@
+.customerContacts_Query{
+  .customerContacts_query_list{
+    font-size: 16px;
+    color: #4A4A4A;
+    .customerContacts_query_listcicle{
+      width:14px;
+      height:14px;
+      vertical-align: middle;
+      display: inline-block;
+      border-radius:50%;
+    }
+    .customerContactse_query_listcicleA{
+      border: 2px solid #9EC92A;
+    }
+    .customerContacts_query_listcicleB{
+      border: 2px solid #008CCF;
+    }
+    .customerContacts_query_listfor{
+      width:15px;
+      height:16px;
+      vertical-align: middle;
+    }
+    .customerContacts_query_listline{
+      width: 100%;
+      height: 1px;
+      background-color: #D2D2D2;
+    }
+  }
+}
+
+//customerdeatil
+      .customerContacts_detail{
+        .absolute{
+          position: absolute;
+          z-index: 9;
+          top: 0;
+          right: 0;
+          left: 0;
+          bottom: 0;
+        }
+        .customerContacts_backtop{
+          background: url("../../img/employee/BAR-BG@2x.png") no-repeat center;
+          width:100%;
+        }
+        .customerContacts_detailtitle{
+          height:44px;
+          line-height:44px;
+          text-align: center;
+          .customerContactsdeatil_headtitlei{
+            font-size: 35px;
+            color: #C5D2E1;
+      display: block;
+      float: left;
+      margin-left:15px;
+    }
+    .customerContactsdeatil_headtitlespan{
+      font-size:18px;
+      color: white;
+    }
+  }
+
+  .customerContacts_detailtitleview{
+    height:44px;
+    line-height:44px;
+    text-align: center;
+    .customerContactsdeatil_headtitleiview{
+      font-size: 40px;
+      color: #C5D2E1;
+      display: block;
+      float: left;
+      margin-left: 15px;
+      margin-top: 6px;
+    }
+    .customerContactsdeatil_headtitlespanview{
+      font-size:18px;
+      color: white;
+    }
+  }
+
+  .customerContacts_detailname{
+    position: absolute;
+    top: 14px;
+    font-size:12px;
+    width: 80%;
+    margin-left: 13%;
+    color: white;
+    text-align: center;
+  }
+
+  .customerContacts_detailcontent {
+    position: relative;
+    height: 120px;
+    font-size: 16px;
+    color: white;
+    .customerContacts_detailcontentname {
+      position: absolute;
+      top: 1px;
+      left: 25px;
+      .customerContacts_detailcontentcicle {
+        width: 14px;
+        height: 14px;
+        float: left;
+        margin-top: 3px;
+        margin-right: 5px;
+        display: inline-block;
+        border-radius: 50%;
+        border: 2px solid #9EC92A;
+      }
+    }
+    .customerContacts_detailcontentkehu{
+      position: absolute;
+      top:23px;
+      left:25px;
+    }
+    .customerContacts_detailcontentaddress{
+      position: absolute;
+      top:45px;
+      left:25px;
+    }
+    .customerContacts_detailcontentemploy{
+      position: absolute;
+      top:67px;
+      left:25px;
+    }
+    .customerContacts_detailcontentphone{
+      position: absolute;
+      top:89px;
+      left:25px;
+      .customerContacts_detailcontentphonei{
+        float: left;
+        margin-top:-3px;
+        font-size:25px;
+      }
+    }
+  };
+
+  .customerContacts_detail_countentbu{
+    width:33px;
+    height:33px;
+    z-index: 100;
+  }
+  .customerContacts_detail_countentimgbase{
+    text-align: center;
+    width:75px;
+    height:32px;
+    font-size:14px;
+    padding-left:10px;
+    line-height:32px;
+    position: absolute;
+    left:11px;
+    background-color: #E8E7E7;
+    border-radius: 30px;
+    z-index: -1;
+  }
+  .customerContacts_detail_countentbasic{
+    position: relative;
+    margin-top: 5px;
+    font-size:16px;
+    color:#406FB3;
+    .customerContacts_detail_countentbasicinfo{
+      position: absolute;
+      top:0px;
+      left: 25px;
+    }
+    .customerContacts_detail_countentbasicline{
+      position: absolute;
+      top:10px;
+      left: 90px;
+      width: 100%;
+      height:1px;
+      background-color: #406FB3;
+    }
+    .customerContacts_detail_countentbasicclok{
+      position: absolute;
+      top:15px;
+      margin-top: 2px;
+      left:0px;
+      width:57px;
+      height:15px;
+      border: 1px solid #406FB3;
+      border-top: none;
+      border-left: none;
+    }
+  }
+  .customerContacts_detail_countentlist{
+    margin-top:35px;;
+    font-size:16px;
+  }
+  .customerContactscontentbutton{
+    width:55%;
+    height:40px;
+    margin-left:22%;
+    margin-top:30px;
+    margin-bottom:20px;
+    background-color: #9EC92A;
+    color: white;
+    font-size:16px;
+    line-height:40px;
+    text-align: center;
+    border-radius:10px;
+  }
+}

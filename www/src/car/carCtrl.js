@@ -173,7 +173,19 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
 }])
 
 .controller('SpareCtrl',['$scope','CarService',function($scope,CarService){
-     $scope.spareList=CarService.getData().spare;
+        $scope.spareList=CarService.getData().spare;
+        var i=0;
+        $scope.loadMore=function(){
+            var spareInfo1={
+                spareName:'高压箱-BD3'+i,
+                spareNum:'17240-0026',
+                count:'7',
+                qualityTime:'CATL两年质保',
+                qualityDate:'2016.01.01-2018.01.01'
+            };
+            i+=1;
+            $scope.spareList.push(spareInfo1);
+        };
 }])
 .controller('SearchCtrl',['$scope',function(){
 

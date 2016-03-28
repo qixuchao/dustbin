@@ -1,0 +1,464 @@
+/*Actionsheet*/
+/* Empty. Add your own CSS if you like */
+/* 覆盖action-sheet*/
+
+.platform-android .action-sheet-backdrop.active {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.platform-android .action-sheet {
+  margin-left: 8px;
+  margin-right: 8px;
+  width: auto;
+  z-index: 11;
+  overflow: hidden;
+}
+.platform-android .action-sheet .action-sheet-title,
+.platform-android .action-sheet .button {
+  display: block;
+  padding: 1px;
+  width: 100%;
+  border-radius: 0;
+  border-color: #d1d3d6;
+  background-color: transparent;
+  color: #007aff;
+  font-size: 21px;
+  text-align: center;
+}
+.platform-android .action-sheet .action-sheet-title {
+  padding: 16px;
+  color: #8f8f8f;
+  text-align: center;
+  font-size: 13px;
+}
+.platform-android .action-sheet .button.active,
+.platform-android .action-sheet .button.activated {
+  background: #e8e8e8;
+}
+.platform-android .action-sheet-group {
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background-color: #fff;
+  overflow: hidden;
+}
+.platform-android .action-sheet-group .button {
+  border-width: 1px 0 0;
+}
+.platform-android .action-sheet .button {
+  display: block;
+  padding: 1px;
+  width: 100%;
+  border-radius: 0;
+  border-color: #d1d3d6;
+  background-color: transparent;
+  color: #007aff;
+  /*font-size: 14px;*/
+}
+.action-sheet .button {
+  display: block;
+  padding: 1px;
+  width: 100%;
+  border-radius: 0;
+  border-color: #d1d3d6;
+  background-color: transparent;
+  color: #007aff;
+  font-size: 16px;
+}
+.platform-android .action-sheet-cancel {
+  /*color: #cccccc;*/
+  font-weight: 500;
+  display: block;
+}
+
+.platform-android .action-sheet-has-icons .button {}
+/*ion-action-sheetend*/
+
+//员工信息
+.employee_query{
+  .employeequery_head{
+    width:100%;
+    height:105px;
+    z-index:0;
+    background-color: #406FB3;
+      .employeequery_headtitle{
+        height:44px;
+        line-height:50px;
+        text-align: center;
+        .employeequery_headtitlei{
+          font-size: 35px;
+          color: #C4D2E7;
+          display: block;
+          float: left;
+          margin-left:15px;
+        }
+        .employeequery_headtitlespan{
+          font-size:18px;
+          color: white;
+        }
+     }
+    .employeequery_headquery{
+      height:50px;
+      margin-top: 15px;
+      position: relative;
+      .employeequery_headqueryimg{
+       font-size:20px;
+        color: #A8A8A8;
+        position: absolute;
+        top:8px;
+        left:15px;
+        z-index: 10;
+      }
+      .employeequery_headqueryinput{
+        height:35px;
+        width: 96%;
+        border-radius:5px;
+        padding-left:30px;
+        background-color: white;
+        position: absolute;
+        top:0;
+        left:2%;
+        z-index:1;
+      }
+    }
+  }
+  .employee_query_historys{
+    margin-top:14px;
+    margin-left:12px;
+    font-size:16px;
+    text-align: left;
+    .employee_query_historysspan{
+      color:#A8A8A9;
+    }
+    .employee_query_historylist{
+      margin-top:10px;
+      height:35px;
+      line-height:35px;
+      text-align: center;
+      color: white;
+      background-color: #5E97F6;
+      border-radius:15px;
+      width:75px;
+    }
+    .employee_query_historyclear{
+      margin-top:15px;
+      color:#3DAFFD;
+    }
+
+  }
+
+  .employee_query_list{
+    font-size: 16px;
+    color: #4A4A4A;
+    .employee_query_listcicle{
+      width:14px;
+      height:14px;
+      vertical-align: middle;
+      display: inline-block;
+      border-radius:50%;
+    }
+    .employee_query_listcicleA{
+      border: 2px solid #9EC92A;
+    }
+    .employee_query_listcicleB{
+      border: 2px solid #008CCF;
+    }
+    .employee_query_listimg{
+      vertical-align: baseline;
+      width:14px;
+      height:14px;
+    }
+    .employee_query_listfor{
+      width:20px;
+      height:18px;
+      vertical-align: middle;
+    }
+    //.employee_query_listline{
+    //  width: 100%;
+    //  height: 1px;
+    //  background-color: #D2D2D2;
+    //}
+  }
+};
+.employee_query_listline{
+  width: 100%;
+  height: 1px;
+  background-color: #D2D2D2;
+}
+
+.employee_detail{
+
+  .absolute{
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+
+
+  .employee_backtop{
+    background: url("../../img/employee/BAR-BG@2x.png") no-repeat center;
+    width:100%;
+  }
+    .employee_detailtitle{
+        height:44px;
+        line-height:44px;
+        text-align: center;
+        .employeedeatil_headtitlei{
+          font-size: 35px;
+          color: #C5D2E1;
+          display: block;
+          float: left;
+          margin-left:15px;
+        }
+      .employeedeatil_headtitlespan{
+        font-size:18px;
+        color: white;
+      }
+    }
+    .employee_detailcontent{
+      position: relative;
+      height: 70px;
+      font-size:16px;
+      color: white;
+      .employee_detailcontentname{
+          position: absolute;
+          top:5px;
+          left:25px;
+          .employee_detailcontentcicle{
+            width:14px;
+            height:14px;
+            float: left;
+            margin-top: 3px;
+            margin-right: 5px;
+            display: inline-block;
+            border-radius:50%;
+            border: 2px solid #9EC92A;
+          }
+          .employee_detailcontentspan{
+          }
+      }
+      //.employee_detailcontentstep{
+      //  position: absolute;
+      //  top:45px;
+      //  left:25px;
+      //}
+      .employee_detailcontentphone{
+        position: absolute;
+        top:30px;
+        left:25px;
+        .employee_detailcontentphonei{
+          float: left;
+          margin-top:-3px;
+          font-size:25px;
+        }
+      }
+    }
+
+  .employee_detail_countentbu{
+    margin-top: 10px;
+    margin-left: 15px;
+    position: relative;
+    //height:50px;
+    .employee_detail_countentimgbase{
+      width:120px;
+      height:38px;
+      font-size:16px;
+      padding-left:10px;
+      line-height:38px;
+      text-align: center;
+      display: inline-block;
+     position: absolute;
+      left:10px;
+      top: 2px;
+      background-color: #E8E7E7;
+      border-radius: 30px;
+      z-index:-1;
+    }
+  }
+  .employee_detail_countentbasic{
+    position: relative;
+    margin-top: 5px;
+    font-size:16px;
+    color:#406FB3;
+    .employee_detail_countentbasicinfo{
+      position: absolute;
+      top:0px;
+      left: 17px;
+    }
+    .employee_detail_countentbasicline{
+      position: absolute;
+      top:10px;
+      left: 80px;
+      width: 100%;
+      height:1px;
+      background-color: #406FB3;
+    }
+    .employee_detail_countentbasicclok{
+      position: absolute;
+      top:15px;
+      margin-top: 2px;
+      left:0px;
+      width:50px;
+      height:15px;
+      border: 1px solid #406FB3;
+      border-top: none;
+      border-left: none;
+    }
+  }
+
+
+  .employee_detail_countentlist{
+    margin-top:35px;;
+    font-size:16px;
+  }
+}
+//客户列表+员工列表+客户车辆+客户联系+联系人共用headcss
+.employeecustomer_head{
+  width:100%;
+  z-index:0;
+  background-color: #406FB3;
+  .employeecustomer_headtitle{
+    height:44px;
+    line-height:50px;
+    text-align: center;
+    .employeecustomer_headtitlei{
+      font-size: 35px;
+      color: #C4D2E7;
+      display: block;
+      float: left;
+      margin-left:15px;
+    }
+    .employeecustomer_headtitlespan{
+      font-size:18px;
+      color: white;
+    }
+    .employeecustomer_headtitleimg{
+      width:25px;
+      height: 25px;
+      float: right;
+      margin-top:13px;
+      margin-right:15px;
+    }
+  }
+  .employeecustomer_headquery{
+    height:50px;
+    margin-top: 15px;
+    position: relative;
+    .employeecustomer_headqueryimg{
+      font-size:25px;
+      color: #A8A8A8;
+      position: absolute;
+      top:10px;
+      right:20px;
+      z-index: 10;
+    }
+    .employeecustomer_headqueryinput{
+      height:35px;
+      width: 96%;
+      border-radius:5px;
+      padding-left:10px;
+      background-color: white;
+      position: absolute;
+      top: 3px;
+      left:2%;
+      z-index:1;
+    }
+  }
+}
+//客户列表
+.employee_customer{
+  //.employeecustomer_head{
+  //  width:100%;
+  //  z-index:0;
+  //  background-color: #406FB3;
+  //  .employeecustomer_headtitle{
+  //    height:44px;
+  //    line-height:50px;
+  //    text-align: center;
+  //    .employeecustomer_headtitlei{
+  //      font-size: 35px;
+  //      color: #C4D2E7;
+  //      display: block;
+  //      float: left;
+  //      margin-left:15px;
+  //    }
+  //    .employeecustomer_headtitlespan{
+  //      font-size:18px;
+  //      color: white;
+  //    }
+  //    .employeecustomer_headtitleimg{
+  //      width:25px;
+  //      height: 25px;
+  //      float: right;
+  //      margin-top:13px;
+  //      margin-right:15px;
+  //    }
+  //  }
+  //  .employeecustomer_headquery{
+  //    height:50px;
+  //    margin-top: 15px;
+  //    position: relative;
+  //    .employeecustomer_headqueryimg{
+  //      font-size:25px;
+  //      color: #A8A8A8;
+  //      position: absolute;
+  //      top:10px;
+  //      right:20px;
+  //      z-index: 10;
+  //    }
+  //    .employeecustomer_headqueryinput{
+  //      height:40px;
+  //      width: 96%;
+  //      border-radius:5px;
+  //      padding-left:10px;
+  //      background-color: white;
+  //      position: absolute;
+  //      top:0;
+  //      left:2%;
+  //      z-index:1;
+  //    }
+  //  }
+  //}
+  .employee_customerlist{
+    font-size: 16px;
+    .employee_customerlistcicle{
+      width:14px;
+      height:14px;
+      vertical-align: middle;
+      display: inline-block;
+      border-radius:50%;
+      border: 2px solid #9EC92A;
+      margin-left:6px;
+    }
+    .employee_customerlist_listfor{
+      width:20px;
+      height: 20px;
+      vertical-align: middle;
+    }
+    .item-content{
+      padding: 0;
+    }
+    .item-options .button{
+      padding:10px 10px 10px 16px;
+      margin-top:1px;
+      //height:52px;
+    }
+    .button .icon:before{
+      font-size:35px;
+    }
+  }
+  .item {
+    border-color: #ddd;
+    background-color: #fff;
+    color: #444;
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin: -1px;
+    padding: 1px 0px;
+    border-width: 1px;
+    border-style: none;
+    font-size: 16px;
+  }
+};

@@ -1,0 +1,25 @@
+
+.customerVehicle_Query{
+  .customerVehicle_query_list{
+    font-size: 16px;
+    color: #4A4A4A;
+    .customerVehicle_query_listcicle{
+      width:14px;
+      height:14px;
+      vertical-align: middle;
+      display: inline-block;
+      border-radius:50%;
+      border: 2px solid #9EC92A;
+    }
+    .customerVehicle_query_listimg{
+      vertical-align: baseline;
+      width:14px;
+      height:14px;
+    }
+    .customerVehicle_query_listfor{
+      width:15px;
+      height:15px;
+      vertical-align: middle;
+    }
+  }
+}
