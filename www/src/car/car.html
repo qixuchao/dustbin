@@ -1,0 +1,30 @@
+<ion-view class="CarList">
+    <ion-header-bar class="bar ">
+        <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
+        <div class="title"><b>车辆查询</b></div>
+    </ion-header-bar>
+    <ion-header-bar class="bar bar-subheader ">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="text" placeholder="输入客户信息"ng-model="carInfo">
+    </ion-header-bar>
+    <ion-content>
+        <img ng-src="img/car/oftenCar.png" class="textImg">
+        <div class="row row-center"></div>
+        <div class="contentType" ng-repeat="car in cars|filter:carInfo" ng-click="goDetail(car)">
+            <div class="row row-center rowType " >
+                <div class="col col-8 col-center">
+                   <img ng-src="img/car/Oval.png" class="pointImg">
+                </div>
+                <div class="col col-92 col-center colType">
+                    <span class="car2">{{car.describe}}</span>
+                </div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-90 col-center"></div>
+                <div class="col col-10 col-center">
+                    <img ng-src="img/car/Shape.png" class="shapeImg">
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -2,10 +2,10 @@ var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
 var appModule = angular.module('appModule', []);
+var carModule = angular.module('carModule',[]);
 var salesModule = angular.module('salesModule', []);
 var employeeModule = angular.module('employeeModule', []);
 var employeeModuleServive = angular.module('employeeModuleServive', []);
-
 var CRMApp = angular.module('CRMApp', ['ionic',
     'ionic-material',
     'ionMdInput',
@@ -15,9 +15,10 @@ var CRMApp = angular.module('CRMApp', ['ionic',
     'appModule',
     'salesModule',
     'employeeModule',
-    'employeeModuleServive'
+    'employeeModuleServive',
+    'carModule',
+    'salesModule'
 ])
-
 CRMApp.run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -79,7 +80,27 @@ CRMApp.run(function ($ionicPlatform) {
                 url: '/customerList',
                 templateUrl: 'src/employee/customerList.html',
                 controller: 'customerListCtrl'
-            });
+            })
+            .state('car',{
+                url:'apps/car',
+                templateUrl:'src/car/car.html',
+                controller:'CarCtrl'
+            })
+            .state('carDetail',{
+                url:'/carDetail',
+                templateUrl:'src/car/carDetail.html',
+                controller:'CarDetailCtrl'
+            })
+            .state('spare',{
+                url:'/spare',
+                templateUrl:'src/car/spare.html',
+                controller:'SpareCtrl'
+            })
+            .state('maintenance',{
+                url:'/maintenance',
+                templateUrl:'src/car/maintenance.html',
+                controller:'MaintenanceCtrl'
+            })
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tabs');

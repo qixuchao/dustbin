@@ -1,0 +1,222 @@
+<ion-view class="CarDetail">
+    <div id="sdTitleId" class="top-back absolute fadeIn" style="height: 75px;background: none" ng-show="showTitle">
+        <div class="row row-center title" >
+            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+            <div class="col col-69 text-center">车辆详情</div>
+        </div>
+    </div>
+    <ion-content has-bouncing="false" on-scroll="onScroll()">
+        <div class="top-back">
+            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+                <div class="col col-69 text-center">车辆详情</div>
+            </div>
+            <div class="mainInfo">
+                <div class="row row1 row-center">
+                    <div class="col col-center col-8">
+                        <img ng-src="img/car/Oval.png" class="pointImg">
+                    </div>
+                    <div class="col col-90 col-center colText" ng-class="titleFlag?'animated fadeOut':'animated fadeIn'">
+                        {{carInfo.describe}}
+                    </div>
+                </div>
+                <div class="row row2 row-center" ng-class="qualityFlag?'animated fadeOut':'animated fadeIn'">
+                    质保:{{carInfo.productionDate}}-{{carInfo.endDate}}</div>
+                <div class="row row2 row-center" ng-class="projectFlag?'animated fadeOut':'animated fadeIn'">
+                    {{projectName}}{{carInfo.projectName}}</div>
+            </div>
+        </div>
+        <div class="contentType">
+           <div class="row row-center rowBt">
+               <div class="col col-40 col-center">
+                   <img ng-src="img/car/maintenance.png" class="btType" ng-click="goSkip('maintenance')" >
+               </div>
+               <div class="col col-45 col-center">
+                   <img ng-src="img/car/spare.png" class="btType" ng-click="goSkip('spare')">
+               </div>
+           </div>
+            <div class="row row-center titleType">
+                <img ng-src="img/car/baseInfo.png" class="titleImg">
+            </div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>车辆安装点</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.point}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>车辆料码</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.code}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-20">
+                    <b>车辆描述</b>
+                </div>
+                <div class="col col-center col-80">{{carInfo.describe}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType1">
+                <div class="col col-center col-30 colType" >
+                    <div class="row row-center rowType2" ><b>电池系统</b></div>
+                    <div class="row row-center rowType2" ><b>BarCode</b></div>
+                </div>
+                <div class="col col-center col-70">{{carInfo.barCode}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>车牌号码</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.carCode}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>车工号</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.carNumber}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>车辆型号</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.version}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>CATL项目名称</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.projectName}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center titleType">
+                <img ng-src="img/car/quality.png" class="titleImg">
+            </div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>质保描述</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.quality}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>质保开始日期</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.productionDate}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>质保结束日期</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.endDate}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center titleType">
+                <img ng-src="img/car/customerInfo.png" class="titleImg">
+            </div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>直接客户</b>
+                </div>
+                <div class="col col-center col-70 ">
+                    <u>
+                        {{carInfo.directCustomer}}
+                    </u>
+                </div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>终端客户</b>
+                </div>
+                <div class="col col-center col-70 ">
+                    <u>{{carInfo.terminal}}</u>
+                </div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center titleType">
+                <img ng-src="img/car/driverInfo.png" class="titleImg">
+            </div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>驾驶员</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.driver}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>驾驶员电话</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.phoneNum}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center titleType">
+                <img ng-src="img/car/timeInfo.png" class="titleImg">
+            </div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>出厂日期</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.productionDate}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>购买日期</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.buyDate}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>运营日起</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.operationDate}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center titleType">
+                <img ng-src="img/car/BMU.png" class="titleImg">
+            </div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>BMU硬件版本</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.driver}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>BMU软件版本</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.phoneNum}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center titleType">
+                <img ng-src="img/car/CSC.png" class="titleImg">
+            </div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>CSC硬件版本</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.driver}}</div>
+            </div>
+            <div class="lineType1"></div>
+            <div class="row row-center rowType">
+                <div class="col col-center col-30">
+                    <b>CSC软件版本</b>
+                </div>
+                <div class="col col-center col-70">{{carInfo.phoneNum}}</div>
+            </div>
+            <div class="lineType1"></div>
+       </div>
+    </ion-content>
+</ion-view>

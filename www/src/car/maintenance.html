@@ -1,0 +1,144 @@
+<ion-view class="Maintenance">
+    <ion-header-bar class="bar">
+        <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
+        <div class="title"><b>车辆维修记录列表</b></div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="row row-center rowType">
+            <div class="col col-50 col-center colType" ng-click="changeSort()">
+                <span class="sort">排序</span>
+                <img ng-src="img/car/sort.png" class="sortType">
+                <i class="ion-ios-arrow-up"></i>
+            </div>
+            <div class="col col-50 col-center colType icon-right" ng-click="changeSelect()">
+                <span class="select">筛选</span>
+                <img ng-src="img/car/select.png" class="selectType">
+            </div>
+        </div>
+        <div class="arrow-outer">
+            <div class="arrow-shadow">
+            </div>
+        </div>
+        <div class="lineImg"></div>
+        <div class="row row-center borderLine" ng-repeat="record in carInfo">
+            <div class="col col-center col-10">
+                <img ng-src="img/car/Oval.png" class="pointImg">
+            </div>
+            <div class="col col-90 col-center colType1">
+                <div class="row row-center">
+                    <div class="col col-center col-25">
+                        <b>工单类型</b>
+                    </div>
+                    <div class="col col-center col-75">
+                        <span>{{record.listType}}</span>
+                    </div>
+                </div>
+                <div class="row row-center">
+                    <span>{{record.maintenanceDate}}</span>
+                </div>
+                <div class="row row-center">
+                    <div class="col col-center col-25">
+                        <b>工单描述</b>
+                    </div>
+                    <div class="col col-center col-75">
+                        <span>{{record.maintenanceDescribe}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-center">
+            <a class="button button-clear buttonText">
+                <span>点击加载更多</span>
+            </a>
+        </div>
+        <div class="myPro"ng-show="showSort">
+            <ul class="ulType">
+                <li class="liType animated fadeInDown"ng-repeat="list in List" ng-click="choicePro()">{{list}}</li>
+            </ul>
+            <div class="shadowDiv1" ng-click="changeSort()"></div>
+        </div>
+        <div  class="selectContent" ng-show="showSelect">
+            <div class="row row-center">
+                <div class="col col-5"></div>
+                <div class="col col-20">
+                    <span>日期区间</span>
+                </div>
+                <div class="col col-25 col-center">
+                    <input type="text" placeholder="20150101" class="textDate">
+                </div>
+                <div class="col col-10 col-center">
+                    <div class="line"></div>
+                </div>
+                <div class="col col-25 col-center">
+                    <input type="text" placeholder="20150609" class="textDate">
+                </div>
+            </div>
+            <div class="lineType"></div>
+            <div class="row row-center ">
+                <div class="col col-5"></div>
+                <div class="col col-center titleType">
+                    <b>工单类型</b>
+                </div>
+            </div>
+            <!--<ion-radio ng-model="listType" ng-repeat="list in List1">-->
+                <!--<a class="button button-outline">{{list}}</a>-->
+            <!--</ion-radio>-->
+            <div class="row row-center">
+                <div class="col col-5"></div>
+                <div class="col col-center col-30" ng-click="clicked($index)" ng-repeat="list in List1">
+                    <a class="button button-outline btType" ng-class="{true:'selected',false:'classColor'}[$index===selectedRow]" >{{list}}</a>
+               </div>
+                <!--<div class="col col-center col-30">-->
+                    <!--<a class="button button-clear btType" ng-class="{selected:1===selectedRow}" ng-click="clicked(1)">现场维修工单</a>-->
+                <!--</div>-->
+                <!--<div class="col col-center col-30">-->
+                    <!--<a class="button button-clear btType" ng-class="{true:'colorClass',false:''}[color2]" ng-click="clicked('2')">批量改进工单</a>-->
+                <!--</div>-->
+                <!--<div class="col col-center col-30">-->
+                    <!--<a class="button button-clear btType" ng-class="{true:'colorClass',false:''}[color3]" ng-click="clicked('3')">新车上线工单</a>-->
+                <!--</div>-->
+            </div>
+            <div class="lineType"></div>
+            <div class="row row-center ">
+                <div class="col col-5"></div>
+                <div class="col col-center titleType">
+                    <b>影响</b>
+                </div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-5"></div>
+                <div class="col col-center col-18" ng-repeat="list in List2" ng-click="clicked1($index)">
+                    <a class="button button-outline btType1" ng-class="{true:'selected',false:'classColor'}[$index===selectedRow1]">{{list}}</a>
+                </div>
+
+                <!--<div class="col col-center col-18">-->
+                    <!--<a class="button button-clear btType1">灾难</a>-->
+                <!--</div>-->
+                <!--<div class="col col-center col-18">-->
+                    <!--<a class="button button-clear btType1">高</a>-->
+                <!--</div>-->
+                <!--<div class="col col-center col-18">-->
+                    <!--<a class="button button-clear btType1">中</a>-->
+                <!--</div>-->
+                <!--<div class="col col-center col-18">-->
+                    <!--<a class="button button-clear btType1">低</a>-->
+                <!--</div>-->
+                <!--<div class="col col-center col-18">-->
+                    <!--<a class="button button-clear btType1">无</a>-->
+                <!--</div>-->
+            </div>
+            <div class="lineType"></div>
+            <div class="row">
+                <div class="col col-37"></div>
+                <div class="col col-25 ">
+                    <a class="button button-outline button-light">重置</a>
+                </div>
+                <div class="col col-8"></div>
+                <div class="col col-25 ">
+                    <a class="button button-outline button-light">确认</a>
+                </div>
+            </div>
+            <div class="shadowDiv2" ng-click="changeSelect()"></div>
+        </div>
+    </ion-content>
+</ion-view>
