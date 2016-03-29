@@ -57,7 +57,7 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
                 }else{
                     $scope.projectFlag = false;
                 }
-                if(position>110){
+                if(position>100){
                     if(maxPosition===null){
                         maxPosition=$ionicScrollDelegate.getScrollView().__maxScrollTop;
                     }

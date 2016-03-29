@@ -398,7 +398,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 }]);
 
-<<<<<<< HEAD
 worksheetModule.controller("WorksheetDetailCtrl",[
 	"$scope", 
 	"ionicMaterialInk",
@@ -507,77 +506,88 @@ worksheetModule.controller("WorksheetDetailCtrl",[
 	};
 	$scope.init();
 
-	function initSwipeEvent(){
-		var viewEle = document.getElementById('worksheetdetail-view');
-		var eleHeaderBar = viewEle.getElementsByClassName("detail-header")[0];
-		var eleHeaderInfo = viewEle.getElementsByClassName('detail-header-info')[0];
-		var eleHeaderSubTitle = viewEle.getElementsByClassName("sub-title")[0];
-			eleHeaderSubTitle.style.display = "block";
+	function initSwipeEvent() {
+        var viewEle = document.getElementById('worksheetdetail-view');
+        var eleHeaderBar = viewEle.getElementsByClassName("detail-header")[0];
+        var eleHeaderInfo = viewEle.getElementsByClassName('detail-header-info')[0];
+        var eleHeaderSubTitle = viewEle.getElementsByClassName("sub-title")[0];
+        eleHeaderSubTitle.style.display = "block";
 
-		if($scope.config.headerInfoInitHeight == null){
-			$scope.config.headerInfoInitHeight = eleHeaderInfo.offsetHeight;
-		}
-		if($scope.config.headerBarInitHeight == null){
-			$scope.config.headerBarInitHeight = eleHeaderBar.offsetHeight;
-		}
-		if($scope.config.headerBarTitleInitHeight == null){
-			$scope.config.headerBarTitleInitHeight = $scope.config.headerBarInitHeight - $scope.config.headerInfoInitHeight;
-		}
+        if ($scope.config.headerInfoInitHeight == null) {
+            $scope.config.headerInfoInitHeight = eleHeaderInfo.offsetHeight;
+        }
+        if ($scope.config.headerBarInitHeight == null) {
+            $scope.config.headerBarInitHeight = eleHeaderBar.offsetHeight;
+        }
+        if ($scope.config.headerBarTitleInitHeight == null) {
+            $scope.config.headerBarTitleInitHeight = $scope.config.headerBarInitHeight - $scope.config.headerInfoInitHeight;
+        }
 
-		// 给 view 添加 touch 相关事件
-		if('ontouchstart' in window){ 
-			viewEle.addEventListener("touchstart", __touchStart, false);
-			viewEle.addEventListener("touchmove", __touchMove, false);
-			viewEle.addEventListener("touchend", __touchEnd, false);
-			viewEle.addEventListener("touchcancel", __touchEnd, false);
-		}else if(window.navigator.pointerEnabled){ 
-			// Pointer Events
-			viewEle.addEventListener("pointerdown", __touchStart, false);
-			viewEle.addEventListener("pointermove", __touchMove, false);
-			viewEle.addEventListener("pointerup", __touchEnd, false);
-			viewEle.addEventListener("pointercancel", __touchEnd, false);
-		}else if(window.navigator.msPointerEnabled){
-			// IE10, WP8 (Pointer Events)
-			viewEle.addEventListener("MSPointerDown", __touchStart, false);
-			viewEle.addEventListener("MSPointerMove", __touchMove, false);
-			viewEle.addEventListener("MSPointerUp", __touchEnd, false);
-			viewEle.addEventListener("MSPointerCancel", __touchEnd, false);
-		}else{ 
-			// Mouse Events
-			viewEle.addEventListener("mousedown", __touchStart, false);
-			viewEle.addEventListener("mousemove", __touchMove, false);
-			viewEle.addEventListener("mouseup", __touchEnd, false);
-		};
+        // 给 view 添加 touch 相关事件
+        if ('ontouchstart' in window) {
+            viewEle.addEventListener("touchstart", __touchStart, false);
+            viewEle.addEventListener("touchmove", __touchMove, false);
+            viewEle.addEventListener("touchend", __touchEnd, false);
+            viewEle.addEventListener("touchcancel", __touchEnd, false);
+        } else if (window.navigator.pointerEnabled) {
+            // Pointer Events
+            viewEle.addEventListener("pointerdown", __touchStart, false);
+            viewEle.addEventListener("pointermove", __touchMove, false);
+            viewEle.addEventListener("pointerup", __touchEnd, false);
+            viewEle.addEventListener("pointercancel", __touchEnd, false);
+        } else if (window.navigator.msPointerEnabled) {
+            // IE10, WP8 (Pointer Events)
+            viewEle.addEventListener("MSPointerDown", __touchStart, false);
+            viewEle.addEventListener("MSPointerMove", __touchMove, false);
+            viewEle.addEventListener("MSPointerUp", __touchEnd, false);
+            viewEle.addEventListener("MSPointerCancel", __touchEnd, false);
+        } else {
+            // Mouse Events
+            viewEle.addEventListener("mousedown", __touchStart, false);
+            viewEle.addEventListener("mousemove", __touchMove, false);
+            viewEle.addEventListener("mouseup", __touchEnd, false);
+        }
+        ;
 
-		//var startSingleTouch = false;
-		var posTouchStart = null;
-		var posLastMove = null;
-		var posCurrentMove = null;
-		var headerBarInfoTopLast = 0;
-		var touchStartPointValid = false;
-		function __touchStart(event){
-			var e = posTouchStart = __getSingleEventTouches(event);
-			if(e == null ){ return; }
-			//startSingleTouch = true;
-			//$scope.config.headerScrollStart = true;
-			touchStartPointValid = true;
-		}
-		function __touchMove(event){
-			if(!touchStartPointValid){ return; }
-			var e = __getSingleEventTouches(event);
-			if(e == null ){ return; }
-			if($scope.config.scrollDelegateHandler.getScrollPosition().top<5){
-				$scope.config.headerScrollCan = true;
-				//posTouchStart = e;
-			}
-			if(!$scope.config.headerScrollCan){
-				posLastMove = null;
-				return;
-			}
+        //var startSingleTouch = false;
+        var posTouchStart = null;
+        var posLastMove = null;
+        var posCurrentMove = null;
+        var headerBarInfoTopLast = 0;
+        var touchStartPointValid = false;
+
+        function __touchStart(event) {
+            var e = posTouchStart = __getSingleEventTouches(event);
+            if (e == null) {
+                return;
+            }
+            //startSingleTouch = true;
+            //$scope.config.headerScrollStart = true;
+            touchStartPointValid = true;
+        }
+
+        function __touchMove(event) {
+            if (!touchStartPointValid) {
+                return;
+            }
+            var e = __getSingleEventTouches(event);
+            if (e == null) {
+                return;
+            }
+            if ($scope.config.scrollDelegateHandler.getScrollPosition().top < 5) {
+                $scope.config.headerScrollCan = true;
+                //posTouchStart = e;
+            }
+            if (!$scope.config.headerScrollCan) {
+                posLastMove = null;
+                return;
+            }
+            ;
+        }
+    }
+    }]);
 			
 			//console.log(e.x+"    "+e.y);
-=======
->>>>>>> ebeb531394220f6c611f889af1cdf89fdbeb15bb
 
 /*
 $swipe.bind(viewEleJQ, {
@@ -595,4 +605,4 @@ $swipe.bind(viewEleJQ, {
 		console.log("end ... ");
 	}
 });
-*/
+    */

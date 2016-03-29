@@ -8,16 +8,10 @@
         <input type="text" placeholder="请输入备件信息"ng-model="carInfo">
     </ion-header-bar>
     <ion-content>
-        <div class="borderLine">
-            <div class="row row-center rowLine">
-                <div class="col col-18 col-center">
-                    <span>常用备件</span>
-                </div>
-                <div class="col col-center col-82"></div>
-            </div>
-            <div class="row row-center">
-                <div class="col col-15"></div>
-            </div>
+        <div class="Car_countentbasic">
+            <div class="Car_countentbasicinfo">常用备件</div>
+            <div class="Car_countentbasicline"></div>
+            <div class="Car_countentbasicclok"></div>
         </div>
         <div class="contentType" ng-repeat="spare in spareList" ng-click="goDetail(spare)">
             <div class="row row-center rowType1">

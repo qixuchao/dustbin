@@ -35,10 +35,9 @@
     box-shadow: none;
   }
   .bar-subheader {
-    height: 2.7em;
-    top: 60px;
+    height: 2.3em;
+    top: 59px;
     display: block;
-    fill: #2B60AB 90%;
   }
   .row .col{
     padding:0;
@@ -65,7 +64,6 @@
     line-height: 16px;
     width: 96%;
     position: fixed;
-    top: 9px;
     right: 6px;
     border: 1px solid #dedede;
     border-radius:5px;
@@ -74,44 +72,43 @@
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: 0.8em;
+    top: 0.4em;
     left: 1em;
   }
   .pointImg{
-    height: 0.7em;
+    height: 0.8em;
     position: relative;
     left: 30%;
   }
-  .borderLine{
-    -webkit-user-drag: none;
+  .Car_countentbasic{
     position: relative;
-    width: 100%;
-    top: 2em;
-    .row{
-      padding: 0;
+    font-size:15px;
+    color:#406FB3;
+    top:1.5em;
+    font-weight: 600;
+    .Car_countentbasicinfo{
+      position: absolute;
+      top:0px;
+      left: 20px;
     }
-    .rowLine {
-      padding: 0;
-      position: relative;
-      left: 4%;
-      .col-18 {
-        padding: 0;
-        span {
-          position: relative;
-          color: #2B60AB;
-          font-size: 14px;
-          font-weight: 600;
-        }
-      }
-      .col-82 {
-        padding: 0;
-        border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-      }
+    .Car_countentbasicline{
+      position: absolute;
+      top:10px;
+      left: 85px;
+      width: 100%;
+      height:1px;
+      background-color: #406FB3;
     }
-    .col-15{
-      height: 1.2em;
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-      border-right: 1px solid rgba(43, 96, 171, 0.90);
+    .Car_countentbasicclok{
+      position: absolute;
+      top:15px;
+      margin-top: 4px;
+      left:0px;
+      width:50px;
+      height:15px;
+      border: 1px solid #406FB3;
+      border-top: none;
+      border-left: none;
     }
   }
   .shapeImg{
@@ -121,10 +118,10 @@
   }
   .contentType{
     position: relative;
-    top: 1.5em;
+    top: 3.5em;
   }
   .rowType1{
-    padding: 1.2em 0 0.6em;
+    padding: 1.2em 0 0.6em 0.8em;
     border-bottom: 1px solid rgba(128, 128, 128, 0.36);
   }
   .col span {
@@ -152,36 +149,35 @@
     background-size: 0;
     box-shadow: none;
   }
-  .borderLine{
-    -webkit-user-drag: none;
+  .Car_countentbasic{
     position: relative;
-    width: 100%;
-    .row{
-      padding: 0;
+    font-size:15px;
+    color:#406FB3;
+    font-weight: 600;
+    padding-bottom: 2.5em;
+    .Car_countentbasicinfo{
+      position: absolute;
+      top:0px;
+      left: 20px;
     }
-    .rowLine {
-      padding: 0;
-      position: relative;
-      left: 4%;
-      .col-18 {
-        padding: 0;
-        span {
-          position: relative;
-          color: #2B60AB;
-          font-size: 14px;
-          font-weight: 600;
-        }
-      }
-      .col-82 {
-        padding: 0;
-        border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-      }
+    .Car_countentbasicline{
+      position: absolute;
+      top:10px;
+      left: 85px;
+      width: 100%;
+      height:1px;
+      background-color: #406FB3;
     }
-    .col-15{
-      margin-top: 0.3em;
-      height: 1.2em;
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-      border-right: 1px solid rgba(43, 96, 171, 0.90);
+    .Car_countentbasicclok{
+      position: absolute;
+      top:15px;
+      margin-top: 4px;
+      left:0px;
+      width:50px;
+      height:15px;
+      border: 1px solid #406FB3;
+      border-top: none;
+      border-left: none;
     }
   }
   ion-content {
