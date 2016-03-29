@@ -11,23 +11,22 @@
         display: block;
         margin-top: 12px;
         margin-left:0;
-        height: 100px;
+        height: 135px;
         width: 180px;
         background-color: #fff;
+        border-radius: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,.4);
         opacity: 0;
     }
-    .popover-arrow {
+    .customercontact_up{
+        width: 20px;
         position: absolute;
-        display: block;
-        /*top: -17px;*/
-        right: 9px;
-        width: 30px;
-        height: 19px;
-        overflow: hidden;
+        right: 8px;
+        top: -9px;
     }
 </style>
     <ion-popover-view class="customercontact_selec">
+        <img src="img/customer/sanjiao.png" class="customercontact_up"></img>
         <ion-content>
             <div ng-repeat="types in customercontact_types track by $index" ng-click="customerContactsqueryType(types)">
                <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:14px;">

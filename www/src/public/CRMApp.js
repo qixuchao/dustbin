@@ -129,6 +129,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/contacts/contactEdit.html',
                 controller: 'contactEditCtrl'
             })
+            .state('ContactsRelationship', {
+                url: '/contactsRelationship',
+                templateUrl: 'src/contacts/relationship/Relationship.html',
+                controller: 'contactRelationshipCtrl'
+            })
 
             //客户
             .state('customerQuery', {
@@ -140,6 +145,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 url: '/customerDetail',
                 templateUrl: 'src/customer/customerinfo/customerDetail.html',
                 controller: 'customerDetailCtrl'
+            })
+            .state('customerEdit', {
+                url: '/customerEdit',
+                templateUrl: 'src/customer/customerinfo/customerEdit.html',
+                controller: 'customerEditlCtrl'
             })
             //客户-联系人
             .state('customerContactQuery', {

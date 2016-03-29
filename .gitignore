@@ -3,6 +3,7 @@ platforms/*
 .DS_Store
 */.DS_Store
 .idea/
+src/dev/
 plugins/
 plugins/*
 npm-debug.log

@@ -2,7 +2,9 @@
     <div class="customer_backtop absolute fadeIn" style="height:48px;z-index:1" ng-show="customer_showTitle"
          ng-class="!customer_TitleFlag?'animated fadeOut':'animated fadeIn'">
         <div class="customer_detailtitleview">
-            <i class="icon ion-ios-arrow-back customerdeatil_headtitleiview" ng-click="goBack()"></i>
+            <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
+                <i class="icon ion-ios-arrow-back view_publicheadtitlei"></i>
+            </div>
             <span class="customerdeatil_headtitlespanview">客户详细信息</span>
             <div class="customer_detailname">
                 {{customerdetails.customername}}
@@ -12,7 +14,9 @@
     <ion-content has-bouncing="false" on-scroll="customer_onScroll()">
         <div class="customer_backtop" style="z-index:-1">
             <div class="customer_detailtitle" ng-class="customer_TitleFlag?'animated fadeOut':'animated fadeIn'">
-                <i class="icon ion-ios-arrow-back customerdeatil_headtitlei" ng-click="goBack()"></i>
+                <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
+                    <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
+                </div>
                 <span class="customerdeatil_headtitlespan">客户详细信息</span>
             </div>
             <div class="customer_detailcontent">
@@ -28,7 +32,6 @@
                 </div>
             </div>
         </div>
-
         <div class="item item-list-detail" style="padding: 0px 3px;border: none;margin-top: 5px;">
             <ion-scroll direction="x">
                     <span style="position: relative;margin-right:55px;" ng-repeat="lists in customer_detailstypes"  ng-click="gocustomerLists(lists)" >
@@ -202,7 +205,7 @@
             <div class="employee_query_listline">
             </div>
         </div>
-        <div class="customercontentbutton">
+        <div class="customercontentbutton" ng-click="CustomerDeatilEditvalue()">
             编辑
         </div>
     </ion-content>

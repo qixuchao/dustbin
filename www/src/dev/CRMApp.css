@@ -130,6 +130,22 @@
 
 /*公共样式 end*/
 /*# sourceMappingURL=style.css.map */
+.publicheadtitlei {
+  font-size: 35px;
+  color: #C4D2E7;
+  display: block;
+  float: left;
+  margin-top: -5px;
+  margin-left: 10px; }
+
+.view_publicheadtitlei {
+  font-size: 40px;
+  color: #C4D2E7;
+  display: block;
+  float: left;
+  margin-top: 0px;
+  margin-left: 10px; }
+
 /*公共样式 end*/
 /*首页*/
 .own-backDrop {
@@ -654,7 +670,8 @@
       color: #C4D2E7;
       display: block;
       float: left;
-      margin-left: 15px; }
+      margin-top: -5px;
+      margin-left: 10px; }
     .employee_query .employeequery_head .employeequery_headtitle .employeequery_headtitlespan {
       font-size: 18px;
       color: white; }
@@ -3504,6 +3521,53 @@
   text-align: center;
   border-radius: 10px; }
 
+.contact_Edit .contact_Edit_head {
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+  color: white;
+  z-index: 0;
+  background-color: #406FB3; }
+  .contact_Edit .contact_Edit_head .contact_Edit_headtitle {
+    height: 44px;
+    line-height: 50px;
+    text-align: center; }
+    .contact_Edit .contact_Edit_head .contact_Edit_headtitle .contact_Edit_headtitlei {
+      font-size: 35px;
+      display: block;
+      float: left;
+      margin-left: 15px; }
+    .contact_Edit .contact_Edit_head .contact_Edit_headtitle .contact_Edit_headtitlespanedit {
+      float: right;
+      margin-right: 15px; }
+
+.contact_Edit .list .item {
+  border: 1px solid #dddddd;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  min-height: 48px;
+  text-align: center; }
+
+.contact_Edit .contact_edit_listfor {
+  width: 20px;
+  height: 20px; }
+
+.contact_Edit .item-input {
+  padding: 2px 0 5px 16px; }
+
+.contact_Edit .contact_editinputsty {
+  padding-left: 35px;
+  color: #9B9B9B; }
+
+.contact_Edit .customeredittwo {
+  padding-left: 65px;
+  color: #9B9B9B; }
+
+.contact_Edit .customereditthree {
+  padding-left: 20px;
+  color: #9B9B9B; }
+
 .customer_Query .customer_Query_headspan {
   color: white;
   float: right;
@@ -3674,27 +3738,29 @@
   text-align: center;
   border-radius: 10px; }
 
-.customerContacts_Query .customerContacts_query_list {
-  font-size: 16px;
-  color: #4A4A4A; }
-  .customerContacts_Query .customerContacts_query_list .customerContacts_query_listcicle {
-    width: 14px;
-    height: 14px;
-    vertical-align: middle;
-    display: inline-block;
-    border-radius: 50%; }
-  .customerContacts_Query .customerContacts_query_list .customerContactse_query_listcicleA {
-    border: 2px solid #9EC92A; }
-  .customerContacts_Query .customerContacts_query_list .customerContacts_query_listcicleB {
-    border: 2px solid #008CCF; }
-  .customerContacts_Query .customerContacts_query_list .customerContacts_query_listfor {
-    width: 15px;
-    height: 16px;
-    vertical-align: middle; }
-  .customerContacts_Query .customerContacts_query_list .customerContacts_query_listline {
-    width: 100%;
-    height: 1px;
-    background-color: #D2D2D2; }
+.customerContacts_Query .customerContacts_querytitleimg {
+  margin-right: 10px;
+  float: right;
+  font-size: 30px;
+  color: white; }
+
+.customerContacts_Query .customerContacts_query_listcicle {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid #9EC92A; }
+
+.customerContacts_Query .item-content {
+  padding: 0; }
+
+.customerContacts_Query .item-options .button {
+  padding: 10px 10px 10px 16px;
+  margin-top: 1px; }
+
+.customerContacts_Query .button .icon:before {
+  font-size: 35px; }
 
 .customerContacts_detail .absolute {
   position: absolute;
@@ -3865,3 +3931,26 @@
     width: 15px;
     height: 15px;
     vertical-align: middle; }
+
+.relationship_list .contact_query_listcicle {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 50%; }
+
+.relationship_list .contact_query_listcicleA {
+  border: 2px solid #9EC92A; }
+
+.relationship_list .contact_query_listcicleB {
+  border: 2px solid #008CCF; }
+
+.relationship_list .item-content {
+  padding: 0; }
+
+.relationship_list .item-options .button {
+  padding: 10px 10px 10px 16px;
+  margin-top: 1px; }
+
+.relationship_list .button .icon:before {
+  font-size: 35px; }

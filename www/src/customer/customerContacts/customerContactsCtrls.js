@@ -12,13 +12,11 @@ customerContactsModule
         });
         $scope.customerContactsopenpopv = function($event) {
             $scope.customerContactspopover.show($event);
-            document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
         };
         $scope.customerContactsPopoverhide = function() {
             $scope.customerContactspopover.hide();
-            document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";
         };
-        $scope.customercontact_types = ["扫描名片创建联系人","手动创建新联系人"]
+        $scope.customercontact_types = ["扫描名片创建联系人","手动创建新联系人","关联其联系人"]
         $scope.customerContacts_query_list = [{
             name: '王雨薇',
             sex:'女',
