@@ -6,7 +6,7 @@
             <div class="col col-70 text-center">销售活动列表</div>
             <div class="col col-15 text-center" ng-click="changeSearch()"><i class="ion-search"></i></div>
         </div>
-        <div class="row row-center " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag">
+        <div class="row row-center" ng-class="{'animated fadeIn':searchFlag}" ng-show="searchFlag">
             <div class="col col-80">
                 <i class="icon ion-ios-search placeholder-icon"></i>
                 <input id="saleListSearchId" type="text" ng-model="input.search" placeholder="请输入活动关键字">

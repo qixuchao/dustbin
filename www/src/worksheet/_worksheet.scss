@@ -18,7 +18,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    justify-content: center;
 		    font-size: 1.8rem;
 		} 
-		.left-back, .title, {
+		.left-back, .title{
 			transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
 		}
 		.buttons.right{ 
