@@ -1121,6 +1121,7 @@
   background-color: #3259a4; }
   #worksheetlist-view ion-header-bar {
     background-color: #3259a4;
+    background-image: linear-gradient(0deg, #3259a4, #3259a4 50%, transparent 50%);
     transition: left 0.2s ease-out 0s;
     left: 0; }
     #worksheetlist-view ion-header-bar .left-back {
@@ -1246,59 +1247,7 @@
     -ms-flex: 1;
     flex: 1;
     overflow: hidden;
-    pointer-events: auto;
-    /*&.sort-from-filter{
-    	.tab-sort-content{
-    		height: 100%;
-    	}
-    }
-    &.sort-from-click{
-    	.tab-sort-content{
-    		height: 100%;
-    	}
-    }*/
-    /*.tab-sort-content{
-    	transition: transform .4s linear 0s;
-    	transform: translateY(-100%);
-    	&.active-click-enter{
-    		//display: block;
-    		//transform: translateY(0%);
-    	}
-    	&.active-click-out{}
-    }
-    .tab-sort-content{
-    }*/
-    	/*.tab-sort-content-inner{
-    		@include transition(top .2s linear 0.0s, left .2s linear 0.0s);
-    		position: relative;
-    		top: -9rem;
-    		//left: 0%;
-    		//.top-animation{}
-    		//.left-animation{}
-    		&.active-from-click{
-    				//@include transition(top .2s linear 0.0s);
-    				top: 0px;
-    		}
-    		&.active-from-filter{
-    				//@include transition(left .2s linear 0.0s);
-    				//left: 0px;
-    				top: 0px;
-    		}
-    	}
-    	.tab-filter-content{
-    		@include transition(top .2s linear 0.0s, left .2s linear 0.0s);
-    		//left: 0px;
-        	top: -100%;
-        	&.active-from-click{
-    			//@include transition(top .2s linear 0.0s);
-    			top: 0px;
-    		}
-    		&.active-from-sort{
-    			//@include transition(left .2s linear 0.0s);
-    			//left: 0px;
-    			top: 0px;
-    		}
-    	}*/ }
+    pointer-events: auto; }
     #worksheetlist-view .divs-wrapper.show-model .divs-wrapper-bg {
       background-color: rgba(2, 2, 2, 0.36); }
     #worksheetlist-view .divs-wrapper .divs-wrapper-bg {
@@ -1311,45 +1260,68 @@
       -webkit-transition: background-color 0.4s linear 0s;
       transition: background-color 0.4s linear 0s; }
     #worksheetlist-view .divs-wrapper .tab-sort-content, #worksheetlist-view .divs-wrapper .tab-filter-content {
-      transition: transform .2s linear 0s;
-      transform: translateY(-100%); }
+      -webkit-transition: -webkit-transform 0.2s linear;
+      transition: transform 0.2s linear;
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.sort-from-click .tab-sort-content {
-      transform: translateY(0%); }
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px); }
     #worksheetlist-view .divs-wrapper.sort-from-click .tab-filter-content {
+      -webkit-transition: -webkit-transform 0s linear 0s;
       transition: transform 0s linear 0s;
-      transform: translateX(100%); }
+      -webkit-transform: translate(100%, 0px);
+      transform: translate(100%, 0px); }
     #worksheetlist-view .divs-wrapper.sort-from-filter .tab-sort-content {
-      transform: translateX(0%); }
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px); }
     #worksheetlist-view .divs-wrapper.sort-from-filter .tab-filter-content {
-      transform: translateX(100%); }
+      -webkit-transform: translate(100%, 0px);
+      transform: translate(100%, 0px); }
     #worksheetlist-view .divs-wrapper.filter-from-click .tab-filter-content {
-      transform: translateY(0%); }
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px); }
     #worksheetlist-view .divs-wrapper.filter-from-click .tab-sort-content {
+      -webkit-transition: -webkit-transform 0s linear 0s;
       transition: transform 0s linear 0s;
-      transform: translateX(-100%); }
+      -webkit-transform: translate(-100%, 0px);
+      transform: translate(-100%, 0px); }
     #worksheetlist-view .divs-wrapper.filter-from-sort .tab-sort-content {
-      transform: translateX(-100%); }
+      -webkit-transform: translate(-100%, 0px);
+      transform: translate(-100%, 0px); }
     #worksheetlist-view .divs-wrapper.filter-from-sort .tab-filter-content {
-      transform: translateX(0px); }
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px); }
     #worksheetlist-view .divs-wrapper.sort-click-gone .tab-sort-content {
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.sort-click-gone .tab-filter-content {
+      -webkit-transition: -webkit-transform 0s linear 0s;
       transition: transform 0s linear 0s;
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.filter-click-gone .tab-sort-content {
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.filter-click-gone .tab-filter-content {
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.filter-gone-bymodelclick .tab-sort-content {
+      -webkit-transition: -webkit-transform 0s linear 0s;
       transition: transform 0s linear 0s;
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.filter-gone-bymodelclick .tab-filter-content {
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.sorte-gone-bymodelclick .tab-sort-content {
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.sorte-gone-bymodelclick .tab-filter-content {
+      -webkit-transition: -webkit-transform 0s linear 0s;
       transition: transform 0s linear 0s;
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
   #worksheetlist-view .worksheet-query-result {
     width: 100%;
     height: 100%;

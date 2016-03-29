@@ -6,6 +6,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	
 	ion-header-bar{ 
 		background-color: $crm-header-bar-bgcolor;
+		background-image: linear-gradient(0deg,#3259a4,#3259a4 50%,transparent 50%);
 		transition: left 0.2s ease-out 0s;
 		//border: 1px solid red;
 		left: 0;
@@ -17,7 +18,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    padding-right: 1.5rem;
 		    justify-content: center;
 		    font-size: 1.8rem;
-		} 
+		}  
 		.left-back, .title, {
 			transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
 		}
@@ -130,7 +131,6 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		@include flex(1);
 		overflow: hidden;
 		&.show-model{
-			//background-color: rgba(0, 0, 0, 0.14);
 			.divs-wrapper-bg{
 				background-color: rgba(2, 2, 2, 0.36);
 			}
@@ -141,142 +141,87 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			top: 0px; bottom: 0px;
 			left: 0px; right: 0px;
 			pointer-events:auto;
-			//background-color: rgba(2, 2, 2, 0.36);
 			@include transition(background-color .4s linear 0s);
 		}
-		/*&.sort-from-filter{
-			.tab-sort-content{
-				height: 100%;
-			}
-		}
-		&.sort-from-click{
-			.tab-sort-content{
-				height: 100%;
-			}
-		}*/
 
-		/*.tab-sort-content{
-			transition: transform .4s linear 0s;
-			transform: translateY(-100%);
-			&.active-click-enter{
-				//display: block;
-				//transform: translateY(0%);
-			}
-			&.active-click-out{}
-		}
-		.tab-sort-content{
-		}*/
 		//为动画而生 
 		.tab-sort-content, .tab-filter-content{
-			transition: transform .2s linear 0s;
-			transform: translateY(-100%);
+			@include transition-transform(0.2s linear);
+			@include translate(0px, -100%);
 		}
         &.sort-from-click{
 			.tab-sort-content{
-				transform: translateY(0%);
+				@include translate(0px, 0px);
 			}
 			.tab-filter-content{
-				transition: transform 0s linear 0s;
-				transform: translateX(100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(100%, 0px);
 			}
         }
         &.sort-from-filter{
 			.tab-sort-content{
-				transform: translateX(0%);
+				@include translate(0px, 0px);
 			}
 			.tab-filter-content{
-				transform: translateX(100%);
+				@include translate(100%, 0px);
 			}
         }
         &.filter-from-click{
 			.tab-filter-content{
-				transform: translateY(0%);
+				@include translate(0px, 0px);
 			}
 			.tab-sort-content{
-				transition: transform 0s linear 0s;
-				transform: translateX(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(-100%, 0px);
 			}
         }
         &.filter-from-sort{
 			.tab-sort-content{
-				transform: translateX(-100%);
+				@include translate(-100%, 0px);
 			}
 			.tab-filter-content{
-				transform: translateX(0px);
+				@include translate(0px, 0px);
 			}
         }
 
 		&.sort-click-gone{
 			.tab-sort-content{
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
 			}
 		}
 		&.filter-click-gone{
 			.tab-sort-content{
-				//transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
-		}
+		} 
 		
 		&.filter-gone-bymodelclick{
 			.tab-sort-content{
-				transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 		}
 		&.sorte-gone-bymodelclick{
 			.tab-sort-content{
-				//transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
 			}
 		}
 
-		//动画相关
-		/*.tab-sort-content-inner{
-			@include transition(top .2s linear 0.0s, left .2s linear 0.0s);
-			position: relative;
-			top: -9rem;
-			//left: 0%;
-			//.top-animation{}
-			//.left-animation{}
-			&.active-from-click{
-					//@include transition(top .2s linear 0.0s);
-					top: 0px;
-			}
-			&.active-from-filter{
-					//@include transition(left .2s linear 0.0s);
-					//left: 0px;
-					top: 0px;
-			}
-		}
-		.tab-filter-content{
-			@include transition(top .2s linear 0.0s, left .2s linear 0.0s);
-			//left: 0px;
-	    	top: -100%;
-	    	&.active-from-click{
-				//@include transition(top .2s linear 0.0s);
-				top: 0px;
-			}
-			&.active-from-sort{
-				//@include transition(left .2s linear 0.0s);
-				//left: 0px;
-				top: 0px;
-			}
-		}*/
+		
 	}
 
 	$divs-wrapper-z-index: 1;

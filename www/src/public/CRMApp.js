@@ -20,7 +20,7 @@ var worksheetModule = angular.module('worksheetModule', []); // 工单模块
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'ionic-material',
     'utilsModule',
-    'loginModule',
+    'loginModule', 
     'mainModule',
     'tabsModule',
     'appModule',
@@ -191,7 +191,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/spare/spareDetail.html',
                 controller: 'SpareDetailCtrl'
             })
-            // 工单模块相关
+            // 工单模块相关：
             .state('worksheetlist', {
                 url: '/worksheetlist',
                 templateUrl: 'src/worksheet/worksheet_list.html',
