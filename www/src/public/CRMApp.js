@@ -191,7 +191,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/spare/spareDetail.html',
                 controller: 'SpareDetailCtrl'
             })
-            // 工单模块相关：
+            // 工单模块相关： start ------------------------
             .state('worksheetlist', {
                 url: '/worksheetlist',
                 templateUrl: 'src/worksheet/worksheet_list.html',
@@ -207,6 +207,18 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/worksheet/detail_siterepair/worksheet_detail_siterepair.html',
                 controller: 'WorksheetDetailSiterepairCtrl'
             })
+            .state('worksheetbaogonglist', {   //报工信息列表界面
+                url: '/worksheetbaogonglist',
+                templateUrl: 'src/worksheet/baogong/baogong_list.html',
+                controller: 'WorksheetBaogongListCtrl'
+            })
+            .state('worksheetdealhistorylist', {   //交易历史列表界面
+                url: '/worksheetdealhistorylist',
+                templateUrl: 'src/worksheet/dealHistoryList/dealHistoryList.html',
+                controller: 'dealHistoryListCtrl'
+            })
+            // 工单模块相关： end ------------------------
+
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tabs');
     });

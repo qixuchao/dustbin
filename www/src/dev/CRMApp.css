@@ -25,7 +25,7 @@
   margin-bottom: 0; }
 
 /**
- * 公共的 变量  
+ * 公共的 变量
  */
 /**
  * 公共的 mixin  
@@ -2256,6 +2256,133 @@
 .worksheet-detail-more-modal {
   background-color: rgba(0, 0, 0, 0.38); }
 
+#worksheet-baogong-list-view .left-back {
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  width: 2rem; }
+#worksheet-baogong-list-view .baogong-list .baogong-item {
+  display: block;
+  width: 100%;
+  padding: .6rem .8rem;
+  border-bottom: 1px solid #cacaca; }
+  #worksheet-baogong-list-view .baogong-list .baogong-item .title-top {
+    display: block;
+    width: 100%; }
+    #worksheet-baogong-list-view .baogong-list .baogong-item .title-top span {
+      margin-left: .4rem;
+      font-size: 1rem; }
+  #worksheet-baogong-list-view .baogong-list .baogong-item .title-icon {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    border: 2px solid #9ac736;
+    border-radius: 12px; }
+  #worksheet-baogong-list-view .baogong-list .baogong-item .desc {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    color: #cacaca;
+    font-size: .8rem; }
+    #worksheet-baogong-list-view .baogong-list .baogong-item .desc span {
+      margin-left: .4rem; }
+
+#worksheet-dealhistory-list-view .left-back {
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  width: 2rem; }
+#worksheet-dealhistory-list-view ion-content {
+  padding-bottom: 1rem; }
+#worksheet-dealhistory-list-view .deal-h-list .deal-h-item {
+  width: 100%;
+  padding: .6rem .4rem .6rem .6rem;
+  border-bottom: 1px solid #cacaca;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex; }
+  #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .left {
+    width: 1.5rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center; }
+    #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .left span {
+      width: 12px;
+      height: 12px;
+      border-radius: 12px;
+      display: inline-block;
+      border: 2px solid #8ec121; }
+  #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .center-text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden; }
+    #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .center-text .color-eee {
+      color: #898989; }
+  #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .h-info-line {
+    height: 1.8rem;
+    line-height: 1.8rem;
+    font-size: 1rem; }
+    #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .h-info-line.times-line {
+      font-size: .9rem;
+      font-size: .9rem;
+      height: 1.5rem;
+      line-height: 1.5rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis; }
+      #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .h-info-line.times-line span {
+        max-width: 100%; }
+    #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .h-info-line.desc-line span:nth-child(2) {
+      float: right;
+      font-size: 1.4rem; }
+
 .CarList .bar .title {
   position: absolute;
   top: 0.5em;
@@ -2285,22 +2412,20 @@
 .CarList .bar-header {
   border-bottom: none;
   padding: 0;
-  fill: #2B60AB 90%;
   background-size: 0; }
   .CarList .bar-header .button-clear {
     color: #fff;
     padding-left: 0.8em;
     padding-top: 0.8em; }
 .CarList .bar-subheader {
-  height: 2.7em;
-  top: 60px;
-  display: block;
-  fill: #2B60AB 90%; }
+  height: 2.3em;
+  top: 59px;
+  display: block; }
   .CarList .bar-subheader .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .8em;
+    top: .4em;
     left: 1em; }
   .CarList .bar-subheader input {
     display: block;
@@ -2312,36 +2437,36 @@
     line-height: 16px;
     width: 96%;
     position: fixed;
-    top: 9px;
     right: 6px;
     border: 1px solid #dedede;
     border-radius: 5px; }
-.CarList .borderLine {
-  -webkit-user-drag: none;
+.CarList .Car_countentbasic {
   position: relative;
-  width: 100%;
-  top: 2em; }
-  .CarList .borderLine .row {
-    padding: 0; }
-  .CarList .borderLine .rowLine {
-    padding: 0;
-    position: relative;
-    left: 4%; }
-    .CarList .borderLine .rowLine .col-18 {
-      padding: 0; }
-      .CarList .borderLine .rowLine .col-18 span {
-        position: relative;
-        color: #2B60AB;
-        font-size: 14px;
-        font-weight: 600; }
-    .CarList .borderLine .rowLine .col-82 {
-      padding: 0;
-      border-bottom: 1px solid rgba(43, 96, 171, 0.9); }
-  .CarList .borderLine .col-12 {
-    margin-top: 0.3em;
-    height: 1.2em;
-    border-bottom: 1px solid rgba(43, 96, 171, 0.9);
-    border-right: 1px solid rgba(43, 96, 171, 0.9); }
+  font-size: 15px;
+  color: #406FB3;
+  top: 1.5em;
+  font-weight: 600; }
+  .CarList .Car_countentbasic .Car_countentbasicinfo {
+    position: absolute;
+    top: 0px;
+    left: 20px; }
+  .CarList .Car_countentbasic .Car_countentbasicline {
+    position: absolute;
+    top: 10px;
+    left: 85px;
+    width: 100%;
+    height: 1px;
+    background-color: #406FB3; }
+  .CarList .Car_countentbasic .Car_countentbasicclok {
+    position: absolute;
+    top: 15px;
+    margin-top: 2px;
+    left: 0px;
+    width: 55px;
+    height: 15px;
+    border: 1px solid #406FB3;
+    border-top: none;
+    border-left: none; }
 .CarList .shapeImg {
   height: 1.2em;
   position: relative;
@@ -2349,7 +2474,7 @@
   top: 0.4em; }
 .CarList .contentType {
   position: relative;
-  top: 2em;
+  top: 4em;
   border-bottom: 1px solid rgba(43, 43, 43, 0.17); }
 .CarList .row .col {
   padding: 0; }
@@ -2364,7 +2489,8 @@
     padding-left: 0; }
     .CarList .rowType .colType span {
       font-size: 1em;
-      color: #4a4a4a; }
+      color: #4a4a4a;
+      font-weight: 500; }
 .CarList .row + .row .row {
   /* margin-top: -5px; */
   padding-top: 0;
@@ -2397,7 +2523,7 @@
   background-size: 100% 100% !important;
   margin-top: -1px;
   color: white;
-  height: 3.28em;
+  height: 4em;
   font-size: 16px; }
   .CarDetail .top-back2 .title {
     padding-top: 20px;
@@ -2470,52 +2596,60 @@
 .CarDetail .btType {
   padding: 0 0.5em 0 0.5em;
   height: 38px; }
-.CarDetail .borderLine {
-  -webkit-user-drag: none;
+.CarDetail .Car_countentbasic {
   position: relative;
-  width: 100%;
-  top: 0.5em; }
-  .CarDetail .borderLine .row {
-    padding: 0; }
-  .CarDetail .borderLine .rowLine {
-    padding: 0;
-    position: relative;
-    left: 4%; }
-  .CarDetail .borderLine .col-18 span {
-    position: relative;
-    color: #2B60AB;
-    font-size: 14px;
-    font-weight: 600; }
-  .CarDetail .borderLine .col-82 {
-    border-bottom: 1px solid rgba(43, 96, 171, 0.9); }
-  .CarDetail .borderLine .col-12 {
-    margin-top: 0.3em;
-    height: 1.2em;
-    border-bottom: 1px solid rgba(43, 96, 171, 0.9);
-    border-right: 1px solid rgba(43, 96, 171, 0.9); }
-.CarDetail .borderLine {
-  -webkit-user-drag: none;
+  font-size: 15px;
+  color: #406FB3;
+  margin-bottom: 2.5em;
+  margin-top: 0.3em;
+  font-weight: 600; }
+  .CarDetail .Car_countentbasic .Car_countentbasicinfo {
+    position: absolute;
+    left: 20px; }
+  .CarDetail .Car_countentbasic .Car_countentbasicline {
+    position: absolute;
+    top: 10px;
+    left: 85px;
+    width: 100%;
+    height: 1px;
+    background-color: #406FB3; }
+  .CarDetail .Car_countentbasic .Car_countentbasicclok {
+    position: absolute;
+    top: 15px;
+    margin-top: 4px;
+    left: 0px;
+    width: 55px;
+    height: 15px;
+    border: 1px solid #406FB3;
+    border-top: none;
+    border-left: none; }
+.CarDetail .Car_countentbasic1 {
   position: relative;
-  width: 100%;
-  top: 0.5em; }
-  .CarDetail .borderLine .row {
-    padding: 0; }
-  .CarDetail .borderLine .rowLine {
-    padding: 0;
-    position: relative;
-    left: 4%; }
-  .CarDetail .borderLine .col-23 span {
-    position: relative;
-    color: #2B60AB;
-    font-size: 14px;
-    font-weight: 600; }
-  .CarDetail .borderLine .col-77 {
-    border-bottom: 1px solid rgba(43, 96, 171, 0.9); }
-  .CarDetail .borderLine .col-13 {
-    margin-top: 0.3em;
-    height: 1.2em;
-    border-bottom: 1px solid rgba(43, 96, 171, 0.9);
-    border-right: 1px solid rgba(43, 96, 171, 0.9); }
+  font-size: 15px;
+  color: #406FB3;
+  margin-bottom: 2.5em;
+  margin-top: 0.3em;
+  font-weight: 600; }
+  .CarDetail .Car_countentbasic1 .Car_countentbasicinfo {
+    position: absolute;
+    left: 20px; }
+  .CarDetail .Car_countentbasic1 .Car_countentbasicline {
+    position: absolute;
+    top: 10px;
+    left: 100px;
+    width: 100%;
+    height: 1px;
+    background-color: #406FB3; }
+  .CarDetail .Car_countentbasic1 .Car_countentbasicclok {
+    position: absolute;
+    top: 15px;
+    margin-top: 4px;
+    left: 0px;
+    width: 55px;
+    height: 15px;
+    border: 1px solid #406FB3;
+    border-top: none;
+    border-left: none; }
 .CarDetail .titleType {
   position: relative;
   padding-top: 5px;
@@ -2540,29 +2674,6 @@
   padding-left: 0; }
   .CarDetail .rowType .col {
     padding: 0; }
-.CarDetail .borderLine {
-  -webkit-user-drag: none;
-  position: relative;
-  width: 100%;
-  top: 0.5em; }
-  .CarDetail .borderLine .row {
-    padding: 0; }
-  .CarDetail .borderLine .rowLine {
-    padding: 0;
-    position: relative;
-    left: 4%; }
-  .CarDetail .borderLine .col-19 span {
-    position: relative;
-    color: #2B60AB;
-    font-size: 14px;
-    font-weight: 600; }
-  .CarDetail .borderLine .col-81 {
-    border-bottom: 1px solid rgba(43, 96, 171, 0.9); }
-  .CarDetail .borderLine .col-12 {
-    margin-top: 0.3em;
-    height: 1.2em;
-    border-bottom: 1px solid rgba(43, 96, 171, 0.9);
-    border-right: 1px solid rgba(43, 96, 171, 0.9); }
 .CarDetail .rowType1 {
   position: relative;
   left: 4%;
@@ -2732,11 +2843,6 @@
   line-height: 2em; }
 .Maintenance .liType ul {
   margin-top: 0.15em; }
-.Maintenance .animated {
-  -webkit-animation-duration: 0.5s;
-  animation-duration: 0.5s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both; }
 .Maintenance .ulType {
   position: absolute;
   background-color: white;
@@ -2834,6 +2940,8 @@
   color: #fff;
   padding-left: 0.8em;
   padding-top: 0.8em; }
+.SpareList1 b strong {
+  font-weight: 500; }
 .SpareList1 .bar .title {
   position: absolute;
   font-size: 16px;
@@ -2846,15 +2954,14 @@
   background-size: 0;
   box-shadow: none; }
 .SpareList1 .bar-subheader {
-  height: 2.7em;
-  top: 60px;
-  display: block;
-  fill: #2B60AB 90%; }
+  height: 2.3em;
+  top: 59px;
+  display: block; }
   .SpareList1 .bar-subheader .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .8em;
+    top: .4em;
     left: 1em; }
   .SpareList1 .bar-subheader input {
     display: block;
@@ -2866,7 +2973,6 @@
     line-height: 16px;
     width: 96%;
     position: fixed;
-    top: 9px;
     right: 6px;
     border: 1px solid #dedede;
     border-radius: 5px; }
@@ -2889,10 +2995,8 @@
     font-size: 1.2em; }
 .SpareList1 .row-center b {
   font-weight: 600;
-  color: rgba(17, 17, 17, 0.8);
+  color: rgba(17, 17, 17, 0.71);
   font-size: 14px; }
-.SpareList1 b strong {
-  font-weight: 500; }
 .SpareList1 .rowType {
   position: relative;
   top: 1.2em; }
@@ -2933,10 +3037,9 @@
   background-size: 0;
   box-shadow: none; }
 .SpareList .bar-subheader {
-  height: 2.7em;
-  top: 60px;
-  display: block;
-  fill: #2B60AB 90%; }
+  height: 2.3em;
+  top: 59px;
+  display: block; }
 .SpareList .row .col {
   padding: 0;
   margin: 0; }
@@ -2958,7 +3061,6 @@
   line-height: 16px;
   width: 96%;
   position: fixed;
-  top: 9px;
   right: 6px;
   border: 1px solid #dedede;
   border-radius: 5px; }
@@ -2966,46 +3068,48 @@
   color: #aaa;
   position: absolute;
   z-index: 2;
-  top: 0.8em;
+  top: 0.4em;
   left: 1em; }
 .SpareList .pointImg {
-  height: 0.7em;
+  height: 0.8em;
   position: relative;
   left: 30%; }
-.SpareList .borderLine {
-  -webkit-user-drag: none;
+.SpareList .Car_countentbasic {
   position: relative;
-  width: 100%;
-  top: 2em; }
-  .SpareList .borderLine .row {
-    padding: 0; }
-  .SpareList .borderLine .rowLine {
-    padding: 0;
-    position: relative;
-    left: 4%; }
-    .SpareList .borderLine .rowLine .col-18 {
-      padding: 0; }
-      .SpareList .borderLine .rowLine .col-18 span {
-        position: relative;
-        color: #2B60AB;
-        font-size: 14px;
-        font-weight: 600; }
-    .SpareList .borderLine .rowLine .col-82 {
-      padding: 0;
-      border-bottom: 1px solid rgba(43, 96, 171, 0.9); }
-  .SpareList .borderLine .col-15 {
-    height: 1.2em;
-    border-bottom: 1px solid rgba(43, 96, 171, 0.9);
-    border-right: 1px solid rgba(43, 96, 171, 0.9); }
+  font-size: 15px;
+  color: #406FB3;
+  top: 1.5em;
+  font-weight: 600; }
+  .SpareList .Car_countentbasic .Car_countentbasicinfo {
+    position: absolute;
+    top: 0px;
+    left: 20px; }
+  .SpareList .Car_countentbasic .Car_countentbasicline {
+    position: absolute;
+    top: 10px;
+    left: 85px;
+    width: 100%;
+    height: 1px;
+    background-color: #406FB3; }
+  .SpareList .Car_countentbasic .Car_countentbasicclok {
+    position: absolute;
+    top: 15px;
+    margin-top: 4px;
+    left: 0px;
+    width: 50px;
+    height: 15px;
+    border: 1px solid #406FB3;
+    border-top: none;
+    border-left: none; }
 .SpareList .shapeImg {
   position: relative;
   top: 2px;
   height: 16px; }
 .SpareList .contentType {
   position: relative;
-  top: 1.5em; }
+  top: 3.5em; }
 .SpareList .rowType1 {
-  padding: 1.2em 0 0.6em;
+  padding: 1.2em 0 0.6em 0.8em;
   border-bottom: 1px solid rgba(128, 128, 128, 0.36); }
 .SpareList .col span {
   font-size: 16px;
@@ -3027,31 +3131,33 @@
   background-color: rgba(43, 96, 171, 0.9);
   background-size: 0;
   box-shadow: none; }
-.Detail .borderLine {
-  -webkit-user-drag: none;
+.Detail .Car_countentbasic {
   position: relative;
-  width: 100%; }
-  .Detail .borderLine .row {
-    padding: 0; }
-  .Detail .borderLine .rowLine {
-    padding: 0;
-    position: relative;
-    left: 4%; }
-    .Detail .borderLine .rowLine .col-18 {
-      padding: 0; }
-      .Detail .borderLine .rowLine .col-18 span {
-        position: relative;
-        color: #2B60AB;
-        font-size: 14px;
-        font-weight: 600; }
-    .Detail .borderLine .rowLine .col-82 {
-      padding: 0;
-      border-bottom: 1px solid rgba(43, 96, 171, 0.9); }
-  .Detail .borderLine .col-15 {
-    margin-top: 0.3em;
-    height: 1.2em;
-    border-bottom: 1px solid rgba(43, 96, 171, 0.9);
-    border-right: 1px solid rgba(43, 96, 171, 0.9); }
+  font-size: 15px;
+  color: #406FB3;
+  font-weight: 600;
+  padding-bottom: 2.5em; }
+  .Detail .Car_countentbasic .Car_countentbasicinfo {
+    position: absolute;
+    top: 0px;
+    left: 20px; }
+  .Detail .Car_countentbasic .Car_countentbasicline {
+    position: absolute;
+    top: 10px;
+    left: 85px;
+    width: 100%;
+    height: 1px;
+    background-color: #406FB3; }
+  .Detail .Car_countentbasic .Car_countentbasicclok {
+    position: absolute;
+    top: 15px;
+    margin-top: 4px;
+    left: 0px;
+    width: 50px;
+    height: 15px;
+    border: 1px solid #406FB3;
+    border-top: none;
+    border-left: none; }
 .Detail ion-content {
   position: relative;
   top: 5em; }

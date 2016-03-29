@@ -18,13 +18,13 @@
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-.scroll-content{
+.scroll-content{ 
   margin-top: 0;
   padding-top: 0;
   margin-bottom: 0;
 }
 /**
- * 公共的 变量  
+ * 公共的 变量
  */
  $crm-header-bar-bgcolor: rgb(50, 89, 164); // =#3259A4
  $crm-content-bgcolor: #F5F5F5;
@@ -39,6 +39,13 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+}
+@mixin crm-circle-div($width:12px, $border-width:2px, $border-color:rgb(142,193,33)){ // 圆环
+  width: $width;
+  height:$width;
+  border-radius: $width;
+  display: inline-block;
+  border: $border-width solid $border-color;
 }
 /*
   设置button style type：button-crm-edit : 编辑button   主要是调整颜色，字体大小等请自行调整

@@ -4,7 +4,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 #worksheetlist-view{
 	background-color: $crm-header-bar-bgcolor;
 	
-	ion-header-bar{ 
+	ion-header-bar{
 		background-color: $crm-header-bar-bgcolor;
 		background-image: linear-gradient(0deg,#3259a4,#3259a4 50%,transparent 50%);
 		transition: left 0.2s ease-out 0s;
@@ -18,11 +18,11 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    padding-right: 1.5rem;
 		    justify-content: center;
 		    font-size: 1.8rem;
-		}  
-		.left-back, .title, {
+		}
+		.left-back, .title{
 			transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
 		}
-		.buttons.right{ 
+		.buttons.right{
 			background-color: #3259A4;
 			width: 2.5rem;
 			overflow: hidden;
@@ -143,8 +143,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			pointer-events:auto;
 			@include transition(background-color .4s linear 0s);
 		}
-
-		//为动画而生 
+		
+		//为动画而生 : just for animation --- 哈哈哈  
 		.tab-sort-content, .tab-filter-content{
 			@include transition-transform(0.2s linear);
 			@include translate(0px, -100%);
@@ -154,7 +154,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				@include translate(0px, 0px);
 			}
 			.tab-filter-content{
-				@include transition-transform(0s linear 0s);
+				@include transition-transform(0s linear 0s); 
 				@include translate(100%, 0px);
 			}
         }
@@ -183,7 +183,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				@include translate(0px, 0px);
 			}
         }
-
+		
 		&.sort-click-gone{
 			.tab-sort-content{
 				@include translate(0px, -100%);
@@ -223,6 +223,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 
 		
 	}
+
+	
 
 	$divs-wrapper-z-index: 1;
 	.worksheet-query-result{
