@@ -57,7 +57,7 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
                 }else{
                     $scope.projectFlag = false;
                 }
-                if(position>100){
+                if(position>95){
                     if(maxPosition===null){
                         maxPosition=$ionicScrollDelegate.getScrollView().__maxScrollTop;
                     }
@@ -187,6 +187,24 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
             $scope.spareList.push(spareInfo1);
         };
 }])
-.controller('SearchCtrl',['$scope',function(){
+.filter("highlight", ['$sce','$log',function($sce, $log){
 
-    }])
+    var fn = function(input, search){
+        $log.info("input: " + input);
+        $log.info("search: " + search);
+
+        if (!search) {
+            return $sce.trustAsHtml(input);
+        }
+        text = encodeURI(input);
+        search = encodeURI(search);
+
+        var regex = new RegExp(search, 'gi')
+        var result = input.replace(regex, '<span class="highlightedText">$&</span>');
+        result = decodeURI(result);
+        $log.info("result: " + result );
+        return $sce.trustAsHtml(result);
+    };
+
+    return fn;
+}]);

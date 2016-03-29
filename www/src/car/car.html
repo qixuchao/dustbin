@@ -7,14 +7,14 @@
         <i class="icon ion-ios-search placeholder-icon"></i>
         <input type="text" placeholder="输入客户信息"ng-model="carInfo">
     </ion-header-bar>
-    <ion-content>
+    <ion-content has-bouncing="false">
         <!--<img ng-src="img/car/oftenCar.png" class="textImg">-->
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">常用车辆</div>
             <div class="Car_countentbasicline"></div>
             <div class="Car_countentbasicclok"></div>
         </div>
-        <div class="contentType" ng-repeat="car in cars|filter:carInfo" ng-click="goDetail(car)">
+        <div class="contentType" ng-repeat="car in cars|highlight:car:carInfo" ng-click="goDetail(car)">
             <div class="row row-center rowType " >
                 <div class="col col-6 col-center">
                    <img ng-src="img/car/Oval.png" class="pointImg">

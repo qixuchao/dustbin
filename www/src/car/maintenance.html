@@ -28,7 +28,7 @@
         </div>
         <div class="lineImg"></div>
     </div>
-    <ion-content>
+    <ion-content has-bouncing="false">
         <div class="divLine" ng-repeat="record in carInfo">
             <div class="row row-center rowContent">
                 <div class="col col-center col-5">
@@ -63,13 +63,13 @@
             </a>
         </div>
         <div class="myPro" ng-show="showSort">
-            <ul class="ulType animated fadeInDown">
+            <ul class="ulType " ng-class="showSort?'animated fadeInDown':'animated fadeInUp'">
                 <li class="liType " ng-class="{true:'color1',false:'color2'}[$index===selectRow]"  ng-repeat="list in List" ng-click="choice($index)">{{list}}</li>
             </ul>
             <div class="shadowDiv1" ng-click="shadowUp()"></div>
         </div>
         <div ng-show="showSelect">
-            <div  class="selectContent animated fadeInDown" >
+            <div  class="selectContent" ng-class="showSelect?'animated fadeInDown':'animated fadeInUp'">
                 <div class="row row-center row1">
                     <div class="col col-5"></div>
                     <div class="col col-20">
