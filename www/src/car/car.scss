@@ -33,7 +33,6 @@
   .bar-header {
     border-bottom: none;
     padding: 0;
-    fill: #2B60AB 90%;
     background-size: 0;
     .button-clear {
       color: #fff;
@@ -42,15 +41,14 @@
     }
   }
   .bar-subheader {
-    height: 2.7em;
-    top: 60px;
+    height: 2.3em;
+    top: 59px;
     display: block;
-    fill: #2B60AB 90%;
     .placeholder-icon {
       color: #aaa;
       position: absolute;
       z-index: 2;
-      top: .8em;
+      top: .4em;
       left: 1em;
     }
     input {
@@ -63,43 +61,40 @@
       line-height: 16px;
       width: 96%;
       position: fixed;
-      top: 9px;
       right: 6px;
       border: 1px solid #dedede;
       border-radius: 5px;
     }
   }
-  .borderLine{
-    -webkit-user-drag: none;
+  .Car_countentbasic{
     position: relative;
-    width: 100%;
-    top:2em;
-    .row{
-      padding: 0;
+    font-size:15px;
+    color:#406FB3;
+    top:1.5em;
+    font-weight: 600;
+    .Car_countentbasicinfo{
+      position: absolute;
+      top:0px;
+      left: 20px;
     }
-    .rowLine {
-      padding: 0;
-      position: relative;
-      left: 4%;
-      .col-18 {
-        padding: 0;
-        span {
-          position: relative;
-          color: #2B60AB;
-          font-size: 14px;
-          font-weight: 600;
-        }
-      }
-      .col-82 {
-        padding: 0;
-        border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-      }
+    .Car_countentbasicline{
+      position: absolute;
+      top:10px;
+      left: 85px;
+      width: 100%;
+      height:1px;
+      background-color: #406FB3;
     }
-    .col-12{
-      margin-top: 0.3em;
-      height: 1.2em;
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-      border-right: 1px solid rgba(43, 96, 171, 0.90);
+    .Car_countentbasicclok{
+      position: absolute;
+      top:15px;
+      margin-top: 2px;
+      left:0px;
+      width:55px;
+      height:15px;
+      border: 1px solid #406FB3;
+      border-top: none;
+      border-left: none;
     }
   }
   .shapeImg{
@@ -110,7 +105,7 @@
   }
    .contentType{
     position: relative;
-    top: 2em;
+    top: 4em;
     border-bottom: 1px solid rgba(43, 43, 43, 0.17);
   }
   .row .col{
@@ -129,6 +124,7 @@
       span{
         font-size: 1em;
         color: #4a4a4a;
+        font-weight: 500;
       }
     }
 
@@ -173,7 +169,7 @@
     background-size:100% 100%!important;
     margin-top:-1px;
     color: white;
-    height:3.28em;
+    height:4em;
     font-size: 16px;
     .title {
       padding-top: 20px;
@@ -271,68 +267,68 @@
     padding: 0 0.5em 0 0.5em;
     height:38px;
   }
-  .borderLine{
-    -webkit-user-drag: none;
-    position: relative;
-    width: 100%;
-    top: 0.5em;
-    .row{
-      padding: 0;
-    }
-    .rowLine{
-      padding:0;
+  .Car_countentbasic{
       position: relative;
-      left: 4%;
-    }
-    .col-18{
-      span{
-        position: relative;
-        color: #2B60AB;
-        font-size: 14px;
-        font-weight: 600;
-      }
-    }
-    .col-82{
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-    }
-    .col-12{
+      font-size:15px;
+      color:#406FB3;
+      margin-bottom: 2.5em;
       margin-top: 0.3em;
-      height: 1.2em;
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-      border-right: 1px solid rgba(43, 96, 171, 0.90);
+      font-weight: 600;
+      .Car_countentbasicinfo{
+        position: absolute;
+        left: 20px;
+      }
+      .Car_countentbasicline{
+        position: absolute;
+        top:10px;
+        left: 85px;
+        width: 100%;
+        height:1px;
+        background-color: #406FB3;
+      }
+      .Car_countentbasicclok{
+        position: absolute;
+        top:15px;
+        margin-top: 4px;
+        left:0px;
+        width:55px;
+        height:15px;
+        border: 1px solid #406FB3;
+        border-top: none;
+        border-left: none;
+      }
+  }
+  .Car_countentbasic1{
+    position: relative;
+    font-size:15px;
+    color:#406FB3;
+    margin-bottom: 2.5em;
+    margin-top: 0.3em;
+    font-weight: 600;
+    .Car_countentbasicinfo{
+      position: absolute;
+      left: 20px;
+    }
+    .Car_countentbasicline{
+      position: absolute;
+      top:10px;
+      left: 100px;
+      width: 100%;
+      height:1px;
+      background-color: #406FB3;
+    }
+    .Car_countentbasicclok{
+      position: absolute;
+      top:15px;
+      margin-top: 4px;
+      left:0px;
+      width:55px;
+      height:15px;
+      border: 1px solid #406FB3;
+      border-top: none;
+      border-left: none;
     }
   }
-  .borderLine{
-     -webkit-user-drag: none;
-     position: relative;
-     width: 100%;
-     top: 0.5em;
-     .row{
-       padding: 0;
-     }
-     .rowLine{
-       padding:0;
-       position: relative;
-       left: 4%;
-     }
-     .col-23{
-       span{
-         position: relative;
-         color: #2B60AB;
-         font-size: 14px;
-         font-weight: 600;
-       }
-     }
-     .col-77{
-       border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-     }
-     .col-13{
-       margin-top: 0.3em;
-       height: 1.2em;
-       border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-       border-right: 1px solid rgba(43, 96, 171, 0.90);
-     }
-   }
   .titleType {
     position: relative;
     padding-top: 5px;
@@ -361,37 +357,6 @@
      .col{
        padding:0;
      }
-  }
-  .borderLine{
-    -webkit-user-drag: none;
-    position: relative;
-    width: 100%;
-    top: 0.5em;
-    .row{
-      padding: 0;
-    }
-    .rowLine{
-      padding:0;
-      position: relative;
-      left: 4%;
-    }
-    .col-19{
-      span{
-        position: relative;
-        color: #2B60AB;
-        font-size: 14px;
-        font-weight: 600;
-      }
-    }
-    .col-81{
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-    }
-    .col-12{
-      margin-top: 0.3em;
-      height: 1.2em;
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-      border-right: 1px solid rgba(43, 96, 171, 0.90);
-    }
   }
    .rowType1 {
      position: relative;
@@ -606,12 +571,6 @@
   .liType ul {
     margin-top: 0.15em;
   }
-  .animated {
-    -webkit-animation-duration: 0.5s;
-    animation-duration: 0.5s;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-  }
   .ulType {
     position: absolute;
     background-color: white;
@@ -727,6 +686,9 @@
     padding-left: 0.8em;
     padding-top: 0.8em;
   }
+  b strong {
+    font-weight: 500;
+  }
   .bar .title {
     position: absolute;
     font-size: 16px;
@@ -741,15 +703,14 @@
     box-shadow: none;
   }
   .bar-subheader {
-    height: 2.7em;
-    top: 60px;
+    height: 2.3em;
+    top: 59px;
     display: block;
-    fill: #2B60AB 90%;
     .placeholder-icon {
       color: #aaa;
       position: absolute;
       z-index: 2;
-      top: .8em;
+      top: .4em;
       left: 1em;
     }
     input {
@@ -762,7 +723,6 @@
       line-height: 16px;
       width: 96%;
       position: fixed;
-      top: 9px;
       right: 6px;
       border: 1px solid #dedede;
       border-radius: 5px;
@@ -794,12 +754,9 @@
   .row-center {
     b {
       font-weight: 600;
-      color: rgba(17, 17, 17, 0.8);
+      color: rgba(17, 17, 17, 0.71);
       font-size: 14px;
     }
-  }
-  b strong {
-    font-weight: 500;
   }
   .rowType {
     position: relative;

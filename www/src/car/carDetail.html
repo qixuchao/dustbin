@@ -28,9 +28,9 @@
                     </div>
                 </div>
                 <div class="row row2 row-center" ng-class="qualityFlag?'animated fadeOut':'animated fadeIn'">
-                    质保:{{carInfo.productionDate}}-{{carInfo.endDate}}</div>
+                    质保:&nbsp;&nbsp;{{carInfo.productionDate}}-{{carInfo.endDate}}</div>
                 <div class="row row2 row-center" ng-class="projectFlag?'animated fadeOut':'animated fadeIn'">
-                    {{projectName}}{{carInfo.projectName}}</div>
+                    {{projectName}}&nbsp;&nbsp;{{carInfo.projectName}}</div>
             </div>
 
         </div>
@@ -45,16 +45,10 @@
                    <img ng-src="img/car/spare.png" class="btType" ng-click="goSkip('spare')">
                </div>
            </div>
-            <div class="borderLine">
-                <div class="row row-center rowLine">
-                    <div class="col col-18 col-center">
-                        <span>基本信息</span>
-                    </div>
-                    <div class="col col-center col-82"></div>
-                </div>
-                <div class="row row-center">
-                    <div class="col col-12"></div>
-                </div>
+            <div class="Car_countentbasic">
+                <div class="Car_countentbasicinfo">基本信息</div>
+                <div class="Car_countentbasicline"></div>
+                <div class="Car_countentbasicclok"></div>
             </div>
             <!--<div class="row row-center titleType">-->
                 <!--<img ng-src="img/car/baseInfo.png" class="titleImg">-->
@@ -116,16 +110,10 @@
                 <div class="col col-center col-60">{{carInfo.projectName}}</div>
             </div>
             <div class="lineType1"></div>
-            <div class="borderLine">
-                <div class="row row-center rowLine">
-                    <div class="col col-18 col-center">
-                        <span>质保信息</span>
-                    </div>
-                    <div class="col col-center col-82"></div>
-                </div>
-                <div class="row row-center">
-                    <div class="col col-12"></div>
-                </div>
+            <div class="Car_countentbasic">
+                <div class="Car_countentbasicinfo">质保信息</div>
+                <div class="Car_countentbasicline"></div>
+                <div class="Car_countentbasicclok"></div>
             </div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
@@ -148,16 +136,10 @@
                 <div class="col col-center col-60">{{carInfo.endDate}}</div>
             </div>
             <div class="lineType1"></div>
-            <div class="borderLine">
-                <div class="row row-center rowLine">
-                    <div class="col col-18 col-center">
-                        <span>客户信息</span>
-                    </div>
-                    <div class="col col-center col-82"></div>
-                </div>
-                <div class="row row-center">
-                    <div class="col col-12"></div>
-                </div>
+            <div class="Car_countentbasic">
+                <div class="Car_countentbasicinfo">客户信息</div>
+                <div class="Car_countentbasicline"></div>
+                <div class="Car_countentbasicclok"></div>
             </div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
@@ -179,16 +161,10 @@
                 </div>
             </div>
             <div class="lineType1"></div>
-            <div class="borderLine">
-                <div class="row row-center rowLine">
-                    <div class="col col-23 col-center">
-                        <span>驾驶员信息</span>
-                    </div>
-                    <div class="col col-center col-77"></div>
-                </div>
-                <div class="row row-center">
-                    <div class="col col-13"></div>
-                </div>
+            <div class="Car_countentbasic1">
+                <div class="Car_countentbasicinfo">驾驶员信息</div>
+                <div class="Car_countentbasicline"></div>
+                <div class="Car_countentbasicclok"></div>
             </div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
@@ -204,16 +180,10 @@
                 <div class="col col-center col-60">{{carInfo.phoneNum}}</div>
             </div>
             <div class="lineType1"></div>
-            <div class="borderLine">
-                <div class="row row-center rowLine">
-                    <div class="col col-18 col-center">
-                        <span>时间信息</span>
-                    </div>
-                    <div class="col col-center col-82"></div>
-                </div>
-                <div class="row row-center">
-                    <div class="col col-12"></div>
-                </div>
+            <div class="Car_countentbasic">
+                <div class="Car_countentbasicinfo">时间信息</div>
+                <div class="Car_countentbasicline"></div>
+                <div class="Car_countentbasicclok"></div>
             </div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
@@ -236,16 +206,10 @@
                 <div class="col col-center col-60">{{carInfo.operationDate}}</div>
             </div>
             <div class="lineType1"></div>
-            <div class="borderLine">
-                <div class="row row-center rowLine">
-                    <div class="col col-19 col-center">
-                        <span>BMU版本</span>
-                    </div>
-                    <div class="col col-center col-81"></div>
-                </div>
-                <div class="row row-center">
-                    <div class="col col-12"></div>
-                </div>
+            <div class="Car_countentbasic">
+                <div class="Car_countentbasicinfo">BMU版本</div>
+                <div class="Car_countentbasicline"></div>
+                <div class="Car_countentbasicclok"></div>
             </div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
@@ -261,16 +225,10 @@
                 <div class="col col-center col-60">{{carInfo.phoneNum}}</div>
             </div>
             <div class="lineType1"></div>
-            <div class="borderLine">
-                <div class="row row-center rowLine">
-                    <div class="col col-18 col-center">
-                        <span>CSC版本</span>
-                    </div>
-                    <div class="col col-center col-82"></div>
-                </div>
-                <div class="row row-center">
-                    <div class="col col-12"></div>
-                </div>
+            <div class="Car_countentbasic">
+                <div class="Car_countentbasicinfo">CSC版本</div>
+                <div class="Car_countentbasicline"></div>
+                <div class="Car_countentbasicclok"></div>
             </div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">

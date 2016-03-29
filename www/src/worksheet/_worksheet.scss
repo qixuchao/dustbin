@@ -4,8 +4,9 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 #worksheetlist-view{
 	background-color: $crm-header-bar-bgcolor;
 	
-	ion-header-bar{ 
+	ion-header-bar{
 		background-color: $crm-header-bar-bgcolor;
+		background-image: linear-gradient(0deg,#3259a4,#3259a4 50%,transparent 50%);
 		transition: left 0.2s ease-out 0s;
 		//border: 1px solid red;
 		left: 0;
@@ -17,11 +18,11 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    padding-right: 1.5rem;
 		    justify-content: center;
 		    font-size: 1.8rem;
-		} 
-		.left-back, .title, {
+		}
+		.left-back, .title{
 			transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
 		}
-		.buttons.right{ 
+		.buttons.right{
 			background-color: #3259A4;
 			width: 2.5rem;
 			overflow: hidden;
@@ -130,7 +131,6 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		@include flex(1);
 		overflow: hidden;
 		&.show-model{
-			//background-color: rgba(0, 0, 0, 0.14);
 			.divs-wrapper-bg{
 				background-color: rgba(2, 2, 2, 0.36);
 			}
@@ -141,80 +141,90 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			top: 0px; bottom: 0px;
 			left: 0px; right: 0px;
 			pointer-events:auto;
-			//background-color: rgba(2, 2, 2, 0.36);
 			@include transition(background-color .4s linear 0s);
 		}
-		&.sort-from-filter{
-			.tab-sort-content{
-				height: 100%;
-			}
+		
+		//为动画而生 : just for animation --- 哈哈哈  
+		.tab-sort-content, .tab-filter-content{
+			@include transition-transform(0.2s linear);
+			@include translate(0px, -100%);
 		}
-		&.sort-from-click{
+        &.sort-from-click{
 			.tab-sort-content{
-				height: 100%;
+				@include translate(0px, 0px);
 			}
-		}
-
-
-        /*&.sort-from-click{
 			.tab-filter-content{
-				transition: none;
-				top: 0px;
-				left: 100%;
+				@include transition-transform(0s linear 0s); 
+				@include translate(100%, 0px);
 			}
         }
         &.sort-from-filter{
+			.tab-sort-content{
+				@include translate(0px, 0px);
+			}
 			.tab-filter-content{
-				top: 0px !important;
-				//@include transition(left .2s linear 0.0s);
-				//transition: left .2s linear 0s !important;
-				left: 100%;
+				@include translate(100%, 0px);
 			}
         }
         &.filter-from-click{
-			
+			.tab-filter-content{
+				@include translate(0px, 0px);
+			}
+			.tab-sort-content{
+				@include transition-transform(0s linear 0s);
+				@include translate(-100%, 0px);
+			}
         }
         &.filter-from-sort{
-			.tab-sort-content-inner{
-				top: 0px;
-				//@include transition(left .2s linear 0.0s);
-				//transition: left .2s linear 0s !important;
-				left: -100%;
+			.tab-sort-content{
+				@include translate(-100%, 0px);
 			}
-        }*/
-		//动画相关
-		.tab-sort-content-inner{
-			@include transition(top .2s linear 0.0s, left .2s linear 0.0s);
-			position: relative;
-			top: -9rem;
-			//left: 0%;
-			//.top-animation{}
-			//.left-animation{}
-			&.active-from-click{
-					//@include transition(top .2s linear 0.0s);
-					top: 0px;
+			.tab-filter-content{
+				@include translate(0px, 0px);
 			}
-			&.active-from-filter{
-					//@include transition(left .2s linear 0.0s);
-					//left: 0px;
-					top: 0px;
+        }
+		
+		&.sort-click-gone{
+			.tab-sort-content{
+				@include translate(0px, -100%);
+			}
+			.tab-filter-content{
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
 			}
 		}
-		.tab-filter-content{
-			@include transition(top .2s linear 0.0s, left .2s linear 0.0s);
-			//left: 0px;
-	    	top: -100%;
-	    	&.active-from-click{
-				//@include transition(top .2s linear 0.0s);
-				top: 0px;
+		&.filter-click-gone{
+			.tab-sort-content{
+				@include translate(0px, -100%);
 			}
-			&.active-from-sort{
-				//@include transition(left .2s linear 0.0s);
-				//left: 0px;
-				top: 0px;
+			.tab-filter-content{
+				@include translate(0px, -100%);
+			}
+		} 
+		
+		&.filter-gone-bymodelclick{
+			.tab-sort-content{
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
+			}
+			.tab-filter-content{
+				@include translate(0px, -100%);
 			}
 		}
+		&.sorte-gone-bymodelclick{
+			.tab-sort-content{
+				@include translate(0px, -100%);
+			}
+			.tab-filter-content{
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
+			}
+		}
+
+		
 	}
+
+	
 
 	$divs-wrapper-z-index: 1;
 	.worksheet-query-result{
@@ -438,19 +448,19 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	}
 
 	
-	.tab-sort-content{		
-		//height: 100%;
-		height: 0px;
-		position: absolute;	    
+	.tab-sort-content{
+		max-height: 95%;	    
 	    width: 100%;
-	    //top: -100%;
-		z-index: $divs-wrapper-z-index;
-		margin-top: 0rem;
+	    display: block;
+	    margin-top: 0rem;
+		position: absolute;
+	    left: 0px;
+	    top: 0px;
+		z-index: $divs-wrapper-z-index;		
 		overflow: hidden;
 		//background-color: rgba(2, 2, 2, 0.36);		
 		.sort-type-item{
-			background-color: white;
-			
+			background-color: white;			
 			height: 2rem;
 		    line-height: 2rem;
 		    padding: 0px 0.8rem;
@@ -475,69 +485,75 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				color: $worksheetlist-selected-color;
 			}
 		}
-		&.sort-model-show{
-			.tab-sort-content{
-				//@include transition(left .2s linear 0.0s);
-			}
-			.tab-filter-content{
-				//left: 100%;
-				//@include transition(left .2s linear 0.0s);
-			}
-		}
-		&.filter-model-show{
-			.tab-sort-content{
-				//left: -100%;
-				//top: 0px;
-				//@include transition(left .2s linear 0.0s);
-			}
-			.tab-filter-content{
-				//@include transition(left .2s linear 0.0s);
-			}
-		}
-		&.sort-model-show.filter-model-show{
-			.tab-sort-content{
-				//left: -100%;
-				//@include transition(left .2s linear 0.0s);
-				.tab-sort-content-inner{
-					@include transition(top 1s linear 1s);
-					background-color: red;
+		/*
+			&.sort-model-show{
+				.tab-sort-content{
+					//@include transition(left .2s linear 0.0s);
+				}
+				.tab-filter-content{
+					//left: 100%;
+					//@include transition(left .2s linear 0.0s);
 				}
 			}
-			.tab-filter-content{
-				@include transition(left .2s linear 0.0s,top 1s linear 1s);
-				background-color: green;
-			}
-		}
-		&.sort-to-filter-ing{
-			.tab-sort-content{
-				.tab-sort-content-inner{
-					
+			&.filter-model-show{
+				.tab-sort-content{
+					//left: -100%;
+					//top: 0px;
+					//@include transition(left .2s linear 0.0s);
+				}
+				.tab-filter-content{
+					//@include transition(left .2s linear 0.0s);
 				}
 			}
-			.tab-filter-content{
-				@include transition(left .2s linear 0.0s,top 0s linear 2s);
-				left: 100%;
-				top: 0px;				
-			}
-		}
-		&.filter-to-sort-ing{
-			.tab-sort-content{
-				.tab-sort-content-inner{
+			&.sort-model-show.filter-model-show{
+				.tab-sort-content{
+					//left: -100%;
+					//@include transition(left .2s linear 0.0s);
+					.tab-sort-content-inner{
+						@include transition(top 1s linear 1s);
+						background-color: red;
+					}
+				}
+				.tab-filter-content{
+					@include transition(left .2s linear 0.0s,top 1s linear 1s);
+					background-color: green;
 				}
 			}
-			.tab-filter-content{
+			&.sort-to-filter-ing{
+				.tab-sort-content{
+					.tab-sort-content-inner{
+						
+					}
+				}
+				.tab-filter-content{
+					@include transition(left .2s linear 0.0s,top 0s linear 2s);
+					left: 100%;
+					top: 0px;				
+				}
 			}
-		}
+			&.filter-to-sort-ing{
+				.tab-sort-content{
+					.tab-sort-content-inner{
+					}
+				}
+				.tab-filter-content{
+				}
+			}
+		*/
 	}
 	
-	.tab-filter-content{		
+	.tab-filter-content{
+		display: block;	
 		position: absolute;	    
+		top: 0px;
+		left: 0px;
 	    width: 100%;
 		z-index: $divs-wrapper-z-index;
 		margin-top: 0rem;
 		background-color: white;
 		border-radius: 0px 0px 10px 10px;	
 		height: 95%;
+		max-height: 95%;
 		overflow: hidden;
 		ion-scroll{
 			height: 100%;
@@ -1125,7 +1141,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             }
             &.has-right-icon{
             	.line-right-icon{
-            		@include flex(1);
+            		//@include flex(1);
+            		width: 2rem;
             	}
             }
         }

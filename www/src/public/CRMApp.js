@@ -20,7 +20,7 @@ var worksheetModule = angular.module('worksheetModule', []); // 工单模块
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'ionic-material',
     'utilsModule',
-    'loginModule',
+    'loginModule', 
     'mainModule',
     'tabsModule',
     'appModule',
@@ -201,7 +201,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/spare/spareDetail.html',
                 controller: 'SpareDetailCtrl'
             })
-            // 工单模块相关
+            // 工单模块相关： start ------------------------
             .state('worksheetlist', {
                 url: '/worksheetlist',
                 templateUrl: 'src/worksheet/worksheet_list.html',
@@ -217,8 +217,42 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/worksheet/detail_siterepair/worksheet_detail_siterepair.html',
                 controller: 'WorksheetDetailSiterepairCtrl'
             })
+            .state('worksheetbaogonglist', {   //报工信息列表界面
+                url: '/worksheetbaogonglist',
+                templateUrl: 'src/worksheet/baogong/baogong_list.html',
+                controller: 'WorksheetBaogongListCtrl'
+            })
+            .state('worksheetdealhistorylist', {   //交易历史列表界面
+                url: '/worksheetdealhistorylist',
+                templateUrl: 'src/worksheet/dealHistoryList/dealHistoryList.html',
+                controller: 'dealHistoryListCtrl'
+            })
+            
+            .state('worksheetCarMileage', {
+                url: '/worksheetCarMileage',
+                templateUrl: 'src/worksheet/carMileage/worksheet_carMileage.html',
+                controller: 'WorksheetCarMileageCtrl'
+            })
+            .state('worksheetFaultInfos', {
+                url: '/worksheetFaultInfos',
+                templateUrl: 'src/worksheet/faultinfos/worksheet_faultInfo.html',
+                controller: 'WorksheetFaultInfoCtrl'
+            })
+            .state('worksheetSparepart', {
+                url: '/worksheetSparepart',
+                templateUrl: 'src/worksheet/sparePart/worksheet_sparePart.html',
+                controller: 'WorksheetSparepartCtrl'
+            })
+            .state('worksheetSelect', {
+                url: '/worksheetSelect',
+                templateUrl: 'src/worksheet/sparePart/worksheet_spareSelect.html',
+                controller: 'WorksheetPareSelectCtrl'
+            })
+            // 工单模块相关： end ------------------------
+            
+        ;
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tabs');
+        $urlRouterProvider.otherwise('/login');
     });
 
 

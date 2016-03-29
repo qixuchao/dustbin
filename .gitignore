@@ -1,3 +1,4 @@
+/www/src/dev
 platforms/
 platforms/*
 .DS_Store
@@ -5,20 +6,16 @@ platforms/*
 .idea/
 .gitignore
 */.gitignore
-src/dev/
-src/dev/*
 plugins/
 plugins/*
-npm-debug.log
 www/npm-debug.log
+www/src/dev/
 www/.sass-cache
 www/.sass-cache/
 www/.sass-cache/*
 
 www/node_modulesOld/
 www/node_modules/
-www/src/public/*.css
-www/src/public/*.map
 node_modules/
 www/src/public/*.css
 www/src/public/*.map

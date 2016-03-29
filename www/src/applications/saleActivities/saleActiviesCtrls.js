@@ -3,12 +3,84 @@
  */
 'use strict';
 salesModule
-    .controller('saleActListCtrl', ['$scope', '$state', 'ionicMaterialInk', 'ionicMaterialMotion', '$timeout', function ($scope, $state, ionicMaterialInk, ionicMaterialMotion, $timeout) {
-        console.log('销售活动列表')
-        ionicMaterialInk.displayEffect();
-        //ionicMaterialMotion.fadeSlideInRight();
-    
-    }])
+    .controller('saleActListCtrl', ['$scope',
+        '$state',
+        '$timeout',
+        '$ionicLoading',
+        'ionicMaterialInk',
+        'ionicMaterialMotion',
+        'saleActService',
+        function ($scope, $state, $timeout, $ionicLoading, ionicMaterialInk, ionicMaterialMotion, saleActService) {
+            console.log('销售活动列表');
+            $timeout(function () {
+                ionicMaterialInk.displayEffect();
+            }, 100)
+            //ionicMaterialMotion.fadeSlideInRight();
+            $scope.searchFlag = false;
+            $scope.input = {search: ''};
+            $scope.saleListArr = saleActService.getSaleListArr();
+            $scope.hisArr = [
+                '福州', '清明', '活动'
+            ]
+            $scope.changeSearch = function () {
+                $scope.searchFlag = !$scope.searchFlag;
+                $('#searchTitle').removeClass('animated');
+                if ($scope.searchFlag) {
+                    $timeout(function () {
+                        //document.getElementById('saleListSearchId').focus();
+                        angular.element('#saleListSearchId').focus();
+                    }, 2000)
+                }
+            };
+            $scope.search = function (x, e) {
+                $scope.g_busy.show('正在搜索');
+                $timeout(function () {
+                    $scope.g_busy.hide();
+                    $scope.input.search = x;
+                }, 800)
+
+                e.stopPropagation();
+            };
+            $scope.initSearch = function () {
+                $scope.input.search = '';
+                $timeout(function () {
+                    document.getElementById('saleListSearchId').focus();
+                }, 1)
+            };
+            $scope.goDetail = function (x, e) {
+                $state.go('saleActDetail')
+                e.stopPropagation();
+            };
+
+            //loading公共方法
+            $scope.g_busy = {
+                show: function (msg) {
+                    $scope.g_busy.hide();
+                    $timeout.cancel($scope.g_busyTimeout);
+                    $scope.g_busyFlag = 'Y';
+                    if (msg) {
+                        $ionicLoading.show({
+                            template: '<ion-spinner icon="lines" class="spinner-balanced"></ion-spinner><p>' + msg + '</p>'
+                        })
+                    } else {
+                        $ionicLoading.show();
+                    }
+
+                    $scope.g_busyTimeout = $timeout(function () {
+                        if ($scope.g_busyFlag == 'Y') {
+                            $scope.g_busyFlag = 'N';
+                            $scope.g_busy.hide();
+                            //$scope.Toast.show('连接超时，请检查网络');
+                        }
+                    }, 60000);
+                },
+                hide: function () {
+                    $ionicLoading.hide();
+                    $timeout.cancel($scope.g_busyTimeout);
+                    $scope.g_busyFlag = 'N';
+                }
+            };
+        }])
     .controller('saleActDetailCtrl', [
         '$scope',
         '$state',
@@ -20,7 +92,7 @@ salesModule
         '$cordovaDialogs',
         'saleActService',
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, $timeout,$cordovaDialogs, saleActService) {
+                  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, saleActService) {
             ionicMaterialInk.displayEffect();
             $scope.statusArr = saleActService.getStatusArr();
             $scope.mySelect = {
@@ -33,7 +105,7 @@ salesModule
                     $scope.isEdit = true;
                     $scope.editText = "保存";
                     $cordovaDialogs.alert('你已进入编辑模式', '提示', '确定')
-                        .then(function() {
+                        .then(function () {
                             // callback success
                         });
                 } else {
@@ -146,4 +218,29 @@ salesModule
                 }, 20)
             }
         }])
+    .filter("highlight", function ($sce, $log) {
+
+        var fn = function (text, search) {
+            $log.info("text: " + text);
+            $log.info("search: " + search);
+
+            if (!search) {
+                return $sce.trustAsHtml(text);
+            }
+            if(text.indexOf(search)==-1){
+                return text;
+            }
+            text = encodeURI(text);
+            search = encodeURI(search);
+            console.log(text.indexOf(search));
+            var regex = new RegExp(search, 'gi');
+            var result = text.replace(regex, '<span style="color: red;">$&</span>');
+            result = decodeURI(result);
+            console.log(result)
+            $log.info("result: " + result);
+            return $sce.trustAsHtml(result);
+        };
+
+        return fn;
+    })
 ;
