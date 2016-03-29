@@ -1,0 +1,56 @@
+ #worksheet-dealhistory-list-view{
+ 	.left-back{
+ 		font-size: 2rem;
+ 		@include display-flex;
+ 		@include align-items(center);
+ 		@include justify-content(center);
+ 		width: 2rem;
+ 	}
+ 	ion-content{
+ 		padding-bottom: 1rem;
+ 	}
+ 	.deal-h-list{
+        .deal-h-item{
+			width: 100%;
+			padding: .6rem .4rem .6rem .6rem;
+			border-bottom: 1px solid rgb(202,202,202);
+        	@include display-flex;
+            .left{
+				width: 1.5rem;
+				@include display-flex;
+				@include align-items(center);
+				span{
+					@include crm-circle-div;
+				}
+            }
+            .center-text{
+				@include flex(1);
+				overflow: hidden;
+				.color-eee{
+					color: rgb(137,137,137);
+				}
+            }
+            .h-info-line{
+            	height: 1.8rem;
+			    line-height: 1.8rem;
+			    font-size: 1rem;
+                &.times-line{
+					font-size: .9rem;
+					font-size: .9rem;
+				    height: 1.5rem;
+				    line-height: 1.5rem;
+				    @include single-line-ellipsis;
+				    span{	    	
+				    	max-width: 100%;
+				    }
+                }
+                &.desc-line{
+					span:nth-child(2){
+						float: right;
+    					font-size: 1.4rem;
+					}
+                }
+            }
+        }
+    }
+ }

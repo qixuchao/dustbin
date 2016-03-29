@@ -8,10 +8,14 @@
     }
   }
   ion-content{
-    background-color: $crm-content-bgcolor;
+    //background-color: $crm-content-bgcolor;
     @include display-flex;
     @include flex-direction(column);
 
+  }
+  .contentAll{
+    position: relative;
+    top: 4em;
   }
   .itemContent{
     background-color: white;
@@ -20,6 +24,8 @@
     padding: 6px 10px 4px 10px;
     height: 46px;
     line-height: 30px;
+    font-size: 1.0rem;
+    border-bottom: 1px solid #D6D3CE;
   }
 
   .itemContentT{
@@ -29,6 +35,8 @@
     padding: 6px 10px 4px 10px;
     height: 80px;
     line-height: 30px;
+    font-size: 1.0rem;
+    border-bottom: 1px solid #D6D3CE;
   }
   .labelInput{
     padding: 0 0 0 0;
@@ -37,6 +45,8 @@
     width: 100%;
     height: 60px;
   }
+
+
 
   .selectC {
     /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
@@ -65,36 +75,36 @@
     overflow:hidden;}
 
 
-  .borderLine{
-    background-color: white;
-    padding-bottom: 10px;
-    -webkit-user-drag: none;
+
+  .Car_countentbasic{
     position: relative;
-    width: 100%;
-    .row{
-      padding: 0;
+    font-size:15px;
+    color:#406FB3;
+    top:1.0em;
+    font-weight: 600;
+    .Car_countentbasicinfo{
+      position: absolute;
+      top:0px;
+      left: 20px;
     }
-    .rowLine{
-      padding:0;
-      position: relative;
-      left: 4%;
+    .Car_countentbasicline{
+      position: absolute;
+      top:10px;
+      left: 85px;
+      width: 100%;
+      height:1px;
+      background-color: #406FB3;
     }
-    .col-18{
-      span{
-        position: relative;
-        color: #2B60AB;
-        font-size: 14px;
-        font-weight: 600;
-      }
-    }
-    .col-82{
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-    }
-    .col-15{
-      margin-top: 0.3em;
-      height: 1.2em;
-      border-bottom: 1px solid rgba(43, 96, 171, 0.90);
-      border-right: 1px solid rgba(43, 96, 171, 0.90);
+    .Car_countentbasicclok{
+      position: absolute;
+      top:15px;
+      margin-top: 2px;
+      left:0px;
+      width:55px;
+      height:15px;
+      border: 1px solid #406FB3;
+      border-top: none;
+      border-left: none;
     }
   }
 }
