@@ -207,6 +207,27 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/worksheet/detail_siterepair/worksheet_detail_siterepair.html',
                 controller: 'WorksheetDetailSiterepairCtrl'
             })
+
+            .state('worksheetCarMileage', {
+                url: '/worksheetCarMileage',
+                templateUrl: 'src/worksheet/carMileage/worksheet_carMileage.html',
+                controller: 'WorksheetCarMileageCtrl'
+            })
+            .state('worksheetFaultInfos', {
+                url: '/worksheetFaultInfos',
+                templateUrl: 'src/worksheet/faultinfos/worksheet_faultInfo.html',
+                controller: 'WorksheetFaultInfoCtrl'
+            })
+            .state('worksheetSparepart', {
+                url: '/worksheetSparepart',
+                templateUrl: 'src/worksheet/sparePart/worksheet_sparePart.html',
+                controller: 'WorksheetSparepartCtrl'
+            })
+            .state('worksheetSelect', {
+                url: '/worksheetSelect',
+                templateUrl: 'src/worksheet/sparePart/worksheet_spareSelect.html',
+                controller: 'WorksheetPareSelectCtrl'
+            })
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/tabs');
     });
