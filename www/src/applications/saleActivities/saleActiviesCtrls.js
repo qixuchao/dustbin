@@ -10,49 +10,51 @@ salesModule
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'saleActService',
-        function ($scope, $state, $timeout,$ionicLoading, ionicMaterialInk, ionicMaterialMotion, saleActService) {
+        function ($scope, $state, $timeout, $ionicLoading, ionicMaterialInk, ionicMaterialMotion, saleActService) {
             console.log('销售活动列表');
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
             }, 100)
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
-            $scope.input={search : ''};
+            $scope.input = {search: ''};
             $scope.saleListArr = saleActService.getSaleListArr();
             $scope.hisArr = [
-                '福州','清明','活动'
+                '福州', '清明', '活动'
             ]
             $scope.changeSearch = function () {
                 $scope.searchFlag = !$scope.searchFlag;
-                if($scope.searchFlag){
+                $('#searchTitle').removeClass('animated');
+                if ($scope.searchFlag) {
                     $timeout(function () {
-                        document.getElementById('saleListSearchId').focus();
-                    },300)
+                        //document.getElementById('saleListSearchId').focus();
+                        angular.element('#saleListSearchId').focus();
+                    }, 2000)
                 }
             };
-            $scope.search = function (x,e) {
+            $scope.search = function (x, e) {
                 $scope.g_busy.show('正在搜索');
                 $timeout(function () {
                     $scope.g_busy.hide();
                     $scope.input.search = x;
-                },800)
+                }, 800)
 
                 e.stopPropagation();
             };
             $scope.initSearch = function () {
-                $scope.input.search='';
+                $scope.input.search = '';
                 $timeout(function () {
                     document.getElementById('saleListSearchId').focus();
-                },1)
+                }, 1)
             };
-            $scope.goDetail = function (x,e) {
+            $scope.goDetail = function (x, e) {
                 $state.go('saleActDetail')
                 e.stopPropagation();
             };
 
             //loading公共方法
             $scope.g_busy = {
-                show: function(msg) {
+                show: function (msg) {
                     $scope.g_busy.hide();
                     $timeout.cancel($scope.g_busyTimeout);
                     $scope.g_busyFlag = 'Y';
@@ -64,7 +66,7 @@ salesModule
                         $ionicLoading.show();
                     }
 
-                    $scope.g_busyTimeout = $timeout(function() {
+                    $scope.g_busyTimeout = $timeout(function () {
                         if ($scope.g_busyFlag == 'Y') {
                             $scope.g_busyFlag = 'N';
                             $scope.g_busy.hide();
@@ -72,7 +74,7 @@ salesModule
                         }
                     }, 60000);
                 },
-                hide: function() {
+                hide: function () {
                     $ionicLoading.hide();
                     $timeout.cancel($scope.g_busyTimeout);
                     $scope.g_busyFlag = 'N';
@@ -225,11 +227,16 @@ salesModule
             if (!search) {
                 return $sce.trustAsHtml(text);
             }
+            if(text.indexOf(search)==-1){
+                return text;
+            }
             text = encodeURI(text);
             search = encodeURI(search);
-            var regex = new RegExp(search, 'gi')
+            console.log(text.indexOf(search));
+            var regex = new RegExp(search, 'gi');
             var result = text.replace(regex, '<span style="color: red;">$&</span>');
             result = decodeURI(result);
+            console.log(result)
             $log.info("result: " + result);
             return $sce.trustAsHtml(result);
         };

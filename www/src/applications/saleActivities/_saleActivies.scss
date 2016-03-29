@@ -14,25 +14,25 @@
       border-radius: 4px;
       margin-left: 2px;
       .ion-ios-search{
-        float: left;
+        //float: left;
         font-size: 18px;
         position: relative;
         left: 2px;
-        top: 2px;
-        margin-right: 2px;
+        top: -2px;
+        margin-right: 5px;
+        color: #9A9AA0;
       }
       input{
-        height:20px;
+        height:22px;
+        min-height:22px;
         width: 90%;
         background: none;
         border: none;
       }
       .ion-ios-close{
         position: relative;
-        float: right;
         color: #C7C5C5;
         font-size: 15px;
-        top: -18px;
         width: 20px;
       }
     }
