@@ -229,7 +229,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 controller: 'WorksheetPareSelectCtrl'
             })
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tabs');
+        $urlRouterProvider.otherwise('/login');
     });
 
 
