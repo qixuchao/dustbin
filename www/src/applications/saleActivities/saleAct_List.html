@@ -1,41 +1,66 @@
-<ion-view>
-    <button ng-click="goBack()">返回</button>
-    <ion-content class="has-header">
-        <div class="content">
-            <div class="list">
-                <a ui-sref="saleActDetail" href="" class="item item-avatar item-icon-right">
-                    <img src="img/tabs/contacts-on.png">
-                    <h2>Jon Snow</h2>
-                    <p>Da illest illegitimate</p>
-                </a>
-                <a ui-sref="saleActDetail" href="" class="item item-avatar item-icon-right">
-                    <img src="img/tabs/contacts-on.png">
-                    <h2>Jon Snow</h2>
-                    <p>Da illest illegitimate</p>
-                </a>
-                <a ui-sref="saleActDetail" href="" class="item item-avatar item-icon-right">
-                    <img src="img/tabs/contacts-on.png">
-                    <h2>Jon Snow</h2>
-                    <p>Da illest illegitimate</p>
-                </a>
-                <a ui-sref="saleActDetail" href="" class="item item-avatar item-icon-right">
-                    <img src="img/tabs/contacts-on.png">
-                    <h2>Jon Snow</h2>
-                    <p>Da illest illegitimate</p>
-                </a>
-                <a ui-sref="saleActDetail" href="" class="item item-avatar item-icon-right">
-                    <img src="img/tabs/contacts-on.png">
-                    <h2>Jon Snow</h2>
-                    <p>Da illest illegitimate</p>
-                </a>
-                <a ui-sref="saleActDetail" href="" class="item item-avatar item-icon-right">
-                    <img src="img/tabs/contacts-on.png">
-                    <h2>Jon Snow</h2>
-                    <p>Da illest illegitimate</p>
-                </a>
-            </a>
+<ion-view class="saleList">
+    <!--<div class="bar header"><button ng-click="goBack()">返回</button></div>-->
+    <ion-header-bar align-title="center" class="head">
+        <div class="row row-center" ng-if="!searchFlag">
+            <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+            <div class="col col-70 text-center">销售活动列表</div>
+            <div class="col col-15 text-center" ng-click="changeSearch()"><i class="ion-search"></i></div>
+        </div>
+        <div class="row row-center " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag">
+            <div class="col col-80">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input id="saleListSearchId" type="text" ng-model="input.search" placeholder="请输入活动关键字">
+                <i class="ion-ios-close" ng-if="input.search" ng-click="initSearch()"></i>
+            </div>
+            <div class="col col-20 text-center cancel" ng-click="changeSearch()">取消</div>
+        </div>
+    </ion-header-bar>
 
+    <ion-content class="has-header content" ng-show="!searchFlag">
+        <div class="list">
+            <a ui-sref="saleActDetail" class="item animated flipInX" ng-repeat="x in saleListArr">
+                <div class="row row-center">
+                    <img class="title_oval" src="img/saleDetail/title_oval.png">
+                    <div class="title" ng-bind-html="x.title"></div>
+                    <div class="col text-right"><img class="shape" src="img/saleDetail/Shape.png"></div>
+                </div>
+                <div class="row row-center sub-title">
+                    <div class="startText">开始日期:&nbsp;&nbsp;</div>
+                    <div class="startDate">{{x.startTime}}</div>
+                    <div class="type">类型:&nbsp;&nbsp;</div>
+                    <div class="typeValue">{{x.type}}</div>
+                    <div class="col status" ng-class="{'waitStatus':x.status=='未处理'}">{{x.status}}</div>
+                </div>
+            </a>
+        </div>
+    </ion-content>
+    <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag" ng-click="changeSearch($event)">
+        <div class="row row-center his-title">
+            <i class="ion-android-time"></i>
+            <div class="hisText">历史记录</div>
+            <div class="horizon-line"></div>
+        </div>
+        <ion-list ng-if="!input.search">
+            <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x}}</ion-item>
+        </ion-list>
+        <div class="content">
+            <div class="list" ng-if="input.search">
+                <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr | filter:input.search">
+                    <div class="row row-center">
+                        <img class="title_oval" src="img/saleDetail/title_oval.png">
+                        <div class="title" ng-bind-html="x.title | highlight:input.search"></div>
+                        <div class="col text-right"><img class="shape" src="img/saleDetail/Shape.png"></div>
+                    </div>
+                    <div class="row row-center sub-title">
+                        <div class="startText">开始日期:&nbsp;&nbsp;</div>
+                        <div class="startDate">{{x.startTime}}</div>
+                        <div class="type">类型:&nbsp;&nbsp;</div>
+                        <div class="typeValue" ng-bind-html="x.type | highlight:input.search"></div>
+                        <div class="col status" ng-class="{'waitStatus':x.status=='未处理'}">{{x.status}}</div>
+                    </div>
+                </a>
             </div>
         </div>
+
     </ion-content>
 </ion-view>
