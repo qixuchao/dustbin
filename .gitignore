@@ -3,6 +3,8 @@ platforms/*
 .DS_Store
 */.DS_Store
 .idea/
+.gitignore
+*/.gitignore
 src/dev/
 src/dev/*
 plugins/
