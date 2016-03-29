@@ -217,10 +217,32 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/worksheet/dealHistoryList/dealHistoryList.html',
                 controller: 'dealHistoryListCtrl'
             })
+            
+            .state('worksheetCarMileage', {
+                url: '/worksheetCarMileage',
+                templateUrl: 'src/worksheet/carMileage/worksheet_carMileage.html',
+                controller: 'WorksheetCarMileageCtrl'
+            })
+            .state('worksheetFaultInfos', {
+                url: '/worksheetFaultInfos',
+                templateUrl: 'src/worksheet/faultinfos/worksheet_faultInfo.html',
+                controller: 'WorksheetFaultInfoCtrl'
+            })
+            .state('worksheetSparepart', {
+                url: '/worksheetSparepart',
+                templateUrl: 'src/worksheet/sparePart/worksheet_sparePart.html',
+                controller: 'WorksheetSparepartCtrl'
+            })
+            .state('worksheetSelect', {
+                url: '/worksheetSelect',
+                templateUrl: 'src/worksheet/sparePart/worksheet_spareSelect.html',
+                controller: 'WorksheetPareSelectCtrl'
+            })
             // 工单模块相关： end ------------------------
-
+            
+        ;
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tabs');
+        $urlRouterProvider.otherwise('/login');
     });
 
 

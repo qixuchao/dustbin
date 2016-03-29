@@ -1,0 +1,31 @@
+<ion-view  id="worksheet-dealhistory-list-view"  align-title="center">
+    <ion-header-bar align-title="center" class="bar-positive">
+		<div class="left-back" ng-click="$ionicGoBack();">
+			<i class="ion-ios-arrow-back"></i>
+		</div>
+		<div class="title">交易历史列表</div>
+	</ion-header-bar>
+    <ion-content on-refresh="" has-bouncing="false">
+
+            <div class="deal-h-list">
+                <div class="deal-h-item" ng-repeat="item in datas.testDates" >
+                    <div class="left"><span></span></div>
+                    <div class="center-text">
+                        <div class="h-info-line">
+                            工单类型: <span class="color-eee" ng-bind="item.category"></span>
+                        </div>
+                        <div class="h-info-line times-line color-eee">
+                            <span ng-bind-html="(item.timeStart) + ' - ' + (item.timeEnd)"></span>
+                        </div>
+                        <div class="h-info-line desc-line">
+                            单据描述: 
+                            <span class="color-eee" ng-bind="item.desc"></span> 
+                            <span><i class="color-eee ion-android-arrow-forward"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </ion-content>
+
+</ion-view>
