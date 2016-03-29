@@ -157,14 +157,35 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
         };
         $scope.reset=function(){
             $('.btType').removeClass('selected');
-            $('.btType').addClass('colorClass');
             $('.btType1').removeClass('selected');
-        }
+        };
+        var i=0;
+        $scope.loadMore=function(){
+            var carInfo1={
+                listType:'现场维修工单'+i,
+                maintenanceDate:'2016.01.01 10:00:01-2016.12.31 12:00:00',
+                maintenanceDescribe:'车辆电池出现重大问题1'
+            };
+            i+=1;
+            $scope.carInfo.push(carInfo1);
 
+        };
 }])
 
 .controller('SpareCtrl',['$scope','CarService',function($scope,CarService){
-     $scope.spareList=CarService.getData().spare;
+        $scope.spareList=CarService.getData().spare;
+        var i=0;
+        $scope.loadMore=function(){
+            var spareInfo1={
+                spareName:'高压箱-BD3'+i,
+                spareNum:'17240-0026',
+                count:'7',
+                qualityTime:'CATL两年质保',
+                qualityDate:'2016.01.01-2018.01.01'
+            };
+            i+=1;
+            $scope.spareList.push(spareInfo1);
+        };
 }])
 .controller('SearchCtrl',['$scope',function(){
 

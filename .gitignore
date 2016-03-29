@@ -3,15 +3,20 @@ platforms/*
 .DS_Store
 */.DS_Store
 .idea/
+plugins/
+plugins/*
 npm-debug.log
 www/npm-debug.log
-www/src/dev/
 www/.sass-cache
 www/.sass-cache/
 www/.sass-cache/*
 
+www/src/dev/*
+
 www/node_modulesOld/
 www/node_modules/
+www/src/public/*.css
+www/src/public/*.map
 node_modules/
 www/src/public/*.css
 www/src/public/*.map

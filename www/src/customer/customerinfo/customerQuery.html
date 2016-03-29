@@ -1,0 +1,40 @@
+<ion-view class="customer_Query">
+    <ion-header-bar style="height:110px;padding: 0">
+        <div class="employeecustomer_head">
+            <div class="employeecustomer_headtitle">
+                <i class="icon ion-ios-arrow-back employeecustomer_headtitlei" ng-click="goBack()"></i>
+                <span class="employeecustomer_headtitlespan">客户</span>
+                <span class="customer_Query_headspan" ng-click="customerPopover()">筛选</span>
+            </div>
+            <form ng-submit="employeecustomerQuery()">
+                <div class="employeecustomer_headquery">
+                    <input class="employeecustomer_headqueryinput" placeholder="请输入客户关键字" type="text"/>
+                    <i class="ion-ios-search employeecustomer_headqueryimg"></i>
+                </div>
+            </form>
+        </div>
+    </ion-header-bar>
+    <ion-content style="margin-top:66px">
+        <div class="row customer_Querylisthead">
+            <div class="col col-8" style="text-align: center;padding: 5px 0 0 0">
+                <img class="customer_Querylistheadimg" src="img/customer/customeree@2x.png" alt=""/>
+            </div>
+            <div class="" style="text-align: left;padding:5px 0">
+                <span>{{customerqueryTypeunit}}</span>
+                <!--<span class="customer_Querylistheadline"></span>-->
+            </div>
+            <div class="col col-65" style="padding-left:0px">
+                <div class="customer_Querylistheadline"></div>
+            </div>
+        </div>
+        <div ng-repeat="x in customerQuery_list" ng-click="customergodeatil(x)">
+            <div class="item customer_Querylists">
+                <span>{{x.customername}}</span>
+                <img class="customer_Querylistsimg" src="img/employee/Shape@2x.png"></img>
+            </div>
+            <div class="employee_query_listline"></div>
+        </div>
+    </ion-content>
+</ion-view>
+
+

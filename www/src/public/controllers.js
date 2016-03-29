@@ -3,8 +3,14 @@
 
 angular.module('ATLApp.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout, $rootScope, $state) {
-    // Form data for the login modal
+.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+
+        //返回回退
+        $scope.goBack = function() {
+            $ionicHistory.goBack();
+        }
+
+        // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
     $scope.hasHeaderFabLeft = false;
