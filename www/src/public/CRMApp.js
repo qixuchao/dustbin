@@ -133,7 +133,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/contacts/relationship/Relationship.html',
                 controller: 'contactRelationshipCtrl'
             })
-
+            
             //客户
             .state('customerQuery', {
                 url: '/customerQuery',
@@ -227,7 +227,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 controller: 'dealHistoryListCtrl'
             })
             
-            .state('worksheetCarMileage', {
+            .state('worksheetCarMileage',{
                 url: '/worksheetCarMileage',
                 templateUrl: 'src/worksheet/carMileage/worksheet_carMileage.html',
                 controller: 'WorksheetCarMileageCtrl'

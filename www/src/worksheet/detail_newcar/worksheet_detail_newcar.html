@@ -5,19 +5,19 @@
                 <div class="left" ng-click="$ionicGoBack();"> <i class="ion-ios-arrow-back"></i> </div>
                 <div class="center">
                     <span class="title">工单详细信息</span>
-                    <span class="sub-title animated fadeOut" ng-bind="datas.header.title"></span> 
+                    <span class="sub-title animated" ng-bind="datas.header.title"></span>
                 </div>
                 <div class="right show-more-modal-content-source" ng-click="showMoreModel($event);"><span><i class="ion-ios-more"></i></span></div>
             </div>
             <div class="detail-header-info">
-                <div class="detail-header-line header-title animated fadeIn">
+                <div class="detail-header-line header-title fadeIn">
                     <span></span><span class="line-title" ng-bind="datas.header.title"></span> 
                 </div>
-                <div class="detail-header-line  animated fadeIn">
+                <div class="detail-header-line  adeIn">
                     <span class="line-title"><i class="ion-ios-copy-outline"></i></span>
                     <span class="line-value" ng-bind="datas.header.company"></span>
                 </div>
-                <div class="detail-header-line customer-status  animated fadeIn">
+                <div class="detail-header-line customer-status fadeIn">
                     <div class="left">
                         <span class="line-title"><i class="ion-ios-person-outline"></i></span>
                         <span class="line-value" ng-bind="datas.header.customer"></span>
@@ -30,7 +30,7 @@
             </div>
         </div>
         
-        <ion-scroll class="worksheetdetail-content-newcar" delegate-handle="xbrDelegateScroll" scrollbar-y="false" has-bouncing="false" ng-init="freezeBottomScroll(true, 100);">
+        <ion-scroll class="worksheetdetail-content-public worksheetdetail-content-newcar" delegate-handle="xbrDelegateScroll" scrollbar-y="false" has-bouncing="false" ng-init="freezeBottomScroll(true, 100);">
             <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
                 <div class="fill-height line-inner">
                     <div class="relation-box left-1">
@@ -105,11 +105,11 @@
                     <div class="col-60" ng-bind="datas.basicInfo.timeOnlineStart"></div>
                 </div>
             </div>
-
+            
             <div class="button button-crm-edit button-crm-edit-public">
                 编辑
             </div>
-
+            
             <!--div ng-repeat="item in datas.temp" style="height:4rem;width:100%;">
                 <div ng-bind="item.title" style="font-size:1rem;height:2rem;"></div>
                 <div ng-bind="item.content" style="font-size:1rem;height:2rem;padding-left:4rem;"></div>

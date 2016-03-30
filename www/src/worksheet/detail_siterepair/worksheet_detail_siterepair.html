@@ -30,24 +30,23 @@
             </div>
         </div>
         
-        <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
-            <div class="fill-height line-inner">
-                <div class="relation-box left-1">
-                    <i class="ion-ios-more"></i>                             
-                    <span>相关方</span>
-                </div>
-                <div class="history-box left-2">
-                    <i class="ion-ios-more"></i>                               
-                    <span>交易历史</span>
-                </div>
-                <div class="info-box left-3">
-                    <i class="ion-ios-more"></i>
-                    <span>报工信息</span>
-                </div>
-            </div>
-        </ion-scroll>
-
         <ion-scroll class="worksheetdetail-content-siterepair" delegate-handle="xbrDelegateScroll" scrollbar-y="false" has-bouncing="false" ng-init="freezeBottomScroll(true, 100);">
+            <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
+                <div class="fill-height line-inner">
+                    <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
+                        <i class="ion-ios-more"></i>                             
+                        <span>相关方</span>
+                    </div>
+                    <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
+                        <i class="ion-ios-more"></i>                               
+                        <span>交易历史</span>
+                    </div>
+                    <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
+                        <i class="ion-ios-more"></i>
+                        <span>报工信息</span>
+                    </div>
+                </div>
+            </ion-scroll>
             <div class="basic-info first-line commment-info-lines">
                 <div class="crm-line-title">
                     <div class="title-top">

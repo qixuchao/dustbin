@@ -67,7 +67,7 @@ $button-crm-edit-text:                 white;
 .button.button-crm-edit {
   @include button-style($button-crm-edit-bg, $button-crm-edit-border, $button-crm-edit-active-bg, $button-crm-edit-active-border, $button-crm-edit-text);
   @include button-clear($button-crm-edit-border);
-  @include button-outline($button-crm-edit-border);
+  @include button-outline($button-crm-edit-border); 
 }
 
 

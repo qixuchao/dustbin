@@ -7,10 +7,9 @@ worksheetModule.controller("WorksheetDetailSiterepairCtrl",[
 	"$ionicPosition",
 	"$ionicGesture",
 	"$ionicModal",
-	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout, $ionicBackdrop, $ionicPosition, $ionicGesture, $ionicModal){
+	"$state",
+	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout, $ionicBackdrop, $ionicPosition, $ionicGesture, $ionicModal, $state){
 	
-	
-
 	$scope.config = {
 		scrollDelegateHandler: null,
 		contentDetegateHandler: null,
@@ -89,21 +88,71 @@ worksheetModule.controller("WorksheetDetailSiterepairCtrl",[
 		]
 	};
 
+	$scope.$on('$destroy', function() {
+		if($scope.config.moreModal != null){			
+			$scope.config.moreModal.remove();
+			$scope.config.moreModal = null;
+		}
+	});
+
+	$scope.goState = function(stateName){
+		$timeout(function (){
+			$state.go(stateName);
+		}, 100);		
+	};
+	$scope.dibButtonClickHandler = function(type){
+		switch(type){
+			case 'xiangGuanFang':
+				$scope.goState('');
+				break;
+			case 'jiaoYiLiShi':
+				$scope.goState('worksheetdealhistorylist');
+				break;
+			case 'baoGongXinXi':
+				$scope.goState('worksheetbaogonglist');
+				break;
+		}
+	};
+	$scope.moreModalClickHandler = function(type){
+		$scope.config.moreModal.hide();		
+		if(type == 'paigong'){ 
+
+		}else if(type == 'judan'){
+
+		}else if(type == 'jiedan'){
+
+		}else if(type == 'beijianshengqing'){
+			$scope.goState("worksheetSparepart");
+		}else if(type == 'chelianglicheng'){
+			$scope.goState("worksheetCarMileage");
+		}else if(type == 'guzhangxinxi'){
+			$scope.goState("worksheetFaultInfos");
+		}else if(type == 'fuwupaizhao'){
+			//$scope.goState("worksheetFaultInfos");
+		}else if(type == 'baogong'){
+			$scope.goState("worksheetbaogonglist");
+		}else if(type == 'wangong'){
+
+		}else if(type == 'yiquxiao'){
+
+		}
+	};
+
 	$scope.showMoreModel = function($event){
 	    if($scope.config.moreModal == null){
 	    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content'>"+
                 "<div><div class='top-line'></div></div>"+
                 "<div class='content-lines'>"+
-                    "<div class='content-line'>派工</div>"+
-                    "<div class='content-line'>拒单</div>"+
-                    "<div class='content-line'>接单</div>"+
-                    "<div class='content-line'>备件申请</div>"+
-                    "<div class='content-line'>车辆里程</div>"+
-                    "<div class='content-line'>故障信息</div>"+
-                    "<div class='content-line'>服务拍照</div>"+
-                    "<div class='content-line'>报工</div>"+
-                    "<div class='content-line'>完工</div>"+
-                    "<div class='content-line'>已取消</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"paigong\");'>派工</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"judan\");'>拒单</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"jiedan\");'>接单</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"beijianshengqing\");'>备件申请</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"chelianglicheng\");'>车辆里程</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"guzhangxinxi\");'>故障信息</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"fuwupaizhao\");'>服务拍照</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"baogong\");'>报工</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"wangong\");'>完工</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"yiquxiao\");'>已取消</div>"+
                 "</div>"+
             "</div>", {
                 scope: $scope
@@ -424,7 +473,6 @@ worksheetModule.controller("WorksheetDetailSiterepairCtrl",[
 						continue;
 					}
 				}
-				
 			}
 			if(directionDownLast){
 				if(headerBarInfoTop <= eleHeaderInfo.offsetHeight/2){

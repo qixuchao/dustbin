@@ -71,6 +71,13 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 		]
 	};
 
+	$scope.$on('$destroy', function() {
+		if($scope.config.moreModal != null){
+			$scope.config.moreModal.remove();
+		}
+	});
+
+
 	$scope.showMoreModel = function($event){
 	    if($scope.config.moreModal == null){
 	    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content'>"+
@@ -92,7 +99,6 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 	    $scope.initMoreModal();
 	};
 	$scope.initMoreModal = function(){
-
 			var eleJQ = angular.element('.show-more-modal-content-source');
 			var elePos = $ionicPosition.position(eleJQ) || $ionicPosition.offset(eleJQ);		
 			var left = elePos.left + elePos.width/2;
@@ -101,7 +107,6 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			var modalJQ = angular.element('.show-more-modal-content');
 			var modalPos = $ionicPosition.position(modalJQ) || $ionicPosition.offset(modalJQ);
 			var modal = modalJQ[0];
-			
 
 			var arrowJQ = modalJQ.find('.top-line');
 			var arrowPos = $ionicPosition.position(arrowJQ);// || $ionicPosition.offset(modalJQ);
@@ -117,10 +122,7 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			modal.style.zIndex = 12; // 12  -2
 
 		//$ionicBackdrop.retain();
-
 		//var backdropJQ = angular.element('.backdrop.visible.active');
-
-
 	};
 
 	$scope.onContentScroll = function($event){
@@ -218,7 +220,7 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			viewEle.addEventListener("MSPointerMove", __touchMove, false);
 			viewEle.addEventListener("MSPointerUp", __touchEnd, false);
 			viewEle.addEventListener("MSPointerCancel", __touchEnd, false);
-		}else{ 
+		}else{
 			// Mouse Events
 			viewEle.addEventListener("mousedown", __touchStart, false);
 			viewEle.addEventListener("mousemove", __touchMove, false);
@@ -231,7 +233,7 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 		var eleHeaderBar = viewEle.getElementsByClassName("detail-header")[0];
 		var eleHeaderInfo = viewEle.getElementsByClassName('detail-header-info')[0];
 		var eleHeaderSubTitle = viewEle.getElementsByClassName("sub-title")[0];
-			eleHeaderSubTitle.style.display = "block";
+			//eleHeaderSubTitle.style.display = "block";
 		var eleNotValidY = viewEle.getElementsByClassName("history-info-relation-line")[0];
 
 		if($scope.config.headerInfoInitHeight == null){
@@ -269,9 +271,11 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			}
 		}
 		function __touchMove(event){
+			//如果 touch 事件起始点为禁止上下滚动，则直接return;
 			if(!touchStartPointValid){ return; }
 			var e = __getSingleEventTouches(event);
 			if(e == null ){ return; }
+			//判断下方的scroll是否可以滚动
 			if($scope.config.scrollDelegateHandler.getScrollPosition().top<5){
 				$scope.config.headerScrollCan = true;
 				//posTouchStart = e;
@@ -281,8 +285,6 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 				return;
 			}
 			
-			//console.log(e.x+"    "+e.y);
-
 			var directionDown = null,directionDownLast = null;  //手指滑动的方向
 			//判断 directionDown 相关代码 
 			posLastMove = posCurrentMove;
@@ -290,10 +292,10 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			posLastMove = posLastMove || posTouchStart || e;
 			offsetY = posCurrentMove.y - posTouchStart.y;
 			var offsetYlast = posCurrentMove.y - posLastMove.y;
-			var offsetYlastForTop = offsetYlast * ($scope.config.headerBarInitHeight / $scope.config.headerInfoInitHeight); //每次偏移量 != top与height改变量 ： 要把headerbar中的最上方title行考虑进行
+			var offsetYlastForTop = offsetYlast;// * ($scope.config.headerBarInitHeight / $scope.config.headerInfoInitHeight); //每次偏移量 != top与height改变量 ： 要把headerbar中的最上方title行考虑进行
 			directionDown = offsetY > 0 ? true : false;
 			directionDownLast = offsetYlast > 0 ? true : false;
-
+			// 依据滚动方向来判断是否需要禁用下方的scroll
 			if(directionDown){
 				if($scope.config.headerScrollStart){
 					$scope.freezeBottomScroll(false, 0);
@@ -309,7 +311,8 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 					$scope.freezeBottomScroll(true, 0);
 				}
 			}
-			//console.log(eleHeaderBar.offsetHeight + "     " + offsetYlast);
+
+
 			var headerBarHeight, headerBarBgImageWidth, headerBarBgImageHeight,headerBarInfoTop; //headerBarInfoHeight
 			//计算 headerBarHeight、headerBarInfoHeight 高度及 headerBarInfo的top偏移量: 单位全部为 px
 			if(directionDown){
@@ -330,12 +333,12 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 				headerBarHeight = eleHeaderBar.offsetHeight + offsetYlast;
 				//headerBarInfoTop =  headerBarInfoTopLast+offsetYlastForTop;
 				if(headerBarInfoTopLast+offsetYlastForTop > 0){
-					headerBarInfoTop = headerBarInfoTopLast+offsetYlastForTop/3;
+					headerBarInfoTop = headerBarInfoTopLast;//+offsetYlastForTop/3;
 				}else{
 					headerBarInfoTop = headerBarInfoTopLast+offsetYlastForTop;
 				}
 			}
-
+			// 
 			headerBarHeight = Math.min(headerBarHeight, $scope.config.headerBarInitHeight+90); //最多可多往下拉50px，会在__touchEnd中恢复过来的
 			//headerBarHeight = Math.max(headerBarHeight, $scope.config.headerBarTitleInitHeight);
 			if(headerBarHeight <= $scope.config.headerBarTitleInitHeight){ // headerbar 缩小为最小状态时，将scroll设置为可以滚动
@@ -374,74 +377,76 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			headerBarBgImageWidth = Math.max(headerBarBgImageWidth, eleHeaderBar.offsetWidth);
 
 			var headerBarInfoTopOld = headerBarInfoTop;
-			if(headerBarInfoTop > 0){ // 往下多拉的情况 
+			if(headerBarInfoTop > 0){ // 往下多拉的情况
 				//headerBarInfoTop = headerBarInfoTop - Math.abs((headerBarHeight - $scope.config.headerBarInitHeight)*3/4);
 				//headerBarHeight =  headerBarHeight - Math.abs((headerBarHeight - $scope.config.headerBarInitHeight)/2);;
 			}
 			//console.log(headerBarInfoTopOld+"     "+headerBarInfoTop);
 
 			
-			//判断并设置子项的透明动画
+			//判断并设置子项的透明动画 fadeIn fadeOut
 			var barInfoChilds = eleHeaderInfo.children;
-			var childsTop = barInfoChilds[0].offsetHeight/2;
-			if(!directionDown){
-				//for(var i = barInfoChilds.length-1; i >= 0; i--,childsTop = barInfoChilds[0].offsetHeight/2){
-				for(var i = 0; i < barInfoChilds.length; i++){
-					if(-headerBarInfoTop >= childsTop){
-						childsTop += barInfoChilds[i].offsetHeight;
-						var eleChildJQ = angular.element(barInfoChilds[i]);
-						if(angular.element(barInfoChilds[i]).hasClass("fadeIn")){
-							angular.element(barInfoChilds[i]).removeClass("fadeIn");
-						}
-						if(!angular.element(barInfoChilds[i]).hasClass("fadeOut")){
-							angular.element(barInfoChilds[i]).addClass("fadeOut");
-						}
-						continue;
-					}
-				}				
-			}else{
-				var childsTop2 = $scope.config.headerInfoInitHeight - barInfoChilds[0].offsetHeight/2;
-				for(var i = barInfoChilds.length-1; i >= 0; i--){
-					if(-headerBarInfoTop < childsTop2){
-						childsTop2 -= barInfoChilds[0].offsetHeight;
-						var eleChildJQ = angular.element(barInfoChilds[i]);
-						if(eleChildJQ.hasClass("fadeOut")){
-							eleChildJQ.removeClass("fadeOut");
-						}
-						if(!eleChildJQ.hasClass("fadeIn")){
-							eleChildJQ.addClass("fadeIn");
-						}
-						continue;
-					}
+			var eleInfo1 = barInfoChilds[0];
+			var eleInfo2 = barInfoChilds[1];
+			var eleInfo3 = barInfoChilds[2];
+			var headerBarInfoTopABS = Math.abs(headerBarInfoTop);
+			var boundEle1TopUP = -(eleInfo1.offsetHeight/2);
+			var boundEle2TopUP = -(eleInfo1.offsetHeight+eleInfo2.offsetHeight/2);
+			var boundEle3TopUP = -(eleInfo1.offsetHeight+eleInfo2.offsetHeight+eleInfo3.offsetHeight/2)
+			var diff = Math.abs(offsetYlast+5);
+			if(!directionDown && headerBarInfoTop < 0){ //向上滚动且 top < 0:
+				if(headerBarInfoTop <= (boundEle1TopUP) ){ // -16: only hide ele1;
+					xbrFadeHide(eleInfo1);
 				}
-				
+				if(headerBarInfoTop <= (boundEle2TopUP)){ // -48
+					xbrFadeHide(eleInfo1);
+					xbrFadeHide(eleInfo2);
+				}
+				if(headerBarInfoTop <= (boundEle3TopUP)){ // -80
+					xbrFadeHide(eleInfo1);
+					xbrFadeHide(eleInfo2);
+					xbrFadeHide(eleInfo3);
+				}
+			}else if(directionDown && headerBarInfoTop < 10){ // 向下滚动，且top < 0
+				console.log("   -----  "+headerBarInfoTop);
+				diff += 15;
+				if(headerBarInfoTop >= (boundEle3TopUP-diff)){ //+diff
+					xbrFadeShow(eleInfo3);
+				}
+				if(headerBarInfoTop >= (boundEle2TopUP-diff)){
+					xbrFadeShow(eleInfo3);
+					xbrFadeShow(eleInfo2);					
+				}
+				if(headerBarInfoTop >= (boundEle1TopUP-diff)){
+					xbrFadeShow(eleInfo3);
+					xbrFadeShow(eleInfo2);					
+					xbrFadeShow(eleInfo1);
+				}
 			}
-			if(directionDownLast){
-				if(headerBarInfoTop <= eleHeaderInfo.offsetHeight/2){
-					eleHeaderSubTitleJQ = angular.element(eleHeaderSubTitle);
-					if(eleHeaderSubTitleJQ.hasClass("fadeIn")){
-						eleHeaderSubTitleJQ.removeClass("fadeIn");
-					}
-					if(!eleHeaderSubTitleJQ.hasClass("fadeOut")){
-						eleHeaderSubTitleJQ.addClass("fadeOut");
-					}					
-				}
-			}else{
-				if(-headerBarInfoTop <= eleHeaderInfo.offsetHeight/2){
-					eleHeaderSubTitleJQ = angular.element(eleHeaderSubTitle);
-					if(eleHeaderSubTitleJQ.hasClass("fadeOut")){
-						eleHeaderSubTitleJQ.removeClass("fadeOut");
-					}
-					if(!eleHeaderSubTitleJQ.hasClass("fadeIn")){
-						eleHeaderSubTitleJQ.addClass("fadeIn");
-					}
-				}
+
+			function xbrFadeHide(ele){
+				//ele.style.color = "red";
+				var eleJQ = angular.element(ele);
+				eleJQ.removeClass("animated fadeIn");
+				eleJQ.addClass("animated fadeOut");
+			}
+			function xbrFadeShow(ele){
+				//ele.style.color = "white";
+				var eleJQ = angular.element(ele);
+				eleJQ.removeClass("animated fadeOut");
+				eleJQ.addClass("animated fadeIn");
 			}
 
 			// 设置计算出来的高度、top偏移量，使其生效
 			eleHeaderBar.style.height = headerBarHeight+"px";
 			eleHeaderBar.style.backgroundSize = headerBarBgImageWidth+"px "+headerBarBgImageHeight+"px";
-			eleHeaderInfo.style.top = headerBarInfoTop+"px";
+			
+			if(headerBarInfoTop > 0){
+				eleHeaderInfo.style.top = headerBarInfoTop/2+"px";
+				eleHeaderInfo.style.height = $scope.config.headerInfoInitHeight + headerBarInfoTop+"px";
+			}else{
+				eleHeaderInfo.style.top = headerBarInfoTop+"px";
+			}
 			
 			headerBarInfoTopLast = headerBarInfoTop;
 			//console.log(" __touchMove :   "+offsetY+"     "+offsetYlast+"     "+headerBarInfoTop+"     "+eleHeaderInfo.style.top);
@@ -454,21 +459,21 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			var e = __getSingleEventTouches(event);
 			//if(e == null){ return; }
 			
-
 			//判断 headerBarHeight 是否大于初始化高度,若大于则还原
 			var currentHeaderBarHeight = eleHeaderBar.offsetHeight;
 			if(currentHeaderBarHeight > $scope.config.headerBarInitHeight){
-				eleHeaderBar.style.transition = "height .2s linear 0s,background-size .2s linear 0s";
-				eleHeaderInfo.style.transition = "top .2s linear 0s";
+				eleHeaderBar.style.transition = "height .15s linear 0s,background-size .15s linear 0s";
+				eleHeaderInfo.style.transition = "height .15s linear 0s, top .15s linear 0s";
 				currentHeaderBarHeight = $scope.config.headerBarInitHeight;				
 				$timeout(function (){
 					eleHeaderBar.style.transition = "";
 					eleHeaderInfo.style.transition = "";
 					headerBarInfoTopLast = 0;
-				}, 200);
+				}, 150);
 				eleHeaderBar.style.height = currentHeaderBarHeight+"px";
 				eleHeaderBar.style.backgroundSize = "100% 100%";
 				eleHeaderInfo.style.top = "0px";
+				eleHeaderInfo.style.height = $scope.config.headerInfoInitHeight+"px";
 			}
 			
 
@@ -476,7 +481,6 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			posLastMove = null;
 			posCurrentMove = null;
 			//headerBarInfoTopLast = 0;
-
 		}
 
 		function __getSingleEventTouches(e){
