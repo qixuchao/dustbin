@@ -4,7 +4,10 @@ platforms/*
 .DS_Store
 */.DS_Store
 .idea/
-npm-debug.log
+.gitignore
+*/.gitignore
+plugins/
+plugins/*
 www/npm-debug.log
 www/src/dev/
 www/.sass-cache
