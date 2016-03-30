@@ -247,9 +247,16 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/worksheet/sparePart/worksheet_spareSelect.html',
                 controller: 'WorksheetPareSelectCtrl'
             })
+            //相关方
+            .state('worksheetRelatedPart', {
+                url: '/worksheetRelatedPart',
+                templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',
+                controller: 'WorksheetRelatedCtrl'
+            })
+
             // 工单模块相关： end ------------------------
-            
-        ;
+
+
         // if none of the above states are matched, use this as the fallback
         //$urlRouterProvider.otherwise('/login');
         $urlRouterProvider  // /home/login
