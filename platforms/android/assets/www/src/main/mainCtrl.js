@@ -4,8 +4,7 @@
 'use strict';
 mainModule
     .controller('MainCtrl', ['$scope', '$ionicSlideBoxDelegate', '$ionicScrollDelegate', '$timeout', '$ionicBackdrop','ionicMaterialInk', 'ionicMaterialMotion', function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,$ionicBackdrop, ionicMaterialInk, ionicMaterialMotion) {
-
-
+        
         //ionicMaterialMotion.fadeSlideInRight();
 
         $timeout(function () {

@@ -16,8 +16,8 @@ var customerModuleServive = angular.module('customerModuleServive', []);
 //var directiveModule = angular.module('directiveModule', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
-
-var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
+//"ngCordova"
+var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'ionic-material',
     'utilsModule',
     'loginModule', 
@@ -37,7 +37,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'customerVehicleModule',
     'customerContactsModule',
     'customerModuleServive'
-])
+]);
 CRMApp.run(function ($ionicPlatform,$rootScope) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -56,7 +56,6 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
     })
     
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-
         // Turn off caching for demo simplicity's sake
         //$ionicConfigProvider.views.maxCache(0);
 
@@ -242,15 +241,8 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
             
         ;
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/login');
+        //$urlRouterProvider.otherwise('/login');
+        $urlRouterProvider  // /home/login
+            .when('','/login')
+            .otherwise('/login');
     });
-
-
-
-
-
-
-
-
-
-
