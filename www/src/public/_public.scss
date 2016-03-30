@@ -31,6 +31,14 @@
 .head{
   box-shadow: none;
 }
+.popover-backdrop.active{
+  -webkit-transition: background-color 0.2s linear 0s;
+  transition: background-color 0.2s linear 0s;
+}
+.popover-backdrop.hide{
+  -webkit-transition: background-color 0.2s linear 0s;
+  transition: background-color 0.2s linear 0s;
+}
 /**
  * 公共的 变量
  */

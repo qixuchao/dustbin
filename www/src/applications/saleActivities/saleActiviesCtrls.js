@@ -204,8 +204,10 @@ salesModule
                     $scope.statusFlag = false;
                     $scope.showTitle = false;
                     $scope.TitleFlag = false;
+                    $scope.showTitleStatus = false;
                 }
                 $scope.$apply();
+
             };
             $scope.input = {
                 progress: ''

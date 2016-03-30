@@ -31,6 +31,14 @@
 .head {
   box-shadow: none; }
 
+.popover-backdrop.active {
+  -webkit-transition: background-color 0.2s linear 0s;
+  transition: background-color 0.2s linear 0s; }
+
+.popover-backdrop.hide {
+  -webkit-transition: background-color 0.2s linear 0s;
+  transition: background-color 0.2s linear 0s; }
+
 /**
  * 公共的 变量
  */
@@ -1305,28 +1313,29 @@
   left: 5px;
   top: -2px; }
 
-.referModal .head .col-20 {
-  font-size: 16px; }
+.referModal .head .selections {
+  font-size: 16px;
+  padding: 0 10px; }
 
-.referModal .head .col-60 {
+.referModal .head .input {
   background: white;
   height: 30px;
   border-radius: 4px;
   margin-left: 2px; }
-  .referModal .head .col-60 .ion-ios-search {
+  .referModal .head .input .ion-ios-search {
     font-size: 18px;
     position: relative;
     left: 2px;
     top: -2px;
     margin-right: 5px;
     color: #9A9AA0; }
-  .referModal .head .col-60 input {
+  .referModal .head .input input {
     height: 22px;
     min-height: 22px;
     width: 90%;
     background: none;
     border: none; }
-  .referModal .head .col-60 .ion-ios-close {
+  .referModal .head .input .ion-ios-close {
     position: relative;
     color: #C7C5C5;
     font-size: 15px;
