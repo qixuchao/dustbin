@@ -1,12 +1,12 @@
 <ion-view canClickEnterListMode id="worksheetlist-view"  align-title="center">
-	<ion-header-bar align-title="center" class="bar-positive" ng-class="{'query-mode':config.isQueryMode}">
+	<ion-header-bar id="xbr-test-header" align-title="center" class="bar-positive" ng-class="{'query-mode':config.isQueryMode}">
 		<div class="left-back" ng-click="goBack();">
 			<i class="ion-ios-arrow-back"></i>
 		</div>
 		<div class="title" canClickEnterListMode ng-click="clickEnterListMode($event);">服务工单列表</div>
-        <div class="buttons right" ng-class="{'right-buttons-actives':config.isQueryMode}" style="transition: width .3s linear 0s;">
-            <div class="search-header-bar">
-                    <div class="button button-clear right search" ng-click="clickHeadTopSearchIcon();">
+        <div class="buttons right"  ng-class="{'right-buttons-actives':config.isQueryMode}" > <!-- style="transition: width .3s linear 0s;" -->
+            <div class="search-header-bar"><!-- bar-header -->
+                    <div  class="button button-clear right search" ng-click="clickHeadTopSearchIcon();">
                         <i class="icon ion-ios-search-strong"></i>
                     </div>
                     <input class="search-input" type="text" ng-change="onSearchTextChangeFromHeaderBar($event);" ng-model="config.searchText" placeholder="{{config.searchPlaceholder}}">
