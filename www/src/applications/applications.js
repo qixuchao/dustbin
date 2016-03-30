@@ -32,7 +32,8 @@ appModule
             go:'userQuery'
         },{
             url:'img/apps/searchCar.png',
-            go:'car'
+            //go:'worksheetCarMileage'
+            go:'worksheetRelatedPart'
         }];
         $timeout(function(){
             ionicMaterialMotion.fadeSlideInRight({
