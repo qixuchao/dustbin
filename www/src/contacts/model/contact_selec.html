@@ -14,24 +14,23 @@
         height: 100px;
         width: 180px;
         background-color: #fff;
+        border-radius: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,.4);
         opacity: 0;
     }
-    .popover-arrow {
-        position: absolute;
-        display: block;
-        /*top: -17px;*/
-        right: 7px;
-        width: 30px;
-        height: 19px;
-        overflow: hidden;
-    }
+  .contact_selec{
+      width: 20px;
+      position: absolute;
+      right: 13px;
+      top: -9px;
+  }
 </style>
     <ion-popover-view class="customercontact_selec">
+        <img src="img/customer/sanjiao.png" class="contact_selec"></img>
         <ion-content>
-            <div ng-repeat="types in contact_types track by $index" ng-click="ContactsqueryType(types)">
+            <div ng-repeat="types in contact_types" ng-click="ContactsqueryType(types)">
                <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:14px;">
-                   {{types}}
+                   {{types.type}}
                </ion-item>
                 <div style="width:80%;height: 1px;background-color: #9B9B9B;margin-left:10%"></div>
             </div>

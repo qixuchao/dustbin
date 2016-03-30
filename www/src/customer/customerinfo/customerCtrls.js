@@ -3,7 +3,7 @@
  */
 'use strict';
 customerModule
-    .controller('customerQueryCtrl',['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+    .controller('customerQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
         $ionicPopover.fromTemplateUrl('../src/customer/model/customer_selec.html', {
             scope: $scope
         }).then(function(popover) {
@@ -11,11 +11,9 @@ customerModule
         });
         $scope.customerPopover = function($event) {
             $scope.customerpopover.show($event);
-            document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
         };
         $scope.customerPopoverhide = function() {
             $scope.customerpopover.hide();
-            document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";
         };
 
         $scope.customer_types = ['潜在客户','正式客户','竞争对手','助销伙伴','终端客户','服务端'];
@@ -77,10 +75,10 @@ customerModule
         //跳转detail界面
         $scope.customergodeatil = function(cusvalue){
             customeService.set_customerListvalue(cusvalue);
-            $state.go('customerDetail');
+            $state.go("customerDetail");
         }
     }])
-    .controller('customerDetailCtrl',['$scope','$state','Prompter','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$state,Prompter,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
+    .controller('customerDetailCtrl',['$scope','$rootScope','$state','Prompter','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$state,Prompter,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
         $scope.customer_detailstypes = [{
             typemane:'联系人',
             imgurl:'img/customer/customerlianxir@2x.png',
@@ -164,5 +162,56 @@ customerModule
         $scope.customeropenbrser = function(Url){
             Prompter.openbrserinfo(Url)
         };
-    }])
+        //编辑
+        $scope.CustomerDeatilEditvalue = function(){
+            $state.go('customerEdit')
+        };
+        //广播编辑
+        $rootScope.$on('customerEditvalue', function(event, data) {
+            $scope.customerdetails = customeService.get_customerListvalue();
+        });
 
+    }])
+    .controller('customerEditlCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+        //位置级联
+        $scope.customereditcontry = [
+            {
+                name:'中国'
+            },{
+                name:'美国'
+            },{
+                name:'新加坡'
+            }
+        ];
+        //初始化数据
+        $scope.customeredit = {
+            customerposition:customeService.get_customerListvalue().customerposition,
+            customerpayway:customeService.get_customerListvalue().customerpayway,
+            customerpaydate:customeService.get_customerListvalue().customerpaydate,
+            customercheckperiod:customeService.get_customerListvalue().customercheckperiod,
+            customerwillcheckperiod:customeService.get_customerListvalue().customerwillcheckperiod,
+            customerfax:customeService.get_customerListvalue().customerfax,
+            customermail:customeService.get_customerListvalue().customermail,
+            customerwebsite:customeService.get_customerListvalue().customerwebsite,
+            customercontrary:customeService.get_customerListvalue().customercontrary,
+            customerregion:customeService.get_customerListvalue().customerregion,
+            customercity:customeService.get_customerListvalue().customercity,
+            customerstreet:customeService.get_customerListvalue().customerstreet,
+            customerborad:customeService.get_customerListvalue().customerborad,
+            customerpostal:customeService.get_customerListvalue().customerpostal,
+            customerzhushi:customeService.get_customerListvalue().customerzhushi,
+
+            customername:customeService.get_customerListvalue().customername,
+            customeraddress:customeService.get_customerListvalue().customeraddress,
+            customerphonenumber:customeService.get_customerListvalue().customerphonenumber,
+
+        };
+        $scope.customerKeepEditvalue = function(){
+            customeService.set_customerListvalue($scope.customeredit);
+            //广播修改详细信息界面的数据
+            $rootScope.$broadcast('customerEditvalue');
+            $state.go('customerDetail');
+
+        }
+
+    }])

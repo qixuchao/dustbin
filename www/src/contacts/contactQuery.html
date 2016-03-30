@@ -2,8 +2,10 @@
     <ion-header-bar style="padding: 0">
         <div class="contact_head">
             <div class="contact_headtitle">
-                <i class="icon ion-ios-arrow-back contact_headtitlei" ng-click="goBack()"></i>
-                <span class="contact_headtitlespan">联系人</span>
+                <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
+                    <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
+                </div>
+                <span class="contact_headtitlespan" style="padding-left:40px">联系人</span>
                 <img class="contact_headtitleimg" src="img/employee/increase@2x.png" ng-click="Contactsopenpopv()"/>
             </div>
             <form ng-submit="employeeQuery()">
@@ -24,7 +26,7 @@
                     <span style="vertical-align: middle">{{lists.name}}</span>
                 </div>
                 <div class="col col-60" style="text-align: center;color:#D2D2D2">
-                    <span style="vertical-align: middle">{{lists.phoneNumber}}</span>
+                    <span style="vertical-align: middle">{{lists.phonenumber}}</span>
                 </div>
                 <div class="col col-10">
                     <img class="contact_query_listfor" src="img/employee/Shape@2x.png"></img>

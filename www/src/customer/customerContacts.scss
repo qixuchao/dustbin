@@ -1,31 +1,30 @@
 .customerContacts_Query{
-  .customerContacts_query_list{
-    font-size: 16px;
-    color: #4A4A4A;
+
+  .customerContacts_querytitleimg{
+    margin-right: 10px;
+    float: right;
+    font-size: 30px;
+    color: white;
+  }
     .customerContacts_query_listcicle{
       width:14px;
       height:14px;
       vertical-align: middle;
       display: inline-block;
       border-radius:50%;
-    }
-    .customerContactse_query_listcicleA{
       border: 2px solid #9EC92A;
     }
-    .customerContacts_query_listcicleB{
-      border: 2px solid #008CCF;
+    .item-content{
+      padding: 0;
     }
-    .customerContacts_query_listfor{
-      width:15px;
-      height:16px;
-      vertical-align: middle;
+    .item-options .button{
+      padding:10px 10px 10px 16px;
+      margin-top:1px;
+      //height:52px;
     }
-    .customerContacts_query_listline{
-      width: 100%;
-      height: 1px;
-      background-color: #D2D2D2;
+    .button .icon:before{
+      font-size:35px;
     }
-  }
 }
 
 //customerdeatil

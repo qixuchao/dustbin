@@ -16,8 +16,8 @@ var customerModuleServive = angular.module('customerModuleServive', []);
 //var directiveModule = angular.module('directiveModule', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
-
-var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
+//"ngCordova"
+var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'ionic-material',
     'utilsModule',
     'loginModule', 
@@ -37,7 +37,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'customerVehicleModule',
     'customerContactsModule',
     'customerModuleServive'
-])
+]);
 CRMApp.run(function ($ionicPlatform,$rootScope) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -56,7 +56,6 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
     })
     
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-
         // Turn off caching for demo simplicity's sake
         //$ionicConfigProvider.views.maxCache(0);
         $ionicConfigProvider.views.swipeBackEnabled(true);
@@ -129,6 +128,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/contacts/contactEdit.html',
                 controller: 'contactEditCtrl'
             })
+            .state('ContactsRelationship', {
+                url: '/contactsRelationship',
+                templateUrl: 'src/contacts/relationship/Relationship.html',
+                controller: 'contactRelationshipCtrl'
+            })
 
             //客户
             .state('customerQuery', {
@@ -140,6 +144,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 url: '/customerDetail',
                 templateUrl: 'src/customer/customerinfo/customerDetail.html',
                 controller: 'customerDetailCtrl'
+            })
+            .state('customerEdit', {
+                url: '/customerEdit',
+                templateUrl: 'src/customer/customerinfo/customerEdit.html',
+                controller: 'customerEditlCtrl'
             })
             //客户-联系人
             .state('customerContactQuery', {
@@ -239,17 +248,17 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 controller: 'WorksheetPareSelectCtrl'
             })
             // 工单模块相关： end ------------------------
-            
+            .state('worksheetRelatedPart', {
+                url: '/worksheetRelatedPart',
+                templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',
+                controller: 'WorksheetRelatedCtrl'
+            })
         ;
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tabs');
+        $urlRouterProvider  // /home/login
+            .when('','/login')
+            .otherwise('/login');
     });
-
-
-
-
-
-
 
 
 

@@ -2,7 +2,9 @@
     <div class="Contacts_backtop absolute fadeIn" style="height:44px;" ng-show="Contacts_showTitle"
          ng-class="!Contacts_TitleFlag?'animated fadeOut':'animated fadeIn'">
         <div class="Contacts_detailtitleview">
-            <i class="icon ion-ios-arrow-back Contactsdeatil_headtitleiview" ng-click="goBack()"></i>
+            <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
+                <i class="icon ion-ios-arrow-back view_publicheadtitlei"></i>
+            </div>
             <span class="Contactsdeatil_headtitlespanview">联系人详细信息</span>
             <div class="Contacts_detailname">
                 {{customerdetails.name}}
@@ -12,7 +14,9 @@
     <ion-content has-bouncing="false" on-scroll="customerContacts_onScroll()">
         <div class="Contacts_backtop">
             <div class="Contacts_detailtitle" ng-class="Contacts_TitleFlag?'animated fadeOut':'animated fadeIn'">
-                <i class="icon ion-ios-arrow-back Contactsdeatil_headtitlei" ng-click="goBack()"></i>
+                <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
+                    <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
+                </div>
                 <span class="Contactsdeatil_headtitlespan">联系人详细信息</span>
             </div>
             <div class="Contacts_detailcontent">
@@ -42,7 +46,7 @@
 
         <div class="item item-list-detail" style="padding: 0px 3px;border: none;margin-top: 5px;">
             <ion-scroll direction="x">
-                    <span style="position: relative;margin-right:55px;" ng-repeat="lists in customer_detailstypes"  ng-click="gocustomerLists(lists)">
+                    <span style="position: relative;margin-right:55px;" ng-repeat="lists in customer_detailstypes"  ng-click="GocontactLists(lists)">
                         <img class="Contacts_detail_countentbu image-list-thumb" ng-src="{{lists.imgurl}}" alt=""/>
                         <span class="Contacts_detail_countentimgbase">
                             {{lists.typemane}}
@@ -95,7 +99,7 @@
                 职能
             </div>
             <div class="col col-60" style="color:#AEA3A3">
-                {{customerdetails.postion}}
+                {{customerdetails.atend}}
             </div>
         </div>
         <div class="employee_query_listline">
@@ -142,7 +146,7 @@
         <div class="employee_query_listline">
         </div>
 
-        <div class="Contactscontentbutton">
+        <div class="Contactscontentbutton" ng-click="contact_deatilgoedit()">
             编辑
         </div>
     </ion-content>
