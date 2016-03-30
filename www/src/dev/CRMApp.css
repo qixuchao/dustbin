@@ -137,6 +137,22 @@
 
 /*公共样式 end*/
 /*# sourceMappingURL=style.css.map */
+.publicheadtitlei {
+  font-size: 35px;
+  color: #C4D2E7;
+  display: block;
+  float: left;
+  margin-top: -5px;
+  margin-left: 10px; }
+
+.view_publicheadtitlei {
+  font-size: 40px;
+  color: #C4D2E7;
+  display: block;
+  float: left;
+  margin-top: 0px;
+  margin-left: 10px; }
+
 /*公共样式 end*/
 /*首页*/
 .own-backDrop-on {
@@ -1282,6 +1298,67 @@
         position: relative;
         top: 4px; }
 
+.referModal .head .chanceImg {
+  width: 16px;
+  vertical-align: middle;
+  position: relative;
+  left: 5px;
+  top: -2px; }
+
+.referModal .head .col-20 {
+  font-size: 16px; }
+
+.referModal .head .col-60 {
+  background: white;
+  height: 30px;
+  border-radius: 4px;
+  margin-left: 2px; }
+  .referModal .head .col-60 .ion-ios-search {
+    font-size: 18px;
+    position: relative;
+    left: 2px;
+    top: -2px;
+    margin-right: 5px;
+    color: #9A9AA0; }
+  .referModal .head .col-60 input {
+    height: 22px;
+    min-height: 22px;
+    width: 90%;
+    background: none;
+    border: none; }
+  .referModal .head .col-60 .ion-ios-close {
+    position: relative;
+    color: #C7C5C5;
+    font-size: 15px;
+    width: 20px; }
+
+.referModal .content {
+  padding: 0 20px; }
+  .referModal .content .item {
+    font-size: 16px;
+    border-bottom: 1px solid #E2E0DF;
+    padding: 16px 5px 12px 5px; }
+  .referModal .content .selectImg {
+    position: fixed;
+    right: 22px;
+    width: 18px; }
+
+.selectChance-pop {
+  width: 100px;
+  height: 122px;
+  border-radius: 0 !important;
+  left: 110px;
+  top: 42px; }
+  .selectChance-pop .content {
+    padding: 0 10px;
+    text-align: center;
+    margin: 0 !important; }
+    .selectChance-pop .content .select {
+      border-bottom: 1px solid #DAD6D3;
+      padding: 12px 0 8px 0; }
+    .selectChance-pop .content .selected {
+      color: #2B60AB; }
+
 #worksheetlist-view {
   background-color: #2B60AB; }
   #worksheetlist-view ion-header-bar {
@@ -2097,130 +2174,37 @@
         border: 1px solid #3159a2;
         border-radius: 5px; }
 
-#worksheetdetail-view {
-  /*ion-header-bar{
-		i{
-			font-size: 1.5rem;
-    		line-height: 2.5rem;
-		}
-		.left-button{
-			width: 2rem;
-    		min-width: 2rem;
-    		height: 100%;
-		}
-		.right-button{
-			width: 1.5rem;
-		}		
-	}*/
-  /*$detail-header-bar-height: 2.5rem;
-	.detail-header-bar{
-		width: 100%;
-		background-color: #3F81FB;
-		color: white;
-		.top-buttons{
-			height: $detail-header-bar-height;
-			@include display-flex;
-			@include align-items(center);
-			color: white;
-			.left{
-				width: 2rem;
-				min-width: 2rem;
-				padding: 0px;
-				height: $detail-header-bar-height;
-				//min-height: 10px;
-				color: white;
-				i{
-					font-size: 1.8rem;
-				}
-			}
-			.center{
-				@include flex;
-				height: 100%;
-				line-height: $detail-header-bar-height;
-				text-align: center;
-				font-size: 1rem;				 
-    			font-weight: bolder;
-			}
-			.right{
-				width: 2rem;
-				padding: 0px;
-				color: white;
-				i{
-					font-size: 1.8rem;
-				}
-			}
-		}
-		.detail-msgs{
-			padding: .2em .2rem .2rem .6rem;
-			.title{
-				font-weight: bolder;
-    			font-size: 1rem;
-	        }
-	        i{
-				font-size: 1.4rem;
-				display: inline-block;
-			    width: 1.2rem;
-			    line-height: 2rem;
-			    height: 100%;
-			}
-		    span{
-		    	display: inline-block;
-		    	height: 100%;
-		    	line-height: 2rem;
-		    }
-	        .company{
-	        	height: 2rem;
-	        }
-	        .user-status{
-	        	display: block;
-	        	width: 100%;
-	        	height: 2rem;
-	            .user{
-					display: inline-block;
-					float: left;
-	            }
-	            .status{
-	            	display: inline-block;
-	            	float: right;
-	            }
-
-	        }
-		}
-	}*/ }
-
-.modal-wrapper {
-  width: 0px; }
-  .modal-wrapper .show-more-modal-content {
+.modal-wrapper .show-more-modal-content {
+  position: relative;
+  min-width: 7rem;
+  top: 48px;
+  z-index: -2;
+  display: inline-block !important; }
+  .modal-wrapper .show-more-modal-content .top-line {
+    width: 14px;
+    height: 14px;
+    background-color: white;
+    transform: rotate(45deg);
     position: relative;
-    min-width: 7rem;
-    top: 48px;
-    z-index: -2;
-    display: inline-block !important; }
-    .modal-wrapper .show-more-modal-content .top-line {
-      width: 14px;
-      height: 14px;
-      background-color: white;
-      transform: rotate(45deg);
-      position: relative;
-      left: 5.3rem;
-      top: 0px; }
-    .modal-wrapper .show-more-modal-content .content-lines {
-      background-color: white;
-      padding: 0px .6rem .4rem .6rem;
-      border-radius: 10px;
-      border-radius: 10px;
-      position: relative;
-      top: -7px; }
-    .modal-wrapper .show-more-modal-content .content-line {
-      border-bottom: 1px solid #eee;
-      color: #8E8B8B;
-      text-align: center;
-      padding: .4rem 0px;
-      font-size: 1rem; }
+    left: 5.3rem;
+    top: 0px; }
+  .modal-wrapper .show-more-modal-content .content-lines {
+    background-color: white;
+    padding: 0px .6rem .4rem .6rem;
+    border-radius: 10px;
+    border-radius: 10px;
+    position: relative;
+    top: -7px; }
+  .modal-wrapper .show-more-modal-content .content-line {
+    border-bottom: 1px solid #eee;
+    color: #8E8B8B;
+    text-align: center;
+    padding: .4rem 0px;
+    font-size: 1rem; }
 
 #worksheetdetail-newcar-view, #worksheetdetail-siterepair-view {
   font-size: .9rem; }
-  #worksheetdetail-newcar-view .scroll, #worksheetdetail-siterepair-view .scroll {
+  #worksheetdetail-newcar-view > .scroll, #worksheetdetail-siterepair-view > .scroll {
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -2257,7 +2241,11 @@
       align-items: center;
       height: 3rem;
       font-size: 1rem;
-      font-weight: bolder; }
+      font-weight: bolder;
+      border: 1px solid red;
+      /*position: absolute;
+		    top: 0px;
+		    left: 0px;*/ }
       #worksheetdetail-newcar-view .detail-header .detail-header-bar .left, #worksheetdetail-siterepair-view .detail-header .detail-header-bar .left {
         width: 2rem;
         text-align: center;

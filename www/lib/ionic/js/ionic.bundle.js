@@ -42911,7 +42911,7 @@ function($rootScope, $state, $location, $document, $ionicPlatform, $ionicHistory
   });
 
   // Triggered when devices with a hardware back button (Android) is clicked by the user
-  // This is a Cordova/Phonegap platform specifc method
+  // This is a CordovPOPOVER_OPTIONSa/Phonegap platform specifc method
   function onHardwareBackButton(e) {
     var backView = $ionicHistory.backView();
     if (backView) {
@@ -52920,7 +52920,7 @@ IonicModule
   return {
     restrict: 'E',
     compile: function(element) {
-      element.append(jqLite('<div class="popover-arrow">'));
+      //element.append(jqLite('<div class="popover-arrow">'));
       element.addClass('popover');
     }
   };

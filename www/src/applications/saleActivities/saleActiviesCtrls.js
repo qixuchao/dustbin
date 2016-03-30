@@ -90,13 +90,21 @@ salesModule
         'ionicMaterialMotion',
         '$timeout',
         '$cordovaDialogs',
+        '$ionicModal',
+        '$ionicPopover',
         'saleActService',
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, saleActService) {
+                  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover, saleActService) {
             ionicMaterialInk.displayEffect();
             $scope.statusArr = saleActService.getStatusArr();
             $scope.mySelect = {
                 status: $scope.statusArr[2]
+            };
+            $scope.details = {
+                annotate: 'In the tumultuous business of cutting-in and attending to a whale, there is much running backwards and forwards among',
+                startTime: '2016-3-1  12:00',
+                endTime: '2016-3-1  12:00',
+                refer: '商机-郑州客车销售机会'
             };
             $scope.isEdit = false;
             $scope.editText = "编辑";
@@ -201,14 +209,13 @@ salesModule
             };
             $scope.input = {
                 progress: ''
-            }
+            };
             $scope.submit = function () {
                 $scope.progressArr.push({
                     content: $scope.input.progress,
                     time: '2016-6-8  12:11'
                 });
                 $scope.input.progress = '';
-                ;
                 $ionicScrollDelegate.resize();
                 $timeout(function () {
                     maxTop = $ionicScrollDelegate.getScrollView().__maxScrollTop;
@@ -216,7 +223,55 @@ salesModule
                     console.log(maxTop);
                     $ionicScrollDelegate.scrollBottom(true);
                 }, 20)
+            };
+
+            /*-------------------------------参考类型-------------------------------------*/
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/reference.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.referModal = modal;
+            });
+            $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/selectChance-pop.html', {
+                scope: $scope
+            }).then(function (popover) {
+                $scope.referPop = popover;
+            });
+            $scope.referArr = [{
+                text: '郑州金龙销售机会'
+            }, {
+                text: '福州宇通销售机会'
+            }, {
+                text: '测试1'
+            }, {
+                text: '测试2'
+            }];
+            $scope.chancePopArr = [{
+                text: '商机',
+            }, {
+                text: '线索',
+            }, {
+                text: '销售活动',
+            }];
+            $scope.selectPopText = '商机';
+            $scope.selectModal = function (x) {
+                for (var i = 0; i < $scope.referArr.length; i++) {
+                    $scope.referArr[i].flag = false;
+                }
+                x.flag = true;
+                $scope.referModal.hide();
+            };
+            $scope.selectPop = function (x) {
+                $scope.selectPopText = x.text;
+                $scope.referPop.hide();
             }
+            $scope.openRefer = function () {
+                $scope.referModal.show();
+            };
+            $scope.showChancePop = function () {
+                $scope.referPop.show();
+            };
+            /*-------------------------------参考类型 end-------------------------------------*/
         }])
     .filter("highlight", function ($sce, $log) {
 
@@ -227,7 +282,7 @@ salesModule
             if (!search) {
                 return $sce.trustAsHtml(text);
             }
-            if(text.indexOf(search)==-1){
+            if (text.indexOf(search) == -1) {
                 return text;
             }
             text = encodeURI(text);
