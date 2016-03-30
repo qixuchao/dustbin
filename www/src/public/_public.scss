@@ -23,9 +23,13 @@
   padding-top: 0;
   margin-bottom: 0;
 }
+//overWrite
 .spinner.spinner-balanced {
   stroke: #2B60AB;
   fill: #2B60AB;
+}
+.head{
+  box-shadow: none;
 }
 /**
  * 公共的 变量

@@ -38,7 +38,7 @@
             </a>
         </div>
     </ion-content>
-    <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag"
+    <ion-content class="has-header search " ng-show="searchFlag"
                  ng-click="changeSearch($event)">
         <div class="row row-center his-title" ng-if="!input.search">
             <i class="ion-android-time"></i>
@@ -63,7 +63,7 @@
                         <div class="startDate" ng-bind-html="x.startTime | highlight:input.search"></div>
                         <div class="type">类型:&nbsp;&nbsp;</div>
                         <div class="typeValue" ng-bind-html="x.type | highlight:input.search"></div>
-                        <div class="col status" ng-class="{'waitStatus':x.status=='未处理'}">{{x.status}}</div>
+                        <div class="col status" ng-class="{'waitStatus':x.status=='未处理'}" ng-bind-html="x.status | highlight:input.search"></div>
                     </div>
                 </a>
             </div>

@@ -63,12 +63,12 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicPopup','$ionicActionShee
     return {
       showLoading: function (content) {
         $ionicLoading.show({
-          template: ('<ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>'),
+          template: ('<ion-spinner icon="ios">content</ion-spinner>'),
           animation: 'fade-in',
           showBackdrop: true,
         });
       },
-      hideLoading: function (content) {
+      hideLoading: function () {
         $ionicLoading.hide();
       },
       showPopup: function (title, template) {

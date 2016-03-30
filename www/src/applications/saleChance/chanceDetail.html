@@ -1,4 +1,3 @@
-
 <ion-view class="saleActDetail saleChanDetail">
     <div class="top-back absolute animated fadeIn" style="height: 75px;background: none"
          ng-class="!TitleFlag?'fadeOut':''" ng-show="TitleFlag">
@@ -40,17 +39,20 @@
                     <div class="chanSubTitle">潜在客户:</div>
                     <div class="editText" ng-if="isEdit">BYD<i class="ion-arrow-right-c right-arrow"></i></div>
                     <input type="text" ng-model="chanceDetails.hideCustomer" ng-if="!isEdit" readonly>
+
                     <div class="feel">{{chanceDetails.feelNum+'%'}}</div>
                 </div>
                 <div class="row row-center" ng-class="placeFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="chanSubTitle">销售阶段:</div>
-                    <div class="editText" ng-click="openPopover()" ng-if="isEdit">{{chanceDetails.saleStage}}<i class="ion-arrow-right-c right-arrow"></i></div>
+                    <div class="editText" ng-click="openPopover()" ng-if="isEdit">{{chanceDetails.saleStage}}<i
+                            class="ion-arrow-right-c right-arrow"></i></div>
                     <input type="text" ng-model="chanceDetails.saleStage" ng-if="!isEdit" readonly>
                 </div>
                 <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div>状态:</div>
                     <select ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
+
                     <div class="num">{{'NO.'+chanceDetails.saleNum}}</div>
                     <div class="edit" ng-click="edit()"><img ng-show="!isEdit" src="img/saleDetail/edit.png">{{editText}}
                     </div>
@@ -74,12 +76,14 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col-30 text-left">开始时间:</div>
-                                <div class="text col-70 startTime">2016-3-1&nbsp;&nbsp;12:00<i class="ion-arrow-down-b time-icon"></i></div>
+                                <div class="text col-70 startTime">2016-3-1&nbsp;&nbsp;12:00<i
+                                        class="ion-arrow-down-b time-icon"></i></div>
                                 <!--<input type="datetime"  value="2014-06-01T10:55Z">-->
                             </div>
                             <div class="row endTime">
                                 <div class="col-30 text-left">结束时间:</div>
-                                <div class="text col-70">2016-3-1&nbsp;&nbsp;12:00<i class="ion-arrow-down-b time-icon"></i></div>
+                                <div class="text col-70">2016-3-1&nbsp;&nbsp;12:00<i
+                                        class="ion-arrow-down-b time-icon"></i></div>
                             </div>
                         </div>
                     </div>
@@ -150,7 +154,9 @@
                 <div class="col"><input type="text" ng-model="pop.saleNum" placeholder="请输入"></div>
             </div>
             <button ng-click="savePop()" class="save">完成</button>
-            <div><button ng-click="closePop()" class="cancel">取消</button></div>
+            <div>
+                <button ng-click="closePop()" class="cancel">取消</button>
+            </div>
         </ion-content>
     </ion-popover-view>
 </script>

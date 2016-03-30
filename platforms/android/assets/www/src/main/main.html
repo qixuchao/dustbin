@@ -1,4 +1,4 @@
-<div class="own-backDrop" ng-show="moreflag" ng-click="moreflag=false"></div>
+<div ng-class="moreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="moreflag=false"></div>
 <div class="main" id="mainTopId">
     <div class="top-back">
         <div class="dayView">
@@ -87,7 +87,7 @@
         <div class="line-vertical"></div>
         <div class="main-content animate-fade-slide-in-right">
             <div class="await-apl">待处理</div>
-            <div class="obj item" ng-repeat="x in thingsToDo">
+            <div class="obj item {{x.class}}" ng-repeat="x in thingsToDo">
                 <div class="circleNum" style="{{'border-color:'+x.mark}}">{{$index+1}}</div>
                 <div class="row row-center apl-content no-padding">
                     <div class="col col-80">
