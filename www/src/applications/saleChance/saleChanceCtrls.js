@@ -105,6 +105,7 @@ salesModule
                     $scope.statusFlag = false;
                     $scope.showTitle = false;
                     $scope.TitleFlag = false;
+                    $scope.showTitleStatus = false;
                 }
                 if (!$scope.$digest()) {
                     $scope.$apply();
