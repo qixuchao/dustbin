@@ -99,7 +99,7 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 	$scope.moreModalClickHandler = function(type){
 		$scope.config.moreModal.hide();		
 		if(type == 'paigong'){ 
-
+				
 		}else if(type == 'judan'){
 
 		}else if(type == 'jiedan'){
