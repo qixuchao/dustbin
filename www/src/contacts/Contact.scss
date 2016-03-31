@@ -263,3 +263,60 @@
     border-radius:10px;
   }
 }
+
+//联系人edit+create + 客户编辑界面+客户联系人新建界面
+.contact_Edit {
+  .contact_Edit_head {
+    width: 100%;
+    height:50px;
+    font-size: 18px;
+    color: white;
+    z-index: 0;
+    background-color: #406FB3;
+    .contact_Edit_headtitle {
+      height: 44px;
+      line-height: 50px;
+      text-align: center;
+      .contact_Edit_headtitlei {
+        font-size: 35px;
+        display: block;
+        float: left;
+        margin-left: 15px;
+      }
+      .contact_Edit_headtitlespantitle {
+
+      }
+      .contact_Edit_headtitlespanedit{
+       float: right;
+        margin-right: 15px;
+      }
+    }
+  }
+  .list .item {
+    border: 1px solid #dddddd;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    min-height: 48px;
+    text-align: center;
+  }
+  .contact_edit_listfor{
+    width:20px;
+    height:20px;
+  }
+  .item-input {
+    padding: 2px 0 5px 16px;
+  }
+  .contact_editinputsty{
+    padding-left: 35px;
+    color:#9B9B9B
+  }
+  .customeredittwo{
+    padding-left: 65px;
+    color:#9B9B9B
+  }
+  .customereditthree{
+    padding-left: 20px;
+    color:#9B9B9B
+  }
+}

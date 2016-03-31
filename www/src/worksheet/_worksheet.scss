@@ -4,7 +4,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 #worksheetlist-view{
 	background-color: $crm-header-bar-bgcolor;
 	
-	ion-header-bar{ 
+	ion-header-bar{
 		background-color: $crm-header-bar-bgcolor;
 		transition: left 0.2s ease-out 0s;
 		//border: 1px solid red;
@@ -17,17 +17,17 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    padding-right: 1.5rem;
 		    justify-content: center;
 		    font-size: 1.8rem;
-		} 
-		.left-back, .title, {
+		}
+		.left-back, .title{
 			transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
 		}
-		.buttons.right{ 
+		.buttons.right{
 			background-color: #3259A4;
 			width: 2.5rem;
 			overflow: hidden;
 			display: inline-block;
-			//min-height: 1.5rem;			
-			//border: 1px solid green;			
+			//min-height: 1.5rem;
+			//border: 1px solid green;
 		}
 		.search-header-bar{
 			@include display-flex;
@@ -92,9 +92,9 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		@include display-flex;
 		@include flex-direction(column);
 	}
-	
-	
-	
+
+
+
 	.search-box-wrapper{
 		background-color: $crm-header-bar-bgcolor;
 		.search-box{
@@ -105,7 +105,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    margin-top: .4rem;
 		    margin-bottom: .4rem;
 		    background-color: white;
-		    color: #969494;	    
+		    color: #969494;
 		}
 		i{
 			width: 9%;
@@ -123,8 +123,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    width: 87%;
 		}
 	}
-	
-	
+
+
 	.divs-wrapper{
 		position: relative;
 		@include flex(1);
@@ -166,7 +166,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		}
 		.tab-sort-content{
 		}*/
-		//为动画而生 
+		//为动画而生
 		.tab-sort-content, .tab-filter-content{
 			transition: transform .2s linear 0s;
 			transform: translateY(-100%);
@@ -224,7 +224,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				transform: translateY(-100%);
 			}
 		}
-		
+
 		&.filter-gone-bymodelclick{
 			.tab-sort-content{
 				transition: transform 0s linear 0s;
@@ -879,100 +879,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 
 }
 
-#worksheetdetail-view{
-	/*ion-header-bar{
-		i{
-			font-size: 1.5rem;
-    		line-height: 2.5rem;
-		}
-		.left-button{
-			width: 2rem;
-    		min-width: 2rem;
-    		height: 100%;
-		}
-		.right-button{
-			width: 1.5rem;
-		}		
-	}*/
-	/*$detail-header-bar-height: 2.5rem;
-	.detail-header-bar{
-		width: 100%;
-		background-color: #3F81FB;
-		color: white;
-		.top-buttons{
-			height: $detail-header-bar-height;
-			@include display-flex;
-			@include align-items(center);
-			color: white;
-			.left{
-				width: 2rem;
-				min-width: 2rem;
-				padding: 0px;
-				height: $detail-header-bar-height;
-				//min-height: 10px;
-				color: white;
-				i{
-					font-size: 1.8rem;
-				}
-			}
-			.center{
-				@include flex;
-				height: 100%;
-				line-height: $detail-header-bar-height;
-				text-align: center;
-				font-size: 1rem;				 
-    			font-weight: bolder;
-			}
-			.right{
-				width: 2rem;
-				padding: 0px;
-				color: white;
-				i{
-					font-size: 1.8rem;
-				}
-			}
-		}
-		.detail-msgs{
-			padding: .2em .2rem .2rem .6rem;
-			.title{
-				font-weight: bolder;
-    			font-size: 1rem;
-	        }
-	        i{
-				font-size: 1.4rem;
-				display: inline-block;
-			    width: 1.2rem;
-			    line-height: 2rem;
-			    height: 100%;
-			}
-		    span{
-		    	display: inline-block;
-		    	height: 100%;
-		    	line-height: 2rem;
-		    }
-	        .company{
-	        	height: 2rem;
-	        }
-	        .user-status{
-	        	display: block;
-	        	width: 100%;
-	        	height: 2rem;
-	            .user{
-					display: inline-block;
-					float: left;
-	            }
-	            .status{
-	            	display: inline-block;
-	            	float: right;
-	            }
-
-	        }
-		}
-	}*/
-}
-
 .modal-wrapper{
-    width: 0px;
 	.show-more-modal-content{
         position: relative;
         min-width: 7rem;
@@ -1017,9 +924,14 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 
 // 详情界面公共 styles
 
+.platform-ios.platform-cordova:not(.fullscreen){
+  
+  //height: 64px; 
+}
 //.worksheet-detail-view-public{
 #worksheetdetail-newcar-view, #worksheetdetail-siterepair-view{
-	.scroll{
+
+	&>.scroll{
         @include display-flex;
         @include flex-direction(column);
     }
@@ -1035,6 +947,10 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             height: 3rem;
             font-size: 1rem;
             font-weight: bolder;
+            border: 1px solid red;
+			/*position: absolute;
+		    top: 0px;
+		    left: 0px;*/
             .left{
                 width: 2rem;
                 text-align: center;

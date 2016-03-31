@@ -1,0 +1,29 @@
+<ion-view  id="worksheet-baogong-list-view"  align-title="center">
+    <ion-header-bar align-title="center" class="bar-positive">
+		<div class="left-back" ng-click="$ionicGoBack();">
+			<i class="ion-ios-arrow-back"></i>
+		</div>
+		<div class="title">报工信息列表</div>
+	</ion-header-bar>
+    <ion-content on-refresh="" has-bouncing="false">
+
+            <div class="baogong-list">
+                <div class="baogong-item" ng-repeat="item in datas.testDates" >
+                    <div class="title-top">
+                    	<div class="title-icon"></div>
+                    	<span ng-bind="item.title"></span>
+                    </div>
+                    <div class="desc">
+                    	<div class="col-50">
+                    		产品编码:<span ng-bind="item.productNum"></span>
+                    	</div>
+                    	<div class="col-50">
+                    		数量: <span ng-bind="item.number"></span>
+                    	</div>
+                    </div>
+                </div>         
+            </div>
+
+    </ion-content>
+
+</ion-view>

@@ -10,49 +10,51 @@ salesModule
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'saleActService',
-        function ($scope, $state, $timeout,$ionicLoading, ionicMaterialInk, ionicMaterialMotion, saleActService) {
+        function ($scope, $state, $timeout, $ionicLoading, ionicMaterialInk, ionicMaterialMotion, saleActService) {
             console.log('销售活动列表');
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
             }, 100)
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
-            $scope.input={search : ''};
+            $scope.input = {search: ''};
             $scope.saleListArr = saleActService.getSaleListArr();
             $scope.hisArr = [
-                '福州','清明','活动'
+                '福州', '清明', '活动'
             ]
             $scope.changeSearch = function () {
                 $scope.searchFlag = !$scope.searchFlag;
-                if($scope.searchFlag){
+                $('#searchTitle').removeClass('animated');
+                if ($scope.searchFlag) {
                     $timeout(function () {
-                        document.getElementById('saleListSearchId').focus();
-                    },300)
+                        //document.getElementById('saleListSearchId').focus();
+                        angular.element('#saleListSearchId').focus();
+                    }, 2000)
                 }
             };
-            $scope.search = function (x,e) {
+            $scope.search = function (x, e) {
                 $scope.g_busy.show('正在搜索');
                 $timeout(function () {
                     $scope.g_busy.hide();
                     $scope.input.search = x;
-                },800)
+                }, 800)
 
                 e.stopPropagation();
             };
             $scope.initSearch = function () {
-                $scope.input.search='';
+                $scope.input.search = '';
                 $timeout(function () {
                     document.getElementById('saleListSearchId').focus();
-                },1)
+                }, 1)
             };
-            $scope.goDetail = function (x,e) {
+            $scope.goDetail = function (x, e) {
                 $state.go('saleActDetail')
                 e.stopPropagation();
             };
 
             //loading公共方法
             $scope.g_busy = {
-                show: function(msg) {
+                show: function (msg) {
                     $scope.g_busy.hide();
                     $timeout.cancel($scope.g_busyTimeout);
                     $scope.g_busyFlag = 'Y';
@@ -64,7 +66,7 @@ salesModule
                         $ionicLoading.show();
                     }
 
-                    $scope.g_busyTimeout = $timeout(function() {
+                    $scope.g_busyTimeout = $timeout(function () {
                         if ($scope.g_busyFlag == 'Y') {
                             $scope.g_busyFlag = 'N';
                             $scope.g_busy.hide();
@@ -72,7 +74,7 @@ salesModule
                         }
                     }, 60000);
                 },
-                hide: function() {
+                hide: function () {
                     $ionicLoading.hide();
                     $timeout.cancel($scope.g_busyTimeout);
                     $scope.g_busyFlag = 'N';
@@ -88,13 +90,21 @@ salesModule
         'ionicMaterialMotion',
         '$timeout',
         '$cordovaDialogs',
+        '$ionicModal',
+        '$ionicPopover',
         'saleActService',
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, saleActService) {
+                  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover, saleActService) {
             ionicMaterialInk.displayEffect();
             $scope.statusArr = saleActService.getStatusArr();
             $scope.mySelect = {
                 status: $scope.statusArr[2]
+            };
+            $scope.details = {
+                annotate: 'In the tumultuous business of cutting-in and attending to a whale, there is much running backwards and forwards among',
+                startTime: '2016-3-1  12:00',
+                endTime: '2016-3-1  12:00',
+                refer: '商机-郑州客车销售机会'
             };
             $scope.isEdit = false;
             $scope.editText = "编辑";
@@ -194,19 +204,20 @@ salesModule
                     $scope.statusFlag = false;
                     $scope.showTitle = false;
                     $scope.TitleFlag = false;
+                    $scope.showTitleStatus = false;
                 }
                 $scope.$apply();
+
             };
             $scope.input = {
                 progress: ''
-            }
+            };
             $scope.submit = function () {
                 $scope.progressArr.push({
                     content: $scope.input.progress,
                     time: '2016-6-8  12:11'
                 });
                 $scope.input.progress = '';
-                ;
                 $ionicScrollDelegate.resize();
                 $timeout(function () {
                     maxTop = $ionicScrollDelegate.getScrollView().__maxScrollTop;
@@ -214,7 +225,55 @@ salesModule
                     console.log(maxTop);
                     $ionicScrollDelegate.scrollBottom(true);
                 }, 20)
+            };
+
+            /*-------------------------------参考类型-------------------------------------*/
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/reference.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.referModal = modal;
+            });
+            $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/selectChance-pop.html', {
+                scope: $scope
+            }).then(function (popover) {
+                $scope.referPop = popover;
+            });
+            $scope.referArr = [{
+                text: '郑州金龙销售机会'
+            }, {
+                text: '福州宇通销售机会'
+            }, {
+                text: '测试1'
+            }, {
+                text: '测试2'
+            }];
+            $scope.chancePopArr = [{
+                text: '商机',
+            }, {
+                text: '线索',
+            }, {
+                text: '销售活动',
+            }];
+            $scope.selectPopText = '商机';
+            $scope.selectModal = function (x) {
+                for (var i = 0; i < $scope.referArr.length; i++) {
+                    $scope.referArr[i].flag = false;
+                }
+                x.flag = true;
+                $scope.referModal.hide();
+            };
+            $scope.selectPop = function (x) {
+                $scope.selectPopText = x.text;
+                $scope.referPop.hide();
             }
+            $scope.openRefer = function () {
+                $scope.referModal.show();
+            };
+            $scope.showChancePop = function () {
+                $scope.referPop.show();
+            };
+            /*-------------------------------参考类型 end-------------------------------------*/
         }])
     .filter("highlight", function ($sce, $log) {
 
@@ -225,11 +284,16 @@ salesModule
             if (!search) {
                 return $sce.trustAsHtml(text);
             }
+            if (text.indexOf(search) == -1) {
+                return text;
+            }
             text = encodeURI(text);
             search = encodeURI(search);
-            var regex = new RegExp(search, 'gi')
+            console.log(text.indexOf(search));
+            var regex = new RegExp(search, 'gi');
             var result = text.replace(regex, '<span style="color: red;">$&</span>');
             result = decodeURI(result);
+            console.log(result)
             $log.info("result: " + result);
             return $sce.trustAsHtml(result);
         };

@@ -9,7 +9,7 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 	"$ionicModal",
 	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout, $ionicBackdrop, $ionicPosition, $ionicGesture, $ionicModal){
 	
-	$scope.config = {
+	$scope.config = { 
 		scrollDelegateHandler: null,
 		contentDetegateHandler: null,
 
@@ -185,8 +185,20 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 		$scope.config.contentDetegateHandler = $ionicScrollDelegate.$getByHandle('xbrDelegateContent');
 		
 		initSwipeEvent();
+		//justTest();
 	};
 	$scope.init();
+
+	function justTest(){
+		var header = document.getElementById("xbr-test-header-newcar");
+		var headerJQ = angular.element(header);
+		var obj1 = headerJQ.offset();
+		var obj2 = headerJQ.position();
+
+		var v1 = header.offsetHeight;
+		alert(JSON.stringify(obj1)+"     "+JSON.stringify(obj2)+"     "+v1);
+
+	}
 
 	function __addTouchEventsListener(viewEle, __touchStart, __touchMove, __touchEnd){
 		if('ontouchstart' in window){ 

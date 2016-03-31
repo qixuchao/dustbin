@@ -4,6 +4,7 @@
 'use strict';
 loginModule
     .controller('LoginCtrl',['$scope','$state','ionicMaterialInk','$ionicLoading','$timeout',function($scope,$state,ionicMaterialInk,$ionicLoading, $timeout){
+        
         $scope.goMain = function(){
             $state.go('main')
         };
@@ -74,4 +75,5 @@ loginModule
         $scope.hide = function(){
             $ionicLoading.hide();
         };
+        
 }]);

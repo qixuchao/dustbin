@@ -434,8 +434,21 @@ worksheetModule.controller("WorksheetListCtrl",[
 			title: '你好',
 			template: '你好不'
 		});*/
+		//justTest();
 	};
 	$scope.init();
+
+	function justTest(){
+		var header = document.getElementById("xbr-test-header");
+		var headerJQ = angular.element(header);
+		var obj1 = headerJQ.offset();
+		var obj2 = headerJQ.position();
+
+		var v1 = header.offsetHeight;
+		alert(document.body.attributes['class'].value);
+		alert(JSON.stringify(obj1)+"     "+JSON.stringify(obj2)+"     "+v1);
+
+	}
 
 }]);
 

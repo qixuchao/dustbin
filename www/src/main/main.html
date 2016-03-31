@@ -1,4 +1,4 @@
-<div class="own-backDrop" ng-if="moreflag" ng-click="moreflag=false"></div>
+<div ng-class="moreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="moreflag=false"></div>
 <div class="main" id="mainTopId">
     <div class="top-back">
         <div class="dayView">
@@ -61,11 +61,15 @@
             <div class="col-10">
                 <div class="dot"></div>
             </div>
-            <div class="col-25">销售活动<i class="icon ion-ios-arrow-down"></i></div>
+            <div class="col-25" ng-click="changeShowPop()">{{selectModeText}}<i ng-class="{'ion-ios-arrow-down-selected':showPop}" class="icon ion-ios-arrow-down"></i></div>
             <div class="col-20">
-                <div class="num">2</div>
-                待办
+                <div class="num">{{contentArr.length}}</div>
+                {{selectModeText.substring(0,2)}}
             </div>
+        </div>
+        <div class="selections" ng-show="showPop" ng-class="showPop?'own-animated fadeIn':''">
+            <div class="pop-arrow"></div>
+            <div ng-repeat="x in selectArr" class="text" ng-class="{'selected':x.text==selectModeText}" ng-click="changePop(x)">{{x.text}}</div>
         </div>
         <div class="own-animated more-off" ng-class="{'more-on fadeIn':moreflag}">
             <img src="img/main/activity.png" ng-class="{activity:moreflag}" ng-show="moreflag">
@@ -87,7 +91,7 @@
         <div class="line-vertical"></div>
         <div class="main-content animate-fade-slide-in-right">
             <div class="await-apl">待处理</div>
-            <div class="obj item" ng-repeat="x in thingsToDo">
+            <div class="obj item {{x.class}}" ng-hide="contenHideFlag" ng-repeat="x in contentArr" ng-style="x.style">
                 <div class="circleNum" style="{{'border-color:'+x.mark}}">{{$index+1}}</div>
                 <div class="row row-center apl-content no-padding">
                     <div class="col col-80">
