@@ -1,6 +1,6 @@
 .saleList {
   .pub-head{
-    background: $crm-header-bar-bgcolor;
+    background: $crm-subject-blue;
     color: white;
     padding-top: 5px;
     i{
@@ -19,10 +19,11 @@
     }
   }
   .pub-subhead{
-    background: $crm-header-bar-bgcolor;
+    background: $crm-subject-blue;
     box-shadow: none;
     top:44px;
     padding:8px;
+    display: flex;
     .row{
       background: white;
       border-radius: 5px;
@@ -35,7 +36,7 @@
     }
   }
   .head {
-    background: $crm-header-bar-bgcolor;
+    background: $crm-subject-blue;
     color: white;
     .col-80{
       background: white;
@@ -57,7 +58,13 @@
         background: none;
         border: none;
         position: relative;
-        top: -3px;
+        //top: -3px;
+      }
+      .ion-ios-close{
+        color: #CBCBCE;
+        position: relative;
+        width: 30px;
+        text-align: center;
       }
     }
     .cancel{
@@ -460,7 +467,7 @@
       padding: 16px 5px 12px 5px;
     }
     .selectImg{
-      position: fixed;
+      position: absolute;
       right: 22px;
       width: 18px;
     }

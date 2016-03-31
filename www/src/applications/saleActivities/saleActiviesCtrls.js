@@ -266,12 +266,18 @@ salesModule
             $scope.selectPop = function (x) {
                 $scope.selectPopText = x.text;
                 $scope.referPop.hide();
-            }
+            };
             $scope.openRefer = function () {
                 $scope.referModal.show();
             };
             $scope.showChancePop = function () {
                 $scope.referPop.show();
+            };
+            $scope.initSearch = function () {
+                $scope.input.search = '';
+                $timeout(function () {
+                    document.getElementById('referSearchId').focus();
+                }, 1)
             };
             /*-------------------------------参考类型 end-------------------------------------*/
         }])

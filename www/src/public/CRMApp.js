@@ -46,12 +46,10 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
                 cordova.plugins.Keyboard.disableScroll(true);
             }
-            //if (window.StatusBar) {
-            //    // org.apache.cordova.statusbar required
-            //    window.StatusBar.overlaysWebView(true);
-            //}
-            window.StatusBar.overlaysWebView(true);
-            window.StatusBar.style(1);
+            if (window.StatusBar) {
+                // org.apache.cordova.statusbar required
+                window.StatusBar.overlaysWebView(true);
+            }
         });
         $rootScope.goState = function(state){
             $state.go(state);
