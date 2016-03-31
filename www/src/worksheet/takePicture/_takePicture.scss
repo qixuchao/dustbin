@@ -36,8 +36,18 @@
 		}
 	}
 }
+.modal-wrapper{
+	width: 100%;
+	height: 100%;
+}
 .takePicture-image-modal-wrapper{
 	text-align: center;
+	width: 100%;
+	height: 100%;
+	@include display-flex;
+	@include justify-content(center);
+	@include align-items(center);
+	background-color: rgba(4, 4, 4, 0.49);
 	.close-div{
 		position: absolute;
 		width: 100%;
@@ -60,11 +70,10 @@
 	img {
 		max-height: 100%;
 		max-width: 100%;
-		height: 0px;
 		@include transition-transform(0.2s linear);
-		@include scale(0,0);
+		//@include scale(0,0);
 		&.inited{
-			@include scale(0,0);
+			//@include scale(0,0);
 		}
 	}
 }
