@@ -35,9 +35,8 @@
   -webkit-transition: background-color 0.2s linear 0s;
   transition: background-color 0.2s linear 0s; }
 
-.popover-backdrop.hide {
-  -webkit-transition: background-color 0.2s linear 0s;
-  transition: background-color 0.2s linear 0s; }
+.bar {
+  font-size: 16px; }
 
 /**
  * 公共的 变量
@@ -995,16 +994,41 @@
   border-style: none;
   font-size: 16px; }
 
+.saleList .pub-head {
+  background: #2B60AB;
+  color: white;
+  padding-top: 5px; }
+  .saleList .pub-head i {
+    font-size: 25px; }
+  .saleList .pub-head .goBack {
+    padding-left: 10px; }
+  .saleList .pub-head .add {
+    text-align: right;
+    padding-right: 10px; }
+    .saleList .pub-head .add img {
+      width: 25px;
+      padding-top: 4px; }
+
+.saleList .pub-subhead {
+  background: #2B60AB;
+  box-shadow: none;
+  top: 44px;
+  padding: 8px; }
+  .saleList .pub-subhead .row {
+    background: white;
+    border-radius: 5px;
+    color: #A0A09F;
+    font-size: 14px; }
+    .saleList .pub-subhead .row i {
+      font-size: 18px;
+      padding: 0 10px; }
+
 .saleList .head {
   background: #2B60AB;
   color: white; }
-  .saleList .head i {
-    font-size: 25px; }
-  .saleList .head .goBack {
-    padding-left: 10px; }
   .saleList .head .col-80 {
     background: white;
-    height: 30px;
+    height: 28px;
     border-radius: 4px;
     margin-left: 2px; }
     .saleList .head .col-80 .ion-ios-search {
@@ -1019,12 +1043,9 @@
       min-height: 22px;
       width: 90%;
       background: none;
-      border: none; }
-    .saleList .head .col-80 .ion-ios-close {
+      border: none;
       position: relative;
-      color: #C7C5C5;
-      font-size: 15px;
-      width: 20px; }
+      top: -3px; }
   .saleList .head .cancel {
     font-size: 16px; }
 
