@@ -1,0 +1,30 @@
+<ion-view id="worksheet-takepicture-view"  align-title="center">
+	<ion-header-bar id="xbr-test-header" align-title="center" class="bar-positive" ng-class="{'query-mode':config.isQueryMode}">
+		<div class="left-back" ng-click="$ionicGoBack();">
+			<i class="ion-ios-arrow-back"></i>
+		</div>
+		<div class="title">服务拍照</div>
+        <div class="buttons right"></div>
+	</ion-header-bar>
+    <ion-content scroll="true" has-bouncing="false">
+        <div class="selected-images">
+            <div class="selected-image" ng-repeat="item in datas.selectedImages">
+                <img src="{{item.base64Str}}" ng-click="showImage($event,item);">
+            </div>
+            <div class="selected-btn selected-image" ng-click="takePicture();">
+                <i class="ion-ios-plus-empty"></i>
+            </div>
+        </div>
+        <div class="test">
+            <div class="div-1">  div-1fdsfafdfs</div>
+            <div class="div-2">  div-2fdsfkjdlfjlsjdf</div>
+            <div class="div-3">  div-3kjfdsjlfjladjfkajsdlf</div>
+        </div>
+        <style>
+            .test{
+                margin-top: 50px;
+                width: 100%;
+            }
+        </style>
+    </ion-content>
+</ion-view>

@@ -124,7 +124,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		}
 	}
 
-
+	
 	.divs-wrapper{
 		position: relative;
 		@include flex(1);
@@ -144,141 +144,84 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			//background-color: rgba(2, 2, 2, 0.36);
 			@include transition(background-color .4s linear 0s);
 		}
-		/*&.sort-from-filter{
-			.tab-sort-content{
-				height: 100%;
-			}
-		}
-		&.sort-from-click{
-			.tab-sort-content{
-				height: 100%;
-			}
-		}*/
-
-		/*.tab-sort-content{
-			transition: transform .4s linear 0s;
-			transform: translateY(-100%);
-			&.active-click-enter{
-				//display: block;
-				//transform: translateY(0%);
-			}
-			&.active-click-out{}
-		}
-		.tab-sort-content{
-		}*/
-		//为动画而生
+		//为动画而生 : just for animation --- 哈哈哈  
 		.tab-sort-content, .tab-filter-content{
-			transition: transform .2s linear 0s;
-			transform: translateY(-100%);
+			@include transition-transform(0.2s linear);
+			@include translate(0px, -100%);
 		}
         &.sort-from-click{
 			.tab-sort-content{
-				transform: translateY(0%);
+				@include translate(0px, 0px);
 			}
 			.tab-filter-content{
-				transition: transform 0s linear 0s;
-				transform: translateX(100%);
+				@include transition-transform(0s linear 0s); 
+				@include translate(100%, 0px);
 			}
         }
         &.sort-from-filter{
 			.tab-sort-content{
-				transform: translateX(0%);
+				@include translate(0px, 0px);
 			}
 			.tab-filter-content{
-				transform: translateX(100%);
+				@include translate(100%, 0px);
 			}
         }
         &.filter-from-click{
 			.tab-filter-content{
-				transform: translateY(0%);
+				@include translate(0px, 0px);
 			}
 			.tab-sort-content{
-				transition: transform 0s linear 0s;
-				transform: translateX(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(-100%, 0px);
 			}
         }
         &.filter-from-sort{
 			.tab-sort-content{
-				transform: translateX(-100%);
+				@include translate(-100%, 0px);
 			}
 			.tab-filter-content{
-				transform: translateX(0px);
+				@include translate(0px, 0px);
 			}
         }
-
+		
 		&.sort-click-gone{
 			.tab-sort-content{
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
 			}
 		}
 		&.filter-click-gone{
 			.tab-sort-content{
-				//transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
-		}
-
+		} 
+		
 		&.filter-gone-bymodelclick{
 			.tab-sort-content{
-				transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 		}
 		&.sorte-gone-bymodelclick{
 			.tab-sort-content{
-				//transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
 			}
-		}
-
-		//动画相关
-		/*.tab-sort-content-inner{
-			@include transition(top .2s linear 0.0s, left .2s linear 0.0s);
-			position: relative;
-			top: -9rem;
-			//left: 0%;
-			//.top-animation{}
-			//.left-animation{}
-			&.active-from-click{
-					//@include transition(top .2s linear 0.0s);
-					top: 0px;
-			}
-			&.active-from-filter{
-					//@include transition(left .2s linear 0.0s);
-					//left: 0px;
-					top: 0px;
-			}
-		}
-		.tab-filter-content{
-			@include transition(top .2s linear 0.0s, left .2s linear 0.0s);
-			//left: 0px;
-	    	top: -100%;
-	    	&.active-from-click{
-				//@include transition(top .2s linear 0.0s);
-				top: 0px;
-			}
-			&.active-from-sort{
-				//@include transition(left .2s linear 0.0s);
-				//left: 0px;
-				top: 0px;
-			}
-		}*/
+		}  
 	}
-
+	
 	$divs-wrapper-z-index: 1;
 	.worksheet-query-result{
 		width: 100%;
@@ -292,7 +235,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			text-align: center;
 			color: #ADAAAA;
 		}
-		.list{
+		.list{ 
 			padding-bottom: 0rem;
 			margin-bottom: 0px;
 		}
@@ -876,11 +819,14 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 
 	.tab-sort-content.ng-show{
 	}
-
+	
 }
 
 .modal-wrapper{
+	pointer-events: none;
+	width: 100%;
 	.show-more-modal-content{
+		pointer-events: auto;
         position: relative;
         min-width: 7rem;
         //left: 296px;
@@ -928,10 +874,10 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
   
   //height: 64px; 
 }
+
 //.worksheet-detail-view-public{
 #worksheetdetail-newcar-view, #worksheetdetail-siterepair-view{
-
-	&>.scroll{
+	ion-content>div.scroll{
         @include display-flex;
         @include flex-direction(column);
     }
@@ -944,10 +890,13 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             @include display-flex;
             @include justify-content(center);
             @include align-items(center);
-            height: 3rem;
+            //height: 3rem;
+            //padding-bottom: .5rem;
+            padding-bottom: .4rem;
+    		height: 3.2rem;
             font-size: 1rem;
             font-weight: bolder;
-            border: 1px solid red;
+            //border: 1px solid red;
 			/*position: absolute;
 		    top: 0px;
 		    left: 0px;*/
@@ -965,15 +914,19 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
                 .sub-title{
                     //display: block;   
                     display: none;
-                    font-size: .4rem;
+                    font-size: .8rem;
                     line-height: 1rem;
                     height: 0rem;
+                    &.fadeIn{
+                    	display: block;
+                    }
                 }
             }
             .right{
                 width: 3rem;
                 text-align: center;
                 font-size: 3rem;
+                z-index: 101;
             }
         }
         .detail-header-info{
@@ -983,24 +936,41 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             height: 6rem;
             overflow: hidden;
             //transition: top .2s linear 0s, width .2s linear 0s;
-
+			@include display-flex;
+			@include flex-direction(column);
+			@include justify-content(center);
             padding: 0px .8rem;
             font-size: 1rem;
             .detail-header-line{
                 height: 2rem;
                 line-height: 2rem;
+                @include flex(1);
+                @include display-flex;
+                @include justify-content(center);
+                @include align-items(center);
+                &:nth-child(2){
+                	span:nth-child(2){
+                		@include flex(1);
+                	}
+                }
             }
-            .header-title span{
-                width: 100%;
+            .header-title{
+            	span{
+            		width: 12px;
+            	}
+            	span:nth-child(2){
+					@include flex(1);
+            	}                
             }
             .customer-status{
                 .left{
                     display: inline-block;
-                    float: left;
+                    @include flex(1);
                 }
                 .right{
                     display: inline-block;
-                    float: right;
+                    @include flex(1);
+    				text-align: right;
                 }
             }
             .header-info-title-icon{
@@ -1119,7 +1089,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	.button-crm-edit-public{ //编辑按钮
 		width: 90%;
         border-radius: 10px;
-        margin: 1rem auto 2rem auto;
+        margin: 1rem 5% 2rem 5%;
         font-size: 1rem;
         word-spacing: .6rem;
         letter-spacing: .6rem;

@@ -136,7 +136,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/contacts/relationship/Relationship.html',
                 controller: 'contactRelationshipCtrl'
             })
-
+            
             //客户
             .state('customerQuery', {
                 url: '/customerQuery',
@@ -230,7 +230,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 controller: 'dealHistoryListCtrl'
             })
             
-            .state('worksheetCarMileage', {
+            .state('worksheetCarMileage',{
                 url: '/worksheetCarMileage',
                 templateUrl: 'src/worksheet/carMileage/worksheet_carMileage.html',
                 controller: 'WorksheetCarMileageCtrl'
@@ -250,12 +250,18 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/worksheet/sparePart/worksheet_spareSelect.html',
                 controller: 'WorksheetPareSelectCtrl'
             })
-            // 工单模块相关： end ------------------------
             .state('worksheetRelatedPart', {
                 url: '/worksheetRelatedPart',
                 templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',
                 controller: 'WorksheetRelatedCtrl'
             })
+            .state('worksheetTakePicture', {
+                url: '/worksheetTakePicture',
+                templateUrl: 'src/worksheet/takePicture/takePicture.html',
+                controller: 'worksheetTakePictureCtrl'
+            })
+            // 工单模块相关： end ------------------------
+            
         ;
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider  // /home/login
