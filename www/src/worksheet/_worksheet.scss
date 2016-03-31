@@ -6,7 +6,6 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	
 	ion-header-bar{
 		background-color: $crm-header-bar-bgcolor;
-		background-image: linear-gradient(0deg,#3259a4,#3259a4 50%,transparent 50%);
 		transition: left 0.2s ease-out 0s;
 		//border: 1px solid red;
 		left: 0;
@@ -27,8 +26,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			width: 2.5rem;
 			overflow: hidden;
 			display: inline-block;
-			//min-height: 1.5rem;			
-			//border: 1px solid green;			
+			//min-height: 1.5rem;
+			//border: 1px solid green;
 		}
 		.search-header-bar{
 			@include display-flex;
@@ -93,9 +92,9 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		@include display-flex;
 		@include flex-direction(column);
 	}
-	
-	
-	
+
+
+
 	.search-box-wrapper{
 		background-color: $crm-header-bar-bgcolor;
 		.search-box{
@@ -106,7 +105,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    margin-top: .4rem;
 		    margin-bottom: .4rem;
 		    background-color: white;
-		    color: #969494;	    
+		    color: #969494;
 		}
 		i{
 			width: 9%;
@@ -124,13 +123,14 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    width: 87%;
 		}
 	}
-	
-	
+
+
 	.divs-wrapper{
 		position: relative;
 		@include flex(1);
 		overflow: hidden;
 		&.show-model{
+			//background-color: rgba(0, 0, 0, 0.14);
 			.divs-wrapper-bg{
 				background-color: rgba(2, 2, 2, 0.36);
 			}
@@ -141,90 +141,88 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			top: 0px; bottom: 0px;
 			left: 0px; right: 0px;
 			pointer-events:auto;
+			//background-color: rgba(2, 2, 2, 0.36);
 			@include transition(background-color .4s linear 0s);
 		}
-		
-		//为动画而生 : just for animation --- 哈哈哈  
+		//为动画而生
 		.tab-sort-content, .tab-filter-content{
-			@include transition-transform(0.2s linear);
-			@include translate(0px, -100%);
+			transition: transform .2s linear 0s;
+			transform: translateY(-100%);
 		}
         &.sort-from-click{
 			.tab-sort-content{
-				@include translate(0px, 0px);
+				transform: translateY(0%);
 			}
 			.tab-filter-content{
-				@include transition-transform(0s linear 0s); 
-				@include translate(100%, 0px);
+				transition: transform 0s linear 0s;
+				transform: translateX(100%);
 			}
         }
         &.sort-from-filter{
 			.tab-sort-content{
-				@include translate(0px, 0px);
+				transform: translateX(0%);
 			}
 			.tab-filter-content{
-				@include translate(100%, 0px);
+				transform: translateX(100%);
 			}
         }
         &.filter-from-click{
 			.tab-filter-content{
-				@include translate(0px, 0px);
+				transform: translateY(0%);
 			}
 			.tab-sort-content{
-				@include transition-transform(0s linear 0s);
-				@include translate(-100%, 0px);
+				transition: transform 0s linear 0s;
+				transform: translateX(-100%);
 			}
         }
         &.filter-from-sort{
 			.tab-sort-content{
-				@include translate(-100%, 0px);
+				transform: translateX(-100%);
 			}
 			.tab-filter-content{
-				@include translate(0px, 0px);
+				transform: translateX(0px);
 			}
         }
-		
+
 		&.sort-click-gone{
 			.tab-sort-content{
-				@include translate(0px, -100%);
+				transform: translateY(-100%);
 			}
 			.tab-filter-content{
-				@include transition-transform(0s linear 0s);
-				@include translate(0px, -100%);
+				transition: transform 0s linear 0s;
+				transform: translateY(-100%);
 			}
 		}
 		&.filter-click-gone{
 			.tab-sort-content{
-				@include translate(0px, -100%);
+				//transition: transform 0s linear 0s;
+				transform: translateY(-100%);
 			}
 			.tab-filter-content{
-				@include translate(0px, -100%);
+				transform: translateY(-100%);
 			}
-		} 
-		
+		}
+
 		&.filter-gone-bymodelclick{
 			.tab-sort-content{
-				@include transition-transform(0s linear 0s);
-				@include translate(0px, -100%);
+				transition: transform 0s linear 0s;
+				transform: translateY(-100%);
 			}
 			.tab-filter-content{
-				@include translate(0px, -100%);
+				transform: translateY(-100%);
 			}
 		}
 		&.sorte-gone-bymodelclick{
 			.tab-sort-content{
-				@include translate(0px, -100%);
+				//transition: transform 0s linear 0s;
+				transform: translateY(-100%);
 			}
 			.tab-filter-content{
-				@include transition-transform(0s linear 0s);
-				@include translate(0px, -100%);
+				transition: transform 0s linear 0s;
+				transform: translateY(-100%);
 			}
 		}
-
-		
 	}
-
-	
 
 	$divs-wrapper-z-index: 1;
 	.worksheet-query-result{

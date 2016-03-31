@@ -135,6 +135,14 @@ $main-lineColor: #d2d2d2;
     height: 73px;
     background: url("../../img/main/bar3x.png") no-repeat;
     background-size: 100% 100%;
+    .ion-ios-arrow-down{
+      &:before{
+        @include transition(transform 0.4s ease-out 0.0s);
+      }
+    }
+    .ion-ios-arrow-down-selected:before{
+      @include rotate(180deg);
+    }
     .row {
       padding: 0;
       .col-10 {
@@ -166,8 +174,48 @@ $main-lineColor: #d2d2d2;
           font-size: 20px;
         }
       }
-
     }
+    .selections{
+      background: rgba(74, 74, 74, 0.7);
+      height: 120px;
+      width: 100px;
+      border-radius: 10px;
+      z-index: 9;
+      left: 7%;
+      position: fixed;
+      margin-top: -8px;
+      padding: 15px;
+      color: white;
+      text-align: center;
+      //@include transition-transform(0.2s linear);
+      //@include translate(0px, -100%);
+      .pop-arrow{
+        position: absolute;
+        top: -4px;
+        left: 48px;
+        width: 8px;
+        height: 8px;
+        overflow: hidden;
+        background: rgba(109, 109, 109, 0.7);
+        content: '';
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+      }
+      .text{
+        padding-top: 10px;
+      }
+      .selected{
+        color: $crm-subject-green!important;
+      }
+    }
+    //.selections-show{
+    //  @include transition-transform(.2s linear 0s);
+    //  @include translate(0%, 0px);
+    //}
+    //.selections-close{
+    //  @include transition-transform(.2s linear 0s);
+    //  @include translate( 0px,-100%);
+    //}
     @mixin more($width) {
       position: absolute;
       width: $width+px;

@@ -14,7 +14,6 @@
       border-radius: 4px;
       margin-left: 2px;
       .ion-ios-search{
-        //float: left;
         font-size: 18px;
         position: relative;
         left: 2px;
@@ -91,9 +90,9 @@
     }
     .horizon-line{
       background: #D8D8D8;
-      width: 100%;
+      width: 80%;
       height: 1px;
-      margin-left: 5px;
+      margin-left: 2%;
     }
     ion-item{
       border-bottom: 1px solid #D8D8D8;
@@ -384,6 +383,79 @@
         }
       }
 
+    }
+  }
+}
+.referModal{
+  .head{
+    .chanceImg{
+      width: 16px;
+      vertical-align: middle;
+      position: relative;
+      left: 5px;
+      top: -2px;
+    }
+    .col-20{
+      font-size: 16px;
+    }
+    .col-60{
+      background: white;
+      height: 30px;
+      border-radius: 4px;
+      margin-left: 2px;
+      .ion-ios-search{
+        font-size: 18px;
+        position: relative;
+        left: 2px;
+        top: -2px;
+        margin-right: 5px;
+        color: #9A9AA0;
+      }
+      input{
+        height:22px;
+        min-height:22px;
+        width: 90%;
+        background: none;
+        border: none;
+      }
+      .ion-ios-close{
+        position: relative;
+        color: #C7C5C5;
+        font-size: 15px;
+        width: 20px;
+      }
+    }
+  }
+  .content{
+    padding: 0 20px;
+    .item{
+      font-size: 16px;
+      border-bottom: 1px solid #E2E0DF;
+      padding: 16px 5px 12px 5px;
+    }
+    .selectImg{
+      position: fixed;
+      right: 22px;
+      width: 18px;
+    }
+  }
+}
+.selectChance-pop{
+  width: 100px;
+  height: 122px;
+  border-radius: 0!important;
+  left: 110px;
+  top: 42px;
+  .content{
+    padding: 0 10px;
+    text-align: center;
+    margin: 0!important;
+    .select{
+      border-bottom: 1px solid #DAD6D3;
+      padding: 12px 0 8px 0;
+    }
+    .selected{
+      color: $crm-subject-blue;
     }
   }
 }

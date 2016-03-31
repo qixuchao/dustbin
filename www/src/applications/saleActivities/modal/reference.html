@@ -1,0 +1,26 @@
+<ion-modal-view class="referModal">
+    <div class="saleList">
+        <div class="head">
+            <div class="row row-center">
+                <div class="col col-20 text-center" ng-click="showChancePop()">
+                    {{selectPopText}}<img class="chanceImg" src="img/saleList/oval.png">
+                </div>
+                <div class="col col-60">
+                    <div class="row row-center no-padding">
+                        <i class="ion-ios-search"></i>
+                        <input id="saleListSearchId" type="text" ng-model="input.search" placeholder="请输入活动关键字">
+                        <i class="ion-ios-close" ng-if="input.search" ng-click="initSearch()"></i>
+                    </div>
+                </div>
+                <div class="col col-20 text-center cancel" ng-click="referModal.hide()">取消</div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <ion-list>
+            <ion-item ng-repeat="x in referArr">
+                {{x.text}}<img class="selectImg" src="img/saleList/blank.png">
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-modal-view>

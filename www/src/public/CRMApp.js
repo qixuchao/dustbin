@@ -58,7 +58,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         // Turn off caching for demo simplicity's sake
         //$ionicConfigProvider.views.maxCache(0);
-
+        $ionicConfigProvider.views.swipeBackEnabled(true);
         /*
          // Turn off back button text
          $ionicConfigProvider.backButton.previousTitleText(false);
@@ -247,12 +247,25 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/worksheet/sparePart/worksheet_spareSelect.html',
                 controller: 'WorksheetPareSelectCtrl'
             })
+            .state('worksheetRelatedPart', {
+                url: '/worksheetRelatedPart',
+                templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',
+                controller: 'WorksheetRelatedCtrl'
+            })
+            .state('worksheetTakePicture', {
+                url: '/worksheetTakePicture',
+                templateUrl: 'src/worksheet/takePicture/takePicture.html',
+                controller: 'worksheetTakePictureCtrl'
+            })
             // 工单模块相关： end ------------------------
             
         ;
         // if none of the above states are matched, use this as the fallback
-        //$urlRouterProvider.otherwise('/login');
         $urlRouterProvider  // /home/login
             .when('','/login')
-            .otherwise('/login');
+            .otherwise('/tabs');
     });
+
+
+
+

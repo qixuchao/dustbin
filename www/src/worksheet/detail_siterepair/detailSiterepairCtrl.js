@@ -103,7 +103,7 @@ worksheetModule.controller("WorksheetDetailSiterepairCtrl",[
 	$scope.dibButtonClickHandler = function(type){
 		switch(type){
 			case 'xiangGuanFang':
-				$scope.goState('');
+				$scope.goState('worksheetRelatedPart');
 				break;
 			case 'jiaoYiLiShi':
 				$scope.goState('worksheetdealhistorylist');
@@ -128,7 +128,7 @@ worksheetModule.controller("WorksheetDetailSiterepairCtrl",[
 		}else if(type == 'guzhangxinxi'){
 			$scope.goState("worksheetFaultInfos");
 		}else if(type == 'fuwupaizhao'){
-			//$scope.goState("worksheetFaultInfos");
+			$scope.goState("worksheetTakePicture");
 		}else if(type == 'baogong'){
 			$scope.goState("worksheetbaogonglist");
 		}else if(type == 'wangong'){

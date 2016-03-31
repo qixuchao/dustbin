@@ -113,14 +113,14 @@ salesModule
             };
             $scope.submit = function () {
 
-            }
+            };
             /*---------------------------------选择弹窗-------------------------------------*/
             $scope.saleStages = saleActService.getStagesArr();
             $scope.pop = {
                 stage:'',
                 feel:'',
                 saleNum:''
-            }
+            };
             var getInitStage = function () {
                 for (var i = 0; i < $scope.saleStages.length; i++) {
                     if ($scope.saleStages[i].value == $scope.chanceDetails.saleStage) {
@@ -128,7 +128,7 @@ salesModule
                         return
                     }
                 }
-            }
+            };
             $ionicPopover.fromTemplateUrl('saleDetailSelect-popover.html', {
                 scope: $scope
             }).then(function (popover) {
