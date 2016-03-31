@@ -71,7 +71,7 @@
       box-shadow: none;
       color: #fff; }
 
-/*  
+/*
   使用方法如下：
   <div class="crm-line-title"> <!-- 默认为4个字，如果为2个字，则：在外部div上加入class: work-2 -->
       <div class="title-top">
@@ -1474,45 +1474,68 @@
       -webkit-transition: background-color 0.4s linear 0s;
       transition: background-color 0.4s linear 0s; }
     #worksheetlist-view .divs-wrapper .tab-sort-content, #worksheetlist-view .divs-wrapper .tab-filter-content {
-      transition: transform .2s linear 0s;
-      transform: translateY(-100%); }
+      -webkit-transition: -webkit-transform 0.2s linear;
+      transition: transform 0.2s linear;
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.sort-from-click .tab-sort-content {
-      transform: translateY(0%); }
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px); }
     #worksheetlist-view .divs-wrapper.sort-from-click .tab-filter-content {
+      -webkit-transition: -webkit-transform 0s linear 0s;
       transition: transform 0s linear 0s;
-      transform: translateX(100%); }
+      -webkit-transform: translate(100%, 0px);
+      transform: translate(100%, 0px); }
     #worksheetlist-view .divs-wrapper.sort-from-filter .tab-sort-content {
-      transform: translateX(0%); }
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px); }
     #worksheetlist-view .divs-wrapper.sort-from-filter .tab-filter-content {
-      transform: translateX(100%); }
+      -webkit-transform: translate(100%, 0px);
+      transform: translate(100%, 0px); }
     #worksheetlist-view .divs-wrapper.filter-from-click .tab-filter-content {
-      transform: translateY(0%); }
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px); }
     #worksheetlist-view .divs-wrapper.filter-from-click .tab-sort-content {
+      -webkit-transition: -webkit-transform 0s linear 0s;
       transition: transform 0s linear 0s;
-      transform: translateX(-100%); }
+      -webkit-transform: translate(-100%, 0px);
+      transform: translate(-100%, 0px); }
     #worksheetlist-view .divs-wrapper.filter-from-sort .tab-sort-content {
-      transform: translateX(-100%); }
+      -webkit-transform: translate(-100%, 0px);
+      transform: translate(-100%, 0px); }
     #worksheetlist-view .divs-wrapper.filter-from-sort .tab-filter-content {
-      transform: translateX(0px); }
+      -webkit-transform: translate(0px, 0px);
+      transform: translate(0px, 0px); }
     #worksheetlist-view .divs-wrapper.sort-click-gone .tab-sort-content {
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.sort-click-gone .tab-filter-content {
+      -webkit-transition: -webkit-transform 0s linear 0s;
       transition: transform 0s linear 0s;
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.filter-click-gone .tab-sort-content {
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.filter-click-gone .tab-filter-content {
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.filter-gone-bymodelclick .tab-sort-content {
+      -webkit-transition: -webkit-transform 0s linear 0s;
       transition: transform 0s linear 0s;
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.filter-gone-bymodelclick .tab-filter-content {
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.sorte-gone-bymodelclick .tab-sort-content {
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
     #worksheetlist-view .divs-wrapper.sorte-gone-bymodelclick .tab-filter-content {
+      -webkit-transition: -webkit-transform 0s linear 0s;
       transition: transform 0s linear 0s;
-      transform: translateY(-100%); }
+      -webkit-transform: translate(0px, -100%);
+      transform: translate(0px, -100%); }
   #worksheetlist-view .worksheet-query-result {
     width: 100%;
     height: 100%;

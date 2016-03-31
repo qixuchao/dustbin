@@ -34,9 +34,9 @@
 /**
  * 公共的 变量
  */
- $crm-header-bar-bgcolor: #2B60AB;
- $crm-content-bgcolor: #F5F5F5;
-
+$crm-header-bar-bgcolor: #2B60AB;
+$crm-content-bgcolor: #F5F5F5;
+ 
 $crm-subject-green:#9ec92a;
 $crm-subject-blue:#2B60AB;
 $lineColor:#d2d2d2;
@@ -74,8 +74,7 @@ $button-crm-edit-text:                 white;
   @include button-outline($button-crm-edit-border); 
 }
 
-
-/*  
+/*
   使用方法如下：
   <div class="crm-line-title"> <!-- 默认为4个字，如果为2个字，则：在外部div上加入class: work-2 -->
       <div class="title-top">

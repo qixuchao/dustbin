@@ -124,7 +124,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		}
 	}
 
-
+	
 	.divs-wrapper{
 		position: relative;
 		@include flex(1);
@@ -144,86 +144,84 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			//background-color: rgba(2, 2, 2, 0.36);
 			@include transition(background-color .4s linear 0s);
 		}
-		//为动画而生
+		//为动画而生 : just for animation --- 哈哈哈  
 		.tab-sort-content, .tab-filter-content{
-			transition: transform .2s linear 0s;
-			transform: translateY(-100%);
+			@include transition-transform(0.2s linear);
+			@include translate(0px, -100%);
 		}
         &.sort-from-click{
 			.tab-sort-content{
-				transform: translateY(0%);
+				@include translate(0px, 0px);
 			}
 			.tab-filter-content{
-				transition: transform 0s linear 0s;
-				transform: translateX(100%);
+				@include transition-transform(0s linear 0s); 
+				@include translate(100%, 0px);
 			}
         }
         &.sort-from-filter{
 			.tab-sort-content{
-				transform: translateX(0%);
+				@include translate(0px, 0px);
 			}
 			.tab-filter-content{
-				transform: translateX(100%);
+				@include translate(100%, 0px);
 			}
         }
         &.filter-from-click{
 			.tab-filter-content{
-				transform: translateY(0%);
+				@include translate(0px, 0px);
 			}
 			.tab-sort-content{
-				transition: transform 0s linear 0s;
-				transform: translateX(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(-100%, 0px);
 			}
         }
         &.filter-from-sort{
 			.tab-sort-content{
-				transform: translateX(-100%);
+				@include translate(-100%, 0px);
 			}
 			.tab-filter-content{
-				transform: translateX(0px);
+				@include translate(0px, 0px);
 			}
         }
-
+		
 		&.sort-click-gone{
 			.tab-sort-content{
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
 			}
 		}
 		&.filter-click-gone{
 			.tab-sort-content{
-				//transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
-		}
-
+		} 
+		
 		&.filter-gone-bymodelclick{
 			.tab-sort-content{
-				transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 		}
 		&.sorte-gone-bymodelclick{
 			.tab-sort-content{
-				//transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include translate(0px, -100%);
 			}
 			.tab-filter-content{
-				transition: transform 0s linear 0s;
-				transform: translateY(-100%);
+				@include transition-transform(0s linear 0s);
+				@include translate(0px, -100%);
 			}
-		}
+		}  
 	}
-
+	
 	$divs-wrapper-z-index: 1;
 	.worksheet-query-result{
 		width: 100%;
