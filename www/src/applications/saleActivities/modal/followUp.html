@@ -1,0 +1,17 @@
+<ion-modal-view class="followUpModal referModal">
+    <div class="saleList">
+        <ion-header-bar no-tap-scroll="true" align-title="center" class="head pub-head no-padding">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="followUpModal.hide()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">销售活动后续</div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <ion-content class="content has-header">
+        <ion-list>
+            <ion-item ng-repeat="x in referArr" ng-click="selectModal(x)">
+                <span>{{x.text}}</span>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-modal-view>

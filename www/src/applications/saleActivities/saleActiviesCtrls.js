@@ -97,7 +97,7 @@ salesModule
         'Prompter',
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast,saleActService,Prompter) {
+                  $cordovaToast, saleActService, Prompter) {
             ionicMaterialInk.displayEffect();
             $scope.statusArr = saleActService.getStatusArr();
             $scope.mySelect = {
@@ -127,7 +127,7 @@ salesModule
                         $cordovaToast.showShortBottom('保存成功');
                         $scope.isEdit = false;
                         $scope.editText = "编辑";
-                    },500);
+                    }, 500);
 
                 }
             }
@@ -243,6 +243,12 @@ salesModule
             }).then(function (modal) {
                 $scope.referModal = modal;
             });
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/followUp.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.followUpModal = modal;
+            });
             $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/selectChance-pop.html', {
                 scope: $scope
             }).then(function (popover) {
@@ -269,7 +275,7 @@ salesModule
                 for (var i = 0; i < $scope.referArr.length; i++) {
                     $scope.referArr[i].flag = false;
                 }
-                $scope.details.refer = $scope.selectPopText+'-'+ x.text;
+                $scope.details.refer = $scope.selectPopText + '-' + x.text;
                 x.flag = true;
                 $scope.referModal.hide();
             };
@@ -282,6 +288,9 @@ salesModule
             };
             $scope.showChancePop = function () {
                 $scope.referPop.show();
+            };
+            $scope.openFollow = function () {
+                $scope.followUpModal.show();
             };
             $scope.initSearch = function () {
                 $scope.input.search = '';
@@ -300,8 +309,10 @@ salesModule
             if (text.indexOf(search) == -1) {
                 return text;
             }
-            text = encodeURI(text);
-            search = encodeURI(search);
+            //text = encodeURI(text);
+            //search = encodeURI(search);
+            text = (text);
+            search = (search);
             var regex = new RegExp(search, 'gi');
             var result = text.replace(regex, '<span style="color: red;">$&</span>');
             return $sce.trustAsHtml(result);
