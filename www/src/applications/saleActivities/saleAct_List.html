@@ -1,12 +1,19 @@
 <ion-view class="saleList">
-    <!--<div class="bar header"><button ng-click="goBack()">返回</button></div>-->
-    <ion-header-bar align-title="center" class="head">
-        <div class="row row-center" ng-if="!searchFlag">
-            <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-
-            <div class="col col-70 text-center">销售活动列表</div>
-            <div class="col col-15 text-center" ng-click="changeSearch()"><i class="ion-search"></i></div>
+    <div ng-if="!searchFlag">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">销售活动</div>
+                <div class="col col-15 add"><img src="img/saleList/add.png"></div>
+            </div>
+        </ion-header-bar>
+        <div class="pub-subhead bar bar-subheader">
+            <div class="row row-center no-padding" ng-click="changeSearch()">
+                <i class="ion-ios-search"></i>请输入活动关键字
+            </div>
         </div>
+    </div>
+    <ion-header-bar align-title="center" class="head" ng-if="searchFlag">
         <div id="searchTitle" class="row row-center" ng-class="{'animated fadeIn':searchFlag}" ng-if="searchFlag">
             <div class="col col-80">
                 <div class="row row-center no-padding">
@@ -19,10 +26,10 @@
         </div>
     </ion-header-bar>
 
-    <ion-content class="has-header content" ng-hide="searchFlag">
+    <ion-content class="has-subheader content" ng-hide="searchFlag">
         <div class="list">
             <a ui-sref="saleActDetail" class="item animated flipInX" ng-repeat="x in saleListArr">
-                <div class="row row-center">
+                <div class="row row-center">  
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
 
                     <div class="title" ng-bind-html="x.title"></div>
@@ -38,23 +45,21 @@
             </a>
         </div>
     </ion-content>
-    <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag"
+    <ion-content class="has-header search" ng-show="searchFlag"
                  ng-click="changeSearch($event)">
         <div class="row row-center his-title" ng-if="!input.search">
             <i class="ion-android-time"></i>
-
             <div class="hisText">历史记录</div>
             <div class="horizon-line"></div>
         </div>
         <ion-list ng-if="!input.search">
             <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x}}</ion-item>
-        </ion-list>
-        <div class="content">
+        </ion-list> 
+        <div class="content"> 
             <div class="list" ng-if="input.search">
                 <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr | filter:input.search">
                     <div class="row row-center">
                         <img class="title_oval" src="img/saleDetail/title_oval.png">
-
                         <div class="title" ng-bind-html="x.title | highlight:input.search"></div>
                         <div class="col text-right"><img class="shape" src="img/saleDetail/Shape.png"></div>
                     </div>
@@ -63,7 +68,8 @@
                         <div class="startDate" ng-bind-html="x.startTime | highlight:input.search"></div>
                         <div class="type">类型:&nbsp;&nbsp;</div>
                         <div class="typeValue" ng-bind-html="x.type | highlight:input.search"></div>
-                        <div class="col status" ng-class="{'waitStatus':x.status=='未处理'}">{{x.status}}</div>
+                        <div class="col status" ng-class="{'waitStatus':x.status=='未处理'}"
+                             ng-bind-html="x.status | highlight:input.search"></div>
                     </div>
                 </a>
             </div>

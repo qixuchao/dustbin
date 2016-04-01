@@ -1,23 +1,23 @@
 <ion-view id="worksheetdetail-newcar-view" class="worksheet-detail-view-public" align-title="center">
     <ion-content id="worksheetdetail-content-newcar" class="fill-parent" scrollbar-y="false" scroll="true" has-bouncing="false" on-scroll="onContentScroll($event);" delegate-handle="xbrDelegateContent" ng-init="freezeContentScroll(true, 100);">
         <div class="detail-header">
-            <div class="detail-header-bar">
-                <div class="left" ng-click="$ionicGoBack();"> <i class="ion-ios-arrow-back"></i> </div> 
+            <div class="detail-header-bar bar-header" id="xbr-test-header-newcar">
+                <div class="left" ng-click="$ionicGoBack();"> <i class="ion-ios-arrow-back"></i> </div>
                 <div class="center">
                     <span class="title">工单详细信息</span>
-                    <span class="sub-title animated fadeOut" ng-bind="datas.header.title"></span>
+                    <span class="sub-title animated" ng-bind="datas.header.title"></span>
                 </div>
                 <div class="right show-more-modal-content-source" ng-click="showMoreModel($event);"><span><i class="ion-ios-more"></i></span></div>
             </div>
             <div class="detail-header-info">
-                <div class="detail-header-line header-title animated fadeIn">
-                    <span></span><span class="line-title" ng-bind="datas.header.title"></span>
+                <div class="detail-header-line header-title fadeIn">
+                    <span></span><span class="line-title" ng-bind="datas.header.title"></span> 
                 </div>
-                <div class="detail-header-line  animated fadeIn">
+                <div class="detail-header-line  adeIn">
                     <span class="line-title"><i class="ion-ios-copy-outline"></i></span>
                     <span class="line-value" ng-bind="datas.header.company"></span>
                 </div>
-                <div class="detail-header-line customer-status  animated fadeIn">
+                <div class="detail-header-line customer-status fadeIn">
                     <div class="left">
                         <span class="line-title"><i class="ion-ios-person-outline"></i></span>
                         <span class="line-value" ng-bind="datas.header.customer"></span>
@@ -30,24 +30,23 @@
             </div>
         </div>
         
-        <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
-            <div class="fill-height line-inner">
-                <div class="relation-box left-1">
-                    <i class="ion-ios-more"></i>                             
-                    <span>相关方</span>
+        <ion-scroll class="worksheetdetail-content-public worksheetdetail-content-newcar" delegate-handle="xbrDelegateScroll" scrollbar-y="false" has-bouncing="false" ng-init="freezeBottomScroll(true, 100);">
+            <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
+                <div class="fill-height line-inner">
+                    <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
+                        <i class="ion-ios-more"></i>                             
+                        <span>相关方</span>
+                    </div>
+                    <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
+                        <i class="ion-ios-more"></i>                               
+                        <span>交易历史</span>
+                    </div>
+                    <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
+                        <i class="ion-ios-more"></i>
+                        <span>报工信息</span>
+                    </div>
                 </div>
-                <div class="history-box left-2">
-                    <i class="ion-ios-more"></i>                               
-                    <span>交易历史</span>
-                </div>
-                <div class="info-box left-3">
-                    <i class="ion-ios-more"></i>
-                    <span>报工信息</span>
-                </div>
-            </div>
-        </ion-scroll>
-
-        <ion-scroll class="worksheetdetail-content-newcar" delegate-handle="xbrDelegateScroll" scrollbar-y="false" has-bouncing="false" ng-init="freezeBottomScroll(true, 100);">
+            </ion-scroll>
             <div class="basic-info first-line commment-info-lines">
                 <div class="crm-line-title">
                     <div class="title-top">
@@ -106,11 +105,11 @@
                     <div class="col-60" ng-bind="datas.basicInfo.timeOnlineStart"></div>
                 </div>
             </div>
-
+            
             <div class="button button-crm-edit button-crm-edit-public">
                 编辑
             </div>
-
+            
             <!--div ng-repeat="item in datas.temp" style="height:4rem;width:100%;">
                 <div ng-bind="item.title" style="font-size:1rem;height:2rem;"></div>
                 <div ng-bind="item.content" style="font-size:1rem;height:2rem;padding-left:4rem;"></div>

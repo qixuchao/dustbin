@@ -7,9 +7,10 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 	"$ionicPosition", 
 	"$ionicGesture",
 	"$ionicModal",
-	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout, $ionicBackdrop, $ionicPosition, $ionicGesture, $ionicModal){
+	"$state",
+	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout, $ionicBackdrop, $ionicPosition, $ionicGesture, $ionicModal, $state){
 	
-	$scope.config = {
+	$scope.config = { 
 		scrollDelegateHandler: null,
 		contentDetegateHandler: null,
 
@@ -71,17 +72,66 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 		]
 	};
 
+	$scope.$on('$destroy', function() {
+		if($scope.config.moreModal != null){
+			$scope.config.moreModal.remove();
+		}
+	});
+
+	$scope.goState = function(stateName){
+		$timeout(function (){
+			$state.go(stateName);
+		}, 100);		
+	};
+	$scope.dibButtonClickHandler = function(type){
+		switch(type){
+			case 'xiangGuanFang':
+				$scope.goState('worksheetRelatedPart');
+				break;
+			case 'jiaoYiLiShi':
+				$scope.goState('worksheetdealhistorylist');
+				break;
+			case 'baoGongXinXi':
+				$scope.goState('worksheetbaogonglist');
+				break;
+		}
+	};
+	$scope.moreModalClickHandler = function(type){
+		$scope.config.moreModal.hide();		
+		if(type == 'paigong'){ 
+				
+		}else if(type == 'judan'){
+
+		}else if(type == 'jiedan'){
+
+		}else if(type == 'beijianshengqing'){
+			$scope.goState("worksheetSparepart");
+		}else if(type == 'chelianglicheng'){
+			$scope.goState("worksheetCarMileage");
+		}else if(type == 'guzhangxinxi'){
+			$scope.goState("worksheetFaultInfos");
+		}else if(type == 'fuwupaizhao'){
+			$scope.goState("worksheetTakePicture");
+		}else if(type == 'baogong'){
+			$scope.goState("worksheetbaogonglist");
+		}else if(type == 'wangong'){
+
+		}else if(type == 'yiquxiao'){
+
+		}
+	};
+
 	$scope.showMoreModel = function($event){
 	    if($scope.config.moreModal == null){
 	    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content'>"+
                 "<div class='top-line'></div>"+
                 "<div class='content-lines'>"+
-                    "<div class='content-line'>派工</div>"+
-                    "<div class='content-line'>拒单</div>"+
-                    "<div class='content-line'>接单</div>"+
-                    "<div class='content-line'>服务拍照</div>"+
-                    "<div class='content-line'>报工</div>"+
-                    "<div class='content-line'>已取消</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"paigong\");'>派工</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"judan\");'>拒单</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"jiedan\");'>接单</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"fuwupaizhao\");'>服务拍照</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"baogong\");'>报工</div>"+
+                    "<div class='content-line' ng-click='moreModalClickHandler(\"yiquxiao\");'>已取消</div>"+
                 "</div>"+
             "</div>", {
                 scope: $scope
@@ -92,7 +142,6 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 	    $scope.initMoreModal();
 	};
 	$scope.initMoreModal = function(){
-
 			var eleJQ = angular.element('.show-more-modal-content-source');
 			var elePos = $ionicPosition.position(eleJQ) || $ionicPosition.offset(eleJQ);		
 			var left = elePos.left + elePos.width/2;
@@ -101,7 +150,6 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			var modalJQ = angular.element('.show-more-modal-content');
 			var modalPos = $ionicPosition.position(modalJQ) || $ionicPosition.offset(modalJQ);
 			var modal = modalJQ[0];
-			
 
 			var arrowJQ = modalJQ.find('.top-line');
 			var arrowPos = $ionicPosition.position(arrowJQ);// || $ionicPosition.offset(modalJQ);
@@ -115,12 +163,8 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			modal.style.top = modalFinalTop+"px";
 			modal.style.left = modalFinalLeft+"px";
 			modal.style.zIndex = 12; // 12  -2
-
 		//$ionicBackdrop.retain();
-
 		//var backdropJQ = angular.element('.backdrop.visible.active');
-
-
 	};
 
 	$scope.onContentScroll = function($event){
@@ -185,8 +229,20 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 		$scope.config.contentDetegateHandler = $ionicScrollDelegate.$getByHandle('xbrDelegateContent');
 		
 		initSwipeEvent();
+		//justTest();
 	};
 	$scope.init();
+
+	function justTest(){
+		var header = document.getElementById("xbr-test-header-newcar");
+		var headerJQ = angular.element(header);
+		var obj1 = headerJQ.offset();
+		var obj2 = headerJQ.position();
+
+		var v1 = header.offsetHeight;
+		alert(JSON.stringify(obj1)+"     "+JSON.stringify(obj2)+"     "+v1);
+
+	}
 
 	function __addTouchEventsListener(viewEle, __touchStart, __touchMove, __touchEnd){
 		if('ontouchstart' in window){ 
@@ -206,7 +262,7 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			viewEle.addEventListener("MSPointerMove", __touchMove, false);
 			viewEle.addEventListener("MSPointerUp", __touchEnd, false);
 			viewEle.addEventListener("MSPointerCancel", __touchEnd, false);
-		}else{ 
+		}else{
 			// Mouse Events
 			viewEle.addEventListener("mousedown", __touchStart, false);
 			viewEle.addEventListener("mousemove", __touchMove, false);
@@ -219,7 +275,7 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 		var eleHeaderBar = viewEle.getElementsByClassName("detail-header")[0];
 		var eleHeaderInfo = viewEle.getElementsByClassName('detail-header-info')[0];
 		var eleHeaderSubTitle = viewEle.getElementsByClassName("sub-title")[0];
-			eleHeaderSubTitle.style.display = "block";
+			//eleHeaderSubTitle.style.display = "block";
 		var eleNotValidY = viewEle.getElementsByClassName("history-info-relation-line")[0];
 
 		if($scope.config.headerInfoInitHeight == null){
@@ -402,7 +458,6 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 						continue;
 					}
 				}
-				
 			}
 			if(directionDownLast){
 				if(headerBarInfoTop <= eleHeaderInfo.offsetHeight/2){

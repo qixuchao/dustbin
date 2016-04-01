@@ -18,20 +18,31 @@
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-.scroll-content{ 
+.scroll-content{
   margin-top: 0;
   padding-top: 0;
   margin-bottom: 0;
 }
+//overWrite
 .spinner.spinner-balanced {
   stroke: #2B60AB;
   fill: #2B60AB;
 }
+.head{
+  box-shadow: none;
+}
+.popover-backdrop.active{
+  -webkit-transition: background-color 0.2s linear 0s;
+  transition: background-color 0.2s linear 0s;
+}
+.bar{
+  font-size: 16px;
+}
 /**
  * 公共的 变量
  */
- $crm-header-bar-bgcolor: #2B60AB;
- $crm-content-bgcolor: #F5F5F5;
+$crm-header-bar-bgcolor: #2B60AB;
+$crm-content-bgcolor: #F5F5F5;
 
 $crm-subject-green:#9ec92a;
 $crm-subject-blue:#2B60AB;
@@ -67,11 +78,10 @@ $button-crm-edit-text:                 white;
 .button.button-crm-edit {
   @include button-style($button-crm-edit-bg, $button-crm-edit-border, $button-crm-edit-active-bg, $button-crm-edit-active-border, $button-crm-edit-text);
   @include button-clear($button-crm-edit-border);
-  @include button-outline($button-crm-edit-border);
+  @include button-outline($button-crm-edit-border); 
 }
 
-
-/*  
+/*
   使用方法如下：
   <div class="crm-line-title"> <!-- 默认为4个字，如果为2个字，则：在外部div上加入class: work-2 -->
       <div class="title-top">
