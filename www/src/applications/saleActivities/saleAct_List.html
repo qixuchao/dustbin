@@ -29,7 +29,7 @@
     <ion-content class="has-subheader content" ng-hide="searchFlag">
         <div class="list">
             <a ui-sref="saleActDetail" class="item animated flipInX" ng-repeat="x in saleListArr">
-                <div class="row row-center">
+                <div class="row row-center">  
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
 
                     <div class="title" ng-bind-html="x.title"></div>
@@ -54,8 +54,8 @@
         </div>
         <ion-list ng-if="!input.search">
             <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x}}</ion-item>
-        </ion-list>
-        <div class="content">
+        </ion-list> 
+        <div class="content"> 
             <div class="list" ng-if="input.search">
                 <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr | filter:input.search">
                     <div class="row row-center">

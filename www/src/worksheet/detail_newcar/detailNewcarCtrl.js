@@ -121,7 +121,6 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 		}
 	};
 
-
 	$scope.showMoreModel = function($event){
 	    if($scope.config.moreModal == null){
 	    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content'>"+
@@ -164,7 +163,6 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			modal.style.top = modalFinalTop+"px";
 			modal.style.left = modalFinalLeft+"px";
 			modal.style.zIndex = 12; // 12  -2
-
 		//$ionicBackdrop.retain();
 		//var backdropJQ = angular.element('.backdrop.visible.active');
 	};

@@ -1,4 +1,11 @@
 #worksheet-takepicture-view{
+	.back-left{
+		font-size: 2rem;
+		@include display-flex;
+		@include align-items(center);
+		@include justify-content(center);
+    	width: 1.8rem;
+	}
 	.selected-images{
 		width: 100%;
 		padding: .8rem 2vmin;

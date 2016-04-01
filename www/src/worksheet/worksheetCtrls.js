@@ -11,7 +11,7 @@ worksheetModule.controller("WorksheetListCtrl",[
         ionicMaterialMotion.fadeSlideIn({
             selector: '.animate-fade-slide-in .item'
         });
-    }, 100);
+    }, 550);
     
 	$scope.config = {
 		searchText: '',
@@ -71,7 +71,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 		ok: true
 	};
-
+	
 	//依据所选 筛选条件 进行筛选操作
 	$scope.filterConfirm = function(){
 		// TODO
@@ -93,7 +93,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		//筛选 规则 ----> 状态
 		__resetStatus();
 	};
-
+	
 	$scope.goDetailState = function(i){
 		console.log("goDetailState");
 		if(i == 0){
