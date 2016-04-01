@@ -11,11 +11,15 @@ var customerModule = angular.module('customerModule', []);
 var ContactsModule = angular.module('ContactsModule', []);
 var contactModuleServive = angular.module('contactModuleServive', []);
 var customerVehicleModule = angular.module('customerVehicleModule', []);
+var customerChanceModule = angular.module('customerChanceModule', []);
+var customerActivityModule = angular.module('customerActivityModule', []);
+var customerkeyModule = angular.module('customerkeyModule', []);
+var customerWorkorderModule = angular.module('customerWorkorderModule', []);
 var customerContactsModule = angular.module('customerContactsModule', []);
 var customerModuleServive = angular.module('customerModuleServive', []);
-//var directiveModule = angular.module('directiveModule', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
+
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'ionic-material',
@@ -36,7 +40,11 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'customerModule',
     'customerVehicleModule',
     'customerContactsModule',
-    'customerModuleServive'
+    'customerModuleServive',
+    'customerChanceModule',
+    'customerkeyModule',
+    'customerActivityModule',
+    'customerWorkorderModule'
 ])
 CRMApp.run(function ($ionicPlatform,$rootScope) {
         $ionicPlatform.ready(function () {
@@ -167,6 +175,30 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 url: '/customerVehicleQuery',
                 templateUrl: 'src/customer/customerVehicle/customerVehicleQuery.html',
                 controller: 'customerVehicleQueryCtrl'
+            })
+            //客户-机会
+            .state('customerChanceQuery', {
+                url: '/customerChanceQuery',
+                templateUrl: 'src/customer/customerChance/customerChanceQuery.html',
+                controller: 'customerChanceQueryCtrl'
+            })
+            //客户-活动
+            .state('customerActivityQuery', {
+                url: '/customerActivityQuery',
+                templateUrl: 'src/customer/customerActivity/customerActivityQuery.html',
+                controller: 'customerActivityQueryCtrl'
+            })
+            //客户-线索
+            .state('customerKeyQuery', {
+                url: '/customerKeyQuery',
+                templateUrl: 'src/customer/customerKey/customerKeyQuery.html',
+                controller: 'customerKeyQueryCtrl'
+            })
+            //客户-历史工单
+            .state('customerWorkorderQuery', {
+                url: '/customerWorkorderQuery',
+                templateUrl: 'src/customer/customerWorkorder/customerWorkorderQuery.html',
+                controller: 'customerWorkorderQueryCtrl'
             })
             //车辆查询
             .state('car',{

@@ -2401,6 +2401,136 @@
 .worksheet-detail-more-modal {
   background-color: rgba(0, 0, 0, 0.38); }
 
+#worksheet-baogong-list-view .left-back {
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  width: 2rem; }
+
+#worksheet-baogong-list-view .baogong-list .baogong-item {
+  display: block;
+  width: 100%;
+  padding: .6rem .8rem;
+  border-bottom: 1px solid #cacaca; }
+  #worksheet-baogong-list-view .baogong-list .baogong-item .title-top {
+    display: block;
+    width: 100%; }
+    #worksheet-baogong-list-view .baogong-list .baogong-item .title-top span {
+      margin-left: .4rem;
+      font-size: 1rem; }
+  #worksheet-baogong-list-view .baogong-list .baogong-item .title-icon {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    border: 2px solid #9ac736;
+    border-radius: 12px; }
+  #worksheet-baogong-list-view .baogong-list .baogong-item .desc {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    color: #cacaca;
+    font-size: .8rem; }
+    #worksheet-baogong-list-view .baogong-list .baogong-item .desc span {
+      margin-left: .4rem; }
+
+#worksheet-dealhistory-list-view .left-back {
+  font-size: 2rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  width: 2rem; }
+
+#worksheet-dealhistory-list-view ion-content {
+  padding-bottom: 1rem; }
+
+#worksheet-dealhistory-list-view .deal-h-list .deal-h-item {
+  width: 100%;
+  padding: .6rem .4rem .6rem .6rem;
+  border-bottom: 1px solid #cacaca;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex; }
+  #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .left {
+    width: 1.5rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center; }
+    #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .left span {
+      width: 12px;
+      height: 12px;
+      border-radius: 12px;
+      display: inline-block;
+      border: 2px solid #8ec121; }
+  #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .center-text {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    overflow: hidden; }
+    #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .center-text .color-eee {
+      color: #898989; }
+  #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .h-info-line {
+    height: 1.8rem;
+    line-height: 1.8rem;
+    font-size: 1rem; }
+    #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .h-info-line.times-line {
+      font-size: .9rem;
+      font-size: .9rem;
+      height: 1.5rem;
+      line-height: 1.5rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis; }
+      #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .h-info-line.times-line span {
+        max-width: 100%; }
+    #worksheet-dealhistory-list-view .deal-h-list .deal-h-item .h-info-line.desc-line span:nth-child(2) {
+      float: right;
+      font-size: 1.4rem; }
+
 .CarList .bar .title {
   position: absolute;
   top: 0.5em;
@@ -3544,7 +3674,7 @@
 
 .Contacts_detail .Contacts_detailcontent {
   position: relative;
-  height: 135px;
+  height: 140px;
   font-size: 16px;
   color: white; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentname {
@@ -3892,6 +4022,10 @@
 .customerContacts_Query .button .icon:before {
   font-size: 35px; }
 
+.customerContacts_Query .item-content {
+  background-color: white;
+  height: 47px; }
+
 .customerContacts_detail .absolute {
   position: absolute;
   z-index: 9;
@@ -4062,6 +4196,240 @@
     height: 15px;
     vertical-align: middle; }
 
+.customerChance_Query .customerchance_Query_headspan {
+  float: right;
+  margin-right: 10px;
+  color: white; }
+
+.customerChance_Query .customerChance_contentheadbu {
+  width: 200px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: #406FB3;
+  border-radius: 10px;
+  border: 1px solid #406FB3; }
+
+.customerChance_Query .customerChance_contentheadbusty {
+  position: relative;
+  width: 100px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  background-color: #406FB3;
+  border-radius: 10px;
+  margin-left: 20px; }
+
+.customerChance_Query .customerChance_contentheaddel {
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 15px;
+  height: 15px;
+  right: -2px; }
+
+.customerChance_Query .customerChance_query_list {
+  font-size: 16px;
+  color: #4A4A4A; }
+  .customerChance_Query .customerChance_query_list .customerChance_query_listcicle {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #9EC92A; }
+  .customerChance_Query .customerChance_query_list .customerChance_query_listimg {
+    vertical-align: baseline;
+    width: 14px;
+    height: 14px; }
+  .customerChance_Query .customerChance_query_list .customerChane_query_listfor {
+    width: 15px;
+    height: 15px;
+    vertical-align: middle; }
+
+.customerActivity_Query .customeractivity_headtitleimg {
+  width: 25px;
+  height: 25px;
+  float: right;
+  margin-top: 12px;
+  margin-right: 10px; }
+
+.customerActivity_Query .customerChance_query_list {
+  font-size: 16px;
+  color: #4A4A4A; }
+  .customerActivity_Query .customerChance_query_list .customerChance_query_listcicle {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #9EC92A; }
+
+.customerkey_Query .customerkeyheadtitlespan {
+  float: right;
+  color: white;
+  margin-right: 10px; }
+
+.customerkey_Query .customerkey_contentbg {
+  background-color: #ECF0F1; }
+  .customerkey_Query .customerkey_contentbg .customerkey_contentheadbu {
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: #406FB3;
+    border-radius: 10px;
+    border: 1px solid #406FB3; }
+  .customerkey_Query .customerkey_contentbg .customerkey_contentheadbusty {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    background-color: #406FB3;
+    border-radius: 10px;
+    margin-left: 20px; }
+    .customerkey_Query .customerkey_contentbg .customerkey_contentheadbusty .customerkey_contentheaddel {
+      position: absolute;
+      right: 0;
+      top: -3px;
+      width: 15px;
+      height: 15px;
+      right: -2px; }
+
+.customerkey_Query .customerkey_query_listcicle {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid #9EC92A; }
+
+.customerworkorder_query .customerworkordersortrow {
+  position: relative; }
+  .customerworkorder_query .customerworkordersortrow .customerworkordersortspan {
+    font-size: 20px; }
+  .customerworkorder_query .customerworkordersortrow .customerworkorder_scolororone {
+    color: #9B9B9B; }
+  .customerworkorder_query .customerworkordersortrow .customerworkorder_scolortwo {
+    color: #0c63ee; }
+  .customerworkorder_query .customerworkordersortrow .customerworkordersortimg {
+    width: 18px;
+    height: 18px;
+    margin-left: 5px; }
+
+.customerworkorder_query .customerworkordersortline {
+  position: relative;
+  height: 2px;
+  width: 100%;
+  background: -webkit-linear-gradient(left, #0c63ee, #33cd5f); }
+  .customerworkorder_query .customerworkordersortline .customerworkorderlineione {
+    background-color: white;
+    position: absolute;
+    top: -16px;
+    font-size: 25px; }
+  .customerworkorder_query .customerworkordersortline .customerworkordersortlineione {
+    left: 21%;
+    color: #0c63ee; }
+  .customerworkorder_query .customerworkordersortline .customerworkordersortlineitwo {
+    left: 69%;
+    color: #33cd5f; }
+
+.customerworkorder_query .customerworkorcontentlist {
+  position: relative;
+  margin-top: 5px;
+  z-index: -100; }
+  .customerworkorder_query .customerworkorcontentlist .customerworkordercilce {
+    position: absolute;
+    top: 28px;
+    left: 3%;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #9EC92A;
+    vertical-align: middle;
+    display: inline-block;
+    border-radius: 50%; }
+  .customerworkorder_query .customerworkorcontentlist .customerwoorderpaddd {
+    padding-top: 0;
+    padding-bottom: 0; }
+  .customerworkorder_query .customerworkorcontentlist .customerwokoder_query_listfor {
+    width: 16px;
+    height: 16px; }
+
+.customerworkorder_query .customerworkordersortcontent {
+  position: absolute;
+  z-index: 100;
+  background-color: white;
+  width: 100%; }
+  .customerworkorder_query .customerworkordersortcontent #sortcontentcolor {
+    color: #0c63ee; }
+
+.customerworkorder_query .cusworkodersortbg {
+  position: absolute;
+  top: 0;
+  z-index: -100;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1); }
+
+.customerworkorder_query .customerworkorderselectcontent {
+  position: absolute;
+  z-index: 1;
+  background-color: white;
+  width: 100%;
+  padding-top: 15px;
+  font-size: 12px; }
+  .customerworkorder_query .customerworkorderselectcontent .cusdivContentdatestart {
+    text-align: center;
+    background-color: #ECF0F1;
+    border-radius: 5px; }
+  .customerworkorder_query .customerworkorderselectcontent .cusdivContentdateline {
+    position: relative;
+    top: -5px;
+    display: inline-block;
+    width: 100%;
+    height: 1px;
+    background-color: #D2D2D2; }
+  .customerworkorder_query .customerworkorderselectcontent .cusdivContenttype {
+    float: left;
+    margin-left: 5%;
+    margin-right: 5%;
+    height: 35px;
+    margin-top: 5px;
+    text-align: center;
+    width: 40%;
+    line-height: 35px;
+    border-radius: 8px; }
+  .customerworkorder_query .customerworkorderselectcontent .cusdivContentxianch {
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 5px; }
+  .customerworkorder_query .customerworkorderselectcontent .cusdivContentbutton {
+    width: 100px;
+    height: 35px;
+    color: #2B60AB;
+    background-color: white;
+    border: 1px solid #2B60AB;
+    border-radius: 8px; }
+
+.customerworkorder_query .cusworkodeselecbg {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: -1; }
+
+.customerworkorder_query .customerworkorbuluestyleone {
+  background-color: #2B60AB;
+  color: white; }
+
+.customerworkorder_query .customerworkorbuluestyletwo {
+  background-color: #ECF0F1;
+  color: #AFAFAF; }
+
 .relationship_list .contact_query_listcicle {
   width: 14px;
   height: 14px;
@@ -4084,3 +4452,330 @@
 
 .relationship_list .button .icon:before {
   font-size: 35px; }
+
+.relationship_list .invisible {
+  visibility: hidden; }
+
+.relationship_list .item-content {
+  background-color: white;
+  height: 47px; }
+
+#worksheet_carMileage ion-header-bar {
+  background-color: #2B60AB; }
+  #worksheet_carMileage ion-header-bar .rowTitle {
+    margin-right: 0px;
+    margin-left: 0px; }
+
+#worksheet_carMileage ion-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+#worksheet_carMileage .contentAll {
+  position: relative;
+  top: 4em; }
+
+#worksheet_carMileage .itemContent {
+  background-color: white;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  border-bottom: 1px solid #D6D3CE;
+  padding: 6px 10px 4px 10px;
+  height: 46px;
+  line-height: 30px;
+  font-size: 17px; }
+
+#worksheet_carMileage .labelInput {
+  padding: 0 0 0 0; }
+
+#worksheet_carMileage .fontColor {
+  color: #A8A49F; }
+
+#worksheet_carMileage .Car_countentbasic {
+  position: relative;
+  font-size: 15px;
+  color: #406FB3;
+  top: 1.0em;
+  font-weight: 600; }
+  #worksheet_carMileage .Car_countentbasic .Car_countentbasicinfo {
+    position: absolute;
+    top: 0px;
+    left: 20px; }
+  #worksheet_carMileage .Car_countentbasic .Car_countentbasicline {
+    position: absolute;
+    top: 10px;
+    left: 85px;
+    width: 100%;
+    height: 1px;
+    background-color: #406FB3; }
+  #worksheet_carMileage .Car_countentbasic .Car_countentbasicclok {
+    position: absolute;
+    top: 15px;
+    margin-top: 2px;
+    left: 0px;
+    width: 55px;
+    height: 15px;
+    border: 1px solid #406FB3;
+    border-top: none;
+    border-left: none; }
+
+#worksheet_faultInfos ion-header-bar {
+  background-color: #2B60AB; }
+  #worksheet_faultInfos ion-header-bar .rowTitle {
+    margin-right: 0px;
+    margin-left: 0px; }
+
+#worksheet_faultInfos ion-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+#worksheet_faultInfos .contentAll {
+  position: relative;
+  top: 4em; }
+
+#worksheet_faultInfos .itemContent {
+  background-color: white;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  padding: 6px 10px 4px 10px;
+  height: 46px;
+  line-height: 30px;
+  font-size: 1.0rem;
+  border-bottom: 1px solid #D6D3CE; }
+
+#worksheet_faultInfos .itemContentT {
+  background-color: white;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  padding: 6px 10px 4px 10px;
+  height: 80px;
+  line-height: 30px;
+  font-size: 1.0rem;
+  border-bottom: 1px solid #D6D3CE; }
+
+#worksheet_faultInfos .labelInput {
+  padding: 0 0 0 0; }
+
+#worksheet_faultInfos .textareaCss {
+  width: 100%;
+  height: 60px; }
+
+#worksheet_faultInfos .selectC {
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: solid 0px white;
+  /*很关键：将默认的select选择框样式清除*/
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+  position: relative;
+  left: 0px;
+  top: -2px;
+  font-size: 15px;
+  line-height: 24px;
+  border: 0px;
+  color: #909993;
+  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+  padding-right: 14px; }
+
+#worksheet_faultInfos .box {
+  border: 0px solid #C0C0C0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0px, 181px, 18px, 0px);
+  overflow: hidden; }
+
+#worksheet_faultInfos .box2 {
+  border: 0px solid #F4F4F4;
+  width: 100%;
+  height: 100%;
+  clip: rect(0px, 179px, 16px, 0px);
+  overflow: hidden; }
+
+#worksheet_faultInfos .Car_countentbasic {
+  position: relative;
+  font-size: 15px;
+  color: #406FB3;
+  top: 1.0em;
+  font-weight: 600; }
+  #worksheet_faultInfos .Car_countentbasic .Car_countentbasicinfo {
+    position: absolute;
+    top: 0px;
+    left: 20px; }
+  #worksheet_faultInfos .Car_countentbasic .Car_countentbasicline {
+    position: absolute;
+    top: 10px;
+    left: 85px;
+    width: 100%;
+    height: 1px;
+    background-color: #406FB3; }
+  #worksheet_faultInfos .Car_countentbasic .Car_countentbasicclok {
+    position: absolute;
+    top: 15px;
+    margin-top: 2px;
+    left: 0px;
+    width: 55px;
+    height: 15px;
+    border: 1px solid #406FB3;
+    border-top: none;
+    border-left: none; }
+
+#worksheet_sparePart ion-header-bar {
+  background-color: #2B60AB; }
+  #worksheet_sparePart ion-header-bar .rowTitle {
+    margin-right: 0px;
+    margin-left: 0px; }
+  #worksheet_sparePart ion-header-bar .left-back {
+    font-size: 1.8rem;
+    margin-left: -15px; }
+
+#worksheet_sparePart .backColor {
+  background-color: white; }
+
+#worksheet_sparePart .textInfo {
+  margin-left: 3px;
+  font-size: 15px;
+  color: white; }
+
+#worksheet_sparePart ion-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+#worksheet_sparePart .line {
+  width: 95%; }
+
+#worksheet_sparePart .inputSmall {
+  background-color: #ECF0F0;
+  width: 50%;
+  height: 25px;
+  margin: auto;
+  border-radius: 5px;
+  display: inline-block;
+  text-align: center; }
+
+#worksheet_sparePart .iStyle {
+  display: inline-block;
+  font-size: 1.2rem;
+  vertical-align: middle;
+  color: #276DAC; }
+
+#worksheet_sparePart .selectC {
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: solid 0px white;
+  /*很关键：将默认的select选择框样式清除*/
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+  position: relative;
+  left: 0px;
+  top: -2px;
+  font-size: 15px;
+  line-height: 24px;
+  border: 0px;
+  color: #909993;
+  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+  padding-right: 14px; }
+
+#worksheet_spareSelect ion-header-bar {
+  background-color: #2B60AB; }
+  #worksheet_spareSelect ion-header-bar .rowTitle {
+    margin-right: 0px;
+    margin-left: 0px; }
+  #worksheet_spareSelect ion-header-bar .left-back {
+    font-size: 1.8rem;
+    margin-left: -15px; }
+
+#worksheet_spareSelect .backColor {
+  background-color: white; }
+
+#worksheet_spareSelect .textInfo {
+  margin-left: 3px;
+  font-size: 15px;
+  color: white; }
+
+#worksheet_spareSelect ion-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+#worksheet_spareSelect .itemAdd {
+  padding: 5px 16px 1px 16px; }
+
+#worksheet_spareSelect .itemDetail {
+  border-bottom: 1px solid #D6D3CE;
+  padding: 5px 16px 5px 16px; }
+
+#worksheet_spareSelect .line {
+  margin: 5px 0 0 0; }
+
+#worksheet_spareSelect .little {
+  font-size: 8px; }
+
+#worksheet_spareSelect .colorInfo {
+  color: #3259A4; }
+
+#worksheet_spareSelect .pic {
+  height: 14px;
+  width: 14px;
+  border-radius: 7px;
+  border: 2px solid #92CB3A; }
+
+#worksheet_spareSelect .selectC {
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: solid 0px white;
+  /*很关键：将默认的select选择框样式清除*/
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+  position: relative;
+  left: 0px;
+  top: -2px;
+  font-size: 15px;
+  line-height: 24px;
+  border: 0px;
+  color: #909993;
+  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
+  padding-right: 14px; }

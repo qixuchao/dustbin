@@ -1,0 +1,37 @@
+<style>
+    .customerkey_selec {
+        text-align: center;
+        position: relative;
+        float: right;
+        top:44px;
+        left:0;
+        margin-right:5px;
+        z-index: 10;
+        display: block;
+        margin-top: 12px;
+        margin-left:0;
+        height:100px;
+        width: 120px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.4);
+        opacity: 0;
+    }
+    .customerkey_up {
+        width: 20px;
+        position: absolute;
+        right: 9px;
+        top: -9px;
+    }
+</style>
+    <ion-popover-view class="customerkey_selec">
+        <img src="img/customer/sanjiao.png" class="customerkey_up"></img>
+        <ion-content>
+            <div ng-repeat="types in customerkey_types track by $index" ng-click="CustomerKeyqueryType(types)">
+               <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:16px;">
+                   {{types}}
+               </ion-item>
+                <div style="width:80%;height: 1px;background-color: #9B9B9B;margin-left:10%"></div>
+            </div>
+        </ion-content>
+    </ion-popover-view>'

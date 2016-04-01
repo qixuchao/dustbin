@@ -1,0 +1,157 @@
+.customerworkorder_query{
+    .customerworkordersortrow{
+        position: relative;
+        .customerworkordersortspan{
+          font-size:20px;
+        }
+        .customerworkorder_scolororone{
+          color:#9B9B9B;
+        }
+        .customerworkorder_scolortwo{
+          color:#0c63ee;
+        }
+        .customerworkordersortimg{;
+          width:18px;
+          height:18px;
+          margin-left:5px;
+        }
+    };
+   .customerworkordersortline{
+     position: relative;
+     height:2px;
+     width: 100%;
+     //margin-bottom:5px;
+     background:-webkit-linear-gradient(left, #0c63ee, #33cd5f);
+       .customerworkorderlineione{
+         background-color: white;
+         position: absolute;
+         top: -16px;
+         font-size: 25px;
+       }
+        .customerworkordersortlineione{
+          left: 21%;
+          color: #0c63ee;
+        }
+       .customerworkordersortlineitwo{
+         left: 69%;
+         color: #33cd5f;
+       }
+   }
+
+  //list
+   .customerworkorcontentlist {
+     position: relative;
+     margin-top:5px;
+     z-index: -100;
+     .customerworkordercilce {
+         position: absolute;
+         top: 28px;
+         left: 3%;
+         width: 14px;
+         height: 14px;
+         border: 2px solid #9EC92A;
+         vertical-align: middle;
+         display: inline-block;
+         border-radius: 50%;
+     }
+     .customerwoorderpaddd{
+       padding-top:0;
+       padding-bottom: 0;
+     }
+     .customerwokoder_query_listfor {
+       width: 16px;
+       height: 16px;
+     }
+   }
+
+   .customerworkordersortcontent{
+     position: absolute;
+     z-index:100;
+     //top: 0px;
+     ///* left: 20%; */
+     background-color: white;
+     width: 100%;
+      #sortcontentcolor{
+        color:#0c63ee;
+      }
+   }
+  .cusworkodersortbg{
+    position:absolute;
+    top:0;
+    z-index: -100;
+    //margin-top:120px;
+    height:100%;
+    width:100%;
+    background-color: rgba(0,0,0,0.1);
+  }
+
+    .customerworkorderselectcontent{
+      position: absolute;
+      z-index:1;
+      //top: 0px;
+      ///* left: 20%; */
+      ///* left: 20%; */
+      background-color: white;
+      width: 100%;
+      padding-top:15px;
+      font-size:12px;
+         .cusdivContentfontszie{
+           //color:#AFAFAF;
+         }
+         .cusdivContentdatestart{
+           text-align: center;
+           background-color: #ECF0F1;
+           border-radius: 5px;
+         }
+        .cusdivContentdateline{
+          position: relative;
+          top:-5px;
+          display: inline-block;
+          width: 100%;
+          height: 1px;
+          background-color: #D2D2D2;
+        }
+        //type
+       .cusdivContenttype{
+         float: left;
+         margin-left:5%;
+         margin-right: 5%;
+          height: 35px;
+         margin-top:5px;
+          text-align: center;
+          width: 40%;
+          line-height: 35px;
+          border-radius: 8px;
+        }
+       .cusdivContentxianch{
+         margin-right:10px;
+         text-align: center;
+         border-radius: 5px;
+       }
+       .cusdivContentbutton{
+          width:100px;
+         height:35px;
+         color: $crm-subject-blue;
+         background-color: white;
+         border:1px solid $crm-subject-blue;
+         border-radius:8px;
+       }
+    }
+  .cusworkodeselecbg{
+   position: absolute;
+    top: 0;
+    height:100%;
+    width:100%;
+    background-color: rgba(0,0,0,0.1);
+    z-index: -1;
+  }
+  .customerworkorbuluestyleone{
+    background-color:$crm-subject-blue;
+    color: white;
+  }
+  .customerworkorbuluestyletwo{
+    background-color:#ECF0F1;
+    color: #AFAFAF;
+  }
+
+}

@@ -18,7 +18,7 @@ ContactsModule
         $scope.contact_types = [
             {
                 type:"扫描名片创建联系人",
-                 url:""
+                url:""
             },
             {
                 type:"手动创建新联系人",
@@ -171,7 +171,7 @@ ContactsModule
         $scope.edittitleType = [{
             name:'先生',
         },{
-          name:'小姐'
+            name:'小姐'
         }];
         $scope.contactedit = {
             customerzhushi:contactService.get_ContactsListvalue().customerzhushi,
@@ -237,6 +237,5 @@ ContactsModule
         },{
             name:'张浩吉',
             role:'控股公司'
-        }]
+        }];
     }])
-

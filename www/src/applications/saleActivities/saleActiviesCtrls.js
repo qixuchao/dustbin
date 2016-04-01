@@ -179,7 +179,6 @@ salesModule
                     }
                     if (position > 143) {
                         if (maxTop == undefined) {
-
                             maxTop = $ionicScrollDelegate.getScrollView().__maxScrollTop;
                         }
                         $scope.showTitleStatus = true;

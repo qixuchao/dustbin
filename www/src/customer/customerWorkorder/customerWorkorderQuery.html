@@ -1,0 +1,208 @@
+<ion-view class="customerworkorder_query">
+    <div class="employeecustomer_head">
+        <div class="employeecustomer_headtitle">
+            <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
+                <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
+            </div>
+            <span class="employeecustomer_headtitlespan">机会</span>
+        </div>
+        <form ng-submit="employeecustomerQuery()">
+            <div class="employeecustomer_headquery">
+                <input class="employeecustomer_headqueryinput" placeholder="请输入线索描述" type="text"/>
+                <i class="ion-ios-search employeecustomer_headqueryimg"></i>
+            </div>
+        </form>
+    </div>
+    <div style="z-index:10">
+        <div class="row customerworkordersortrow">
+            <div class="col col-50" style="text-align:center" ng-click="showCustomerWorkeordSortModal('sort')">
+                <span class="customerworkordersortspan" ng-class="customerworkorsortspanflag?'customerworkorder_scolorone':'customerworkorder_scolortwo'">排序</span>
+                <img class="customerworkordersortimg" src="img/car/sort.png" ng-if="cusomerWorkorsortimg"/>
+                <img class="customerworkordersortimg" src="img/car/sortImg.png" ng-if="!cusomerWorkorsortimg" />
+            </div>
+            <div class="col col-50" style="text-align:center" ng-click="showCustomerWorkeordSelecModal('select')">
+                <span class="customerworkordersortspan" ng-class="customerworkorselecspanflag?'customerworkorder_scolorone':'customerworkorder_scolortwo'">筛选</span>
+                <img class="customerworkordersortimg" src="img/car/select.png" ng-if="cusomerWorkorselecimg"/>
+                <img class="customerworkordersortimg" src="img/car/selectImg.png" ng-if="!cusomerWorkorselecimg"/>
+            </div>
+        </div>
+        <div class="customerworkordersortline">
+            <i class="icon ion-ios-arrow-up customerworkorderlineione customerworkordersortlineione" ng-if="cusomerWorkorlineisortstyle"></i>
+            <i class="icon ion-ios-arrow-up customerworkorderlineione customerworkordersortlineitwo" ng-if="cusomerWorkorlineiselecstyle"></i>
+        </div>
+    </div>
+    <!--sort-->
+    <div class="customerworkordersortcontent"
+         ng-if="cusworkodersortbgflag">
+        <div ng-repeat="x in customerworkordersortlist" ng-click="customerworkordergetvalue(x,$index)">
+            <div class="row">
+                <div class="col col-100">{{x.sortname}}</div>
+            </div>
+            <div class="employee_query_listline" style="width:95%">
+            </div>
+        </div>
+    </div>
+
+    <div class="customerworkorderselectcontent" style="overflow: auto" ng-if="cusworkoderselecbgflag">
+        <div class="row" style="padding-top:0;height:35px">
+            <div class="col col-25 col-center" style="text-align: left">
+                日期区间
+            </div>
+            <div class="col col-32 cusdivContentdatestart cusdivContentfontszie" ng-click="CusworkorderGetatetime('start')">
+                <span>2016.04.01</span>
+            </div>
+            <div class="col col-10 col-center" style="padding-left:6px">
+                <span class="cusdivContentdateline"></span>
+            </div>
+            <div class="col col-33 cusdivContentdatestart cusdivContentfontszie" ng-click="CusworkorderGetatetime('finis')">
+                <span class="cusdivContentdatestart">2016.04.01</span>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 0;">
+            <div class="col col-100" >
+                <span class="cusdivContentdateline"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-100" style="padding-top: 0;">
+                工作类型
+            </div>
+        </div>
+        <div class="cusdivContenttype"
+             ng-class="x.typeflag?'customerworkorbuluestyleone':'customerworkorbuluestyletwo'"
+             ng-repeat="x in customerWorkorderetypelsit" ng-click="customerWorkTypeset(x,$index)">
+            {{x.typename}}
+        </div>
+        <div class="row" style="padding-bottom: 0;">
+            <div class="col col-100" >
+                <span class="cusdivContentdateline"></span>
+            </div>
+        </div>
+        <div class="row" style="padding-top: 0;">
+            <div class="col col-100"  style="padding-top: 0;">
+                影响
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-15 cusdivContentxianch cusdivContentfontszie" ng-repeat="x in customerWorkordereffictlsit"
+                 ng-class="x.effflag?'customerworkorbuluestyleone':'customerworkorbuluestyletwo'" ng-click="customerWorkEffctset(x,$index)">
+                {{x.effname}}
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 0;">
+            <div class="col col-100" >
+                <span class="cusdivContentdateline"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col col-100" style="text-align: right">
+                <button class="cusdivContentbutton" style="margin-right:10px" ng-click="customerWorkorderReset()">重置</button>
+                <button class="cusdivContentbutton">确定</button>
+            </div>
+        </div>
+    </div>
+    <ion-content style="margin-top:155px">
+        <!--&lt;!&ndash;列表数据&ndash;&gt;ng-if="customerworkorcrderlistflag"-->
+        <div class="customerworkorcontentlist">
+            <div class="customerworkordercilce">
+
+            </div>
+             <div class="row" style="margin-left:10%">
+                 <div class="col col-80 customerwoorderpaddd">
+                     工单类型:新车上线服务工单
+                 </div>
+             </div>
+            <div class="row" style="margin-left:10%">
+                <div class="col col-80 customerwoorderpaddd" style="font-size: 10px;">
+                    2016.01.01 10-00-01 - 2016.12.31 12:00:00
+                </div>
+                <div class="col col-10 customerwoorderpaddd">
+                    <img class="customerwokoder_query_listfor" src="img/employee/Shape@2x.png"></img>
+                </div>
+            </div>
+            <div class="row" style="margin-left:10%;padding-bottom:10px">
+                <div class="col col-80 customerwoorderpaddd" style="font-size: 10px;">
+                    工单描述:新车上线服务工单
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+        </div>
+
+        <!--&lt;!&ndash;sort&ndash;&gt;-->
+        <!--<div class="customerworkordersortcontent" ng-if="cusworkodersortbgflag">-->
+            <!--<div ng-repeat="x in customerworkordersortlist" ng-click="customerworkordergetvalue(x,$index)">-->
+                <!--<div class="row">-->
+                    <!--<div class="col col-100">{{x.sortname}}</div>-->
+                <!--</div>-->
+                <!--<div class="employee_query_listline" style="width:95%">-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="cusworkodersortbg" ng-if="cusworkodersortbgflag" ng-click="cusworkodersortbghide()">
+
+        </div>
+        <!--select-->
+        <!--<div class="customerworkorderselectcontent" ng-if="cusworkoderselecbgflag">-->
+            <!--<div class="row" style="padding-top:0;height:35px">-->
+                <!--<div class="col col-25 col-center" style="text-align: left">-->
+                    <!--日期区间-->
+                <!--</div>-->
+                <!--<div class="col col-32 cusdivContentdatestart cusdivContentfontszie" ng-click="CusworkorderGetatetime('start')">-->
+                    <!--<span>2016.04.01</span>-->
+                <!--</div>-->
+                <!--<div class="col col-10 col-center" style="padding-left:6px">-->
+                    <!--<span class="cusdivContentdateline"></span>-->
+                <!--</div>-->
+                <!--<div class="col col-33 cusdivContentdatestart cusdivContentfontszie" ng-click="CusworkorderGetatetime('finis')">-->
+                    <!--<span class="cusdivContentdatestart">2016.04.01</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row" style="padding-bottom: 0;">-->
+                <!--<div class="col col-100" >-->
+                    <!--<span class="cusdivContentdateline"></span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="col col-100" style="padding-top: 0;">-->
+                   <!--工作类型-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="cusdivContenttype"-->
+                 <!--ng-class="x.typeflag?'customerworkorbuluestyleone':'customerworkorbuluestyletwo'"-->
+                 <!--ng-repeat="x in customerWorkorderetypelsit" ng-click="customerWorkTypeset(x,$index)">-->
+                <!--{{x.typename}}-->
+            <!--</div>-->
+            <!--<div class="row" style="padding-bottom: 0;">-->
+                <!--<div class="col col-100" >-->
+                    <!--<span class="cusdivContentdateline"></span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row" style="padding-top: 0;">-->
+                <!--<div class="col col-100"  style="padding-top: 0;">-->
+                    <!--影响-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="col col-15 cusdivContentxianch cusdivContentfontszie" ng-repeat="x in customerWorkordereffictlsit"-->
+                     <!--ng-class="x.effflag?'customerworkorbuluestyleone':'customerworkorbuluestyletwo'" ng-click="customerWorkEffctset(x,$index)">-->
+                    <!--{{x.effname}}-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row" style="padding-bottom: 0;">-->
+                <!--<div class="col col-100" >-->
+                    <!--<span class="cusdivContentdateline"></span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="row">-->
+                <!--<div class="col col-100" style="text-align: right">-->
+                    <!--<button class="cusdivContentbutton" style="margin-right:10px" ng-click="customerWorkorderReset()">重置</button>-->
+                    <!--<button class="cusdivContentbutton">确定</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="cusworkodeselecbg" ng-if="cusworkoderselecbgflag" ng-click="cusworkoderselecbghide()">
+
+        </div>
+    </ion-content>
+</ion-view>

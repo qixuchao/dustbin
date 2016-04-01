@@ -86,15 +86,19 @@ customerModule
         },{
             typemane:'机会',
             imgurl:'img/customer/customerjihui@2x.png',
+            url:'customerChanceQuery'
         },{
             typemane:'活动',
             imgurl:'img/customer/customerhuod.png',
+            url:'customerActivityQuery'
         },{
             typemane:'工单',
             imgurl:'img/customer/customergongd@2x.png',
+            url:'customerWorkorderQuery'
         },{
             typemane:'线索',
             imgurl:'img/customer/customerxians@2x.png',
+            url:'customerKeyQuery'
         },{
             typemane:'车辆',
             imgurl:'img/customer/customerchel@2x.png',
@@ -136,11 +140,12 @@ customerModule
                 }else{
                     $scope.customer_placeFlag = false;
                 }
-                if (customer_position > 40) {
+                if (customer_position >40) {
                     $scope.customer_typeFlag = true;
                 }else{
                     $scope.customer_typeFlag = false;
                 }
+                console.log(customer_position);
             } else {
                 $scope.customer_customerFlag = false;
                 $scope.customer_placeFlag = false;

@@ -1,0 +1,21 @@
+.customerActivity_Query{
+   .customeractivity_headtitleimg{
+     width: 25px;
+     height: 25px;
+     float: right;
+     margin-top: 12px;
+     margin-right: 10px;
+   }
+  .customerChance_query_list{
+    font-size: 16px;
+    color: #4A4A4A;
+    .customerChance_query_listcicle{
+      width:14px;
+      height:14px;
+      vertical-align: middle;
+      display: inline-block;
+      border-radius:50%;
+      border: 2px solid #9EC92A;
+    }
+  }
+}
