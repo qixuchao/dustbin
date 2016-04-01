@@ -48,9 +48,9 @@
                 </div>
                 <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div>状态:</div>
-                    <select ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select>
+                    <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select>
                     <div class="num">NO.100036</div>
-                    <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png">{{editText}}</div>
+                    <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}</div>
                 </div>
             </div>
             <div class="selector">

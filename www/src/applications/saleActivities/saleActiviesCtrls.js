@@ -92,9 +92,12 @@ salesModule
         '$cordovaDialogs',
         '$ionicModal',
         '$ionicPopover',
+        '$cordovaToast',
         'saleActService',
+        'Prompter',
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover, saleActService) {
+                  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
+                  $cordovaToast,saleActService,Prompter) {
             ionicMaterialInk.displayEffect();
             $scope.statusArr = saleActService.getStatusArr();
             $scope.mySelect = {
@@ -118,8 +121,14 @@ salesModule
                         });
                 } else {
                     //执行保存操作
-                    $scope.isEdit = false;
-                    $scope.editText = "编辑";
+                    Prompter.showLoading('正在保存');
+                    $timeout(function () {
+                        Prompter.hideLoading();
+                        $cordovaToast.showShortBottom('保存成功');
+                        $scope.isEdit = false;
+                        $scope.editText = "编辑";
+                    },500);
+
                 }
             }
             $scope.select = true;
@@ -260,27 +269,31 @@ salesModule
                 for (var i = 0; i < $scope.referArr.length; i++) {
                     $scope.referArr[i].flag = false;
                 }
+                $scope.details.refer = $scope.selectPopText+'-'+ x.text;
                 x.flag = true;
                 $scope.referModal.hide();
             };
             $scope.selectPop = function (x) {
                 $scope.selectPopText = x.text;
                 $scope.referPop.hide();
-            }
+            };
             $scope.openRefer = function () {
                 $scope.referModal.show();
             };
             $scope.showChancePop = function () {
                 $scope.referPop.show();
             };
+            $scope.initSearch = function () {
+                $scope.input.search = '';
+                $timeout(function () {
+                    document.getElementById('referSearchId').focus();
+                }, 1)
+            };
             /*-------------------------------参考类型 end-------------------------------------*/
         }])
-    .filter("highlight", function ($sce, $log) {
+    .filter("highlight", function ($sce) {
 
         var fn = function (text, search) {
-            $log.info("text: " + text);
-            $log.info("search: " + search);
-
             if (!search) {
                 return $sce.trustAsHtml(text);
             }
@@ -289,12 +302,8 @@ salesModule
             }
             text = encodeURI(text);
             search = encodeURI(search);
-            console.log(text.indexOf(search));
             var regex = new RegExp(search, 'gi');
             var result = text.replace(regex, '<span style="color: red;">$&</span>');
-            result = decodeURI(result);
-            console.log(result)
-            $log.info("result: " + result);
             return $sce.trustAsHtml(result);
         };
 
