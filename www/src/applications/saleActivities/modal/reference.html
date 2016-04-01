@@ -2,7 +2,7 @@
     <div class="saleList">
         <ion-header-bar class="head" no-tap-scroll="true">
             <div class="row row-center">
-                <div class="text-center selections" ng-click="showChancePop()">
+                <div class="text-center selections" ng-click="referMoreflag=!referMoreflag">
                     {{selectPopText}}<img class="chanceImg" src="img/saleList/oval.png">
                 </div>
                 <div class="col input">
@@ -16,12 +16,22 @@
             </div>
         </ion-header-bar>
     </div>
-    <ion-content class="content has-header">
-        <ion-list>
-            <ion-item ng-repeat="x in referArr | filter:input.search" ng-click="selectModal(x)">
-               <span ng-bind-html="x.text | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg" src="img/saleList/blank.png">
-                <img  ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">
-            </ion-item>
-        </ion-list>
-    </ion-content>
+    <div class="addRelationsModal">
+        <ion-content class="content has-header">
+            <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"></div>
+            <div class="selectionsDown pushDown-animated refer-selectionsDown"
+                 ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'slideInDown':referMoreflag}"
+                 ng-show="referMoreflag">
+                <ion-list>
+                    <ion-item ng-repeat="x in chancePopArr" ng-class="{'selected':selectPopText==x.text}" ng-click="selectPop(x)">{{x.text}}</ion-item>
+                </ion-list>
+            </div>
+            <ion-list>
+                <ion-item class="selectItem" ng-repeat="x in referArr | filter:input.search" ng-click="selectModal(x)">
+                    <span ng-bind-html="x.text | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg">
+                    <img ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </div>
 </ion-modal-view>
