@@ -1,6 +1,10 @@
 $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 // transtition 未替换为scss 的minix类
-
+.worksheet-view-public{
+	ion-header-bar{
+		background-color: $crm-header-bar-bgcolor;
+	}
+}
 #worksheetlist-view{
 	background-color: $crm-header-bar-bgcolor;
 	
@@ -238,22 +242,23 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		.list{ 
 			padding-bottom: 0rem;
 			margin-bottom: 0px;
-		}
-		.item.ng-enter{
-			transition: 0.4s linear all;
-			opacity: 0;
-		}
-		.item.ng-enter.ng-enter-active{
-			opacity: 1;
-		}
-		.item{
-			background-color: transparent;
-			border-bottom: 1px solid #CCC9C9;
-			padding: .3rem .6rem;
-			@include display-flex;
-			////@include flex-direction(column);
-            .left{
-            	@include flex(75);
+		} 
+		.item.ng-enter{ 
+			transition: 0.4s linear all; 
+			opacity: 0; 
+		} 
+		.item.ng-enter.ng-enter-active{ 
+			opacity: 1; 
+		} 
+		.item{ 
+			background-color: transparent; 
+			border-bottom: 1px solid #CCC9C9; 
+			padding: .3rem .6rem; 
+			@include display-flex; 
+			 
+			////@include flex-direction(column); 
+            .left{ 
+            	@include flex(75); 
                 .item-line{
                 	line-height: 2rem;
     				height: 2rem;
@@ -442,7 +447,6 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			}
 		}
 	}
-
 	
 	.tab-sort-content{
 		max-height: 95%;	    
@@ -475,6 +479,9 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			    text-align: center;
 			    font-size: 1rem;
 			    border-radius: 0px 0px 10px 10px;
+			    span{
+			    	border-bottom: 0px;
+			    }
 			}
 			&.selected{
 				//color: #ECB11B;

@@ -5,7 +5,7 @@
             <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
             <div class="col col-70 text-center">销售活动列表</div>
             <div class="col col-15 text-center" ng-click="changeSearch()"><i class="ion-search"></i></div>
-        </div>
+        </div>   
         <div id="searchTitle" class="row row-center" ng-class="{'animated fadeIn':searchFlag}" ng-if="searchFlag">
             <div class="col col-80">
                 <div class="row row-center no-padding">
@@ -21,7 +21,7 @@
     <ion-content class="has-header content" ng-hide="searchFlag">
         <div class="list">
             <a ui-sref="saleActDetail" class="item animated flipInX" ng-repeat="x in saleListArr">
-                <div class="row row-center">
+                <div class="row row-center">  
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
 
                     <div class="title" ng-bind-html="x.title"></div>
@@ -46,8 +46,8 @@
         </div>
         <ion-list ng-if="!input.search">
             <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x}}</ion-item>
-        </ion-list>
-        <div class="content">
+        </ion-list> 
+        <div class="content"> 
             <div class="list" ng-if="input.search">
                 <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr | filter:input.search">
                     <div class="row row-center">

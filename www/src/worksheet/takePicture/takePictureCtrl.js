@@ -16,8 +16,8 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 
 		$scope.datas = {
 			showImageItem: {},
-			selectedImagesTest:[],
-			selectedImages: [
+			selectedImages:[],
+			selectedImagesTest: [
 				{	
 					filepath: '',
 					base64Str: '../../../img/login/login_bg@3x.png',
@@ -72,7 +72,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		};
 
 		$scope.showImage = function($event, imageInfo){
-			alert($event);
+			//alert($event);
 			$scope.datas.showImageItem = imageInfo;
 			if($scope.config.imageModal == null){
 				$scope.config.imageModal = $ionicModal.fromTemplate("<div class='takePicture-image-modal-wrapper'><div class='close-div'><span ng-click='closeImageModal();'>关闭</span></div><img src='{{datas.showImageItem.base64Str}}'></img></div>", {
@@ -112,7 +112,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			    }
 			});
 		};
-
+		
 		$scope.selectImage = function(sourceTypeInt){
 			if(angular.isUndefined(Camera) || angular.isUndefined(navigator.camera)){
 				alert("Camera 插件未安装!");

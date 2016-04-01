@@ -1,4 +1,4 @@
-<ion-view canClickEnterListMode id="worksheetlist-view"  align-title="center">
+<ion-view canClickEnterListMode id="worksheetlist-view" class="worksheet-view-public"  align-title="center">
 	<ion-header-bar id="xbr-test-header" align-title="center" class="bar-positive" ng-class="{'query-mode':config.isQueryMode}">
 		<div class="left-back" ng-click="goBack();">
 			<i class="ion-ios-arrow-back"></i>
@@ -15,7 +15,7 @@
                 </div>
             </div>
         </div>
-	</ion-header-bar>
+	</ion-header-bar> 
     <div class="search-hearder-bar"></div>
     <ion-content  class="" style="" scroll="false" has-bouncing="false">
     	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);">
@@ -170,9 +170,7 @@
                     </ion-scroll>                                   
                 </div>
                 <div canClickEnterListMode class="divs-wrapper-bg" ng-if="config.isSorteMode || config.isFilterMode" ng-click="clickEnterListMode($event);"></div>
-        </div>
-
+        </div>        
         
-
     </ion-content>
 </ion-view>
