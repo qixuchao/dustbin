@@ -10,7 +10,7 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 	"$state",
 	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout, $ionicBackdrop, $ionicPosition, $ionicGesture, $ionicModal, $state){
 	
-	$scope.config = { 
+	$scope.config = {
 		scrollDelegateHandler: null,
 		contentDetegateHandler: null,
 
@@ -79,6 +79,9 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 	});
 
 	$scope.goState = function(stateName){
+		if($scope.config.moreModal != null){
+			$scope.config.moreModal.remove();
+		}
 		$timeout(function (){
 			$state.go(stateName);
 		}, 100);		

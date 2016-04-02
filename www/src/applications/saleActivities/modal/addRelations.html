@@ -1,0 +1,42 @@
+<ion-modal-view class="referModal addRelationsModal">
+    <div class="saleList">
+        <ion-header-bar class="head" no-tap-scroll="true">
+            <div class="row row-center">
+                <div class="text-center selections" ng-click="moreflag=!moreflag">
+                    {{selectPopText}}<img class="chanceImg" src="img/saleList/oval.png">
+                </div>
+                <div class="col input">
+                    <div class="row row-center no-padding">
+                        <i class="ion-ios-search"></i>
+                        <input id="referSearchId" type="text" ng-model="input.search" placeholder="请输入活动关键字">
+                        <i class="ion-ios-close" ng-if="input.search" ng-click="initSearch()"></i>
+                    </div>
+                </div>
+                <div class="col col-15 text-center cancel" ng-click="hideRelations()">取消</div>
+            </div>
+        </ion-header-bar>
+    </div>
+
+    <ion-content class="content has-header">
+        <div>
+            <div ng-class="moreflag?'own-backDrop-on':'own-backDrop-off'"></div>
+            <div class="selectionsDown pushDown-animated"
+                 ng-class="{'slideOutUp':!moreflag&&isDropShow,'slideInDown':moreflag}" ng-show="moreflag">
+                <ion-list>
+                    <ion-item>CATL销售</ion-item>
+                    <ion-item>正式客户</ion-item>
+                    <ion-item>CATL销售</ion-item>
+                    <ion-item>正式客户</ion-item>
+                    <ion-item>CATL销售</ion-item>
+                    <ion-item>正式客户</ion-item>
+                </ion-list>
+            </div>
+        </div>
+        <!--<ion-list>-->
+        <!--<ion-item ng-repeat="x in referArr | filter:input.search" ng-click="selectModal(x)">-->
+        <!--<span ng-bind-html="x.text | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg" src="img/saleList/blank.png">-->
+        <!--<img  ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">-->
+        <!--</ion-item>-->
+        <!--</ion-list>-->
+    </ion-content>
+</ion-modal-view>
