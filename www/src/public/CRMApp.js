@@ -253,11 +253,18 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',
                 controller: 'WorksheetRelatedCtrl'
             })
+
+            .state('worksheetRelatedPartDelete', {
+                url: '/worksheetRelatedPartDelete',
+                templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPartDelete.html',
+                controller: 'WorksheetRelatedDeleteCtrl'
+            })
             .state('worksheetTakePicture', {
                 url: '/worksheetTakePicture',
                 templateUrl: 'src/worksheet/takePicture/takePicture.html',
                 controller: 'worksheetTakePictureCtrl'
             })
+
             // 工单模块相关： end ------------------------
             
         ;

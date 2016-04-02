@@ -2829,22 +2829,15 @@
     border-top: none;
     border-left: none; }
 
-#worksheet_sparePart ion-header-bar {
-  background-color: #2B60AB; }
-  #worksheet_sparePart ion-header-bar .rowTitle {
-    margin-right: 0px;
-    margin-left: 0px; }
-  #worksheet_sparePart ion-header-bar .left-back {
-    font-size: 1.8rem;
-    margin-left: -15px; }
-
 #worksheet_sparePart .backColor {
   background-color: white; }
 
 #worksheet_sparePart .textInfo {
-  margin-left: 3px;
-  font-size: 15px;
-  color: white; }
+  width: 25%;
+  font-size: 16px;
+  color: white;
+  height: 27px;
+  line-height: 27px; }
 
 #worksheet_sparePart ion-content {
   display: -webkit-box;
@@ -2860,13 +2853,23 @@
   -ms-flex-direction: column;
   flex-direction: column; }
 
+#worksheet_sparePart .checkbox-diy input:before,
+#worksheet_sparePart .checkbox-diy .checkbox-icon:before {
+  border-color: #92CB3A; }
+
+#worksheet_sparePart .checkbox-diy input:checked:before,
+#worksheet_sparePart .checkbox-diy input:checked + .checkbox-icon:before {
+  background: #92CB3A;
+  border-color: #92CB3A; }
+
 #worksheet_sparePart .line {
-  width: 95%; }
+  width: 95%;
+  margin: 0; }
 
 #worksheet_sparePart .inputSmall {
   background-color: #ECF0F0;
   width: 50%;
-  height: 25px;
+  height: 18px;
   margin: auto;
   border-radius: 5px;
   display: inline-block;
@@ -2874,7 +2877,7 @@
 
 #worksheet_sparePart .iStyle {
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 17px;
   vertical-align: middle;
   color: #276DAC; }
 
@@ -2897,6 +2900,36 @@
   /*为下拉小箭头留出一点位置，避免被文字覆盖*/
   padding-right: 14px; }
 
+#worksheet_spareSelect .saleListNew .pub-head {
+  background: #2B60AB;
+  color: white;
+  padding-top: 5px; }
+  #worksheet_spareSelect .saleListNew .pub-head i {
+    font-size: 25px; }
+  #worksheet_spareSelect .saleListNew .pub-head .goBack {
+    padding-left: 10px; }
+  #worksheet_spareSelect .saleListNew .pub-head .add {
+    text-align: right;
+    padding-right: 10px; }
+    #worksheet_spareSelect .saleListNew .pub-head .add img {
+      width: 25px;
+      padding-top: 4px; }
+
+#worksheet_spareSelect .saleListNew .pub-subhead {
+  background: #2B60AB;
+  box-shadow: none;
+  top: 44px;
+  padding: 8px;
+  display: flex; }
+  #worksheet_spareSelect .saleListNew .pub-subhead .row {
+    background: white;
+    border-radius: 5px;
+    color: #A0A09F;
+    font-size: 14px; }
+    #worksheet_spareSelect .saleListNew .pub-subhead .row i {
+      font-size: 18px;
+      padding: 0 10px; }
+
 #worksheet_spareSelect ion-header-bar {
   background-color: #2B60AB; }
   #worksheet_spareSelect ion-header-bar .rowTitle {
@@ -2910,9 +2943,11 @@
   background-color: white; }
 
 #worksheet_spareSelect .textInfo {
-  margin-left: 3px;
-  font-size: 15px;
-  color: white; }
+  width: 25%;
+  font-size: 16px;
+  color: white;
+  height: 27px;
+  line-height: 27px; }
 
 #worksheet_spareSelect ion-content {
   display: -webkit-box;
@@ -2929,20 +2964,23 @@
   flex-direction: column; }
 
 #worksheet_spareSelect .itemAdd {
-  padding: 5px 16px 1px 16px; }
+  padding: 5px 15px 1px 15px; }
 
 #worksheet_spareSelect .itemDetail {
   border-bottom: 1px solid #D6D3CE;
-  padding: 5px 16px 5px 16px; }
+  padding: 5px 0px 5px 0px; }
 
 #worksheet_spareSelect .line {
   margin: 5px 0 0 0; }
 
 #worksheet_spareSelect .little {
-  font-size: 8px; }
+  font-size: 10px; }
 
 #worksheet_spareSelect .colorInfo {
   color: #3259A4; }
+
+#worksheet_spareSelect .numDetail {
+  padding: 5px 0 5px 5px; }
 
 #worksheet_spareSelect .pic {
   height: 14px;
@@ -2970,13 +3008,12 @@
   padding-right: 14px; }
 
 #worksheet_relatedPart ion-header-bar {
+  font-size: 16px;
+  font-weight: bold;
   background-color: #2B60AB; }
   #worksheet_relatedPart ion-header-bar .rowTitle {
     margin-right: 0px;
     margin-left: 0px; }
-  #worksheet_relatedPart ion-header-bar .left-back {
-    font-size: 1.8rem;
-    margin-left: -15px; }
 
 #worksheet_relatedPart ion-content {
   display: -webkit-box;
@@ -2991,6 +3028,15 @@
   -moz-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column; }
+
+#worksheet_relatedPart .deleteButt {
+  background-color: #EA0000;
+  width: 60%;
+  margin-left: 20%;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 17px; }
 
 #worksheet_relatedPart .relatedPart_list {
   font-size: 16px;
@@ -3038,6 +3084,7 @@
   -moz-justify-content: center;
   justify-content: center;
   width: 1.8rem; }
+
 #worksheet-takepicture-view .selected-images {
   width: 100%;
   padding: .8rem 2vmin; }
