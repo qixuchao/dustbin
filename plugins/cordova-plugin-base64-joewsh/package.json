@@ -1,0 +1,22 @@
+{
+  "name": "cordova-plugin-base64-joewsh",
+  "version": "1.0.0",
+  "description": "Cordova Base64 Plugin",
+  "cordova": {
+    "id": "cordova-plugin-base64-joewsh",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Joewsh/cordova-plugin-base64-joewsh"
+  },
+  "keywords": [
+    "cordova",
+    "base64",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "MIT"
+}

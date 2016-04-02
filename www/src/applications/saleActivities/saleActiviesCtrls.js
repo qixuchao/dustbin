@@ -2,7 +2,7 @@
  * Created by zhangren on 16/3/19.
  */
 'use strict';
-salesModule 
+salesModule
     .controller('saleActListCtrl', ['$scope',
         '$state',
         '$timeout',
@@ -10,11 +10,12 @@ salesModule
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'saleActService',
-        function ($scope, $state, $timeout, $ionicLoading, ionicMaterialInk, ionicMaterialMotion, saleActService) {
+        'Prompter',
+        function ($scope, $state, $timeout, $ionicLoading, ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter) {
             console.log('销售活动列表');
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
-            }, 100)
+            }, 100);
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
             $scope.input = {search: ''};
@@ -33,9 +34,9 @@ salesModule
                 }
             };
             $scope.search = function (x, e) {
-                $scope.g_busy.show('正在搜索');
+                Prompter.showLoading('正在搜索');
                 $timeout(function () {
-                    $scope.g_busy.hide();
+                    Prompter.hideLoading();
                     $scope.input.search = x;
                 }, 800)
 
@@ -50,35 +51,6 @@ salesModule
             $scope.goDetail = function (x, e) {
                 $state.go('saleActDetail')
                 e.stopPropagation();
-            };
-
-            //loading公共方法
-            $scope.g_busy = {
-                show: function (msg) {
-                    $scope.g_busy.hide();
-                    $timeout.cancel($scope.g_busyTimeout);
-                    $scope.g_busyFlag = 'Y';
-                    if (msg) {
-                        $ionicLoading.show({
-                            template: '<ion-spinner icon="lines" class="spinner-balanced"></ion-spinner><p>' + msg + '</p>'
-                        })
-                    } else {
-                        $ionicLoading.show();
-                    }
-
-                    $scope.g_busyTimeout = $timeout(function () {
-                        if ($scope.g_busyFlag == 'Y') {
-                            $scope.g_busyFlag = 'N';
-                            $scope.g_busy.hide();
-                            //$scope.Toast.show('连接超时，请检查网络');
-                        }
-                    }, 60000);
-                },
-                hide: function () {
-                    $ionicLoading.hide();
-                    $timeout.cancel($scope.g_busyTimeout);
-                    $scope.g_busyFlag = 'N';
-                }
             };
         }])
     .controller('saleActDetailCtrl', [
@@ -236,7 +208,7 @@ salesModule
                 }, 20)
             };
 
-            /*-------------------------------参考类型-------------------------------------*/
+            /*-------------------------------Modal 参考-------------------------------------*/
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/reference.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
@@ -249,11 +221,17 @@ salesModule
             }).then(function (modal) {
                 $scope.followUpModal = modal;
             });
-            $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/selectChance-pop.html', {
-                scope: $scope
-            }).then(function (popover) {
-                $scope.referPop = popover;
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/addRelations.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.addReleModal = modal;
             });
+            //$ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/selectChance-pop.html', {
+            //    scope: $scope
+            //}).then(function (popover) {
+            //    $scope.referPop = popover;
+            //});
             $scope.referArr = [{
                 text: '郑州金龙销售机会'
             }, {
@@ -271,6 +249,7 @@ salesModule
                 text: '销售活动',
             }];
             $scope.selectPopText = '商机';
+            $scope.referMoreflag = false;
             $scope.selectModal = function (x) {
                 for (var i = 0; i < $scope.referArr.length; i++) {
                     $scope.referArr[i].flag = false;
@@ -281,16 +260,16 @@ salesModule
             };
             $scope.selectPop = function (x) {
                 $scope.selectPopText = x.text;
-                $scope.referPop.hide();
+                $scope.referMoreflag = !$scope.referMoreflag;
+                $scope.isDropShow=false;
             };
             $scope.openRefer = function () {
+                $scope.isDropShow=true;
                 $scope.referModal.show();
             };
             $scope.showChancePop = function () {
-                $scope.referPop.show();
-            };
-            $scope.openFollow = function () {
-                $scope.followUpModal.show();
+                $scope.referMoreflag = true;
+                $scope.isDropShow=true;
             };
             $scope.initSearch = function () {
                 $scope.input.search = '';
@@ -298,7 +277,29 @@ salesModule
                     document.getElementById('referSearchId').focus();
                 }, 1)
             };
-            /*-------------------------------参考类型 end-------------------------------------*/
+            /*-------------------------------Modal end-------------------------------------*/
+            $scope.openFollow = function () {
+                $scope.followUpModal.show();
+            };
+            //添加相关方
+            $scope.moreflag = false;
+            $scope.isDropShow = false;
+            $scope.openRelations = function () {
+                if ($scope.isDropShow) {
+                    $scope.hideSelections();
+                    return
+                }
+                $scope.isDropShow = true;
+                $scope.addReleModal.show();
+            };
+            $scope.hideRelations = function () {
+                $scope.hideSelections();
+                $scope.addReleModal.hide();
+            };
+            $scope.hideSelections = function () {
+                $scope.moreflag = false;
+                $scope.isDropShow = false;
+            };
         }])
     .filter("highlight", function ($sce) {
 
@@ -311,8 +312,6 @@ salesModule
             }
             //text = encodeURI(text);
             //search = encodeURI(search);
-            text = (text);
-            search = (search);
             var regex = new RegExp(search, 'gi');
             var result = text.replace(regex, '<span style="color: red;">$&</span>');
             return $sce.trustAsHtml(result);

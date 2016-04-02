@@ -2358,7 +2358,7 @@ Copyright (c) 2015 Daniel Eden
 /*公共样式 end*/
 /*首页*/
 .own-backDrop-on {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -2367,7 +2367,7 @@ Copyright (c) 2015 Daniel Eden
   visibility: visible;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.4) !important;
+  background-color: rgba(255, 255, 255, 0.4);
   opacity: 1;
   pointer-events: auto;
   -webkit-transition: background-color 0.2s linear 0s;
@@ -2375,7 +2375,7 @@ Copyright (c) 2015 Daniel Eden
 
 .own-backDrop-off {
   pointer-events: none !important;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -3535,6 +3535,11 @@ Copyright (c) 2015 Daniel Eden
     width: 20px; }
 .referModal .content {
   padding: 0 20px; }
+  .referModal .content .selected {
+    color: #2B60AB; }
+  .referModal .content .refer-selectionsDown {
+    width: 100px;
+    padding: 0 10px; }
   .referModal .content .item {
     font-size: 16px;
     border-bottom: 1px solid #E2E0DF;
@@ -3549,7 +3554,7 @@ Copyright (c) 2015 Daniel Eden
   height: 122px;
   border-radius: 0 !important;
   left: 110px;
-  top: 42px; }
+  top: 46px; }
   .selectChance-pop .content {
     padding: 0 10px;
     text-align: center;
@@ -3559,6 +3564,31 @@ Copyright (c) 2015 Daniel Eden
       padding: 12px 0 8px 0; }
     .selectChance-pop .content .selected {
       color: #2B60AB; }
+
+.addRelationsModal .own-backDrop-on {
+  background: rgba(160, 160, 160, 0.4);
+  left: -20px;
+  width: 120%; }
+.addRelationsModal .own-backDrop-off {
+  left: -20px;
+  width: 120%; }
+.addRelationsModal .selectionsDown {
+  position: absolute;
+  margin-left: -20px;
+  width: 150px;
+  background: white;
+  padding: 0 20px;
+  z-index: 12; }
+  .addRelationsModal .selectionsDown .item {
+    text-align: center;
+    margin-bottom: -2px;
+    color: #969698; }
+
+.pushDown-animated {
+  -webkit-animation-duration: .2s;
+  animation-duration: .2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both; }
 
 .worksheet-view-public ion-header-bar {
   background-color: #2B60AB; }
