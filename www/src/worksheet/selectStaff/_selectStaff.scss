@@ -1,0 +1,94 @@
+.select-staff-mypopup{
+    .popup{
+        border-radius: 8px;
+        background: white;
+        padding: .2rem 1.6rem;
+        color: rgb(139,139,139);
+    }
+    .popup-head{
+        border-bottom: 1px dashed rgb(121,121,121);
+        h3{
+            font-size: 1rem;
+            word-spacing: 1rem;
+            letter-spacing: .4rem;
+        }
+    }
+    .popup-body{        
+        border-bottom: 1px solid rgb(197,197,197);
+        span{
+            color: $crm-header-bar-bgcolor;
+        }
+    }
+    .popup-buttons{
+        @include justify-content(center);
+        @include align-items(center);
+        button{
+            box-shadow: inherit;
+            background-color: white;
+            border: 1px solid $crm-header-bar-bgcolor;
+            border-radius: 2rem;
+            width: 5rem !important;
+            padding: 0px;
+            max-width: 7rem;
+            height: 2rem;
+            min-height: 1rem;
+            color: $crm-header-bar-bgcolor;
+        }
+    }
+}
+
+
+#staff-select-view{
+    .result-user{
+        @include display-flex;
+        height: 4rem;
+        font-size: 1rem;
+        border-bottom: 1px solid rgb(200,200,200);
+        .left{
+            @include display-flex;
+            @include align-items(center);
+            width: 3.5rem;
+            text-align: center;
+            label{
+                border-width: 0px;
+            }
+            i.checkbox-icon{
+                &:before{
+                    background-color: transparent;
+                    border-color: rgb(141,193,31);
+                    border: 2px solid rgb(141,193,31);
+                }
+                &:after{
+                    border-width: 3px;
+                    border-color: rgb(141,193,31);
+                    border-color: #8dc11f;
+                    width: 16px;
+                    height: 10px;
+                    top: 26%;
+                    left: 20%;
+                }
+            }
+        }
+        .center{
+            @include flex(1);
+            .top{
+                height: 2rem;
+                line-height: 2.5rem;
+            }
+            .bottom{
+                height: 2rem;
+                line-height: 1.5rem;
+                color: rgb(155, 155, 155);
+            }
+        }
+        .right{
+            @include flex(1);
+            @include display-flex;
+            @include align-items(center);
+            color: $crm-header-bar-bgcolor;
+            span{
+                border-bottom: 1px solid $crm-header-bar-bgcolor;
+            }
+        }
+    }
+}

@@ -882,6 +882,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
   //height: 64px; 
 }
 
+
 //.worksheet-detail-view-public{
 #worksheetdetail-newcar-view, #worksheetdetail-siterepair-view{
 	ion-content>div.scroll{
@@ -956,14 +957,19 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
                 @include justify-content(center);
                 @include align-items(center);
                 &:nth-child(2){
-                	span:nth-child(2){
+                	//span:nth-child(2){
+                	span{
                 		@include flex(1);
+                		margin-left: .4rem;
                 	}
                 }
             }
             .header-title{
-            	span{
+            	span:nth-child(1){
             		width: 12px;
+            		height: 12px;
+            		border: 2px solid #9ed85f;
+            		border-radius: 12px;        		
             	}
             	span:nth-child(2){
 					@include flex(1);
@@ -997,7 +1003,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             //transition: top .2s linear 0s;
         }
     }
-
+	
     .history-info-relation-line{
         padding: .4rem 0rem;
         .line-inner{
@@ -1045,7 +1051,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
     .worksheetdetail-content-siterepair, .worksheetdetail-content-newcar{
         @include flex(1);
     }
-
+	
 	font-size: .9rem;
 	.commment-info-lines{
 		margin-top: .8rem;

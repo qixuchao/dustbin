@@ -4,7 +4,6 @@
     "ionicMaterialMotion",
     function($scope, ionicMaterialInk, ionicMaterialMotion){
     
-
     $scope.config = {
 
     };
@@ -57,7 +56,7 @@
     };
 
     $scope.init = function(){
-
+        
     };
     $scope.init();
 

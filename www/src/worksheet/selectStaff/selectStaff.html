@@ -1,0 +1,39 @@
+<ion-view id="staff-select-view" align-title="center">
+	<!--ion-header-bar id="xbr-test-header" align-title="center" class="bar-positive" ng-class="{'query-mode':config.isQueryMode}">
+		<div class="left-back" ng-click="$ionicGoBack();">
+			<i class="ion-ios-arrow-back"></i>
+		</div>
+		<div class="title"></div>
+        <div class="buttons right"></div>
+	</ion-header-bar-->
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-20 text-left goBack" ng-click="goBack()">取消</a>
+                <div class="col col-60 text-center">选择员工</div>
+                <div class="col col-20 add" ng-click="confirmSelected($event);">确定</div>
+            </div>
+        </ion-header-bar>
+        <div class="pub-subhead bar bar-subheader">
+            <div class="row row-center no-padding" ng-click="changeSearch()">
+                <i class="ion-ios-search"></i>
+                <input type="text" style="height: 18px;line-height: 18px;width: 96%;" placeholder="请输入联系人姓名/联系人所在公司">
+            </div>
+        </div>
+    </div>
+    <ion-content class="has-subheader" scroll="true" has-bouncing="false">
+        <div class="result-user" ng-repeat="item in datas.userQueryResults">
+            <div class="left">
+                <ion-checkbox ng-model="item.isSelected"></ion-checkbox>
+            </div>
+            <div class="center">
+                <div class="top" ng-bind="item.user_name"></div>
+                <div class="bottom" ng-bind="item.user_title"></div>
+            </div>
+            <div class="right">
+                <span ng-bind="item.user_phone"></span>
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>
