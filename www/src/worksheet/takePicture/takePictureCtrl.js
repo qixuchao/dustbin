@@ -35,14 +35,21 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			}, 600);
 		});
 		$scope.$on('modal.removed', function() {
-		    debugger;
+		    //debugger;
 		});
 		
 		$scope.$on("$destroy", function(){
-			if($scope.config.imageModal != null){
-				$scope.config.imageModal.remove();
-			}
+			__destroyModal();
 		});
+		function __destroyModal(){
+			if($scope.config.imageModal != null){
+				if($scope.config.imageModal.isShown()){
+					$scope.config.imageModal.hide();
+				}
+				$scope.config.imageModal.remove();
+				$scope.config.imageModal = null;
+			}
+		}
 
 		$scope.config = {
 			actionSheet: null,
@@ -58,31 +65,13 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 					base64Str: '../../../img/login/login_bg@3x.png',
 					text: 'test'
 				},
-				{
+				{	
+					filepath: '',
 					base64Str: '../../../img/login/login_bg@3x.png',
 					text: 'test'
 				},
-				{
-					base64Str: '../../../img/login/login_bg@3x.png',
-					text: 'test'
-				},
-				{
-					base64Str: '../../../img/login/login_bg@3x.png',
-					text: 'test'
-				},
-				{
-					base64Str: '../../../img/login/login_bg@3x.png',
-					text: 'test'
-				},
-				{
-					base64Str: '../../../img/login/login_bg@3x.png',
-					text: 'test'
-				},
-				{
-					base64Str: '../../../img/login/login_bg@3x.png',
-					text: 'test'
-				},
-				{
+				{	
+					filepath: '',
 					base64Str: '../../../img/login/login_bg@3x.png',
 					text: 'test'
 				},
@@ -94,16 +83,13 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		};
 
 		$scope.init = function(){
-			
 		};
 
 		$scope.init();
 
 		$scope.closeImageModal = function(){
 			$scope.datas.showImageItem = null;
-			$scope.config.imageModal.hide();
-			$scope.config.imageModal.remove();
-			$scope.config.imageModal = null;
+			__destroyModal();
 		};
 
 		$scope.initImageModal = function(){

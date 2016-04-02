@@ -8,9 +8,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 	
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
-        ionicMaterialMotion.fadeSlideIn({
+        /*ionicMaterialMotion.fadeSlideIn({
             selector: '.animate-fade-slide-in .item'
-        });
+        });*/
     }, 550);
     
 	$scope.config = {
@@ -66,7 +66,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 		searchPlaceholder: '请输入服务订单描述',
 
-
+		showListItemAnimate: false,
 
 
 		ok: true
@@ -429,6 +429,10 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 	$scope.init = function(){
 		$scope.enterListMode();
+
+		$timeout(function (){
+			$scope.config.showListItemAnimate = true;
+		}, 150);
 		
 		/*$ionicPopup.alert({
 			title: '你好',

@@ -1,11 +1,11 @@
 #worksheet-takepicture-view{
-	.back-left{
+	/*.back-left{
 		font-size: 2rem;
 		@include display-flex;
 		@include align-items(center);
 		@include justify-content(center);
     	width: 1.8rem;
-	}
+	}*/
 	.selected-images{
 		width: 100%;
 		padding: .8rem 2vmin;
@@ -15,7 +15,7 @@
 		    width: 48vmin;
 		    float: left;
 		    @include display-flex;
-		    @include justify-content(center);
+		    @include justify-content(center); 
 		    @include align-items(center);
 		    padding: .4rem;
 		    img{
@@ -89,5 +89,4 @@
 			@include scale(1);
 		}
 	}
-
 }
