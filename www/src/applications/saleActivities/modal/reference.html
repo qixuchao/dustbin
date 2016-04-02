@@ -2,7 +2,7 @@
     <div class="saleList">
         <ion-header-bar class="head" no-tap-scroll="true">
             <div class="row row-center">
-                <div class="text-center selections" ng-click="referMoreflag=!referMoreflag">
+                <div class="text-center selections" ng-click="changeReferMoreflag()">
                     {{selectPopText}}<img class="chanceImg" src="img/saleList/oval.png">
                 </div>
                 <div class="col input">
@@ -18,7 +18,7 @@
     </div>
     <div class="addRelationsModal">
         <ion-content class="content has-header">
-            <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"></div>
+            <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="changeReferMoreflag()"></div>
             <div class="selectionsDown pushDown-animated refer-selectionsDown"
                  ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'slideInDown':referMoreflag}"
                  ng-show="referMoreflag">
