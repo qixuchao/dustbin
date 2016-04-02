@@ -7,8 +7,10 @@
 'use strict';
 customerWorkorderModule
     .controller('customerWorkorderQueryCtrl',['$scope','$state','$http','$timeout','$ionicPopover','$ionicModal','$ionicScrollDelegate','ionicMaterialInk','ionicMaterialMotion','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicModal,$ionicScrollDelegate,ionicMaterialInk,ionicMaterialMotion,customeService,$ionicLoading) {
-        //初始化数据列表
-        $scope.customerworkorcrderlistflag = false;
+        //sort点击变量设置
+        $scope.customerworksortflag = false;
+        //select点击变量设置
+        $scope.customerworkselectflag = false;
 
         //sort虚化背景andsort列表
         $scope.cusworkodersortbgflag = false;
@@ -35,12 +37,15 @@ customerWorkorderModule
             //select虚化背景hide
             $scope.cusworkoderselecbgflag = false;
 
-            //数据列表
-            if($scope.customerworkorsortspanflag == true){
-                $scope.customerworkorcrderlistflag = true;
+            //sort点击变量设置
+            if($scope.cusworkodersortbgflag == true){
+                $scope.customerworksortflag = true;
             }else{
-                $scope.customerworkorcrderlistflag = false;
+                $scope.customerworksortflag = false;
             }
+
+
+
 
         };
         //点击列表
@@ -53,12 +58,7 @@ customerWorkorderModule
             $scope.cusomerWorkorsortimg = true;
             $scope.customerworkorsortspanflag = true;
 
-            //数据列表
-            $scope.customerworkorcrderlistflag = true;
-
         };
-
-
         $scope.customerworkorselecspanflag = true;
         $scope.cusomerWorkorselecimg = true;
         $scope.showCustomerWorkeordSelecModal = function (){
@@ -76,11 +76,11 @@ customerWorkorderModule
             //sort虚化背景andsort列表hide
             $scope.cusworkodersortbgflag = false;
 
-            //数据列表
-            if($scope.customerworkorselecspanflag == true){
-                $scope.customerworkorcrderlistflag = true;
+            //selectt点击变量设置
+            if($scope.cusworkodersortbgflag == true){
+                $scope.customerworkselectflag = true;
             }else{
-                $scope.customerworkorcrderlistflag = false;
+                $scope.customerworkselectflag = false;
             }
 
         };
@@ -105,8 +105,6 @@ customerWorkorderModule
             $scope.cusomerWorkorsortimg = true;
             $scope.customerworkorsortspanflag = true;
 
-            //数据列表
-            $scope.customerworkorcrderlistflag = true;
         };
         //selec背景影藏
         $scope.cusworkoderselecbghide = function(){
@@ -117,8 +115,6 @@ customerWorkorderModule
             //文字andimg灰色
             $scope.customerworkorselecspanflag=true
             $scope.cusomerWorkorselecimg = true;
-            //数据列表
-            $scope.customerworkorcrderlistflag = true;
         };
 
         //日期调用

@@ -1,4 +1,5 @@
 <ion-nav-view class="contact_Edit">
+    <ion-header-bar>
         <div class="contact_Edit_head">
             <div class="contact_Edit_headtitle">
                 <i class="icon ion-ios-arrow-back contact_Edit_headtitlei" ng-click="goBack()"></i>
@@ -6,8 +7,9 @@
                 <span class="contact_Edit_headtitlespanedit" ng-click="contactKeepEditvalue()">保存</span>
             </div>
         </div>
-    <ion-content style="margin-top:50px">
-        <div class="list" style="font-size: 16px;">
+        </ion-header-bar>
+    <ion-content>
+        <div class="list" style="font-size: 16px;margin-top:5px">
             <label class="item item-input">注释：
                 <input type="text" class="contact_editinputsty" placeholder="请输入注释" ng-model="contactedit.customerzhushi">
             </label>

@@ -1,4 +1,5 @@
 <ion-view class="relationship_list">
+    <ion-header-bar>
         <div class="employeecustomer_head">
             <div class="employeecustomer_headtitle">
                 <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
@@ -8,7 +9,8 @@
                 <img class="employeecustomer_headtitleimg" src="img/employee/increase@2x.png"/>
             </div>
         </div>
-    <ion-content style="margin-top:50px">
+        </ion-header-bar>
+    <ion-content>
         <ion-list>
             <ion-item class="employee_customerlist" style="border-bottom: 1px solid #ddd;margin-top:1px;" ng-repeat="x in contact_relationship" on-swipe-right="RelaotinHidd()">
                 <div class="row">
