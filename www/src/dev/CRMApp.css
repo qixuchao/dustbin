@@ -3861,12 +3861,17 @@ Copyright (c) 2015 Daniel Eden
   margin-left: -110px;
   background: white;
   border-radius: 5px; }
+  .selectPersonModal .content .scroll {
+    height: 293px; }
   .selectPersonModal .content .person {
     padding: 5px;
     border-bottom: 1px solid #EAE8E6; }
 
-.selectPersonModal .cancel .cancelImg {
-  width: 50px; }
+.selectPersonModal .cancel {
+  text-align: center;
+  padding: 15px; }
+  .selectPersonModal .cancel .cancelImg {
+    width: 40px; }
 
 .worksheet-view-public ion-header-bar {
   background-color: #2B60AB; }

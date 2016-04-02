@@ -627,6 +627,9 @@
     margin-left: -110px;
     background: white;
     border-radius: 5px;
+    .scroll{
+      height: 293px;
+    }
     .person{
       padding: 5px;
       border-bottom: 1px solid #EAE8E6;
@@ -634,8 +637,10 @@
 
   }
   .cancel{
+    text-align: center;
+    padding: 15px;
     .cancelImg{
-      width: 50px;
+      width: 40px;
     }
   }
 }

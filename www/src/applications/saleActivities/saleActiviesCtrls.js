@@ -90,11 +90,9 @@ salesModule
             $scope.selectPersonflag = false;
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Modal.html', {
                 scope: $scope,
-                backdropClickToClose:false,
                 animation: 'slide-in-up'
             }).then(function (modal) {
                 $scope.createModal = modal;
-                modal.show()
             });
             $scope.saveCreateModal = function () {
                 console.log($scope.create);
@@ -104,11 +102,9 @@ salesModule
             //选择人
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectPerson_Modal.html', {
                 scope: $scope,
-                backdropClickToClose:true,
                 animation: 'slide-in-up'
             }).then(function (modal) {
                 $scope.selectPersonModal = modal;
-                //modal.show();
             });
             $scope.openSelectPerson = function () {
                 $scope.selectPersonflag = true;
