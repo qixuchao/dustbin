@@ -43,11 +43,12 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
             if (window.cordova && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+                cordova.plugins.Keyboard.disableScroll(true);
             }
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
-                StatusBar.styleLightContent();
+                window.StatusBar.overlaysWebView(true);
             }
         });
         $rootScope.goState = function(state){
@@ -133,7 +134,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/contacts/relationship/Relationship.html',
                 controller: 'contactRelationshipCtrl'
             })
-
+            
             //客户
             .state('customerQuery', {
                 url: '/customerQuery',
@@ -227,7 +228,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 controller: 'dealHistoryListCtrl'
             })
             
-            .state('worksheetCarMileage', {
+            .state('worksheetCarMileage',{
                 url: '/worksheetCarMileage',
                 templateUrl: 'src/worksheet/carMileage/worksheet_carMileage.html',
                 controller: 'WorksheetCarMileageCtrl'
@@ -247,12 +248,23 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/worksheet/sparePart/worksheet_spareSelect.html',
                 controller: 'WorksheetPareSelectCtrl'
             })
-            // 工单模块相关： end ------------------------
             .state('worksheetRelatedPart', {
                 url: '/worksheetRelatedPart',
                 templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',
                 controller: 'WorksheetRelatedCtrl'
             })
+            .state('worksheetTakePicture', {
+                url: '/worksheetTakePicture',
+                templateUrl: 'src/worksheet/takePicture/takePicture.html',
+                controller: 'worksheetTakePictureCtrl'
+            })
+            .state('staffSelect', {
+                url: '/staffSelect',
+                templateUrl: 'src/worksheet/selectStaff/selectStaff.html',
+                controller: 'selectStaffCtrl'
+            })
+            // 工单模块相关： end ------------------------
+            
         ;
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider  // /home/login

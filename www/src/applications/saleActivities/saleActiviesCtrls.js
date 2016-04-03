@@ -7,14 +7,18 @@ salesModule
         '$state',
         '$timeout',
         '$ionicLoading',
+        '$ionicPopover',
+        '$ionicModal',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'saleActService',
-        function ($scope, $state, $timeout, $ionicLoading, ionicMaterialInk, ionicMaterialMotion, saleActService) {
+        'Prompter',
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, ionicMaterialInk,
+                  ionicMaterialMotion, saleActService, Prompter) {
             console.log('销售活动列表');
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
-            }, 100)
+            }, 100);
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
             $scope.input = {search: ''};
@@ -33,9 +37,9 @@ salesModule
                 }
             };
             $scope.search = function (x, e) {
-                $scope.g_busy.show('正在搜索');
+                Prompter.showLoading('正在搜索');
                 $timeout(function () {
-                    $scope.g_busy.hide();
+                    Prompter.hideLoading();
                     $scope.input.search = x;
                 }, 800)
 
@@ -51,35 +55,67 @@ salesModule
                 $state.go('saleActDetail')
                 e.stopPropagation();
             };
-
-            //loading公共方法
-            $scope.g_busy = {
-                show: function (msg) {
-                    $scope.g_busy.hide();
-                    $timeout.cancel($scope.g_busyTimeout);
-                    $scope.g_busyFlag = 'Y';
-                    if (msg) {
-                        $ionicLoading.show({
-                            template: '<ion-spinner icon="lines" class="spinner-balanced"></ion-spinner><p>' + msg + '</p>'
-                        })
-                    } else {
-                        $ionicLoading.show();
-                    }
-
-                    $scope.g_busyTimeout = $timeout(function () {
-                        if ($scope.g_busyFlag == 'Y') {
-                            $scope.g_busyFlag = 'N';
-                            $scope.g_busy.hide();
-                            //$scope.Toast.show('连接超时，请检查网络');
-                        }
-                    }, 60000);
-                },
-                hide: function () {
-                    $ionicLoading.hide();
-                    $timeout.cancel($scope.g_busyTimeout);
-                    $scope.g_busyFlag = 'N';
-                }
+            /*-------------------------------Pop 新建-------------------------------------*/
+            $scope.createPopTypes = saleActService.getCreatePopTypes();
+            $scope.createPopOrgs = saleActService.getCreatePopOrgs();
+            $scope.pop = {
+                type: {}, org: {}
             };
+            $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Pop.html', {
+                scope: $scope
+            }).then(function (popover) {
+                $scope.createPop = popover;
+            });
+            $scope.openCreatePop = function () {
+                $scope.pop.type = $scope.createPopTypes[0];
+                $scope.pop.org = $scope.createPopOrgs[0];
+                $scope.createPop.show();
+            };
+            $scope.showCreateModal = function () {
+                console.log($scope.pop);
+                $scope.createPop.hide();
+                $scope.createModal.show();
+            };
+            /*-------------------------------Pop 新建 end-------------------------------------*/
+            /*-------------------------------Modal 新建-------------------------------------*/
+            $scope.create = {
+                description: '',
+                place: '',
+                customer: '',
+                contact: '',
+                startTime: '2016-4-1 15:00',
+                endTime: '2016-4-5 10:00',
+                annotate: '测试'
+            };
+            $scope.selectPersonflag = false;
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.createModal = modal;
+            });
+            $scope.saveCreateModal = function () {
+                console.log($scope.create);
+                $scope.createModal.hide();
+            };
+
+            //选择人
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectPerson_Modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.selectPersonModal = modal;
+            });
+            $scope.openSelectPerson = function () {
+                $scope.selectPersonflag = true;
+                $scope.selectPersonModal.show();
+            };
+            $scope.closeSelectPerson = function () {
+                $scope.selectPersonflag=false;
+                $scope.selectPersonModal.hide();
+                //arr[0].className = 'modal-backdrop hide';
+            };
+            /*-------------------------------Modal 新建 end-------------------------------------*/
         }])
     .controller('saleActDetailCtrl', [
         '$scope',
@@ -92,9 +128,12 @@ salesModule
         '$cordovaDialogs',
         '$ionicModal',
         '$ionicPopover',
+        '$cordovaToast',
         'saleActService',
+        'Prompter',
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover, saleActService) {
+                  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
+                  $cordovaToast, saleActService, Prompter) {
             ionicMaterialInk.displayEffect();
             $scope.statusArr = saleActService.getStatusArr();
             $scope.mySelect = {
@@ -118,8 +157,14 @@ salesModule
                         });
                 } else {
                     //执行保存操作
-                    $scope.isEdit = false;
-                    $scope.editText = "编辑";
+                    Prompter.showLoading('正在保存');
+                    $timeout(function () {
+                        Prompter.hideLoading();
+                        $cordovaToast.showShortBottom('保存成功');
+                        $scope.isEdit = false;
+                        $scope.editText = "编辑";
+                    }, 500);
+
                 }
             }
             $scope.select = true;
@@ -227,17 +272,24 @@ salesModule
                 }, 20)
             };
 
-            /*-------------------------------参考类型-------------------------------------*/
+            /*-------------------------------Modal 参考-------------------------------------*/
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/reference.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
             }).then(function (modal) {
                 $scope.referModal = modal;
             });
-            $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/selectChance-pop.html', {
-                scope: $scope
-            }).then(function (popover) {
-                $scope.referPop = popover;
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/followUp.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.followUpModal = modal;
+            });
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/addRelations.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.addReleModal = modal;
             });
             $scope.referArr = [{
                 text: '郑州金龙销售机会'
@@ -256,45 +308,94 @@ salesModule
                 text: '销售活动',
             }];
             $scope.selectPopText = '商机';
+            $scope.referMoreflag = false;
             $scope.selectModal = function (x) {
                 for (var i = 0; i < $scope.referArr.length; i++) {
                     $scope.referArr[i].flag = false;
                 }
+                $scope.details.refer = $scope.selectPopText + '-' + x.text;
                 x.flag = true;
                 $scope.referModal.hide();
             };
             $scope.selectPop = function (x) {
                 $scope.selectPopText = x.text;
-                $scope.referPop.hide();
-            }
+                $scope.referMoreflag = !$scope.referMoreflag;
+            };
+            $scope.changeReferMoreflag = function () {
+                $scope.referMoreflag = !$scope.referMoreflag;
+            };
             $scope.openRefer = function () {
+                $scope.isDropShow = true;
                 $scope.referModal.show();
             };
             $scope.showChancePop = function () {
-                $scope.referPop.show();
+                $scope.referMoreflag = true;
+                $scope.isDropShow = true;
             };
-            /*-------------------------------参考类型 end-------------------------------------*/
+            $scope.initSearch = function () {
+                $scope.input.search = '';
+                $timeout(function () {
+                    document.getElementById('referSearchId').focus();
+                }, 1)
+            };
+            /*-------------------------------Modal end-------------------------------------*/
+            $scope.relationsPopArr = [{
+                text: 'CATL销售',
+            }, {
+                text: '联系人',
+            }, {
+                text: '正式客户',
+            }, {
+                text: '潜在客户',
+            }, {
+                text: '竞争对手',
+            }, {
+                text: '合作伙伴',
+            }];
+            $scope.openFollow = function () {
+                $scope.followUpModal.show();
+            };
+            //添加相关方
+            $scope.moreflag = false;
+            $scope.isDropShow = false;
+            $scope.openRelations = function () {
+                if ($scope.isDropShow) {
+                    $scope.hideSelections();
+                    return
+                }
+                $scope.isDropShow = true;
+                $scope.selectPopText = '正式客户';
+                $scope.addReleModal.show();
+            };
+            $scope.hideRelations = function () {
+                $scope.hideSelections();
+                $scope.addReleModal.hide();
+            };
+            $scope.selectPop_rel = function (x) {
+                $scope.selectPopText = x.text;
+                $scope.changeMoreFlag();
+            };
+            $scope.changeMoreFlag = function () {
+                $scope.moreflag = !$scope.moreflag;
+            };
+            $scope.hideSelections = function () {
+                $scope.moreflag = false;
+                $scope.isDropShow = false;
+            };
         }])
-    .filter("highlight", function ($sce, $log) {
+    .filter("highlight", function ($sce) {
 
         var fn = function (text, search) {
-            $log.info("text: " + text);
-            $log.info("search: " + search);
-
             if (!search) {
                 return $sce.trustAsHtml(text);
             }
             if (text.indexOf(search) == -1) {
                 return text;
             }
-            text = encodeURI(text);
-            search = encodeURI(search);
-            console.log(text.indexOf(search));
+            //text = encodeURI(text);
+            //search = encodeURI(search);
             var regex = new RegExp(search, 'gi');
             var result = text.replace(regex, '<span style="color: red;">$&</span>');
-            result = decodeURI(result);
-            console.log(result)
-            $log.info("result: " + result);
             return $sce.trustAsHtml(result);
         };
 

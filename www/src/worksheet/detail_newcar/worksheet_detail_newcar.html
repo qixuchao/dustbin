@@ -5,7 +5,7 @@
                 <div class="left" ng-click="$ionicGoBack();"> <i class="ion-ios-arrow-back"></i> </div>
                 <div class="center">
                     <span class="title">工单详细信息</span>
-                    <span class="sub-title animated fadeOut" ng-bind="datas.header.title"></span> 
+                    <span class="sub-title animated" ng-bind="datas.header.title"></span>
                 </div>
                 <div class="right show-more-modal-content-source" ng-click="showMoreModel($event);"><span><i class="ion-ios-more"></i></span></div>
             </div>
@@ -13,35 +13,44 @@
                 <div class="detail-header-line header-title animated fadeIn">
                     <span></span><span class="line-title" ng-bind="datas.header.title"></span> 
                 </div>
-                <div class="detail-header-line  animated fadeIn">
-                    <span class="line-title"><i class="ion-ios-copy-outline"></i></span>
+                <div class="detail-header-line line-two animated fadeIn">
+                    <!--span class="line-title"><i class="ion-ios-copy-outline"></i></span-->
                     <span class="line-value" ng-bind="datas.header.company"></span>
                 </div>
-                <div class="detail-header-line customer-status  animated fadeIn">
+                <div class="detail-header-line customer-status animated fadeIn">
                     <div class="left">
-                        <span class="line-title"><i class="ion-ios-person-outline"></i></span>
+                        <span class="line-title"><!--i class="ion-ios-person-outline"></i-->外服人员:</span>
                         <span class="line-value" ng-bind="datas.header.customer"></span>
                     </div>
                     <div class="right">
-                        <span class="line-title"><i class="ion-flag"></i></span>
+                        <span class="line-title"><!--i class="ion-flag"></i-->状态:</span>
                         <span class="line-value status-handleing" ng-bind="datas.header.status"></span>
                     </div>
                 </div>
             </div>
         </div>
         
-        <ion-scroll class="worksheetdetail-content-newcar" delegate-handle="xbrDelegateScroll" scrollbar-y="false" has-bouncing="false" ng-init="freezeBottomScroll(true, 100);">
+        <ion-scroll class="worksheetdetail-content-public worksheetdetail-content-newcar" delegate-handle="xbrDelegateScroll" scrollbar-y="false" has-bouncing="false" ng-init="freezeBottomScroll(true, 100);">
             <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
                 <div class="fill-height line-inner">
-                    <div class="relation-box left-1">
-                        <i class="ion-ios-more"></i>                            
+                    <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
+                        <i class="ion-ios-more"></i>                             
                         <span>相关方</span>
                     </div>
-                    <div class="history-box left-2">
+                    <!--
+                        message: '&', // message="method()"
+                        showTime: '@', // showTime="{{timeStr}}"
+                        className: '@', //
+                        testDatas: '=', // test-datas="config.datas"
+                        level: '@'  // 级别：warn、info、error
+                    -->
+                    <!--crm-toast message="严重错误信息!!!!!" show-time="500" class-name="my-toast" test-datas="config" level="info">
+                    </crm-toast-->
+                    <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
                         <i class="ion-ios-more"></i>                               
                         <span>交易历史</span>
                     </div>
-                    <div class="info-box left-3">
+                    <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
                         <i class="ion-ios-more"></i>
                         <span>报工信息</span>
                     </div>
@@ -105,11 +114,11 @@
                     <div class="col-60" ng-bind="datas.basicInfo.timeOnlineStart"></div>
                 </div>
             </div>
-
+            
             <div class="button button-crm-edit button-crm-edit-public">
                 编辑
             </div>
-
+            
             <!--div ng-repeat="item in datas.temp" style="height:4rem;width:100%;">
                 <div ng-bind="item.title" style="font-size:1rem;height:2rem;"></div>
                 <div ng-bind="item.content" style="font-size:1rem;height:2rem;padding-left:4rem;"></div>

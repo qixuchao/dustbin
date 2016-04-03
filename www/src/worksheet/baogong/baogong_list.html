@@ -1,14 +1,28 @@
 <ion-view  id="worksheet-baogong-list-view"  align-title="center">
-    <ion-header-bar align-title="center" class="bar-positive">
+    <!--ion-header-bar align-title="center" class="bar-positive">
 		<div class="left-back" ng-click="$ionicGoBack();">
 			<i class="ion-ios-arrow-back"></i>
 		</div>
 		<div class="title">报工信息列表</div>
-	</ion-header-bar>
+	</ion-header-bar-->
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">报工信息列表</div>
+                <!--div class="col col-15 add"><img src="img/saleList/add.png"></div-->
+            </div>
+        </ion-header-bar>
+        <!--div class="pub-subhead bar bar-subheader">
+            <div class="row row-center no-padding" ng-click="changeSearch()">
+                <i class="ion-ios-search"></i>请输入活动关键字
+            </div>
+        </div-->
+    </div>
     <ion-content on-refresh="" has-bouncing="false">
-
+            
             <div class="baogong-list">
-                <div class="baogong-item" ng-repeat="item in datas.testDates" >
+                <div class="baogong-item" ng-class="{'animated flipInX':itemAnimatedShow}" ng-init="itemAnimatedShow=true" ng-repeat="item in datas.testDates">
                     <div class="title-top">
                     	<div class="title-icon"></div>
                     	<span ng-bind="item.title"></span>
@@ -23,7 +37,7 @@
                     </div>
                 </div>         
             </div>
-
+            
     </ion-content>
 
 </ion-view>

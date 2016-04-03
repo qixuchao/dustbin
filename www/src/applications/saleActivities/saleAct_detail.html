@@ -6,7 +6,7 @@
             <div class="col col-70 text-center">活动详情
                 <div style="font-size: 10px">郑州金龙客车(福州)客户拜访</div>
             </div>
-            <div class="col col-15 text-right">后续</div>
+            <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
         </div>
     </div>
     <div class="top-back absolute top-back2" ng-show="showTitleStatus">
@@ -15,7 +15,7 @@
             <div class="col col-70 text-center">活动详情
                 <div style="font-size: 10px">郑州金龙客车(福州)客户拜访</div>
             </div>
-            <div class="col col-15 text-right">后续</div>
+            <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
         </div>
         <div class="selector">
             <div class="detail" ng-class="{checked:select}" ng-click="changeStatus(true)">详细信息</div>
@@ -27,7 +27,7 @@
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">活动详情</div>
-                <div class="col col-15 text-right">后续</div>
+                <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
             </div>
             <div class="mainInfo">
                 <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
@@ -48,9 +48,9 @@
                 </div>
                 <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div>状态:</div>
-                    <select ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select>
+                    <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select>
                     <div class="num">NO.100036</div>
-                    <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png">{{editText}}</div>
+                    <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}</div>
                 </div>
             </div>
             <div class="selector">
@@ -133,7 +133,7 @@
                     <div class="col">王紫薇&nbsp;&nbsp;女士</div>
                     <div class="col text-center position">CATL销售</div>
                 </div>
-                <div class="row row-center add"><div class="col"><i class="ion-ios-plus-outline"></i>添加相关方</div></div>
+                <div class="row row-center add"><div class="col" ng-click="openRelations()"><i class="ion-ios-plus-outline"></i>添加相关方</div></div>
             </div>
         </div>
 

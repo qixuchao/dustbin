@@ -5,14 +5,14 @@
         An Ionic Framework and Cordova project.
     </description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+        Ionic Framework Team
     </author>
     <content src="index.html" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-    <access origin="*" />
+    <allow-intent href="mailto:*"/>
+    <allow-intent href="geo:*"/>
+    <access origin="*"/>
     <access launch-external="yes" origin="tel:*" />
     <access launch-external="yes" origin="geo:*" />
     <access launch-external="yes" origin="mailto:*"/>
