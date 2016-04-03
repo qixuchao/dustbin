@@ -4,11 +4,9 @@
         "uninstalled": []
     },
     "config_munge": {
-<<<<<<< HEAD
         "files": {}
     },
     "installed_plugins": {},
-=======
         "files": {
             "res/xml/config.xml": {
                 "parents": {
@@ -41,6 +39,5 @@
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         }
     },
->>>>>>> 514475dfe44a8784ce7b0277ec6400728cfac489
     "dependent_plugins": {}
 }
