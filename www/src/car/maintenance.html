@@ -10,11 +10,13 @@
         <div class="tab-buttons-line">
             <div class="tab-button-block" ng-class="{'selected':config.isSorteMode}" ng-click="enterSorteMode();">
                 <span>排 序</span>
-                <i class="icon ion-arrow-down-b"></i>
+                <img ng-src="img/car/sort.png" ng-show="!config.isSorteMode">
+                <img ng-src="img/car/sortImg.png" ng-show="config.isSorteMode">
             </div>
             <div class="tab-button-block" ng-class="{'selected':config.isFilterMode}" ng-click="enterFilterMode();">
                 <span>筛 选</span>
-                <i class="icon ion-arrow-down-b"></i>
+                <img ng-src="img/car/select.png" ng-show="!config.isFilterMode">
+                <img ng-src="img/car/selectImg.png" ng-show="config.isFilterMode">
             </div>
         </div>
         <div class="tab-buttons-line-border" ng-class="{'right-filter':config.isFilterMode,'left-sort':config.isSorteMode}" ></div>
@@ -50,11 +52,11 @@
             </div>
             <div canClickEnterListMode class="tab-filter-content" >
                 <ion-scroll canNotClickEnterListMode scrollbar-y="false" has-bouncing="false" class="tab-filter-content-inner">
-                    <div canNotClickEnterListMode class="filter-time">
+                    <div canNotClickEnterListMode class="row row-center filter-time">
                         <div class="filter-time-title filter-title">日期区间</div>
                         <div class="filter-times-start-end">
                             <div class="filter-start-time" ng-bind="config.timeStart"></div>
-                            <div class="filter-time-center-line">-</div>
+                            <div class="col col-8 filter-time-center-line"></div>
                             <div class="filter-end-time" ng-bind="config.timeEnd"></div>
                         </div>
                     </div>
@@ -76,26 +78,6 @@
                             <div class="filter-impact none" ng-class="{'selected':config.filterImpactNone}" ng-click="selectFilterImpact('none');">无</div>
                         </div>
                     </div>
-
-                    <div canNotClickEnterListMode class="filter-status-wrapper">
-                        <div class="filter-title filter-status-title">状态</div>
-                        <div class="filter-status">
-                            <div class="filter-statu" ng-class="{'selected':config.filterStatusNew}" ng-click="selectFilterStatus()">新建</div>
-                            <div class="filter-statu" ng-class="{'selected':config.filterStatusSendedWorker}" ng-click="selectFilterStatus()">已派工</div>
-                            <div class="filter-statu" ng-class="{'selected':config.filterStatusRefused}" ng-click="selectFilterStatus('filterStatusRefused')">已拒绝</div>
-                            <div class="filter-statu" ng-class="{'selected':config.filterStatusHandling}" ng-click="selectFilterStatus('filterStatusHandling')">
-                                处理中
-                            </div>
-                            <div class="filter-statu" ng-class="{'selected':config.filterStatusReported}" ng-click="selectFilterStatus('filterStatusReported')">
-                                已报工
-                            </div>
-                            <div class="filter-statu" ng-class="{'selected':config.filterStatusFinished}" ng-click="selectFilterStatus('filterStatusFinished')">已完工</div>
-                            <div class="filter-statu" ng-class="{'selected':config.filterStatusRevisited}" ng-click="selectFilterStatus('filterStatusRevisited')">已回访</div>
-                            <div class="filter-statu" ng-class="{'selected':config.filterStatusAudited}" ng-click="selectFilterStatus('filterStatusAudited')">已审核</div>
-                            <div class="filter-statu" ng-class="{'selected':config.filterStatusReturned}" ng-click="selectFilterStatus('filterStatusReturned')">已打回</div>
-                            <div class="filter-statu" ng-class="{'selected':config.filterStatusCancled}" ng-click="selectFilterStatus('filterStatusCancled')">已取消</div>
-                        </div>
-                    </div>
                     <div canNotClickEnterListMode class="filter-action-buttons">
                         <div class="filter-action-button reset" ng-click="resetFilters();">重置</div>
                         <div canClickEnterListMode class="filter-action-button confirm" ng-click="filterConfirm();">确认</div>
@@ -105,26 +87,44 @@
 
             <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
                 <ion-scroll class="fill-parent" on-refresh="" has-bouncing="false">
-                    <div class="list">
-                        <div class="item" ng-repeat="item in datas.testDates" >
-                           <div class="row row-center">
-                               <div class="col col-center"></div>
-                           </div>
-                        </div>
-                            <div class="right" ng-click="goDetailState($index);">
-                                <div class="enter-detail-btn">
-                                    <i class="ion-android-arrow-forward"></i>
+                    <div class="divLine" ng-repeat="record in carInfo">
+                        <div class="row row-center rowContent">
+                            <div class="col col-center col-5">
+                                <img ng-src="img/car/Oval.png" class="pointImg">
+                            </div>
+                            <div class="col col-95 col-center colType1">
+                                <div class="row row-center">
+                                    <div class="col col-center col-28">
+                                        <b>工单类型</b>
+                                    </div>
+                                    <div class="col col-center col-72">
+                                        <span>{{record.listType}}</span>
+                                    </div>
                                 </div>
-                                <div class="status">
-                                    <span class="name">状态:</span>
-                                    <span class="value" ng-bind="item.status" ng-class="{'handling':(item.statusType=='HANDLING'),'new':(item.statusType=='NEW')}"></span>
+                                <div class="row row-center">
+                                    <span>{{record.maintenanceDate}}</span>
+                                </div>
+                                <div class="row row-center">
+                                    <div class="col col-center col-28">
+                                        <b>工单描述</b>
+                                    </div>
+                                    <div class="col col-center col-72">
+                                        <span>{{record.maintenanceDescribe}}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="loading-more">
-                        点击加载更多内容...
+                    <div class="row row-center">
+                        <div class="col col-25"></div>
+                        <div class="col col-center">
+                            <a class="button button-clear buttonText" ng-click="loadMore()">
+                               <span>点击加载更多</span>
+                            </a>
+                        </div>
+
                     </div>
+
                 </ion-scroll>
             </div>
             <div canClickEnterListMode class="divs-wrapper-bg" ng-if="config.isSorteMode || config.isFilterMode" ng-click="clickEnterListMode($event);"></div>

@@ -56,9 +56,7 @@
             <div class="right"></div>
         </div>
 
-        <!--<div class="divs-wrapper animate-fade-slide-in" ng-class="{'sort-model-show':config.isSorteMode,'filter-model-show':config.isFilterMode}-->
-        <div class="divs-wrapper animate-fade-slide-in" ng-class="{'show-model':showXbrModel(),'sort-to-filter-ing':config.filterModeFromingSortMode,'filter-to-sort-ing':config.sortModeFromingFilterMode}" -->
-        <!-- animate-fade-slide-in -->
+            <!-- animate-fade-slide-in -->
         <div class="divs-wrapper " ng-class="{
             'show-model':showXbrModel(),
             'sort-from-click ':(config.isSorteMode&& config.sortModeFromClick),
@@ -173,7 +171,7 @@
                     </ion-scroll>                                   
                 </div>
                 <div canClickEnterListMode class="divs-wrapper-bg" ng-if="config.isSorteMode || config.isFilterMode" ng-click="clickEnterListMode($event);"></div>
-            </div>
         </div>
+
     </ion-content>
 </ion-view>

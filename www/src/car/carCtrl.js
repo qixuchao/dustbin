@@ -1,21 +1,17 @@
 /**
  * Created by Administrator on 2016/3/14 0014.
  */
-carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',function($scope,CarService,$timeout,$state){
+carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Prompter',function($scope,CarService,$timeout,$state,Prompter){
     $scope.cars=CarService.all();
     $scope.searchFlag=false;
+    $scope.isSearch=false;
     $scope.carInfo="";
     $scope.data=[
         '贵GU1230',
         '京AS9116',
         '贵GU1229'
     ];
-    //$scope.doRefresh=function(){
-    //    $timeout(function(){
-    //        $scope.cars.push(data);
-    //        $scope.$broadcast('scroll.refreshComplete');
-    //    },1000)
-    //};
+
     $scope.goSkip=function(pageName){
         $state.go(pageName);
     };
@@ -26,9 +22,18 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
     $scope.changePage=function(){
         $scope.searchFlag=true;
     };
-    $scope.search=function(){
+    $scope.changeSearch=function(){
+        $scope.isSearch=true;
+    };
+    $scope.search = function (x, e) {
+        Prompter.showLoading('正在搜索');
+        $timeout(function () {
+            Prompter.hideLoading();
+            $scope.carInfo = x;
+        }, 800)
 
-    }
+        e.stopPropagation();
+    };
 }
 ])
 .controller('CarDetailCtrl',['$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk',
@@ -63,7 +68,7 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
                 }else{
                     $scope.projectFlag = false;
                 }
-                if(position>95){
+                if(position>90){
                     if(maxPosition===null){
                         maxPosition=$ionicScrollDelegate.getScrollView().__maxScrollTop;
                     }
@@ -74,6 +79,9 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
             }else{
                 $scope.showTitle=false;
                 $scope.TitleFlag = false;
+                $scope.titleFlag=false;
+                $scope.qualityFlag=false;
+                $scope.projectFlag=false;
                 $scope.titleStatus=false;
             }
             $scope.$apply();
@@ -146,11 +154,6 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
 
                 timeStart: '20150101',
                 timeEnd: '20150609',
-
-
-                searchPlaceholder: '请输入服务订单描述',
-
-
 
 
                 ok: true
@@ -439,12 +442,18 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
             $scope.init = function(){
                 $scope.enterListMode();
 
-                /*$ionicPopup.alert({
-                 title: '你好',
-                 template: '你好不'
-                 });*/
             };
             $scope.init();
+            var i=0;
+            $scope.loadMore=function(){
+                var spareInfo1={
+                    listType:'现场维修工单',
+                    maintenanceDate:'2016.01.01 10:00:01-2016.12.31 12:00:00',
+                    maintenanceDescribe:'车辆电池出现重大问题'+i
+                };
+                i+=1;
+                $scope.carInfo.push(spareInfo1);
+            };
 
         }])
 
@@ -476,7 +485,7 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state',functi
         search = encodeURI(search);
 
         var regex = new RegExp(search, 'gi')
-        var result = text.replace(regex, '<span class="highlightedText">$&</span>');
+        var result = text.replace(regex, '<span style="color: red;">$&</span>');
         result = decodeURI(result);
         $log.info("result: " + result );
         return $sce.trustAsHtml(result);
