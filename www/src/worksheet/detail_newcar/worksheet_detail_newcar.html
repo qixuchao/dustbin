@@ -10,20 +10,20 @@
                 <div class="right show-more-modal-content-source" ng-click="showMoreModel($event);"><span><i class="ion-ios-more"></i></span></div>
             </div>
             <div class="detail-header-info">
-                <div class="detail-header-line header-title fadeIn">
+                <div class="detail-header-line header-title animated fadeIn">
                     <span></span><span class="line-title" ng-bind="datas.header.title"></span> 
                 </div>
-                <div class="detail-header-line  adeIn">
-                    <span class="line-title"><i class="ion-ios-copy-outline"></i></span>
+                <div class="detail-header-line line-two animated fadeIn">
+                    <!--span class="line-title"><i class="ion-ios-copy-outline"></i></span-->
                     <span class="line-value" ng-bind="datas.header.company"></span>
                 </div>
-                <div class="detail-header-line customer-status fadeIn">
+                <div class="detail-header-line customer-status animated fadeIn">
                     <div class="left">
-                        <span class="line-title"><i class="ion-ios-person-outline"></i></span>
+                        <span class="line-title"><!--i class="ion-ios-person-outline"></i-->外服人员:</span>
                         <span class="line-value" ng-bind="datas.header.customer"></span>
                     </div>
                     <div class="right">
-                        <span class="line-title"><i class="ion-flag"></i></span>
+                        <span class="line-title"><!--i class="ion-flag"></i-->状态:</span>
                         <span class="line-value status-handleing" ng-bind="datas.header.status"></span>
                     </div>
                 </div>
@@ -37,6 +37,15 @@
                         <i class="ion-ios-more"></i>                             
                         <span>相关方</span>
                     </div>
+                    <!--
+                        message: '&', // message="method()"
+                        showTime: '@', // showTime="{{timeStr}}"
+                        className: '@', //
+                        testDatas: '=', // test-datas="config.datas"
+                        level: '@'  // 级别：warn、info、error
+                    -->
+                    <!--crm-toast message="严重错误信息!!!!!" show-time="500" class-name="my-toast" test-datas="config" level="info">
+                    </crm-toast-->
                     <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
                         <i class="ion-ios-more"></i>                               
                         <span>交易历史</span>

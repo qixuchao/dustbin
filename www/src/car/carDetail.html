@@ -1,11 +1,11 @@
 <ion-view class="CarDetail">
-    <div class="top-back3 absolute fadeIn" ng-show="showTitle">
+    <div class="top-back3 absolute fadeIn"ng-class="!showTitle?'animated fadeOut':'animated fadeIn'" ng-show="showTitle">
         <div class="row row-center title" >
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-69 text-center">车辆详情</div>
         </div>
     </div>
-    <div class=" absolute fadeIn top-back2" ng-class="!titleStatus?'fadeOut':''" ng-show="titleStatus">
+    <div class=" absolute fadeIn top-back2" ng-class="!titleStatus?'animated fadeOut':'animated fadeIn'" ng-show="titleStatus">
         <div class="row row-center title" >
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-69 text-center">车辆详情</div>
@@ -32,7 +32,6 @@
                 <div class="row row2 row-center" ng-class="projectFlag?'animated fadeOut':'animated fadeIn'">
                     {{projectName}}&nbsp;&nbsp;{{carInfo.projectName}}</div>
             </div>
-
         </div>
 
 

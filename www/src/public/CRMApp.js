@@ -265,6 +265,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 controller: 'worksheetTakePictureCtrl'
             })
 
+            .state('staffSelect', {
+                url: '/staffSelect',
+                templateUrl: 'src/worksheet/selectStaff/selectStaff.html',
+                controller: 'selectStaffCtrl'
+            })
             // 工单模块相关： end ------------------------
             
         ;

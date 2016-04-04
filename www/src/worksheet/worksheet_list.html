@@ -1,11 +1,11 @@
 <ion-view canClickEnterListMode id="worksheetlist-view" class="worksheet-view-public"  align-title="center">
-	<ion-header-bar id="xbr-test-header" align-title="center" class="bar-positive" ng-class="{'query-mode':config.isQueryMode}">
+	<!--ion-header-bar id="xbr-test-header" align-title="center" class="bar-positive" ng-class="{'query-mode':config.isQueryMode}">
 		<div class="left-back" ng-click="goBack();">
 			<i class="ion-ios-arrow-back"></i>
 		</div>
 		<div class="title" canClickEnterListMode ng-click="clickEnterListMode($event);">服务工单列表</div>
-        <div class="buttons right"  ng-class="{'right-buttons-actives':config.isQueryMode}" > <!-- style="transition: width .3s linear 0s;" -->
-            <div class="search-header-bar"><!-- bar-header -->
+        <div class="buttons right"  ng-class="{'right-buttons-actives':config.isQueryMode}" > <- style="transition: width .3s linear 0s;" ->
+            <div class="search-header-bar"><- bar-header ->
                     <div  class="button button-clear right search" ng-click="clickHeadTopSearchIcon();">
                         <i class="icon ion-ios-search-strong"></i>
                     </div>
@@ -15,8 +15,22 @@
                 </div>
             </div>
         </div>
-	</ion-header-bar> 
-    <div class="search-hearder-bar"></div>
+	</ion-header-bar>
+    <div class="search-hearder-bar"></div-->
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">服务工单列表</div>
+                <!--div class="col col-15 add"><img src="img/saleList/add.png"></div-->
+            </div>
+        </ion-header-bar>
+        <!--div class="pub-subhead bar bar-subheader">
+            <div class="row row-center no-padding" ng-click="changeSearch()">
+                <i class="ion-ios-search"></i>请输入活动关键字
+            </div>
+        </div-->
+    </div>
     <ion-content  class="" style="" scroll="false" has-bouncing="false">
     	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);">
     		<div class="search-box">
@@ -41,10 +55,9 @@
             <div class="center"></div>
             <div class="right"></div>
         </div>
-        
-        <!-- 'sort-model-show':config.isSorteMode,'filter-model-show':config.isFilterMode, -->
-        <!--div class="divs-wrapper animate-fade-slide-in" ng-class="{'show-model':showXbrModel(),'sort-to-filter-ing':config.filterModeFromingSortMode,'filter-to-sort-ing':config.sortModeFromingFilterMode}" -->
-        <div class="divs-wrapper animate-fade-slide-in" ng-class="{
+
+            <!-- animate-fade-slide-in -->
+        <div class="divs-wrapper " ng-class="{
             'show-model':showXbrModel(),
             'sort-from-click ':(config.isSorteMode&& config.sortModeFromClick),
             'sort-from-filter':(config.isSorteMode&&config.sortModeFromFilterMode),
@@ -54,14 +67,6 @@
             'sort-click-gone':(config.sorteGoneByClick),
             'filter-gone-bymodelclick':(config.filterGoneByModelClick),
             'sorte-gone-bymodelclick':(config.sorteGoneByModelClick)}">
-                <!-- ng-show="config.isSorteMode" ng-class="{
-                    'active-from-click top-animation':(config.isSorteMode&&config.sortModeFromClick),
-                    'active-from-filter left-animation':(config.isSorteMode&&config.sortModeFromFilterMode)
-                    }"  ng-click="clickEnterListMode($event);"   
-                    ng-class="{
-                    'active-click-enter top-animation':(config.isSorteMode&&config.sortModeFromClick),
-                    'active-filter-enter left-animation':(config.isSorteMode&&config.sortModeFromFilterMode)
-                    }"-->
                 <div canClickEnterListMode class="tab-sort-content tab-sort-content-inner" ng-click="clickEnterListMode($event);" >
                         <div canNotClickEnterListMode class="time-desc sort-type-item" ng-class="{'selected':config.sortedTypeTimeDesc}"  ng-click="sorteTimeDesc();">
                             <span>开始时间倒序</span>
@@ -76,10 +81,6 @@
                             <span>取消</span>
                         </div>
                 </div>
-                <!-- ng-show="config.isFilterMode"  ng-class="{
-                    'active-from-click top-animation': (config.isFilterMode&&config.filterModeFromClick),
-                    'active-from-sort left-animation': (config.isFilterMode&&config.filterModeFromSortMode)
-                    }"  ng-click="clickEnterListMode($event);" -->
                 <div canClickEnterListMode class="tab-filter-content" >
                     <ion-scroll canNotClickEnterListMode scrollbar-y="false" has-bouncing="false" class="tab-filter-content-inner">
                         <div canNotClickEnterListMode class="filter-time">
@@ -136,9 +137,9 @@
                 </div>
 
                 <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
-                    <ion-scroll class="fill-parent" on-refresh="" has-bouncing="false">
+                    <ion-scroll class="fill-parent"  on-refresh="" has-bouncing="false">
                         <div class="list">
-                            <div class="item" ng-repeat="item in datas.testDates" >
+                            <div class="item animated " ng-class="{'flipInY':(config.showListItemAnimate)}" ng-repeat="item in datas.testDates" >
                                 <div class="left">
                                     <div class="row item-line">
                                         <div class="col-28 name">工单描述:</div>
@@ -170,7 +171,7 @@
                     </ion-scroll>                                   
                 </div>
                 <div canClickEnterListMode class="divs-wrapper-bg" ng-if="config.isSorteMode || config.isFilterMode" ng-click="clickEnterListMode($event);"></div>
-        </div>        
-        
+        </div>
+
     </ion-content>
 </ion-view>

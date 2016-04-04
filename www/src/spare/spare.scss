@@ -1,16 +1,10 @@
 
 .SpareList{
-  .bar.bar-header .button+.title {
-    text-align: center;
-  }
-  .bar .button.button-clear {
-    color: #fff;
-    padding-left: 0.8em;
-    padding-top: 0.8em;
+  b, strong {
+    font-weight: 100;
   }
   .bar .title{
     position: absolute;
-    top: 0.5em;
     right: 0;
     left: 0;
     z-index: 0;
@@ -21,71 +15,64 @@
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 44px;
+    font-size: 16px;
+    font-weight: 100;
     color: rgb(250, 250, 250);
   }
-  .bar{
+  .bar.bar-header .button+.title {
+    text-align: center;
+  }
+  .bar {
     border-bottom: none;
     padding: 0;
-    height: 3.28em;
-    background-color: rgba(43, 96, 171, 0.90);
+    background-color: $crm-header-bar-bgcolor;
     background-size: 0;
     box-shadow: none;
   }
+  .bar-header {
+    border-bottom: none;
+    padding: 0;
+    background-size: 0;
+    .button-clear {
+      color: #fff;
+      padding-left: 15px;
+      padding-top: 0.3em;
+    }
+  }
   .bar-subheader {
-    height: 2.3em;
-    top: 59px;
+    height: 2.4em;
     display: block;
-  }
-  .row .col{
-    padding:0;
-    margin:0;
-  }
-  b, strong {
-    font-weight: 500;
-  }
-  .row+.row {
-    margin-top: 0;
-    padding-top: 0;
-  }
-  input[type=text]{
-    padding-left: 2em;
-  }
-  input{
-    display: block;
-    padding-top: 2px;
-    padding-left: 2em;
-    height: 33px;
-    color: #ccc;
-    vertical-align: middle;
-    font-size: 15px;
-    line-height: 16px;
-    width: 96%;
-    position: fixed;
-    right: 6px;
-    border: 1px solid #dedede;
-    border-radius:5px;
-  }
-  .placeholder-icon {
-    color: #aaa;
-    position: absolute;
-    z-index: 2;
-    top: 0.4em;
-    left: 1em;
+    .placeholder-icon {
+      color: #aaa;
+      position: absolute;
+      z-index: 2;
+      top: .4em;
+      left: 1em;
+    }
+    input {
+      display: block;
+      padding: 8px;
+      padding-left: 2em;
+      color: #ccc;
+      vertical-align: middle;
+      font-size: 15px;
+      line-height: 16px;
+      width: 96%;
+      position: fixed;
+      right: 6px;
+      border-radius: 5px;
+    }
   }
   .pointImg{
-    height: 0.8em;
+    height: 10px;
     position: relative;
     left: 30%;
   }
   .Car_countentbasic{
     position: relative;
     font-size:15px;
-    color:#406FB3;
-    top:1.5em;
-    font-weight: 600;
+    color:$crm-header-bar-bgcolor;
+    font-weight: 100;
     .Car_countentbasicinfo{
       position: absolute;
       top:0px;
@@ -97,7 +84,7 @@
       left: 85px;
       width: 100%;
       height:1px;
-      background-color: #406FB3;
+      background-color: $crm-header-bar-bgcolor;
     }
     .Car_countentbasicclok{
       position: absolute;
@@ -106,7 +93,7 @@
       left:0px;
       width:50px;
       height:15px;
-      border: 1px solid #406FB3;
+      border: 1px solid $crm-header-bar-bgcolor;
       border-top: none;
       border-left: none;
     }
@@ -118,7 +105,7 @@
   }
   .contentType{
     position: relative;
-    top: 3.5em;
+    top: 1.5em;
   }
   .rowType1{
     padding: 1.2em 0 0.6em 0.8em;
@@ -127,34 +114,37 @@
   .col span {
     font-size: 16px;
     color: rgba(17, 17, 17, 0.78);
-    font-weight: 600;
+    font-weight: 100;
   }
 }
 .Detail{
+  b, strong {
+    font-weight: 100;
+  }
    .bar.bar-header .button + .title {
     text-align: center;
     color: white;
-    line-height: 60px;
+    line-height: 3em;
   }
   .bar .button.button-clear {
     color: #fff;
-    padding-left: 0.8em;
-    padding-top: 0.8em;
+    padding-left: 15px;
+    padding-top: 0.4em;
   }
   .bar{
     border-bottom: none;
     padding: 0;
     height: 3.28em;
-    background-color: rgba(43, 96, 171, 0.90);
+    background-color: $crm-header-bar-bgcolor;
     background-size: 0;
     box-shadow: none;
   }
   .Car_countentbasic{
     position: relative;
     font-size:15px;
-    color:#406FB3;
-    font-weight: 600;
-    padding-bottom: 2.5em;
+    color:$crm-header-bar-bgcolor;
+    font-weight: 100;
+    padding-bottom: 2em;
     .Car_countentbasicinfo{
       position: absolute;
       top:0px;
@@ -166,7 +156,7 @@
       left: 85px;
       width: 100%;
       height:1px;
-      background-color: #406FB3;
+      background-color: $crm-header-bar-bgcolor;
     }
     .Car_countentbasicclok{
       position: absolute;
@@ -175,14 +165,14 @@
       left:0px;
       width:50px;
       height:15px;
-      border: 1px solid #406FB3;
+      border: 1px solid $crm-header-bar-bgcolor;
       border-top: none;
       border-left: none;
     }
   }
   ion-content {
     position: relative;
-    top:5em;
+    top:4.5em;
     .rowType {
       position: relative;
       left: 4%;
@@ -201,7 +191,7 @@
       color: gray;
     }
     b, strong {
-      font-weight: 600;
+      font-weight: 100;
       color: rgba(0, 0, 0, 0.7);
       font-size: 16px;
     }

@@ -25,6 +25,7 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 		moreModal: null,
 	};
 
+
 	$scope.datas = {
 		header:{
 			title: '车辆出现重大问题，需要维修',
@@ -70,15 +71,25 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 			{title: '标题---10', content: '内容--------10'},
 			{title: '标题---11', content: '内容--------11'}
 		]
-	};
+	}; 
 
-	$scope.$on('$destroy', function() {
-		if($scope.config.moreModal != null){
-			$scope.config.moreModal.remove();
-		}
+	$scope.$on("$destroy", function(){
+		__destroyModal();
 	});
 
+	function __destroyModal(){
+		if($scope.config.moreModal != null){
+			if($scope.config.moreModal.isShown()){
+				$scope.config.moreModal.hide();
+			}
+			$scope.config.moreModal.remove();
+			$scope.config.moreModal = null;
+		}
+	}
+
+
 	$scope.goState = function(stateName){
+		__destroyModal();
 		$timeout(function (){
 			$state.go(stateName);
 		}, 100);		

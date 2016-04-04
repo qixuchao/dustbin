@@ -1,11 +1,11 @@
 #worksheet-takepicture-view{
-	.back-left{
+	/*.back-left{
 		font-size: 2rem;
 		@include display-flex;
 		@include align-items(center);
 		@include justify-content(center);
     	width: 1.8rem;
-	}
+	}*/
 	.selected-images{
 		width: 100%;
 		padding: .8rem 2vmin;
@@ -15,7 +15,7 @@
 		    width: 48vmin;
 		    float: left;
 		    @include display-flex;
-		    @include justify-content(center);
+		    @include justify-content(center); 
 		    @include align-items(center);
 		    padding: .4rem;
 		    img{
@@ -48,13 +48,15 @@
 	height: 100%;
 }
 .takePicture-image-modal-wrapper{
+	@include transition(background-color .3s linear 0s);
 	text-align: center;
 	width: 100%;
 	height: 100%;
 	@include display-flex;
 	@include justify-content(center);
-	@include align-items(center);
-	background-color: rgba(4, 4, 4, 0.49);
+	@include align-items(center);	
+	//background-color: rgba(4, 4, 4, 0.49);
+	background-color: transparent;
 	.close-div{
 		position: absolute;
 		width: 100%;
@@ -74,13 +76,17 @@
     		color: white;
 		}
 	}
+	/*&.animated{  fadeIn
+	    -webkit-animation-duration: .4s;
+	    animation-duration: .4s;
+	}*/
 	img {
 		max-height: 100%;
 		max-width: 100%;
-		@include transition-transform(0.2s linear);
-		//@include scale(0,0);
+		@include transition-transform(0.3s linear);
+		@include scale(0); 
 		&.inited{
-			//@include scale(0,0);
+			@include scale(1);
 		}
 	}
 }
