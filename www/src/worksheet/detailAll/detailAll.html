@@ -1,0 +1,282 @@
+<ion-view class="saleActDetail worksheet-detail-view-public">
+    <div class="top-back absolute animated fadeIn" style="height: 75px;background: none"
+         ng-class="!TitleFlag?'fadeOut':''" ng-show="TitleFlag">
+        <div class="row row-center title">
+            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+            <div class="col col-70 text-center">工单详细信息
+                <div style="font-size: 10px" ng-bind="datas.header.title">郑州金龙客车(福州)客户拜访</div>
+            </div>
+            <div class="col-15 show-more-modal-content-source1" ng-click="showMoreModel($event,'show-more-modal-content-source1');">
+                <span><i class="ion-ios-more"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="top-back absolute top-back2" ng-show="showTitleStatus">
+        <div class="row row-center title" style="padding-bottom: 0">
+            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+            <div class="col col-70 text-center">工单详细信息
+                <div style="font-size: 10px" ng-bind="datas.header.title"></div> 
+            </div>
+            <div class="col-15 show-more-modal-content-source2" ng-click="showMoreModel($event,'show-more-modal-content-source2');">
+                <span><i class="ion-ios-more"></i></span>
+            </div>
+        </div>
+    </div>
+    
+    <ion-content has-bouncing="false" delegate-handle="xbrDelegateContent" on-scroll="onScroll()" scrollbar-y="false">
+        <div id="saleTopBackId" class="top-back">
+            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+                <div class="col col-70 text-center">工单详细信息</div>
+                <div class="col-15 show-more-modal-content-source3" ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
+                    <span><i class="ion-ios-more"></i></span>
+                </div>
+            </div>
+            <div class="mainInfo">
+                <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+                    <i class="ion-android-radio-button-off"></i>
+                    <!--<div>郑州金龙客车(福州)客户拜访</div>-->
+                    <!--input type="text" value="郑州金龙客车(福州)客户拜访"  ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}"-->
+                    <span ng-bind="datas.header.title"></span>
+                </div>
+                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">                    
+                    <span ng-bind="datas.header.company"></span>
+                </div>
+                <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
+                    <div>外服人员:</div>
+                    <span ng-bind="datas.header.customer"></span>
+                    <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select>
+                    <div class="num">状态</div>
+                    <div class="edit" ng-bind="datas.header.status"></div>
+                </div>
+            </div>
+        </div>
+        
+        <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
+            <div class="fill-height line-inner">
+                <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
+                    <i class="ion-ios-more"></i>                             
+                    <span>相关方</span>
+                </div>
+                <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
+                    <i class="ion-ios-more"></i>                               
+                    <span>交易历史</span>
+                </div>
+                <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
+                    <i class="ion-ios-more"></i>
+                    <span>报工信息</span>
+                </div>
+            </div>
+        </ion-scroll>
+        
+        <div ng-if="config.detailTypeNewCar">
+            <div class="basic-info first-line commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">工单类型&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoNewCar.category"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">工单单号&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoNewCar.num"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoNewCar.simpleDesc"></div>
+                </div>
+                <div class="text-row">
+                    <div class="">备注&nbsp;:</div>
+                    <div class="" ng-bind="datas.basicInfoNewCar.desc"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">终端客户&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoNewCar.terminalUser"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">上线客户&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoNewCar.onlinePro"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态&nbsp;:</div>
+                    <div class="col-60 status-not-handle" ng-bind="datas.basicInfoNewCar.status"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">外服人员&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoNewCar.user"></div>
+                </div>
+            </div>
+            <div class="time-info commment-info-lines">
+                <div class="crm-line-title word-2">
+                    <div class="title-top">
+                        <span >日期</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">上线开始时间:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoNewCar.timeOnlineStart"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">上线结束时间:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoNewCar.timeOnlineStart"></div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="config.detailTypeSiteRepair || config.detailTypeBatchUpdate">
+            <div class="basic-info first-line commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">工单类型&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.category"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">工单单号&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.num"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.simpleDesc"></div>
+                </div>
+                <div class="text-row">
+                    <div class="">备注&nbsp;:</div>
+                    <div class="" ng-bind="datas.basicInfoSiteRepair.desc"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">状态&nbsp;:</div>
+                    <div class="col-60 status-not-handle" ng-bind="datas.basicInfoSiteRepair.status"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">影响&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.impact"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">外服人员&nbsp;:</div>
+                    <div class="col-50 color-common-blue" ng-bind="datas.basicInfoSiteRepair.user"></div>
+                    <div class="col-10 line-right-icon">
+                        <i class="ion-android-arrow-forward"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="fuwuduixiang-info commment-info-lines"> 
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >服务对象</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="text-row has-right-icon">
+                    <div class="">车辆&nbsp;:</div>
+                    <div class="color-common-blue" ng-bind="datas.basicInfoSiteRepair.car"></div>
+                    <div class="line-right-icon">
+                        <i class="ion-android-arrow-forward"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">客户&nbsp;:</div>
+                    <div class="col-50 color-common-blue" ng-bind="datas.basicInfoSiteRepair.customer"></div>
+                    <div class="col-10 line-right-icon">
+                        <i class="ion-android-arrow-forward"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="time-info commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >日期</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">维修开始时间&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.timeRepairStart"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">维修结束时间&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.timeRepairEnd"></div>
+                </div>
+            </div>
+
+            <div class="fuwuhetong-zhibao-info commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >服务合同和质保</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">质保编号&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.zhibaoNum"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">质保描述&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.zhibaoDesc"></div>
+                </div>
+            </div>
+
+            <div class="guzhang-info commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >故障信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障发生场景&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.gzfscj"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">责任方&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.zerenfang"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障分类&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.guzhangCategory"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">部件分类&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.bujianCategory"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">部件&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.bujian"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障原因&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.guzhangReson"></div>
+                </div>
+                <div class="text-row">
+                    <div class="">注释&nbsp;:</div>
+                    <div class="" ng-bind="datas.basicInfoSiteRepair.zhushi"></div>
+                </div>
+                <div class="text-row">
+                    <div class="">处理结果&nbsp;:</div>
+                    <div class="" ng-bind="datas.basicInfoSiteRepair.handleResult"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="button button-crm-edit button-crm-edit-public">
+            编辑
+        </div>
+                
+    </ion-content>
+</ion-view>

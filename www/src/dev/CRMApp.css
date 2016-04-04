@@ -4413,9 +4413,12 @@ Copyright (c) 2015 Daniel Eden
       padding: .4rem 0px;
       font-size: 1rem; }
 
-#worksheetdetail-newcar-view, #worksheetdetail-siterepair-view {
+.worksheet-detail-more-modal {
+  background-color: rgba(0, 0, 0, 0.38); }
+
+.worksheet-detail-view-public {
   font-size: .9rem; }
-  #worksheetdetail-newcar-view ion-content > div.scroll, #worksheetdetail-siterepair-view ion-content > div.scroll {
+  .worksheet-detail-view-public ion-content > div.scroll {
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -4428,12 +4431,12 @@ Copyright (c) 2015 Daniel Eden
     -moz-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column; }
-  #worksheetdetail-newcar-view .detail-header, #worksheetdetail-siterepair-view .detail-header {
+  .worksheet-detail-view-public .detail-header {
     background: #eee url("../../img/saleDetail/BG1.png") no-repeat;
     background-position: 0px 0px;
     background-size: cover;
     color: white; }
-    #worksheetdetail-newcar-view .detail-header .detail-header-bar, #worksheetdetail-siterepair-view .detail-header .detail-header-bar {
+    .worksheet-detail-view-public .detail-header .detail-header-bar {
       display: -webkit-box;
       display: -webkit-flex;
       display: -moz-box;
@@ -4457,11 +4460,11 @@ Copyright (c) 2015 Daniel Eden
       	/*position: absolute;
           top: 0px;
           left: 0px;*/ }
-      #worksheetdetail-newcar-view .detail-header .detail-header-bar .left, #worksheetdetail-siterepair-view .detail-header .detail-header-bar .left {
+      .worksheet-detail-view-public .detail-header .detail-header-bar .left {
         width: 2rem;
         text-align: center;
         font-size: 2rem; }
-      #worksheetdetail-newcar-view .detail-header .detail-header-bar .center, #worksheetdetail-siterepair-view .detail-header .detail-header-bar .center {
+      .worksheet-detail-view-public .detail-header .detail-header-bar .center {
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         -moz-box-flex: 1;
@@ -4469,21 +4472,21 @@ Copyright (c) 2015 Daniel Eden
         -ms-flex: 1;
         flex: 1;
         text-align: center; }
-        #worksheetdetail-newcar-view .detail-header .detail-header-bar .center .title, #worksheetdetail-siterepair-view .detail-header .detail-header-bar .center .title {
+        .worksheet-detail-view-public .detail-header .detail-header-bar .center .title {
           display: block; }
-        #worksheetdetail-newcar-view .detail-header .detail-header-bar .center .sub-title, #worksheetdetail-siterepair-view .detail-header .detail-header-bar .center .sub-title {
+        .worksheet-detail-view-public .detail-header .detail-header-bar .center .sub-title {
           display: none;
           font-size: .8rem;
           line-height: 1rem;
           height: 0rem; }
-          #worksheetdetail-newcar-view .detail-header .detail-header-bar .center .sub-title.fadeIn, #worksheetdetail-siterepair-view .detail-header .detail-header-bar .center .sub-title.fadeIn {
+          .worksheet-detail-view-public .detail-header .detail-header-bar .center .sub-title.fadeIn {
             display: block; }
-      #worksheetdetail-newcar-view .detail-header .detail-header-bar .right, #worksheetdetail-siterepair-view .detail-header .detail-header-bar .right {
+      .worksheet-detail-view-public .detail-header .detail-header-bar .right {
         width: 3rem;
         text-align: center;
         font-size: 3rem;
         z-index: 101; }
-    #worksheetdetail-newcar-view .detail-header .detail-header-info, #worksheetdetail-siterepair-view .detail-header .detail-header-info {
+    .worksheet-detail-view-public .detail-header .detail-header-info {
       top: 0rem;
       position: relative;
       height: 6rem;
@@ -4507,7 +4510,7 @@ Copyright (c) 2015 Daniel Eden
       justify-content: center;
       padding: 0px .8rem;
       font-size: 1rem; }
-      #worksheetdetail-newcar-view .detail-header .detail-header-info .detail-header-line, #worksheetdetail-siterepair-view .detail-header .detail-header-info .detail-header-line {
+      .worksheet-detail-view-public .detail-header .detail-header-info .detail-header-line {
         height: 2rem;
         line-height: 2rem;
         -webkit-box-flex: 1;
@@ -4532,7 +4535,7 @@ Copyright (c) 2015 Daniel Eden
         -webkit-align-items: center;
         -moz-align-items: center;
         align-items: center; }
-        #worksheetdetail-newcar-view .detail-header .detail-header-info .detail-header-line:nth-child(2) span, #worksheetdetail-siterepair-view .detail-header .detail-header-info .detail-header-line:nth-child(2) span {
+        .worksheet-detail-view-public .detail-header .detail-header-info .detail-header-line:nth-child(2) span {
           -webkit-box-flex: 1;
           -webkit-flex: 1;
           -moz-box-flex: 1;
@@ -4540,19 +4543,19 @@ Copyright (c) 2015 Daniel Eden
           -ms-flex: 1;
           flex: 1;
           margin-left: .4rem; }
-      #worksheetdetail-newcar-view .detail-header .detail-header-info .header-title span:nth-child(1), #worksheetdetail-siterepair-view .detail-header .detail-header-info .header-title span:nth-child(1) {
+      .worksheet-detail-view-public .detail-header .detail-header-info .header-title span:nth-child(1) {
         width: 12px;
         height: 12px;
         border: 2px solid #9ed85f;
         border-radius: 12px; }
-      #worksheetdetail-newcar-view .detail-header .detail-header-info .header-title span:nth-child(2), #worksheetdetail-siterepair-view .detail-header .detail-header-info .header-title span:nth-child(2) {
+      .worksheet-detail-view-public .detail-header .detail-header-info .header-title span:nth-child(2) {
         -webkit-box-flex: 1;
         -webkit-flex: 1;
         -moz-box-flex: 1;
         -moz-flex: 1;
         -ms-flex: 1;
         flex: 1; }
-      #worksheetdetail-newcar-view .detail-header .detail-header-info .customer-status .left, #worksheetdetail-siterepair-view .detail-header .detail-header-info .customer-status .left {
+      .worksheet-detail-view-public .detail-header .detail-header-info .customer-status .left {
         display: inline-block;
         -webkit-box-flex: 1;
         -webkit-flex: 1;
@@ -4560,7 +4563,7 @@ Copyright (c) 2015 Daniel Eden
         -moz-flex: 1;
         -ms-flex: 1;
         flex: 1; }
-      #worksheetdetail-newcar-view .detail-header .detail-header-info .customer-status .right, #worksheetdetail-siterepair-view .detail-header .detail-header-info .customer-status .right {
+      .worksheet-detail-view-public .detail-header .detail-header-info .customer-status .right {
         display: inline-block;
         -webkit-box-flex: 1;
         -webkit-flex: 1;
@@ -4569,16 +4572,18 @@ Copyright (c) 2015 Daniel Eden
         -ms-flex: 1;
         flex: 1;
         text-align: right; }
-      #worksheetdetail-newcar-view .detail-header .detail-header-info .header-info-title-icon, #worksheetdetail-siterepair-view .detail-header .detail-header-info .header-info-title-icon {
+      .worksheet-detail-view-public .detail-header .detail-header-info .header-info-title-icon {
         display: inline-block;
         width: 12px !important;
         height: 12px;
         border: 2px solid #9ED85F;
         border-radius: 13px;
         margin-right: .2rem; }
-  #worksheetdetail-newcar-view .history-info-relation-line, #worksheetdetail-siterepair-view .history-info-relation-line {
-    padding: .4rem 0rem; }
-    #worksheetdetail-newcar-view .history-info-relation-line .line-inner, #worksheetdetail-siterepair-view .history-info-relation-line .line-inner {
+  .worksheet-detail-view-public .history-info-relation-line {
+    padding: .4rem 0rem;
+    margin-top: .4rem;
+    min-height: 2.6rem; }
+    .worksheet-detail-view-public .history-info-relation-line .line-inner {
       display: -webkit-box;
       display: -webkit-flex;
       display: -moz-box;
@@ -4586,7 +4591,7 @@ Copyright (c) 2015 Daniel Eden
       display: -ms-flexbox;
       display: flex;
       display: -webkit-box; }
-    #worksheetdetail-newcar-view .history-info-relation-line .relation-box, #worksheetdetail-newcar-view .history-info-relation-line .history-box, #worksheetdetail-newcar-view .history-info-relation-line .info-box, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box, #worksheetdetail-siterepair-view .history-info-relation-line .history-box, #worksheetdetail-siterepair-view .history-info-relation-line .info-box {
+    .worksheet-detail-view-public .history-info-relation-line .relation-box, .worksheet-detail-view-public .history-info-relation-line .history-box, .worksheet-detail-view-public .history-info-relation-line .info-box {
       display: -webkit-box;
       display: -webkit-flex;
       display: -moz-box;
@@ -4596,37 +4601,37 @@ Copyright (c) 2015 Daniel Eden
       height: 2rem;
       vertical-align: middle;
       left: 0rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box.left-1, #worksheetdetail-newcar-view .history-info-relation-line .history-box.left-1, #worksheetdetail-newcar-view .history-info-relation-line .info-box.left-1, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box.left-1, #worksheetdetail-siterepair-view .history-info-relation-line .history-box.left-1, #worksheetdetail-siterepair-view .history-info-relation-line .info-box.left-1 {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box.left-1, .worksheet-detail-view-public .history-info-relation-line .history-box.left-1, .worksheet-detail-view-public .history-info-relation-line .info-box.left-1 {
         position: relative;
         left: -0.9rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box.left-2, #worksheetdetail-newcar-view .history-info-relation-line .history-box.left-2, #worksheetdetail-newcar-view .history-info-relation-line .info-box.left-2, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box.left-2, #worksheetdetail-siterepair-view .history-info-relation-line .history-box.left-2, #worksheetdetail-siterepair-view .history-info-relation-line .info-box.left-2 {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box.left-2, .worksheet-detail-view-public .history-info-relation-line .history-box.left-2, .worksheet-detail-view-public .history-info-relation-line .info-box.left-2 {
         position: relative;
         left: -1.8rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box.left-3, #worksheetdetail-newcar-view .history-info-relation-line .history-box.left-3, #worksheetdetail-newcar-view .history-info-relation-line .info-box.left-3, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box.left-3, #worksheetdetail-siterepair-view .history-info-relation-line .history-box.left-3, #worksheetdetail-siterepair-view .history-info-relation-line .info-box.left-3 {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box.left-3, .worksheet-detail-view-public .history-info-relation-line .history-box.left-3, .worksheet-detail-view-public .history-info-relation-line .info-box.left-3 {
         position: relative;
         left: -2.7rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box.left-4, #worksheetdetail-newcar-view .history-info-relation-line .history-box.left-4, #worksheetdetail-newcar-view .history-info-relation-line .info-box.left-4, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box.left-4, #worksheetdetail-siterepair-view .history-info-relation-line .history-box.left-4, #worksheetdetail-siterepair-view .history-info-relation-line .info-box.left-4 {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box.left-4, .worksheet-detail-view-public .history-info-relation-line .history-box.left-4, .worksheet-detail-view-public .history-info-relation-line .info-box.left-4 {
         position: relative;
         left: -3.6rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box.left-5, #worksheetdetail-newcar-view .history-info-relation-line .history-box.left-5, #worksheetdetail-newcar-view .history-info-relation-line .info-box.left-5, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box.left-5, #worksheetdetail-siterepair-view .history-info-relation-line .history-box.left-5, #worksheetdetail-siterepair-view .history-info-relation-line .info-box.left-5 {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box.left-5, .worksheet-detail-view-public .history-info-relation-line .history-box.left-5, .worksheet-detail-view-public .history-info-relation-line .info-box.left-5 {
         position: relative;
         left: -4.5rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box.left-6, #worksheetdetail-newcar-view .history-info-relation-line .history-box.left-6, #worksheetdetail-newcar-view .history-info-relation-line .info-box.left-6, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box.left-6, #worksheetdetail-siterepair-view .history-info-relation-line .history-box.left-6, #worksheetdetail-siterepair-view .history-info-relation-line .info-box.left-6 {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box.left-6, .worksheet-detail-view-public .history-info-relation-line .history-box.left-6, .worksheet-detail-view-public .history-info-relation-line .info-box.left-6 {
         position: relative;
         left: -5.4rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box.left-7, #worksheetdetail-newcar-view .history-info-relation-line .history-box.left-7, #worksheetdetail-newcar-view .history-info-relation-line .info-box.left-7, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box.left-7, #worksheetdetail-siterepair-view .history-info-relation-line .history-box.left-7, #worksheetdetail-siterepair-view .history-info-relation-line .info-box.left-7 {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box.left-7, .worksheet-detail-view-public .history-info-relation-line .history-box.left-7, .worksheet-detail-view-public .history-info-relation-line .info-box.left-7 {
         position: relative;
         left: -6.3rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box.left-8, #worksheetdetail-newcar-view .history-info-relation-line .history-box.left-8, #worksheetdetail-newcar-view .history-info-relation-line .info-box.left-8, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box.left-8, #worksheetdetail-siterepair-view .history-info-relation-line .history-box.left-8, #worksheetdetail-siterepair-view .history-info-relation-line .info-box.left-8 {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box.left-8, .worksheet-detail-view-public .history-info-relation-line .history-box.left-8, .worksheet-detail-view-public .history-info-relation-line .info-box.left-8 {
         position: relative;
         left: -7.2rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box.left-9, #worksheetdetail-newcar-view .history-info-relation-line .history-box.left-9, #worksheetdetail-newcar-view .history-info-relation-line .info-box.left-9, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box.left-9, #worksheetdetail-siterepair-view .history-info-relation-line .history-box.left-9, #worksheetdetail-siterepair-view .history-info-relation-line .info-box.left-9 {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box.left-9, .worksheet-detail-view-public .history-info-relation-line .history-box.left-9, .worksheet-detail-view-public .history-info-relation-line .info-box.left-9 {
         position: relative;
         left: -8.1rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box.left-10, #worksheetdetail-newcar-view .history-info-relation-line .history-box.left-10, #worksheetdetail-newcar-view .history-info-relation-line .info-box.left-10, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box.left-10, #worksheetdetail-siterepair-view .history-info-relation-line .history-box.left-10, #worksheetdetail-siterepair-view .history-info-relation-line .info-box.left-10 {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box.left-10, .worksheet-detail-view-public .history-info-relation-line .history-box.left-10, .worksheet-detail-view-public .history-info-relation-line .info-box.left-10 {
         position: relative;
         left: -9rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box i, #worksheetdetail-newcar-view .history-info-relation-line .history-box i, #worksheetdetail-newcar-view .history-info-relation-line .info-box i, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box i, #worksheetdetail-siterepair-view .history-info-relation-line .history-box i, #worksheetdetail-siterepair-view .history-info-relation-line .info-box i {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box i, .worksheet-detail-view-public .history-info-relation-line .history-box i, .worksheet-detail-view-public .history-info-relation-line .info-box i {
         display: inline-block;
         background-color: #9ed85f;
         width: 2.2rem;
@@ -4638,7 +4643,7 @@ Copyright (c) 2015 Daniel Eden
         position: relative;
         left: 1.1rem;
         top: -.1rem; }
-      #worksheetdetail-newcar-view .history-info-relation-line .relation-box span, #worksheetdetail-newcar-view .history-info-relation-line .history-box span, #worksheetdetail-newcar-view .history-info-relation-line .info-box span, #worksheetdetail-siterepair-view .history-info-relation-line .relation-box span, #worksheetdetail-siterepair-view .history-info-relation-line .history-box span, #worksheetdetail-siterepair-view .history-info-relation-line .info-box span {
+      .worksheet-detail-view-public .history-info-relation-line .relation-box span, .worksheet-detail-view-public .history-info-relation-line .history-box span, .worksheet-detail-view-public .history-info-relation-line .info-box span {
         display: inline-block;
         border: 0px solid green;
         height: 2rem;
@@ -4646,34 +4651,38 @@ Copyright (c) 2015 Daniel Eden
         background-color: #e1e1e1;
         border-radius: 1rem;
         padding: 0px .8rem 0px 1.2rem; }
-  #worksheetdetail-newcar-view .worksheetdetail-content-siterepair, #worksheetdetail-newcar-view .worksheetdetail-content-newcar, #worksheetdetail-siterepair-view .worksheetdetail-content-siterepair, #worksheetdetail-siterepair-view .worksheetdetail-content-newcar {
+  .worksheet-detail-view-public .worksheetdetail-content-siterepair, .worksheet-detail-view-public .worksheetdetail-content-newcar {
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -moz-box-flex: 1;
     -moz-flex: 1;
     -ms-flex: 1;
     flex: 1; }
-  #worksheetdetail-newcar-view .commment-info-lines, #worksheetdetail-siterepair-view .commment-info-lines {
+  .worksheet-detail-view-public .show-more-modal-content-source1, .worksheet-detail-view-public .show-more-modal-content-source2, .worksheet-detail-view-public .show-more-modal-content-source3 {
+    text-align: center; }
+    .worksheet-detail-view-public .show-more-modal-content-source1 i, .worksheet-detail-view-public .show-more-modal-content-source2 i, .worksheet-detail-view-public .show-more-modal-content-source3 i {
+      font-size: 2.3rem !important; }
+  .worksheet-detail-view-public .commment-info-lines {
     margin-top: .8rem; }
-    #worksheetdetail-newcar-view .commment-info-lines.first-line, #worksheetdetail-siterepair-view .commment-info-lines.first-line {
+    .worksheet-detail-view-public .commment-info-lines.first-line {
       margin-top: .6rem; }
-    #worksheetdetail-newcar-view .commment-info-lines .row, #worksheetdetail-siterepair-view .commment-info-lines .row {
+    .worksheet-detail-view-public .commment-info-lines .row {
       border-bottom: 1px solid #eee;
       height: 2.5rem;
       line-height: 2.5rem;
       padding: 0px; }
-      #worksheetdetail-newcar-view .commment-info-lines .row div:first-child, #worksheetdetail-siterepair-view .commment-info-lines .row div:first-child {
+      .worksheet-detail-view-public .commment-info-lines .row div:first-child {
         padding-left: 1rem; }
-      #worksheetdetail-newcar-view .commment-info-lines .row div:nth-child(2), #worksheetdetail-siterepair-view .commment-info-lines .row div:nth-child(2) {
+      .worksheet-detail-view-public .commment-info-lines .row div:nth-child(2) {
         color: #8E8B8B;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
         padding-right: .2rem; }
-      #worksheetdetail-newcar-view .commment-info-lines .row.line-right-icon, #worksheetdetail-siterepair-view .commment-info-lines .row.line-right-icon {
+      .worksheet-detail-view-public .commment-info-lines .row.line-right-icon {
         font-size: 1.2rem;
         color: #969393; }
-    #worksheetdetail-newcar-view .commment-info-lines .text-row, #worksheetdetail-siterepair-view .commment-info-lines .text-row {
+    .worksheet-detail-view-public .commment-info-lines .text-row {
       line-height: 1.2rem;
       display: -webkit-box;
       display: -webkit-flex;
@@ -4684,10 +4693,10 @@ Copyright (c) 2015 Daniel Eden
       font-size: 1rem;
       padding: .6rem 0px;
       border-bottom: 1px solid #eee; }
-      #worksheetdetail-newcar-view .commment-info-lines .text-row div:first-child, #worksheetdetail-siterepair-view .commment-info-lines .text-row div:first-child {
+      .worksheet-detail-view-public .commment-info-lines .text-row div:first-child {
         padding-left: 1rem;
         width: 4.5rem; }
-      #worksheetdetail-newcar-view .commment-info-lines .text-row div:nth-child(2), #worksheetdetail-siterepair-view .commment-info-lines .text-row div:nth-child(2) {
+      .worksheet-detail-view-public .commment-info-lines .text-row div:nth-child(2) {
         -webkit-box-flex: 5;
         -webkit-flex: 5;
         -moz-box-flex: 5;
@@ -4696,9 +4705,9 @@ Copyright (c) 2015 Daniel Eden
         flex: 5;
         color: #8E8B8B;
         padding-right: .2rem; }
-      #worksheetdetail-newcar-view .commment-info-lines .text-row.has-right-icon .line-right-icon, #worksheetdetail-siterepair-view .commment-info-lines .text-row.has-right-icon .line-right-icon {
+      .worksheet-detail-view-public .commment-info-lines .text-row.has-right-icon .line-right-icon {
         width: 2rem; }
-  #worksheetdetail-newcar-view .button-crm-edit-public, #worksheetdetail-siterepair-view .button-crm-edit-public {
+  .worksheet-detail-view-public .button-crm-edit-public {
     width: 90%;
     border-radius: 10px;
     margin: 1rem 5% 2rem 5%;
@@ -4706,18 +4715,19 @@ Copyright (c) 2015 Daniel Eden
     word-spacing: .6rem;
     letter-spacing: .6rem;
     text-align: center; }
-  #worksheetdetail-newcar-view .status-handleing, #worksheetdetail-siterepair-view .status-handleing {
+  .worksheet-detail-view-public .status-handleing {
     color: #9ED85F !important; }
-  #worksheetdetail-newcar-view .status-not-handle, #worksheetdetail-siterepair-view .status-not-handle {
+  .worksheet-detail-view-public .status-not-handle {
     color: red !important; }
-  #worksheetdetail-newcar-view .color-common-blue, #worksheetdetail-siterepair-view .color-common-blue {
+  .worksheet-detail-view-public .color-common-blue {
     color: #4C8AC7 !important; }
-
-.worksheet-detail-more-modal {
-  background-color: rgba(0, 0, 0, 0.38); }
-
-.worksheet-detail-more-modal {
-  background-color: rgba(0, 0, 0, 0.38); }
+  .worksheet-detail-view-public .top-back2 {
+    height: 75px !important; }
+  .worksheet-detail-view-public #saleTopBackId .mainInfo .row {
+    height: 2.5rem;
+    padding-right: 5%; }
+  .worksheet-detail-view-public #saleTopBackId .mainInfo .row:nth-child(2) {
+    font-size: 15px; }
 
 #worksheet-baogong-list-view .left-back {
   font-size: 2rem;
@@ -5395,6 +5405,12 @@ Copyright (c) 2015 Daniel Eden
     color: #2B60AB; }
     #staff-select-view .result-user .right span {
       border-bottom: 1px solid #2B60AB; }
+
+.worksheet-detail-more-modal {
+  background-color: rgba(0, 0, 0, 0.38); }
+
+.worksheet-detail-more-modal {
+  background-color: rgba(0, 0, 0, 0.38); }
 
 .CarList .bar .title {
   position: absolute;

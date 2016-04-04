@@ -4,7 +4,7 @@
 'use strict';
 loginModule
     .controller('LoginCtrl',['$scope','$state','ionicMaterialInk','$ionicLoading','$timeout',function($scope,$state,ionicMaterialInk,$ionicLoading, $timeout){
-        
+        console.log("399CRM 项目日志。。。哈哈哈哈");
         $scope.goMain = function(){
             $state.go('main')
         };
@@ -61,7 +61,9 @@ loginModule
            //    alert($scope.loginData.password.replace(/\s/g,""))
            //    $scope.show()
            //};
-           $state.go('tabs')
+           //$state.go('tabs')
+           console.log("399CRM 项目日志。。。哈哈哈哈");
+           console.log("399CRM 项目日志。。。哈哈哈哈");
        }
 
         $scope.show = function() {
