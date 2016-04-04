@@ -1,17 +1,15 @@
 <ion-view class="employee_detail">
-    <div class="employee_backtop" style="height:105px;">
+    <div class="employee_backtop" style="height:105px;padding-top:10px">
         <div class="employee_detailtitle">
             <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
                 <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
             </div>
-            <!--<i class="icon ion-ios-arrow-back employeedeatil_headtitlei" ng-click="goBack()"></i>-->
             <span class="employeedeatil_headtitlespan">员工详细信息</span>
         </div>
         <div class="employee_detailcontent">
             <div class="employee_detailcontentname">
                 <div class="employee_detailcontentcicle"></div><span class="employee_detailcontentspan">{{userdetailval.name}}-销售人员</span>
             </div>
-            <!--<div class="employee_detailcontentstep">销售阶段:<span style="margin-left:10px">SOP阶段</span></div>-->
             <div class="employee_detailcontentphone" ng-click="employeeshowphone(userdetailval.mobilenumber)">
                 <i class="icon ion-ios-telephone-outline employee_detailcontentphonei"></i>
                 <span style="margin-left: 4px;">{{userdetailval.mobilenumber}}</span>

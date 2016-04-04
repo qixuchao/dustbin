@@ -1,7 +1,6 @@
 /**
  * Created by zhangren on 16/3/7.
  */
-'use strict';
 customerModule
     .controller('customerQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
         $ionicPopover.fromTemplateUrl('../src/customer/model/customer_selec.html', {
@@ -10,7 +9,13 @@ customerModule
             $scope.customerpopover = popover;
         });
         $scope.customerPopover = function($event) {
-            $scope.customerpopover.show($event);
+            alert(1);
+            try{
+                $scope.customerpopover.show($event);
+            }catch(e){
+                alert(e.message);
+            }
+
         };
         $scope.customerPopoverhide = function() {
             $scope.customerpopover.hide();
@@ -111,57 +116,46 @@ customerModule
             imgurl:'img/customer/customerfuz@2x.png',
         }
         ];
-
         $scope.gocustomerLists = function(cusvalue){
             console.log(cusvalue)
             if(cusvalue.url){
                 $state.go(cusvalue.url);
             }
         };
-
         $scope.customer_showTitle = false;
         //$scope.customer_showTitleStatus = false;
         $scope.customer_TitleFlag=false;
-
         var customer_position;
-         var count =0;
         $scope.customer_onScroll = function () {
             customer_position = $ionicScrollDelegate.getScrollPosition().top;
-
             if (customer_position > 15) {
                 $scope.customer_TitleFlag=true;
                 $scope.customer_showTitle = true;
-
                 if (customer_position >25) {
                     $scope.customer_customerFlag = true;
                 }else{
                     $scope.customer_customerFlag = false;
-                }
-                if (customer_position > 25) {
+                };
+                if (customer_position > 30) {
                     $scope.customer_placeFlag = true;
                 }else{
                     $scope.customer_placeFlag = false;
-                }
-                if (customer_position >40) {
+                };
+                if (customer_position >45) {
                     $scope.customer_typeFlag = true;
                 }else{
                     $scope.customer_typeFlag = false;
-                }
-                if (customer_position >50) {
-                    $scope.customer_kongflag = true;
-                }else{
-                    $scope.customer_kongflag = false;
-                }
+                };
             } else {
+                $scope.customer_TitleFlag = false;
+                $scope.customer_showTitle = false;
                 $scope.customer_customerFlag = false;
                 $scope.customer_placeFlag = false;
                 $scope.ecustomer_typeFlag = false;
-                $scope.customer_TitleFlag = false;
-                $scope.customer_kongflag = false;
             }
-            if (!$scope.$digest()) {
+            //if (!$scope.$digest()) {
                 $scope.$apply();
-            }
+            //}
         };
 
         $scope.customerdetails = customeService.get_customerListvalue();

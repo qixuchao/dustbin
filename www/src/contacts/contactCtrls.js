@@ -78,7 +78,6 @@ ContactsModule
             }
         }
         $scope.Contacts_showTitle = false;
-        $scope.Contacts_showTitleStatus = false;
         $scope.Contacts_TitleFlag=false;
 
         var Contacts_position;
@@ -124,7 +123,9 @@ ContactsModule
                 $scope.Contacts_typeFlag = false;
                 $scope.Contacts_addressFlag = false;
                 $scope.Contacts_empolFlag = false;
-                $scope.Contacts_TitleFlag = false;
+                $scope.Contacts_showTitle = false;
+                $scope.Contacts_TitleFlag=false;
+
             }
             $scope.$apply();
         }

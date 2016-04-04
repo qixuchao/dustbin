@@ -163,7 +163,6 @@ salesModule
                         $scope.statusFlag = true;
                     } else {
                         $scope.statusFlag = false;
-
                     }
                     if (position > 143) {
                         if (maxTop == undefined) {

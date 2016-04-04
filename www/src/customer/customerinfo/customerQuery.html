@@ -1,22 +1,40 @@
 <ion-view class="customer_Query">
-    <ion-header-bar style="height:110px;padding: 0">
-        <div class="employeecustomer_head">
-            <div class="employeecustomer_headtitle">
-                <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
-                    <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
-                </div>
-                <span class="employeecustomer_headtitlespan" style="padding-left:40px">客户</span>
-                <span class="customer_Query_headspan" ng-click="customerPopover()">筛选</span>
+
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">客户</div>
+                <div class="col col-20 add" ng-click="customerPopover()" style="text-align: left">筛选</div>
             </div>
-            <form ng-submit="employeecustomerQuery()">
-                <div class="employeecustomer_headquery">
-                    <input class="employeecustomer_headqueryinput" placeholder="请输入客户关键字" type="text"/>
-                    <i class="ion-ios-search employeecustomer_headqueryimg"></i>
+        </ion-header-bar>
+        <form ng-submit="employeecustomerQuery()">
+            <div class="pub-subhead bar bar-subheader">
+                <div class="employeequery_headquery">
+                    <i class="ion-ios-search employeequery_headqueryimg"></i>
+                    <input class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入客户关键字" type="text"/>
                 </div>
-            </form>
-        </div>
-    </ion-header-bar>
-    <ion-content style="margin-top:66px">
+            </div>
+        </form>
+    </div>
+    <!--<ion-header-bar style="height:88px;padding: 0">-->
+        <!--<div class="employeecustomer_head">-->
+            <!--<div class="employeecustomer_headtitle">-->
+                <!--<div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">-->
+                    <!--<i class="icon ion-ios-arrow-back publicheadtitlei"></i>-->
+                <!--</div>-->
+                <!--<span class="employeecustomer_headtitlespan" style="padding-left:40px">客户</span>-->
+                <!--<span class="customer_Query_headspan" ng-click="customerPopover()">筛选</span>-->
+            <!--</div>-->
+            <!--<form ng-submit="employeecustomerQuery()">-->
+                <!--<div class="employeecustomer_headquery">-->
+                    <!--<input class="employeecustomer_headqueryinput" placeholder="请输入客户关键字" type="text"/>-->
+                    <!--<i class="ion-ios-search employeecustomer_headqueryimg"></i>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content style="margin-top:44px">
         <div class="row customer_Querylisthead">
             <div class="col col-8" style="text-align: center;padding: 5px 0 0 0">
                 <img class="customer_Querylistheadimg" src="img/customer/customeree@2x.png" alt=""/>

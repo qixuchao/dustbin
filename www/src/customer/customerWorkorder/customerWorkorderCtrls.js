@@ -9,8 +9,11 @@ customerWorkorderModule
     .controller('customerWorkorderQueryCtrl',['$scope','$state','$http','$timeout','$ionicPopover','$ionicModal','$ionicScrollDelegate','ionicMaterialInk','ionicMaterialMotion','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicModal,$ionicScrollDelegate,ionicMaterialInk,ionicMaterialMotion,customeService,$ionicLoading) {
         //sort点击变量设置
         $scope.customerworksortflag = false;
+
         //select点击变量设置
         $scope.customerworkselectflag = false;
+        //select点击右出与hide矛盾解决变量
+        $scope.customerworkselectrightflag = false;
 
         //sort虚化背景andsort列表
         $scope.cusworkodersortbgflag = false;
@@ -44,7 +47,12 @@ customerWorkorderModule
                 $scope.customerworksortflag = false;
             }
 
-
+            //select点击右出与hide矛盾解决变量
+            if($scope.cusworkodersortbgflag == true){
+                $scope.customerworkselectrightflag = true;
+            }else{
+                $scope.customerworkselectrightflag = false;
+            };
 
 
         };
@@ -77,11 +85,24 @@ customerWorkorderModule
             $scope.cusworkodersortbgflag = false;
 
             //selectt点击变量设置
-            if($scope.cusworkodersortbgflag == true){
+            if($scope.cusworkoderselecbgflag == true){
                 $scope.customerworkselectflag = true;
             }else{
                 $scope.customerworkselectflag = false;
-            }
+            };
+            ////select点击右出与hide矛盾解决变量
+            //if($scope.cusworkoderselecbgflag == true){
+            //    $scope.customerworkselectrightflag = true;
+            //}else{
+            //    $scope.customerworkselectrightflag = false;
+            //};
+
+            console.log("分割线");
+            console.log( "customerworkselectflag"+$scope.customerworkselectflag);
+            console.log( "customerworksortflag"+$scope.customerworksortflag);
+
+            console.log( "cusworkoderselecbgflag"+$scope.cusworkoderselecbgflag);
+
 
         };
         $scope.customerworkordersortlist = [{

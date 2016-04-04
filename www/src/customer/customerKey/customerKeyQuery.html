@@ -1,22 +1,31 @@
 <ion-view class="customerkey_Query">
-    <ion-header-bar style="height:110px">
-        <div class="employeecustomer_head">
-            <div class="employeecustomer_headtitle">
-                <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
-                    <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
-                </div>
-                <span class="employeecustomer_headtitlespan" style="padding-left:40px">线索</span>
-                <span class="customerkeyheadtitlespan" ng-click="customerKeyPopoveropen()">筛选</span>
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">线索</div>
+                <div class="col col-20 add" ng-click="customerKeyPopoveropen()" style="text-align: left">筛选</div>
             </div>
-            <form ng-submit="customerKeyQuery()">
-                <div class="employeecustomer_headquery">
-                    <input class="employeecustomer_headqueryinput" placeholder="请输入线索描述" type="text"/>
-                    <i class="ion-ios-search employeecustomer_headqueryimg"></i>
-                </div>
-            </form>
-        </div>
-    </ion-header-bar>
-    <ion-content style="margin-top:66px">
+        </ion-header-bar>
+    </div>
+    <!--<ion-header-bar style="height:88px">-->
+        <!--<div class="employeecustomer_head">-->
+            <!--<div class="employeecustomer_headtitle">-->
+                <!--<div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">-->
+                    <!--<i class="icon ion-ios-arrow-back publicheadtitlei"></i>-->
+                <!--</div>-->
+                <!--<span class="employeecustomer_headtitlespan" style="padding-left:40px">线索</span>-->
+                <!--<span class="customerkeyheadtitlespan" ng-click="customerKeyPopoveropen()">筛选</span>-->
+            <!--</div>-->
+            <!--<form ng-submit="customerKeyQuery()">-->
+                <!--<div class="employeecustomer_headquery">-->
+                    <!--<input class="employeecustomer_headqueryinput" placeholder="请输入线索描述" type="text"/>-->
+                    <!--<i class="ion-ios-search employeecustomer_headqueryimg"></i>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content>
         <div class="row customerkey_contentbg">
             <div class="col col-40">
                 <div class="customerkey_contentheadbu">三星电子</div>

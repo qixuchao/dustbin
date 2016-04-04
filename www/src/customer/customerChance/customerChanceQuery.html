@@ -1,22 +1,14 @@
 <ion-view class="customerChance_Query">
-    <ion-header-bar style="height:110px">
-        <div class="employeecustomer_head">
-            <div class="employeecustomer_headtitle">
-                <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
-                    <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
-                </div>
-                <span class="employeecustomer_headtitlespan" style="padding-left:40px">机会</span>
-                <span class="customerchance_Query_headspan" ng-click="customerChancePopover()">筛选</span>
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">机会</div>
+                <div class="col col-20 add" ng-click="customerChancePopover()" style="text-align: left">筛选</div>
             </div>
-            <form ng-submit="employeecustomerQuery()">
-                <div class="employeecustomer_headquery">
-                    <input class="employeecustomer_headqueryinput" placeholder="请输入线索描述" type="text"/>
-                    <i class="ion-ios-search employeecustomer_headqueryimg"></i>
-                </div>
-            </form>
-        </div>
-    </ion-header-bar>
-    <ion-content style="margin-top:66px">
+        </ion-header-bar>
+    </div>
+    <ion-content>
         <div class="row">
             <div class="col col-60">
                 <div class="customerChance_contentheadbu">福州龙福汽车有限责任公司</div>

@@ -76,12 +76,12 @@
 .employee_query{
   .employeequery_head{
     width:100%;
-    height:105px;
+    height:88px;
     z-index:0;
     background-color: #406FB3;
       .employeequery_headtitle{
         height:44px;
-        line-height:50px;
+        line-height:44px;
         text-align: center;
         .employeequery_headtitlei{
           font-size: 35px;
@@ -98,7 +98,6 @@
      }
     .employeequery_headquery{
       height:50px;
-      margin-top: 15px;
       position: relative;
       .employeequery_headqueryimg{
        font-size:20px;
@@ -318,10 +317,10 @@
 .employeecustomer_head{
   width:100%;
   z-index:0;
-  background-color: #406FB3;
+  background-color: $crm-subject-blue;
   .employeecustomer_headtitle{
     height:44px;
-    line-height:50px;
+    line-height:44px;
     text-align: center;
     .employeecustomer_headtitlei{
       font-size: 35px;
@@ -338,13 +337,13 @@
       width:25px;
       height: 25px;
       float: right;
-      margin-top:13px;
+      margin-top:10px;
       margin-right:15px;
     }
   }
   .employeecustomer_headquery{
     height:50px;
-    margin-top: 15px;
+    //margin-top: 15px;
     position: relative;
     .employeecustomer_headqueryimg{
       font-size:25px;

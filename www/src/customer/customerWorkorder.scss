@@ -27,8 +27,10 @@
      .customerworkorderlineione{
          background-color: white;
          position: absolute;
-         top: -16px;
-         font-size: 25px;
+         top: -15px;
+       width: 13px;
+         font-size: 24px;
+       clip: rect(0px 24px 17px 0px);
        }
         .customerworkordersortlineione{
           left: 21%;
@@ -91,12 +93,11 @@
     .customerworkorderselectcontent{
       position: absolute;
       z-index:1;
-      //top: 0px;
-      ///* left: 20%; */
-      ///* left: 20%; */
-      background-color: white;
+      top: 125px;
+      overflow: hidden;
+      bottom: 15px;
+      background-color: transparent;
       width: 100%;
-      padding-top:15px;
       font-size:12px;
          .cusdivContentfontszie{
            //color:#AFAFAF;
@@ -146,6 +147,14 @@
     height:100%;
     width:100%;
     background-color: rgba(0,0,0,0.1);
+    z-index: -1;
+  }
+  .cusworkodeselecbgselect{
+    position: absolute;
+    top: 0;
+    height:100%;
+    width:100%;
+    background-color: rgba(0,0,0,0);
     z-index: -1;
   }
   .customerworkorbuluestyleone{

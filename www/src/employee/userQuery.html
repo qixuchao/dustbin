@@ -1,21 +1,38 @@
 <ion-nav-view class="employee_query">
-    <ion-header-bar>
-       <div class="employeequery_head">
-           <div class="employeequery_headtitle">
-               <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
-                   <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
-               </div>
-               <span class="employeequery_headtitlespan">员工列表</span>
-           </div>
-           <form ng-submit="employeeQuery()">
-               <div class="employeequery_headquery">
-                    <i class="ion-ios-search employeequery_headqueryimg"></i>
-                   <input class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入员工姓名" type="text"/>
-               </div>
-           </form>
-       </div>
+    <div class="saleList">
+    <ion-header-bar align-title="center" class="head pub-head">
+        <div class="row row-center">
+            <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+            <div class="col col-70 text-center">员工列表</div>
+            <div class="col col-15 add"><img src="img/saleList/add.png"></div>
+        </div>
     </ion-header-bar>
-    <ion-content style="margin-top:66px">
+    <form ng-submit="employeecustomerQuery()">
+        <div class="pub-subhead bar bar-subheader">
+            <div class="employeequery_headquery">
+                <i class="ion-ios-search employeequery_headqueryimg"></i>
+                <input class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入员工姓名" type="text"/>
+            </div>
+        </div>
+    </form>
+</div>
+    <!--<ion-header-bar>-->
+       <!--<div class="employeequery_head">-->
+           <!--<div class="employeequery_headtitle">-->
+               <!--<div style="width:40px;height:40px;position: absolute;top: 20px;left: 5px;" ng-click="goBack()">-->
+                   <!--<i class="icon ion-ios-arrow-back publicheadtitlei"></i>-->
+               <!--</div>-->
+               <!--<span class="employeequery_headtitlespan">员工列表</span>-->
+           <!--</div>-->
+           <!--<form ng-submit="employeeQuery()">-->
+               <!--<div class="employeequery_headquery">-->
+                    <!--<i class="ion-ios-search employeequery_headqueryimg"></i>-->
+                   <!--<input class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入员工姓名" type="text"/>-->
+               <!--</div>-->
+           <!--</form>-->
+       <!--</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content style="margin-top:44px">
         <div ng-if="!employee_userqueryflag" class="employee_query_historys">
             <div class="button button-full" ng-click="ll()">ll</div>
             <div class="employee_query_historysspan">

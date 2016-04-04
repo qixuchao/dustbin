@@ -1,5 +1,5 @@
 <ion-view class="customer_detail">
-    <div class="customer_backtop absolute fadeIn" style="height:48px;z-index:1" ng-show="customer_showTitle"
+    <div class="customer_backtop absolute fadeIn" style="height:48px;z-index:1;padding-top:10px" ng-show="customer_showTitle"
          ng-class="!customer_TitleFlag?'animated fadeOut':'animated fadeIn'">
         <div class="customer_detailtitleview">
             <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
@@ -12,7 +12,7 @@
         </div>
     </div>
     <ion-content has-bouncing="false" on-scroll="customer_onScroll()" scrollbar-y="false">
-        <div class="customer_backtop" style="z-index:-1">
+        <div class="customer_backtop" style="z-index:-1;padding-top:10px">
             <div class="customer_detailtitle" ng-class="customer_TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
                     <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
@@ -26,11 +26,10 @@
                 <div class="customer_detailcontentaddress" ng-class="customer_placeFlag?'animated fadeOut':'animated fadeIn'">
                     地址:<span>{{customerdetails.customeraddress}}</span>
                 </div>
-                <div class="customer_detailcontentphone" id="llll" ng-class="customer_typeFlag?'animated fadeOut':'animated fadeIn'" ng-click="customershowphone(customerdetails.customerphonenumber)">
+                <div class="customer_detailcontentphone" ng-class="customer_typeFlag?'animated fadeOut':'animated fadeIn'" ng-click="customershowphone(customerdetails.customerphonenumber)">
                     <i class="icon ion-ios-telephone-outline customer_detailcontentphonei"></i>
                     <span style="margin-left: 4px;">{{customerdetails.customerphonenumber}}</span><span style=" margin-left: 90px;">NO-100034</span>
                 </div>
-                <div ng-class="customer_kongflag?'animated fadeOut':'animated fadeIn'"></div>
             </div>
         </div>
         <div class="item item-list-detail" style="padding: 0px 3px;border: none;margin-top: 5px;">
