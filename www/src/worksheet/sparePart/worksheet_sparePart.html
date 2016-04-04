@@ -29,46 +29,45 @@
             </div>
             <div align="center"><hr color="#276DAC" class="line" size="2"></div>
             </div>
-            <!--<div class="list" style="background-color: white;overflow-y:scroll">-->
-                <!--<div class="row" style="height: 65px;border-bottom: 1px solid #D6D3CE;margin-top: 0px;padding-bottom: 0px" ng-repeat="i in infos">-->
-                    <!--<ion-checkbox  class="checkbox-balanced" style="padding: 5px 0px 5px 0px;" >-->
-                    <!--<div class="col-75" style="margin-left: 47px;margin-top: 5px">-->
-                        <!--<h2>{{i.name}}</h2>-->
-                        <!--<p style="font-size: 10px;margin-top: 5px">-->
-                            <!--备件编码：{{i.code}}   标准使用数量：{{i.num}}-->
-                        <!--</p>-->
-                    <!--</div>-->
-                    <!--</ion-checkbox>-->
-                    <!--<div class="col-25" style="margin:auto;">-->
-                        <!--<i class="ion-ios-minus-outline iStyle" ng-click="reduce(i)"></i>-->
-                        <!--<input type="text" class="inputSmall"  ng-model="i.selectNum">-->
-                        <!--<i class="ion-ios-plus-outline iStyle" ng-click="add(i)"></i>-->
-                    <!--</div>-->
-                <!--</div>-->
-        </div>
-        <ul class="list" style="overflow-y:scroll;padding: 0">
-            <div class="row row-center" style="border-bottom: 1px solid #D6D3CE;margin: 0;padding:0" ng-repeat="i in infos">
-                <div class="col col-center col-75" style="padding:5px 0 5px 0">
-                <li class="item item-checkbox" style="padding:0px 0px 0px 43px;" >
-                    <label class="checkbox checkbox-diy" style="padding:7px 0 7px 0">
-                        <input type="checkbox">
-                    </label>
-
-                            <div class="list">
-                            <h2>{{i.name}}</h2>
-                            <p style="font-size: 10px;margin-top: 5px">
-                                备件编码：{{i.code}}   标准使用数量：{{i.num}}
-                            </p>
-                                </div>
-                        </div>
-
-                </li>
-                <div class="col-25 col-center" style="margin:auto;">
-                    <i class="ion-ios-minus-outline iStyle" ng-click="reduce(i)"></i>
-                    <input type="text" class="inputSmall"  ng-model="i.selectNum">
-                    <i class="ion-ios-plus-outline iStyle" ng-click="add(i)"></i>
+            <div class="list" style="background-color: white;overflow-y:scroll">
+                <div class="row" style="height: 65px;border-bottom: 1px solid #D6D3CE;margin-top: 0px;padding-bottom: 0px" ng-repeat="i in infos">
+                    <ion-checkbox  class="checkbox-balanced left" style="padding: 5px 0px 5px 0px;margin-left: -15px" >
+                    <div class="col-73" style="margin-left: 47px;margin-top: 5px">
+                        <h2>{{i.name}}</h2>
+                        <p style="font-size: 10px;margin-top: 5px">
+                            备件编码：{{i.code}}   标准使用数量：{{i.num}}
+                        </p>
+                    </div>
+                    </ion-checkbox>
+                    <div class="co col-27" style="margin:auto;text-align: center">
+                        <i class="ion-ios-minus-outline iStyle" ng-click="reduce(i)"></i>
+                        <input type="text" class="inputSmall"  ng-model="i.selectNum">
+                        <i class="ion-ios-plus-outline iStyle" ng-click="add(i)"></i>
+                    </div>
                 </div>
-            </div>
-        </ul>
+        </div>
+        <!--<ul class="list" style="overflow-y:scroll;padding: 0">-->
+            <!--<div class="row row-center" style="border-bottom: 1px solid #D6D3CE;margin: 0;padding:0" ng-repeat="i in infos">-->
+                <!--<div class="col col-center col-75" style="padding:5px 0 5px 0">-->
+                <!--<li class="item item-checkbox" style="padding:0px 0px 0px 43px;" >-->
+                    <!--<label class="checkbox checkbox-diy" style="padding:7px 0 7px 0">-->
+                        <!--<input type="checkbox">-->
+                    <!--</label>-->
+
+                            <!--<div class="list">-->
+                            <!--<h2>{{i.name}}</h2>-->
+                            <!--<p style="font-size: 10px;margin-top: 5px">-->
+                                <!--备件编码：{{i.code}}   标准使用数量：{{i.num}}-->
+                            <!--</p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                <!--</li>-->
+                <!--<div class="col-25 col-center" style="margin:auto;">-->
+                    <!--<i class="ion-ios-minus-outline iStyle" ng-click="reduce(i)"></i>-->
+                    <!--<input type="text" class="inputSmall"  ng-model="i.selectNum">-->
+                    <!--<i class="ion-ios-plus-outline iStyle" ng-click="add(i)"></i>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</ul>-->
     </ion-content>
 </ion-view>

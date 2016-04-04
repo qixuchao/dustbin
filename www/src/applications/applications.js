@@ -29,7 +29,7 @@ appModule
             go:'spareList'
         },{
             url:'img/apps/empInfo.png',
-            go:'worksheetRelatedPart'
+            go:'worksheetCarMileage'
         },{
             url:'img/apps/searchCar.png',
             go:'car'

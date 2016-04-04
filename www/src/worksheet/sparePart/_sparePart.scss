@@ -22,6 +22,32 @@
   .checkbox-diy{
     @include checkbox-style($checkbox-off-border-diy, $checkbox-on-border-diy, $checkbox-off-border-diy);
   }
+
+  .left{
+    //@include display-flex;
+    //@include align-items(center);
+    //width: 3.5rem;
+    //text-align: center;
+    label{
+      border-width: 0px;
+    }
+    i.checkbox-icon{
+      &:before{
+        background-color: transparent;
+        border-color: rgb(141,193,31);
+        border: 2px solid rgb(141,193,31);
+      }
+      &:after{
+        border-width: 3px;
+        border-color: rgb(141,193,31);
+        border-color: #8dc11f;
+        width: 16px;
+        height: 10px;
+        top: 26%;
+        left: 20%;
+      }
+    }
+  }
   .line{
     width: 95%;
     margin: 0;
@@ -38,7 +64,7 @@
   }
   .iStyle{
     display: inline-block;
-    font-size: 17px;
+    font-size: 20px;
     vertical-align: middle;
     color: #276DAC;
   }
