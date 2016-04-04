@@ -1,13 +1,48 @@
 <ion-view class="CarList">
     <ion-header-bar class="bar bar-header ">
-        <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
+        <a class="button  button-clear ion-chevron-left backType" ng-click="goBack()"></a>
         <div class="title"><b>车辆查询</b></div>
     </ion-header-bar>
     <ion-header-bar class="bar bar-subheader ">
-        <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="text" placeholder="输入客户信息"ng-model="carInfo">
+        <div class="">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="text" placeholder="输入客户信息" ng-model="carInfo" ng-click="changePage()">
+            <i class="icon ion-ios-close" ng-show="carInfo.length>0"></i>
+        </div>
     </ion-header-bar>
-    <ion-content>
+
+    <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag" ng-click="changeSearch($event)">
+        <div class="row row-center his-title">
+            <i class="ion-android-time"></i>
+            <div class="hisText">历史记录</div>
+            <div class="horizon-line"></div>
+        </div>
+        <ion-list ng-if="!carInfo">
+            <ion-item ng-click="search(x,$event)" ng-repeat="x in data">{{x}}</ion-item>
+        </ion-list>
+        <div class="content">
+            <div class="list" ng-if="carInfo">
+                <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in cars | filter:carInfo">
+                    <div class="row row-center rowType " >
+                        <div class="col col-6 col-center">
+                            <img ng-src="img/car/Oval.png" class="pointImg">
+                        </div>
+                        <div class="col col-94 col-center colType">
+                            <span><div ng-bind-html="x.describe |highlight:carInfo"></div></span>
+                        </div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col col-88 col-center"></div>
+                        <div class="col col-12 col-center">
+                            <img ng-src="img/car/Shape.png" class="shapeImg">
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </ion-content>
+    <ion-content has-bouncing="false" ng-show="!searchFlag">
         <!--<img ng-src="img/car/oftenCar.png" class="textImg">-->
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">常用车辆</div>

@@ -1,57 +1,5 @@
 <ion-view id="worksheetdetail-view"  align-title="center">
-	<!--ion-header-bar align-title="center" class="bar-positive">
-        <div class="buttons left-buttons">
-            <div class="left-button button button-clear" ng-click="goBack();">
-                <i class="ion-ios-arrow-back"></i>
-            </div>
-        </div>
-		<h1 class="title" canClickEnterListMode ng-click="clickEnterListMode($event);">工单详细信息</h1>
-        <div class="buttons">
-            <div class="button right-button button-clear">
-                <i class="ion-ios-more"></i>
-            </div>
-        </div>
-        <div class="detail-header-messages">
-            <div class="title">车辆出现重大问题,需要维修</div>
-            <div class="company">郑州金龙客车股份有限公司福州分公司1部</div>
-            <div class="user-status">
-                <div class="user">
-                    <span>外服人员: 张三</span>
-                </div>
-                <div class="status">
-                    <span>状态:处理中</span>
-                </div>
-            </div>
-        </div>
-	</ion-header-bar-->
-    <!--div class="detail-header-bar">
-        <div class="top-buttons">
-            <div class="left button button-clear">
-                <i class="ion-ios-arrow-back"></i>
-            </div>
-            <div class="center">工单详细信息</div>
-            <div class="right button button-clear">
-                <i class="ion-ios-more"></i>
-            </div>
-        </div>
-        <div class="detail-msgs">
-            <div class="title">车辆出现重大问题,需要维修</div>
-            <div class="company">
-                <i class="ion-ios-more"></i>
-                <span>郑州金龙客车股份有限公司福州分公司1部</span>
-            </div>
-            <div class="user-status">
-                <div class="user">
-                    <i class="ion-ios-more"></i>
-                    <span>外服人员:张三</span>
-                </div>
-                <div class="status">
-                    <i class="ion-ios-more"></i>
-                    <span>状态:处理中</span>
-                </div>
-            </div>
-        </div>
-    </div-->
+
     <ion-content id="worksheetdetail-content-new-car" class="fill-parent" scrollbar-y="false" scroll="true" has-bouncing="false" on-scroll="onContentScroll($event);" delegate-handle="xbrDelegateContent" ng-init="freezeContentScroll(true, 100);">
         <div class="detail-header">
             <div class="detail-header-bar">
@@ -89,6 +37,9 @@
                     <i class="ion-ios-more"></i>                             
                     <span>相关方</span>
                 </div>
+
+
+
                 <div class="history-box left-2">
                     <i class="ion-ios-more"></i>                               
                     <span>交易历史</span>
@@ -103,7 +54,7 @@
                 </div>
             </div>
         </ion-scroll>
-
+        
         <ion-scroll class="detail-content" delegate-handle="xbrDelegateScroll" scrollbar-y="false" has-bouncing="false" ng-init="freezeBottomScroll(true, 100);">
             <div class="basic-info">
                 <div class="crm-line-title">

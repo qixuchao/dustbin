@@ -1,5 +1,7 @@
 @charset "UTF-8";
 @import
+	"../../css/animate.scss",
+	//"../../css/animate.css",
 	"ionic_sass/_mixins.scss",
 	"ionic_sass/_variables.scss",
 	"public",
@@ -20,6 +22,7 @@
 	"../worksheet/sparePart/_sparePart.scss",
 	"../worksheet/relatedPart/_relatedPart.scss",
 	"../worksheet/takePicture/takePicture",
+	"../worksheet/selectStaff/selectStaff",
     //服务工单模块 -- end
 
 	"../car/car.scss",

@@ -38,6 +38,21 @@
 .bar{
   font-size: 16px;
 }
+.modal-wrapper {
+  pointer-events: auto!important;
+}
+/* Fix modal backdrop for smaller devices */
+@media (max-width: 679px) {
+  .active .modal-backdrop-bg {
+    opacity: .5;
+  }
+  .modal-backdrop-bg {
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    background-color: #000;
+    opacity: 0;
+  }
+}
 /**
  * 公共的 变量
  */
