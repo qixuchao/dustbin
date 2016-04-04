@@ -8,11 +8,11 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         $scope.relatedPopoverShow = function($event) {
             console.log("--");
             $scope.relatedpopover.show($event);
-            document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
+            //document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
         };
         $scope.relatedPopoverhide = function() {
             $scope.relatedpopover.hide();
-            document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";
+            //document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";
         };
         $scope.related_types = ['联系人','服务商','外服'];
         $scope.relatedqueryType = function(type){
