@@ -34,9 +34,10 @@
     border-bottom: none;
     padding: 0;
     background-size: 0;
+    padding-top: 5px;
     .button-clear {
     color: #fff;
-    padding-top: 0.3em;
+    padding-top: 0.6em;
     font-size: 22px;
   }
     .ion-chevron-left{
@@ -45,13 +46,13 @@
 
   }
   .bar-subheader {
-    height: 2.4em;
+    height: 43px;
     display: block;
     .placeholder-icon {
       color: #aaa;
       position: absolute;
       z-index: 2;
-      top: .4em;
+      top: .6em;
       left: 1em;
     }
     input {
