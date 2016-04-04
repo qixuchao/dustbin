@@ -1,15 +1,26 @@
 <ion-nav-view class="contact_Edit">
-    <ion-header-bar style="padding: 0">
-        <div class="contact_Edit_head">
-            <div class="contact_Edit_headtitle">
-                <i class="icon ion-ios-arrow-back contact_Edit_headtitlei" ng-click="goBack()"></i>
-                <span class="contact_Edit_headtitlespantitle">联系人</span>
-                <span class="contact_Edit_headtitlespanedit" ng-click="contactKeepCreatevalue()">保存</span>
+
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">联系人</div>
+                <div class="col col-20 add" ng-click="contactKeepCreatevalue()" style="text-align: left">保存</div>
             </div>
-        </div>
-    </ion-header-bar>
-    <ion-content style="margin-top:6px">
-        <div class="list" style="font-size: 16px;">
+        </ion-header-bar>
+    </div>
+
+    <!--<ion-header-bar>-->
+        <!--<div class="contact_Edit_head">-->
+            <!--<div class="contact_Edit_headtitle">-->
+                <!--<i class="icon ion-ios-arrow-back contact_Edit_headtitlei" ng-click="goBack()"></i>-->
+                <!--<span class="contact_Edit_headtitlespantitle">联系人</span>-->
+                <!--<span class="contact_Edit_headtitlespanedit" ng-click="contactKeepCreatevalue()">保存</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--</ion-header-bar>-->
+    <ion-content>
+        <div class="list" style="font-size: 16px;margin-top:5px">
             <label class="item item-input">姓名：
                 <input type="text" placeholder="请输入姓名" class="contact_editinputsty" ng-model="contactcreat.name">
             </label>

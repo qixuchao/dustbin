@@ -1,5 +1,5 @@
 <style>
-    .customer_selec {
+    .customerkey_selec {
         text-align: center;
         position: relative;
         float: right;
@@ -10,24 +10,24 @@
         display: block;
         margin-top: 12px;
         margin-left:0;
-        height: 260px;
-        width: 130px;
+        height:100px;
+        width: 120px;
         background-color: #fff;
         border-radius: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,.4);
         opacity: 0;
     }
-    .customer_up {
+    .customerkey_up {
         width: 20px;
         position: absolute;
-        right: 23px;
+        right: 9px;
         top: -9px;
     }
 </style>
-    <ion-popover-view class="customer_selec">
-        <img src="img/customer/sanjiao.png" class="customer_up"></img>
+    <ion-popover-view class="customerkey_selec">
+        <img src="img/customer/sanjiao.png" class="customerkey_up"></img>
         <ion-content>
-            <div ng-repeat="types in customer_types track by $index" ng-click="customerqueryType(types)">
+            <div ng-repeat="types in customerkey_types track by $index" ng-click="CustomerKeyqueryType(types)">
                <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:16px;">
                    {{types}}
                </ion-item>
