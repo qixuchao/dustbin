@@ -1,4 +1,4 @@
-/**
+/** 
  * Created by zhangren on 16/3/19.
  */
 'use strict';
@@ -205,7 +205,6 @@ salesModule
             var maxTop;
             $scope.onScroll = function () {
                 position = $ionicScrollDelegate.getScrollPosition().top;
-                //console.log(position)
                 if (position > 10) {
                     $scope.TitleFlag = true;
                     $scope.showTitle = true;
@@ -228,11 +227,9 @@ salesModule
                         $scope.statusFlag = true;
                     } else {
                         $scope.statusFlag = false;
-
                     }
                     if (position > 143) {
                         if (maxTop == undefined) {
-
                             maxTop = $ionicScrollDelegate.getScrollView().__maxScrollTop;
                         }
                         $scope.showTitleStatus = true;

@@ -11,12 +11,16 @@ var customerModule = angular.module('customerModule', []);
 var ContactsModule = angular.module('ContactsModule', []);
 var contactModuleServive = angular.module('contactModuleServive', []);
 var customerVehicleModule = angular.module('customerVehicleModule', []);
+var customerChanceModule = angular.module('customerChanceModule', []);
+var customerActivityModule = angular.module('customerActivityModule', []);
+var customerkeyModule = angular.module('customerkeyModule', []);
+var customerWorkorderModule = angular.module('customerWorkorderModule', []);
 var customerContactsModule = angular.module('customerContactsModule', []);
 var customerModuleServive = angular.module('customerModuleServive', []);
-//var directiveModule = angular.module('directiveModule', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
-//"ngCordova"
+
+
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'ionic-material',
     'utilsModule',
@@ -36,9 +40,13 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'customerModule',
     'customerVehicleModule',
     'customerContactsModule',
-    'customerModuleServive'
-]);
-CRMApp.run(function ($ionicPlatform,$rootScope) {
+    'customerModuleServive',
+    'customerChanceModule',
+    'customerkeyModule',
+    'customerActivityModule',
+    'customerWorkorderModule'
+])
+CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -53,6 +61,9 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
         });
         $rootScope.goState = function(state){
             $state.go(state);
+        };
+        $rootScope.goBack = function(){
+            $ionicHistory.goBack();
         };
     })
     
@@ -168,6 +179,30 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 templateUrl: 'src/customer/customerVehicle/customerVehicleQuery.html',
                 controller: 'customerVehicleQueryCtrl'
             })
+            //客户-机会
+            .state('customerChanceQuery', {
+                url: '/customerChanceQuery',
+                templateUrl: 'src/customer/customerChance/customerChanceQuery.html',
+                controller: 'customerChanceQueryCtrl'
+            })
+            //客户-活动
+            .state('customerActivityQuery', {
+                url: '/customerActivityQuery',
+                templateUrl: 'src/customer/customerActivity/customerActivityQuery.html',
+                controller: 'customerActivityQueryCtrl'
+            })
+            //客户-线索
+            .state('customerKeyQuery', {
+                url: '/customerKeyQuery',
+                templateUrl: 'src/customer/customerKey/customerKeyQuery.html',
+                controller: 'customerKeyQueryCtrl'
+            })
+            //客户-历史工单
+            .state('customerWorkorderQuery', {
+                url: '/customerWorkorderQuery',
+                templateUrl: 'src/customer/customerWorkorder/customerWorkorderQuery.html',
+                controller: 'customerWorkorderQueryCtrl'
+            })
             //车辆查询
             .state('car',{
                 url:'apps/car',
@@ -202,28 +237,25 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 controller: 'SpareDetailCtrl'
             })
             // 工单模块相关： start ------------------------
-            .state('worksheetlist', {
-                url: '/worksheetlist',
-                templateUrl: 'src/worksheet/worksheet_list.html',
+            .state('worksheetList', {
+                url: '/worksheetList',
+                templateUrl: 'src/worksheet/worksheetList.html',
                 controller: 'WorksheetListCtrl'
             })
-            .state('worksheetdetailnewcar', {
-                url: '/worksheetdetailnewcar',
-                templateUrl: 'src/worksheet/detail_newcar/worksheet_detail_newcar.html',
-                controller: 'WorksheetDetailNewcarCtrl'
+            
+            .state('worksheetDetail', { // detailType取值: newCar、siteRepair、batchUpdate
+                url: '/worksheetDetail/{detailType}',
+                templateUrl: 'src/worksheet/detailAll/detailAll.html',
+                controller: 'worksheetDetailAllCtrl'
             })
-            .state('worksheetdetailsiterepair', {
-                url: '/worksheetdetailsiterepair',
-                templateUrl: 'src/worksheet/detail_siterepair/worksheet_detail_siterepair.html',
-                controller: 'WorksheetDetailSiterepairCtrl'
+
+            .state('worksheetBaoGonglist', {   //报工信息列表界面
+                url: '/worksheetBaoGonglist',
+                templateUrl: 'src/worksheet/baoGong/baoGongList.html',
+                controller: 'WorksheetBaoGongListCtrl'
             })
-            .state('worksheetbaogonglist', {   //报工信息列表界面
-                url: '/worksheetbaogonglist',
-                templateUrl: 'src/worksheet/baogong/baogong_list.html',
-                controller: 'WorksheetBaogongListCtrl'
-            })
-            .state('worksheetdealhistorylist', {   //交易历史列表界面
-                url: '/worksheetdealhistorylist',
+            .state('worksheetDetailHistoryList', {   //交易历史列表界面
+                url: '/worksheetDetailHistoryList',
                 templateUrl: 'src/worksheet/dealHistoryList/dealHistoryList.html',
                 controller: 'dealHistoryListCtrl'
             })
@@ -282,3 +314,25 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
 
 
 
+
+
+/*.state('worksheetdetailnewcar', {
+    url: '/worksheetdetailnewcar',
+    templateUrl: 'src/worksheet/detail_newcar/worksheet_detail_newcar.html',
+    controller: 'WorksheetDetailNewcarCtrl'
+})
+.state('worksheetdetailsiterepair', {
+    url: '/worksheetdetailsiterepair',
+    templateUrl: 'src/worksheet/detail_siterepair/worksheet_detail_siterepair.html',
+    controller: 'WorksheetDetailSiterepairCtrl'
+})*/
+/*.state('worksheetDetailNewcar', {
+    url: '/worksheetDetailNewcar',
+    templateUrl: 'src/worksheet/detailNewcar/detailNewcar.html',
+    controller: 'worksheetDetailNewcarCtrl'
+})
+.state('worksheetDetailSiteRepair', {
+    url: '/worksheetDetailSiteRepair',
+    templateUrl: 'src/worksheet/detailSiteRepair/detailSiteRepair.html',
+    controller: 'worksheetDetailSiteRepairCtrl'
+})*/

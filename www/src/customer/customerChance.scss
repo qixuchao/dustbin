@@ -1,0 +1,58 @@
+.customerChance_Query{
+    .customerchance_Query_headspan{
+      float: right;
+      margin-right:10px;
+      color: white;
+    }
+   .customerChance_contentheadbu{
+     width: 200px;
+     height: 30px;
+     text-align: center;
+     line-height: 30px;
+     color: #406FB3;
+     border-radius: 10px;
+     border: 1px solid #406FB3;
+   }
+  .customerChance_contentheadbusty{
+    position:relative;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
+    background-color: #406FB3;
+    border-radius: 10px;
+    margin-left: 20px;
+  }
+  .customerChance_contentheaddel{
+    position: absolute;
+    right: 0;
+    top: -3px;
+    width: 15px;
+    height: 15px;
+    right: -2px;
+  }
+
+  .customerChance_query_list{
+    font-size: 16px;
+    color: #4A4A4A;
+    .customerChance_query_listcicle{
+      width:14px;
+      height:14px;
+      vertical-align: middle;
+      display: inline-block;
+      border-radius:50%;
+      border: 2px solid #9EC92A;
+    }
+    .customerChance_query_listimg{
+      vertical-align: baseline;
+      width:14px;
+      height:14px;
+    }
+    .customerChane_query_listfor{
+      width:15px;
+      height:15px;
+      vertical-align: middle;
+    }
+  }
+}

@@ -171,19 +171,42 @@ $button-crm-edit-text:                 white;
 
 .publicheadtitlei{
   font-size: 35px;
-  color: #C4D2E7;
+  color: white;
   display: block;
   float: left;
-  margin-top:-5px;
-  margin-left:10px;
+  margin-top:7px;
+  margin-left:15px;
 }
 .view_publicheadtitlei{
   font-size: 40px;
-  color: #C4D2E7;
+  color: white;
   display: block;
   float: left;
-  margin-top:0px;
+  margin-top:5px;
   margin-left:10px;
 }
 
-
+.employeequery_headquery{
+  //height:50px;
+  //position: relative;
+  .employeequery_headqueryimg{
+    font-size:20px;
+    color: #A8A8A8;
+    position: absolute;
+    top:8px;
+    left:15px;
+    z-index: 10;
+  }
+  .employeequery_headqueryinput{
+    height:35px;
+    line-height:35px;
+    width: 96%;
+    border-radius:5px;
+    padding-left:30px;
+    background-color: white;
+    position: absolute;
+    top:0;
+    left:2%;
+    z-index:1;
+  }
+}

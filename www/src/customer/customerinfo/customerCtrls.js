@@ -1,7 +1,6 @@
 /**
  * Created by zhangren on 16/3/7.
  */
-'use strict';
 customerModule
     .controller('customerQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
         $ionicPopover.fromTemplateUrl('../src/customer/model/customer_selec.html', {
@@ -10,7 +9,13 @@ customerModule
             $scope.customerpopover = popover;
         });
         $scope.customerPopover = function($event) {
-            $scope.customerpopover.show($event);
+            alert(1);
+            try{
+                $scope.customerpopover.show($event);
+            }catch(e){
+                alert(e.message);
+            }
+
         };
         $scope.customerPopoverhide = function() {
             $scope.customerpopover.hide();
@@ -78,7 +83,7 @@ customerModule
             $state.go("customerDetail");
         }
     }])
-    .controller('customerDetailCtrl',['$scope','$rootScope','$state','Prompter','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$state,Prompter,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
+    .controller('customerDetailCtrl',['$scope','$rootScope','$state','Prompter','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$state,Prompter,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
         $scope.customer_detailstypes = [{
             typemane:'联系人',
             imgurl:'img/customer/customerlianxir@2x.png',
@@ -86,15 +91,19 @@ customerModule
         },{
             typemane:'机会',
             imgurl:'img/customer/customerjihui@2x.png',
+            url:'customerChanceQuery'
         },{
             typemane:'活动',
             imgurl:'img/customer/customerhuod.png',
+            url:'customerActivityQuery'
         },{
             typemane:'工单',
             imgurl:'img/customer/customergongd@2x.png',
+            url:'customerWorkorderQuery'
         },{
             typemane:'线索',
             imgurl:'img/customer/customerxians@2x.png',
+            url:'customerKeyQuery'
         },{
             typemane:'车辆',
             imgurl:'img/customer/customerchel@2x.png',
@@ -107,48 +116,48 @@ customerModule
             imgurl:'img/customer/customerfuz@2x.png',
         }
         ];
-
         $scope.gocustomerLists = function(cusvalue){
             console.log(cusvalue)
             if(cusvalue.url){
                 $state.go(cusvalue.url);
             }
-        }
-
+        };
         $scope.customer_showTitle = false;
-        $scope.customer_showTitleStatus = false;
+        //$scope.customer_showTitleStatus = false;
         $scope.customer_TitleFlag=false;
-
         var customer_position;
         $scope.customer_onScroll = function () {
             customer_position = $ionicScrollDelegate.getScrollPosition().top;
             if (customer_position > 15) {
                 $scope.customer_TitleFlag=true;
                 $scope.customer_showTitle = true;
-
                 if (customer_position >25) {
                     $scope.customer_customerFlag = true;
                 }else{
                     $scope.customer_customerFlag = false;
-                }
-                if (customer_position > 25) {
+                };
+                if (customer_position > 30) {
                     $scope.customer_placeFlag = true;
                 }else{
                     $scope.customer_placeFlag = false;
-                }
-                if (customer_position > 40) {
+                };
+                if (customer_position >45) {
                     $scope.customer_typeFlag = true;
                 }else{
                     $scope.customer_typeFlag = false;
-                }
+                };
             } else {
+                $scope.customer_TitleFlag = false;
+                $scope.customer_showTitle = false;
                 $scope.customer_customerFlag = false;
                 $scope.customer_placeFlag = false;
                 $scope.ecustomer_typeFlag = false;
-                $scope.customer_TitleFlag = false;
             }
-            $scope.$apply();
+            //if (!$scope.$digest()) {
+                $scope.$apply();
+            //}
         };
+
         $scope.customerdetails = customeService.get_customerListvalue();
         //电话
         $scope.customershowphone =function(types){
