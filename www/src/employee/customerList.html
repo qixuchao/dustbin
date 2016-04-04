@@ -1,23 +1,40 @@
 <ion-view class="employee_customer">
-    <ion-header-bar style="height:110px;padding: 0">
-        <div class="employeecustomer_head">
-            <div class="employeecustomer_headtitle">
-                <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
-                    <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
-                </div>
-                <span class="employeecustomer_headtitlespan" style="padding-left:40px;">客户列表</span>
-                <img class="employeecustomer_headtitleimg" src="img/employee/increase@2x.png"/>
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">客户列表</div>
+                <div class="col col-15 add"><img src="img/employee/increase@2x.png"></div>
             </div>
-            <form ng-submit="employeecustomerQuery()">
-                <div class="employeecustomer_headquery">
-                    <input class="employeecustomer_headqueryinput" placeholder="请输入客户公司名称" type="text"/>
-                    <i class="ion-ios-search employeecustomer_headqueryimg"></i>
+        </ion-header-bar>
+        <form ng-submit="employeecustomerQuery()">
+            <div class="pub-subhead bar bar-subheader">
+                <div class="employeequery_headquery">
+                    <i class="ion-ios-search employeequery_headqueryimg"></i>
+                    <input class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入客户公司名称" type="text"/>
                 </div>
+            </div>
+        </form>
+    </div>
+    <!--<ion-header-bar style="height:88px;padding: 0">-->
+        <!--<div class="employeecustomer_head">-->
+            <!--<div class="employeecustomer_headtitle">-->
+                <!--<div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">-->
+                    <!--<i class="icon ion-ios-arrow-back publicheadtitlei"></i>-->
+                <!--</div>-->
+                <!--<span class="employeecustomer_headtitlespan" style="padding-left:40px;">客户列表</span>-->
+                <!--<img class="employeecustomer_headtitleimg" src="img/employee/increase@2x.png"/>-->
+            <!--</div>-->
+            <!--<form ng-submit="employeecustomerQuery()">-->
+                <!--<div class="employeecustomer_headquery">-->
+                    <!--<input class="employeecustomer_headqueryinput" placeholder="请输入客户公司名称" type="text"/>-->
+                    <!--<i class="ion-ios-search employeecustomer_headqueryimg"></i>-->
+                <!--</div>-->
 
-            </form>
-        </div>
-    </ion-header-bar>
-    <ion-content style="margin-top:66px">
+            <!--</form>-->
+        <!--</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content style="margin-top:44px">
        <ion-list>
         <ion-item class="employee_customerlist" style="border-bottom: 1px solid #ddd;margin-top:1px" ng-repeat="x in employcustomerlist track by $index">
             <div class="row">

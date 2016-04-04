@@ -2,7 +2,7 @@
     <div class="saleList">
         <ion-header-bar class="head" no-tap-scroll="true">
             <div class="row row-center">
-                <div class="text-center selections" ng-click="moreflag=!moreflag">
+                <div class="text-center selections" ng-click="changeMoreFlag()">
                     {{selectPopText}}<img class="chanceImg" src="img/saleList/oval.png">
                 </div>
                 <div class="col input">
@@ -19,16 +19,11 @@
 
     <ion-content class="content has-header">
         <div>
-            <div ng-class="moreflag?'own-backDrop-on':'own-backDrop-off'"></div>
+            <div ng-class="moreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="changeMoreFlag()"></div>
             <div class="selectionsDown pushDown-animated"
                  ng-class="{'slideOutUp':!moreflag&&isDropShow,'slideInDown':moreflag}" ng-show="moreflag">
                 <ion-list>
-                    <ion-item>CATL销售</ion-item>
-                    <ion-item>正式客户</ion-item>
-                    <ion-item>CATL销售</ion-item>
-                    <ion-item>正式客户</ion-item>
-                    <ion-item>CATL销售</ion-item>
-                    <ion-item>正式客户</ion-item>
+                    <ion-item ng-repeat="x in relationsPopArr" ng-class="{'selected':x.text==selectPopText}" ng-click="selectPop_rel(x)">{{x.text}}</ion-item>
                 </ion-list>
             </div>
         </div>

@@ -7223,7 +7223,8 @@ a.button {
   display: none; }
 
 .keyboard-open .tabs.hide-on-keyboard-open + .pane .has-tabs, .keyboard-open .bar-footer.hide-on-keyboard-open + .pane .has-footer {
-  bottom: 0; }
+  bottom: 0;
+}
 
 .inline {
   display: inline-block; }

@@ -1,23 +1,13 @@
 #worksheet_sparePart{
-
-  ion-header-bar{
-    background-color: $crm-header-bar-bgcolor;
-    .rowTitle{
-      margin-right: 0px;
-      margin-left: 0px;
-    }
-    .left-back{
-      font-size: 1.8rem;
-      margin-left:-15px
-    }
-  }
   .backColor{
    background-color: white
   }
   .textInfo{
-    margin-left: 3px;
-    font-size: 15px;
+    width: 25%;
+    font-size: 16px;
     color: white;
+    height: 27px;
+    line-height: 27px;
   }
   ion-content{
     //background-color: $crm-content-bgcolor;
@@ -25,13 +15,21 @@
     @include flex-direction(column);
 
   }
+  $diy:#92CB3A !default;
+  //$diyS:white !default;
+  $checkbox-off-border-diy:$diy !default;
+  $checkbox-on-border-diy:$diy !default;
+  .checkbox-diy{
+    @include checkbox-style($checkbox-off-border-diy, $checkbox-on-border-diy, $checkbox-off-border-diy);
+  }
   .line{
     width: 95%;
+    margin: 0;
   }
   .inputSmall{
     background-color: #ECF0F0;
     width: 50%;
-    height: 25px;
+    height: 18px;
     margin:auto;
     //margin-top: 10px;
     border-radius:5px;
@@ -40,7 +38,7 @@
   }
   .iStyle{
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 17px;
     vertical-align: middle;
     color: #276DAC;
   }
@@ -63,9 +61,47 @@
 
 
 #worksheet_spareSelect{
+  .saleListNew {
+    .pub-head{
+      background: $crm-subject-blue;
+      color: white;
+      padding-top: 5px;
+      i{
+        font-size: 25px;
+      }
+      .goBack{
+        padding-left: 10px;
+      }
+      .add{
+        text-align: right;
+        padding-right: 10px;
+        img{
+          width: 25px;
+          padding-top: 4px;
+        }
+      }
+    }
+    .pub-subhead{
+      background: $crm-subject-blue;
+      box-shadow: none;
+      top:44px;
+      padding:8px;
+      display: flex;
+      .row{
+        background: white;
+        border-radius: 5px;
+        color: #A0A09F;
+        font-size: 14px;
+        i{
+          font-size: 18px;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
 
   ion-header-bar{
-    background-color: $crm-header-bar-bgcolor;
+    background-color: $crm-subject-blue;
     .rowTitle{
       margin-right: 0px;
       margin-left: 0px;
@@ -79,9 +115,11 @@
     background-color: white
   }
   .textInfo{
-    margin-left: 3px;
-    font-size: 15px;
+    width: 25%;
+    font-size: 16px;
     color: white;
+    height: 27px;
+    line-height: 27px;
   }
   ion-content{
     //background-color: $crm-content-bgcolor;
@@ -90,19 +128,22 @@
 
   }
   .itemAdd{
-    padding: 5px 16px 1px 16px;
+    padding: 5px 15px 1px 15px;
   }
   .itemDetail{
-    border-bottom: 1px solid #D6D3CE;padding: 5px 16px 5px 16px
+    border-bottom: 1px solid #D6D3CE;padding: 5px 0px 5px 0px
   }
   .line{
     margin: 5px 0 0 0;
   }
   .little{
-    font-size: 8px;
+    font-size: 10px;
   }
   .colorInfo{
     color: #3259A4;
+  }
+  .numDetail{
+    padding: 5px 0 5px 5px
   }
   .pic{
     height: 14px;width: 14px;border-radius: 7px;border: 2px solid #92CB3A;

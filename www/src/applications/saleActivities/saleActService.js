@@ -63,7 +63,23 @@ salesModule.factory('saleActService', function () {
         startTime:'2016-4-4',
         type:'放假性活动',
         status:'未处理'
-    }]
+    }];
+    var createPopTypes = [{
+       text:'业务交流'
+    },{
+        text:'事务性活动'
+    },{
+        text:'关系维护'
+    },{
+        text:'技术交流'
+    }];
+    var createPopOrgs = [{
+       text:'公司间'
+    },{
+        text:'内销'
+    },{
+        text:'外销'
+    }];
     return{
         getStatusArr: function () {
             return statusArr;
@@ -73,6 +89,12 @@ salesModule.factory('saleActService', function () {
         },
         getSaleListArr: function () {
             return saleListArr;
+        },
+        getCreatePopTypes: function () {
+            return createPopTypes;
+        },
+        getCreatePopOrgs: function () {
+            return createPopOrgs;
         }
     };
 });

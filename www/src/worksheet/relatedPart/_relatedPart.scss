@@ -1,14 +1,12 @@
 #worksheet_relatedPart{
 
   ion-header-bar{
-    background-color: $crm-header-bar-bgcolor;
+    font-size: 16px;
+    font-weight:bold ;
+    background-color: $crm-subject-blue;
     .rowTitle{
       margin-right: 0px;
       margin-left: 0px;
-    }
-    .left-back{
-      font-size: 1.8rem;
-      margin-left:-15px
     }
   }
   ion-content{
@@ -17,7 +15,9 @@
     @include flex-direction(column);
 
   }
-
+  .deleteButt{
+    background-color:#EA0000;width: 60%;margin-left: 20%;border-radius: 10px;color:white;font-weight: bold;font-size: 17px;
+  }
   .relatedPart_list{
     font-size: 16px;
     color: #4A4A4A;

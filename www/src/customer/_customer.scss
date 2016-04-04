@@ -44,7 +44,8 @@
     bottom: 0;
   }
   .customer_backtop{
-    background: url("../../img/employee/BAR-BG@2x.png") no-repeat center;
+   background: url("../../img/saleDetail/BG1.png") no-repeat;
+    background-size: 100% 100%;
     width:100%;
   }
   .customer_detailtitle{
@@ -66,7 +67,7 @@
 
   .customer_detailtitleview{
     height:44px;
-    line-height:44px;
+    //line-height:44px;
     text-align: center;
     .customerdeatil_headtitleiview{
       font-size: 40px;
@@ -84,7 +85,7 @@
 
   .customer_detailname{
     position: absolute;
-    top: 17px;
+    top:26px;
     font-size:14px;
     width: 80%;
     margin-left: 13%;

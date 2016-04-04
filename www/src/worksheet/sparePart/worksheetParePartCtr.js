@@ -6,20 +6,20 @@ worksheetModule.controller("WorksheetSparepartCtrl",["$scope",
     ionicMaterialInk.displayEffect();
         $scope.infos = [{
           name : "400A高压熔断器",
-            code : 20,
-            num  : 12,
+            code : 13099,
+            num  : 1,
             selectNum : 0
         },{
             name : "msd上盖",
-            code : 20,
-            num  : 12,
+            code : 13099,
+            num  : 1,
             selectNum : 0
         },{
             name : "六角头",
-            code : 20,
-            num  : 12,
+            code : 13099,
+            num  : 1,
             selectNum : 0
-        }]
+        },]
         $scope.add = function(item){
             item.selectNum += 1;
             console.log(angular.toJson($scope.infos));
@@ -71,10 +71,10 @@ worksheetModule.controller("WorksheetPareSelectCtrl",["$scope",
                 detail : [{
                     nameDetais : "六头（CATL）",
                     code : "13132-3132",
-                    sqq : 30,
-                    yfq : 20,
+                    sqq : 10,
+                    yfq : 10,
                     yhq : 10,
-                    jjq : 20,
+                    jjq : 10,
                     remark : "由于库存不足，暂时发20个"
                 },
                     {

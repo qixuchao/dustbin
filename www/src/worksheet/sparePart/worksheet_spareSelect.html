@@ -1,31 +1,30 @@
 
 <ion-view  id="worksheet_spareSelect"  align-title="center">
-    <ion-header-bar align-title="center" class="bar-positive" >
-        <div class="row row-center title rowTitle" >
-            <div class="col col-15 left-back" ng-click="$ionicGoBack();">
-                <i class="ion-ios-arrow-back left"></i>
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-60 text-center">备件申请
+                </div>
+                <div class="col col-25 text-right" >重新选择</div>
             </div>
-            <div class="col col-70 text-center">备件申请
+        </ion-header-bar>
+        <div class="pub-subhead bar bar-subheader">
+            <div class="row row-center" style="width: 70%" ng-click="changeSearch()">
+                <i class="ion-ios-search"></i>请输入备件描述
             </div>
-            <div class="col col-15 text-right">重新选择</div>
+            <div class="textInfo text-right row-center" style="width: 30%">传输至SAP</div>
         </div>
-    </ion-header-bar>
-
-    <ion-header-bar  class="bar bar-subheader" >
-        <div class="list  search-bar">
-            <div class="bar item-input-inset" style="background-color: #3259A4; ">
-                <label class="item-input-wrapper" style="background-color: white;margin-left:10px">
-                    <i class="icon ion-ios-search placeholder-icon" class="backColor"></i>
-                    <input type="search" placeholder="请输入备件描述" class="backColor">
-                </label>
-                <a class="textInfo">
-                    传输至SAP
-                </a>
-            </div>
-        </div>
-    </ion-header-bar>
-    <ion-content class="" style="" scroll="" has-bouncing="false" style="padding-top: 15px">
-
+        <!--<div class="pub-subhead bar bar-subheader">-->
+            <!--<div class="row row-center" style="width: 75%;border-radius: 6px;background-color: white;padding: 5px;" ng-click="changeSearch()">-->
+                <!--<div class="col col-10">-->
+                <!--<i class="ion-ios-search" style="font-size: 18px; position: relative;color: #9A9AA0;"></i></div>-->
+                <!--<input type="text" class="search-input" style="height:27px;min-height:27px;width: 90%;border: none; position: relative;" placeholder="请输入备件描述">-->
+            <!--</div>-->
+            <!--<div class="textInfo text-right row-center">传输至SAP</div>-->
+        <!--</div>-->
+    </div>
+    <ion-content class=""  has-bouncing="false" style="margin-top: 46px">
         <div class="list" style="background-color: white" >
             <div class="item itemAdd" ng-repeat="items in spareDetail">
                 <div class="row" ng-click="showDetail(items)">
@@ -35,12 +34,12 @@
                 <div align="center"><hr color="#276DAC" class="line" size="2"></div>
                     <div class="item itemDetail" style="" ng-repeat="item in items.detail" ng-hide="items.flag">
                         <div class="row">
-                            <div class="col-65">
+                            <div class="col-75">
                                 <div class="row">
-                                    <div class="col-13">
+                                    <div class="col-13 col-center">
                                         <div  class="pic"style=""></div>
                                     </div>
-                                    <div class="col-80">
+                                    <div class="col-80 col-center">
                                         <h2 style="">{{item.nameDetais}}</h2>
                                     </div>
                                 </div>
@@ -48,14 +47,15 @@
                                     备件编码：{{item.code}}
                                 </p>
                             </div>
-                            <div class="col-35">
-                                <img ng-src="img/transfer@3x.png" style="height: 50px;width: 50px;float :right">
+                            <div class="col-25 col-center">
+                                <img ng-src="img/worksheet/transfer@3x.png" style="height: 50px;width: 50px;float :right;margin-right: 15px">
                             </div>
                         </div>
-                        <div class="row">
-                            <p class="little">
-                                申请数量：{{item.sqq}}  已发数量：{{item.yfq}} 已还数量：{{item.yhq}} 旧件数量：{{item.jjq}}
-                            </p>
+                        <div class="row" style="padding: 0">
+                            <div class="col col-25 numDetail"><p class="little">申请数量:{{item.sqq}}</p></div>
+                            <div class="col col-25 numDetail "><p class="little">已发数量:{{item.yfq}}</p></div>
+                            <div class="col col-25 numDetail"><p class="little">已还数量:{{item.yhq}}</p></div>
+                            <div class="col col-25 numDetail"><p class="little">旧件数量:{{item.jjq}}</p></div>
                         </div>
                         <div class="row">
                             <p class="colorInfo">
