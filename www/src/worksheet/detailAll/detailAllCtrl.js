@@ -643,7 +643,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			    $scope.initMoreModal(sourceClassName);
 			};
 			$scope.initMoreModal = function(sourceClassName){
-
 					var eleJQ = angular.element('.'+sourceClassName);
 					var elePos = $ionicPosition.position(eleJQ) || $ionicPosition.offset(eleJQ);		
 					var left = elePos.left + elePos.width/2;
@@ -675,8 +674,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			$scope.editNewCar = function(){
 				// TODO
 			};
-
-
+			
         	$scope.config = {
 				scrollDelegateHandler: null,
 				contentDetegateHandler: null,
@@ -785,7 +783,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					handleResult: 'In the thmultuous business of cutting-in and attending to a whale, there is much running backwards and forwards among',
 				}
 			};
-
+			
             ionicMaterialInk.displayEffect();
             $scope.statusArr = [{
 			        value: '未处理',

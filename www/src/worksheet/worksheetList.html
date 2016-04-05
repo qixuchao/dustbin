@@ -35,7 +35,7 @@
     	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);">
     		<div class="search-box">
 	            <i class="icon ion-ios-search-strong"></i>
-	            <input ng-model="config.searchText" ng-change="onSearchTextChange($event);" type="text" placeholder="{{config.searchPlaceholder}}">
+	            <input ng-model="config.searchText" style="font-size: 12px;" ng-change="onSearchTextChange($event);" type="text" placeholder="{{config.searchPlaceholder}}">
 	        </div>
     	</div>
         
@@ -127,8 +127,8 @@
                         <div canNotClickEnterListMode class="filter-status-wrapper">
                             <div class="filter-title filter-status-title">状态</div>
                             <div class="filter-status">
-                                <div class="filter-statu" ng-class="{'selected':config.filterStatusNew}" ng-click="selectFilterStatus()">新建</div>
-                                <div class="filter-statu" ng-class="{'selected':config.filterStatusSendedWorker}" ng-click="selectFilterStatus()">已派工</div>
+                                <div class="filter-statu" ng-class="{'selected':config.filterStatusNew}" ng-click="selectFilterStatus('filterStatusNew')">新建</div>
+                                <div class="filter-statu" ng-class="{'selected':config.filterStatusSendedWorker}" ng-click="selectFilterStatus('filterStatusSendedWorker')">已派工</div>
                                 <div class="filter-statu" ng-class="{'selected':config.filterStatusRefused}" ng-click="selectFilterStatus('filterStatusRefused')">已拒绝</div>
                                 <div class="filter-statu" ng-class="{'selected':config.filterStatusHandling}" ng-click="selectFilterStatus('filterStatusHandling')">
                                     处理中
@@ -153,7 +153,7 @@
                 <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
                     <ion-scroll class="fill-parent"  on-refresh="" has-bouncing="false">
                         <div class="list">
-                            <div class="item animated " ng-class="{'flipInY':(config.showListItemAnimate)}" ng-repeat="item in datas.testDates" >
+                            <div class="item animated " ng-class="{'flipInX':(config.showListItemAnimate)}" ng-repeat="item in datas.testDates" >
                                 <div class="left">
                                     <div class="row item-line">
                                         <div class="col-28 name">工单描述:</div>
@@ -180,7 +180,7 @@
                             </div>         
                         </div>
                         <div class="loading-more">
-                            点击加载更多内容...
+                            点击加载更多...
                         </div>  
                     </ion-scroll>                                   
                 </div>

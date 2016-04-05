@@ -64,7 +64,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		timeEnd: '20150609',
 
 
-		searchPlaceholder: '请输入服务订单描述',
+		searchPlaceholder: '请输入服务工单描述or车辆描述or服务工单编号',
 
 		showListItemAnimate: false,
 
@@ -353,76 +353,33 @@ worksheetModule.controller("WorksheetListCtrl",[
 	
 	$scope.selectFilterType = function(filterName){ // localService、batchUpdate、newcarOnline
 		if(filterName == 'localService'){
-			$scope.config.filterLocalService = true;
-			$scope.config.filterNone = false;
-			$scope.config.filterBatchUpdate = false;
-			$scope.config.filterNewCarOnline = false;
+			$scope.config.filterLocalService = !$scope.config.filterLocalService;
 		}else if(filterName == 'batchUpdate'){
-			$scope.config.filterLocalService = false;
-			$scope.config.filterNone = false;
-			$scope.config.filterBatchUpdate = true;
-			$scope.config.filterNewCarOnline = false;
+			$scope.config.filterBatchUpdate = !$scope.config.filterBatchUpdate;
 		}else if(filterName == 'newcarOnline'){
-			$scope.config.filterLocalService = false;
-			$scope.config.filterNone = false;
-			$scope.config.filterBatchUpdate = false;
-			$scope.config.filterNewCarOnline = true;
+			$scope.config.filterNewCarOnline = !$scope.config.filterNewCarOnline;
 		}else{
-			$scope.config.filterLocalService = false;
-			$scope.config.filterNone = true;
-			$scope.config.filterBatchUpdate = false;
-			$scope.config.filterNewCarOnline = false;
+			$scope.config.filterNone = !$scope.config.filterNone;
 		}
 	};
-	$scope.selectFilterImpact = function(impactName){ // damage height middle low none
-		if(!impactName){
-			$scope.config.filterImpactDamage =false;
-			$scope.config.filterImpactHeight = false;
-			$scope.config.filterImpactMiddle = false;
-			$scope.config.filterImpactLow = false;
-			$scope.config.filterImpactNone = false;
-			$scope.config.filterImpactNoSelected = true;
-		}
+
+	$scope.selectFilterImpact = function(impactName){   // damage height middle low none	
 		if(impactName == 'damage'){
-			$scope.config.filterImpactDamage =true;
-			$scope.config.filterImpactHeight = false;
-			$scope.config.filterImpactMiddle = false;
-			$scope.config.filterImpactLow = false;
-			$scope.config.filterImpactNone = false;
-			$scope.config.filterImpactNoSelected = false;
+			$scope.config.filterImpactDamage = !$scope.config.filterImpactDamage;
 		}else if(impactName == 'height'){
-			$scope.config.filterImpactDamage =false;
-			$scope.config.filterImpactHeight = true;
-			$scope.config.filterImpactMiddle = false;
-			$scope.config.filterImpactLow = false;
-			$scope.config.filterImpactNone = false;
-			$scope.config.filterImpactNoSelected = false;
+			$scope.config.filterImpactHeight = !$scope.config.filterImpactHeight;
 		}else if(impactName == 'middle'){
-			$scope.config.filterImpactDamage =false;
-			$scope.config.filterImpactHeight = false;
-			$scope.config.filterImpactMiddle = true;
-			$scope.config.filterImpactLow = false;
-			$scope.config.filterImpactNone = false;
-			$scope.config.filterImpactNoSelected = false;
+			$scope.config.filterImpactMiddle = !$scope.config.filterImpactMiddle;
 		}else if(impactName == 'low'){
-			$scope.config.filterImpactDamage =false;
-			$scope.config.filterImpactHeight = false;
-			$scope.config.filterImpactMiddle = false;
-			$scope.config.filterImpactLow = true;
-			$scope.config.filterImpactNone = false;
-			$scope.config.filterImpactNoSelected = false;
+			$scope.config.filterImpactLow = !$scope.config.filterImpactLow;
 		}else if(impactName == 'none'){
-			$scope.config.filterImpactDamage =false;
-			$scope.config.filterImpactHeight = false;
-			$scope.config.filterImpactMiddle = false;
-			$scope.config.filterImpactLow = false;
-			$scope.config.filterImpactNone = true;
-			$scope.config.filterImpactNoSelected = false;
+			$scope.config.filterImpactNone = !$scope.config.filterImpactNone;
 		}
 	};
+	
 	$scope.selectFilterStatus = function(statusName){
-		__resetStatus();
-		$scope.config[statusName] = true;
+		//__resetStatus();
+		$scope.config[statusName] = !$scope.config[statusName];
 	}
 	function __resetStatus(){
 		var status = ['filterStatusNew','filterStatusSendedWorker',
