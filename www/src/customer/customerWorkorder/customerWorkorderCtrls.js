@@ -209,29 +209,29 @@ customerWorkorderModule
         $scope.customerWorkorderetypelsit = [{
             typename: '现场维修工作',
             typeflag:false
-        },{  typename: '批量工作',
+        },{  typename: '批量改进工单',
             typeflag:false
         },{
-            typename: '现场维修工作',
+            typename: '新车上线工单',
             typeflag:false
         },{
-            typename: '现场维修工作(服务商)',
+            typename: '现场维修工单(服务商)',
             typeflag:false
         },{
-            typename: '现场维修工作(服务商)',
+            typename: '批量改进工单(服务商)',
             typeflag:false
         },{
-            typename: '现场维修工作(服务商)',
+            typename: '新车上线工单(服务商)',
             typeflag:false
         }];
         $scope.customerWorkordertypetlsitlenth = $scope.customerWorkorderetypelsit.length;
         $scope.customerWorkTypeset = function(x,index){
             x.typeflag = !x.typeflag;
-            for(var i=0;i<$scope.customerWorkordertypetlsitlenth;i++){
-                if(i != index) {
-                    $scope.customerWorkorderetypelsit[i].typeflag = false;
-                }
-            }
+            //for(var i=0;i<$scope.customerWorkordertypetlsitlenth;i++){
+            //    if(i != index) {
+            //        $scope.customerWorkorderetypelsit[i].typeflag = false;
+            //    }
+            //}
         }
 
         //影响程度数据
@@ -253,12 +253,12 @@ customerWorkorderModule
         $scope.customerWorkordereffictlsitlenth = $scope.customerWorkordereffictlsit.length;
         $scope.customerWorkEffctset = function(x,index){
             x.effflag = !x.effflag;
-            for(var i=0;i<$scope.customerWorkordereffictlsitlenth;i++){
-                if(i != index) {
-                    $scope.customerWorkordereffictlsit[i].effflag = false;
-                }
-
-            }
+            //for(var i=0;i<$scope.customerWorkordereffictlsitlenth;i++){
+            //    if(i != index) {
+            //        $scope.customerWorkordereffictlsit[i].effflag = false;
+            //    }
+            //
+            //}
         };
         //重置按钮
         $scope.customerWorkorderReset = function(){

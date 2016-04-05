@@ -16,7 +16,6 @@ salesModule
         function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, ionicMaterialInk,
                   ionicMaterialMotion, saleActService, Prompter) {
             console.log('销售活动列表');
-            $scope.saleTitleText = '销售活动';
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
             }, 100);
@@ -26,7 +25,7 @@ salesModule
             $scope.saleListArr = saleActService.getSaleListArr();
             $scope.hisArr = [
                 '福州', '清明', '活动'
-            ];
+            ]
             $scope.changeSearch = function () {
                 $scope.searchFlag = !$scope.searchFlag;
                 $('#searchTitle').removeClass('animated');
@@ -76,11 +75,6 @@ salesModule
                 console.log($scope.pop);
                 $scope.createPop.hide();
                 $scope.createModal.show();
-                //console.log(document.getElementsByClassName('modal-wrapper'));
-                var tempArr = document.getElementsByClassName('modal-wrapper');
-                for(var i=0;i<tempArr.length;i++){
-                    tempArr[i].style.pointerEvents = 'auto';
-                }
             };
             /*-------------------------------Pop 新建 end-------------------------------------*/
             /*-------------------------------Modal 新建-------------------------------------*/
@@ -222,7 +216,6 @@ salesModule
                     $scope.showTitle = true;
                     if (position > 26) {
                         $scope.customerFlag = true;
-                        $('#testCustomerId').fadeOut();
                     } else {
                         $scope.customerFlag = false;
                     }
@@ -273,7 +266,8 @@ salesModule
                     minutes = "0" + date.getMinutes();
                 } else {
                     minutes = date.getMinutes();
-                };
+                }
+                ;
                 //小时
                 if (date.getHours().toString().length < 2) {
                     hour = "0" + date.getHours();
@@ -281,7 +275,8 @@ salesModule
                 } else {
                     hour = date.getHours();
                     time = hour + ":" + minutes;
-                };
+                }
+                ;
                 return dateTemp + " " + time;
             };
             var getOptions = function (date, mode, text) {

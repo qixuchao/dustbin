@@ -21,13 +21,17 @@ ContactsModule
                 url:""
             },
             {
-                type:"手动创建新联系人",
+                type:"常用联系人",
                 url:'ContactCreate'
             }
         ];
         $scope.ContactsqueryType = function(type){
             if(type.url){
                 $state.go(type.url);
+                //从联系人进入创建联系人界面设置一个标记
+                if(type.type == "常用联系人"){
+                    contactService.set_ContactCreateflag();
+                }
             }
             $scope.Contactspopover.hide();
         }
@@ -79,6 +83,7 @@ ContactsModule
         }
         $scope.Contacts_showTitle = false;
         $scope.Contacts_TitleFlag=false;
+        $scope.Contacts_TitletranstionFlag = false;
 
         var Contacts_position;
         $scope.customerContacts_onScroll = function () {
@@ -86,7 +91,6 @@ ContactsModule
             if (Contacts_position > 16) {
                 $scope.Contacts_TitleFlag = true;
                 $scope.Contacts_showTitle = true;
-
                 if (Contacts_position > 20) {
                     $scope.Contacts_customerFlag = true;
                 } else {
@@ -97,25 +101,32 @@ ContactsModule
                 } else {
                     $scope.Contacts_placeFlag = false;
                 }
-                if (Contacts_position > 44) {
+                if (Contacts_position > 50) {
                     $scope.Contacts_addressFlag = true;
                 } else {
                     $scope.Contacts_addressFlag = false;
                 }
-                if (Contacts_position > 68) {
+                if (Contacts_position > 80) {
                     $scope.Contacts_empolFlag = true;
                 } else {
                     $scope.Contacts_empolFlag = false;
                 }
-                if (Contacts_position > 80) {
+                if (Contacts_position > 95) {
                     $scope.Contacts_phoneFlag = true;
                 } else {
                     $scope.Contacts_phoneFlag = false;
                 }
-                if (Contacts_position > 95) {
+                if (Contacts_position > 120) {
                     $scope.Contacts_mobileFlag = true;
                 } else {
                     $scope.Contacts_mobileFlag = false;
+                }
+                if (Contacts_position > 154) {
+                    $scope.Contacts_showTitle = false;
+                    $scope.Contacts_TitletranstionFlag = true;
+                }else{
+                    $scope.Contacts_showTitle = true;
+                    $scope.Contacts_TitletranstionFlag = false;
                 }
             } else {
                 $scope.Contacts_customerFlag = false;
@@ -125,6 +136,7 @@ ContactsModule
                 $scope.Contacts_empolFlag = false;
                 $scope.Contacts_showTitle = false;
                 $scope.Contacts_TitleFlag=false;
+                $scope.customer_showtarnsitionTitle = false;
 
             }
             $scope.$apply();
@@ -143,14 +155,13 @@ ContactsModule
         //广播修改数据
         $rootScope.$on('contactEditvalue', function(event, data) {
             $scope.customerdetails = contactService.get_ContactsListvalue();
-            console.log(contactService.get_ContactsListvalue())
         });
 
         $scope.contact_deatilgoedit = function(){
             $state.go("ContactsEdit");
         }
     }])
-    .controller('contactCreateCtrl',['$scope','$rootScope','$state','Prompter','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$state,Prompter,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+    .controller('contactCreateCtrl',['$scope','$rootScope','$ionicHistory','$state','Prompter','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,Prompter,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
         $scope.contactcreat = {
             name:'',
             contacteditename:'',
@@ -163,9 +174,15 @@ ContactsModule
         $scope.contactKeepCreatevalue = function(){
             contactService.set_ContactCreatevalue($scope.contactcreat);
             //广播修改详细信息界面的数据
-            $rootScope.$broadcast('contactCreatevalue');
-            $state.go('ContactQuery');
-
+            if(contactService.get_ContactCreateflag() == true){
+                contactService.set_ContactCreateflagfalse();
+                $rootScope.$broadcast('contactCreatevalue');
+                //$state.go('ContactQuery');
+            }else{
+                $rootScope.$broadcast('customercontactCreatevalue');
+                $state.go('customerContactQuery');
+            }
+            $ionicHistory.goBack(-2);
         }
     }])
     .controller('contactEditCtrl',['$scope','$rootScope','$state','Prompter','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$state,Prompter,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){

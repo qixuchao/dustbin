@@ -114,18 +114,14 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/employee/customerList.html',
                 controller: 'customerListCtrl'
             })
-            .state('saleChanList', {
-                url: 'apps/saleChanList',
-                templateUrl: 'src/applications/saleActivities/saleAct_List.html',
-                controller: 'saleChanListCtrl'
-            })
             .state('saleChanDetail', {
-                url: 'apps/saleChanList/detail',
+                url: 'apps/saleChanSearch/detail',
                 templateUrl: 'src/applications/saleChance/chanceDetail.html',
                 controller: 'saleChanDetailCtrl'
             })
             //联系人
             .state('ContactQuery', {
+                cache:false,
                 url: '/contactQuery',
                 templateUrl: 'src/contacts/contactQuery.html',
                 controller: 'contactQueryCtrl'
@@ -135,11 +131,14 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/contacts/contactDetail.html',
                 controller: 'contactDetailCtrl'
             })
+            //联系人-联系人创建+客户联系人创建界面
             .state('ContactCreate', {
+                cache:false,
                 url: '/contactsCreate',
                 templateUrl: 'src/contacts/contactCreate.html',
                 controller: 'contactCreateCtrl'
             })
+
             .state('ContactsEdit', {
                 url: '/contactEdit',
                 templateUrl: 'src/contacts/contactEdit.html',
@@ -153,6 +152,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             
             //客户
             .state('customerQuery', {
+                cache:false,
                 url: '/customerQuery',
                 templateUrl: 'src/customer/customerinfo/customerQuery.html',
                 controller: 'customerQueryCtrl'
@@ -272,7 +272,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
             .state('worksheetFaultInfos', {
                 url: '/worksheetFaultInfos',
-                templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo.html',
+                templateUrl: 'src/worksheet/faultinfos/worksheet_faultInfo.html',
                 controller: 'WorksheetFaultInfoCtrl'
             })
             .state('worksheetSparepart', {

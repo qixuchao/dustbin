@@ -6,7 +6,7 @@
             <div class="col col-70 text-center">机会详情
                 <div style="font-size: 10px">郑州金龙客车(福州)客户拜访</div>
             </div>
-            <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
+            <div class="col col-15 text-right">后续</div>
         </div>
     </div>
     <div class="top-back absolute top-back2" ng-show="showTitleStatus">
@@ -15,7 +15,7 @@
             <div class="col col-70 text-center">机会详情
                 <div style="font-size: 10px">{{chanceDetails.title}}</div>
             </div>
-            <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
+            <div class="col col-15 text-right">后续</div>
         </div>
         <div class="selector">
             <div class="detail" ng-class="{checked:select}" ng-click="changeStatus(true)">详细信息</div>
@@ -27,7 +27,7 @@
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">机会详情</div>
-                <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
+                <div class="col col-15 text-right">后续</div>
             </div>
             <div class="mainInfo">
                 <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
@@ -73,15 +73,16 @@
                 </div>
                 <div class="row no-padding-right">
                     <div class="row row-center">
-                        <div class="col" ng-disabled="!isEdit">
+                        <div class="col">
                             <div class="row">
                                 <div class="col-30 text-left">开始时间:</div>
-                                <div class="text col-70 startTime" ng-click="selectTime('start')">{{chanceDetails.startTime}}<i
+                                <div class="text col-70 startTime">2016-3-1&nbsp;&nbsp;12:00<i
                                         class="ion-arrow-down-b time-icon"></i></div>
+                                <!--<input type="datetime"  value="2014-06-01T10:55Z">-->
                             </div>
                             <div class="row endTime">
                                 <div class="col-30 text-left">结束时间:</div>
-                                <div class="text col-70" ng-click="selectTime('end')">{{chanceDetails.endTime}}<i
+                                <div class="text col-70">2016-3-1&nbsp;&nbsp;12:00<i
                                         class="ion-arrow-down-b time-icon"></i></div>
                             </div>
                         </div>

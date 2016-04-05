@@ -18,7 +18,7 @@ appModule
             go:'saleActDetail'
         },{
             url:'img/apps/saleChance.png',
-            go:'saleChanList'
+            go:'saleChanDetail'
         },{
             url:'img/apps/saleClue.png'
         },{
@@ -38,7 +38,7 @@ appModule
             ionicMaterialMotion.fadeSlideInRight({
                 selector: '.animate-fade-slide-in .col-33'
             });
-        },50);
+        },50)
 
         $scope.returnToMain = function(){
             for(var i=0;i<$scope.tabs.length;i++){
