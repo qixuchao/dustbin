@@ -48,7 +48,8 @@
                 </div>
                 <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div>状态:</div>
-                    <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select>
+                    <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr"
+                            style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
                     <div class="num">NO.100036</div>
                     <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}</div>
                 </div>
@@ -66,19 +67,21 @@
                     <div class="col-15">注释:</div>
                     <textarea rows="3" ng-readonly="!isEdit">{{details.annotate}}</textarea>
                 </div>
-                <div class="row">
+                <div class="row" style="padding-right: 0;">
                     <div class="row row-center">
-                        <div class="col col-85">
+                        <div class="col" ng-disabled="!isEdit">
                             <div class="row">
                                 <div class="col-30 text-left">开始时间:</div>
-                                <div class="text col-70 startTime" ng-disabled="!isEdit" ng-click="selectTime('start')">{{details.startTime}}</div>
+                                <div class="text col-70 startTime" ng-click="selectTime('start')">{{details.startTime}}
+                                    <i class="ion-arrow-down-b"></i></div>
                             </div>
                             <div class="row endTime">
                                 <div class="col-30 text-left">结束时间:</div>
-                                <div class="text col-70" ng-disabled="!isEdit" ng-click="selectTime('end')">{{details.endTime}}</div>
+                                <div class="text col-70" ng-click="selectTime('end')">{{details.endTime}}
+                                    <i class="ion-arrow-down-b"></i></div>
                             </div>
                         </div>
-                        <div class="col -col-10 text-right rewrite">修改</div>
+                        <!--<div class="col -col-10 text-right rewrite">修改</div>-->
                     </div>
                 </div>
                 <div class="row" ng-click="openRefer()">

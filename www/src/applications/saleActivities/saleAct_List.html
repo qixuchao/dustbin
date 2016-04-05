@@ -3,7 +3,7 @@
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
                 <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-60 text-center">销售活动</div>
+                <div class="col col-60 text-center">{{saleTitleText}}</div>
                 <div class="col col-20 add" ng-click="openCreatePop()"><img src="img/saleList/add.png"></div>
             </div>
         </ion-header-bar>
@@ -28,7 +28,7 @@
     
     <ion-content class="has-subheader content" ng-hide="searchFlag">
         <div class="list">
-            <a ui-sref="saleActDetail" class="item animated flipInX" ng-repeat="x in saleListArr">
+            <a ng-click="goDetail(x,$event)" class="item animated flipInX" ng-repeat="x in saleListArr">
                 <div class="row row-center">  
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
 
