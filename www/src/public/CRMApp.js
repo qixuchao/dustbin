@@ -272,7 +272,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
             .state('worksheetFaultInfos', {
                 url: '/worksheetFaultInfos',
-                templateUrl: 'src/worksheet/faultinfos/worksheet_faultInfo.html',
+                templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo.html',
                 controller: 'WorksheetFaultInfoCtrl'
             })
             .state('worksheetSparepart', {

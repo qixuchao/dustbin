@@ -9,11 +9,11 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	"$ionicModal",
 	"$state",
 	function($scope, $timeout, $ionicActionSheet, $ionicPosition,$ionicBackdrop, $ionicGesture, $ionicModal, $state){
-
+		
 		function __initModal(){
 			var ele = angular.element(".modal-backdrop");
 		};
-
+		
 		$scope.$on('modal.hidden', function($event, child) {
 			var modalEle = child.el;
 			var imgEle = modalEle.getElementsByTagName('img')[0];			
@@ -58,8 +58,8 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 
 		$scope.datas = {
 			showImageItem: {},
-			selectedImagesTest:[],
-			selectedImages: [
+			selectedImages:[],
+			selectedImagesTest: [
 				{	
 					filepath: '',
 					base64Str: '../../../img/login/login_bg@3x.png',
