@@ -4,13 +4,13 @@
 'use strict';
 ContactsModule
     .controller('contactQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
-        $ionicPopover.fromTemplateUrl('../src/contacts/model/contact_selec.html', {
+        $ionicPopover.fromTemplateUrl('src/contacts/model/contact_selec.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.Contactspopover = popover;
         });
-        $scope.Contactsopenpopv = function($event) {
-            $scope.Contactspopover.show($event);
+        $scope.Contactsopenpopv = function() {
+            $scope.Contactspopover.show();
         };
         $scope.ContactsPopoverhide = function() {
             $scope.Contactspopover.hide();

@@ -44445,6 +44445,8 @@ function($ionicModal, $ionicPosition, $document, $window) {
 
     var popoverCSS = {
       left: buttonOffset.left + buttonOffset.width / 2 - popoverWidth / 2
+    };  var popoverCSS = {
+      left: buttonOffset.left + buttonOffset.width / 2 - popoverWidth / 2
     };
     var arrowEle = jqLite(popoverEle[0].querySelector('.popover-arrow'));
 

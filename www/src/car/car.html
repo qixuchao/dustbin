@@ -1,13 +1,18 @@
 <ion-view class="CarList">
-    <ion-header-bar class="bar bar-header ">
+    <ion-header-bar class="head pub-head " align-title="center">
         <a class="button  button-clear ion-chevron-left backType" ng-click="goBack()"></a>
-        <div class="title"><b>车辆查询</b></div>
+        <div class="title text-center">车辆查询</div>
     </ion-header-bar>
     <ion-header-bar class="bar bar-subheader ">
-        <div class="">
+        <div class="search1" ng-show="!searchFlag">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="text" placeholder="输入客户信息" ng-model="carInfo" ng-click="changePage()">
+            <input type="text" placeholder="输入客户信息" ng-click="changePage()">
             <i class="icon ion-ios-close" ng-show="carInfo.length>0"></i>
+        </div>
+        <div class="search2" ng-show="searchFlag">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="text" placeholder="输入客户信息1" ng-model="carInfo" autofocus>
+            <i class="button button-clear" ng-click="cancelSearch()">取消</i>
         </div>
     </ion-header-bar>
 

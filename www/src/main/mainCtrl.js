@@ -10,11 +10,12 @@ mainModule
         '$timeout',
         '$ionicBackdrop',
         '$ionicPopover',
+        '$cordovaDatePicker',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'Prompter',
         function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
-                  $ionicBackdrop, $ionicPopover, ionicMaterialInk, ionicMaterialMotion,
+                  $ionicBackdrop, $ionicPopover,$cordovaDatePicker, ionicMaterialInk, ionicMaterialMotion,
                   Prompter) {
 
 
@@ -132,7 +133,7 @@ mainModule
                     }
                     daysChangedInit(select_day);
                 }
-            }
+            };
 
             var daysChangedInit = function (day) {
                 $timeout(function () {
@@ -237,6 +238,25 @@ mainModule
             $scope.doubleClick = function () {
                 console.log('doubleClick')
             };
+            //长按修改年月
+            $scope.onHold = function () {
+                var options = {
+                    date: new Date('2016/04'),
+                    mode: 'month',
+                    titleText: '请选择时间',
+                    okText: '确定',
+                    cancelText: '取消',
+                    doneButtonLabel: '确认',
+                    cancelButtonLabel: '取消',
+                    locale: 'zh_cn'
+                };
+                document.addEventListener("deviceready", function () {
+                    $cordovaDatePicker.show(options).then(function(date){
+                        alert(date);
+                    });
+
+                }, false);
+            };
             $scope.returnToday = function () {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
@@ -246,6 +266,7 @@ mainModule
                     if (page_index == 0) {
                         for (var i = 0; i < 7; i++) {
                             if (($scope.year + '/' + $scope.month + '/' + $scope.days[0].arr[i].value) == todayDate) {
+                                $scope.init();
                                 return
                             }
                         }
@@ -283,17 +304,8 @@ mainModule
                     }
                 }
 
-            }
+            };
 
-            $scope.onMonthSwipeLeft = function () {
-                //当前周一对应的日期
-                //nextDays(7);
-                alert('月份左滑')
-            }
-            $scope.onMonthSwipeRight = function () {
-                //nextDays(-7);
-                alert('月份右滑动')
-            }
             $scope.selectDay = function (x, y) {
                 if (y.value == '') {
                     return
@@ -308,16 +320,16 @@ mainModule
                 y.checked = true;
 
 
-                var tempArr=$scope.salesArr;
+                var tempArr = $scope.salesArr;
                 Prompter.showLoading('正在查询');
                 $scope.contenHideFlag = true;
                 $timeout(function () {
-                    $scope.contentArr=[];
-                },200)
+                    $scope.contentArr = [];
+                }, 200);
                 $timeout(function () {
                     $scope.contenHideFlag = false;
                     $scope.contentArr = tempArr;
-                }, 400)
+                }, 400);
                 $timeout(function () {
                     ionicMaterialMotion.fadeSlideInRight({
                         startVelocity: 3000,
@@ -327,11 +339,11 @@ mainModule
                 }, 500);
                 $scope.selectModeText = '销售活动';
 
-            }
+            };
 
             $scope.topHeight = {
                 'margin-top': '198px'
-            }
+            };
             var last_day;
             $scope.init = function () {
                 //初始化数据
@@ -605,8 +617,8 @@ mainModule
                     arr[i].style.transitionDelay = '0s';
                 }
                 $timeout(function () {
-                    $scope.thingsToDo.splice($scope.thingsToDo.indexOf(x), 1);
-                }, 10)
+                    $scope.contentArr.splice($scope.contentArr.indexOf(x), 1);
+                }, 10);
                 //$scope.thingsToDo.splice($scope.thingsToDo.indexOf(x),1);
             };
 
@@ -637,9 +649,11 @@ mainModule
                 }
                 $scope.modeFlag = x.flag;
                 $scope.showPop = false;
+
             };
             $scope.changeShowPop = function () {
                 $scope.showPop = !$scope.showPop;
+                $('#mainSelectionsId').removeClass('own-animated');
             }
         }
     ])

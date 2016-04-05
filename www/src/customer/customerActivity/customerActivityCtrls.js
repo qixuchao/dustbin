@@ -5,13 +5,13 @@
 customerActivityModule
     .controller('customerActivityQueryCtrl',['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
 
-        $ionicPopover.fromTemplateUrl('../src/customer/customerActivity/model/customerActivity_selec.html', {
+        $ionicPopover.fromTemplateUrl('src/customer/customerActivity/model/customerActivity_selec.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.customerActivitypopover = popover;
         });
-        $scope.customerActivityPopoveropen = function($event) {
-            $scope.customerActivitypopover.show($event);
+        $scope.customerActivityPopoveropen = function() {
+            $scope.customerActivitypopover.show();
         };
         $scope.customerActivityPopoverhide = function() {
             $scope.customerActivitypopover.hide();

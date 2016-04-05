@@ -58,7 +58,7 @@
         background: none;
         border: none;
         position: relative;
-        //top: -3px;
+        top: -3px;
       }
       .ion-ios-close{
         color: #CBCBCE;
@@ -211,7 +211,8 @@
         color: white !important;
         height: 28px;
         position: relative;
-        top: 2px;
+        padding:0;
+        //top: 2px;
         //border-bottom: 1px solid white;
         width: 100%;
       }
