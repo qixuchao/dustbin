@@ -10,11 +10,12 @@ mainModule
         '$timeout',
         '$ionicBackdrop',
         '$ionicPopover',
+        '$cordovaDatePicker',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'Prompter',
         function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
-                  $ionicBackdrop, $ionicPopover, ionicMaterialInk, ionicMaterialMotion,
+                  $ionicBackdrop, $ionicPopover,$cordovaDatePicker, ionicMaterialInk, ionicMaterialMotion,
                   Prompter) {
 
 
@@ -237,6 +238,25 @@ mainModule
             $scope.doubleClick = function () {
                 console.log('doubleClick')
             };
+            //长按修改年月
+            $scope.onHold = function () {
+                var options = {
+                    date: new Date('2016/04'),
+                    mode: 'month',
+                    titleText: '请选择时间',
+                    okText: '确定',
+                    cancelText: '取消',
+                    doneButtonLabel: '确认',
+                    cancelButtonLabel: '取消',
+                    locale: 'zh_cn'
+                };
+                document.addEventListener("deviceready", function () {
+                    $cordovaDatePicker.show(options).then(function(date){
+                        alert(date);
+                    });
+
+                }, false);
+            };
             $scope.returnToday = function () {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
@@ -308,12 +328,12 @@ mainModule
                 y.checked = true;
 
 
-                var tempArr=$scope.salesArr;
+                var tempArr = $scope.salesArr;
                 Prompter.showLoading('正在查询');
                 $scope.contenHideFlag = true;
                 $timeout(function () {
-                    $scope.contentArr=[];
-                },200)
+                    $scope.contentArr = [];
+                }, 200)
                 $timeout(function () {
                     $scope.contenHideFlag = false;
                     $scope.contentArr = tempArr;
@@ -637,9 +657,11 @@ mainModule
                 }
                 $scope.modeFlag = x.flag;
                 $scope.showPop = false;
+
             };
             $scope.changeShowPop = function () {
                 $scope.showPop = !$scope.showPop;
+                $('#mainSelectionsId').removeClass('own-animated');
             }
         }
     ])

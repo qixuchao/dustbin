@@ -111,10 +111,15 @@ salesModule
                 $scope.selectPersonModal.show();
             };
             $scope.closeSelectPerson = function () {
-                $scope.selectPersonflag=false;
+                $scope.selectPersonflag = false;
                 $scope.selectPersonModal.hide();
                 //arr[0].className = 'modal-backdrop hide';
             };
+            $scope.$on('$destroy', function() {
+                $scope.createPop.remove();
+                $scope.createModal.remove();
+                $scope.selectPersonModal.remove();
+            });
             /*-------------------------------Modal 新建 end-------------------------------------*/
         }])
     .controller('saleActDetailCtrl', [
@@ -129,11 +134,12 @@ salesModule
         '$ionicModal',
         '$ionicPopover',
         '$cordovaToast',
+        '$cordovaDatePicker',
         'saleActService',
         'Prompter',
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, saleActService, Prompter) {
+                  $cordovaToast, $cordovaDatePicker, saleActService, Prompter) {
             ionicMaterialInk.displayEffect();
             $scope.statusArr = saleActService.getStatusArr();
             $scope.mySelect = {
@@ -141,8 +147,8 @@ salesModule
             };
             $scope.details = {
                 annotate: 'In the tumultuous business of cutting-in and attending to a whale, there is much running backwards and forwards among',
-                startTime: '2016-3-1  12:00',
-                endTime: '2016-3-1  12:00',
+                startTime: '2016/3/1 12:00',
+                endTime: '2016/3/1 12:00',
                 refer: '商机-郑州客车销售机会'
             };
             $scope.isEdit = false;
@@ -251,6 +257,77 @@ salesModule
                 $scope.$apply();
 
             };
+            /*------------------------------------选择时间------------------------------------*/
+            var getFormatTime = function (date) {
+                var dateTemp, minutes, hour, time;
+                dateTemp = date.format("yyyy/M/d");
+                //分钟
+                if (date.getMinutes().toString().length < 2) {
+                    minutes = "0" + date.getMinutes();
+                } else {
+                    minutes = date.getMinutes();
+                }
+                ;
+                //小时
+                if (date.getHours().toString().length < 2) {
+                    hour = "0" + date.getHours();
+                    time = hour + ":" + minutes;
+                } else {
+                    hour = date.getHours();
+                    time = hour + ":" + minutes;
+                }
+                ;
+                return dateTemp + " " + time;
+            };
+            var getOptions = function (date, mode, text) {
+                return {
+                    date: new Date(date),
+                    mode: mode,
+                    titleText: text + '时间',
+                    okText: '确定',
+                    cancelText: '取消',
+                    doneButtonLabel: '确认',
+                    cancelButtonLabel: '取消',
+                    locale: 'zh_cn'
+                }
+            };
+            //var formatTime = function (date) {
+            //    date = new Date(date);
+            //    var year = date.getFullYear();
+            //    var month = getDoubleStringTime(date.getMonth() + 1);
+            //    var day = getDoubleStringTime(date.getDate());
+            //    var minutes = getDoubleStringTime(date.getMinutes());
+            //    var hour = getDoubleStringTime(date.getHours());
+            //    return year + '/' + month + '/' + day + ' ' + hour + ':' + minutes;
+            //};
+            //var getDoubleStringTime = function (time) {
+            //    time = new String(time);
+            //    if (time.length == 1) {
+            //        return "0" + time;
+            //    }
+            //    return time;
+            //};
+            $scope.selectTime = function (type) {
+                //iOS平台
+                if (type == 'start') {
+                    var options = getOptions(new Date($scope.details.startTime).format('yyyy/MM/dd hh:ss'), 'datetime', '开始');
+                    document.addEventListener("deviceready", function () {
+                        $cordovaDatePicker.show(options).then(function (iosDate) {
+                            $scope.details.startTime = getFormatTime(iosDate);
+                        });
+                    }, false);
+                } else {
+                    var options = getOptions(new Date($scope.details.endTime).format('yyyy/MM/dd hh:ss'), 'datetime', '结束');
+                    document.addEventListener("deviceready", function () {
+                        $cordovaDatePicker.show(options).then(function (iosDate) {
+                            $scope.details.endTime = getFormatTime(iosDate);
+                        });
+                    }, false);
+                }
+            };
+            /*----------------------------------选择时间  end------------------------------------*/
+
+
             $scope.input = {
                 progress: ''
             };
