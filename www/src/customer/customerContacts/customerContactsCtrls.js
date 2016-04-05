@@ -5,13 +5,13 @@
 customerContactsModule
     .controller('customerContactQueryCtrl',['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
 
-        $ionicPopover.fromTemplateUrl('../src/customer/model/customercontact_selec.html', {
+        $ionicPopover.fromTemplateUrl('src/customer/model/customercontact_selec.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.customerContactspopover = popover;
         });
-        $scope.customerContactsopenpopv = function($event) {
-            $scope.customerContactspopover.show($event);
+        $scope.customerContactsopenpopv = function() {
+            $scope.customerContactspopover.show();
         };
         $scope.customerContactsPopoverhide = function() {
             $scope.customerContactspopover.hide();

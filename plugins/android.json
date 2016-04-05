@@ -11,6 +11,7 @@
                         {
                             "xml": "<feature name=\"Clipboard\"><param name=\"android-package\" value=\"com.verso.cordova.clipboard.Clipboard\" /></feature>",
                             "count": 1
+
                         },
                         {
                             "xml": "<feature name=\"Base64\"><param name=\"android-package\" value=\"com.joewsh.Base64.Base64Plugin\" /></feature>",
@@ -53,10 +54,21 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"StatusBar\"><param name=\"android-package\" value=\"org.apache.cordova.statusbar.StatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "xml": "<feature name=\"Base64\"><param name=\"android-package\" value=\"com.joewsh.Base64.Base64Plugin\" /></feature>",
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -96,6 +108,7 @@
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-base64-joewsh": {
+
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-camera": {
@@ -116,9 +129,12 @@
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
-        "cordova-plugin-statusbar": {
+        "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
+
+        "cordova-plugin-console": {
+
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },

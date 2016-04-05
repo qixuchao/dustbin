@@ -2538,6 +2538,12 @@ Copyright (c) 2015 Daniel Eden
   left: 2%;
   z-index: 1; }
 
+.platform-android .popover-backdrop, .platform-android .popover-backdrop.active {
+  background-color: rgba(0, 0, 0, 0.5); }
+
+.popover-backdrop.active {
+  background-color: rgba(0, 0, 0, 0.5); }
+
 /*公共样式 end*/
 /*首页*/
 .own-backDrop-on {
@@ -2939,9 +2945,8 @@ Copyright (c) 2015 Daniel Eden
 .login {
   background: url(../../img/login/login_bg@3x.png);
   background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
-  background-size: cover; }
+  background-size: cover;
+  width: 100%; }
 
 .login .scroll {
   height: 0; }
@@ -5843,18 +5848,18 @@ Copyright (c) 2015 Daniel Eden
   left: 0;
   z-index: 0;
   overflow: hidden;
-  margin: 0 10px;
   min-width: 30px;
+  padding: 5px;
   height: 43px;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
-  font-weight: 100;
-  color: #fafafa; }
+  color: #fff; }
 
 .CarList .bar.bar-header .button + .title {
-  text-align: center; }
+  text-align: center;
+  line-height: 44px; }
 
 .CarList .bar {
   border-bottom: none;
@@ -5867,39 +5872,61 @@ Copyright (c) 2015 Daniel Eden
   border-bottom: none;
   padding: 0;
   background-size: 0;
-  padding-top: 5px; }
+  padding-top: 10px; }
   .CarList .bar-header .button-clear {
     color: #fff;
-    padding-top: 0.6em;
     font-size: 22px; }
   .CarList .bar-header .ion-chevron-left {
     width: 12px; }
 
 .CarList .bar-subheader {
   height: 43px;
-  display: block; }
-  .CarList .bar-subheader .placeholder-icon {
+  display: block;
+  padding: 8px; }
+  .CarList .bar-subheader .search1 .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .6em;
+    top: .8em;
     left: 1em; }
-  .CarList .bar-subheader input {
+  .CarList .bar-subheader .search1 input {
     display: block;
-    padding: 8px;
     padding-left: 2em;
     color: #ccc;
     vertical-align: middle;
-    font-size: 15px;
-    line-height: 16px;
+    font-size: 14px;
+    height: 28px;
     width: 96%;
     position: fixed;
-    right: 6px;
     border-radius: 5px; }
-  .CarList .bar-subheader .ion-ios-close {
+  .CarList .bar-subheader .search2 .placeholder-icon {
+    color: #aaa;
     position: absolute;
-    right: 1em;
-    top: 8px; }
+    z-index: 2;
+    top: .8em;
+    left: 1em; }
+  .CarList .bar-subheader .search2 input {
+    display: block;
+    padding-left: 2em;
+    color: #ccc;
+    vertical-align: middle;
+    font-size: 14px;
+    height: 28px;
+    width: 80%;
+    position: fixed;
+    border-radius: 5px; }
+  .CarList .bar-subheader .search2 ion-ios-close {
+    position: absolute;
+    right: 2em;
+    top: 12px; }
+  .CarList .bar-subheader .search2 .button-clear {
+    position: relative;
+    left: 86%;
+    font-size: 16px;
+    top: -2px; }
+
+.CarList .has-subheader {
+  top: 95px; }
 
 .CarList .row + .row .row {
   padding-top: 0;
@@ -5940,7 +5967,7 @@ Copyright (c) 2015 Daniel Eden
 
 .CarList .contentType {
   position: relative;
-  top: 2em;
+  top: 2.5em;
   border-bottom: 1px solid rgba(43, 43, 43, 0.17); }
 
 .CarList .row .col {
@@ -5956,9 +5983,8 @@ Copyright (c) 2015 Daniel Eden
   .CarList .rowType .colType {
     padding-left: 0; }
     .CarList .rowType .colType span {
-      font-size: 1em;
-      color: #4a4a4a;
-      font-weight: 100; }
+      font-size: 14px;
+      color: black; }
 
 .CarList .search .his-title {
   color: #BFBFBF; }
@@ -5978,7 +6004,7 @@ Copyright (c) 2015 Daniel Eden
 .CarList .search ion-item {
   border-bottom: 1px solid #D8D8D8;
   min-height: 0;
-  font-size: 16px;
+  font-size: 14px;
   padding: 10px 16px; }
 
 .CarList .content .item {
@@ -6007,7 +6033,7 @@ Copyright (c) 2015 Daniel Eden
   height: 3.28em;
   font-size: 16px; }
   .CarDetail .top-back3 .title {
-    padding-top: 10px;
+    padding-top: 20px;
     color: white; }
     .CarDetail .top-back3 .title i {
       font-size: 25px;
@@ -6019,7 +6045,7 @@ Copyright (c) 2015 Daniel Eden
   background-size: 100% 100% !important;
   margin-top: -1px;
   color: white;
-  height: 4em;
+  height: 3.28em;
   font-size: 16px; }
   .CarDetail .top-back2 .title {
     padding-top: 20px;
@@ -6034,9 +6060,9 @@ Copyright (c) 2015 Daniel Eden
   background-size: 100% 100%;
   color: white;
   font-size: 16px;
-  height: 164px; }
+  height: 161px; }
   .CarDetail .top-back .title {
-    padding-top: 10px;
+    padding-top: 20px;
     color: white; }
     .CarDetail .top-back .title i {
       font-size: 25px;
@@ -6084,7 +6110,7 @@ Copyright (c) 2015 Daniel Eden
 
 .CarDetail .col-60 {
   font-size: 1.1em;
-  color: rgba(155, 155, 155, 0.9); }
+  color: #444; }
 
 .CarDetail u {
   color: #2B60AB;
@@ -6092,7 +6118,7 @@ Copyright (c) 2015 Daniel Eden
 
 .CarDetail .col-80 {
   font-size: 13px;
-  color: rgba(155, 155, 155, 0.9); }
+  color: #444; }
 
 .CarDetail .contentType {
   position: relative; }
@@ -6106,7 +6132,7 @@ Copyright (c) 2015 Daniel Eden
   font-size: 15px;
   color: #2B60AB;
   margin-bottom: 2.5em;
-  margin-top: 0.3em;
+  margin-top: 0.5em;
   font-weight: 100; }
   .CarDetail .Car_countentbasic .Car_countentbasicinfo {
     position: absolute;
@@ -6134,7 +6160,7 @@ Copyright (c) 2015 Daniel Eden
   font-size: 15px;
   color: #2B60AB;
   margin-bottom: 2.5em;
-  margin-top: 0.3em;
+  margin-top: 0.5em;
   font-weight: 100; }
   .CarDetail .Car_countentbasic1 .Car_countentbasicinfo {
     position: absolute;
@@ -6170,11 +6196,6 @@ Copyright (c) 2015 Daniel Eden
   padding-left: 0;
   padding-right: 0; }
 
-.CarDetail b, .CarDetail strong {
-  font-weight: 100;
-  font-size: 15px;
-  color: black; }
-
 .CarDetail .rowType {
   position: relative;
   left: 4%;
@@ -6184,6 +6205,9 @@ Copyright (c) 2015 Daniel Eden
   padding-left: 0; }
   .CarDetail .rowType .col {
     padding: 0; }
+  .CarDetail .rowType span {
+    font-size: 15px;
+    color: #000; }
 
 .CarDetail .rowType1 {
   position: relative;
@@ -6194,6 +6218,9 @@ Copyright (c) 2015 Daniel Eden
   padding-left: 0; }
   .CarDetail .rowType1 .col {
     padding: 0; }
+  .CarDetail .rowType1 span {
+    font-size: 15px;
+    color: #000; }
 
 .CarDetail .lineType1 {
   border-bottom: 1px solid #ccc; }
@@ -6237,6 +6264,9 @@ Copyright (c) 2015 Daniel Eden
       font-size: 1.8rem;
       padding-left: 15px;
       color: white; }
+    .Maintenance ion-header-bar .ion-chevron-left {
+      font-size: 25px;
+      padding: 5px; }
     .Maintenance ion-header-bar .left-back, .Maintenance ion-header-bar .title {
       transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s; }
     .Maintenance ion-header-bar .buttons.right {
@@ -6247,19 +6277,6 @@ Copyright (c) 2015 Daniel Eden
     .Maintenance ion-header-bar .right-buttons-active {
       width: 100%;
       border: 1px solid red; }
-    .Maintenance ion-header-bar.query-mode .buttons.right {
-      width: 96%;
-      margin: auto; }
-      .Maintenance ion-header-bar.query-mode .buttons.right .button-clear.search {
-        width: 1.8rem;
-        min-width: 1.8rem;
-        background-color: white;
-        color: #2B60AB;
-        border-radius: 10px 0px 0px 0px; }
-        .Maintenance ion-header-bar.query-mode .buttons.right .button-clear.search i:before {
-          font-size: 1.2rem; }
-      .Maintenance ion-header-bar.query-mode .buttons.right input {
-        border-radius: 0px 0px 10px 0px; }
     .Maintenance ion-header-bar.query-mode .left-back, .Maintenance ion-header-bar.query-mode .title {
       width: 0rem;
       min-width: 0px; }
@@ -6281,14 +6298,14 @@ Copyright (c) 2015 Daniel Eden
     right: 0;
     left: 0;
     z-index: 0;
+    padding: 5px;
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 16px;
     font-weight: 100;
-    line-height: 3.5em;
-    color: white; }
+    color: #fff; }
   .Maintenance ion-content {
     background-color: #F5F5F5;
     display: -webkit-box;
@@ -6316,38 +6333,14 @@ Copyright (c) 2015 Daniel Eden
         height: 10px; }
       .Maintenance .divLine .rowContent b {
         font-weight: 100;
-        color: rgba(68, 68, 68, 0.89);
+        color: #000;
         font-size: 16px; }
       .Maintenance .divLine .rowContent span {
         font-size: 14px;
-        color: rgba(17, 17, 17, 0.43);
-        font-weight: 500; }
+        color: rgba(17, 17, 17, 0.69);
+        font-weight: 100; }
     .Maintenance .divLine .buttonText .span {
       left: 25%; }
-  .Maintenance .search-box-wrapper {
-    background-color: #2B60AB; }
-    .Maintenance .search-box-wrapper .search-box {
-      width: 94%;
-      border: 1px solid #DAD7D7;
-      margin: auto;
-      border-radius: 5px;
-      margin-top: .4rem;
-      margin-bottom: .4rem;
-      background-color: white;
-      color: #969494; }
-    .Maintenance .search-box-wrapper i {
-      width: 9%;
-      display: inline-block;
-      margin: auto;
-      text-align: center;
-      background-color: white;
-      font-size: 1.2rem;
-      vertical-align: middle; }
-    .Maintenance .search-box-wrapper input {
-      display: inline-block;
-      height: 2rem;
-      line-height: 2rem;
-      width: 87%; }
   .Maintenance .divs-wrapper {
     position: relative;
     -webkit-box-flex: 1;
@@ -6372,6 +6365,8 @@ Copyright (c) 2015 Daniel Eden
     .Maintenance .divs-wrapper .tab-sort-content, .Maintenance .divs-wrapper .tab-filter-content {
       transition: transform .2s linear 0s;
       transform: translateY(-100%); }
+    .Maintenance .divs-wrapper .row {
+      padding: 5px 0; }
     .Maintenance .divs-wrapper.sort-from-click .tab-sort-content {
       transform: translateY(0%); }
     .Maintenance .divs-wrapper.sort-from-click .tab-filter-content {
@@ -6709,7 +6704,8 @@ Copyright (c) 2015 Daniel Eden
     .Maintenance .tab-filter-content .filter-title {
       height: 2rem;
       line-height: 2rem;
-      font-size: 14px; }
+      font-size: 14px;
+      padding-left: 5px; }
     .Maintenance .tab-filter-content .filter-time {
       display: -webkit-box;
       display: -webkit-flex;
@@ -6756,7 +6752,8 @@ Copyright (c) 2015 Daniel Eden
       padding-bottom: .6rem; }
       .Maintenance .tab-filter-content .filter-worksheet-type .filter-types {
         height: 3rem;
-        line-height: 3rem; }
+        line-height: 3rem;
+        padding-left: 5px; }
         .Maintenance .tab-filter-content .filter-worksheet-type .filter-types .filter-type {
           display: inline-block;
           height: 2rem;
@@ -6765,8 +6762,7 @@ Copyright (c) 2015 Daniel Eden
           padding: 0px .3rem;
           text-align: center;
           background-color: #dfe2e4;
-          color: #828282;
-          margin-right: 1em; }
+          color: #828282; }
           .Maintenance .tab-filter-content .filter-worksheet-type .filter-types .filter-type.selected {
             background-color: #3259a4;
             color: white; }
@@ -6775,7 +6771,8 @@ Copyright (c) 2015 Daniel Eden
       padding-bottom: .8rem; }
       .Maintenance .tab-filter-content .filter-impact .filter-impacts {
         height: 2.5rem;
-        line-height: 2.5rem; }
+        line-height: 2.5rem;
+        padding-left: 5px; }
         .Maintenance .tab-filter-content .filter-impact .filter-impacts .filter-impact {
           width: 3rem;
           display: inline-block;
@@ -6843,24 +6840,27 @@ Copyright (c) 2015 Daniel Eden
 .SpareList1 b, .SpareList1 strong {
   font-weight: 100; }
 
+.SpareList1 b, .SpareList1 strong {
+  font-weight: 100; }
+
 .SpareList1 .bar .title {
   position: absolute;
   right: 0;
   left: 0;
   z-index: 0;
   overflow: hidden;
-  margin: 0 10px;
   min-width: 30px;
+  padding: 5px;
   height: 43px;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
-  font-weight: 100;
-  color: #fafafa; }
+  color: #fff; }
 
 .SpareList1 .bar.bar-header .button + .title {
-  text-align: center; }
+  text-align: center;
+  line-height: 44px; }
 
 .SpareList1 .bar {
   border-bottom: none;
@@ -6872,33 +6872,41 @@ Copyright (c) 2015 Daniel Eden
 .SpareList1 .bar-header {
   border-bottom: none;
   padding: 0;
-  background-size: 0; }
+  background-size: 0;
+  padding-top: 10px; }
   .SpareList1 .bar-header .button-clear {
     color: #fff;
-    padding-left: 15px;
-    padding-top: 0.3em; }
+    font-size: 22px; }
+  .SpareList1 .bar-header .ion-chevron-left {
+    width: 12px; }
 
 .SpareList1 .bar-subheader {
-  height: 2.4em;
-  display: block; }
+  height: 43px;
+  display: block;
+  padding: 8px; }
   .SpareList1 .bar-subheader .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .4em;
+    top: .8em;
     left: 1em; }
   .SpareList1 .bar-subheader input {
     display: block;
-    padding: 8px;
     padding-left: 2em;
     color: #ccc;
     vertical-align: middle;
-    font-size: 15px;
-    line-height: 16px;
-    width: 96%;
+    font-size: 14px;
+    height: 28px;
+    width: 95%;
     position: fixed;
-    right: 6px;
     border-radius: 5px; }
+  .SpareList1 .bar-subheader .ion-ios-close {
+    position: absolute;
+    right: 2em;
+    top: 12px; }
+
+.SpareList1 .has-subheader {
+  top: 95px; }
 
 .SpareList1 .divContent {
   position: relative;
@@ -6915,13 +6923,13 @@ Copyright (c) 2015 Daniel Eden
   padding: 0; }
   .SpareList1 .col span {
     font-size: 14px;
-    color: gray; }
+    color: #000; }
   .SpareList1 .col .spareName {
     font-size: 1.2em; }
 
 .SpareList1 .row-center b {
   font-weight: 100;
-  color: rgba(17, 17, 17, 0.71);
+  color: #111111;
   font-size: 14px; }
 
 .SpareList1 .rowType {
@@ -6942,18 +6950,18 @@ Copyright (c) 2015 Daniel Eden
   left: 0;
   z-index: 0;
   overflow: hidden;
-  margin: 0 10px;
   min-width: 30px;
+  padding: 5px;
   height: 43px;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
-  font-weight: 100;
-  color: #fafafa; }
+  color: #fff; }
 
 .SpareList .bar.bar-header .button + .title {
-  text-align: center; }
+  text-align: center;
+  line-height: 44px; }
 
 .SpareList .bar {
   border-bottom: none;
@@ -6965,33 +6973,41 @@ Copyright (c) 2015 Daniel Eden
 .SpareList .bar-header {
   border-bottom: none;
   padding: 0;
-  background-size: 0; }
+  background-size: 0;
+  padding-top: 10px; }
   .SpareList .bar-header .button-clear {
     color: #fff;
-    padding-left: 15px;
-    padding-top: 0.3em; }
+    font-size: 22px; }
+  .SpareList .bar-header .ion-chevron-left {
+    width: 12px; }
 
 .SpareList .bar-subheader {
-  height: 2.4em;
-  display: block; }
+  height: 43px;
+  display: block;
+  padding: 8px; }
   .SpareList .bar-subheader .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .4em;
+    top: .8em;
     left: 1em; }
   .SpareList .bar-subheader input {
     display: block;
-    padding: 8px;
     padding-left: 2em;
     color: #ccc;
     vertical-align: middle;
-    font-size: 15px;
-    line-height: 16px;
+    font-size: 14px;
+    height: 28px;
     width: 96%;
     position: fixed;
-    right: 6px;
     border-radius: 5px; }
+  .SpareList .bar-subheader .ion-ios-close {
+    position: absolute;
+    right: 2em;
+    top: 12px; }
+
+.SpareList .has-subheader {
+  top: 95px; }
 
 .SpareList .pointImg {
   height: 10px;
@@ -7040,21 +7056,32 @@ Copyright (c) 2015 Daniel Eden
 
 .SpareList .col span {
   font-size: 16px;
-  color: rgba(17, 17, 17, 0.78);
-  font-weight: 100; }
-
-.Detail b, .Detail strong {
-  font-weight: 100; }
+  color: #000; }
 
 .Detail .bar.bar-header .button + .title {
   text-align: center;
   color: white;
-  line-height: 3em; }
+  line-height: 3.5em; }
+
+.Detail .bar .title {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+  min-width: 30px;
+  height: 43px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+  line-height: 44px; }
 
 .Detail .bar .button.button-clear {
   color: #fff;
-  padding-left: 15px;
-  padding-top: 0.4em; }
+  padding-top: 0.6em;
+  font-size: 22px; }
 
 .Detail .bar {
   border-bottom: none;
@@ -7100,7 +7127,9 @@ Copyright (c) 2015 Daniel Eden
     left: 4%;
     padding: 0.8em 0; }
     .Detail ion-content .rowType .col-40 {
-      padding-left: 0; }
+      padding-left: 0;
+      color: #000;
+      font-size: 16px; }
   .Detail ion-content img {
     -webkit-user-drag: none;
     height: 2.5em;
@@ -7108,10 +7137,6 @@ Copyright (c) 2015 Daniel Eden
   .Detail ion-content span {
     font-size: 15px;
     color: gray; }
-  .Detail ion-content b, .Detail ion-content strong {
-    font-weight: 100;
-    color: rgba(0, 0, 0, 0.7);
-    font-size: 16px; }
   .Detail ion-content .line {
     border-bottom: 1px solid #d2d2d2; }
 

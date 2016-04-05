@@ -3,19 +3,13 @@
  */
 customerModule
     .controller('customerQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
-        $ionicPopover.fromTemplateUrl('../src/customer/model/customer_selec.html', {
+        $ionicPopover.fromTemplateUrl('src/customer/model/customer_selec.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.customerpopover = popover;
         });
-        $scope.customerPopover = function($event) {
-            alert(1);
-            try{
-                $scope.customerpopover.show($event);
-            }catch(e){
-                alert(e.message);
-            }
-
+        $scope.customerPopover = function() {
+            $scope.customerpopover.show();
         };
         $scope.customerPopoverhide = function() {
             $scope.customerpopover.hide();

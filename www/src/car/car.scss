@@ -10,18 +10,18 @@
     left: 0;
     z-index: 0;
     overflow: hidden;
-    margin: 0 10px;
     min-width: 30px;
+    padding: 5px;
     height: 43px;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 16px;
-    font-weight: 100;
-    color: rgb(250, 250, 250);
+    color: #fff;
   }
   .bar.bar-header .button+.title {
     text-align: center;
+    line-height:44px;
   }
   .bar {
     border-bottom: none;
@@ -34,12 +34,11 @@
     border-bottom: none;
     padding: 0;
     background-size: 0;
-    padding-top: 5px;
+    padding-top: 10px;
     .button-clear {
-    color: #fff;
-    padding-top: 0.6em;
-    font-size: 22px;
-  }
+      color: #fff;
+      font-size: 22px;
+    }
     .ion-chevron-left{
       width: 12px;
     }
@@ -48,31 +47,62 @@
   .bar-subheader {
     height: 43px;
     display: block;
-    .placeholder-icon {
-      color: #aaa;
-      position: absolute;
-      z-index: 2;
-      top: .6em;
-      left: 1em;
+    padding: 8px;
+    .search1{
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .8em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: #ccc;
+        vertical-align: middle;
+        font-size: 14px;
+        height: 28px;
+        width: 96%;
+        position: fixed;
+        border-radius: 5px;
+      }
     }
-    input {
-      display: block;
-      padding: 8px;
-      padding-left: 2em;
-      color: #ccc;
-      vertical-align: middle;
-      font-size: 15px;
-      line-height: 16px;
-      width: 96%;
-      position: fixed;
-      right: 6px;
-      border-radius: 5px;
+    .search2{
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .8em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: #ccc;
+        vertical-align: middle;
+        font-size: 14px;
+        height: 28px;
+        width: 80%;
+        position: fixed;
+        border-radius: 5px;
+      }
+      ion-ios-close{
+        position: absolute;
+        right: 2em;
+        top: 12px;
+      }
+      .button-clear{
+        position: relative;
+        left: 86%;
+        font-size: 16px;
+        top: -2px;
+      }
     }
-    .ion-ios-close{
-      position: absolute;
-      right: 1em;
-      top: 8px;
-    }
+
+  }
+  .has-subheader {
+    top: 95px;
   }
   .row+.row .row {
     padding-top: 0;
@@ -116,7 +146,7 @@
   }
    .contentType{
     position: relative;
-    top: 2em;
+    top: 2.5em;
     border-bottom: 1px solid rgba(43, 43, 43, 0.17);
   }
   .row .col{
@@ -133,9 +163,8 @@
     .colType{
       padding-left: 0;
       span{
-        font-size: 1em;
-        color: #4a4a4a;
-        font-weight: 100;
+        font-size: 14px;
+        color: black;
       }
     }
   }
@@ -158,7 +187,7 @@
     ion-item{
       border-bottom: 1px solid #D8D8D8;
       min-height: 0;
-      font-size: 16px;
+      font-size: 14px;
       padding: 10px 16px;
     }
   }
@@ -193,7 +222,7 @@
     height:3.28em;
     font-size: 16px;
     .title {
-      padding-top: 10px;
+      padding-top: 20px;
       color: white;
       i {
         font-size: 25px;
@@ -207,7 +236,7 @@
     background-size:100% 100%!important;
     margin-top:-1px;
     color: white;
-    height:4em;
+    height:3.28em;
     font-size: 16px;
     .title {
       padding-top: 20px;
@@ -224,9 +253,9 @@
     background-size:100% 100%;
     color: white;
     font-size: 16px;
-    height: 164px;
+    height: 161px;
     .title {
-      padding-top: 10px;
+      padding-top: 20px;
       color: white;
       i {
         font-size: 25px;
@@ -287,7 +316,7 @@
   }
   .col-60{
     font-size:1.1em;
-    color:rgba(155, 155, 155,0.9) ;
+    color:#444 ;
   }
   u{
     color: $crm-header-bar-bgcolor;
@@ -295,7 +324,7 @@
   }
   .col-80{
     font-size:13px;
-    color:rgba(155, 155, 155,0.9) ;
+    color:#444;
   }
 
   .contentType{
@@ -310,7 +339,7 @@
       font-size:15px;
       color:$crm-header-bar-bgcolor;
       margin-bottom: 2.5em;
-      margin-top: 0.3em;
+      margin-top: 0.5em;
       font-weight: 100;
       .Car_countentbasicinfo{
         position: absolute;
@@ -341,7 +370,7 @@
     font-size:15px;
     color:$crm-header-bar-bgcolor;
     margin-bottom: 2.5em;
-    margin-top: 0.3em;
+    margin-top: 0.5em;
     font-weight: 100;
     .Car_countentbasicinfo{
       position: absolute;
@@ -380,11 +409,6 @@
     padding-left: 0;
     padding-right: 0;
    }
-  b, strong {
-    font-weight: 100;
-    font-size: 15px;
-    color: rgb(0, 0, 0);
-  }
    .rowType {
      position: relative;
      left: 4%;
@@ -394,6 +418,10 @@
      padding-left: 0;
      .col{
        padding:0;
+     }
+     span {
+       font-size: 15px;
+       color: #000;
      }
   }
    .rowType1 {
@@ -405,6 +433,10 @@
      padding-left: 0;
      .col{
        padding:0;
+     }
+     span {
+       font-size: 15px;
+       color:#000;
      }
   }
   .lineType1{
@@ -445,6 +477,10 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         padding-left: 15px;
         color: white;
       }
+      .ion-chevron-left{
+        font-size: 25px;
+        padding: 5px;
+      }
       .left-back, .title, {
         transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
       }
@@ -460,23 +496,6 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         border: 1px solid red;
       }
       &.query-mode{
-        .buttons.right{
-          width: 96%;
-          margin: auto;
-          .button-clear.search{
-            width: 1.8rem;
-            min-width: 1.8rem;
-            background-color: white;
-            color: $crm-header-bar-bgcolor;
-            border-radius: 10px 0px 0px 0px;
-            i:before{
-              font-size: 1.2rem;
-            }
-          }
-          input{
-            border-radius: 0px 0px 10px 0px;
-          }
-        }
         .left-back, .title{
           width: 0rem;
           min-width: 0px;
@@ -504,14 +523,14 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
     right: 0;
     left: 0;
     z-index: 0;
+    padding: 5px;
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 16px;
     font-weight: 100;
-    line-height: 3.5em;
-    color: white;
+    color: #fff;
   }
     ion-content{
       background-color: $crm-content-bgcolor;
@@ -534,13 +553,13 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
       }
       b {
         font-weight: 100;
-        color: rgba(68, 68, 68, 0.89);;
+        color: #000;
         font-size: 16px;
       }
       span {
         font-size: 14px;
-        color: rgba(17, 17, 17, 0.43);
-        font-weight: 500;
+        color: rgba(17, 17, 17, 0.69);;
+        font-weight: 100;
       }
     }
     .buttonText {
@@ -550,34 +569,6 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
     }
   }
 
-    .search-box-wrapper{
-      background-color: $crm-header-bar-bgcolor;
-      .search-box{
-        width: 94%;
-        border: 1px solid #DAD7D7;
-        margin: auto;
-        border-radius: 5px;
-        margin-top: .4rem;
-        margin-bottom: .4rem;
-        background-color: white;
-        color: #969494;
-      }
-      i{
-        width: 9%;
-        display: inline-block;
-        margin: auto;
-        text-align: center;
-        background-color: white;
-        font-size: 1.2rem;
-        vertical-align: middle;
-      }
-      input{
-        display: inline-block;
-        height: 2rem;
-        line-height: 2rem;
-        width: 87%;
-      }
-    }
 
 
     .divs-wrapper{
@@ -603,6 +594,9 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
       .tab-sort-content, .tab-filter-content{
         transition: transform .2s linear 0s;
         transform: translateY(-100%);
+      }
+      .row{
+        padding: 5px 0;
       }
       &.sort-from-click{
         .tab-sort-content{
@@ -953,6 +947,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         height: 2rem;
         line-height: 2rem;
         font-size: 14px;
+        padding-left: 5px;
       }
       $filter-name-color: #828282;
       $filter-item-bg: rgba(223,226,228,1);
@@ -1000,6 +995,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         .filter-types{
           height: 3rem;
           line-height: 3rem;
+          padding-left: 5px;
           .filter-type{
             display: inline-block;
             height: 2rem;
@@ -1009,7 +1005,6 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             text-align: center;
             background-color: $filter-item-bg;
             color: $filter-name-color;
-            margin-right: 1em;
             &.selected{
               background-color: $filter-item-selected-bg;
               color: white;
@@ -1025,6 +1020,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         .filter-impacts{
           height: 2.5rem;
           line-height: 2.5rem;
+          padding-left: 5px;
           .filter-impact{
             width: 3rem;
             display: inline-block;
@@ -1120,24 +1116,27 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
   b, strong {
     font-weight: 100;
   }
+  b, strong {
+    font-weight: 100;
+  }
   .bar .title{
     position: absolute;
     right: 0;
     left: 0;
     z-index: 0;
     overflow: hidden;
-    margin: 0 10px;
     min-width: 30px;
+    padding: 5px;
     height: 43px;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 16px;
-    font-weight: 100;
-    color: rgb(250, 250, 250);
+    color: #fff;
   }
   .bar.bar-header .button+.title {
     text-align: center;
+    line-height:44px;
   }
   .bar {
     border-bottom: none;
@@ -1150,35 +1149,46 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
     border-bottom: none;
     padding: 0;
     background-size: 0;
+    padding-top: 10px;
     .button-clear {
       color: #fff;
-      padding-left: 15px;
-      padding-top: 0.3em;
+      font-size: 22px;
     }
+    .ion-chevron-left{
+      width: 12px;
+    }
+
   }
   .bar-subheader {
-    height: 2.4em;
+    height: 43px;
     display: block;
+    padding: 8px;
     .placeholder-icon {
       color: #aaa;
       position: absolute;
       z-index: 2;
-      top: .4em;
+      top: .8em;
       left: 1em;
     }
     input {
       display: block;
-      padding: 8px;
       padding-left: 2em;
       color: #ccc;
       vertical-align: middle;
-      font-size: 15px;
-      line-height: 16px;
-      width: 96%;
+      font-size: 14px;
+      height: 28px;
+      width: 95%;
       position: fixed;
-      right: 6px;
       border-radius: 5px;
     }
+    .ion-ios-close{
+      position: absolute;
+      right: 2em;
+      top: 12px;
+    }
+  }
+  .has-subheader {
+    top: 95px;
   }
 
   .divContent {
@@ -1196,7 +1206,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
     padding: 0;
     span {
       font-size: 14px;
-      color: gray;
+      color: #000;
     }
     .spareName {
       font-size: 1.2em;
@@ -1205,7 +1215,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
   .row-center {
     b {
       font-weight: 100;
-      color: rgba(17, 17, 17, 0.71);
+      color: rgba(17, 17, 17, 1);
       font-size: 14px;
     }
   }
