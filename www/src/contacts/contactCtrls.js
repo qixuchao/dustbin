@@ -4,13 +4,13 @@
 'use strict';
 ContactsModule
     .controller('contactQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
-        $ionicPopover.fromTemplateUrl('../src/contacts/model/contact_selec.html', {
+        $ionicPopover.fromTemplateUrl('src/contacts/model/contact_selec.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.Contactspopover = popover;
         });
-        $scope.Contactsopenpopv = function($event) {
-            $scope.Contactspopover.show($event);
+        $scope.Contactsopenpopv = function() {
+            $scope.Contactspopover.show();
         };
         $scope.ContactsPopoverhide = function() {
             $scope.Contactspopover.hide();
@@ -18,7 +18,7 @@ ContactsModule
         $scope.contact_types = [
             {
                 type:"扫描名片创建联系人",
-                 url:""
+                url:""
             },
             {
                 type:"手动创建新联系人",
@@ -78,7 +78,6 @@ ContactsModule
             }
         }
         $scope.Contacts_showTitle = false;
-        $scope.Contacts_showTitleStatus = false;
         $scope.Contacts_TitleFlag=false;
 
         var Contacts_position;
@@ -124,7 +123,9 @@ ContactsModule
                 $scope.Contacts_typeFlag = false;
                 $scope.Contacts_addressFlag = false;
                 $scope.Contacts_empolFlag = false;
-                $scope.Contacts_TitleFlag = false;
+                $scope.Contacts_showTitle = false;
+                $scope.Contacts_TitleFlag=false;
+
             }
             $scope.$apply();
         }
@@ -171,7 +172,7 @@ ContactsModule
         $scope.edittitleType = [{
             name:'先生',
         },{
-          name:'小姐'
+            name:'小姐'
         }];
         $scope.contactedit = {
             customerzhushi:contactService.get_ContactsListvalue().customerzhushi,
@@ -237,6 +238,5 @@ ContactsModule
         },{
             name:'张浩吉',
             role:'控股公司'
-        }]
+        }];
     }])
-

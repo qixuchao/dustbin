@@ -22,7 +22,7 @@ worksheetModule.controller("WorksheetDetailSiterepairCtrl",[
 		headerInfoInitHeight: null,
 		headerBarTitleInitHeight: null,
 
-		moreModal: null,
+		moreModal: null
 	};
 
 	$scope.datas = {
@@ -32,8 +32,8 @@ worksheetModule.controller("WorksheetDetailSiterepairCtrl",[
 			customer: '张三',
 			place: '福建省 福州市',
 			category: '关系维护',
-			status: '处理中'
-		},
+			status: '处理中' 
+		}, 
 		basicInfo: {
 			//基本信息
 			category: '现场维修工单',
@@ -106,10 +106,10 @@ worksheetModule.controller("WorksheetDetailSiterepairCtrl",[
 				$scope.goState('worksheetRelatedPart');
 				break;
 			case 'jiaoYiLiShi':
-				$scope.goState('worksheetdealhistorylist');
+				$scope.goState('worksheetDetailHistoryList');
 				break;
 			case 'baoGongXinXi':
-				$scope.goState('worksheetbaogonglist');
+				$scope.goState('worksheetBaoGonglist');
 				break;
 		}
 	};

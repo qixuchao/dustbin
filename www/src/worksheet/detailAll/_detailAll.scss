@@ -1,0 +1,286 @@
+
+.worksheet-detail-more-modal{
+	background-color: rgba(0, 0, 0, 0.38);
+}
+#worksheetdetail-content-newcar{ 
+	
+}
+
+.worksheetdetail-content-public{
+	
+}
+
+
+// 详情界面公共 styles
+
+.platform-ios.platform-cordova:not(.fullscreen){
+  
+  //height: 64px; 
+}
+
+
+.worksheet-detail-view-public{
+//#worksheetdetail-newcar-view, #worksheetdetail-siterepair-view{
+	ion-content>div.scroll{
+        @include display-flex;
+        @include flex-direction(column);
+    }
+    .detail-header{
+        background: #eee url("../../img/saleDetail/BG1.png") no-repeat;
+        background-position: 0px 0px;
+        background-size: cover;
+        color: white;
+        .detail-header-bar{
+            @include display-flex;
+            @include justify-content(center);
+            @include align-items(center);
+            //height: 3rem;
+            //padding-bottom: .5rem;
+            padding-bottom: .4rem;
+    		height: 3.2rem;
+            font-size: 1rem;
+            font-weight: bolder;
+            //border: 1px solid red;
+			/*position: absolute;
+		    top: 0px;
+		    left: 0px;*/
+            .left{
+                width: 2rem;
+                text-align: center;
+                font-size: 2rem;
+            }
+            .center{
+                @include flex(1);
+                text-align: center;
+                .title{
+                    display: block;
+                }
+                .sub-title{
+                    //display: block;   
+                    display: none;
+                    font-size: .8rem;
+                    line-height: 1rem;
+                    height: 0rem;
+                    &.fadeIn{
+                    	display: block;
+                    }
+                }
+            }
+            .right{
+                width: 3rem;
+                text-align: center;
+                font-size: 3rem;
+                z-index: 101;
+            }
+        }
+        .detail-header-info{
+            //border: 1px solid red;
+            top: 0rem;
+            position: relative;
+            height: 6rem;
+            overflow: hidden;
+            //transition: top .2s linear 0s, width .2s linear 0s;
+			@include display-flex;
+			@include flex-direction(column);
+			@include justify-content(center);
+            padding: 0px .8rem;
+            font-size: 1rem;
+            .detail-header-line{
+                height: 2rem;
+                line-height: 2rem;
+                @include flex(1);
+                @include display-flex;
+                @include justify-content(center);
+                @include align-items(center);
+                &:nth-child(2){
+                	//span:nth-child(2){
+                	span{
+                		@include flex(1);
+                		margin-left: .4rem;
+                	}
+                }
+            } 
+            .header-title{
+            	span:nth-child(1){
+            		width: 12px;
+            		height: 12px;
+            		border: 2px solid #9ed85f;
+            		border-radius: 12px;        		
+            	}
+            	span:nth-child(2){
+					@include flex(1);
+            	}                
+            }
+            .customer-status{
+                .left{
+                    display: inline-block;
+                    @include flex(1);
+                }
+                .right{
+                    display: inline-block;
+                    @include flex(1);
+    				text-align: right;
+                }
+            }
+            .header-info-title-icon{
+                display: inline-block;
+                width: 12px !important;
+                height: 12px;
+                border: 2px solid #9ED85F;
+                border-radius: 13px;
+                margin-right: .2rem;
+            }
+        }
+    }
+    // detail-header想着动画：上拉、下拉
+    .detail-header{
+        //transition: height .2s linear 0s, background-size .2s linear 0s;
+        .detail-header-info{
+            //transition: top .2s linear 0s;
+        }
+    }
+	
+    .history-info-relation-line{
+        padding: .4rem 0rem;
+        margin-top: .4rem;
+        min-height: 2.6rem;
+        .line-inner{
+            @include display-flex;
+            display: -webkit-box;
+        }
+        .relation-box, .history-box, .info-box{
+            @include display-flex;
+            //border: 1px solid red;
+            height: 2rem;
+            vertical-align: middle;
+            //float: left;
+            //position: relative;
+            left: 0rem;
+            @for $i from 1 through 10{
+                &.left-#{$i}{
+                	position: relative;
+                    left: -#{0.9*$i}rem;
+                }
+            }
+            i{
+                display: inline-block;
+                background-color: rgb(158, 216, 95);
+                width: 2.2rem;
+                height: 2.2rem;
+                font-size: 2.2rem;
+                text-align: center;
+                border-radius: 2.2rem;
+                color: white;
+                position: relative;
+                left: 1.1rem;
+                top: -.1rem;                
+            }
+            span{
+                display: inline-block;
+                border: 0px solid green;
+                height: 2rem;
+                line-height: 2rem;
+                background-color: rgb(225,225,225);
+                border-radius: 1rem;
+                padding: 0px .8rem 0px 1.2rem;
+            }
+        }
+    }
+    .worksheetdetail-content-siterepair, .worksheetdetail-content-newcar{
+        @include flex(1);
+    }
+    
+    .show-more-modal-content-source1, .show-more-modal-content-source2, .show-more-modal-content-source3{
+        text-align: center;
+        i{
+            font-size: 2.3rem !important;
+        }
+    }
+	
+	font-size: .9rem;
+	.commment-info-lines{
+		margin-top: .8rem;
+		&.first-line{
+			margin-top: .6rem;
+		}
+		.row{
+            border-bottom: 1px solid #eee;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            padding: 0px;
+            div:first-child{
+                padding-left: 1rem;
+            }
+            div:nth-child(2){
+                color: #8E8B8B;
+                @include single-line-ellipsis;
+                padding-right: .2rem;
+            }
+            &.line-right-icon{
+            	font-size: 1.2rem;
+    			color: #969393;
+            }
+        }
+        .text-row{
+            line-height: 1.2rem;
+            @include display-flex;
+            font-size: 1rem;
+            padding: .6rem 0px;
+            border-bottom: 1px solid #eee;
+            div:first-child{
+                padding-left: 1rem;
+                width: 4.5rem;
+            }
+            div:nth-child(2){
+                @include flex(5);
+                color: #8E8B8B;
+                padding-right: .2rem;
+            }
+            &.has-right-icon{
+            	.line-right-icon{
+            		//@include flex(1);
+            		width: 2rem;
+            	}
+            }
+        }
+	}
+	.button-crm-edit-public{ //编辑按钮
+		width: 90%;
+        border-radius: 10px;
+        margin: 1rem 5% 2rem 5%;
+        font-size: 1rem;
+        word-spacing: .6rem;
+        letter-spacing: .6rem;
+        text-align: center;
+	}
+	.status-handleing{
+		color: #9ED85F !important;
+	}
+	.status-not-handle{
+		color: red !important;
+	}
+	.color-common-blue{
+		color: #4C8AC7 !important;
+	}
+    
+
+    .top-back2{
+        height: 75px !important;
+    }
+    .worksheet-detail-view-public .saleTopBackId .mainInfo .row{
+
+    }
+    #saleTopBackId{
+        .mainInfo{
+            .row{
+                height: 2.5rem;
+                padding-right: 5%;
+            }
+            .row:nth-child(2){
+                font-size: 15px;
+            }
+        }
+    }
+
+
+}
