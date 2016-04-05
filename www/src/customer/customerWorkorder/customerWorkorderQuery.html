@@ -37,8 +37,10 @@
 
     <!--&lt;!&ndash;sort&nda }"-->
     <div class="customerworkordersortcontent" ng-show="cusworkodersortbgflag"
-         ng-class="{'showFilterPagerigInLeft': cusworkodersortbgflag ,
-    'showFilterPagerigOutLeft':!cusworkodersortbgflag}">
+         ng-class="{'showFilterPageshow': (cusworkoderselecbgflag == false && cusworkodersortbgflag==true) && cusomerWorkorclick==true,
+    'showFilterPageshinde':(cusworkoderselecbgflag == false && cusworkodersortbgflag==false),
+    'showFilterPagerigInLeft':(cusworkoderselecbgflag == false && cusworkodersortbgflag==true) && cusomerWorkorclick==false,
+    'showFilterPagerigOutLeft':(cusworkoderselecbgflag == true && cusworkodersortbgflag==false)}">
         <div ng-repeat="x in customerworkordersortlist" ng-click="customerworkordergetvalue(x,$index)">
             <div class="row">
                 <div class="col col-100">{{x.sortname}}</div>
@@ -49,8 +51,10 @@
     </div>
     <!--select-->
     <div class="customerworkorderselectcontent" ng-show="cusworkoderselecbgflag"
-         ng-class="{'showFilterPagerigInRight': cusworkoderselecbgflag ,
-    'showFilterPagerigOutRight':!cusworkoderselecbgflag}">
+         ng-class="{'showFilterPageshow': (cusworkoderselecbgflag == true && cusworkodersortbgflag==false) && cusomerWorkorclickflag==true,
+    'showFilterPageshinde':(cusworkoderselecbgflag == false && cusworkodersortbgflag==false),
+    'showFilterPagerigInRight':(cusworkoderselecbgflag == true && cusworkodersortbgflag==false) && cusomerWorkorclickflag==false,
+    'showFilterPagerigOutRight':(cusworkoderselecbgflag == false && cusworkodersortbgflag==true)}">
         <ion-scroll has-bouncing="false" scrollbar-y="false" style="max-height:100%; background-color:white">
             <div class="row" style="margin-top: 10px;line-height: 31px; height: 50px;">
                 <div class="col col-20 col-center" style="text-align: left">

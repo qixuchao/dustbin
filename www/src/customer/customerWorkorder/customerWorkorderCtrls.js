@@ -7,6 +7,16 @@
 'use strict';
 customerWorkorderModule
     .controller('customerWorkorderQueryCtrl',['$scope','$state','$http','$timeout','$ionicPopover','$ionicModal','$ionicScrollDelegate','ionicMaterialInk','ionicMaterialMotion','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicModal,$ionicScrollDelegate,ionicMaterialInk,ionicMaterialMotion,customeService,$ionicLoading) {
+       //区分点击的变量B
+        $scope.cusomerWorkorclickflag = true;
+        //区分点击的变量A
+        $scope.cusomerWorkorclick = true;
+
+        //区分点击的变量B
+        $scope.cusomerWorkorsortclickflag = true;
+        //区分点击的变量A
+        $scope.cusomerWorkorselectclickflag = true;
+
         //sort点击变量设置
         $scope.customerworksortflag = false;
 
@@ -27,6 +37,16 @@ customerWorkorderModule
         $scope.customerworkorsortspanflag = true;
 
         $scope.showCustomerWorkeordSortModal = function(){
+            ////区分点击的变量B
+            //$scope.cusomerWorkorsortclickflag = false;
+            ////区分点击的变量A
+            if($scope.cusomerWorkorselectclickflag == false){
+                $scope.cusomerWorkorclick = false;
+            }else{
+                $scope.cusomerWorkorclick = true;
+            }
+            $scope.cusomerWorkorselectclickflag = true;
+
             $scope.cusomerWorkorsortimg = !$scope.cusomerWorkorsortimg;
             $scope.customerworkorsortspanflag = !$scope.customerworkorsortspanflag;
 
@@ -55,6 +75,13 @@ customerWorkorderModule
             };
 
 
+            //区分点击的变量B
+            if($scope.cusworkoderselecbgflag == false && $scope.cusworkodersortbgflag == false ){
+                $scope.cusomerWorkorsortclickflag = true;
+            }else{
+                $scope.cusomerWorkorsortclickflag = false;
+            }
+
         };
         //点击列表
         $scope.customerworkordergetvalue = function(x,index){
@@ -70,6 +97,18 @@ customerWorkorderModule
         $scope.customerworkorselecspanflag = true;
         $scope.cusomerWorkorselecimg = true;
         $scope.showCustomerWorkeordSelecModal = function (){
+            ////区分点击的变量A
+            //$scope.cusomerWorkorselectclickflag = false;
+
+            ////区分点击的变量B
+            if($scope.cusomerWorkorsortclickflag == false){
+                $scope.cusomerWorkorclickflag = false;
+            }else{
+                $scope.cusomerWorkorclickflag = true;
+            }
+            $scope.cusomerWorkorsortclickflag = true;
+
+
             $scope.customerworkorselecspanflag=!$scope.customerworkorselecspanflag;
             $scope.cusomerWorkorselecimg=!$scope.cusomerWorkorselecimg;
 
@@ -90,18 +129,14 @@ customerWorkorderModule
             }else{
                 $scope.customerworkselectflag = false;
             };
-            ////select点击右出与hide矛盾解决变量
-            //if($scope.cusworkoderselecbgflag == true){
-            //    $scope.customerworkselectrightflag = true;
-            //}else{
-            //    $scope.customerworkselectrightflag = false;
-            //};
 
-            console.log("分割线");
-            console.log( "customerworkselectflag"+$scope.customerworkselectflag);
-            console.log( "customerworksortflag"+$scope.customerworksortflag);
 
-            console.log( "cusworkoderselecbgflag"+$scope.cusworkoderselecbgflag);
+            //区分点击的变量A
+            if($scope.cusworkoderselecbgflag == false && $scope.cusworkodersortbgflag == false ){
+                $scope.cusomerWorkorselectclickflag = true;
+            }else{
+                $scope.cusomerWorkorselectclickflag = false;
+            }
 
 
         };
@@ -126,6 +161,13 @@ customerWorkorderModule
             $scope.cusomerWorkorsortimg = true;
             $scope.customerworkorsortspanflag = true;
 
+            //区分点击的变量B
+            if($scope.cusworkoderselecbgflag == false && $scope.cusworkodersortbgflag == false ){
+                $scope.cusomerWorkorsortclickflag = true;
+            }else{
+                $scope.cusomerWorkorsortclickflag = false;
+            }
+
         };
         //selec背景影藏
         $scope.cusworkoderselecbghide = function(){
@@ -136,6 +178,13 @@ customerWorkorderModule
             //文字andimg灰色
             $scope.customerworkorselecspanflag=true
             $scope.cusomerWorkorselecimg = true;
+
+            //区分点击的变量A
+            if($scope.cusworkoderselecbgflag == false && $scope.cusworkodersortbgflag == false ){
+                $scope.cusomerWorkorselectclickflag = true;
+            }else{
+                $scope.cusomerWorkorselectclickflag = false;
+            }
         };
 
         //日期调用

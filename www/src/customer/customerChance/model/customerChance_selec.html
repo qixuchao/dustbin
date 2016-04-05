@@ -3,7 +3,7 @@
         text-align: center;
         position: relative;
         float: right;
-        top:44px;
+        top:55px;
         left:0;
         margin-right:5px;
         z-index: 10;
@@ -12,23 +12,29 @@
         margin-left:0;
         height: 100px;
         width: 130px;
+        border-radius:10px;
         background-color: #fff;
-        border-radius: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,.4);
         opacity: 0;
+    }
+    .platform-ios .chance_seleciosh{
+        top:75px;
+    }
+    .platform-ios .chance_seleciosr{
+        right: 24px;
     }
     .customerchance_up {
         width: 20px;
         position: absolute;
-        right: 13px;
+        right: 22px;
         top: -9px;
     }
 </style>
-    <ion-popover-view class="customerchance_selec">
-        <img src="img/customer/sanjiao.png" class="customerchance_up"></img>
-        <ion-content>
-            <div ng-repeat="types in customerchance_types track by $index" ng-click="CustomerChancequeryType(types)">
-               <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:16px;">
+    <ion-popover-view class="customerchance_selec chance_seleciosh" style="left: 0;margin-top: 0px;background-color: white">
+        <img src="img/customer/sanjiao.png" class="customerchance_up chance_seleciosr"></img>
+        <ion-content style="border-radius:10px">
+            <div ng-repeat="types in customerchance_types track by $index" ng-click="CustomerChancequeryType(types)" style="height:41px">
+               <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:14px;background-color:white;margin:0"">
                    {{types}}
                </ion-item>
                 <div style="width:80%;height: 1px;background-color: #9B9B9B;margin-left:10%"></div>
