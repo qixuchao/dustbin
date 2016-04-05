@@ -4,12 +4,12 @@ module.exports = function(context) {
 
     var ConfigParser, XmlHelpers;
     try {
+        ConfigParser = context.requireCordovaModule("cordova-lib/src/configparser/ConfigParser");
+        XmlHelpers = context.requireCordovaModule("cordova-lib/src/util/xml-helpers");
+    } catch (e) {
         // cordova-lib >= 5.3.4 doesn't contain ConfigParser and xml-helpers anymore
         ConfigParser = context.requireCordovaModule("cordova-common").ConfigParser;
         XmlHelpers = context.requireCordovaModule("cordova-common").xmlHelpers;
-    } catch (e) {
-        ConfigParser = context.requireCordovaModule("cordova-lib/src/configparser/ConfigParser");
-        XmlHelpers = context.requireCordovaModule("cordova-lib/src/util/xml-helpers");
     }
 
     /** @external */
@@ -26,8 +26,7 @@ module.exports = function(context) {
         projectConfigurationFile = path.join(context.opts.projectRoot,
             'config.xml'),
         projectManifestFile = path.join(androidPlatformDir,
-            'AndroidManifest.xml'),
-        xwalk64bit = "xwalk64bit";
+            'AndroidManifest.xml');
 
     /** Init */
     var CordovaConfig = new ConfigParser(projectConfigurationFile);
@@ -82,17 +81,19 @@ module.exports = function(context) {
         }
     }
 
-    /** Pase the cli command to get the specific preference*/
+    /** Pase the cli command to get the specific preferece*/
     var parseCliPreference = function() {
-        var commandlineVariablesList = argumentsString.split('--variable');
+        var commandlineVariablesList = argumentsString.split('variable');
         if (commandlineVariablesList) {
             commandlineVariablesList.forEach(function(element) {
-                element = element.trim();
-                if(element && element.indexOf('XWALK') == 0) {
-                    var preference = element.split('=');
-                    if (preference && preference.length == 2) {
-                        setConfigPreference(preference[0], preference[1]);
-                    }
+                var spaceList = element.split(' ');
+                if (spaceList) {
+                    spaceList.forEach(function(element) {
+                        var preference = element.split('=');
+                        if (preference && preference.length == 2) {
+                            setConfigPreference(preference[0], preference[1]);
+                        }
+                    });
                 }
             });
         }
@@ -139,44 +140,6 @@ module.exports = function(context) {
             }
         }
         fs.writeFileSync(projectConfigurationFile, configXmlRoot.write({indent: 4}), 'utf-8');
-    }
-
-    var build64bit = function() {
-        var build64bit = false;
-        var commandlineVariablesList = argumentsString.split('--');
-
-        if (commandlineVariablesList) {
-            commandlineVariablesList.forEach(function(element) {
-                element = element.trim();
-                if(element && element.indexOf(xwalk64bit) == 0) {
-                    build64bit = true;
-                }
-            });
-        }
-        return build64bit;
-    }
-
-    this.beforeBuild64bit = function() {
-        if(build64bit()) {
-            var configXmlRoot = XmlHelpers.parseElementtreeSync(projectConfigurationFile);
-            var child = configXmlRoot.find('./preference[@name="' + xwalk64bit + '"]');
-            if(!child) {
-                child = et.XML('<preference name="' + xwalk64bit + '" value="' + xwalk64bit + '" />');
-                XmlHelpers.graftXML(configXmlRoot, [child], '/*');
-                fs.writeFileSync(projectConfigurationFile, configXmlRoot.write({indent: 4}), 'utf-8');
-            }
-        }
-    }
-
-    this.afterBuild64bit = function() {
-        if(build64bit()) {
-            var configXmlRoot = XmlHelpers.parseElementtreeSync(projectConfigurationFile);
-            var child = configXmlRoot.find('./preference[@name="' + xwalk64bit + '"]');
-            if (child) {
-                XmlHelpers.pruneXML(configXmlRoot, [child], '/*');
-                fs.writeFileSync(projectConfigurationFile, configXmlRoot.write({indent: 4}), 'utf-8');
-            }
-        }
     }
 
     xwalkVariables = defaultPreferences();

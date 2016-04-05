@@ -75,7 +75,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	//依据所选 筛选条件 进行筛选操作
 	$scope.filterConfirm = function(){
 		// TODO
-	}; 
+	};
 	//重置筛选条件
 	$scope.resetFilters = function(){
 		//筛选 规则 ----> 工单类型
@@ -95,11 +95,18 @@ worksheetModule.controller("WorksheetListCtrl",[
 	};
 	
 	$scope.goDetailState = function(i){
-		console.log("goDetailState");
 		if(i == 0){
-			$state.go("worksheetdetailnewcar");
-		}else{
-			$state.go("worksheetdetailsiterepair");
+			$state.go("worksheetDetail", {
+				detailType: 'newCar'
+			});
+		}else if(i==1){
+			$state.go("worksheetDetail",{
+				detailType: 'siteRepair'
+			});
+		}else if(i==3){
+			$state.go("worksheetDetail",{
+				detailType: 'batchUpdate'
+			});
 		}
 	};
 
@@ -456,7 +463,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 }]);
 
-
 worksheetModule.controller("WorksheetDetailCtrl",[
 	"$scope", 
 	"ionicMaterialInk",
@@ -647,22 +653,3 @@ worksheetModule.controller("WorksheetDetailCtrl",[
     }]);
 			
 			//console.log(e.x+"    "+e.y);
-
-
-/*
-$swipe.bind(viewEleJQ, {
-	start: function(pos, event){
-		console.log('start....   '+pos.x+"     "+pos.y);
-	},
-	move: function(pos, event){
-		console.log('move....');
-		alert("move ... ");
-	},
-	cacel: function(pos, event){
-		console.log("cacel .... ");
-	},
-	end: function(pos, event){
-		console.log("end ... ");
-	}
-});
-    */

@@ -21,8 +21,7 @@ var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
 
 
-var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
-//"ngCordova"
+var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'ionic-material',
     'utilsModule',
     'loginModule', 
@@ -47,7 +46,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ngCordova',
     'customerActivityModule',
     'customerWorkorderModule'
 ])
-CRMApp.run(function ($ionicPlatform,$rootScope) {
+CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -62,6 +61,9 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
         });
         $rootScope.goState = function(state){
             $state.go(state);
+        };
+        $rootScope.goBack = function(){
+            $ionicHistory.goBack();
         };
     })
     
@@ -235,28 +237,25 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
                 controller: 'SpareDetailCtrl'
             })
             // 工单模块相关： start ------------------------
-            .state('worksheetlist', {
-                url: '/worksheetlist',
-                templateUrl: 'src/worksheet/worksheet_list.html',
+            .state('worksheetList', {
+                url: '/worksheetList',
+                templateUrl: 'src/worksheet/worksheetList.html',
                 controller: 'WorksheetListCtrl'
             })
-            .state('worksheetdetailnewcar', {
-                url: '/worksheetdetailnewcar',
-                templateUrl: 'src/worksheet/detail_newcar/worksheet_detail_newcar.html',
-                controller: 'WorksheetDetailNewcarCtrl'
+            
+            .state('worksheetDetail', { // detailType取值: newCar、siteRepair、batchUpdate
+                url: '/worksheetDetail/{detailType}',
+                templateUrl: 'src/worksheet/detailAll/detailAll.html',
+                controller: 'worksheetDetailAllCtrl'
             })
-            .state('worksheetdetailsiterepair', {
-                url: '/worksheetdetailsiterepair',
-                templateUrl: 'src/worksheet/detail_siterepair/worksheet_detail_siterepair.html',
-                controller: 'WorksheetDetailSiterepairCtrl'
+
+            .state('worksheetBaoGonglist', {   //报工信息列表界面
+                url: '/worksheetBaoGonglist',
+                templateUrl: 'src/worksheet/baoGong/baoGongList.html',
+                controller: 'WorksheetBaoGongListCtrl'
             })
-            .state('worksheetbaogonglist', {   //报工信息列表界面
-                url: '/worksheetbaogonglist',
-                templateUrl: 'src/worksheet/baogong/baogong_list.html',
-                controller: 'WorksheetBaogongListCtrl'
-            })
-            .state('worksheetdealhistorylist', {   //交易历史列表界面
-                url: '/worksheetdealhistorylist',
+            .state('worksheetDetailHistoryList', {   //交易历史列表界面
+                url: '/worksheetDetailHistoryList',
                 templateUrl: 'src/worksheet/dealHistoryList/dealHistoryList.html',
                 controller: 'dealHistoryListCtrl'
             })
@@ -315,3 +314,25 @@ CRMApp.run(function ($ionicPlatform,$rootScope) {
 
 
 
+
+
+/*.state('worksheetdetailnewcar', {
+    url: '/worksheetdetailnewcar',
+    templateUrl: 'src/worksheet/detail_newcar/worksheet_detail_newcar.html',
+    controller: 'WorksheetDetailNewcarCtrl'
+})
+.state('worksheetdetailsiterepair', {
+    url: '/worksheetdetailsiterepair',
+    templateUrl: 'src/worksheet/detail_siterepair/worksheet_detail_siterepair.html',
+    controller: 'WorksheetDetailSiterepairCtrl'
+})*/
+/*.state('worksheetDetailNewcar', {
+    url: '/worksheetDetailNewcar',
+    templateUrl: 'src/worksheet/detailNewcar/detailNewcar.html',
+    controller: 'worksheetDetailNewcarCtrl'
+})
+.state('worksheetDetailSiteRepair', {
+    url: '/worksheetDetailSiteRepair',
+    templateUrl: 'src/worksheet/detailSiteRepair/detailSiteRepair.html',
+    controller: 'worksheetDetailSiteRepairCtrl'
+})*/

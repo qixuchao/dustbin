@@ -23,13 +23,13 @@ appModule
             url:'img/apps/saleClue.png'
         },{
             url:'img/apps/saleQuote.png',
-            go:'worksheetlist'
+            go:'worksheetList'
         },{
             url:'img/apps/sparePart.png',
             go:'spareList'
         },{
             url:'img/apps/empInfo.png',
-            go:'worksheetRelatedPart'
+            go:'worksheetCarMileage'
         },{
             url:'img/apps/searchCar.png',
             go:'car'

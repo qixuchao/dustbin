@@ -4,6 +4,7 @@
         "uninstalled": []
     },
     "config_munge": {
+<<<<<<< HEAD
         "files": {
             "config.xml": {
                 "parents": {
@@ -128,6 +129,9 @@
                 }
             }
         }
+=======
+        "files": {}
+>>>>>>> 3c00a5d63ec0346e59561286d507f2a6d1b6586a
     },
     "installed_plugins": {
         "com.verso.cordova.clipboard": {
@@ -140,9 +144,12 @@
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-console": {
+<<<<<<< HEAD
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-crosswalk-webview": {
+=======
+>>>>>>> 3c00a5d63ec0346e59561286d507f2a6d1b6586a
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-datepicker": {

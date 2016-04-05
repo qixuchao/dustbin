@@ -100,10 +100,10 @@ worksheetModule.controller("WorksheetDetailNewcarCtrl",[
 				$scope.goState('worksheetRelatedPart');
 				break;
 			case 'jiaoYiLiShi':
-				$scope.goState('worksheetdealhistorylist');
+				$scope.goState('worksheetDetailHistoryList');
 				break;
 			case 'baoGongXinXi':
-				$scope.goState('worksheetbaogonglist');
+				$scope.goState('worksheetBaoGonglist');
 				break;
 		}
 	};
