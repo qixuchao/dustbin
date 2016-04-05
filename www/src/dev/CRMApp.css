@@ -344,8 +344,8 @@ Copyright (c) 2015 Daniel Eden
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
-    transform: skewX(0.39062deg) skewY(0.39062deg); }
+    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
+    transform: skewX(0.39063deg) skewY(0.39063deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); } }
@@ -370,8 +370,8 @@ Copyright (c) 2015 Daniel Eden
     -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);
     transform: skewX(-0.78125deg) skewY(-0.78125deg); }
   77.7% {
-    -webkit-transform: skewX(0.39062deg) skewY(0.39062deg);
-    transform: skewX(0.39062deg) skewY(0.39062deg); }
+    -webkit-transform: skewX(0.39063deg) skewY(0.39063deg);
+    transform: skewX(0.39063deg) skewY(0.39063deg); }
   88.8% {
     -webkit-transform: skewX(-0.19531deg) skewY(-0.19531deg);
     transform: skewX(-0.19531deg) skewY(-0.19531deg); } }
@@ -2383,9 +2383,14 @@ Copyright (c) 2015 Daniel Eden
 .bar {
   font-size: 16px; }
 
+<<<<<<< HEAD
 input {
   background: none !important;
   border: none !important; }
+=======
+.modal-wrapper {
+  pointer-events: auto !important; }
+>>>>>>> f026a93ca8ed81031b117c72e565914b6bb26d25
 
 /* Fix modal backdrop for smaller devices */
 @media (max-width: 679px) {
@@ -2584,7 +2589,7 @@ input {
   min-height: 125px; }
   .main .top-back .dayView .months {
     padding-top: 35px;
-    font-size: 16px;
+    font-size: 15px;
     color: white;
     padding-bottom: 0; }
     .main .top-back .dayView .months .year {
@@ -2613,7 +2618,7 @@ input {
       background-size: contain;
       color: white; }
   .main .top-back .dayView .today {
-    font-size: 10px;
+    font-size: 8px;
     color: white;
     -webkit-transform: scale(0.7, 0.7); }
   .main .top-back .dayView .edgeDay {
@@ -3037,20 +3042,6 @@ input {
     left: 50%;
     margin-left: -25px; }
 
-.own-fadeOut {
-  transition: opacity;
-  transition-timing-function: ease-out;
-  transition-duration: 250ms;
-  -ms-transition: opacity;
-  -ms-transition-timing-function: ease-out;
-  -ms-transition-duration: 250ms;
-  -moz-transition: opacity;
-  -moz-transition-timing-function: ease-out;
-  -moz-transition-duration: 250ms;
-  -webkit-transition: opacity;
-  -webkit-transition-timing-function: ease-out;
-  -webkit-transition-duration: 250ms; }
-
 /*Actionsheet*/
 /* Empty. Add your own CSS if you like */
 /* 覆盖action-sheet*/
@@ -3432,18 +3423,17 @@ input {
       font-size: 18px;
       position: relative;
       left: 2px;
-      margin: auto 5px auto 0;
-      color: #9A9AA0;
-      vertical-align: middle; }
+      top: -2px;
+      margin-right: 5px;
+      color: #9A9AA0; }
     .saleList .head .col-80 input {
-      height: 20px;
-      min-height: 0;
+      height: 22px;
+      min-height: 22px;
       width: 90%;
       background: none;
       border: none;
       position: relative;
-      /* top: -3px; */
-      padding: 0; }
+      top: -3px; }
     .saleList .head .col-80 .ion-ios-close {
       color: #CBCBCE;
       position: relative;
@@ -3568,7 +3558,7 @@ input {
       color: white !important;
       height: 28px;
       position: relative;
-      padding: 0;
+      top: 2px;
       width: 100%; }
     .saleActDetail .top-back .mainInfo .border-bottom-white {
       border-bottom: 1px solid white; }
@@ -3583,7 +3573,7 @@ input {
   .saleActDetail .top-back .selector {
     height: 27px;
     margin: 0 10px;
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    border: 1px solid white;
     border-radius: 12px;
     font-size: 14px; }
     .saleActDetail .top-back .selector .detail {
@@ -3633,8 +3623,6 @@ input {
   .saleActDetail .content .startTime {
     padding-bottom: 3%;
     border-bottom: 1px solid #d2d2d2; }
-  .saleActDetail .content .ion-arrow-down-b {
-    padding-left: 3px; }
   .saleActDetail .content .endTime {
     padding-top: 3% !important; }
   .saleActDetail .content .rewrite {
@@ -5843,6 +5831,12 @@ input {
     #staff-select-view .result-user .right span {
       border-bottom: 1px solid #2B60AB; }
 
+.worksheet-detail-more-modal {
+  background-color: rgba(0, 0, 0, 0.38); }
+
+.worksheet-detail-more-modal {
+  background-color: rgba(0, 0, 0, 0.38); }
+
 .CarList b, .CarList strong {
   font-weight: 100; }
 
@@ -5852,18 +5846,18 @@ input {
   left: 0;
   z-index: 0;
   overflow: hidden;
+  margin: 0 10px;
   min-width: 30px;
-  padding: 5px;
   height: 43px;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
-  color: #fff; }
+  font-weight: 100;
+  color: #fafafa; }
 
 .CarList .bar.bar-header .button + .title {
-  text-align: center;
-  line-height: 44px; }
+  text-align: center; }
 
 .CarList .bar {
   border-bottom: none;
@@ -5876,61 +5870,39 @@ input {
   border-bottom: none;
   padding: 0;
   background-size: 0;
-  padding-top: 10px; }
+  padding-top: 5px; }
   .CarList .bar-header .button-clear {
     color: #fff;
+    padding-top: 0.6em;
     font-size: 22px; }
   .CarList .bar-header .ion-chevron-left {
     width: 12px; }
 
 .CarList .bar-subheader {
   height: 43px;
-  display: block;
-  padding: 8px; }
-  .CarList .bar-subheader .search1 .placeholder-icon {
+  display: block; }
+  .CarList .bar-subheader .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .8em;
+    top: .6em;
     left: 1em; }
-  .CarList .bar-subheader .search1 input {
+  .CarList .bar-subheader input {
     display: block;
+    padding: 8px;
     padding-left: 2em;
     color: #ccc;
     vertical-align: middle;
-    font-size: 14px;
-    height: 28px;
+    font-size: 15px;
+    line-height: 16px;
     width: 96%;
     position: fixed;
+    right: 6px;
     border-radius: 5px; }
-  .CarList .bar-subheader .search2 .placeholder-icon {
-    color: #aaa;
+  .CarList .bar-subheader .ion-ios-close {
     position: absolute;
-    z-index: 2;
-    top: .8em;
-    left: 1em; }
-  .CarList .bar-subheader .search2 input {
-    display: block;
-    padding-left: 2em;
-    color: #ccc;
-    vertical-align: middle;
-    font-size: 14px;
-    height: 28px;
-    width: 80%;
-    position: fixed;
-    border-radius: 5px; }
-  .CarList .bar-subheader .search2 ion-ios-close {
-    position: absolute;
-    right: 2em;
-    top: 12px; }
-  .CarList .bar-subheader .search2 .button-clear {
-    position: relative;
-    left: 86%;
-    font-size: 16px;
-    top: -2px; }
-
-.CarList .has-subheader {
-  top: 95px; }
+    right: 1em;
+    top: 8px; }
 
 .CarList .row + .row .row {
   padding-top: 0;
@@ -5971,7 +5943,7 @@ input {
 
 .CarList .contentType {
   position: relative;
-  top: 2.5em;
+  top: 2em;
   border-bottom: 1px solid rgba(43, 43, 43, 0.17); }
 
 .CarList .row .col {
@@ -5987,8 +5959,9 @@ input {
   .CarList .rowType .colType {
     padding-left: 0; }
     .CarList .rowType .colType span {
-      font-size: 14px;
-      color: black; }
+      font-size: 1em;
+      color: #4a4a4a;
+      font-weight: 100; }
 
 .CarList .search .his-title {
   color: #BFBFBF; }
@@ -6008,7 +5981,7 @@ input {
 .CarList .search ion-item {
   border-bottom: 1px solid #D8D8D8;
   min-height: 0;
-  font-size: 14px;
+  font-size: 16px;
   padding: 10px 16px; }
 
 .CarList .content .item {
@@ -6037,7 +6010,7 @@ input {
   height: 3.28em;
   font-size: 16px; }
   .CarDetail .top-back3 .title {
-    padding-top: 20px;
+    padding-top: 10px;
     color: white; }
     .CarDetail .top-back3 .title i {
       font-size: 25px;
@@ -6049,7 +6022,7 @@ input {
   background-size: 100% 100% !important;
   margin-top: -1px;
   color: white;
-  height: 3.28em;
+  height: 4em;
   font-size: 16px; }
   .CarDetail .top-back2 .title {
     padding-top: 20px;
@@ -6064,9 +6037,9 @@ input {
   background-size: 100% 100%;
   color: white;
   font-size: 16px;
-  height: 161px; }
+  height: 164px; }
   .CarDetail .top-back .title {
-    padding-top: 20px;
+    padding-top: 10px;
     color: white; }
     .CarDetail .top-back .title i {
       font-size: 25px;
@@ -6114,7 +6087,7 @@ input {
 
 .CarDetail .col-60 {
   font-size: 1.1em;
-  color: #444; }
+  color: rgba(155, 155, 155, 0.9); }
 
 .CarDetail u {
   color: #2B60AB;
@@ -6122,7 +6095,7 @@ input {
 
 .CarDetail .col-80 {
   font-size: 13px;
-  color: #444; }
+  color: rgba(155, 155, 155, 0.9); }
 
 .CarDetail .contentType {
   position: relative; }
@@ -6136,7 +6109,7 @@ input {
   font-size: 15px;
   color: #2B60AB;
   margin-bottom: 2.5em;
-  margin-top: 0.5em;
+  margin-top: 0.3em;
   font-weight: 100; }
   .CarDetail .Car_countentbasic .Car_countentbasicinfo {
     position: absolute;
@@ -6164,7 +6137,7 @@ input {
   font-size: 15px;
   color: #2B60AB;
   margin-bottom: 2.5em;
-  margin-top: 0.5em;
+  margin-top: 0.3em;
   font-weight: 100; }
   .CarDetail .Car_countentbasic1 .Car_countentbasicinfo {
     position: absolute;
@@ -6200,6 +6173,11 @@ input {
   padding-left: 0;
   padding-right: 0; }
 
+.CarDetail b, .CarDetail strong {
+  font-weight: 100;
+  font-size: 15px;
+  color: black; }
+
 .CarDetail .rowType {
   position: relative;
   left: 4%;
@@ -6209,9 +6187,6 @@ input {
   padding-left: 0; }
   .CarDetail .rowType .col {
     padding: 0; }
-  .CarDetail .rowType span {
-    font-size: 15px;
-    color: #000; }
 
 .CarDetail .rowType1 {
   position: relative;
@@ -6222,9 +6197,6 @@ input {
   padding-left: 0; }
   .CarDetail .rowType1 .col {
     padding: 0; }
-  .CarDetail .rowType1 span {
-    font-size: 15px;
-    color: #000; }
 
 .CarDetail .lineType1 {
   border-bottom: 1px solid #ccc; }
@@ -6268,9 +6240,6 @@ input {
       font-size: 1.8rem;
       padding-left: 15px;
       color: white; }
-    .Maintenance ion-header-bar .ion-chevron-left {
-      font-size: 25px;
-      padding: 5px; }
     .Maintenance ion-header-bar .left-back, .Maintenance ion-header-bar .title {
       transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s; }
     .Maintenance ion-header-bar .buttons.right {
@@ -6281,6 +6250,19 @@ input {
     .Maintenance ion-header-bar .right-buttons-active {
       width: 100%;
       border: 1px solid red; }
+    .Maintenance ion-header-bar.query-mode .buttons.right {
+      width: 96%;
+      margin: auto; }
+      .Maintenance ion-header-bar.query-mode .buttons.right .button-clear.search {
+        width: 1.8rem;
+        min-width: 1.8rem;
+        background-color: white;
+        color: #2B60AB;
+        border-radius: 10px 0px 0px 0px; }
+        .Maintenance ion-header-bar.query-mode .buttons.right .button-clear.search i:before {
+          font-size: 1.2rem; }
+      .Maintenance ion-header-bar.query-mode .buttons.right input {
+        border-radius: 0px 0px 10px 0px; }
     .Maintenance ion-header-bar.query-mode .left-back, .Maintenance ion-header-bar.query-mode .title {
       width: 0rem;
       min-width: 0px; }
@@ -6302,14 +6284,14 @@ input {
     right: 0;
     left: 0;
     z-index: 0;
-    padding: 5px;
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 16px;
     font-weight: 100;
-    color: #fff; }
+    line-height: 3.5em;
+    color: white; }
   .Maintenance ion-content {
     background-color: #F5F5F5;
     display: -webkit-box;
@@ -6337,14 +6319,38 @@ input {
         height: 10px; }
       .Maintenance .divLine .rowContent b {
         font-weight: 100;
-        color: #000;
+        color: rgba(68, 68, 68, 0.89);
         font-size: 16px; }
       .Maintenance .divLine .rowContent span {
         font-size: 14px;
-        color: rgba(17, 17, 17, 0.69);
-        font-weight: 100; }
+        color: rgba(17, 17, 17, 0.43);
+        font-weight: 500; }
     .Maintenance .divLine .buttonText .span {
       left: 25%; }
+  .Maintenance .search-box-wrapper {
+    background-color: #2B60AB; }
+    .Maintenance .search-box-wrapper .search-box {
+      width: 94%;
+      border: 1px solid #DAD7D7;
+      margin: auto;
+      border-radius: 5px;
+      margin-top: .4rem;
+      margin-bottom: .4rem;
+      background-color: white;
+      color: #969494; }
+    .Maintenance .search-box-wrapper i {
+      width: 9%;
+      display: inline-block;
+      margin: auto;
+      text-align: center;
+      background-color: white;
+      font-size: 1.2rem;
+      vertical-align: middle; }
+    .Maintenance .search-box-wrapper input {
+      display: inline-block;
+      height: 2rem;
+      line-height: 2rem;
+      width: 87%; }
   .Maintenance .divs-wrapper {
     position: relative;
     -webkit-box-flex: 1;
@@ -6369,8 +6375,6 @@ input {
     .Maintenance .divs-wrapper .tab-sort-content, .Maintenance .divs-wrapper .tab-filter-content {
       transition: transform .2s linear 0s;
       transform: translateY(-100%); }
-    .Maintenance .divs-wrapper .row {
-      padding: 5px 0; }
     .Maintenance .divs-wrapper.sort-from-click .tab-sort-content {
       transform: translateY(0%); }
     .Maintenance .divs-wrapper.sort-from-click .tab-filter-content {
@@ -6708,8 +6712,7 @@ input {
     .Maintenance .tab-filter-content .filter-title {
       height: 2rem;
       line-height: 2rem;
-      font-size: 14px;
-      padding-left: 5px; }
+      font-size: 14px; }
     .Maintenance .tab-filter-content .filter-time {
       display: -webkit-box;
       display: -webkit-flex;
@@ -6756,8 +6759,7 @@ input {
       padding-bottom: .6rem; }
       .Maintenance .tab-filter-content .filter-worksheet-type .filter-types {
         height: 3rem;
-        line-height: 3rem;
-        padding-left: 5px; }
+        line-height: 3rem; }
         .Maintenance .tab-filter-content .filter-worksheet-type .filter-types .filter-type {
           display: inline-block;
           height: 2rem;
@@ -6766,7 +6768,8 @@ input {
           padding: 0px .3rem;
           text-align: center;
           background-color: #dfe2e4;
-          color: #828282; }
+          color: #828282;
+          margin-right: 1em; }
           .Maintenance .tab-filter-content .filter-worksheet-type .filter-types .filter-type.selected {
             background-color: #3259a4;
             color: white; }
@@ -6775,8 +6778,7 @@ input {
       padding-bottom: .8rem; }
       .Maintenance .tab-filter-content .filter-impact .filter-impacts {
         height: 2.5rem;
-        line-height: 2.5rem;
-        padding-left: 5px; }
+        line-height: 2.5rem; }
         .Maintenance .tab-filter-content .filter-impact .filter-impacts .filter-impact {
           width: 3rem;
           display: inline-block;
@@ -6844,27 +6846,24 @@ input {
 .SpareList1 b, .SpareList1 strong {
   font-weight: 100; }
 
-.SpareList1 b, .SpareList1 strong {
-  font-weight: 100; }
-
 .SpareList1 .bar .title {
   position: absolute;
   right: 0;
   left: 0;
   z-index: 0;
   overflow: hidden;
+  margin: 0 10px;
   min-width: 30px;
-  padding: 5px;
   height: 43px;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
-  color: #fff; }
+  font-weight: 100;
+  color: #fafafa; }
 
 .SpareList1 .bar.bar-header .button + .title {
-  text-align: center;
-  line-height: 44px; }
+  text-align: center; }
 
 .SpareList1 .bar {
   border-bottom: none;
@@ -6876,41 +6875,33 @@ input {
 .SpareList1 .bar-header {
   border-bottom: none;
   padding: 0;
-  background-size: 0;
-  padding-top: 10px; }
+  background-size: 0; }
   .SpareList1 .bar-header .button-clear {
     color: #fff;
-    font-size: 22px; }
-  .SpareList1 .bar-header .ion-chevron-left {
-    width: 12px; }
+    padding-left: 15px;
+    padding-top: 0.3em; }
 
 .SpareList1 .bar-subheader {
-  height: 43px;
-  display: block;
-  padding: 8px; }
+  height: 2.4em;
+  display: block; }
   .SpareList1 .bar-subheader .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .8em;
+    top: .4em;
     left: 1em; }
   .SpareList1 .bar-subheader input {
     display: block;
+    padding: 8px;
     padding-left: 2em;
     color: #ccc;
     vertical-align: middle;
-    font-size: 14px;
-    height: 28px;
-    width: 95%;
+    font-size: 15px;
+    line-height: 16px;
+    width: 96%;
     position: fixed;
+    right: 6px;
     border-radius: 5px; }
-  .SpareList1 .bar-subheader .ion-ios-close {
-    position: absolute;
-    right: 2em;
-    top: 12px; }
-
-.SpareList1 .has-subheader {
-  top: 95px; }
 
 .SpareList1 .divContent {
   position: relative;
@@ -6927,13 +6918,13 @@ input {
   padding: 0; }
   .SpareList1 .col span {
     font-size: 14px;
-    color: #000; }
+    color: gray; }
   .SpareList1 .col .spareName {
     font-size: 1.2em; }
 
 .SpareList1 .row-center b {
   font-weight: 100;
-  color: #111111;
+  color: rgba(17, 17, 17, 0.71);
   font-size: 14px; }
 
 .SpareList1 .rowType {
@@ -6954,18 +6945,18 @@ input {
   left: 0;
   z-index: 0;
   overflow: hidden;
+  margin: 0 10px;
   min-width: 30px;
-  padding: 5px;
   height: 43px;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
-  color: #fff; }
+  font-weight: 100;
+  color: #fafafa; }
 
 .SpareList .bar.bar-header .button + .title {
-  text-align: center;
-  line-height: 44px; }
+  text-align: center; }
 
 .SpareList .bar {
   border-bottom: none;
@@ -6977,41 +6968,33 @@ input {
 .SpareList .bar-header {
   border-bottom: none;
   padding: 0;
-  background-size: 0;
-  padding-top: 10px; }
+  background-size: 0; }
   .SpareList .bar-header .button-clear {
     color: #fff;
-    font-size: 22px; }
-  .SpareList .bar-header .ion-chevron-left {
-    width: 12px; }
+    padding-left: 15px;
+    padding-top: 0.3em; }
 
 .SpareList .bar-subheader {
-  height: 43px;
-  display: block;
-  padding: 8px; }
+  height: 2.4em;
+  display: block; }
   .SpareList .bar-subheader .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .8em;
+    top: .4em;
     left: 1em; }
   .SpareList .bar-subheader input {
     display: block;
+    padding: 8px;
     padding-left: 2em;
     color: #ccc;
     vertical-align: middle;
-    font-size: 14px;
-    height: 28px;
+    font-size: 15px;
+    line-height: 16px;
     width: 96%;
     position: fixed;
+    right: 6px;
     border-radius: 5px; }
-  .SpareList .bar-subheader .ion-ios-close {
-    position: absolute;
-    right: 2em;
-    top: 12px; }
-
-.SpareList .has-subheader {
-  top: 95px; }
 
 .SpareList .pointImg {
   height: 10px;
@@ -7060,32 +7043,21 @@ input {
 
 .SpareList .col span {
   font-size: 16px;
-  color: #000; }
+  color: rgba(17, 17, 17, 0.78);
+  font-weight: 100; }
+
+.Detail b, .Detail strong {
+  font-weight: 100; }
 
 .Detail .bar.bar-header .button + .title {
   text-align: center;
   color: white;
-  line-height: 3.5em; }
-
-.Detail .bar .title {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 0;
-  overflow: hidden;
-  min-width: 30px;
-  height: 43px;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 16px;
-  line-height: 44px; }
+  line-height: 3em; }
 
 .Detail .bar .button.button-clear {
   color: #fff;
-  padding-top: 0.6em;
-  font-size: 22px; }
+  padding-left: 15px;
+  padding-top: 0.4em; }
 
 .Detail .bar {
   border-bottom: none;
@@ -7131,9 +7103,7 @@ input {
     left: 4%;
     padding: 0.8em 0; }
     .Detail ion-content .rowType .col-40 {
-      padding-left: 0;
-      color: #000;
-      font-size: 16px; }
+      padding-left: 0; }
   .Detail ion-content img {
     -webkit-user-drag: none;
     height: 2.5em;
@@ -7141,6 +7111,10 @@ input {
   .Detail ion-content span {
     font-size: 15px;
     color: gray; }
+  .Detail ion-content b, .Detail ion-content strong {
+    font-weight: 100;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 16px; }
   .Detail ion-content .line {
     border-bottom: 1px solid #d2d2d2; }
 
@@ -7163,7 +7137,7 @@ input {
   color: #1d63ae; }
 
 .saleChanDetail .time-icon {
-  padding-left: 6px !important; }
+  padding-left: 6px; }
 
 .saleChanDetail .chanSubTitle {
   min-width: 77px; }
@@ -7358,8 +7332,14 @@ input {
   left: 0;
   bottom: 0; }
 
-.Contacts_detail .Contacts_backtop {
-  background: url("../../img/employee/BAR-BG@2x.png") no-repeat center;
+.Contacts_detail .Contacts_backtopa {
+  background: url("../../img/contact/contactbga@2x.png") no-repeat;
+  background-size: 100% 100%;
+  width: 100%; }
+
+.Contacts_detail .Contacts_backtopb {
+  background: url("../../img/contact/contactbgb@2x.png") no-repeat;
+  background-size: 100% 100%;
   width: 100%; }
 
 .Contacts_detail .Contacts_detailtitle {
@@ -7393,7 +7373,7 @@ input {
 
 .Contacts_detail .Contacts_detailname {
   position: absolute;
-  top: 14px;
+  top: 30px;
   font-size: 12px;
   width: 80%;
   margin-left: 13%;
@@ -7407,7 +7387,7 @@ input {
   color: white; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentname {
     position: absolute;
-    top: 1px;
+    top: 3px;
     left: 25px; }
     .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentname .Contacts_detailcontentcicle {
       width: 14px;
@@ -7420,19 +7400,19 @@ input {
       border: 2px solid #9EC92A; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentkehu {
     position: absolute;
-    top: 23px;
+    top: 27px;
     left: 25px; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentaddress {
     position: absolute;
-    top: 45px;
+    top: 50px;
     left: 25px; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentemploy {
     position: absolute;
-    top: 67px;
+    top: 73px;
     left: 25px; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentphone {
     position: absolute;
-    top: 89px;
+    top: 100px;
     left: 25px; }
     .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentphone .Contacts_detailcontentphonei {
       float: left;
@@ -7440,7 +7420,7 @@ input {
       font-size: 25px; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentmobile {
     position: absolute;
-    top: 113px;
+    top: 124px;
     left: 25px; }
     .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentmobile .Contacts_detailcontentmobilei {
       float: left;
@@ -7579,8 +7559,8 @@ input {
   padding: 10px 13px 10px 13px;
   border: none; }
   .customer_Query .customer_Querylists .customer_Querylistsimg {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     float: right; }
 
 .customer_detail .absolute {
@@ -7591,8 +7571,13 @@ input {
   left: 0;
   bottom: 0; }
 
-.customer_detail .customer_backtop {
-  background: url("../../img/saleDetail/BG1.png") no-repeat;
+.customer_detail .customer_backtopa {
+  background: url("../../img/customer/customerbackga@2x.png") no-repeat;
+  background-size: 100% 100%;
+  width: 100%; }
+
+.customer_detail .customer_backtopb {
+  background: url("../../img/customer/customerbackg@2x.png") no-repeat;
   background-size: 100% 100%;
   width: 100%; }
 
@@ -7626,10 +7611,10 @@ input {
 
 .customer_detail .customer_detailname {
   position: absolute;
-  top: 26px;
+  top: 37px;
   font-size: 14px;
   width: 80%;
-  margin-left: 13%;
+  margin-left: 10%;
   color: white;
   text-align: center; }
 
@@ -7640,7 +7625,7 @@ input {
   color: white; }
   .customer_detail .customer_detailcontent .customer_detailcontentname {
     position: absolute;
-    top: 1px;
+    top: 10px;
     left: 25px; }
     .customer_detail .customer_detailcontent .customer_detailcontentname .customer_detailcontentcicle {
       width: 14px;
@@ -7653,11 +7638,11 @@ input {
       border: 2px solid #9EC92A; }
   .customer_detail .customer_detailcontent .customer_detailcontentaddress {
     position: absolute;
-    top: 25px;
+    top: 35px;
     left: 25px; }
   .customer_detail .customer_detailcontent .customer_detailcontentphone {
     position: absolute;
-    top: 50px;
+    top: 60px;
     left: 25px; }
     .customer_detail .customer_detailcontent .customer_detailcontentphone .customer_detailcontentphonei {
       float: left;
@@ -7712,6 +7697,13 @@ input {
 .customer_detail .customer_detail_countentlist {
   margin-top: 35px;
   font-size: 16px; }
+  .customer_detail .customer_detail_countentlist .customer_detail_countentlistimg {
+    width: 16px;
+    height: 16px;
+    float: left;
+    margin-top: 2px;
+    margin-left: 8px;
+    margin-right: 5px; }
 
 .customer_detail .customercontentbutton {
   width: 55%;

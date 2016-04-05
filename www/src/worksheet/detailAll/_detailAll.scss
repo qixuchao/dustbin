@@ -2,7 +2,7 @@
 .worksheet-detail-more-modal{
 	background-color: rgba(0, 0, 0, 0.38);
 }
-#worksheetdetail-content-newcar{
+#worksheetdetail-content-newcar{ 
 	
 }
 
@@ -12,14 +12,15 @@
 
 
 // 详情界面公共 styles
+
 .platform-ios.platform-cordova:not(.fullscreen){
   
   //height: 64px; 
 }
 
 
-//#worksheetdetail-newcar-view, #worksheetdetail-siterepair-view{
 .worksheet-detail-view-public{
+//#worksheetdetail-newcar-view, #worksheetdetail-siterepair-view{
 	ion-content>div.scroll{
         @include display-flex;
         @include flex-direction(column);

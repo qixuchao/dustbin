@@ -133,7 +133,7 @@ mainModule
                     }
                     daysChangedInit(select_day);
                 }
-            };
+            }
 
             var daysChangedInit = function (day) {
                 $timeout(function () {
@@ -266,7 +266,6 @@ mainModule
                     if (page_index == 0) {
                         for (var i = 0; i < 7; i++) {
                             if (($scope.year + '/' + $scope.month + '/' + $scope.days[0].arr[i].value) == todayDate) {
-                                $scope.init();
                                 return
                             }
                         }
@@ -304,8 +303,17 @@ mainModule
                     }
                 }
 
-            };
+            }
 
+            $scope.onMonthSwipeLeft = function () {
+                //当前周一对应的日期
+                //nextDays(7);
+                alert('月份左滑')
+            }
+            $scope.onMonthSwipeRight = function () {
+                //nextDays(-7);
+                alert('月份右滑动')
+            }
             $scope.selectDay = function (x, y) {
                 if (y.value == '') {
                     return
@@ -325,11 +333,11 @@ mainModule
                 $scope.contenHideFlag = true;
                 $timeout(function () {
                     $scope.contentArr = [];
-                }, 200);
+                }, 200)
                 $timeout(function () {
                     $scope.contenHideFlag = false;
                     $scope.contentArr = tempArr;
-                }, 400);
+                }, 400)
                 $timeout(function () {
                     ionicMaterialMotion.fadeSlideInRight({
                         startVelocity: 3000,
@@ -339,11 +347,11 @@ mainModule
                 }, 500);
                 $scope.selectModeText = '销售活动';
 
-            };
+            }
 
             $scope.topHeight = {
                 'margin-top': '198px'
-            };
+            }
             var last_day;
             $scope.init = function () {
                 //初始化数据
@@ -604,20 +612,21 @@ mainModule
             $scope.contentArr = $scope.thingsToDo;
             $scope.moreApps = function () {
                 //$ionicBackdrop.retain();
-            };
+            }
             $scope.chooseMark = function (x, color) {
                 x.showMarks = false;
                 x.mark = color;
-            };
+            }
             $scope.delete = function (x) {
                 x.class = 'own-animated zoomOutRight';
                 var arr = document.getElementsByClassName('obj');
+                console.log(arr)
                 for (var i = 0; i < arr.length; i++) {
                     arr[i].style.transitionDelay = '0s';
                 }
                 $timeout(function () {
-                    $scope.contentArr.splice($scope.contentArr.indexOf(x), 1);
-                }, 10);
+                    $scope.thingsToDo.splice($scope.thingsToDo.indexOf(x), 1);
+                }, 10)
                 //$scope.thingsToDo.splice($scope.thingsToDo.indexOf(x),1);
             };
 
@@ -636,7 +645,7 @@ mainModule
                     $timeout(function () {
                         $scope.contenHideFlag = false;
                         $scope.contentArr = tempArr;
-                    }, 400);
+                    }, 400)
                     $timeout(function () {
                         ionicMaterialMotion.fadeSlideInRight({
                             startVelocity: 3000,
@@ -647,7 +656,6 @@ mainModule
                     $scope.selectModeText = x.text;
                 }
                 $scope.modeFlag = x.flag;
-                $('#mainSelectionsId').removeClass('own-animated');
                 $scope.showPop = false;
 
             };
