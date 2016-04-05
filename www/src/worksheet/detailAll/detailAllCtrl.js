@@ -561,16 +561,23 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                   $cordovaToast, $stateParams, $ionicPosition) {
 
         	$scope.$on('$destroy', function() {
-				if($scope.config.moreModal != null){			
+				__destroyModal();
+			});
+			function __destroyModal(){
+				if($scope.config.moreModal != null){
+					if($scope.config.moreModal.isShown()){
+						$scope.config.moreModal.hide();
+					}
 					$scope.config.moreModal.remove();
 					$scope.config.moreModal = null;
 				}
-			});
+			}
 
 			$scope.goState = function(stateName){
+				__destroyModal();
 				$timeout(function (){
 					$state.go(stateName);
-				}, 100);		
+				}, 100);
 			};
 			$scope.dibButtonClickHandler = function(type){
 				switch(type){
@@ -586,8 +593,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}
 			};
 			$scope.moreModalClickHandler = function(type){
-				$scope.config.moreModal.hide();		
-				if(type == 'paigong'){ 
+				$scope.config.moreModal.hide();
+				if(type == 'paigong'){
 
 				}else if(type == 'judan'){
 
@@ -598,7 +605,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}else if(type == 'chelianglicheng'){
 					$scope.goState("worksheetCarMileage");
 				}else if(type == 'guzhangxinxi'){
-					$scope.goState("worksheetFaultInfos");
+					$scope.goState('worksheetFaultInfos');
+					//$scope.goState("worksheetFaultInfos");
 				}else if(type == 'fuwupaizhao'){
 					$scope.goState("worksheetTakePicture");
 				}else if(type == 'baogong'){
@@ -659,6 +667,15 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					modal.style.left = modalFinalLeft+"px";
 					modal.style.zIndex = 12; // 12  -2
 			};
+
+
+			$scope.editSiteRepair = function(){
+				// TODO
+			};
+			$scope.editNewCar = function(){
+				// TODO
+			};
+
 
         	$scope.config = {
 				scrollDelegateHandler: null,
@@ -855,14 +872,18 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
             $scope.init = function(){
             	// newCar、siteRepair、batchUpdate
+            	$scope.config.detailTypeNewCar = false;
+            	$scope.config.detailTypeSiteRepair = false;
+            	$scope.config.detailTypeBatchUpdate = false;
             	var type = $stateParams.detailType;
             	$scope.config.detailType = type;
             	if(type == "newCar"){
             		$scope.config.detailTypeNewCar = true;
             		$scope.datas.header = $scope.datas.headerNewCar;
-            	}else if(type == "siteRepair" || type == "batchUpdate"){
+            	}else if(type == "siteRepair"){
             		$scope.config.detailTypeSiteRepair = true;
             		$scope.datas.header = $scope.datas.headerSiteRepair;
+            		//$scope.datas.header = $scope.datas.headerNewCar;
             	}else if(type == "batchUpdate"){
             		$scope.config.detailTypeBatchUpdate = true;
             		$scope.datas.header = $scope.datas.headerBatchUpdate;
