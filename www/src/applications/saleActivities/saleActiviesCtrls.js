@@ -216,6 +216,7 @@ salesModule
                     $scope.showTitle = true;
                     if (position > 26) {
                         $scope.customerFlag = true;
+                        $('#testCustomerId').fadeOut();
                     } else {
                         $scope.customerFlag = false;
                     }

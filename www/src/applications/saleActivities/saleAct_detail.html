@@ -71,11 +71,11 @@
                         <div class="col col-85">
                             <div class="row">
                                 <div class="col-30 text-left">开始时间:</div>
-                                <div class="text col-70 startTime" ng-click="selectTime('start')">{{details.startTime}}</div>
+                                <div class="text col-70 startTime" ng-disabled="!isEdit" ng-click="selectTime('start')">{{details.startTime}}</div>
                             </div>
                             <div class="row endTime">
                                 <div class="col-30 text-left">结束时间:</div>
-                                <div class="text col-70" ng-click="selectTime('end')">{{details.endTime}}</div>
+                                <div class="text col-70" ng-disabled="!isEdit" ng-click="selectTime('end')">{{details.endTime}}</div>
                             </div>
                         </div>
                         <div class="col -col-10 text-right rewrite">修改</div>
