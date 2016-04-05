@@ -1,4 +1,4 @@
-/** 
+/**
  * Created by zhangren on 16/3/19.
  */
 'use strict';
@@ -78,7 +78,7 @@ salesModule
                 $scope.createModal.show();
                 //console.log(document.getElementsByClassName('modal-wrapper'));
                 var tempArr = document.getElementsByClassName('modal-wrapper');
-                for(var i=0;i<tempArr.length;i++){
+                for (var i = 0; i < tempArr.length; i++) {
                     tempArr[i].style.pointerEvents = 'auto';
                 }
             };
@@ -121,7 +121,7 @@ salesModule
                 $scope.selectPersonModal.hide();
                 //arr[0].className = 'modal-backdrop hide';
             };
-            $scope.$on('$destroy', function() {
+            $scope.$on('$destroy', function () {
                 $scope.createPop.remove();
                 $scope.createModal.remove();
                 $scope.selectPersonModal.remove();
@@ -130,6 +130,7 @@ salesModule
         }])
     .controller('saleActDetailCtrl', [
         '$scope',
+        '$rootScope',
         '$state',
         '$ionicHistory',
         '$ionicScrollDelegate',
@@ -142,12 +143,13 @@ salesModule
         '$cordovaToast',
         '$cordovaDatePicker',
         'saleActService',
+        'saleChanService',
         'Prompter',
-        function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
+        function ($scope, $rootScope,$state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, $cordovaDatePicker, saleActService, Prompter) {
+                  $cordovaToast, $cordovaDatePicker, saleActService, saleChanService, Prompter) {
             ionicMaterialInk.displayEffect();
-            $scope.statusArr = saleActService.getStatusArr();
+            $scope.statusArr = saleChanService.getStatusArr();
             $scope.mySelect = {
                 status: $scope.statusArr[2]
             };
@@ -159,6 +161,27 @@ salesModule
             };
             $scope.isEdit = false;
             $scope.editText = "编辑";
+            $scope.goBack = function () {
+                if ($scope.isEdit) {
+                    $cordovaDialogs.confirm('请先保存当前的更改', '提示', ['保存', '不保存'])
+                        .then(function (buttonIndex) {
+                            // no button = 0, 'OK' = 1, 'Cancel' = 2
+                            var btnIndex = buttonIndex;
+                            if(btnIndex==1){
+                                Prompter.showLoading('正在保存');
+                                $timeout(function () {
+                                    Prompter.hideLoading();
+                                    $cordovaToast.showShortBottom('保存成功');
+                                    $rootScope.goBack();
+                                }, 500);
+                            }else{
+                                $rootScope.goBack();
+                            }
+                        });
+                }else{
+                    $rootScope.goBack();
+                }
+            };
             $scope.edit = function () {
                 if ($scope.editText == '编辑') {
                     $scope.isEdit = true;
@@ -178,7 +201,7 @@ salesModule
                     }, 500);
 
                 }
-            }
+            };
             $scope.select = true;
             $scope.showTitle = false;
             $scope.showTitleStatus = false;
@@ -273,7 +296,8 @@ salesModule
                     minutes = "0" + date.getMinutes();
                 } else {
                     minutes = date.getMinutes();
-                };
+                }
+                ;
                 //小时
                 if (date.getHours().toString().length < 2) {
                     hour = "0" + date.getHours();
@@ -281,7 +305,8 @@ salesModule
                 } else {
                     hour = date.getHours();
                     time = hour + ":" + minutes;
-                };
+                }
+                ;
                 return dateTemp + " " + time;
             };
             var getOptions = function (date, mode, text) {

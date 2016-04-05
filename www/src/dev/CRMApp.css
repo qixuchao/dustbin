@@ -2383,6 +2383,10 @@ Copyright (c) 2015 Daniel Eden
 .bar {
   font-size: 16px; }
 
+input {
+  background: none !important;
+  border: none !important; }
+
 /* Fix modal backdrop for smaller devices */
 @media (max-width: 679px) {
   .active .modal-backdrop-bg {
@@ -3685,16 +3689,16 @@ Copyright (c) 2015 Daniel Eden
       background: #d2d2d2;
       margin-left: 5%; }
   .saleActDetail .content .submit {
-    margin-top: 20%;
+    width: 100%;
     background: #f8f8f8;
     border: 1px solid #EAE3E3; }
     .saleActDetail .content .submit .row {
-      padding: 3% 3% !important;
+      padding: 5px 3% !important;
       border: none; }
       .saleActDetail .content .submit .row .col-18 {
         margin-left: 2.5%; }
         .saleActDetail .content .submit .row .col-18 button {
-          height: 34px;
+          height: 29px;
           min-width: 90%;
           border-radius: 10px;
           background: #9ec92a;
@@ -3704,11 +3708,17 @@ Copyright (c) 2015 Daniel Eden
       .saleActDetail .content .submit .row .input {
         background: white;
         border-radius: 10px;
-        border: 1px solid #EAE3E3; }
+        border: 1px solid #EAE3E3;
+        height: 30px;
+        top: 1px;
+        position: relative;
+        line-height: 30px; }
         .saleActDetail .content .submit .row .input input {
           width: 100%;
           background: none;
-          border: none; }
+          border: none;
+          height: 25px;
+          padding-left: 10px; }
   .saleActDetail .content .relative {
     padding: 0;
     margin: 1% 5%; }
@@ -7150,8 +7160,7 @@ Copyright (c) 2015 Daniel Eden
   padding-right: 0; }
 
 .saleChanDetail .money {
-  color: #1d63ae;
-  padding-left: 10% !important; }
+  color: #1d63ae; }
 
 .saleChanDetail .time-icon {
   padding-left: 6px !important; }
@@ -7203,6 +7212,16 @@ Copyright (c) 2015 Daniel Eden
   padding-top: 12px;
   text-align: center; }
 
+.saleChanDetail .saleChanInput {
+  padding: 0;
+  height: auto;
+  color: #9B9B9B; }
+
+.saleChanDetail .saleChanPreInput {
+  width: 80px;
+  height: auto;
+  color: #9B9B9B; }
+
 .saleDetailPop {
   margin-top: 44%;
   font-size: 14px;
@@ -7253,6 +7272,16 @@ Copyright (c) 2015 Daniel Eden
   .saleDetailPop .popover {
     width: 230px;
     left: 49%; }
+
+.moneyTypesModal .content .selectItem {
+  padding: 0 16px;
+  font-size: 16px; }
+  .moneyTypesModal .content .selectItem .row {
+    border-bottom: 1px solid #d2d2d2;
+    padding: 8px 5px; }
+
+.moneyTypesModal .content .selected {
+  color: #2B60AB; }
 
 .contact_query .contact_head {
   width: 100%;

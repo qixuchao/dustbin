@@ -366,16 +366,16 @@
       }
     }
     .submit {
-      margin-top: 20%;
+      width: 100%;
       background: #f8f8f8;
       border: 1px solid #EAE3E3;
       .row {
-        padding: 3% 3% !important;
+        padding: 5px 3% !important;
         border: none;
         .col-18 {
           margin-left: 2.5%;
           button {
-            height: 34px;
+            height: 29px;
             min-width: 90%;
             border-radius: 10px;
             background: #9ec92a;
@@ -388,10 +388,16 @@
           background: white;
           border-radius: 10px;
           border: 1px solid #EAE3E3;
+          height: 30px;
+          top: 1px;
+          position: relative;
+          line-height: 30px;
           input {
             width: 100%;
             background: none;
             border: none;
+            height: 25px;
+            padding-left: 10px;
           }
         }
       }
