@@ -4,6 +4,12 @@
   b, strong {
     font-weight: 100;
   }
+  .row {
+
+    .col{
+      padding:0;
+    }
+  }
   .bar .title{
     position: absolute;
     right: 0;
@@ -36,11 +42,12 @@
     background-size: 0;
     padding-top: 10px;
     .button-clear {
+      position: absolute;
       color: #fff;
       font-size: 22px;
-    }
-    .ion-chevron-left{
-      width: 12px;
+      max-height: 30px;
+      min-height: 20px;
+      top: 10px;
     }
 
   }
@@ -59,7 +66,7 @@
       input {
         display: block;
         padding-left: 2em;
-        color: #ccc;
+        color: black;
         vertical-align: middle;
         font-size: 14px;
         height: 28px;
@@ -79,18 +86,20 @@
       input {
         display: block;
         padding-left: 2em;
-        color: #ccc;
+        color: #000;
         vertical-align: middle;
         font-size: 14px;
-        height: 28px;
-        width: 80%;
+        height: 25px;
+        width: 72%;
         position: fixed;
         border-radius: 5px;
       }
-      ion-ios-close{
+      .ion-ios-close{
         position: absolute;
-        right: 2em;
-        top: 12px;
+        top: 13px;
+        right: 5em;
+        z-index: 2;
+        color: #aaa;
       }
       .button-clear{
         position: relative;
@@ -141,22 +150,18 @@
   .shapeImg{
     height: 1.2em;
     position: relative;
-    left: .8em;
-    top: .4em;
+    top: .2em;
+    left: 0.4em;
   }
    .contentType{
     position: relative;
     top: 2.5em;
     border-bottom: 1px solid rgba(43, 43, 43, 0.17);
   }
-  .row .col{
-     padding:0;
-  }
   .rowType{
-    padding-top:.8em;
     position: relative;
     left:4%;
-    padding-left: 0;
+    padding: 0.8em 0;
     .pointImg{
       height: 0.7em;
     }
@@ -231,26 +236,9 @@
       }
     }
   }
-  .top-back2{
-    background:url("../../img/car/barBg.png") no-repeat;
-    background-size:100% 100%!important;
-    margin-top:-1px;
-    color: white;
-    height:3.28em;
-    font-size: 16px;
-    .title {
-      padding-top: 20px;
-      color: white;
-      i {
-        font-size: 25px;
-        color: #c9ddf0;
-        padding-left: 8px;
-      }
-    }
-  }
   .top-back {
-    background:url("../../img/car/headerBg.png") no-repeat;
-    background-size:100% 100%;
+    background: url("../../img/car/headerBg.png") no-repeat;
+    background-size: 100% 100%;
     color: white;
     font-size: 16px;
     height: 161px;
@@ -263,6 +251,25 @@
         padding-left: 8px;
       }
     }
+  }
+  .top-back2 {
+    background:url("../../img/car/barBg1.png") no-repeat;
+    background-size:100% 100%!important;
+    margin-top:-1px;
+    color: white;
+    height:55px;
+    font-size: 16px;
+    .title {
+      padding-top: 20px;
+      color: white;
+      i {
+        font-size: 25px;
+        color: #c9ddf0;
+        padding-left: 8px;
+      }
+    }
+  }
+
     .mainInfo {
       .row {
         padding-bottom: 10px;
@@ -286,7 +293,6 @@
       }
 
     }
-  }
   .row1 {
     font-size: 16px;
     position: relative;
@@ -314,7 +320,7 @@
     color: white;
     padding-left: 0;
   }
-  .col-60{
+  .col-56{
     font-size:1.1em;
     color:#444 ;
   }
@@ -322,7 +328,7 @@
     color: $crm-header-bar-bgcolor;
     font-size: 0.8em;
   }
-  .col-80{
+  .col-76{
     font-size:13px;
     color:#444;
   }
@@ -476,6 +482,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         font-size: 1.8rem;
         padding-left: 15px;
         color: white;
+        position: absolute;
+        top: 15px;
       }
       .ion-chevron-left{
         font-size: 25px;
@@ -516,10 +524,11 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
   .bar {
     font-size: 16px;
     height: 3.5em;
+    padding-top: 20px;
   }
   .bar .title {
     position: absolute;
-    top: 0;
+    top: 5px;
     right: 0;
     left: 0;
     z-index: 0;
@@ -918,7 +927,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         &.time-asc{ }
         &.impact-desc{ }
         &.none{
-          height: 3rem;
+          height: 1em;
           line-height: 3rem;
           text-align: center;
           font-size: 1rem;
@@ -976,8 +985,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
           }
           .filter-start-time, .filter-end-time{
             display: inline-block;
-            max-width: 5.5rem;
-            width: 5.5rem;
+            max-width: 8em;
+            width: 8em;
             height: 2rem;
             line-height: 2rem;
             background-color: $filter-item-bg;
@@ -998,11 +1007,12 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
           padding-left: 5px;
           .filter-type{
             display: inline-block;
-            height: 2rem;
-            line-height: 2rem;
+            height: 2.5em;
+            line-height: 2.5em;
             font-size: 12px;
-            padding: 0px .3rem;
+            padding: 0 .8em;
             text-align: center;
+            width: 140px;
             background-color: $filter-item-bg;
             color: $filter-name-color;
             &.selected{
@@ -1209,7 +1219,19 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
       color: #000;
     }
     .spareName {
-      font-size: 1.2em;
+      font-size: 16px;
+    }
+  }
+  .col-51{
+    span{
+      font-size: 13px;
+      color: #000;
+    }
+  }
+  .col-44{
+    span{
+      font-size: 13px;
+      color: #000;
     }
   }
   .row-center {

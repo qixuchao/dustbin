@@ -35,8 +35,12 @@
     background-size: 0;
     padding-top: 10px;
     .button-clear {
+      position: absolute;
       color: #fff;
       font-size: 22px;
+      max-height: 30px;
+      min-height: 20px;
+      top: 10px;
     }
     .ion-chevron-left{
       width: 12px;
@@ -47,29 +51,60 @@
     height: 43px;
     display: block;
     padding: 8px;
-    .placeholder-icon {
-      color: #aaa;
-      position: absolute;
-      z-index: 2;
-      top: .8em;
-      left: 1em;
+    .search1{
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .8em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: #ccc;
+        vertical-align: middle;
+        font-size: 14px;
+        height: 28px;
+        width: 96%;
+        position: fixed;
+        border-radius: 5px;
+      }
     }
-    input {
-      display: block;
-      padding-left: 2em;
-      color: #ccc;
-      vertical-align: middle;
-      font-size: 14px;
-      height: 28px;
-      width: 96%;
-      position: fixed;
-      border-radius: 5px;
+    .search2{
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .8em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: #000;
+        vertical-align: middle;
+        font-size: 14px;
+        height: 25px;
+        width: 72%;
+        position: fixed;
+        border-radius: 5px;
+      }
+      .ion-ios-close{
+        position: absolute;
+        top: 13px;
+        right: 5em;
+        z-index: 2;
+        color: #aaa;
+      }
+      .button-clear{
+        position: relative;
+        left: 86%;
+        font-size: 16px;
+        top: -2px;
+      }
     }
-    .ion-ios-close{
-      position: absolute;
-      right: 2em;
-      top: 12px;
-    }
+
   }
   .has-subheader {
     top: 95px;
@@ -125,6 +160,39 @@
   .col span {
     font-size: 16px;
     color: #000;
+  }
+  .search{
+    .his-title{
+      color: #BFBFBF;
+    }
+    .ion-android-time{
+      margin-right: 5px;
+    }
+    .hisText{
+      white-space:nowrap;
+    }
+    .horizon-line{
+      background: #D8D8D8;
+      width: 100%;
+      height: 1px;
+      margin-left: 5px;
+    }
+    ion-item{
+      border-bottom: 1px solid #D8D8D8;
+      min-height: 0;
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  }
+  .content{
+    .item {
+      position: relative;
+      display: block;
+      margin: -1px;
+      font-size: 16px;
+      padding: 0;
+      //border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+    }
   }
 }
 .Detail{
