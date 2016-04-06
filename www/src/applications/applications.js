@@ -18,7 +18,7 @@ appModule
             go:'saleActDetail'
         },{
             url:'img/apps/saleChance.png',
-            go:'saleChanList'
+            go:'saleChanDetail'
         },{
             url:'img/apps/saleClue.png'
         },{
@@ -29,7 +29,7 @@ appModule
             go:'spareList'
         },{
             url:'img/apps/empInfo.png',
-            go:'userQuery'
+            go:'worksheetReportedCreate'
         },{
             url:'img/apps/searchCar.png',
             go:'car'

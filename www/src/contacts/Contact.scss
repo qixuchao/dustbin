@@ -91,14 +91,8 @@
     left: 0;
     bottom: 0;
   }
-  .Contacts_backtopa{
-    background: url("../../img/contact/contactbga@2x.png") no-repeat;
-    background-size: 100% 100%;
-    width:100%;
-  }
-  .Contacts_backtopb{
-    background: url("../../img/contact/contactbgb@2x.png") no-repeat;
-    background-size: 100% 100%;
+  .Contacts_backtop{
+    background: url("../../img/employee/BAR-BG@2x.png") no-repeat center;
     width:100%;
   }
   .Contacts_detailtitle{
@@ -138,7 +132,7 @@
 
   .Contacts_detailname{
     position: absolute;
-    top: 30px;
+    top: 14px;
     font-size:12px;
     width: 80%;
     margin-left: 13%;
@@ -153,7 +147,7 @@
     color: white;
     .Contacts_detailcontentname {
       position: absolute;
-      top: 3px;
+      top: 1px;
       left: 25px;
       .Contacts_detailcontentcicle {
         width: 14px;
@@ -168,22 +162,22 @@
     }
     .Contacts_detailcontentkehu{
       position: absolute;
-      top:27px;
+      top:23px;
       left:25px;
     }
     .Contacts_detailcontentaddress{
       position: absolute;
-      top:50px;
+      top:45px;
       left:25px;
     }
     .Contacts_detailcontentemploy{
       position: absolute;
-      top:73px;
+      top:67px;
       left:25px;
     }
     .Contacts_detailcontentphone{
       position: absolute;
-      top:100px;
+      top:89px;
       left:25px;
       .Contacts_detailcontentphonei{
         float: left;
@@ -193,7 +187,7 @@
     }
     .Contacts_detailcontentmobile{
       position: absolute;
-      top:124px;
+      top:113px;
       left:25px;
       .Contacts_detailcontentmobilei{
         float: left;

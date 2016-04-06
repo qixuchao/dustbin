@@ -1,21 +1,21 @@
 <ion-view class="CarDetail">
-    <div class="top-back3 absolute animated fadeIn" ng-class="!showTitle?'animated fadeOut':'animated fadeIn'" ng-show="showTitle">
+    <div class="top-back3 absolute fadeIn"ng-class="!showTitle?'animated fadeOut':'animated fadeIn'" ng-show="showTitle">
         <div class="row row-center title" >
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
-            <div class="col col-69 text-center">车辆信息详情</div>
+            <div class="col col-69 text-center">车辆详情</div>
         </div>
     </div>
-    <div class="top-back2 absolute top-back"  ng-show="titleStatus">
+    <div class=" absolute fadeIn top-back2" ng-class="!titleStatus?'animated fadeOut':'animated fadeIn'" ng-show="titleStatus">
         <div class="row row-center title" >
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
-            <div class="col col-69 text-center">车辆信息详情</div>
+            <div class="col col-69 text-center">车辆详情</div>
         </div>
     </div>
     <ion-content has-bouncing="false" on-scroll="onScroll()">
         <div class="top-back">
             <div class="row row-center title " ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
-                <div class="col col-69 text-center">车辆信息详情</div>
+                <div class="col col-69 text-center">车辆详情</div>
             </div>
 
             <div class="mainInfo">
@@ -63,14 +63,14 @@
                 <div class="col col-center col-40">
                     <b>车辆料码</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.code}}</div>
+                <div class="col col-center col-60">{{carInfo.code}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-20">
                     <b>车辆描述</b>
                 </div>
-                <div class="col col-center col-76">{{carInfo.describe}}</div>
+                <div class="col col-center col-80">{{carInfo.describe}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType1">
@@ -78,35 +78,35 @@
                     <div class="row row-center rowType2" ><b>电池系统</b></div>
                     <div class="row row-center rowType2" ><b>BarCode</b></div>
                 </div>
-                <div class="col col-center col-56">{{carInfo.barCode}}</div>
+                <div class="col col-center col-60">{{carInfo.barCode}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>车牌号码</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.carCode}}</div>
+                <div class="col col-center col-60">{{carInfo.carCode}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>车工号</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.carNumber}}</div>
+                <div class="col col-center col-60">{{carInfo.carNumber}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>车辆型号</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.version}}</div>
+                <div class="col col-center col-60">{{carInfo.version}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>CATL项目名称</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.projectName}}</div>
+                <div class="col col-center col-60">{{carInfo.projectName}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="Car_countentbasic">
@@ -118,21 +118,21 @@
                 <div class="col col-center col-40">
                     <b>质保描述</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.quality}}</div>
+                <div class="col col-center col-60">{{carInfo.quality}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>质保开始日期</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.productionDate}}</div>
+                <div class="col col-center col-60">{{carInfo.productionDate}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>质保结束日期</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.endDate}}</div>
+                <div class="col col-center col-60">{{carInfo.endDate}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="Car_countentbasic">
@@ -144,7 +144,7 @@
                 <div class="col col-center col-40">
                     <b>直接客户</b>
                 </div>
-                <div class="col col-center col-56">
+                <div class="col col-center col-60 ">
                     <u>
                         {{carInfo.directCustomer}}
                     </u>
@@ -155,7 +155,7 @@
                 <div class="col col-center col-40">
                     <b>终端客户</b>
                 </div>
-                <div class="col col-center col-56">
+                <div class="col col-center col-60 ">
                     <u>{{carInfo.terminal}}</u>
                 </div>
             </div>
@@ -169,14 +169,14 @@
                 <div class="col col-center col-40">
                     <b>驾驶员</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.driver}}</div>
+                <div class="col col-center col-60">{{carInfo.driver}}</div>
             </div>
             <div class="lineType1"></div>
-            <div class="row row-center rowType" ng-click="carshowphone(carDetailval.phoneNumber)">
+            <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>驾驶员电话</b>
                 </div>
-                <div class="col col-center col-56" >{{carInfo.phoneNum}}</div>
+                <div class="col col-center col-60">{{carInfo.phoneNum}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="Car_countentbasic">
@@ -188,21 +188,21 @@
                 <div class="col col-center col-40">
                     <b>出厂日期</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.productionDate}}</div>
+                <div class="col col-center col-60">{{carInfo.productionDate}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>购买日期</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.buyDate}}</div>
+                <div class="col col-center col-60">{{carInfo.buyDate}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>运营日起</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.operationDate}}</div>
+                <div class="col col-center col-60">{{carInfo.operationDate}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="Car_countentbasic">
@@ -214,14 +214,14 @@
                 <div class="col col-center col-40">
                     <b>BMU硬件版本</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.driver}}</div>
+                <div class="col col-center col-60">{{carInfo.driver}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>BMU软件版本</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.phoneNum}}</div>
+                <div class="col col-center col-60">{{carInfo.phoneNum}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="Car_countentbasic">
@@ -233,16 +233,16 @@
                 <div class="col col-center col-40">
                     <b>CSC硬件版本</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.driver}}</div>
+                <div class="col col-center col-60">{{carInfo.driver}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     <b>CSC软件版本</b>
                 </div>
-                <div class="col col-center col-56">{{carInfo.phoneNum}}</div>
+                <div class="col col-center col-60">{{carInfo.phoneNum}}</div>
             </div>
             <div class="lineType1"></div>
        </div>
     </ion-content>
-</ion-view>                                                                                                                                
+</ion-view>

@@ -38,14 +38,6 @@
 .bar{
   font-size: 16px;
 }
-
-input[readonly]:not(.cloned-text-input){
-  background: none!important;
-  border:none!important;
-}
-//.modal-wrapper {
-//  pointer-events: auto!important;
-//}
 .modal-wrapper {
   pointer-events: auto!important;
 }
@@ -217,11 +209,4 @@ $button-crm-edit-text:                 white;
     left:2%;
     z-index:1;
   }
-};
-//popover public
-.platform-android .popover-backdrop, .platform-android .popover-backdrop.active {
-  background-color: rgba(0,0,0,.5);
-}
-.popover-backdrop.active {
-  background-color: rgba(0,0,0,.5);
 }

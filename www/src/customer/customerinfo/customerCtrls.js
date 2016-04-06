@@ -3,13 +3,19 @@
  */
 customerModule
     .controller('customerQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
-        $ionicPopover.fromTemplateUrl('src/customer/model/customer_selec.html', {
+        $ionicPopover.fromTemplateUrl('../src/customer/model/customer_selec.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.customerpopover = popover;
         });
-        $scope.customerPopover = function() {
-            $scope.customerpopover.show();
+        $scope.customerPopover = function($event) {
+            alert(1);
+            try{
+                $scope.customerpopover.show($event);
+            }catch(e){
+                alert(e.message);
+            }
+
         };
         $scope.customerPopoverhide = function() {
             $scope.customerpopover.hide();
@@ -117,7 +123,7 @@ customerModule
             }
         };
         $scope.customer_showTitle = false;
-        $scope.customer_showtarnsitionTitle = false;
+        //$scope.customer_showTitleStatus = false;
         $scope.customer_TitleFlag=false;
         var customer_position;
         $scope.customer_onScroll = function () {
@@ -130,31 +136,22 @@ customerModule
                 }else{
                     $scope.customer_customerFlag = false;
                 };
-                if (customer_position > 40) {
+                if (customer_position > 30) {
                     $scope.customer_placeFlag = true;
                 }else{
                     $scope.customer_placeFlag = false;
                 };
-                if (customer_position >60) {
+                if (customer_position >45) {
                     $scope.customer_typeFlag = true;
                 }else{
                     $scope.customer_typeFlag = false;
                 };
-                if (customer_position >95) {
-                    $scope.customer_showTitle = false;
-                    $scope.customer_showtarnsitionTitle = true;
-                }else{
-                    $scope.customer_showTitle = true;
-                    $scope.customer_showtarnsitionTitle = false;
-                };
-
             } else {
                 $scope.customer_TitleFlag = false;
                 $scope.customer_showTitle = false;
                 $scope.customer_customerFlag = false;
                 $scope.customer_placeFlag = false;
                 $scope.ecustomer_typeFlag = false;
-                $scope.customer_showtarnsitionTitle = false;
             }
             //if (!$scope.$digest()) {
                 $scope.$apply();

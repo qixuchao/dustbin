@@ -5,13 +5,13 @@
 customerChanceModule
     .controller('customerChanceQueryCtrl',['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
 
-        $ionicPopover.fromTemplateUrl('src/customer/customerChance/model/customerChance_selec.html', {
+        $ionicPopover.fromTemplateUrl('../src/customer/customerChance/model/customerChance_selec.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.customerChancepopover = popover;
         });
-        $scope.customerChancePopover = function() {
-            $scope.customerChancepopover.show();
+        $scope.customerChancePopover = function($event) {
+            $scope.customerChancepopover.show($event);
         };
         $scope.customerChancePopoverhide = function() {
             $scope.customerChancepopover.hide();

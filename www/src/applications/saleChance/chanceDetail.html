@@ -91,25 +91,24 @@
                 <div class="row no-padding-right">
                     <div class="row row-center">
                         <div class="col col-30 text-left">项目编号:</div>
-                        <div class="col text col-70">
-                        <input type="text" ng-readonly="!isEdit" class="saleChanInput" ng-model="chanceDetails.proNum"></div>
+                        <div class="col text col-70">9999001</div>
                     </div>
                 </div>
                 <div class="row no-padding-right">
                     <div class="row row-center">
                         <div class="col col-30 text-left">预期销售量:</div>
-                        <div class="text"><input type="text" ng-blur="returnScroll()" class="saleChanPreInput" ng-readonly="!isEdit" ng-model="chanceDetails.preMount"></div>
-                        <div class="col col-30 text-left money" ng-click="openMoneyModal()">{{'-'+chanceDetails.preMountType+'-'}}</div>
+                        <div class="text">0.00</div>
+                        <div class="col col-30 text-left money">-CNY-</div>
                     </div>
                 </div>
                 <div class="row no-padding-right">
                     <div class="row row-center">
                         <div class="col col-30 text-left">预期销售额:</div>
-                        <div class="text"><input type="text" ng-blur="returnScroll()" class="saleChanPreInput" ng-readonly="!isEdit" ng-model="chanceDetails.preMoney"></div>
-                        <div class="col col-30 text-left money">{{'-'+chanceDetails.preMoneyType+'-'}}</div>
+                        <div class="text">0.00</div>
+                        <div class="col col-30 text-left money">-AH-</div>
                     </div>
                 </div>
-                <div class="chan_submit" ng-if="isEdit">
+                <div class="chan_submit">
                     <button>提交</button>
                 </div>
             </div>
@@ -134,3 +133,30 @@
         </div>
     </ion-content>
 </ion-view>
+<script id="saleDetailSelect-popover.html" type="text/ng-template">
+    <ion-popover-view class="saleDetailPop own-animated slideInUp" style="animation-duration:.4s">
+        <div class="myHeader">
+            <div class="headerText">请选择</div>
+        </div>
+        <ion-content has-bouncing="false" scroll="false">
+            <div class="row row-center">
+                <div class="col">销售阶段</div>
+                <div class="col">
+                    <select ng-model="pop.stage" ng-options="x as x.value for x in saleStages">{{pop.stage}}</select>
+                </div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-50">信心指数</div>
+                <div class="col"><input type="text" ng-model="pop.feel" placeholder="请输入"></div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-50">销售编号</div>
+                <div class="col"><input type="text" ng-model="pop.saleNum" placeholder="请输入"></div>
+            </div>
+            <button ng-click="savePop()" class="save">完成</button>
+            <div>
+                <button ng-click="closePop()" class="cancel">取消</button>
+            </div>
+        </ion-content>
+    </ion-popover-view>
+</script>

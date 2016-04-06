@@ -1,48 +1,13 @@
 <ion-view class="SpareList">
-    <ion-header-bar class="bar" align-title="center">
-        <a class="button  button-clear ion-chevron-left" ng-click="goBack()"></a>
-        <div class="title">备件信息</div>
+    <ion-header-bar class="bar ">
+        <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
+        <div class="title"><b>备件信息</b></div>
     </ion-header-bar>
     <ion-header-bar class="bar bar-subheader ">
-        <div class="search1" ng-show="!searchFlag">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="text" placeholder="输入备件信息" ng-click="changePage()">
-        </div>
-        <div class="search2" ng-show="searchFlag" ng-class="{'searchFlag':'animated fadeOutLeft'}">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
-            <input id="spareId" type="search" placeholder="输入备件信息" ng-model="spareInfo" >
-            <i class="button button-clear" ng-click="cancelSearch()">取消</i>
-        </div>
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="text" placeholder="请输入备件信息"ng-model="carInfo">
     </ion-header-bar>
-    <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag" ng-click="changeSearch($event)">
-        <div class="row row-center his-title">
-            <i class="ion-android-time"></i>
-            <div class="hisText">历史记录</div>
-            <div class="horizon-line"></div>
-        </div>
-        <ion-list ng-if="!spareInfo">
-            <ion-item ng-click="search(x,$event)" ng-repeat="x in data">{{x}}</ion-item>
-        </ion-list>
-        <div class="content">
-            <div class="list" ng-if="spareInfo">
-                <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in spareList | filter:spareInfo">
-                    <div class="row row-center rowType1">
-                        <div class="col col-8 col-center">
-                            <img ng-src="img/car/Oval.png" class="pointImg">
-                        </div>
-                        <div class="col col-80 col-center colType">
-                            <span class="car2"><div ng-bind-html="x.spareName | highlight:spareInfo"></div></span>
-                        </div>
-                        <div class="col col-10 col-center">
-                            <img ng-src="img/car/Shape.png" class="shapeImg">
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </ion-content>
-    <ion-content has-bouncing="false" ng-show="!searchFlag">
+    <ion-content has-bouncing="false">
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">常用备件</div>
             <div class="Car_countentbasicline"></div>

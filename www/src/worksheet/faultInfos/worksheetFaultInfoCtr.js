@@ -1,8 +1,5 @@
 
-worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
-    "ionicMaterialInk",
-    "ionicMaterialMotion",
-    "$ionicPopup", "$timeout", function($scope, ionicMaterialInk){
+
+worksheetModule.controller("WorksheetFaultInfoCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter){
     ionicMaterialInk.displayEffect();
-        console.log("==");
 }]);

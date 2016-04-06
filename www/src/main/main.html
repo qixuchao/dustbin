@@ -2,9 +2,11 @@
 <div class="main" id="mainTopId">
     <div class="top-back">
         <div class="dayView">
-            <div id="yearMonthId" class="row months">
-                <div class="text-right year" ng-click="returnToday()" on-hold="onHold()">{{year}}</div>
-                <div class="month" ng-click="returnToday()" on-hold="onHold()">{{month<10?('0'+month):month}}</div>
+            <div id="yearMonthId" class="row months" on-double-tap="doubleClick()"
+                 on-swipe-left="onMonthSwipeLeft()"
+                 on-swipe-right="onMonthSwipeRight()">
+                <div class="text-right year" ng-click="returnToday()">{{year}}</div>
+                <div class="month" ng-click="returnToday()">{{month<10?('0'+month):month}}</div>
             </div>
         </div>
         <!--周视图-->
@@ -65,7 +67,7 @@
                 {{selectModeText.substring(0,2)}}
             </div>
         </div>
-        <div class="selections" id="mainSelectionsId" ng-class="showPop?'own-animated fadeIn':''" ng-if="showPop">
+        <div class="selections" ng-show="showPop" ng-class="showPop?'own-animated fadeIn':''">
             <div class="pop-arrow"></div>
             <div ng-repeat="x in selectArr" class="text" ng-class="{'selected':x.text==selectModeText}" ng-click="changePop(x)">{{x.text}}</div>
         </div>

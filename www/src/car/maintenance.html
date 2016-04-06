@@ -1,5 +1,5 @@
-<ion-view canClickEnterListMode class="Maintenance"  >
-    <ion-header-bar align-title="center"   ng-class="{'query-mode':config.isQueryMode}">
+<ion-view canClickEnterListMode class="Maintenance"  align-title="center">
+    <ion-header-bar align-title="center"  ng-class="{'query-mode':config.isQueryMode}">
         <div class="left-back" ng-click="goBack();">
             <i class="ion-ios-arrow-back"></i>
         </div>
@@ -47,6 +47,7 @@
                     <span>影响程序由高到低</span>
                 </div>
                 <div canNotClickEnterListMode class="none sort-type-item" ng-click="sorteNone();">
+                    <span>取消</span>
                 </div>
             </div>
             <div canClickEnterListMode class="tab-filter-content" >
@@ -54,40 +55,26 @@
                     <div canNotClickEnterListMode class="row row-center filter-time">
                         <div class="filter-time-title filter-title">日期区间</div>
                         <div class="filter-times-start-end">
-                            <input class="filter-start-time" type="date" ng-bind="config.timeStart">
+                            <div class="filter-start-time" ng-bind="config.timeStart"></div>
                             <div class="col col-8 filter-time-center-line"></div>
-                            <input class="filter-end-time" type="date" ng-bind="config.timeEnd">
+                            <div class="filter-end-time" ng-bind="config.timeEnd"></div>
                         </div>
                     </div>
                     <div canNotClickEnterListMode class="filter-worksheet-type">
                         <div class="filter-worksheet-type-title filter-title">工单类型</div>
-                        <div class="row row-center filter-types">
+                        <div class="filter-types">
                             <div class="filter-type local-service" ng-click="selectFilterType('localService');" ng-class="{'selected':config.filterLocalService}">现场维修工单</div>
-                            <div class="col col-10"></div>
-                            <div class="filter-type local-service1" ng-click="selectFilterType('localService1');" ng-class="{'selected':config.filterLocalService1}">现场维修工单(服务商)</div>
-                        </div>
-                        <div class="row row-center filter-types">
                             <div class="filter-type batch-update" ng-click="selectFilterType('batchUpdate');" ng-class="{'selected':config.filterBatchUpdate}">批量改进工单</div>
-                            <div class="col col-10"></div>
-                            <div class="filter-type batch-update1" ng-click="selectFilterType('batchUpdate1');" ng-class="{'selected':config.filterBatchUpdate1}">批量改进工单(服务商)</div>
-                        </div>
-                        <div class="row row-center filter-types">
-                            <div class="filter-type batch-update" ng-click="selectFilterType('batchUpdate');" ng-class="{'selected':config.filterBatchUpdate}">现场维修</div>
-                            <div class="col col-10"></div>
-                            <div class="filter-type newcar-online1" ng-click="selectFilterType('newcarOnline1');" ng-class="{'selected':config.filterNewCarOnline1}">新车上线工单(服务商)</div>
+                            <div class="filter-type newcar-online" ng-click="selectFilterType('newcarOnline');" ng-class="{'selected':config.filterNewCarOnline}">新车上线工单</div>
                         </div>
                     </div>
                     <div canNotClickEnterListMode class="filter-impact">
                         <div class="filter-impact-title filter-title">影响</div>
-                        <div class="row row-center filter-impacts">
+                        <div class="filter-impacts">
                             <div class="filter-impact damage" ng-class="{'selected':config.filterImpactDamage}" ng-click="selectFilterImpact('damage');">灾难</div>
-                            <div class="col col-5"></div>
                             <div class="filter-impact hight" ng-class="{'selected':config.filterImpactHeight}" ng-click="selectFilterImpact('height');">高</div>
-                            <div class="col col-5"></div>
                             <div class="filter-impact middle" ng-class="{'selected':config.filterImpactMiddle}" ng-click="selectFilterImpact('middle');">中</div>
-                            <div class="col col-5"></div>
                             <div class="filter-impact low" ng-class="{'selected':config.filterImpactLow}" ng-click="selectFilterImpact('low');">低</div>
-                            <div class="col col-5"></div>
                             <div class="filter-impact none" ng-class="{'selected':config.filterImpactNone}" ng-click="selectFilterImpact('none');">无</div>
                         </div>
                     </div>
@@ -100,7 +87,7 @@
 
             <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
                 <ion-scroll class="fill-parent" on-refresh="" has-bouncing="false">
-                    <div class="divLine" ng-repeat="record in carInfo" ng-click="">
+                    <div class="divLine" ng-repeat="record in carInfo">
                         <div class="row row-center rowContent">
                             <div class="col col-center col-5">
                                 <img ng-src="img/car/Oval.png" class="pointImg">

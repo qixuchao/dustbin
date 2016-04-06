@@ -3,25 +3,19 @@
         text-align: center;
         position: relative;
         float: right;
+        top:44px;
         left:0;
-        top:55px;
         margin-right:5px;
         z-index: 10;
         display: block;
         margin-top: 12px;
         margin-left:0;
-        height: 275px;
+        height: 260px;
         width: 130px;
         background-color: #fff;
         border-radius: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,.4);
         opacity: 0;
-    }
-    .platform-ios .customer_seleciosh{
-        top:75px;
-    }
-    .platform-ios .customer_seleciosr{
-        right: 25px;
     }
     .customer_up {
         width: 20px;
@@ -30,15 +24,14 @@
         top: -9px;
     }
 </style>
-    <ion-popover-view class="customer_selec customer_seleciosh" style="left: 0;margin-top: 0px;background-color: white">
-        <img src="img/customer/sanjiao.png" class="customer_up customer_seleciosr"></img>
-        <ion-content style="border-radius:10px">
-            <div ng-repeat="types in customer_types track by $index" ng-click="customerqueryType(types)" style="height:41px">
-               <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:14px;background-color:white;margin:0">
+    <ion-popover-view class="customer_selec">
+        <img src="img/customer/sanjiao.png" class="customer_up"></img>
+        <ion-content>
+            <div ng-repeat="types in customer_types track by $index" ng-click="customerqueryType(types)">
+               <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:16px;">
                    {{types}}
                </ion-item>
                 <div style="width:80%;height: 1px;background-color: #9B9B9B;margin-left:10%"></div>
             </div>
-            <!--<div style="width:80%;height: 1px;background-color: #9B9B9B;margin-left:10%"></div>-->
         </ion-content>
     </ion-popover-view>'

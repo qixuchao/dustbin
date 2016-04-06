@@ -3,7 +3,7 @@
         text-align: center;
         position: relative;
         float: right;
-        top:60px;
+        top:44px;
         left:0;
         margin-right:5px;
         z-index: 10;
@@ -12,29 +12,23 @@
         margin-left:0;
         height:80px;
         width: 120px;
-        border-radius:10px;
         background-color: #fff;
+        border-radius: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,.4);
         opacity: 0;
-    }
-    .platform-ios .customeractivity_seleciosh{
-        top:82px;
-    }
-    .platform-ios .customeractivity_seleciosr{
-        right:13px;
     }
     .customeractivity_up {
         width: 20px;
         position: absolute;
-        right: 13px;
+        right: 9px;
         top: -9px;
     }
 </style>
-    <ion-popover-view class="customerActivity_selec customeractivity_seleciosh" style="left: 0;margin-top: 0px;background-color: white">
-        <img src="img/customer/sanjiao.png" class="customeractivity_up customeractivity_seleciosr"></img>
-        <ion-content style="border-radius:10px">
-            <div ng-repeat="types in customeractivity_types track by $index" ng-click="CustomerActivityqueryType(types)" style="height:41px">
-               <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:14px;background-color:white;margin:0">
+    <ion-popover-view class="customerActivity_selec">
+        <img src="img/customer/sanjiao.png" class="customeractivity_up"></img>
+        <ion-content>
+            <div ng-repeat="types in customeractivity_types track by $index" ng-click="CustomerActivityqueryType(types)">
+               <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:16px;">
                    {{types}}
                </ion-item>
                 <div style="width:80%;height: 1px;background-color: #9B9B9B;margin-left:10%"></div>

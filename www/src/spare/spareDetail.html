@@ -1,7 +1,7 @@
 <ion-view class="Detail">
-    <ion-header-bar class="bar" align-title="center">
-        <a class="button  button-clear ion-chevron-left" ng-click="goBack()"></a>
-        <div class="title">备件信息详情</div>
+    <ion-header-bar class="bar ">
+        <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
+        <div class="title"><b>备件信息详情</b></div>
     </ion-header-bar>
     <ion-content has-bouncing="false">
         <div class="Car_countentbasic">
@@ -11,7 +11,7 @@
         </div>
         <div class="row row-center rowType">
             <div class="col col-center col-40">
-                备件料码:
+                <b>备件料码:</b>
             </div>
             <div class="col col-center col-60">
                 <span>{{spareList.spareCode}}</span>
@@ -20,7 +20,7 @@
         <div class="line"></div>
         <div class="row row-center rowType">
             <div class="col col-center col-40">
-                备件描述:
+                <b>备件描述:</b>
             </div>
             <div class="col col-center col-60">
                 <span>{{spareList.spareDescribe}}</span>
