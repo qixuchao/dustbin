@@ -569,7 +569,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 			$scope.goState = function(stateName){
 				$timeout(function (){
-
 					$state.go(stateName);
 				}, 100);		
 			};

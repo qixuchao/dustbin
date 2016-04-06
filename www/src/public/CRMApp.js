@@ -19,7 +19,7 @@ var customerContactsModule = angular.module('customerContactsModule', []);
 var customerModuleServive = angular.module('customerModuleServive', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
-var worksheetReportModule = angular.module('worksheetReportModule', []);//报工单
+
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'ionic-material',
@@ -44,8 +44,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'customerChanceModule',
     'customerkeyModule',
     'customerActivityModule',
-    'customerWorkorderModule',
-    'worksheetReportModule'
+    'customerWorkorderModule'
 ])
 CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
         $ionicPlatform.ready(function () {
@@ -122,6 +121,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
             //联系人
             .state('ContactQuery', {
+                cache:false,
                 url: '/contactQuery',
                 templateUrl: 'src/contacts/contactQuery.html',
                 controller: 'contactQueryCtrl'
@@ -131,11 +131,14 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/contacts/contactDetail.html',
                 controller: 'contactDetailCtrl'
             })
+            //联系人-联系人创建+客户联系人创建界面
             .state('ContactCreate', {
+                cache:false,
                 url: '/contactsCreate',
                 templateUrl: 'src/contacts/contactCreate.html',
                 controller: 'contactCreateCtrl'
             })
+
             .state('ContactsEdit', {
                 url: '/contactEdit',
                 templateUrl: 'src/contacts/contactEdit.html',
@@ -149,6 +152,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             
             //客户
             .state('customerQuery', {
+                cache:false,
                 url: '/customerQuery',
                 templateUrl: 'src/customer/customerinfo/customerQuery.html',
                 controller: 'customerQueryCtrl'
@@ -268,7 +272,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
             .state('worksheetFaultInfos', {
                 url: '/worksheetFaultInfos',
-                templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo.html',
+                templateUrl: 'src/worksheet/faultinfos/worksheet_faultInfo.html',
                 controller: 'WorksheetFaultInfoCtrl'
             })
             .state('worksheetSparepart', {
@@ -304,35 +308,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 controller: 'selectStaffCtrl'
             })
             // 工单模块相关： end ------------------------
-            //报工单模块 start-----
-            .state('worksheetReportedList', {
-                url: '/worksheetReportedList',
-                templateUrl: 'src/worksheetReported/worksheetReportedList.html',
-                controller: 'WorksheetReportedListCtrl'
-            })
-
-            //.state('worksheetReportedDetail', { // detailType取值: newCar、siteRepair、batchUpdate
-            //    url: '/worksheetDetail/{detailType}',
-            //    templateUrl: 'src/worksheet/detailAll/detailAll.html',
-            //    controller: 'worksheetDetailAllCtrl'
-            //})
-            .state('worksheetReportedInfosList', {
-                url: '/worksheetReportedInfosList',
-                templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
-                controller: 'WorksheetReportedListCtrl'
-            })
-            .state('worksheetReportedCreate', {
-                url: '/worksheetReportedCreate',
-                templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedCreate.html',
-                controller: 'WorksheetReportedCreateCtrl'
-            })
-            .state('worksheetReportedMaintain', {
-                url: '/worksheetReportedMaintain',
-                templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedMaintain.html',
-                controller: 'WorksheetReportedMaintainCtrl'
-            })
-
-            //报工单模块 end-------
+            
         ;
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider  // /home/login

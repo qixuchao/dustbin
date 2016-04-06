@@ -9,58 +9,55 @@
             </div>
         </ion-header-bar>
     </div>
-    <!--<ion-header-bar>-->
-        <!--<div class="contact_Edit_head">-->
-            <!--<div class="contact_Edit_headtitle">-->
-                <!--<i class="icon ion-ios-arrow-back contact_Edit_headtitlei" ng-click="goBack()"></i>-->
-                <!--<span class="contact_Edit_headtitlespantitle">编辑联系人</span>-->
-                <!--<span class="contact_Edit_headtitlespanedit" ng-click="contactKeepEditvalue()">保存</span>-->
-            <!--</div>-->
-        <!--</div>-->
-        <!--</ion-header-bar>-->
     <ion-content>
         <div class="list" style="font-size: 16px;margin-top:5px">
-            <label class="item item-input">注释：
-                <input type="text" class="contact_editinputsty" placeholder="请输入注释" ng-model="contactedit.customerzhushi">
-            </label>
-            <label class="item item-input">称谓：
-                <select style="margin-left:30px;border: none;padding-right:4px;color:#9B9B9B"  ng-model="contactedit.contacteditename" ng-options="a.name as a.name for a in edittitleType" ng-change="">
+            <span class="item item-input">注释：
+                <input type="text" id="cusnote" class="contact_editinputsty" placeholder="请输入注释" ng-model="contactedit.customerzhushi">
+                <img id="cusnoteimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('note')"/>
+            </span>
+            <span class="item item-input">称谓：
+                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B"  ng-model="contactedit.contacteditename" ng-options="a.name as a.name for a in edittitleType" ng-change="">
                     <option value="">称谓</option>
                 </select>
-            </label>
-            <label class="item item-input">客户：
+            </span>
+            <span class="item item-input">客户：
                <div class="row" style="margin-top:4px">
-                   <!--<div class="col col-74" style="color:#9B9B9B">福州龙福汽车有限责任公司</div>-->
-                   <input type="text" class="contact_editinputsty" placeholder="请选择客户" ng-model="contactedit.keuhuname">
-                   <div class="col col-20" style="text-align: right">
-                       <img class="contact_edit_listfor" src="img/employee/Shape@2x.png"></img>
+                   <input type="text" class="contact_editinputsty" style="padding-left:32px;" placeholder="请选择客户" ng-model="contactedit.keuhuname">
+                   <div class="col col-20" style="text-align: center;padding-left: 29px;">
+                       <img class="contact_edit_listfor" src="img/employee/Shape@2x.png" ng-click="contactDeletevalue('customer')"></img>
                    </div>
                </div>
-            </label>
-            <label class="item item-input">邮箱：
-                <input type="text" placeholder="请输入邮箱" class="contact_editinputsty" ng-model="contactedit.customermail">
-            </label>
-            <label class="item item-input">部门：
-                <input type="text" placeholder="请输入部门" class="contact_editinputsty" ng-model="contactedit.postion">
-            </label>
-            <label class="item item-input">职能：
-                <input type="text" placeholder="请输入职能" class="contact_editinputsty" ng-model="contactedit.atend">
-            </label>
+            </span>
+            <span class="item item-input">邮箱：
+                <input type="text" id="cusmail" placeholder="请输入邮箱" class="contact_editinputsty" ng-model="contactedit.customermail">
+                <img id="cusmailimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('mail')"/>
+            </span>
+            <span class="item item-input">部门：
+                <input type="text" id="cusposition" placeholder="请输入部门" class="contact_editinputsty" ng-model="contactedit.postion">
+                <img id="cuspositionimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('position')"/>
+            </span>
+            <span class="item item-input">职能：
+                <input type="text" id="cusatend" placeholder="请输入职能" class="contact_editinputsty" ng-model="contactedit.atend">
+                <img id="cusatendimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('atend')"/>
+            </span>
             <!--<label class="item item-input">地址：-->
                 <!--<input type="text" placeholder="请输入地址" class="contact_editinputsty" ng-model="contactedit.customercontrary">-->
             <!--</label>-->
-            <label class="item item-input">国家：
-                <input type="text" placeholder="请输入国家名称" class="contact_editinputsty" ng-model="contactedit.customercontrary">
-            </label>
-            <label class="item item-input">地区：
-                <input type="text" placeholder="请输入地区" class="contact_editinputsty" ng-model="contactedit.customerregion">
-            </label>
-            <label class="item item-input">邮编：
-                <input type="text" placeholder="请输入部门邮编" class="contact_editinputsty"  ng-model="contactedit.youbina">
-            </label>
-            <label class="item item-input">生日：
-                <input type="text" placeholder="请输入生日" class="contact_editinputsty"  readonly ng-model="contactedit.birthday" ng-click="setva_datetime()">
-            </label>
+            <span class="item item-input">国家：
+                <input type="text" id="cuscontray" placeholder="请输入国家名称" class="contact_editinputsty" ng-model="contactedit.customercontrary">
+                <img id="cuscontrayimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('customercontrary')"/>
+            </span>
+            <span class="item item-input">地区：
+                <input type="text" id="cusregion" placeholder="请输入地区" class="contact_editinputsty" ng-model="contactedit.customerregion">
+                <img id="cusregionimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('customerregion')"/>
+            </span>
+            <span class="item item-input">邮编：
+                <input type="text" id="cusyoubian" placeholder="请输入部门邮编" class="contact_editinputsty"  ng-model="contactedit.youbina">
+                <img id="cusyoubianimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('youbina')"/>
+            </span>
+            <span class="item item-input">生日：
+                <input type="text" placeholder="请输入生日" class="contact_editinputsty"  readonly ng-model="contactedit.birthday" ng-click="setva_datetime()" style="background-color:white">
+            </span>
         </div>
     </ion-content>
 </ion-nav-view>rt

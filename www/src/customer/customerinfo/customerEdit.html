@@ -4,76 +4,83 @@
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
                 <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-70 text-center">联系人</div>
+                <div class="col col-70 text-center">客户编辑</div>
                 <div class="col col-20 add" ng-click="customerKeepEditvalue()" style="text-align: left">保存</div>
             </div>
         </ion-header-bar>
     </div>
     <ion-content>
         <div class="list" style="font-size: 16px;">
-            <label class="item item-input">角色：
-                <input type="text" class="customeredittwo" placeholder="请输入角色" ng-model="customeredit.customerposition">
-            </label>
-            <label class="item item-input">付款方式：
-                <input type="text" placeholder="请输入付款方式" class="contact_editinputsty" ng-model="customeredit.customerpayway">
-            </label>
-            <label class="item item-input">付款日历：
-                <input type="text" placeholder="请输入付款日历" class="contact_editinputsty" ng-model="customeredit.customerpaydate">
-            </label>
-            <label class="item item-input">验收周期(天)：
-                <input type="text" placeholder="请输入验收周期" class="contact_editinputsty" ng-model="customeredit.customercheckperiod">
-            </label>
-            <label class="item item-input">预验收周期(天)
-                <input type="text" placeholder="请输入预验收周期" class="contact_editinputsty" ng-model="customeredit.customerwillcheckperiod">
-            </label>
-            <label class="item item-input">传真：
-                <input type="text" placeholder="请输入传真" class="contact_editinputsty" ng-model="customeredit.customerfax">
-            </label>
-            <label class="item item-input">邮箱：
-                <input type="text" placeholder="请输入邮箱" class="contact_editinputsty"  ng-model="customeredit.customermail">
-            </label>
-            <label class="item item-input">网站：
-                <input type="text" placeholder="请输入网站" class="contact_editinputsty"  ng-model="customeredit.customerwebsite">
-            </label>
+            <span class="item item-input">角色：
+                <input type="text" id="comrole" class="customeredittwo" placeholder="请输入角色" ng-model="customeredit.customerposition">
+                 <img id="comroleimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customerposition')"/>
+            </span>
+            <span class="item item-input">付款方式：
+                <input type="text" id="customerpayway" placeholder="请输入付款方式" class="contact_editinputsty" ng-model="customeredit.customerpayway">
+                 <img id="compaywayimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customerpayway')"/>
+            </span>
+            <span class="item item-input">付款日历：
+                <input type="text" id="cuspaydate" placeholder="请输入付款日历" class="contact_editinputsty" ng-model="customeredit.customerpaydate">
+                <img id="cuspaydateimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customerpaydate')"/>
+            </span>
+            <span class="item item-input">验收周期(天)：
+                <input type="text" id="cuscheckpreid" placeholder="请输入验收周期" class="contact_editinputsty" ng-model="customeredit.customercheckperiod">
+                <img id="cuscheckpreidimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customercheckperiod')"/>
+            </span>
+            <span class="item item-input">预验收周期(天)
+                <input type="text" id="cuswillcheckpreid" placeholder="请输入预验收周期" class="contact_editinputsty" ng-model="customeredit.customerwillcheckperiod">
+                 <img id="cuswillcheckpreidimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customerwillcheckperiod')"/>
+            </span>
+            <span class="item item-input">传真：
+                <input type="text" id="cusfax" placeholder="请输入传真" class="contact_editinputsty" ng-model="customeredit.customerfax">
+                <img id="cusfaximg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customerfax')"/>
+            </span>
+            <span class="item item-input">邮箱：
+                <input type="text" id="cusmailval" placeholder="请输入邮箱" class="contact_editinputsty"  ng-model="customeredit.customermail">
+                <img id="cusmailvalimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customermail')"/>
+            </span>
+            <span class="item item-input">网站：
+                <input type="text" id="cuswebsite" placeholder="请输入网站" class="contact_editinputsty"  ng-model="customeredit.customerwebsite">
+                <img id="cuswebsiteimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customerwebsite')"/>
+            </span>
             <div class="row">
-                <div class="col col-15" style="font-size: 14px;padding-left: 9px;">
+                <div class="col col-20" style="font-size: 14px;padding-left: 9px;">
                     位置:
                 </div>
-                <div class="col col-40">
-                    <select style="border: none;color:#9B9B9B;padding-left: 30px;"  ng-model="customeredit.customercontrary" ng-options="a.name as a.name for a in customereditcontry" ng-change="">
-                        <option value="">请选择国家</option>
+                <div class="col col-80">
+                    <select style="border: none;color:#9B9B9B;"  ng-model="customeredit.customercontrary" ng-options="a.name as a.name for a in customereditcontry" ng-change="">
+                        <option value="">国家</option>
                     </select>
-                </div>
-                <div class="col col-40">
-                    <select style="border: none;color:#9B9B9B"  ng-model="customeredit.customerregion" ng-options="a.name as a.name for a in customereditcontry" ng-change="">
-                        <option value="">请选择省份</option>
+                    <select style="border: none;color:#9B9B9B;margin-left:20%"  ng-model="customeredit.customerregion" ng-options="a.name as a.name for a in customereditcontry" ng-change="">
+                        <option value="">省份</option>
                     </select>
                 </div>
             </div>
             <div class="row" style="border-bottom: 1px solid #ddd;">
-                <div class="col col-15">
+                <div class="col col-20">
 
                 </div>
-                <div class="col col-40">
-                    <select style="border: none;color:#9B9B9B;padding-left: 30px;"  ng-model="customeredit.customercity" ng-options="a.name as a.name for a in customereditcontry" ng-change="">
-                        <option value="">请选择城市</option>
+                <div class="col col-80">
+                    <select style="border: none;color:#9B9B9B;"  ng-model="customeredit.customercity" ng-options="a.name as a.name for a in customereditcontry" ng-change="">
+                        <option value="">城市</option>
                     </select>
-                </div>
-                <div class="col col-40">
-                    <select style="border: none;color:#9B9B9B"  ng-model="customeredit.customerstreet" ng-options="a.name as a.name for a in customereditcontry" ng-change="">
-                        <option value="">请选择街道</option>
+                    <select style="border: none;color:#9B9B9B;margin-left:20%"  ng-model="customeredit.customerstreet" ng-options="a.name as a.name for a in customereditcontry" ng-change="">
+                        <option value="">街道</option>
                     </select>
                 </div>
             </div>
-            <label class="item item-input">门牌号：
-                <input type="text" placeholder="请输入门牌号" class="customereditthree" ng-model="customeredit.customerborad" ng-click="setva_datetime()">
-            </label>
-            <label class="item item-input">邮编：
-                <input type="text" placeholder="请输入邮编" class="contact_editinputsty" ng-model="customeredit.customerpostal" ng-click="setva_datetime()">
-            </label>
-            <label class="item item-input">注释：
-                <input type="text" placeholder="请输入注释" class="contact_editinputsty" ng-model="customeredit.customerzhushi" ng-click="setva_datetime()">
-            </label>
+            <span class="item item-input">门牌号：
+                <input type="text" id="cusboraod" placeholder="请输入门牌号" class="customereditthree" ng-model="customeredit.customerborad" ng-click="setva_datetime()">
+                 <img id="cusboraodimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customerborad')"/>
+            </span>
+            <span class="item item-input">邮编：
+                <input type="text" id="cuspostall" placeholder="请输入邮编" class="contact_editinputsty" ng-model="customeredit.customerpostal" ng-click="setva_datetime()">
+                <img id="cuspostallimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customerpostal')"/>
+            </span>
+            <span class="item item-input">注释：
+                <input type="text" id="cuszhishiv" placeholder="请输入注释" class="contact_editinputsty" ng-model="customeredit.customerzhushi" ng-click="setva_datetime()">
+                <img id="cuszhishivimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('customerzhushi')"/>
+            </span>
         </div>
     </ion-content>
 </ion-nav-view>rt

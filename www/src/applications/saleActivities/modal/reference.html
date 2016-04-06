@@ -28,7 +28,7 @@
             </div>
             <ion-list>
                 <ion-item class="selectItem" ng-repeat="x in referArr | filter:input.search" ng-click="selectModal(x)">
-                    <span ng-bind-html="x.text | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg">
+                    <span ng-bind-html="x.text | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg" src="img/saleList/blank.png">
                     <img ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">
                 </ion-item>
             </ion-list>

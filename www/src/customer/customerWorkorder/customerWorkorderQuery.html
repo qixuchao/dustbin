@@ -7,12 +7,12 @@
                 </div>
                 <span class="employeecustomer_headtitlespan">历史工单</span>
             </div>
-            <form ng-submit="employeecustomerQuery()">
-                <div class="employeecustomer_headquery" style="height:44px">
-                    <input class="employeecustomer_headqueryinput" placeholder="请输入线索描述" type="text"/>
-                    <i class="ion-ios-search employeecustomer_headqueryimg"></i>
-                </div>
-            </form>
+            <!--<form ng-submit="employeecustomerQuery()">-->
+                <!--<div class="employeecustomer_headquery" style="height:44px">-->
+                    <!--<input type="search" class="employeecustomer_headqueryinput" placeholder="请输入线索描述"/>-->
+                    <!--<i class="ion-ios-search employeecustomer_headqueryimg"></i>-->
+                <!--</div>-->
+            <!--</form>-->
         </div>
         <div class="row customerworkordersortrow" style="background-color: white;">
             <div class="col col-50" style="text-align:center" ng-click="showCustomerWorkeordSortModal('sort')">
@@ -37,8 +37,10 @@
 
     <!--&lt;!&ndash;sort&nda }"-->
     <div class="customerworkordersortcontent" ng-show="cusworkodersortbgflag"
-         ng-class="{'showFilterPagerigInLeft': cusworkodersortbgflag ,
-    'showFilterPagerigOutLeft':!cusworkodersortbgflag}">
+         ng-class="{'showFilterPageshow': (cusworkoderselecbgflag == false && cusworkodersortbgflag==true) && cusomerWorkorclick==true,
+    'showFilterPageshinde':(cusworkoderselecbgflag == false && cusworkodersortbgflag==false),
+    'showFilterPagerigInLeft':(cusworkoderselecbgflag == false && cusworkodersortbgflag==true) && cusomerWorkorclick==false,
+    'showFilterPagerigOutLeft':(cusworkoderselecbgflag == true && cusworkodersortbgflag==false)}">
         <div ng-repeat="x in customerworkordersortlist" ng-click="customerworkordergetvalue(x,$index)">
             <div class="row">
                 <div class="col col-100">{{x.sortname}}</div>
@@ -49,8 +51,10 @@
     </div>
     <!--select-->
     <div class="customerworkorderselectcontent" ng-show="cusworkoderselecbgflag"
-         ng-class="{'showFilterPagerigInRight': cusworkoderselecbgflag ,
-    'showFilterPagerigOutRight':!cusworkoderselecbgflag}">
+         ng-class="{'showFilterPageshow': (cusworkoderselecbgflag == true && cusworkodersortbgflag==false) && cusomerWorkorclickflag==true,
+    'showFilterPageshinde':(cusworkoderselecbgflag == false && cusworkodersortbgflag==false),
+    'showFilterPagerigInRight':(cusworkoderselecbgflag == true && cusworkodersortbgflag==false) && cusomerWorkorclickflag==false,
+    'showFilterPagerigOutRight':(cusworkoderselecbgflag == false && cusworkodersortbgflag==true)}">
         <ion-scroll has-bouncing="false" scrollbar-y="false" style="max-height:100%; background-color:white">
             <div class="row" style="margin-top: 10px;line-height: 31px; height: 50px;">
                 <div class="col col-20 col-center" style="text-align: left">
@@ -114,7 +118,7 @@
         </div>
        </div>
 
-    <ion-content style="margin-top:135px">
+    <ion-content style="margin-top:88px">
         <!--&lt;!&ndash;列表数据&ndash;&gt;ng-if="customerworkorcrderlistflag"-->
         <div class="customerworkorcontentlist">
             <div class="customerworkordercilce">

@@ -91,8 +91,14 @@
     left: 0;
     bottom: 0;
   }
-  .Contacts_backtop{
-    background: url("../../img/employee/BAR-BG@2x.png") no-repeat center;
+  .Contacts_backtopa{
+    background: url("../../img/contact/contactbga@2x.png") no-repeat;
+    background-size: 100% 100%;
+    width:100%;
+  }
+  .Contacts_backtopb{
+    background: url("../../img/contact/contactbgb@2x.png") no-repeat;
+    background-size: 100% 100%;
     width:100%;
   }
   .Contacts_detailtitle{
@@ -132,7 +138,7 @@
 
   .Contacts_detailname{
     position: absolute;
-    top: 14px;
+    top: 30px;
     font-size:12px;
     width: 80%;
     margin-left: 13%;
@@ -147,7 +153,7 @@
     color: white;
     .Contacts_detailcontentname {
       position: absolute;
-      top: 1px;
+      top: 3px;
       left: 25px;
       .Contacts_detailcontentcicle {
         width: 14px;
@@ -162,22 +168,22 @@
     }
     .Contacts_detailcontentkehu{
       position: absolute;
-      top:23px;
+      top:27px;
       left:25px;
     }
     .Contacts_detailcontentaddress{
       position: absolute;
-      top:45px;
+      top:50px;
       left:25px;
     }
     .Contacts_detailcontentemploy{
       position: absolute;
-      top:67px;
+      top:73px;
       left:25px;
     }
     .Contacts_detailcontentphone{
       position: absolute;
-      top:89px;
+      top:100px;
       left:25px;
       .Contacts_detailcontentphonei{
         float: left;
@@ -187,7 +193,7 @@
     }
     .Contacts_detailcontentmobile{
       position: absolute;
-      top:113px;
+      top:124px;
       left:25px;
       .Contacts_detailcontentmobilei{
         float: left;
@@ -266,50 +272,33 @@
 
 //联系人edit+create + 客户编辑界面+客户联系人新建界面
 .contact_Edit {
-  .contact_Edit_head {
-    width: 100%;
-    height:50px;
-    font-size: 18px;
-    color: white;
-    z-index: 0;
-    background-color: #406FB3;
-    .contact_Edit_headtitle {
-      height: 44px;
-      line-height: 50px;
+  .list {
+    .item {
+      border: 1px solid #dddddd;
+      border-top-style: none;
+      border-right-style: none;
+      border-left-style: none;
+      min-height: 48px;
       text-align: center;
-      .contact_Edit_headtitlei {
-        font-size: 35px;
-        display: block;
-        float: left;
-        margin-left: 15px;
       }
-      .contact_Edit_headtitlespantitle {
-
+      .item-input {
+        padding: 2px 0 5px 16px;
+        .contact_edit_listfor {
+          width: 16px;
+          height: 16px;
+          margin-top:4px;
+        }
+        .contact_editinputsty {
+          padding-left: 35px;
+          color: #9B9B9B
+        }
+        .contacts_editlistimg {
+          width: 20px;
+          height: 20px;
+          margin-top: 1px;
+          margin-right: 15px
+        }
       }
-      .contact_Edit_headtitlespanedit{
-       float: right;
-        margin-right: 15px;
-      }
-    }
-  }
-  .list .item {
-    border: 1px solid #dddddd;
-    border-top-style: none;
-    border-right-style: none;
-    border-left-style: none;
-    min-height: 48px;
-    text-align: center;
-  }
-  .contact_edit_listfor{
-    width:20px;
-    height:20px;
-  }
-  .item-input {
-    padding: 2px 0 5px 16px;
-  }
-  .contact_editinputsty{
-    padding-left: 35px;
-    color:#9B9B9B
   }
   .customeredittwo{
     padding-left: 65px;
