@@ -44,6 +44,7 @@ salesModule
                 Prompter.showLoading('正在搜索');
                 $timeout(function () {
                     Prompter.hideLoading();
+
                     $scope.input.search = x;
                 }, 800)
 
@@ -170,7 +171,7 @@ salesModule
                     if ($scope.statusArr[i].value == $scope.chanceDetails.status) {
                         $scope.mySelect = {
                             status: $scope.statusArr[i]
-                        }
+                        };
                         return
                     }
                 }
