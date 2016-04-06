@@ -202,7 +202,11 @@
         color: #9fca17;
         margin-right: 5px;
         font-size: 12px;
-        padding-top: 2px;
+      }
+      .title_oval{
+        width: 12px;
+        position: relative;
+        margin-right: 5px;
       }
       input {
         background: none;
@@ -211,7 +215,7 @@
         color: white !important;
         height: 28px;
         position: relative;
-        top: 2px;
+        padding:0;
         //border-bottom: 1px solid white;
         width: 100%;
       }

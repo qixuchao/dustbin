@@ -28,7 +28,7 @@
     
     <ion-content class="has-subheader content" ng-hide="searchFlag">
         <div class="list">
-            <a ui-sref="saleActDetail" class="item animated flipInX" ng-repeat="x in saleListArr">
+            <a ng-click="goDetail(x,$event)" class="item animated flipInX" ng-repeat="x in saleListArr">
                 <div class="row row-center">  
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
 
