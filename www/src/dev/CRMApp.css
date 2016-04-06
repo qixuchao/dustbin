@@ -2233,9 +2233,6 @@ Copyright (c) 2015 Daniel Eden
 .bar {
   font-size: 16px; }
 
-.modal-wrapper {
-  pointer-events: auto !important; }
-
 /* Fix modal backdrop for smaller devices */
 @media (max-width: 679px) {
   .active .modal-backdrop-bg {
@@ -2432,7 +2429,7 @@ Copyright (c) 2015 Daniel Eden
   min-height: 125px; }
   .main .top-back .dayView .months {
     padding-top: 35px;
-    font-size: 15px;
+    font-size: 16px;
     color: white;
     padding-bottom: 0; }
     .main .top-back .dayView .months .year {
@@ -2461,7 +2458,7 @@ Copyright (c) 2015 Daniel Eden
       background-size: contain;
       color: white; }
   .main .top-back .dayView .today {
-    font-size: 8px;
+    font-size: 10px;
     color: white;
     -webkit-transform: scale(0.7, 0.7); }
   .main .top-back .dayView .edgeDay {
@@ -3263,17 +3260,18 @@ Copyright (c) 2015 Daniel Eden
       font-size: 18px;
       position: relative;
       left: 2px;
-      top: -2px;
-      margin-right: 5px;
-      color: #9A9AA0; }
+      margin: auto 5px auto 0;
+      color: #9A9AA0;
+      vertical-align: middle; }
     .saleList .head .col-80 input {
-      height: 22px;
-      min-height: 22px;
+      height: 20px;
+      min-height: 0;
       width: 90%;
       background: none;
       border: none;
       position: relative;
-      top: -3px; }
+      /* top: -3px; */
+      padding: 0; }
     .saleList .head .col-80 .ion-ios-close {
       color: #CBCBCE;
       position: relative;
@@ -3405,7 +3403,7 @@ Copyright (c) 2015 Daniel Eden
   .saleActDetail .top-back .selector {
     height: 27px;
     margin: 0 10px;
-    border: 1px solid white;
+    border: 1px solid rgba(255, 255, 255, 0.7);
     border-radius: 12px;
     font-size: 14px; }
     .saleActDetail .top-back .selector .detail {
@@ -3454,6 +3452,8 @@ Copyright (c) 2015 Daniel Eden
   .saleActDetail .content .startTime {
     padding-bottom: 3%;
     border-bottom: 1px solid #d2d2d2; }
+  .saleActDetail .content .ion-arrow-down-b {
+    padding-left: 3px; }
   .saleActDetail .content .endTime {
     padding-top: 3% !important; }
   .saleActDetail .content .rewrite {
@@ -6838,7 +6838,7 @@ Copyright (c) 2015 Daniel Eden
   color: #1d63ae;
   padding-left: 10% !important; }
 .saleChanDetail .time-icon {
-  padding-left: 6px; }
+  padding-left: 6px !important; }
 .saleChanDetail .chanSubTitle {
   min-width: 77px; }
 .saleChanDetail .chan_submit button {

@@ -604,15 +604,14 @@ mainModule
             $scope.contentArr = $scope.thingsToDo;
             $scope.moreApps = function () {
                 //$ionicBackdrop.retain();
-            }
+            };
             $scope.chooseMark = function (x, color) {
                 x.showMarks = false;
                 x.mark = color;
-            }
+            };
             $scope.delete = function (x) {
                 x.class = 'own-animated zoomOutRight';
                 var arr = document.getElementsByClassName('obj');
-                console.log(arr)
                 for (var i = 0; i < arr.length; i++) {
                     arr[i].style.transitionDelay = '0s';
                 }
@@ -637,7 +636,7 @@ mainModule
                     $timeout(function () {
                         $scope.contenHideFlag = false;
                         $scope.contentArr = tempArr;
-                    }, 400)
+                    }, 400);
                     $timeout(function () {
                         ionicMaterialMotion.fadeSlideInRight({
                             startVelocity: 3000,
@@ -648,6 +647,7 @@ mainModule
                     $scope.selectModeText = x.text;
                 }
                 $scope.modeFlag = x.flag;
+                $('#mainSelectionsId').removeClass('own-animated');
                 $scope.showPop = false;
 
             };

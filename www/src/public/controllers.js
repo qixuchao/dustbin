@@ -8,7 +8,7 @@ angular.module('ATLApp.controllers', [])
         //返回回退
         $scope.goBack = function() {
             $ionicHistory.goBack();
-        }
+        };
 
         // Form data for the login modal
     $scope.loginData = {};

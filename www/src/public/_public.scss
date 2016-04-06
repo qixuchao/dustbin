@@ -38,9 +38,9 @@
 .bar{
   font-size: 16px;
 }
-.modal-wrapper {
-  pointer-events: auto!important;
-}
+//.modal-wrapper {
+//  pointer-events: auto!important;
+//}
 /* Fix modal backdrop for smaller devices */
 @media (max-width: 679px) {
   .active .modal-backdrop-bg {
