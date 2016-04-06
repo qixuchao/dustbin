@@ -121,6 +121,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
             //联系人
             .state('ContactQuery', {
+                cache:false,
                 url: '/contactQuery',
                 templateUrl: 'src/contacts/contactQuery.html',
                 controller: 'contactQueryCtrl'
@@ -130,11 +131,14 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/contacts/contactDetail.html',
                 controller: 'contactDetailCtrl'
             })
+            //联系人-联系人创建+客户联系人创建界面
             .state('ContactCreate', {
+                cache:false,
                 url: '/contactsCreate',
                 templateUrl: 'src/contacts/contactCreate.html',
                 controller: 'contactCreateCtrl'
             })
+
             .state('ContactsEdit', {
                 url: '/contactEdit',
                 templateUrl: 'src/contacts/contactEdit.html',
@@ -148,6 +152,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             
             //客户
             .state('customerQuery', {
+                cache:false,
                 url: '/customerQuery',
                 templateUrl: 'src/customer/customerinfo/customerQuery.html',
                 controller: 'customerQueryCtrl'

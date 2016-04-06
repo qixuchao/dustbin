@@ -1,10 +1,11 @@
 <ion-view canClickEnterListMode class="Maintenance"  align-title="center">
     <ion-header-bar align-title="center"  ng-class="{'query-mode':config.isQueryMode}">
         <div class="left-back" ng-click="goBack();">
-            <i class="ion-chevron-left"></i>
+            <i class="ion-ios-arrow-back"></i>
         </div>
         <div class="title" canClickEnterListMode ng-click="clickEnterListMode($event);">维修记录</div>
     </ion-header-bar>
+    <div class="search-hearder-bar"></div>
     <ion-content  class="" style="" scroll="false" has-bouncing="false">
         <div class="tab-buttons-line">
             <div class="tab-button-block" ng-class="{'selected':config.isSorteMode}" ng-click="enterSorteMode();">
@@ -74,22 +75,18 @@
                         </div>
                         <div class="row row-center filter-types">
                             <div class="col col-5"></div>
-                            <div class="filter-type newcar-online" ng-click="selectFilterType('newcarOnline');" ng-class="{'selected':config.filterNewCarOnline}">新车上线工单</div>
+                            <div class="filter-type batch-update" ng-click="selectFilterType('batchUpdate');" ng-class="{'selected':config.filterBatchUpdate}">现场维修</div>
                             <div class="col col-10"></div>
                             <div class="filter-type newcar-online1" ng-click="selectFilterType('newcarOnline1');" ng-class="{'selected':config.filterNewCarOnline1}">新车上线工单(服务商)</div>
                         </div>
                     </div>
                     <div canNotClickEnterListMode class="filter-impact">
                         <div class="filter-impact-title filter-title">影响</div>
-                        <div class="row row-center filter-impacts">
+                        <div class="filter-impacts">
                             <div class="filter-impact damage" ng-class="{'selected':config.filterImpactDamage}" ng-click="selectFilterImpact('damage');">灾难</div>
-                            <div class="col col-5"></div>
                             <div class="filter-impact hight" ng-class="{'selected':config.filterImpactHeight}" ng-click="selectFilterImpact('height');">高</div>
-                            <div class="col col-5"></div>
                             <div class="filter-impact middle" ng-class="{'selected':config.filterImpactMiddle}" ng-click="selectFilterImpact('middle');">中</div>
-                            <div class="col col-5"></div>
                             <div class="filter-impact low" ng-class="{'selected':config.filterImpactLow}" ng-click="selectFilterImpact('low');">低</div>
-                            <div class="col col-5"></div>
                             <div class="filter-impact none" ng-class="{'selected':config.filterImpactNone}" ng-click="selectFilterImpact('none');">无</div>
                         </div>
                     </div>

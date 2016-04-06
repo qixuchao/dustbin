@@ -1,4 +1,4 @@
-/** 
+/**
  * Created by zhangren on 16/3/19.
  */
 'use strict';
@@ -75,6 +75,14 @@ salesModule
                 console.log($scope.pop);
                 $scope.createPop.hide();
                 $scope.createModal.show();
+<<<<<<< HEAD
+                //console.log(document.getElementsByClassName('modal-wrapper'));
+                var tempArr = document.getElementsByClassName('modal-wrapper');
+                for (var i = 0; i < tempArr.length; i++) {
+                    tempArr[i].style.pointerEvents = 'auto';
+                }
+=======
+>>>>>>> f026a93ca8ed81031b117c72e565914b6bb26d25
             };
             /*-------------------------------Pop 新建 end-------------------------------------*/
             /*-------------------------------Modal 新建-------------------------------------*/
@@ -115,7 +123,7 @@ salesModule
                 $scope.selectPersonModal.hide();
                 //arr[0].className = 'modal-backdrop hide';
             };
-            $scope.$on('$destroy', function() {
+            $scope.$on('$destroy', function () {
                 $scope.createPop.remove();
                 $scope.createModal.remove();
                 $scope.selectPersonModal.remove();
@@ -124,6 +132,7 @@ salesModule
         }])
     .controller('saleActDetailCtrl', [
         '$scope',
+        '$rootScope',
         '$state',
         '$ionicHistory',
         '$ionicScrollDelegate',
@@ -136,12 +145,13 @@ salesModule
         '$cordovaToast',
         '$cordovaDatePicker',
         'saleActService',
+        'saleChanService',
         'Prompter',
-        function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
+        function ($scope, $rootScope,$state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, $cordovaDatePicker, saleActService, Prompter) {
+                  $cordovaToast, $cordovaDatePicker, saleActService, saleChanService, Prompter) {
             ionicMaterialInk.displayEffect();
-            $scope.statusArr = saleActService.getStatusArr();
+            $scope.statusArr = saleChanService.getStatusArr();
             $scope.mySelect = {
                 status: $scope.statusArr[2]
             };
@@ -153,6 +163,27 @@ salesModule
             };
             $scope.isEdit = false;
             $scope.editText = "编辑";
+            $scope.goBack = function () {
+                if ($scope.isEdit) {
+                    $cordovaDialogs.confirm('请先保存当前的更改', '提示', ['保存', '不保存'])
+                        .then(function (buttonIndex) {
+                            // no button = 0, 'OK' = 1, 'Cancel' = 2
+                            var btnIndex = buttonIndex;
+                            if(btnIndex==1){
+                                Prompter.showLoading('正在保存');
+                                $timeout(function () {
+                                    Prompter.hideLoading();
+                                    $cordovaToast.showShortBottom('保存成功');
+                                    $rootScope.goBack();
+                                }, 500);
+                            }else{
+                                $rootScope.goBack();
+                            }
+                        });
+                }else{
+                    $rootScope.goBack();
+                }
+            };
             $scope.edit = function () {
                 if ($scope.editText == '编辑') {
                     $scope.isEdit = true;
@@ -172,7 +203,7 @@ salesModule
                     }, 500);
 
                 }
-            }
+            };
             $scope.select = true;
             $scope.showTitle = false;
             $scope.showTitleStatus = false;

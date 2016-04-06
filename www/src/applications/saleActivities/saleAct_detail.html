@@ -22,7 +22,7 @@
             <div class="relative" ng-class="{checked:!select}" ng-click="changeStatus(false)">相关方</div>
         </div>
     </div>
-    <ion-content has-bouncing="false" on-scroll="onScroll()" scrollbar-y="false">
+    <ion-content class="has-footer" has-bouncing="false" on-scroll="onScroll()" scrollbar-y="false">
         <div id="saleTopBackId" class="top-back">
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="row" ng-click="openRefer()">
                     <div class="row row-center">
-                        <div class="col col-85">
+                        <div class="col col-85 col-center">
                             <div class="row">
                                 <div class="col-30 text-left">参考:</div>
                                 <div class="text col-70 underline">{{details.refer}}</div>
@@ -108,16 +108,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="submit">
-                    <div class="row row-center">
-                        <div class="col col-82 no-padding">
-                            <div class="input"><input type="text" ng-model="input.progress"/></div>
-                        </div>
-                        <div class="col col-18 no-padding" ng-click="submit()">
-                            <button>提交</button>
-                        </div>
-                    </div>
-                </div>
+
             </div>
             <!--相关方-->
             <div id="relativeId" class="relative" ng-show="!select">
@@ -136,6 +127,17 @@
                 <div class="row row-center add"><div class="col" ng-click="openRelations()"><i class="ion-ios-plus-outline"></i>添加相关方</div></div>
             </div>
         </div>
-
     </ion-content>
+    <div class="bar bar-footer content">
+        <div class="submit">
+            <div class="row row-center">
+                <div class="col col-82 no-padding">
+                    <div class="input"><input type="text" ng-model="input.progress"/></div>
+                </div>
+                <div class="col col-18 no-padding" ng-click="submit()">
+                    <button>提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </ion-view>

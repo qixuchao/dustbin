@@ -3,7 +3,7 @@
  */
 'use strict';
 customerContactsModule
-    .controller('customerContactQueryCtrl',['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+    .controller('customerContactQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,contactService,$ionicLoading){
 
         $ionicPopover.fromTemplateUrl('src/customer/model/customercontact_selec.html', {
             scope: $scope
@@ -16,7 +16,6 @@ customerContactsModule
         $scope.customerContactsPopoverhide = function() {
             $scope.customerContactspopover.hide();
         };
-        $scope.customercontact_types = ["扫描名片创建联系人","手动创建新联系人","关联其联系人"]
         $scope.customerContacts_query_list = [{
             name: '王雨薇',
             sex:'女',
@@ -37,7 +36,40 @@ customerContactsModule
         $scope.customerContacts_godetails = function(x){
             customeService.set_customerContactsListvalue(x);
             $state.go('customerContactDetail');
-        }
+        };
+
+        //创建联系人
+        $scope.customercontact_types = [
+            {
+                type:"扫描名片创建联系人",
+                url:""
+            },
+            {
+                type:"手动创建新联系人",
+                url:'ContactCreate'
+            },
+            {
+                type:"关联其联系人",
+                url:'ContactCreate'
+            }
+        ];
+        $scope.customerContactsqueryType = function(types){
+            console.log(types)
+            if(types.url){
+                $state.go(types.url);
+                //从客户联系人进入创建联系人界面设置一个标记
+                if(types.type == "手动创建新联系人"){
+                    contactService.set_ContactCreateflagfalse();
+                    alert(contactService.get_ContactCreateflag())
+                }
+            }
+            $scope.customerContactsPopoverhide();
+        };
+        //接收广播创建取数据
+        $rootScope.$on('customercontactCreatevalue', function(event, data) {
+            console.log(contactService.get_ContactCreatevalue())
+        });
+
 
     }])
     .controller('customerContactDetailCtrl',['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
