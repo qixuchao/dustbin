@@ -143,10 +143,11 @@ salesModule
         '$ionicModal',
         '$cordovaDialogs',
         '$cordovaToast',
+        '$cordovaDatePicker',
         'saleChanService',
         'Prompter',
         function ($scope, $rootScope, $state, ionicMaterialInk, ionicMaterialMotion, $timeout, $ionicScrollDelegate,
-                  $ionicPopover, $ionicModal,$cordovaDialogs, $cordovaToast,saleChanService,Prompter) {
+                  $ionicPopover, $ionicModal,$cordovaDialogs, $cordovaToast,$cordovaDatePicker,saleChanService,Prompter) {
             console.log('chanceDetail')
             ionicMaterialInk.displayEffect();
             //ionicMaterialMotion.fadeSlideInRight();
@@ -175,7 +176,7 @@ salesModule
                         return
                     }
                 }
-            }
+            };
             getInitStatus();
             $scope.isEdit = false;
             $scope.editText = "编辑";
@@ -218,7 +219,7 @@ salesModule
                 }else{
                     $rootScope.goBack();
                 }
-            }
+            };
             $scope.select = true;
             $scope.showTitle = false;
             $scope.showTitleStatus = false;
@@ -266,14 +267,7 @@ salesModule
                 }
             };
             $scope.returnScroll = function () {
-                console.log('blur');
-                $scope.customerFlag = false;
-                $scope.placeFlag = false;
-                $scope.statusFlag = false;
-                $scope.showTitle = false;
-                $scope.TitleFlag = false;
-                $scope.showTitleStatus = false;
-                $scope.$apply();
+                $scope.onScroll();
             };
             /*------------------------------------选择时间------------------------------------*/
             var getFormatTime = function (date) {
@@ -308,6 +302,9 @@ salesModule
                 }
             };
             $scope.selectTime = function (type) {
+                if(!$scope.isEdit){
+                    return;
+                }
                 //iOS平台
                 if (type == 'start') {
                     var options = getOptions(new Date($scope.chanceDetails.startTime).format('yyyy/MM/dd hh:ss'), 'datetime', '开始');

@@ -1,24 +1,7 @@
 <div class="selectPersonModal">
     <div class="modal transparent content">
         <ion-scroll>
-            <div class="person">dddd</div>
-            <div class="person">的手势</div>
-            <div class="person">dddd</div>
-            <div class="person">的手势</div>
-            <div class="person">dddd</div>
-            <div class="person">的手势</div>
-            <div class="person">dddd</div>
-            <div class="person">的手势</div>
-            <div class="person">dddd</div>
-            <div class="person">的手势</div>
-            <div class="person">dddd</div>
-            <div class="person">的手势</div>
-            <div class="person">dddd</div>
-            <div class="person">的手势</div>
-            <div class="person">dddd</div>
-            <div class="person">的手势</div>
-            <div class="person">dddd</div>
-            <div class="person">的手势</div>
+            <div class="person" ng-class="{'selected':create.contact==x.text}" ng-repeat="x in contacts" ng-click="selectContact(x)">{{x.text}}</div>
         </ion-scroll>
         <div class="cancel"><img class="cancelImg" src="img/apps/cancel.png" ng-click="closeSelectPerson()"></div>
     </div>

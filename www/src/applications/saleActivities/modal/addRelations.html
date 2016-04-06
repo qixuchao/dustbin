@@ -8,7 +8,7 @@
                 <div class="col input">
                     <div class="row row-center no-padding">
                         <i class="ion-ios-search"></i>
-                        <input id="referSearchId" type="search" ng-model="input.search" placeholder="请输入活动关键字">
+                        <input id="referSearchId" type="search" ng-model="input.search" placeholder="请输入关键字">
                         <i class="ion-ios-close" ng-if="input.search" ng-click="initSearch()"></i>
                     </div>
                 </div>
@@ -27,11 +27,5 @@
                 </ion-list>
             </div>
         </div>
-        <!--<ion-list>-->
-        <!--<ion-item ng-repeat="x in referArr | filter:input.search" ng-click="selectModal(x)">-->
-        <!--<span ng-bind-html="x.text | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg" src="img/saleList/blank.png">-->
-        <!--<img  ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">-->
-        <!--</ion-item>-->
-        <!--</ion-list>-->
     </ion-content>
 </ion-modal-view>

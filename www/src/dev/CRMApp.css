@@ -3571,7 +3571,7 @@ input[readonly]:not(.cloned-text-input) {
   .saleActDetail .top-back .selector {
     height: 27px;
     margin: 0 10px;
-    border: 1px solid white;
+    border: 1px solid rgba(255, 255, 255, 0.7);
     border-radius: 12px;
     font-size: 14px; }
     .saleActDetail .top-back .selector .detail {
@@ -3752,7 +3752,8 @@ input[readonly]:not(.cloned-text-input) {
     min-height: 22px;
     width: 90%;
     background: none;
-    border: none; }
+    border: none;
+    padding: 0; }
   .referModal .head .input .ion-ios-close {
     position: relative;
     color: #C7C5C5;
@@ -3868,6 +3869,9 @@ input[readonly]:not(.cloned-text-input) {
     padding: 10px 0;
     color: #9B9B9B; }
 
+.selectPersonModal .selected {
+  color: #2B60AB; }
+
 .selectPersonModal .transparent {
   background-color: transparent; }
 
@@ -3887,7 +3891,7 @@ input[readonly]:not(.cloned-text-input) {
 
 .selectPersonModal .content {
   padding: 10px;
-  margin-top: 20%;
+  margin-top: 25%;
   height: 374px;
   width: 220px;
   left: 50%;

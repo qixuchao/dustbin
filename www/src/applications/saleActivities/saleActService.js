@@ -36,6 +36,43 @@ salesModule.factory('saleActService', function () {
     },{
         text:'外销'
     }];
+    var customerTypesArr = [{
+        text: '正式客户'
+    }, {
+        text: '潜在客户'
+    }, {
+        text: '竞争对手'
+    },{
+        text: '合作伙伴'
+    },{
+        text: '联系人'
+    }];
+    var customer = [{
+        text: '郑州金龙客车(福州)分公司'
+    }, {
+        text: '福州宇通客车集团'
+    }, {
+        text: '测试1'
+    }, {
+        text: '测试2'
+    }];
+    var contacts = [{
+       text:'联系人1'
+    },{
+        text:'联系人2'
+    },{
+        text:'联系人3'
+    },{
+        text:'联系人4'
+    },{
+        text:'联系人5'
+    },{
+        text:'联系人6'
+    },{
+        text:'联系人7'
+    },{
+        text:'联系人8'
+    }];
     return{
         getSaleListArr: function () {
             return saleListArr;
@@ -45,6 +82,15 @@ salesModule.factory('saleActService', function () {
         },
         getCreatePopOrgs: function () {
             return createPopOrgs;
+        },
+        getCustomerTypes: function () {
+            return customerTypesArr;
+        },
+        getCustomer: function () {
+            return customer;
+        },
+        getContact: function () {
+            return contacts;
         }
     };
 });

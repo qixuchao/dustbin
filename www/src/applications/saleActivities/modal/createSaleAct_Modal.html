@@ -20,13 +20,11 @@
         </div>
         <div class="row row-center">
             <div class="col col-35">客户:</div>
-            <div class="col col-65 selectPlease" ng-if="!create.customer" ng-click="openSelectPerson()">-请选择-</div>
-            <div class="col col-65" ng-if="create.customer">{{create.customer}}</div>
+            <div class="col col-65" ng-click="openSelectCustomer()" ng-class="{'selectPlease':!create.customer}">{{create.customer?create.customer:'-请选择-'}}</div>
         </div>
         <div class="row row-center">
             <div class="col col-35">联系人:</div>
-            <div class="col col-65 selectPlease" ng-if="!create.contact" ng-click="openSelectPerson()">-请选择-</div>
-            <div class="col col-65" ng-if="create.contact">{{create.contact}}</div>
+            <div class="col col-65" ng-click="openSelectPerson()" ng-class="{'selectPlease':!create.contact}">{{create.contact?create.contact:'-请选择-'}}</div>
         </div>
         <div class="row row-center">
             <div class="col col-35">开始时间</div>
