@@ -75,14 +75,11 @@ salesModule
                 console.log($scope.pop);
                 $scope.createPop.hide();
                 $scope.createModal.show();
-<<<<<<< HEAD
                 //console.log(document.getElementsByClassName('modal-wrapper'));
                 var tempArr = document.getElementsByClassName('modal-wrapper');
                 for (var i = 0; i < tempArr.length; i++) {
                     tempArr[i].style.pointerEvents = 'auto';
                 }
-=======
->>>>>>> f026a93ca8ed81031b117c72e565914b6bb26d25
             };
             /*-------------------------------Pop 新建 end-------------------------------------*/
             /*-------------------------------Modal 新建-------------------------------------*/

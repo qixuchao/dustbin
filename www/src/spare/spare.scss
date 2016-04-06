@@ -1,9 +1,6 @@
 
 .SpareList{
-  b, strong {
-    font-weight: 100;
-  }
-  .bar .title{
+  .bar .title {
     position: absolute;
     right: 0;
     left: 0;
@@ -16,11 +13,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 16px;
-    font-weight: 100;
     color: rgb(250, 250, 250);
   }
-  .bar.bar-header .button+.title {
+  .bar.bar-header .button + .title {
     text-align: center;
+    line-height: 60px;
   }
   .bar {
     border-bottom: none;
@@ -33,21 +30,24 @@
     border-bottom: none;
     padding: 0;
     background-size: 0;
+    padding-top: 20px;
     .button-clear {
       position: absolute;
       color: #fff;
       font-size: 22px;
       max-height: 30px;
       min-height: 20px;
-      top: 10px;
-      padding-left: 15px;
+      top: 15px;
     }
+    .ion-chevron-left {
+    }
+
   }
   .bar-subheader {
-    height: 2.4em;
+    height: 43px;
     display: block;
     padding: 8px;
-    .search1{
+    .search1 {
       .placeholder-icon {
         color: #aaa;
         position: absolute;
@@ -58,16 +58,16 @@
       input {
         display: block;
         padding-left: 2em;
-        color: #ccc;
+        color: black;
         vertical-align: middle;
         font-size: 14px;
         height: 28px;
-        width: 96%;
+        width: 95%;
         position: fixed;
         border-radius: 5px;
       }
     }
-    .search2{
+    .search2 {
       .placeholder-icon {
         color: #aaa;
         position: absolute;
@@ -80,50 +80,29 @@
         padding-left: 2em;
         color: #000;
         vertical-align: middle;
-        font-size: 14px;
+        font-size: 12px;
         height: 25px;
         width: 72%;
         position: fixed;
         border-radius: 5px;
       }
-      .ion-ios-close{
-        position: absolute;
+      .ion-ios-close {
+        position: fixed;
         top: 13px;
-        right: 5em;
+        left: 75%;
         z-index: 2;
         color: #aaa;
       }
-      .button-clear{
+      .button-clear {
         position: relative;
         left: 86%;
         font-size: 16px;
         top: -2px;
       }
     }
-
   }
   .has-subheader {
     top: 95px;
-    .placeholder-icon {
-      color: #aaa;
-      position: absolute;
-      z-index: 2;
-      top: .4em;
-      left: 1em;
-    }
-    input {
-      display: block;
-      padding: 8px;
-      padding-left: 2em;
-      color: #ccc;
-      vertical-align: middle;
-      font-size: 15px;
-      line-height: 16px;
-      width: 96%;
-      position: fixed;
-      right: 6px;
-      border-radius: 5px;
-    }
   }
   .pointImg{
     height: 10px;
@@ -175,8 +154,7 @@
   }
   .col span {
     font-size: 16px;
-    color: rgba(17, 17, 17, 0.78);
-    font-weight: 100;
+    color: #000;
   }
   .search{
     .his-title{
@@ -213,18 +191,17 @@
   }
 }
 .Detail{
-  b, strong {
-    font-weight: 100;
-  }
    .bar.bar-header .button + .title {
     text-align: center;
     color: white;
-    line-height: 3em;
+    line-height: 60px;
+     font-size: 16px;
+     
   }
   .bar .button.button-clear {
     color: #fff;
-    padding-left: 15px;
-    padding-top: 0.4em;
+    padding-top: 15px;
+    font-size: 22px;
   }
   .bar{
     border-bottom: none;
@@ -238,7 +215,6 @@
     position: relative;
     font-size:15px;
     color:$crm-header-bar-bgcolor;
-    font-weight: 100;
     padding-bottom: 2em;
     .Car_countentbasicinfo{
       position: absolute;
@@ -282,12 +258,11 @@
       width: 100%;
     }
     span{
-      font-size: 15px;
+      font-size: 14px;
       color: gray;
     }
-    b, strong {
-      font-weight: 100;
-      color: rgba(0, 0, 0, 0.7);
+    .col-40 {
+      color: #000;
       font-size: 16px;
     }
     .line{

@@ -5,7 +5,6 @@
     font-weight: 100;
   }
   .row {
-
     .col {
       padding: 0;
     }
@@ -28,6 +27,7 @@
   }
   .bar.bar-header .button + .title {
     text-align: center;
+    line-height: 60px;
   }
   .bar {
     border-bottom: none;
@@ -40,14 +40,14 @@
     border-bottom: none;
     padding: 0;
     background-size: 0;
-    padding-top: 5px;
+    padding-top: 20px;
     .button-clear {
       position: absolute;
       color: #fff;
       font-size: 22px;
       max-height: 30px;
       min-height: 20px;
-      top: 10px;
+      top: 13px;
     }
     .ion-chevron-left {
     }
@@ -72,7 +72,7 @@
         vertical-align: middle;
         font-size: 14px;
         height: 28px;
-        width: 96%;
+        width: 95%;
         position: fixed;
         border-radius: 5px;
       }
@@ -90,7 +90,7 @@
         padding-left: 2em;
         color: #000;
         vertical-align: middle;
-        font-size: 14px;
+        font-size: 12px;
         height: 25px;
         width: 72%;
         position: fixed;
@@ -110,9 +110,13 @@
         top: -2px;
       }
     }
+  }
     .row + .row .row {
       padding-top: 0;
       height: 4em;
+    }
+    .has-subheader {
+      top: 95px;
     }
     .Car_countentbasic {
       position: relative;
@@ -165,9 +169,8 @@
       .colType {
         padding-left: 0;
         span {
-          font-size: 1em;
-          color: #4a4a4a;
-          font-weight: 100;
+          font-size: 14px;
+          color: #000;
         }
       }
     }
@@ -190,7 +193,7 @@
       ion-item {
         border-bottom: 1px solid #D8D8D8;
         min-height: 0;
-        font-size: 16px;
+        font-size: 14px;
         padding: 10px 16px;
       }
     }
@@ -199,13 +202,13 @@
         position: relative;
         display: block;
         margin: -1px;
-        font-size: 16px;
+        font-size: 14px;
         padding: 0;
         border-bottom: 1px solid rgba(0, 0, 0, 0.16);
       }
     }
   }
-}
+
   //车辆详情列表
   .CarDetail {
     .row .col {
@@ -226,12 +229,12 @@
       height: 3.28em;
       font-size: 16px;
       .title {
-        padding-top: 10px;
+        padding-top: 20px;
         color: white;
         i {
           font-size: 25px;
           color: #c9ddf0;
-          padding-left: 8px;
+          padding-left: 15px;
         }
       }
     }
@@ -247,7 +250,7 @@
         i {
           font-size: 25px;
           color: #c9ddf0;
-          padding-left: 8px;
+          padding-left: 15px;
         }
       }
     }
@@ -259,12 +262,12 @@
       height: 55px;
       font-size: 16px;
       .title {
-        padding-top: 10px;
+        padding-top: 20px;
         color: white;
         i {
           font-size: 25px;
           color: #c9ddf0;
-          padding-left: 8px;
+          padding-left: 15px;
         }
       }
     }
@@ -320,8 +323,7 @@
       padding-left: 0;
     }
     .col-56 {
-      font-size: 1.1em;
-      color: rgba(155, 155, 155, 0.9);
+      font-size: 14px;
     }
     u {
       color: $crm-header-bar-bgcolor;
@@ -329,7 +331,6 @@
     }
     .col-76 {
       font-size: 13px;
-      color: rgba(155, 155, 155, 0.9);
     }
 
     .contentType {
@@ -479,7 +480,7 @@
         padding-left: 15px;
         color: white;
         position: absolute;
-        top: 15px;
+        top: 20px;
       }
       .left-back, .title, {
         transition: min-width .2s linear 0s, width .2s linear 0s, left .15s linear 0s;
@@ -657,6 +658,9 @@
         }
         .tab-filter-content {
           transform: translateX(100%);
+          .row{
+            padding-left: 0;
+          }
         }
       }
       &.filter-from-click {
@@ -1003,10 +1007,12 @@
         @include display-flex;
         height: $filter-time-line-height;
         border-bottom: 1px solid #eee;
+        padding-left: 0;
         .filter-time-title {
           @include flex(2.5);
           height: 100%;
           line-height: 3rem;
+
         }
         .filter-times-start-end {
           height: $filter-time-line-height;
@@ -1020,13 +1026,14 @@
           }
           .filter-start-time, .filter-end-time {
             display: inline-block;
-            max-width: 8em;
-            width: 8em;
+            max-width: 7em;
+            width: 7em;
             height: 2rem;
             line-height: 2rem;
             background-color: $filter-item-bg;
             text-align: center;
             color: $filter-name-color;
+            padding-top: 0;
           }
           .filter-end-time {
           }
@@ -1045,12 +1052,11 @@
             height: 2.5em;
             line-height: 2.5em;
             font-size: 12px;
-            padding: 0 .8em;
+            padding: 0 .4em;
             text-align: center;
             width: 140px;
             background-color: $filter-item-bg;
             color: $filter-name-color;
-            margin-right: 1em;
             &.selected {
               background-color: $filter-item-selected-bg;
               color: white;
@@ -1180,6 +1186,7 @@
     }
     .bar.bar-header .button + .title {
       text-align: center;
+      line-height: 60px;
     }
     .bar {
       border-bottom: none;
@@ -1187,42 +1194,80 @@
       background-color: $crm-header-bar-bgcolor;
       background-size: 0;
       box-shadow: none;
-      .bar-header {
-        border-bottom: none;
-        padding: 0;
-        background-size: 0;
-        .button-clear {
-          color: #fff;
-          padding-left: 15px;
-          padding-top: 0.3em;
-        }
+    }
+    .bar-header {
+      border-bottom: none;
+      padding: 0;
+      background-size: 0;
+      padding-top: 20px;
+      .button-clear {
+        position: absolute;
+        color: #fff;
+        font-size: 22px;
+        max-height: 30px;
+        min-height: 20px;
+        top: 13px;
       }
+      .ion-chevron-left {
+      }
+
     }
     .bar-subheader {
-      height: 2.4em;
+      height: 43px;
       display: block;
-      .placeholder-icon {
-        color: #aaa;
-        position: absolute;
-        z-index: 2;
-        top: .4em;
-        left: 1em;
+      padding: 8px;
+        .placeholder-icon {
+          color: #aaa;
+          position: absolute;
+          z-index: 2;
+          top: .8em;
+          left: 1em;
+        }
+        input {
+          display: block;
+          padding-left: 2em;
+          color: black;
+          vertical-align: middle;
+          font-size: 14px;
+          height: 28px;
+          width: 95%;
+          position: fixed;
+          border-radius: 5px;
+        }
       }
-      input {
-        display: block;
-        padding: 8px;
-        padding-left: 2em;
-        color: #ccc;
-        vertical-align: middle;
-        font-size: 15px;
-        line-height: 16px;
-        width: 96%;
-        position: fixed;
-        right: 6px;
-        border-radius: 5px;
-      }
+      .search2 {
+        .placeholder-icon {
+          color: #aaa;
+          position: absolute;
+          z-index: 2;
+          top: .8em;
+          left: 1em;
+        }
+        input {
+          display: block;
+          padding-left: 2em;
+          color: #000;
+          vertical-align: middle;
+          font-size: 12px;
+          height: 25px;
+          width: 72%;
+          position: fixed;
+          border-radius: 5px;
+        }
+        .ion-ios-close {
+          position: absolute;
+          top: 13px;
+          right: 5em;
+          z-index: 2;
+          color: #aaa;
+        }
+        .button-clear {
+          position: relative;
+          left: 86%;
+          font-size: 16px;
+          top: -2px;
+        }
     }
-
     .divContent {
       position: relative;
       border-bottom: 1px solid rgba(128, 128, 128, 0.41);
@@ -1242,6 +1287,7 @@
       }
       .spareName {
         font-size: 16px;
+        color: #000;
       }
     }
     .col-51 {

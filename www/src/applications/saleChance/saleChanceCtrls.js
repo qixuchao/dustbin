@@ -40,7 +40,6 @@ salesModule
                 saleStage: 'SOP阶段',
                 status: '处理中',
                 saleNum: '100036',
-<<<<<<< HEAD
                 feelNum: 80,
                 startTime: '2016/3/1 12:00',
                 endTime: '2016/3/1 12:00',
@@ -50,10 +49,6 @@ salesModule
                 preMoneyType:'AH',
                 proNum:'9999001'
             };
-=======
-                feelNum: 80
-            }
->>>>>>> f026a93ca8ed81031b117c72e565914b6bb26d25
             var getInitStatus = function () {
                 for (var i = 0; i < $scope.statusArr.length; i++) {
                     if ($scope.statusArr[i].value == $scope.chanceDetails.status) {
@@ -152,7 +147,7 @@ salesModule
                 if (!$scope.$digest()) {
                     $scope.$apply();
                 }
-<<<<<<< HEAD
+
             };
             $scope.returnScroll = function () {
                 console.log('blur');
@@ -215,10 +210,7 @@ salesModule
                 }
             };
             /*----------------------------------选择时间  end------------------------------------*/
-=======
->>>>>>> f026a93ca8ed81031b117c72e565914b6bb26d25
 
-            };
             $scope.submit = function () {
 
             };
@@ -260,7 +252,6 @@ salesModule
                 $scope.popover.hide();
             };
             /*-------------------------------选择弹窗 end-----------------------------------*/
-<<<<<<< HEAD
             /*-------------------------------后续-----------------------------------*/
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/followUp.html', {
                 scope: $scope,
@@ -293,7 +284,6 @@ salesModule
                 $scope.followUpModal.remove();
                 $scope.moneyTypesModal.remove();
             });
+
         }]);
-=======
-        }])
->>>>>>> f026a93ca8ed81031b117c72e565914b6bb26d25
+

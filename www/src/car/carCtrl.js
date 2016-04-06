@@ -19,6 +19,9 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
         CarService.setData(car);
         $scope.goSkip('carDetail');
     };
+    $scope.cancelSearch=function(){
+       $scope.searchFlag=false;
+    };
     $scope.changePage=function(){
         $scope.searchFlag=true;
         $timeout(function () {
@@ -26,7 +29,7 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
         }, 1)
     };
     $scope.initSearch = function () {
-        $scope.spareInfo = '';
+        $scope.carInfo = '';
         $timeout(function () {
             document.getElementById('searchId').focus();
         }, 1)

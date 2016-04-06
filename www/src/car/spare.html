@@ -1,7 +1,7 @@
 <ion-view class="SpareList1">
-    <ion-header-bar class="bar">
-        <a class="button  button-clear icon-left ion-ios-arrow-back backType" ng-click="goBack()"></a>
-        <div class="title"><b>车辆备件信息</b></div>
+    <ion-header-bar class="bar" align-title="center">
+        <a class="button  button-clear ion-chevron-left" ng-click="goBack()"></a>
+        <div class="title">车辆备件信息</div>
     </ion-header-bar>
     <ion-header-bar class="bar bar-subheader ">
         <i class="icon ion-ios-search placeholder-icon"></i>
@@ -20,18 +20,18 @@
             <div class="row row-center">
                 <div class="col col-5"></div>
                 <div class="col col-50 col-center">
-                    <b>备件编码:</b>
+                    备件编码:
                     <span>{{spare.spareNum}}</span>
                 </div>
                 <div class="col col-45 col-center">
-                    <b>标准使用数量:</b>
+                    标准使用数量:
                     <span>{{spare.count}}</span>
                 </div>
             </div>
             <div class="row row-center">
                 <div class="col col-5"></div>
                 <div class="col col-51 col-center">
-                    <b>质保:</b>
+                    质保:
                     <span>{{spare.qualityTime}}</span>
                 </div>
                 <div class="col col-44 col-center">

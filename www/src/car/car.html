@@ -4,14 +4,14 @@
         <div class="title text-center">车辆信息</div>
     </ion-header-bar>
     <ion-header-bar class="bar bar-subheader ">
-        <div class="search1">
+        <div class="search1" ng-show="!searchFlag">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <input type="text" placeholder="请输入车牌号or车工号or电池系统Barcode" ng-click="changePage()">
         </div>
         <div class="search2" ng-show="searchFlag" ng-class="{'searchFlag':'animated fadeOutLeft'}">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="carInfo.length>0" ng-click="initSearch()"></i>
-            <input id="searchId" type="search" placeholder="请输入车牌号or车工号or电池系统Barcode" ng-model="carInfo" autofocus>
+            <input id="searchId" type="search" placeholder="请输入车牌号or车工号or电池系统Barcode" ng-model="carInfo">
             <i class="button button-clear" ng-click="cancelSearch()">取消</i>
         </div>
     </ion-header-bar>
