@@ -51,6 +51,7 @@ employeeModule
                             if (response.ET_EMPLOYEE.item.length < 10) {
                                 $scope.employisshow = false;
                                 if ($scope.empitemPage > 1) {
+                                    //console.log("没有更多数据了");
                                     $cordovaToast.showShortBottom('没有更多数据了');
                                 }
                             } else {

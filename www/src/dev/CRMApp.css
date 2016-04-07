@@ -2550,6 +2550,12 @@ Copyright (c) 2015 Daniel Eden
   background-color: #fff;
   overflow: hidden; }
 
+.customershowFilterPage1.ng-hide-remove {
+  -webkit-animation: fadeInDown 0.5s;
+  animation: fadeInDown .5s;
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s; }
+
 /*公共样式 end*/
 /*首页*/
 .own-backDrop-on {
