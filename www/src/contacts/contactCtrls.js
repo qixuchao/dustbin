@@ -3,7 +3,7 @@
  */
 'use strict';
 ContactsModule
-    .controller('contactQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
+    .controller('contactQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicActionSheet','$window','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicActionSheet,$window,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
         $ionicPopover.fromTemplateUrl('src/contacts/model/contact_selec.html', {
             scope: $scope
         }).then(function(popover) {
@@ -61,6 +61,29 @@ ContactsModule
             $scope.contact_query_list.push(contactService.get_ContactCreatevalue());
             console.log($scope.contact_query_list)
         });
+
+        //拨打电话手机
+        $scope.employ_querynumber = function(data){
+            console.log(data)
+           $ionicActionSheet.show({
+                buttons: [
+                    {text: data.mobilenumber},
+                    {text: data.phonenumber},
+                ],
+                titleText: '拨打电话',
+                cancelText: '取消',
+                buttonClicked: function (index) {
+                    if (index == 0) {
+                        $window.location.href = "tel:" + data.mobilenumber;
+                        return true;
+                    };
+                    if (index == 1) {
+                        $window.location.href = "tel:" + data.phonenumber;
+                        return true;
+                    }
+                }
+            })
+        }
 
     }])
     .controller('contactDetailCtrl',['$scope','$rootScope','$state','Prompter','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$state,Prompter,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
@@ -185,7 +208,7 @@ ContactsModule
             $ionicHistory.goBack(-2);
         }
     }])
-    .controller('contactEditCtrl',['$scope','$rootScope','$state','Prompter','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$state,Prompter,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+    .controller('contactEditCtrl',['$scope','$rootScope','$timeout','$state','Prompter','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$timeout,$rootScope,$state,Prompter,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
         $scope.edittitleType = [{
             name:'先生',
         },{
@@ -230,15 +253,67 @@ ContactsModule
             $cordovaDatePicker.show(optionsdatedate).then(function (datetime) {
                 $scope.contactedit.birthday = datepickerdate;
             })
-        }
-
-
+        };
         $scope.contactKeepEditvalue = function(){
             contactService.set_ContactsListvalue($scope.contactedit);
             //广播修改详细信息界面的数据
             $rootScope.$broadcast('contactEditvalue');
             $state.go('ContactDetail');
 
+        };
+        $scope.contactDeleteListener = function(id,imgid){
+            setTimeout(function(){
+                document.getElementById(id).addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
+                    if (this.value.length > 0) {
+                       document.getElementById(imgid).style.display = "inline-block";
+                    } else {
+                        document.getElementById(imgid).style.display = "none";
+                    }
+                });
+            },20)
+        };
+        $scope.contactDeleteListener('cusnote','cusnoteimg');
+        $scope.contactDeleteListener('cusmail','cusmailimg');
+        $scope.contactDeleteListener('cusposition','cuspositionimg');
+        $scope.contactDeleteListener('cusatend','cusatendimg');
+        $scope.contactDeleteListener('cuscontray','cuscontrayimg');
+        $scope.contactDeleteListener('cusregion','cusregionimg');
+        $scope.contactDeleteListener('cusyoubian','cusyoubianimg');
+
+        //delete
+        $scope.contactDeletevalue = function(type){
+            switch (type) {
+                case 'note':
+                    $scope.contactedit.customerzhushi = '';
+                    document.getElementById('cusnoteimg').style.display = "none";
+                    break;
+                case 'customer':
+                    $scope.contactedit.keuhuname = '';
+                    break;
+                case 'mail':
+                    $scope.contactedit.customermail = '';
+                    document.getElementById('cusmailimg').style.display = "none";
+                    break;
+                case 'position':
+                    $scope.contactedit.postion = '';
+                    document.getElementById('cuspositionimg').style.display = "none";
+                    break;
+                case 'atend':
+                    $scope.contactedit.atend = '';
+                    document.getElementById('cusatendimg').style.display = "none";
+                    break;
+                case 'customercontrary':
+                    $scope.contactedit.customercontrary = '';
+                    document.getElementById('cuscontrayimg').style.display = "none";
+                    break;
+                case 'customerregion':
+                    $scope.contactedit.customerregion = '';
+                    document.getElementById('cusregionimg').style.display = "none";
+                    break;
+                case 'youbina':
+                    $scope.contactedit.youbina = '';
+                    break;
+            }
         }
     }])
 

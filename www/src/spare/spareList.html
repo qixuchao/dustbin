@@ -43,12 +43,16 @@
         </div>
     </ion-content>
     <ion-content has-bouncing="false" ng-show="!searchFlag">
+        <ion-refresher
+                pulling-text="下拉刷新..."
+                on-refresh="doRefresh()">
+        </ion-refresher>
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">常用备件</div>
             <div class="Car_countentbasicline"></div>
             <div class="Car_countentbasicclok"></div>
         </div>
-        <div class="contentType" ng-repeat="spare in spareList" ng-click="goDetail(spare)">
+        <div class="contentType animated" ng-repeat="spare in spareList track by $index" ng-click="goDetail(spare)" ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
             <div class="row row-center rowType1">
                 <div class="col col-8 col-center">
                     <img ng-src="img/car/Oval.png" class="pointImg">

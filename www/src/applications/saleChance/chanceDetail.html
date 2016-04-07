@@ -76,13 +76,13 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col-30 text-left">开始时间:</div>
-                                <div class="text col-70 startTime">2016-3-1&nbsp;&nbsp;12:00<i
+                                <div class="text col-70 startTime" ng-click="selectTime('start')">{{chanceDetails.startTime}}<i
                                         class="ion-arrow-down-b time-icon"></i></div>
                                 <!--<input type="datetime"  value="2014-06-01T10:55Z">-->
                             </div>
                             <div class="row endTime">
                                 <div class="col-30 text-left">结束时间:</div>
-                                <div class="text col-70">2016-3-1&nbsp;&nbsp;12:00<i
+                                <div class="text col-70" ng-click="selectTime('end')">{{chanceDetails.endTime}}<i
                                         class="ion-arrow-down-b time-icon"></i></div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                     <div class="row row-center">
                         <div class="col col-30 text-left">项目编号:</div>
                         <div class="col text col-70">
-                        <input type="text" ng-readonly="!isEdit" class="saleChanInput" ng-model="chanceDetails.proNum"></div>
+                            <input type="text" ng-readonly="!isEdit" class="saleChanInput" ng-model="chanceDetails.proNum"></div>
                     </div>
                 </div>
                 <div class="row no-padding-right">
@@ -105,7 +105,7 @@
                 <div class="row no-padding-right">
                     <div class="row row-center">
                         <div class="col col-30 text-left">预期销售额:</div>
-                        <div class="text"><input type="text" ng-blur="returnScroll()" class="saleChanPreInput" ng-readonly="!isEdit" ng-model="chanceDetails.preMoney"></div>
+                        <div class="text"><input type="text"  class="saleChanPreInput" ng-readonly="!isEdit" ng-model="chanceDetails.preMoney"></div>
                         <div class="col col-30 text-left money">{{'-'+chanceDetails.preMoneyType+'-'}}</div>
                     </div>
                 </div>

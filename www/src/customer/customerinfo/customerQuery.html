@@ -16,28 +16,20 @@
                 </div>
             </div>
         </form>
+        <div class="employee_detail_countentbasic" style="margin-top: 93px;">
+            <div class="employee_detail_countentbasicinfo">{{customerqueryTypeunit}}</div>
+            <div class="employee_detail_countentbasicline" ng-class="employbasiclineflag?'employee_detail_countentbasiclinea':'employee_detail_countentbasiclineb'"></div>
+            <div class="employee_detail_countentbasicclok" ng-class="employbasiclineflag?'employee_detail_countentbasiclocka':'employee_detail_countentbasiclockb'"></div>
+        </div>
     </div>
-    <!--<div style="height: 100%;width: 100%;background-color: rgba(0,0,0,0.5);z-index: 100;position: relative" ng-if="customer_selevtbg" ng-click="customer_selevtbgClose()"></div>-->
-    <ion-content style="margin-top:44px">
-        <div class="row customer_Querylisthead">
-            <div class="col col-8" style="text-align: center;padding: 5px 0 0 0">
-                <img class="customer_Querylistheadimg" src="img/customer/customerimg@2x.png" alt=""/>
+    <ion-content style="margin-top:88px">
+            <div ng-repeat="x in customerQuery_list" ng-click="customergodeatil(x)">
+                <div class="item customer_Querylists">
+                    <span>{{x.customername}}</span>
+                    <img class="customer_Querylistsimg" src="img/employee/Shape@2x.png"></img>
+                </div>
+                <div class="employee_query_listline"></div>
             </div>
-            <div class="" style="text-align: left;padding:5px 0">
-                <span>{{customerqueryTypeunit}}</span>
-                <!--<span class="customer_Querylistheadline"></span>-->
-            </div>
-            <div class="col col-65" style="padding-left:0px">
-                <div class="customer_Querylistheadline"></div>
-            </div>
-        </div>
-        <div ng-repeat="x in customerQuery_list" ng-click="customergodeatil(x)">
-            <div class="item customer_Querylists">
-                <span>{{x.customername}}</span>
-                <img class="customer_Querylistsimg" src="img/employee/Shape@2x.png"></img>
-            </div>
-            <div class="employee_query_listline"></div>
-        </div>
     </ion-content>
 </ion-view>
 

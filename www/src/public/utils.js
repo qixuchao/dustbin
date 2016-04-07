@@ -2,10 +2,10 @@
  * Created by Gusenlin on 2015/10/16.
  */
 'use strict';
-utilsModule.service('HttpAppService', ['$log', '$http','$rootScope','$state','Prompter','$ionicLoading',function ($log, $http,$rootScope,$state,Prompter,$ionicLoading) {
+utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 'Prompter', '$ionicLoading', function ($log, $http, $rootScope, $state, Prompter, $ionicLoading) {
   var debug = function (text) {
     $log.debug(procedure + " success");
-  }
+  };
 
   var request = {
     isSuccessfull: function (status) {
@@ -30,9 +30,10 @@ utilsModule.service('HttpAppService', ['$log', '$http','$rootScope','$state','Pr
     },
     post: function (url, paramter) {
 
-      var post = $http.post(url, paramter,{
+      var post = $http.post(url, paramter, {
         headers: {
-          'Content-Type': 'application/json;charset=UTF-8'}
+          'Content-Type': 'application/json;charset=UTF-8'
+        }
       }).success(function (response) {
         try {
           if (response.status === 'ETOKEN') {
@@ -46,9 +47,11 @@ utilsModule.service('HttpAppService', ['$log', '$http','$rootScope','$state','Pr
       return post;
     },
     get: function (url) {
-      var get = $http.get(url,{
-        headers: {'Authorization': basicAuthHeaderValue, 'login_name': basicLoginId,
-          'timestamp': timestamp, 'token': hashLogin, 'Content-Type': 'application/json;charset=UTF-8'}
+      var get = $http.get(url, {
+        headers: {
+          'Authorization': basicAuthHeaderValue, 'login_name': basicLoginId,
+          'timestamp': timestamp, 'token': hashLogin, 'Content-Type': 'application/json;charset=UTF-8'
+        }
       }).success(function (response) {
 
       }).error(function (response, status) {
@@ -57,10 +60,59 @@ utilsModule.service('HttpAppService', ['$log', '$http','$rootScope','$state','Pr
     }
   }
   return request;
-}])
-utilsModule.service('Prompter', ['$ionicLoading','$ionicPopup','$ionicActionSheet','$window','$cordovaClipboard','$cordovaInAppBrowser',
-    function ($ionicLoading, $ionicPopup,$ionicActionSheet,$window,$cordovaClipboard,$cordovaInAppBrowser) {
+}]);
+utilsModule.service('Prompter', ['$ionicLoading', '$ionicPopup', '$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker',
+  function ($ionicLoading, $ionicPopup, $ionicActionSheet, $window, $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker) {
+    var getFormatTime = function (date) {
+      var dateTemp, minutes, hour, time;
+      dateTemp = date.format("yyyy/M/d");
+      //分钟
+      if (date.getMinutes().toString().length < 2) {
+        minutes = "0" + date.getMinutes();
+      } else {
+        minutes = date.getMinutes();
+      }
+      ;
+      //小时
+      if (date.getHours().toString().length < 2) {
+        hour = "0" + date.getHours();
+        time = hour + ":" + minutes;
+      } else {
+        hour = date.getHours();
+        time = hour + ":" + minutes;
+      }
+      ;
+      return dateTemp + " " + time;
+    };
+    var getOptions = function (date, mode, title) {
+      return {
+        date: new Date(date),
+        mode: mode,
+        titleText: title,
+        okText: '确定',
+        cancelText: '取消',
+        doneButtonLabel: '确认',
+        cancelButtonLabel: '取消',
+        locale: 'zh_cn'
+      }
+    };
     return {
+      selectTime: function (scope, name, date, mode, title) {
+        var options = getOptions(date, mode, title);
+        document.addEventListener("deviceready", function () {
+          $cordovaDatePicker.show(options).then(function (returnDate) {
+            var time = getFormatTime(returnDate);
+            switch (name) {
+              case 'actDetailStart':
+                scope.details.de_startTime = time;
+                break;
+              case 'actDetailEnd':
+                scope.details.de_endTime = time;
+                break;
+            }
+          });
+        }, false);
+      },
       showLoading: function (content) {
         $ionicLoading.show({
           template: ('<ion-spinner icon="ios">content</ion-spinner>'),
@@ -149,19 +201,20 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicPopup','$ionicActionShee
           cancelText: '取消',
           buttonClicked: function (index) {
             if (index == 0) {
-                var options = {
-                  location: 'yes'
-                  //clearcache: 'yes',
-                  //toolbar: 'no'
-                };
-                $cordovaInAppBrowser.open(Url, '_system', options)
-                    .then(function(event) {
-
-                    })
-                    .catch(function(event) {
-
-                    });
+              var options = {
+                location: 'yes'
+                //clearcache: 'yes',
+                //toolbar: 'no'
               };
+              $cordovaInAppBrowser.open(Url, '_system', options)
+                  .then(function (event) {
+
+                  })
+                  .catch(function (event) {
+
+                  });
+            }
+            ;
           }
         });
       }

@@ -38,7 +38,12 @@
 .bar{
   font-size: 16px;
 }
-
+.action-sheet-group{
+  .button{
+    box-shadow: none;
+    border-top: 1px solid #B7B7B7;
+  }
+}
 input[readonly]:not(.cloned-text-input){
   background: none!important;
   border:none!important;
@@ -46,9 +51,6 @@ input[readonly]:not(.cloned-text-input){
 //.modal-wrapper {
 //  pointer-events: auto!important;
 //}
-.modal-wrapper {
-  pointer-events: auto!important;
-}
 /* Fix modal backdrop for smaller devices */
 @media (max-width: 679px) {
   .active .modal-backdrop-bg {
@@ -225,3 +227,16 @@ $button-crm-edit-text:                 white;
 .popover-backdrop.active {
   background-color: rgba(0,0,0,.5);
 }
+.action-sheet-group {
+  margin-bottom: 1px;
+  border-radius: 4px;
+  background-color: #fff;
+  overflow: hidden;
+}
+.customershowFilterPage1.ng-hide-remove {
+  -webkit-animation: fadeInDown 0.5s;
+  animation: fadeInDown .5s;
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+}
+

@@ -4,9 +4,63 @@
         <div class="title">车辆备件信息</div>
     </ion-header-bar>
     <ion-header-bar class="bar bar-subheader ">
-        <i class="icon ion-ios-search placeholder-icon"></i>
-        <input  type="text" placeholder="请输入备件描述"ng-model="carInfo">
+        <div class="search1" ng-show="!searchFlag">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input  type="text" placeholder="请输入备件描述" ng-click="changePage()">
+        </div>
+        <div class="search2" ng-show="searchFlag" ng-class="{'searchFlag':'animated fadeOutLeft'}">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <i class="icon ion-ios-close" ng-show="spareDesc.length>0" ng-click="initSearch()"></i>
+            <input id="searchSpareId" type="search" placeholder="请输入备件描述" ng-model="spareDesc">
+            <i class="button button-clear" ng-click="cancelSearch()">取消</i>
+        </div>
     </ion-header-bar>
+    <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag" ng-click="changeSearch($event)">
+        <div class="row row-center his-title">
+            <i class="ion-android-time"></i>
+            <div class="hisText">历史记录</div>
+            <div class="horizon-line"></div>
+        </div>
+        <ion-list ng-if="!spareDesc">
+            <ion-item ng-click="search(x,$event)" ng-repeat="x in data">{{x}}</ion-item>
+        </ion-list>
+        <div class="content">
+            <div class="" ng-if="spareDesc">
+                <a class="row row-center rowType" ng-repeat="x in spareList | filter:spareDesc">
+                    <div>
+                        <div class="col col-5">
+                            <img ng-src="img/car/Oval.png">
+                        </div>
+                        <div class="col col-center">
+                            <span class="spareName"><div ng-bind-html="x.spareName | highlight:spareDesc"></div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col col-5"></div>
+                        <div class="col col-50 col-center">
+                            备件编码:
+                            <span>{{x.spareNum}}</span>
+                        </div>
+                        <div class="col col-45 col-center">
+                            标准使用数量:
+                            <span>{{x.count}}</span>
+                        </div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col col-5"></div>
+                        <div class="col col-51 col-center">
+                            质保:
+                            <span>{{x.qualityTime}}</span>
+                        </div>
+                        <div class="col col-44 col-center">
+                            <span>{{x.qualityDate}}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </ion-content>
     <ion-content has-bouncing="false">
         <div class="divContent" ng-repeat="spare in spareList">
             <div class="row row-center">
@@ -39,10 +93,10 @@
                 </div>
             </div>
         </div>
-        <div class="row row-center rowType">
-            <a class="button button-clear buttonText" ng-click="loadMore()">
-                <span>点击加载更多</span>
-            </a>
+        <div class="row row-center rowType" style="text-align: center">
+            <div class="col col-100 col-center">
+                <span ng-click="loadMore()">点击加载更多</span>
+            </div>
         </div>
     </ion-content>
 </ion-view>

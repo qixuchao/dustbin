@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2016/3/14 0014.
  */
-carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Prompter',function($scope,CarService,$timeout,$state,Prompter){
-    $scope.cars=CarService.all();
+carModule.controller('CarCtrl',['HttpAppService','$scope','CarService','$timeout','$state','Prompter',function(HttpAppService,$scope,CarService,$timeout,$state,Prompter){
+    $scope.cars=[];
     $scope.searchFlag=false;
     $scope.isSearch=false;
     $scope.carInfo="";
@@ -15,38 +15,86 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
     $scope.goSkip=function(pageName){
         $state.go(pageName);
     };
+    //车辆列表接口
+    var page=1;
+    var carlist=function(){
+        //117.28.248.23:9388
+        var url="http://117.28.248.23:9388/test/api/CRMAPP/CAR_LIST_BY_DCR";
+        var data =
+          {
+              "I_SYSNAME": { "SysName": "CATL" },
+              "IS_PAGE": {
+                  "CURRPAGE": page,
+                  "ITEMS": "10"
+              },
+              "IS_VEHICL_INPUT": { "SHORT_TEXT": "" }
+
+          };
+        HttpAppService.post(url,data).success(function(response){
+            var num=response.ET_VEHICL_OUTPUT.item.length;
+            console.log(num);
+            for(var i=0;i<num;i++){
+                var car={
+                    codeId:"",
+                    describe:""
+                };
+                car.codeId=response.ET_VEHICL_OUTPUT.item[i].ZBAR_CODE;
+                car.describe=response.ET_VEHICL_OUTPUT.item[i].SHORT_TEXT;
+                $scope.cars.push(car);
+            }
+        });
+    };
+    carlist();
+    Prompter.showLoading('正在加载');
+    $timeout(function () {
+        Prompter.hideLoading();
+    }, 1000);
+    //下拉刷新
+    $scope.doRefresh=function(){
+        page+=1;
+        carlist();
+        $timeout(function(){
+            $scope.$broadcast('scroll.refreshComplete');
+        },1000)
+    };
+    //页面跳转，并传递参数
     $scope.goDetail=function(car){
         CarService.setData(car);
         $scope.goSkip('carDetail');
     };
+    //取消按钮
     $scope.cancelSearch=function(){
        $scope.searchFlag=false;
+        $scope.initSearch();
     };
+    //显示搜索页面
     $scope.changePage=function(){
         $scope.searchFlag=true;
         $timeout(function () {
             document.getElementById('searchId').focus();
         }, 1)
     };
+    //清除输入框内的内容
     $scope.initSearch = function () {
         $scope.carInfo = '';
         $timeout(function () {
             document.getElementById('searchId').focus();
         }, 1)
     };
+    //
     $scope.search = function (x, e) {
         Prompter.showLoading('正在搜索');
         $timeout(function () {
             Prompter.hideLoading();
             $scope.carInfo = x;
-        }, 800)
+        }, 800);
 
         e.stopPropagation();
     };
 }
 ])
-.controller('CarDetailCtrl',['$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter',
-        function($scope,$state,CarService,$ionicHistory,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter){
+.controller('CarDetailCtrl',['HttpAppService','$timeout','$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter',
+        function(HttpAppService,$timeout,$scope,$state,CarService,$ionicHistory,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter){
         ionicMaterialInk.displayEffect();
         //$scope.select = true;
         $scope.showTitle = false;
@@ -77,11 +125,11 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
                 }else{
                     $scope.projectFlag = false;
                 }
-                if(position>104){
+                if(position>100){
                     if(maxPosition===null){
                         maxPosition=$ionicScrollDelegate.getScrollView().__maxScrollTop;
                     }
-                    console.log(position);
+                    //console.log(position);
                     $scope.titleStatus=true;
                 }else{
                     $scope.titleStatus=false;
@@ -94,15 +142,91 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
                 $scope.projectFlag=false;
                 $scope.titleStatus=false;
             }
-            $scope.$apply();
+
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            }
         };
-        $scope.carInfo=CarService.getData();
+        $scope.carInfo1={};
+        var codeId=CarService.getData();
+        console.log(codeId);
+        var carDetail=function(){
+            //117.28.248.23:9388
+            var url="http://117.28.248.23:9388/test/api/CRMAPP/CAR_DETAIL";
+            var data =
+            {
+                "I_SYSNAME": { "SysName": "CATL" },
+                "IT_VEHICLID": { "ZZ0010": codeId }
+            };
+
+            HttpAppService.post(url,data).success(function(response){
+                var carInfoData=response.ES_VEHICL_OUTPUT;
+                console.log(carInfoData.ZZ0011);
+
+                var carInfo={
+                    describe:"",
+                    carNumber:"",
+                    projectName:"",
+                    productionDate:"",
+                    endDate:"",
+                    buyDate:"",
+                    operationDate:"",
+                    point:"",
+                    code:"",
+                    barCode:"",
+                    carCode:"",
+                    driver:"",
+                    phoneNum:"",
+                    BMU_V1:"",
+                    BMU_V2:"",
+                    CSC_V1:"",
+                    SCS_V2:"",
+                    directCustomer:"",
+                    terminal:"",
+                    version:"",
+                    quality:""
+                };
+                carInfo.describe=carInfoData.SHORT_TEXT;
+                carInfo.carNumber=carInfoData.ZZ0012;
+                carInfo.projectName=carInfoData.ZZ0017;
+                carInfo.productionDate=carInfoData.ZZ0018;
+                carInfo.endDate=carInfoData.END_DATE;
+                carInfo.buyDate=carInfoData.ZZ0019;
+                carInfo.operationDate=carInfoData.ZZ0020;
+                carInfo.point=carInfoData.IBASE;
+                carInfo.code=carInfoData.PRODUCT_ID;
+                carInfo.barCode=carInfoData.ZZ0010;
+                carInfo.carCode=carInfoData.ZZ0011;
+                carInfo.driver=carInfoData.ZZ0015;
+                carInfo.phoneNum=carInfoData.ZZ0016;
+                carInfo.BMU_V1=carInfoData.ZZ0022;
+                carInfo.BMU_V2=carInfoData.ZZ0023;
+                carInfo.CSC_V1=carInfoData.ZZ0024;
+                carInfo.SCS_V2=carInfoData.ZZ0025;
+                carInfo.version=carInfoData.ZZ0013;
+                carInfo.directCustomer=carInfoData.ZDIR_PARTN_NAME;
+                carInfo.terminal=carInfoData.ZSRV_REP_TEXT;
+                carInfo.quality=carInfoData.Z_SHORT_TEXT;
+
+                console.log(carInfo.describe);
+
+                $scope.carInfo1=carInfo;
+                console.log($scope.carInfo1.describe);
+
+            });
+        };
+            carDetail();
+            Prompter.showLoading('正在加载');
+            $timeout(function () {
+                Prompter.hideLoading();
+            }, 1000);
         $scope.carDetailval = employeeService.get_employeeListvalue();
         //console.log($scope.cars.describe)
         $scope.projectName="CATL项目名称:";
 
-        $scope.goSkip=function(pageName){
-            $state.go(pageName);
+        $scope.goPage=function(data){
+            CarService.setSpare(data);
+            $state.go("spare");
         };
         //电话
         $scope.carshowphone =function(types){
@@ -535,18 +659,88 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
 
         }])
 
-.controller('SpareCtrl',['$scope','CarService','Prompter','$timeout',function($scope,CarService,Prompter,$timeout){
-        $scope.spareList=CarService.getData().spare;
-        var i=0;
-        $scope.loadMore=function(){
-            var spareInfo1={
-                spareName:'高压箱-BD3'+i,
-                spareNum:'17240-0026',
-                count:'7',
-                qualityTime:'CATL两年质保',
-                qualityDate:'2016.01.01-2018.01.01'
-            };
-            i+=1;
-            $scope.spareList.push(spareInfo1);
+.controller('SpareCtrl',['HttpAppService','$scope','CarService','Prompter','$timeout',function(HttpAppService,$scope,CarService,Prompter,$timeout){
+        $scope.spareList=[];
+        $scope.searchFlag=false;
+        $scope.data=[
+            'B50 NCM',
+            'YT-3P2s',
+            '模组'
+        ];
+        $scope.cancelSearch=function(){
+            $scope.searchFlag=false;
+            $scope.initSearch();
         };
+        //显示搜索页面
+        $scope.changePage=function(){
+            $scope.searchFlag=true;
+            $timeout(function () {
+                document.getElementById('searchSpareId').focus();
+            }, 1)
+        };
+        //清除输入框内的内容
+        $scope.initSearch = function () {
+            $scope.spareDesc = '';
+            $timeout(function () {
+                document.getElementById('searchSpareId').focus();
+            }, 1)
+        };
+        //
+        $scope.search = function (x, e) {
+            Prompter.showLoading('正在搜索');
+            $timeout(function () {
+                Prompter.hideLoading();
+                $scope.spareDesc = x;
+            }, 800);
+
+            e.stopPropagation();
+        };
+        var code= CarService.getSpare();
+        var page=1;
+        var spare=function(){
+            var url="http://117.28.248.23:9388/test/api/CRMAPP/ATTACHMENT_LIST";
+            var data = {
+                "IS_SYSTEM": { "SysName": "CATL" },
+                "IS_PAGE": {
+                    "CURRPAGE": page,
+                    "ITEMS": "10"
+                },
+                "IS_VEHICLID": { "PRODUCT_ID": code }
+            };
+            HttpAppService.post(url,data).success(function(response) {
+                if(response.ET_COMM_LIST !==""&&response.ET_COMM_LIST !==null) {
+                    var sparelist = response.ET_COMM_LIST.Item;
+                    var num = response.ET_COMM_LIST.Item.length;
+                    for (var i = 0; i < num; i++) {
+                        var spare = {
+                            spareName: "",
+                            spareNum: "",
+                            count: "",
+                            qualityTime: "",
+                            qualityDate: ""
+                        };
+                        spare.spareName = sparelist[i].SHORT_TEXT;
+                        spare.spareNum = sparelist[i].Z_IL_PRODUCT_ID;
+                        spare.count = sparelist[i].AMOUNT;
+                        spare.qualityTime = sparelist[i].Z_SHORT_TEXT;
+                        spare.qualityDate = sparelist[i].START_DATE + "-" + sparelist[i].END_DATE;
+
+                        $scope.spareList.push(spare);
+                    }
+                }else{
+                    Prompter.showPopup("加载失败","没有更多数据")
+                }
+            });
+
+        };
+        $scope.loadMore=function(){
+            page+=1;
+            Prompter.showLoading("拼命加载中...")
+            $timeout(function(){
+                spare();
+               Prompter.hideLoading();
+            });
+        };
+
+        spare();
 }]);

@@ -15,6 +15,23 @@ customerModule
             $scope.customerpopover.hide();
         };
 
+        $scope.ll = function(){
+
+                var url="http://192.168.191.1:8080/battery/api/CRMAPP/PRODUCT_LIST";
+                var data = {
+                    "I_SYSNAME": { "SysName": "ATL" },
+                    "IS_PAGE": {
+                        "CURRPAGE": "1",
+                        "ITEMS": "10"
+                    },
+                    "IS_PRODMAS_INPUT": { "SHORT_TEXT": "" }
+                };
+
+                $http.post(url,data).success(function(response){
+
+                })
+        }
+
         $scope.customer_types = ['潜在客户','正式客户','竞争对手','助销伙伴','终端客户','服务端'];
         $scope.customerQuery_list = [{
             customername: '福州龙福汽车有限责任公司',
@@ -60,14 +77,15 @@ customerModule
         ];
 
         $scope.customerqueryTypeunit = "常用客户";
+        $scope.employbasiclineflag = true;
         //$scope.customer_Querylistheadlinestyle = 'customer_QuerylistheadlineA'
         $scope.customerqueryType = function(type){
             $scope.customerqueryTypeunit = type;
-            //if(type == "服务端"){
-            //    $scope.customer_Querylistheadlinestyle = 'customer_QuerylistheadlineB';
-            //}else{
-            //    $scope.customer_Querylistheadlinestyle = 'customer_QuerylistheadlineA'
-            //}
+            if(type == "服务端"){
+                $scope.employbasiclineflag = false;
+            }else{
+                $scope.employbasiclineflag = true;
+            }
             $scope.customerPopoverhide();
         };
 
@@ -224,6 +242,80 @@ customerModule
             $rootScope.$broadcast('customerEditvalue');
             $state.go('customerDetail');
 
+        };
+        $scope.customerDeleteListener = function(cusid,cusimgid){
+            setTimeout(function(){
+                document.getElementById(cusid).addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
+                    if (this.value.length > 0) {
+                        document.getElementById(cusimgid).style.display = "inline-block";
+                    } else {
+                        document.getElementById(cusimgid).style.display = "none";
+                    }
+                });
+            },20)
+        };
+        $scope.customerDeleteListener('comrole','comroleimg');
+        $scope.customerDeleteListener('customerpayway','compaywayimg');
+        $scope.customerDeleteListener('cuspaydate','cuspaydateimg');
+        $scope.customerDeleteListener('cuscheckpreid','cuscheckpreidimg');
+        $scope.customerDeleteListener('cuswillcheckpreid','cuswillcheckpreidimg');
+        $scope.customerDeleteListener('cusfax','cusfaximg');
+        $scope.customerDeleteListener('cusmailval','cusmailvalimg');
+        $scope.customerDeleteListener('cuswebsite','cuswebsiteimg');
+
+        $scope.customerDeleteListener('cuspostall','cuspostallimg');
+        $scope.customerDeleteListener('cusboraod','cusboraodimg');
+        $scope.customerDeleteListener('cuszhishiv','cuszhishivimg');
+
+
+        //delete
+        $scope.customerDeletevalue = function(type){
+            switch (type) {
+                case 'customerposition':
+                    $scope.customeredit.customerposition = '';
+                    document.getElementById('comroleimg').style.display = "none";
+                    break;
+                case 'customerpayway':
+                    $scope.customeredit.customerpayway = '';
+                    document.getElementById('compaywayimg').style.display = "none";
+                    break;
+                case 'customerpaydate':
+                    $scope.customeredit.customerpaydate = '';
+                    document.getElementById('cuspaydateimg').style.display = "none";
+                    break;
+                case 'customercheckperiod':
+                    $scope.customeredit.customercheckperiod = '';
+                    document.getElementById('cuscheckpreidimg').style.display = "none";
+                    break;
+                case 'customerwillcheckperiod':
+                    $scope.customeredit.customerwillcheckperiod = '';
+                    document.getElementById('cuswillcheckpreidimg').style.display = "none";
+                    break;
+                case 'customerfax':
+                    $scope.customeredit.customerfax = '';
+                    document.getElementById('cusfaximg').style.display = "none";
+                    break;
+                case 'customermail':
+                    $scope.customeredit.customermail = '';
+                    document.getElementById('cusmailvalimg').style.display = "none";
+                    break;
+                case 'customerwebsite':
+                    $scope.customeredit.customerwebsite = '';
+                    document.getElementById('cuswebsiteimg').style.display = "none";
+                    break;
+                case 'customerborad':
+                    $scope.customeredit.customerborad = '';
+                    document.getElementById('cusboraodimg').style.display = "none";
+                    break;
+                case 'customerpostal':
+                    $scope.customeredit.customerpostal = '';
+                    document.getElementById('cuspostallimg').style.display = "none";
+                    break;
+                case 'customerzhushi':
+                    $scope.customeredit.customerzhushi = '';
+                    document.getElementById('cuszhishivimg').style.display = "none";
+                    break;
+            }
         }
 
     }])

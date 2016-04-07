@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016/3/22 0022.
  */
-spareModule.factory('SpareListService',function(){
+spareModule.factory('SpareListService',['$http',function($http){
     var data;
     var spareList=[{
         spareName:'MSD上盖(CATL)',
@@ -12,6 +12,7 @@ spareModule.factory('SpareListService',function(){
         spareDescribe:'#30.0热缩套管-红色',
         spareCode:'14190-0024'
     }];
+
     return{
         all:function(){
             return spareList;
@@ -24,4 +25,4 @@ spareModule.factory('SpareListService',function(){
           return data;
         }
     }
-});
+}]);

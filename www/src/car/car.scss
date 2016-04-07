@@ -259,7 +259,7 @@
       background-size: 100% 100% !important;
       margin-top: -1px;
       color: white;
-      height: 55px;
+      height: 60px;
       font-size: 16px;
       .title {
         padding-top: 20px;
@@ -1216,6 +1216,7 @@
       height: 43px;
       display: block;
       padding: 8px;
+      .search1 {
         .placeholder-icon {
           color: #aaa;
           position: absolute;
@@ -1248,7 +1249,7 @@
           padding-left: 2em;
           color: #000;
           vertical-align: middle;
-          font-size: 12px;
+          font-size: 14px;
           height: 25px;
           width: 72%;
           position: fixed;
@@ -1267,6 +1268,7 @@
           font-size: 16px;
           top: -2px;
         }
+      }
     }
     .divContent {
       position: relative;
@@ -1286,7 +1288,7 @@
         color: gray;
       }
       .spareName {
-        font-size: 16px;
+        font-size: 15px;
         color: #000;
       }
     }
@@ -1318,6 +1320,39 @@
     .col-45 {
       text-align: center;
       padding: 0;
+    }
+    .search{
+      .his-title{
+        color: #BFBFBF;
+      }
+      .ion-android-time{
+        margin-right: 5px;
+      }
+      .hisText{
+        white-space:nowrap;
+      }
+      .horizon-line{
+        background: #D8D8D8;
+        width: 100%;
+        height: 1px;
+        margin-left: 5px;
+      }
+      ion-item{
+        border-bottom: 1px solid #D8D8D8;
+        min-height: 0;
+        font-size: 14px;
+        padding: 10px 16px;
+      }
+    }
+    .content{
+      .item {
+        position: relative;
+        display: block;
+        margin: -1px;
+        font-size: 16px;
+        padding: 0;
+        //border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+      }
     }
   }
 

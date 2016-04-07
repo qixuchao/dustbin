@@ -6,32 +6,16 @@
             <div class="col col-70 text-center">客户车辆信息</div>
         </div>
     </ion-header-bar>
-    <form ng-submit="employeecustomerQuery()">
-        <div class="pub-subhead bar bar-subheader">
-            <div class="employeequery_headquery">
-                <i class="ion-ios-search employeequery_headqueryimg"></i>
-                <input type="search" class="employeequery_headqueryinput" placeholder="请输入车辆描述(车牌号+车工号/电池系统Barcode)"/>
-            </div>
-        </div>
-    </form>
-</div>
-    <!--<ion-header-bar style="height:88px">-->
-        <!--<div class="employeecustomer_head">-->
-            <!--<div class="employeecustomer_headtitle">-->
-                <!--<div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">-->
-                    <!--<i class="icon ion-ios-arrow-back publicheadtitlei"></i>-->
-                <!--</div>-->
-                <!--<span class="employeecustomer_headtitlespan">客户车辆信息</span>-->
+    <!--<form ng-submit="employeecustomerQuery()">-->
+        <!--<div class="pub-subhead bar bar-subheader">-->
+            <!--<div class="employeequery_headquery">-->
+                <!--<i class="ion-ios-search employeequery_headqueryimg"></i>-->
+                <!--<input type="search" class="employeequery_headqueryinput" placeholder="请输入车辆描述(车牌号+车工号/电池系统Barcode)"/>-->
             <!--</div>-->
-            <!--<form ng-submit="employeecustomerQuery()">-->
-                <!--<div class="employeecustomer_headquery">-->
-                    <!--<input class="employeecustomer_headqueryinput" placeholder="请输入车辆描述(车牌号+车工号/电池系统Barcode)" type="text"/>-->
-                    <!--<i class="ion-ios-search employeecustomer_headqueryimg"></i>-->
-                <!--</div>-->
-            <!--</form>-->
         <!--</div>-->
-        <!--</ion-header-bar>-->
-    <ion-content style="margin-top:44px">
+    <!--</form>-->
+</div>
+    <ion-content>
         <div class="customerVehicle_query_list" ng-repeat="lists in customerVehiclelists track by $index">
             <div class="row" style="padding:5px 5px">
                 <div class="col col-6" style="margin-left:5px">

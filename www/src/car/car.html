@@ -26,9 +26,8 @@
             <ion-item ng-click="search(x,$event)" ng-repeat="x in data">{{x}}</ion-item>
         </ion-list>
         <div class="content">
-            <div class="list" ng-if="carInfo">
-                <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in cars | filter:carInfo">
-                    <div class="row row-center rowType " >
+            <div class="" ng-if="carInfo">
+                <a ng-click="goDetail(x.codeId)" class="row row-center rowType" ng-repeat="x in cars | filter:carInfo">
                         <div class="col col-6 col-center">
                             <img ng-src="img/car/Oval.png" class="pointImg">
                         </div>
@@ -39,20 +38,23 @@
                             <img ng-src="img/car/Shape.png" class="shapeImg">
                         </div>
                         <div class="col col-2"></div>
-                    </div>
                 </a>
             </div>
         </div>
 
     </ion-content>
-    <ion-content has-bouncing="false" ng-show="!searchFlag">
+    <ion-content has-bouncing="true" ng-show="!searchFlag">
+        <ion-refresher
+                pulling-text="下拉刷新..."
+                on-refresh="doRefresh()">
+        </ion-refresher>
         <!--<img ng-src="img/car/oftenCar.png" class="textImg">-->
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">常用车辆</div>
             <div class="Car_countentbasicline"></div>
             <div class="Car_countentbasicclok"></div>
         </div>
-        <div class="contentType" ng-repeat="car in cars|filter:carInfo" ng-click="goDetail(car)">
+        <div class="contentType animated" ng-repeat="car in cars|filter:carInfo" ng-click="goDetail(car.codeId)"  ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
             <div class="row row-center rowType " >
                 <div class="col col-6 col-center">
                    <img ng-src="img/car/Oval.png" class="pointImg">

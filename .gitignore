@@ -1,4 +1,4 @@
-/www/src/dev
+/www/src/dev/*
 platforms/
 platforms/*
 .DS_Store

@@ -137,6 +137,13 @@ carModule.factory('CarService',function(){
         },
         getData:function(){
             return data;
+        },
+        setSpare:function(data1){
+            data=data1;
+            return data;
+        },
+        getSpare:function(){
+            return data;
         }
     };
 });

@@ -80,7 +80,7 @@
         padding-left: 2em;
         color: #000;
         vertical-align: middle;
-        font-size: 12px;
+        font-size: 14px;
         height: 25px;
         width: 72%;
         position: fixed;
@@ -139,21 +139,26 @@
       border-left: none;
     }
   }
-  .shapeImg{
-    position: relative;
-    top: 2px;
-    height: 16px;
-  }
   .contentType{
     position: relative;
     top: 1.5em;
   }
   .rowType1{
-    padding: 1.2em 0 0.6em 0.8em;
+    padding: 1em 0 0.6em 12px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.36);
+    .col{
+      padding-left: 0;
+      padding-right: 0;
+      .shapeImg{
+        position: relative;
+        top: 2px;
+        height: 16px;
+        left: 0.5em;
+      }
+    }
   }
   .col span {
-    font-size: 16px;
+    font-size: 14px;
     color: #000;
   }
   .search{

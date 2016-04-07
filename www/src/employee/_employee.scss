@@ -167,8 +167,8 @@
       height:14px;
     }
     .employee_query_listfor{
-      width:20px;
-      height:18px;
+      width:16px;
+      height:16px;
       vertical-align: middle;
     }
     //.employee_query_listline{
@@ -276,41 +276,84 @@
       z-index:-1;
     }
   }
-  .employee_detail_countentbasic{
-    position: relative;
-    margin-top: 5px;
-    font-size:16px;
-    color:#406FB3;
-    .employee_detail_countentbasicinfo{
-      position: absolute;
-      top:0px;
-      left: 17px;
-    }
-    .employee_detail_countentbasicline{
-      position: absolute;
-      top:10px;
-      left: 80px;
-      width: 100%;
-      height:1px;
-      background-color: #406FB3;
-    }
-    .employee_detail_countentbasicclok{
-      position: absolute;
-      top:15px;
-      margin-top: 2px;
-      left:0px;
-      width:50px;
-      height:15px;
-      border: 1px solid #406FB3;
-      border-top: none;
-      border-left: none;
-    }
-  }
+  //.employee_detail_countentbasic{
+  //  position: relative;
+  //  margin-top: 5px;
+  //  font-size:16px;
+  //  color:#406FB3;
+  //  .employee_detail_countentbasicinfo{
+  //    position: absolute;
+  //    top:0px;
+  //    left: 17px;
+  //  }
+  //  .employee_detail_countentbasicline{
+  //    position: absolute;
+  //    top:10px;
+  //    left: 80px;
+  //    width: 100%;
+  //    height:1px;
+  //    background-color: #406FB3;
+  //  }
+  //  .employee_detail_countentbasicclok{
+  //    position: absolute;
+  //    top:15px;
+  //    margin-top: 2px;
+  //    left:0px;
+  //    width:50px;
+  //    height:15px;
+  //    border: 1px solid #406FB3;
+  //    border-top: none;
+  //    border-left: none;
+  //  }
+  //}
 
 
   .employee_detail_countentlist{
     margin-top:35px;;
     font-size:16px;
+  }
+}
+
+.employee_detail_countentbasic{
+  position: relative;
+  margin-top: 5px;
+  font-size:16px;
+  color:#406FB3;
+  .employee_detail_countentbasicinfo{
+    position: absolute;
+    top:0px;
+    left: 17px;
+  }
+  .employee_detail_countentbasicline{
+    position: absolute;
+    top:10px;
+    left:80px;
+    width: 100%;
+    height:1px;
+    background-color: #406FB3;
+  }
+  .employee_detail_countentbasiclinea{
+      left:80px;
+  }
+  .employee_detail_countentbasiclineb{
+    left:66px;
+  }
+  .employee_detail_countentbasicclok{
+    position: absolute;
+    top:15px;
+    margin-top: 2px;
+    left:0px;
+    width:50px;
+    height:15px;
+    border: 1px solid #406FB3;
+    border-top: none;
+    border-left: none;
+  }
+  .employee_detail_countentbasiclocka{
+    width:50px;
+  }
+  .employee_detail_countentbasiclockb{
+    width:47px;
   }
 }
 //客户列表+员工列表+客户车辆+客户联系+联系人共用headcss
@@ -460,5 +503,13 @@
     border-width: 1px;
     border-style: none;
     font-size: 16px;
+    .item-content {
+      height: 47px;
+      background-color: white;
+    }
+    .item-options{
+      border-bottom-style: none;
+      height: 46px;
+    }
   }
 };

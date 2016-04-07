@@ -19,6 +19,7 @@ var customerContactsModule = angular.module('customerContactsModule', []);
 var customerModuleServive = angular.module('customerModuleServive', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
+var worksheetReportModule = angular.module('worksheetReportModule', []);
 
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
@@ -44,8 +45,9 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'customerChanceModule',
     'customerkeyModule',
     'customerActivityModule',
-    'customerWorkorderModule'
-])
+    'customerWorkorderModule',
+    "worksheetReportModule"
+]);
 CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -313,7 +315,35 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 controller: 'selectStaffCtrl'
             })
             // 工单模块相关： end ------------------------
-            
+            //报工单模块 start-----
+            .state('worksheetReportedList', {
+                url: '/worksheetReportedList',
+                templateUrl: 'src/worksheetReported/worksheetReportedList.html',
+                controller: 'WorksheetListReportedCtrl'
+            })
+
+            .state('worksheetReportedDetail', {
+                url: '/worksheetReportedDetail',
+                templateUrl: 'src/worksheetReported/worksheetReportedDetail/worksheetReporteDetail.html',
+                controller: 'WorksheetListReportedDetailCtrl'
+            })
+            .state('worksheetReportedInfosList', {
+                url: '/worksheetReportedInfosList',
+                templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
+                controller: 'WorksheetListReportedCtrl'
+            })
+            .state('worksheetReportedCreate', {
+                url: '/worksheetReportedCreate',
+                templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedCreate.html',
+                controller: 'WorksheetReportedCreateCtrl'
+            })
+            .state('worksheetReportedMaintain', {
+                url: '/worksheetReportedMaintain',
+                templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedMaintain.html',
+                controller: 'WorksheetReportedMaintainCtrl'
+            })
+
+            //报工单模块 end-------
         ;
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider  // /home/login
