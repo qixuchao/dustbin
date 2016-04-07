@@ -115,7 +115,7 @@
             </div>
             <!--相关方-->
             <div id="relativeId" class="relative" ng-show="!select">
-                <div class="row" ng-repeat="x in details.relations">
+                <div class="row" ng-repeat="x in details.relations" on-hold="showActionSheet(x)">
                     <div class="col">{{x.name}}&nbsp;&nbsp;{{x.sex}}</div>
                     <div class="col text-center position">{{x.position}}</div>
                 </div>

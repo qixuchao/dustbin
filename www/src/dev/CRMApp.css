@@ -2383,6 +2383,10 @@ Copyright (c) 2015 Daniel Eden
 .bar {
   font-size: 16px; }
 
+.action-sheet-group .button {
+  box-shadow: none;
+  border-top: 1px solid #B7B7B7; }
+
 input[readonly]:not(.cloned-text-input) {
   background: none !important;
   border: none !important; }
