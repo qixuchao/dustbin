@@ -262,7 +262,7 @@ salesModule
                     $scope.TitleFlag = false;
                     $scope.showTitleStatus = false;
                 }
-                if (!$scope.$digest()) {
+                if(!$scope.$$phase) {
                     $scope.$apply();
                 }
             };
