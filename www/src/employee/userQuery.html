@@ -15,25 +15,8 @@
         </div>
     </form>
 </div>
-    <!--<ion-header-bar>-->
-       <!--<div class="employeequery_head">-->
-           <!--<div class="employeequery_headtitle">-->
-               <!--<div style="width:40px;height:40px;position: absolute;top: 20px;left: 5px;" ng-click="goBack()">-->
-                   <!--<i class="icon ion-ios-arrow-back publicheadtitlei"></i>-->
-               <!--</div>-->
-               <!--<span class="employeequery_headtitlespan">员工列表</span>-->
-           <!--</div>-->
-           <!--<form ng-submit="employeeQuery()">-->
-               <!--<div class="employeequery_headquery">-->
-                    <!--<i class="ion-ios-search employeequery_headqueryimg"></i>-->
-                   <!--<input class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入员工姓名" type="text"/>-->
-               <!--</div>-->
-           <!--</form>-->
-       <!--</div>-->
-    <!--</ion-header-bar>-->
     <ion-content style="margin-top:44px">
-        <div ng-if="!employee_userqueryflag" class="employee_query_historys">
-            <div class="button button-full" ng-click="ll()">ll</div>
+        <div ng-show="employee_userqueryflag" class="employee_query_historys">
             <div class="employee_query_historysspan">
                 搜索历史
             </div>
@@ -44,16 +27,16 @@
                 清楚历史记录
             </div>
         </div>
-        <div ng-if="!employee_userqueryflag" class="employee_query_list" ng-repeat="lists in employee_query_list" ng-click="employee_govalue(lists,$index)">
+        <div ng-show="!employee_userqueryflag" class="employee_query_list customershowFilterPage1" ng-repeat="lists in employee_query_list" ng-click="employee_govalue(lists,$index)">
             <div class="row" style="padding:5px 5px">
                 <div class="col col-6" style="margin-left:5px">
                     <div class="employee_query_listcicle" ng-class="{employee_query_listcicleA: !$odd, employee_query_listcicleB: !$even}"></div>
                 </div>
                 <div class="col col-24" style="text-align: left">
-                   <span style="vertical-align: middle">{{lists.name}}</span>
+                   <span style="vertical-align: middle">{{lists.NAME_LAST}}{{lists.NAME_FIRST}}</span>
                 </div>
                 <div class="col col-60" style="text-align: center">
-                    <span style="vertical-align: middle">{{lists.phoneNumber}}</span>
+                    <span style="vertical-align: middle">{{lists.TEL_NUMBER}}</span>
                 </div>
                 <div class="col col-10">
                     <img class="employee_query_listfor" src="img/employee/Shape@2x.png"></img>
@@ -62,6 +45,8 @@
             <div class="employee_query_listline">
             </div>
         </div>
+        <ion-infinite-scroll on-infinite="employLoadmore()" ng-if="employisshow"></ion-infinite-scroll>
+        <ion-infinite-scroll on-infinite="employLoadmoreIm()" ng-if="employimisshow"></ion-infinite-scroll>
     </ion-content>
 </ion-nav-view>
 

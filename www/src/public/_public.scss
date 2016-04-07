@@ -233,3 +233,10 @@ $button-crm-edit-text:                 white;
   background-color: #fff;
   overflow: hidden;
 }
+.customershowFilterPage1.ng-hide-remove {
+  -webkit-animation: fadeInDown 0.5s;
+  animation: fadeInDown .5s;
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
+}
+

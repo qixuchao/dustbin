@@ -4,6 +4,8 @@ employeeModuleServive
         var employeeaddcountv;
 
         var employeeaddfileds;
+        //负责客户列表
+        var employeecustomerlist;
         return {
             set_employeeListvalue:function(evalue){
                 employeeliatvalue = evalue;
@@ -24,6 +26,13 @@ employeeModuleServive
             },
             get_employeeaddfiled:function(){
                 return employeeaddfileds;
+            },
+            //客户列表
+            set_employeecustomerlist:function(value){
+                employeecustomerlist = value;
+            },
+            get_employeecustomerlist:function(){
+                return employeecustomerlist;
             }
         }
     }])
