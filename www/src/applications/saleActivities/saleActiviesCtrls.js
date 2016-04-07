@@ -1,4 +1,4 @@
-/** 
+/**
  * Created by zhangren on 16/3/19.
  */
 'use strict';
@@ -16,16 +16,17 @@ salesModule
         function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, ionicMaterialInk,
                   ionicMaterialMotion, saleActService, Prompter) {
             console.log('销售活动列表');
+            $scope.saleTitleText = '销售活动';
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
             }, 100);
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
-            $scope.input = {search: ''};
+            $scope.input = {search: '',customer:''};
             $scope.saleListArr = saleActService.getSaleListArr();
             $scope.hisArr = [
                 '福州', '清明', '活动'
-            ]
+            ];
             $scope.changeSearch = function () {
                 $scope.searchFlag = !$scope.searchFlag;
                 $('#searchTitle').removeClass('animated');
@@ -41,7 +42,7 @@ salesModule
                 $timeout(function () {
                     Prompter.hideLoading();
                     $scope.input.search = x;
-                }, 800)
+                }, 800);
 
                 e.stopPropagation();
             };
@@ -52,7 +53,7 @@ salesModule
                 }, 1)
             };
             $scope.goDetail = function (x, e) {
-                $state.go('saleActDetail')
+                $state.go('saleActDetail');
                 e.stopPropagation();
             };
             /*-------------------------------Pop 新建-------------------------------------*/
@@ -75,6 +76,11 @@ salesModule
                 console.log($scope.pop);
                 $scope.createPop.hide();
                 $scope.createModal.show();
+                //console.log(document.getElementsByClassName('modal-wrapper'));
+                var tempArr = document.getElementsByClassName('modal-wrapper');
+                for (var i = 0; i < tempArr.length; i++) {
+                    tempArr[i].style.pointerEvents = 'auto';
+                }
             };
             /*-------------------------------Pop 新建 end-------------------------------------*/
             /*-------------------------------Modal 新建-------------------------------------*/
@@ -106,6 +112,7 @@ salesModule
             }).then(function (modal) {
                 $scope.selectPersonModal = modal;
             });
+            $scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
                 $scope.selectPersonflag = true;
                 $scope.selectPersonModal.show();
@@ -113,17 +120,61 @@ salesModule
             $scope.closeSelectPerson = function () {
                 $scope.selectPersonflag = false;
                 $scope.selectPersonModal.hide();
-                //arr[0].className = 'modal-backdrop hide';
             };
-            $scope.$on('$destroy', function() {
+            $scope.selectContact = function (x) {
+                $scope.create.contact = x.text;
+                $scope.selectPersonModal.hide();
+            };
+            //选择客户
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.selectCustomerModal = modal;
+            });
+            $scope.customerModalArr = saleActService.getCustomerTypes();
+            $scope.customerArr = saleActService.getCustomer();
+            $scope.selectCustomerText = '竞争对手';
+            $scope.openSelectCustomer = function () {
+                $scope.isDropShow = true;
+                $scope.selectCustomerModal.show();
+            };
+            $scope.closeSelectCustomer = function () {
+                $scope.selectCustomerModal.hide();
+            };
+            $scope.selectPop = function (x) {
+                $scope.selectCustomerText = x.text;
+                $scope.referMoreflag = !$scope.referMoreflag;
+            };
+            $scope.changeReferMoreflag = function () {
+                $scope.referMoreflag = !$scope.referMoreflag;
+            };
+            $scope.showChancePop = function () {
+                $scope.referMoreflag = true;
+                $scope.isDropShow = true;
+            };
+            $scope.initSearch = function () {
+                $scope.input.customer = '';
+                $timeout(function () {
+                    document.getElementById('selectCustomerId').focus();
+                }, 1)
+            };
+            $scope.selectCustomer = function (x) {
+                $scope.create.customer = x.text;
+                $scope.selectCustomerModal.hide();
+            };
+            $scope.$on('$destroy', function () {
                 $scope.createPop.remove();
                 $scope.createModal.remove();
                 $scope.selectPersonModal.remove();
+                $scope.selectCustomerModal.remove();
             });
+
             /*-------------------------------Modal 新建 end-------------------------------------*/
         }])
     .controller('saleActDetailCtrl', [
         '$scope',
+        '$rootScope',
         '$state',
         '$ionicHistory',
         '$ionicScrollDelegate',
@@ -136,12 +187,13 @@ salesModule
         '$cordovaToast',
         '$cordovaDatePicker',
         'saleActService',
+        'saleChanService',
         'Prompter',
-        function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
+        function ($scope, $rootScope,$state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, $cordovaDatePicker, saleActService, Prompter) {
+                  $cordovaToast, $cordovaDatePicker, saleActService, saleChanService, Prompter) {
             ionicMaterialInk.displayEffect();
-            $scope.statusArr = saleActService.getStatusArr();
+            $scope.statusArr = saleChanService.getStatusArr();
             $scope.mySelect = {
                 status: $scope.statusArr[2]
             };
@@ -153,6 +205,27 @@ salesModule
             };
             $scope.isEdit = false;
             $scope.editText = "编辑";
+            $scope.goBack = function () {
+                if ($scope.isEdit) {
+                    $cordovaDialogs.confirm('请先保存当前的更改', '提示', ['保存', '不保存'])
+                        .then(function (buttonIndex) {
+                            // no button = 0, 'OK' = 1, 'Cancel' = 2
+                            var btnIndex = buttonIndex;
+                            if(btnIndex==1){
+                                Prompter.showLoading('正在保存');
+                                $timeout(function () {
+                                    Prompter.hideLoading();
+                                    $cordovaToast.showShortBottom('保存成功');
+                                    $rootScope.goBack();
+                                }, 500);
+                            }else{
+                                $rootScope.goBack();
+                            }
+                        });
+                }else{
+                    $rootScope.goBack();
+                }
+            };
             $scope.edit = function () {
                 if ($scope.editText == '编辑') {
                     $scope.isEdit = true;
@@ -172,7 +245,7 @@ salesModule
                     }, 500);
 
                 }
-            }
+            };
             $scope.select = true;
             $scope.showTitle = false;
             $scope.showTitleStatus = false;
@@ -258,71 +331,15 @@ salesModule
 
             };
             /*------------------------------------选择时间------------------------------------*/
-            var getFormatTime = function (date) {
-                var dateTemp, minutes, hour, time;
-                dateTemp = date.format("yyyy/M/d");
-                //分钟
-                if (date.getMinutes().toString().length < 2) {
-                    minutes = "0" + date.getMinutes();
-                } else {
-                    minutes = date.getMinutes();
-                }
-                ;
-                //小时
-                if (date.getHours().toString().length < 2) {
-                    hour = "0" + date.getHours();
-                    time = hour + ":" + minutes;
-                } else {
-                    hour = date.getHours();
-                    time = hour + ":" + minutes;
-                }
-                ;
-                return dateTemp + " " + time;
-            };
-            var getOptions = function (date, mode, text) {
-                return {
-                    date: new Date(date),
-                    mode: mode,
-                    titleText: text + '时间',
-                    okText: '确定',
-                    cancelText: '取消',
-                    doneButtonLabel: '确认',
-                    cancelButtonLabel: '取消',
-                    locale: 'zh_cn'
-                }
-            };
-            //var formatTime = function (date) {
-            //    date = new Date(date);
-            //    var year = date.getFullYear();
-            //    var month = getDoubleStringTime(date.getMonth() + 1);
-            //    var day = getDoubleStringTime(date.getDate());
-            //    var minutes = getDoubleStringTime(date.getMinutes());
-            //    var hour = getDoubleStringTime(date.getHours());
-            //    return year + '/' + month + '/' + day + ' ' + hour + ':' + minutes;
-            //};
-            //var getDoubleStringTime = function (time) {
-            //    time = new String(time);
-            //    if (time.length == 1) {
-            //        return "0" + time;
-            //    }
-            //    return time;
-            //};
             $scope.selectTime = function (type) {
+                if(!$scope.isEdit){
+                    return;
+                }
                 //iOS平台
                 if (type == 'start') {
-                    var options = getOptions(new Date($scope.details.startTime).format('yyyy/MM/dd hh:ss'), 'datetime', '开始');
-                    document.addEventListener("deviceready", function () {
-                        $cordovaDatePicker.show(options).then(function (iosDate) {
-                            $scope.details.startTime = getFormatTime(iosDate);
-                        });
-                    }, false);
+                    Prompter.selectTime($scope,'actDetailStart',new Date($scope.details.startTime).format('yyyy/MM/dd hh:ss'),'datetime','开始时间');
                 } else {
-                    var options = getOptions(new Date($scope.details.endTime).format('yyyy/MM/dd hh:ss'), 'datetime', '结束');
-                    document.addEventListener("deviceready", function () {
-                        $cordovaDatePicker.show(options).then(function (iosDate) {
-                            $scope.details.endTime = getFormatTime(iosDate);
-                        });
-                    }, false);
+                    Prompter.selectTime($scope,'actDetailEnd',new Date($scope.details.endTime).format('yyyy/MM/dd hh:ss'),'datetime','结束时间');
                 }
             };
             /*----------------------------------选择时间  end------------------------------------*/
