@@ -8206,8 +8206,36 @@ input[readonly]:not(.cloned-text-input) {
 .relationship_list .item-content {
   background-color: white;
   height: 47px; }
-<<<<<<< HEAD
-=======
+
+.relationship_list .contact_query_listcicle {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 50%; }
+
+.relationship_list .contact_query_listcicleA {
+  border: 2px solid #9EC92A; }
+
+.relationship_list .contact_query_listcicleB {
+  border: 2px solid #008CCF; }
+
+.relationship_list .item-content {
+  padding: 0; }
+
+.relationship_list .item-options .button {
+  padding: 10px 10px 10px 16px;
+  margin-top: 1px; }
+
+.relationship_list .button .icon:before {
+  font-size: 35px; }
+
+.relationship_list .invisible {
+  visibility: hidden; }
+
+.relationship_list .item-content {
+  background-color: white;
+  height: 47px; }
 
 .worksheetReportedInfolist ion-header-bar {
   background-color: #2B60AB; }
@@ -9196,4 +9224,3 @@ input[readonly]:not(.cloned-text-input) {
       text-align: center;
       padding: .4rem 0px;
       font-size: 1rem; }
->>>>>>> Feature/T0001

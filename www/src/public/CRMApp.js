@@ -313,9 +313,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 controller: 'selectStaffCtrl'
             })
             // 工单模块相关： end ------------------------
-<<<<<<< HEAD
-            
-=======
+
             //报工单模块 start-----
             .state('worksheetReportedList', {
                 url: '/worksheetReportedList',
@@ -345,7 +343,6 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
 
             //报工单模块 end-------
->>>>>>> Feature/T0001
         ;
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider  // /home/login
