@@ -149,10 +149,13 @@ employeeModule
             if( $scope.employinitflag == true){
                 $scope.employinitflag = false;
             }else{
+                if(!$scope.$$phase) {
+                    $scope.employee_query_list = [];
+                }
                 $scope.employisshow = false;
                 clearTimeout(timer);
                 timer = setTimeout(function() {
-                    $scope.employee_query_list = [];
+                    //$scope.employee_query_list = [];
                     $scope.employee_query_list = new Array;
                     $scope.empitemImPage = 0;
                     //console.log($scope.empitemImPage)
