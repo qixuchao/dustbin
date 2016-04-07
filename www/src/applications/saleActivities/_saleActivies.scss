@@ -202,11 +202,7 @@
         color: #9fca17;
         margin-right: 5px;
         font-size: 12px;
-      }
-      .title_oval{
-        width: 12px;
-        position: relative;
-        margin-right: 5px;
+        padding-top: 2px;
       }
       input {
         background: none;
@@ -215,7 +211,7 @@
         color: white !important;
         height: 28px;
         position: relative;
-        padding:0;
+        top: 2px;
         //border-bottom: 1px solid white;
         width: 100%;
       }
@@ -236,7 +232,7 @@
     .selector {
       height: 27px;
       margin: 0 10px;
-      border: 1px solid rgba(255, 255, 255, 0.7);
+      border: 1px solid white;
       border-radius: 12px;
       font-size: 14px;
       .detail {
@@ -364,16 +360,16 @@
       }
     }
     .submit {
-      width: 100%;
+      margin-top: 20%;
       background: #f8f8f8;
       border: 1px solid #EAE3E3;
       .row {
-        padding: 5px 3% !important;
+        padding: 3% 3% !important;
         border: none;
         .col-18 {
           margin-left: 2.5%;
           button {
-            height: 29px;
+            height: 34px;
             min-width: 90%;
             border-radius: 10px;
             background: #9ec92a;
@@ -386,16 +382,10 @@
           background: white;
           border-radius: 10px;
           border: 1px solid #EAE3E3;
-          height: 30px;
-          top: 1px;
-          position: relative;
-          line-height: 30px;
           input {
             width: 100%;
             background: none;
             border: none;
-            height: 25px;
-            padding-left: 10px;
           }
         }
       }
@@ -460,7 +450,6 @@
         width: 90%;
         background: none;
         border: none;
-        padding:0;
       }
       .ion-ios-close{
         position: relative;
@@ -611,9 +600,6 @@
   //left: 50%;
   //margin-left: -110px;
   //top: 10%;
-  .selected{
-    color:$crm-subject-blue;
-  }
   .transparent {
     background-color: transparent;
   }
@@ -633,7 +619,7 @@
   }
   .content{
     padding:10px;
-    margin-top: 25%;
+    margin-top: 20%;
     height: 374px;
     width: 220px;
     left: 50%;

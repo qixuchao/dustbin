@@ -116,13 +116,8 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/employee/customerList.html',
                 controller: 'customerListCtrl'
             })
-            .state('saleChanList', {
-                url: 'apps/saleChanList',
-                templateUrl: 'src/applications/saleActivities/saleAct_List.html',
-                controller: 'saleChanListCtrl'
-            })
             .state('saleChanDetail', {
-                url: 'apps/saleChanList/detail',
+                url: 'apps/saleChanSearch/detail',
                 templateUrl: 'src/applications/saleChance/chanceDetail.html',
                 controller: 'saleChanDetailCtrl'
             })
