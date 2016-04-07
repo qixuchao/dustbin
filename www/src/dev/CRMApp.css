@@ -8206,164 +8206,36 @@ input[readonly]:not(.cloned-text-input) {
 .relationship_list .item-content {
   background-color: white;
   height: 47px; }
-<<<<<<< HEAD
-=======
 
-.worksheetReportedInfolist ion-header-bar {
-  background-color: #2B60AB; }
-  .worksheetReportedInfolist ion-header-bar .rowTitle {
-    margin-right: 0px;
-    margin-left: 0px; }
-  .worksheetReportedInfolist ion-header-bar .fontColor {
-    color: white; }
+.relationship_list .contact_query_listcicle {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  display: inline-block;
+  border-radius: 50%; }
 
-.worksheetReportedInfolist .rowList {
-  border-bottom: 1px solid #D6D3CE; }
-  .worksheetReportedInfolist .rowList .pic {
-    width: 14px;
-    height: 14px;
-    vertical-align: middle;
-    display: inline-block;
-    border-radius: 50%;
-    border: 2px solid #9EC92A; }
-  .worksheetReportedInfolist .rowList .detailColor {
-    color: #D2D2D2; }
+.relationship_list .contact_query_listcicleA {
+  border: 2px solid #9EC92A; }
 
-.worksheetReportedMaintain ion-header-bar {
-  background-color: #2B60AB; }
-  .worksheetReportedMaintain ion-header-bar .rowTitle {
-    margin-right: 0px;
-    margin-left: 0px; }
-  .worksheetReportedMaintain ion-header-bar .fontColor {
-    color: white; }
+.relationship_list .contact_query_listcicleB {
+  border: 2px solid #008CCF; }
 
-.worksheetReportedMaintain .rowList {
-  border-bottom: 1px solid #D6D3CE; }
-  .worksheetReportedMaintain .rowList .pic {
-    width: 14px;
-    height: 14px;
-    vertical-align: middle;
-    display: inline-block;
-    border-radius: 50%;
-    border: 2px solid #9EC92A; }
-  .worksheetReportedMaintain .rowList .detailColor {
-    color: #D2D2D2; }
-  .worksheetReportedMaintain .rowList .iStyle {
-    display: inline-block;
-    font-size: 25px;
-    vertical-align: middle;
-    color: #276DAC; }
-  .worksheetReportedMaintain .rowList .inputSmall {
-    background-color: #ECF0F0;
-    width: 50%;
-    height: 22px;
-    margin: auto;
-    border-radius: 5px;
-    display: inline-block;
-    text-align: center; }
+.relationship_list .item-content {
+  padding: 0; }
 
-#worksheetReportCreate ion-header-bar {
-  background-color: #2B60AB; }
-  #worksheetReportCreate ion-header-bar .rowTitle {
-    margin-right: 0px;
-    margin-left: 0px; }
+.relationship_list .item-options .button {
+  padding: 10px 10px 10px 16px;
+  margin-top: 1px; }
 
-#worksheetReportCreate ion-content {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-direction: normal;
-  -webkit-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -moz-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column; }
+.relationship_list .button .icon:before {
+  font-size: 35px; }
 
-#worksheetReportCreate .contentAll {
-  position: relative;
-  top: 4em; }
+.relationship_list .invisible {
+  visibility: hidden; }
 
-#worksheetReportCreate .itemContent {
+.relationship_list .item-content {
   background-color: white;
-  margin-top: 1px;
-  margin-bottom: 1px;
-  border-bottom: 1px solid #D6D3CE;
-  padding: 6px 10px 4px 10px;
-  height: 46px;
-  line-height: 30px;
-  font-size: 17px; }
-
-#worksheetReportCreate .itemContentT {
-  background-color: white;
-  margin-top: 1px;
-  margin-bottom: 1px;
-  padding: 6px 10px 4px 10px;
-  height: 80px;
-  line-height: 30px;
-  font-size: 1.0rem;
-  border-bottom: 1px solid #D6D3CE; }
-
-#worksheetReportCreate .labelInput {
-  padding: 0 0 0 0; }
-
-#worksheetReportCreate .fontColor {
-  color: #A8A49F;
-  font-size: 17px; }
-
-#worksheetReportCreate .Car_countentbasic {
-  position: relative;
-  font-size: 15px;
-  color: #406FB3;
-  top: 1.0em;
-  font-weight: 600; }
-  #worksheetReportCreate .Car_countentbasic .Car_countentbasicinfo {
-    position: absolute;
-    top: 0px;
-    left: 20px; }
-  #worksheetReportCreate .Car_countentbasic .Car_countentbasicline {
-    position: absolute;
-    top: 10px;
-    left: 85px;
-    width: 100%;
-    height: 1px;
-    background-color: #406FB3; }
-  #worksheetReportCreate .Car_countentbasic .Car_countentbasicclok {
-    position: absolute;
-    top: 15px;
-    margin-top: 2px;
-    left: 0px;
-    width: 55px;
-    height: 15px;
-    border: 1px solid #406FB3;
-    border-top: none;
-    border-left: none; }
-
-#worksheetReportCreate .textareaCss {
-  width: 100%;
-  height: 60px; }
-
-#worksheetReportCreate .selectC {
-  border: solid 0px white;
-  appearance: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
-  position: relative;
-  left: 0px;
-  top: -2px;
-  font-size: 15px;
-  line-height: 24px;
-  border: 0px;
-  color: #909993;
-  padding-right: 14px; }
-
-#worksheetReportCreate .relatedPart_listfor {
-  width: 20px;
-  height: 18px;
-  vertical-align: middle; }
+  height: 47px; }
 
 .worksheetReported-view-public ion-header-bar {
   background-color: #2B60AB; }
@@ -9196,4 +9068,3 @@ input[readonly]:not(.cloned-text-input) {
       text-align: center;
       padding: .4rem 0px;
       font-size: 1rem; }
->>>>>>> Feature/T0001

@@ -53,6 +53,7 @@ salesModule
                 }, 1)
             };
             $scope.goDetail = function (x, e) {
+                saleActService.actDetail = x;
                 $state.go('saleActDetail');
                 e.stopPropagation();
             };
@@ -197,12 +198,7 @@ salesModule
             $scope.mySelect = {
                 status: $scope.statusArr[2]
             };
-            $scope.details = {
-                annotate: 'In the tumultuous business of cutting-in and attending to a whale, there is much running backwards and forwards among',
-                startTime: '2016/3/1 12:00',
-                endTime: '2016/3/1 12:00',
-                refer: '商机-郑州客车销售机会'
-            };
+            $scope.details = saleActService.actDetail;
             $scope.isEdit = false;
             $scope.editText = "编辑";
             $scope.goBack = function () {
@@ -270,16 +266,6 @@ salesModule
                 }, 20)
 
             };
-            $scope.progressArr = [{
-                content: '与客户进行了初次交涉,效果良好',
-                time: '2016-3-6  18:33'
-            }, {
-                content: '第二次交涉,效果一般,还需要继续跟进',
-                time: '2016-3-7  17:33'
-            }, {
-                content: '最后谈了一次,应该可以成交,主要联系客户李经理进行跟进',
-                time: '2016-3-8  12:11'
-            }];
             var position;
             var maxTop;
             $scope.onScroll = function () {
@@ -349,7 +335,7 @@ salesModule
                 progress: ''
             };
             $scope.submit = function () {
-                $scope.progressArr.push({
+                $scope.details.progressArr.push({
                     content: $scope.input.progress,
                     time: '2016-6-8  12:11'
                 });
