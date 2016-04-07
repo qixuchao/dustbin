@@ -503,5 +503,13 @@
     border-width: 1px;
     border-style: none;
     font-size: 16px;
+    .item-content {
+      height: 47px;
+      background-color: white;
+    }
+    .item-options{
+      border-bottom-style: none;
+      height: 46px;
+    }
   }
 };

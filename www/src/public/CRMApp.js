@@ -45,7 +45,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'customerkeyModule',
     'customerActivityModule',
     'customerWorkorderModule'
-]);
+])
 CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -114,13 +114,8 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/employee/customerList.html',
                 controller: 'customerListCtrl'
             })
-            .state('saleChanList', {
-                url: 'apps/saleChanList',
-                templateUrl: 'src/applications/saleActivities/saleAct_List.html',
-                controller: 'saleChanListCtrl'
-            })
             .state('saleChanDetail', {
-                url: 'apps/saleChanList/detail',
+                url: 'apps/saleChanSearch/detail',
                 templateUrl: 'src/applications/saleChance/chanceDetail.html',
                 controller: 'saleChanDetailCtrl'
             })

@@ -38,13 +38,9 @@
 .bar{
   font-size: 16px;
 }
-input[readonly]:not(.cloned-text-input){
-  background: none!important;
-  border:none!important;
+.modal-wrapper {
+  pointer-events: auto!important;
 }
-//.modal-wrapper {
-//  pointer-events: auto!important;
-//}
 /* Fix modal backdrop for smaller devices */
 @media (max-width: 679px) {
   .active .modal-backdrop-bg {
@@ -220,4 +216,10 @@ $button-crm-edit-text:                 white;
 }
 .popover-backdrop.active {
   background-color: rgba(0,0,0,.5);
+}
+.action-sheet-group {
+  margin-bottom: 1px;
+  border-radius: 4px;
+  background-color: #fff;
+  overflow: hidden;
 }

@@ -18,7 +18,7 @@ appModule
             go:'saleActDetail'
         },{
             url:'img/apps/saleChance.png',
-            go:'saleChanList'
+            go:'saleChanDetail'
         },{
             url:'img/apps/saleClue.png'
         },{
