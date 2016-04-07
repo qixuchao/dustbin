@@ -333,9 +333,9 @@ salesModule
                 }
                 //iOS平台
                 if (type == 'start') {
-                    Prompter.selectTime($scope,'actDetailStart',new Date($scope.details.startTime).format('yyyy/MM/dd hh:ss'),'datetime','开始时间');
+                    Prompter.selectTime($scope,'actDetailStart',new Date($scope.details.de_startTime).format('yyyy/MM/dd hh:ss'),'datetime','开始时间');
                 } else {
-                    Prompter.selectTime($scope,'actDetailEnd',new Date($scope.details.endTime).format('yyyy/MM/dd hh:ss'),'datetime','结束时间');
+                    Prompter.selectTime($scope,'actDetailEnd',new Date($scope.details.de_endTime).format('yyyy/MM/dd hh:ss'),'datetime','结束时间');
                 }
             };
             /*----------------------------------选择时间  end------------------------------------*/
