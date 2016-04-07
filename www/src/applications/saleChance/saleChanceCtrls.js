@@ -388,7 +388,7 @@ salesModule
                 $scope.moneyTypesModal.show();
             };
             $scope.selectMoneyType = function (x) {
-              $scope.chanceDetails.preMountType = x.value;
+                $scope.chanceDetails.preMountType = x.value;
                 $scope.moneyTypesModal.hide();
             };
             /*-------------------------------币种 end-----------------------------------*/

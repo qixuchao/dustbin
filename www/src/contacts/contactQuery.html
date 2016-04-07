@@ -20,7 +20,7 @@
         </form>
     </div>
     <ion-content style="margin-top:44px">
-        <div class="contact_query_list" ng-repeat="lists in contact_query_list" ng-click="Contacts_godetails(lists,$index)">
+        <div class="contact_query_list" ng-repeat="lists in contact_query_list">
             <div class="row" style="padding:5px 5px">
                 <div class="col col-6" style="margin-left:5px">
                     <div class="contact_query_listcicle" ng-class="{contact_query_listcicleA: !$odd, contact_query_listcicleB: !$even}"></div>
@@ -28,10 +28,10 @@
                 <div class="col col-24" style="text-align: left">
                     <span style="vertical-align: middle">{{lists.name}}</span>
                 </div>
-                <div class="col col-60" style="text-align: center;color:#D2D2D2">
+                <div class="col col-50" style="text-align: center;color:#D2D2D2" ng-click="employ_querynumber(lists)">
                     <span style="vertical-align: middle">{{lists.phonenumber}}</span>
                 </div>
-                <div class="col col-10">
+                <div class="col col-20" style="text-align:center;padding-left:25px" ng-click="Contacts_godetails(lists,$index)">
                     <img class="contact_query_listfor" src="img/employee/Shape@2x.png"></img>
                 </div>
             </div>

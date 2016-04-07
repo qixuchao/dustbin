@@ -3266,23 +3266,31 @@ input[readonly]:not(.cloned-text-input) {
     border-radius: 30px;
     z-index: -1; }
 
-.employee_detail .employee_detail_countentbasic {
+.employee_detail .employee_detail_countentlist {
+  margin-top: 35px;
+  font-size: 16px; }
+
+.employee_detail_countentbasic {
   position: relative;
   margin-top: 5px;
   font-size: 16px;
   color: #406FB3; }
-  .employee_detail .employee_detail_countentbasic .employee_detail_countentbasicinfo {
+  .employee_detail_countentbasic .employee_detail_countentbasicinfo {
     position: absolute;
     top: 0px;
     left: 17px; }
-  .employee_detail .employee_detail_countentbasic .employee_detail_countentbasicline {
+  .employee_detail_countentbasic .employee_detail_countentbasicline {
     position: absolute;
     top: 10px;
     left: 80px;
     width: 100%;
     height: 1px;
     background-color: #406FB3; }
-  .employee_detail .employee_detail_countentbasic .employee_detail_countentbasicclok {
+  .employee_detail_countentbasic .employee_detail_countentbasiclinea {
+    left: 80px; }
+  .employee_detail_countentbasic .employee_detail_countentbasiclineb {
+    left: 66px; }
+  .employee_detail_countentbasic .employee_detail_countentbasicclok {
     position: absolute;
     top: 15px;
     margin-top: 2px;
@@ -3292,10 +3300,10 @@ input[readonly]:not(.cloned-text-input) {
     border: 1px solid #406FB3;
     border-top: none;
     border-left: none; }
-
-.employee_detail .employee_detail_countentlist {
-  margin-top: 35px;
-  font-size: 16px; }
+  .employee_detail_countentbasic .employee_detail_countentbasiclocka {
+    width: 50px; }
+  .employee_detail_countentbasic .employee_detail_countentbasiclockb {
+    width: 47px; }
 
 .employeecustomer_head {
   width: 100%;
@@ -7485,26 +7493,6 @@ input[readonly]:not(.cloned-text-input) {
   text-align: center;
   border-radius: 10px; }
 
-.contact_Edit .contact_Edit_head {
-  width: 100%;
-  height: 50px;
-  font-size: 18px;
-  color: white;
-  z-index: 0;
-  background-color: #406FB3; }
-  .contact_Edit .contact_Edit_head .contact_Edit_headtitle {
-    height: 44px;
-    line-height: 50px;
-    text-align: center; }
-    .contact_Edit .contact_Edit_head .contact_Edit_headtitle .contact_Edit_headtitlei {
-      font-size: 35px;
-      display: block;
-      float: left;
-      margin-left: 15px; }
-    .contact_Edit .contact_Edit_head .contact_Edit_headtitle .contact_Edit_headtitlespanedit {
-      float: right;
-      margin-right: 15px; }
-
 .contact_Edit .list .item {
   border: 1px solid #dddddd;
   border-top-style: none;
@@ -7513,16 +7501,20 @@ input[readonly]:not(.cloned-text-input) {
   min-height: 48px;
   text-align: center; }
 
-.contact_Edit .contact_edit_listfor {
-  width: 20px;
-  height: 20px; }
-
-.contact_Edit .item-input {
+.contact_Edit .list .item-input {
   padding: 2px 0 5px 16px; }
-
-.contact_Edit .contact_editinputsty {
-  padding-left: 35px;
-  color: #9B9B9B; }
+  .contact_Edit .list .item-input .contact_edit_listfor {
+    width: 16px;
+    height: 16px;
+    margin-top: 4px; }
+  .contact_Edit .list .item-input .contact_editinputsty {
+    padding-left: 35px;
+    color: #9B9B9B; }
+  .contact_Edit .list .item-input .contacts_editlistimg {
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    margin-right: 15px; }
 
 .contact_Edit .customeredittwo {
   padding-left: 65px;
@@ -7701,12 +7693,11 @@ input[readonly]:not(.cloned-text-input) {
     margin-left: 8px;
     margin-right: 5px; }
 
-.customer_detail .customercontentbutton {
+.customercontentbutton {
   width: 55%;
   height: 40px;
   margin-left: 22%;
-  margin-top: 30px;
-  margin-bottom: 40px;
+  margin-top: 10px;
   background-color: #9EC92A;
   color: white;
   font-size: 16px;
@@ -8099,7 +8090,7 @@ input[readonly]:not(.cloned-text-input) {
 .customerworkorder_query .customerworkorderselectcontent {
   position: absolute;
   z-index: 1;
-  top: 125px;
+  top: 90px;
   overflow: hidden;
   bottom: 15px;
   background-color: transparent;
