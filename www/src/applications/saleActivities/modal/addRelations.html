@@ -27,5 +27,12 @@
                 </ion-list>
             </div>
         </div>
+        <ion-list>
+            <ion-item class="selectItem" ng-repeat="x in relationSelections | filter:input.search" ng-click="x.flag=!x.flag">
+                <span ng-bind-html="x.name | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg" src="img/saleList/blank.png">
+                <img ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">
+            </ion-item>
+        </ion-list>
+        <div class="submitButton" ng-click="addRelationModal()">确定</div>
     </ion-content>
 </ion-modal-view>

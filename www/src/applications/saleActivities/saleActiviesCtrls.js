@@ -194,11 +194,19 @@ salesModule
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $cordovaDatePicker, saleActService, saleChanService, Prompter) {
             ionicMaterialInk.displayEffect();
-            $scope.statusArr = saleChanService.getStatusArr();
-            $scope.mySelect = {
-                status: $scope.statusArr[2]
+            var getStatusIndex = function (data) {
+                for(var i=0;i<$scope.statusArr.length;i++){
+                    if($scope.statusArr[i].value==data){
+                        return i;
+                    }
+                }
+                return 0;
             };
             $scope.details = saleActService.actDetail;
+            $scope.statusArr = saleChanService.getStatusArr();
+            $scope.mySelect = {
+                status: $scope.statusArr[getStatusIndex($scope.details.status)]
+            };
             $scope.isEdit = false;
             $scope.editText = "编辑";
             $scope.goBack = function () {
@@ -313,7 +321,9 @@ salesModule
                     $scope.TitleFlag = false;
                     $scope.showTitleStatus = false;
                 }
-                $scope.$apply();
+                if(!$scope.$$phase) {
+                    $scope.$apply();
+                }
 
             };
             /*------------------------------------选择时间------------------------------------*/
@@ -402,6 +412,9 @@ salesModule
                 $scope.referMoreflag = !$scope.referMoreflag;
             };
             $scope.openRefer = function () {
+                if(!$scope.isEdit){
+                    return
+                }
                 $scope.isDropShow = true;
                 $scope.referModal.show();
             };
@@ -416,19 +429,8 @@ salesModule
                 }, 1)
             };
             /*-------------------------------Modal end-------------------------------------*/
-            $scope.relationsPopArr = [{
-                text: 'CATL销售',
-            }, {
-                text: '联系人',
-            }, {
-                text: '正式客户',
-            }, {
-                text: '潜在客户',
-            }, {
-                text: '竞争对手',
-            }, {
-                text: '合作伙伴',
-            }];
+            $scope.relationsPopArr = saleActService.getRelationsPopArr();
+            $scope.relationSelections = saleActService.getRelationSelections();
             $scope.openFollow = function () {
                 $scope.followUpModal.show();
             };
@@ -452,6 +454,14 @@ salesModule
                 $scope.selectPopText = x.text;
                 $scope.changeMoreFlag();
             };
+            $scope.addRelationModal = function () {
+                angular.forEach($scope.relationSelections, function (data) {
+                    if(data.flag&&$scope.details.relations.indexOf(data)==-1){
+                        $scope.details.relations.push(data);
+                    }
+                });
+                $scope.hideRelations();
+            };
             $scope.changeMoreFlag = function () {
                 $scope.moreflag = !$scope.moreflag;
             };
@@ -469,8 +479,6 @@ salesModule
             if (text.indexOf(search) == -1) {
                 return text;
             }
-            //text = encodeURI(text);
-            //search = encodeURI(search);
             var regex = new RegExp(search, 'gi');
             var result = text.replace(regex, '<span style="color: red;">$&</span>');
             return $sce.trustAsHtml(result);

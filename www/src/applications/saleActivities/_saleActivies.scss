@@ -234,11 +234,13 @@
       }
     }
     .selector {
-      height: 27px;
+      height: 25px;
       margin: 0 10px;
       border: 1px solid rgba(255, 255, 255, 0.7);
       border-radius: 12px;
       font-size: 14px;
+      position: relative;
+      top: 5px;
       .detail {
         width: 50%;
         float: left;
@@ -246,7 +248,7 @@
         height: 100%;
         border-bottom-left-radius: 11px;
         border-top-left-radius: 11px;
-        padding-top: 2px;
+        padding-top: 1px;
       }
       .relative {
         width: 50%;
@@ -255,7 +257,7 @@
         height: 100%;
         border-bottom-right-radius: 11px;
         border-top-right-radius: 11px;
-        padding-top: 2px;
+        padding-top: 1px;
       }
       .checked {
         background: #c0d1e7;
@@ -532,6 +534,20 @@
       margin-bottom: -2px;
       color: #969698;;
     }
+  }
+  .submitButton{
+    width: 60%;
+    height: 40px;
+    line-height: 37px;
+    font-size: 16px;
+    text-align: center;
+    position: relative;
+    left: 20%;
+    margin-top: 14%;
+    border-radius: 10px;
+    box-shadow: none;
+    color: $crm-subject-blue;
+    border: 1px solid $crm-subject-blue;
   }
 }
 .pushDown-animated {

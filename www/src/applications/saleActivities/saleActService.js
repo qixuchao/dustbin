@@ -19,6 +19,17 @@ salesModule.factory('saleActService', function () {
         progressArr:[{
             content: '与客户进行了初次交涉,效果良好',
             time: '2016-3-6  18:33'
+        }],
+        relations:[{
+            name:'王紫薇',
+            sex:'女士',
+            position:'CATL销售'
+
+        },{
+            name:'克克',
+            sex:'男士',
+            position:'汉得CEO'
+
         }]
     },{
         title:'郑州金龙客车(福州)客户拜访',
@@ -41,6 +52,17 @@ salesModule.factory('saleActService', function () {
         }, {
             content: '最后谈了一次,应该可以成交,主要联系客户李经理进行跟进',
             time: '2016-3-8  12:11'
+        }],
+        relations:[{
+            name:'王紫薇',
+            sex:'女士',
+            position:'CATL销售'
+
+        },{
+            name:'克克',
+            sex:'男士',
+            position:'汉得CEO'
+
         }]
     },{
         title:'这个周末清明节加班',
@@ -61,6 +83,17 @@ salesModule.factory('saleActService', function () {
         }, {
             content: '加班第二天',
             time: '2016-4-4  12:11'
+        }],
+        relations:[{
+            name:'王紫薇',
+            sex:'女士',
+            position:'CATL销售'
+
+        },{
+            name:'克克',
+            sex:'男士',
+            position:'汉得CEO'
+
         }]
     }];
     var createPopTypes = [{
@@ -117,6 +150,32 @@ salesModule.factory('saleActService', function () {
         text:'联系人8'
     }];
     var actDetail = {};
+    var relationsPopArr = [{
+        text: 'CATL销售',
+    }, {
+        text: '联系人',
+    }, {
+        text: '正式客户',
+    }, {
+        text: '潜在客户',
+    }, {
+        text: '竞争对手',
+    }, {
+        text: '合作伙伴',
+    }];
+    var relationSelections=[{
+       name:'马云',
+        sex:'男士',
+       position:'后勤部长'
+    },{
+        name:'马化腾',
+        sex:'男士',
+        position:'保洁'
+    },{
+        name:'李彦宏',
+        sex:'女士',
+        position:'保安'
+    }];
     return{
         getSaleListArr: function () {
             return saleListArr;
@@ -136,6 +195,12 @@ salesModule.factory('saleActService', function () {
         getContact: function () {
             return contacts;
         },
-        actDetail
+        actDetail,
+        getRelationsPopArr : function () {
+            return relationsPopArr;
+        },
+        getRelationSelections: function () {
+            return relationSelections;
+        }
     };
 });
