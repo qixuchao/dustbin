@@ -8569,6 +8569,13 @@ Copyright (c) 2015 Daniel Eden
           height: 2rem;
           margin-top: 0px;
           padding: 0px; }
+          #worksheetlistReported-view .worksheet-query-result .item .left .item-line .pic {
+            width: 14px;
+            height: 14px;
+            vertical-align: middle;
+            display: inline-block;
+            border-radius: 50%;
+            border: 2px solid #9EC92A; }
           #worksheetlistReported-view .worksheet-query-result .item .left .item-line .value {
             color: #888282; }
       #worksheetlistReported-view .worksheet-query-result .item .right {
@@ -8638,6 +8645,8 @@ Copyright (c) 2015 Daniel Eden
               color: #3259A4; }
             #worksheetlistReported-view .worksheet-query-result .item .right .status .value.handling {
               color: #6EB150; }
+            #worksheetlistReported-view .worksheet-query-result .item .right .status .value.cancle {
+              color: #DD417A; }
   #worksheetlistReported-view .xbr-model-div.show {
     min-height: 400px;
     background-color: rgba(6, 6, 6, 0.14); }
@@ -8876,8 +8885,8 @@ Copyright (c) 2015 Daniel Eden
     margin-top: 0rem;
     background-color: white;
     border-radius: 0px 0px 10px 10px;
-    height: 95%;
-    max-height: 95%;
+    height: 300px;
+    max-height: 85%;
     overflow: hidden;
     padding-left: .6rem;
     padding-right: .4rem; }

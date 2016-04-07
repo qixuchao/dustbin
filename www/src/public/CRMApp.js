@@ -308,7 +308,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             .state('worksheetReportedList', {
                 url: '/worksheetReportedList',
                 templateUrl: 'src/worksheetReported/worksheetReportedList.html',
-                controller: 'WorksheetReportedListCtrl'
+                controller: 'WorksheetListReportedCtrl'
             })
 
             //.state('worksheetReportedDetail', { // detailType取值: newCar、siteRepair、batchUpdate
@@ -319,7 +319,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             .state('worksheetReportedInfosList', {
                 url: '/worksheetReportedInfosList',
                 templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
-                controller: 'WorksheetReportedListCtrl'
+                controller: 'WorksheetListReportedCtrl'
             })
             .state('worksheetReportedCreate', {
                 url: '/worksheetReportedCreate',

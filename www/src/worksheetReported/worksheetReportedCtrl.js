@@ -5,14 +5,14 @@ worksheetReportModule.controller("WorksheetListReportedCtrl",[
 	"$ionicPopup", "$timeout", 
 	"$ionicPosition","$state",
 	function($scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition, $state){
-	
+		console.log("----");
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
         /*ionicMaterialMotion.fadeSlideIn({
             selector: '.animate-fade-slide-in .item'
         });*/
     }, 550);
-    
+
 	$scope.config = {
 		searchText: '',
 		//showXbrModel: false, //是否显示遮罩层
@@ -139,56 +139,56 @@ worksheetReportModule.controller("WorksheetListReportedCtrl",[
 			{
 				costomer: '金龙客车',
 				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '新建',
-				statusType: 'NEW',
+				lastModifyTime: '2016.01.01',
+				status: '已取消',
+				statusType: 'CANCLE',
 			},
 			{
 				costomer: '郑州宇通客车',
 				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
+				lastModifyTime: '2016.01.01',
 				status: '处理中',
 				statusType: 'HANDLING',
 			},
 			{
 				costomer: '金龙客车',
 				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
+				lastModifyTime: '2016.01.01',
 				status: '新建',
 				statusType: 'NEW',
 			},
 			{
 				costomer: '郑州宇通客车',
 				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
+				lastModifyTime: '2016.01.01',
 				status: '处理中',
 				statusType: 'HANDLING',
 			},
 			{
 				costomer: '金龙客车',
 				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
+				lastModifyTime: '2016.01.01',
 				status: '新建',
 				statusType: 'NEW',
 			},
 			{
 				costomer: '郑州宇通客车',
 				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
+				lastModifyTime: '2016.01.01',
 				status: '处理中',
 				statusType: 'HANDLING',
 			},
 			{
 				costomer: '金龙客车',
 				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
+				lastModifyTime: '2016.01.01',
 				status: '新建',
 				statusType: 'NEW',
 			},
 			{
 				costomer: '郑州宇通客车',
 				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
+				lastModifyTime: '2016.01.01 ',
 				status: '处理中',
 				statusType: 'HANDLING',
 			}

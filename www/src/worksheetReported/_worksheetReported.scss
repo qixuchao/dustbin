@@ -263,7 +263,15 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
                 	line-height: 2rem;
     				height: 2rem;
     				margin-top: 0px;
-    				padding: 0px;
+				  	padding: 0px;
+					.pic{
+					  width:14px;
+					  height:14px;
+					  vertical-align: middle;
+					  display: inline-block;
+					  border-radius:50%;
+					  border: 2px solid #9EC92A;
+					}
                     .name{
 						
                     }
@@ -306,6 +314,9 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
     					&.handling{
     						color: #6EB150;
     					}
+						&.cancle{
+						  color: #DD417A;
+						}
                     }
                 }
             }
@@ -555,8 +566,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		margin-top: 0rem;
 		background-color: white;
 		border-radius: 0px 0px 10px 10px;	
-		height: 95%;
-		max-height: 95%;
+		height: 300px;
+		max-height: 85%;
 		overflow: hidden;
 		ion-scroll{
 			height: 100%;
