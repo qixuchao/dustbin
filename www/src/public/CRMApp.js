@@ -313,7 +313,39 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 controller: 'selectStaffCtrl'
             })
             // 工单模块相关： end ------------------------
+<<<<<<< HEAD
             
+=======
+            //报工单模块 start-----
+            .state('worksheetReportedList', {
+                url: '/worksheetReportedList',
+                templateUrl: 'src/worksheetReported/worksheetReportedList.html',
+                controller: 'WorksheetListReportedCtrl'
+            })
+
+            //.state('worksheetReportedDetail', { // detailType取值: newCar、siteRepair、batchUpdate
+            //    url: '/worksheetDetail/{detailType}',
+            //    templateUrl: 'src/worksheet/detailAll/detailAll.html',
+            //    controller: 'worksheetDetailAllCtrl'
+            //})
+            .state('worksheetReportedInfosList', {
+                url: '/worksheetReportedInfosList',
+                templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
+                controller: 'WorksheetListReportedCtrl'
+            })
+            .state('worksheetReportedCreate', {
+                url: '/worksheetReportedCreate',
+                templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedCreate.html',
+                controller: 'WorksheetReportedCreateCtrl'
+            })
+            .state('worksheetReportedMaintain', {
+                url: '/worksheetReportedMaintain',
+                templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedMaintain.html',
+                controller: 'WorksheetReportedMaintainCtrl'
+            })
+
+            //报工单模块 end-------
+>>>>>>> Feature/T0001
         ;
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider  // /home/login
