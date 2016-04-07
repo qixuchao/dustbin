@@ -1,17 +1,17 @@
 <ion-view class="CarList">
-    <ion-header-bar class="head pub-head " align-title="center">
+    <ion-header-bar class="bar bar-header" align-title="center">
         <a class="button  button-clear ion-chevron-left backType" ng-click="goBack()"></a>
-        <div class="title text-center">车辆查询</div>
+        <div class="title text-center">车辆信息</div>
     </ion-header-bar>
     <ion-header-bar class="bar bar-subheader ">
         <div class="search1" ng-show="!searchFlag">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="text" placeholder="输入客户信息" ng-click="changePage()">
-            <i class="icon ion-ios-close" ng-show="carInfo.length>0"></i>
+            <input type="text" placeholder="请输入车牌号or车工号or电池系统Barcode" ng-click="changePage()">
         </div>
-        <div class="search2" ng-show="searchFlag">
+        <div class="search2" ng-show="searchFlag" ng-class="{'searchFlag':'animated fadeOutLeft'}">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="text" placeholder="输入客户信息1" ng-model="carInfo" autofocus>
+            <i class="icon ion-ios-close" ng-show="carInfo.length>0" ng-click="initSearch()"></i>
+            <input id="searchId" type="search" placeholder="请输入车牌号or车工号or电池系统Barcode" ng-model="carInfo">
             <i class="button button-clear" ng-click="cancelSearch()">取消</i>
         </div>
     </ion-header-bar>
@@ -32,15 +32,13 @@
                         <div class="col col-6 col-center">
                             <img ng-src="img/car/Oval.png" class="pointImg">
                         </div>
-                        <div class="col col-94 col-center colType">
-                            <span><div ng-bind-html="x.describe |highlight:carInfo"></div></span>
+                        <div class="col col-80 col-center colType">
+                            <span><div ng-bind-html="x.describe | highlight:carInfo"></div></span>
                         </div>
-                    </div>
-                    <div class="row row-center">
-                        <div class="col col-88 col-center"></div>
-                        <div class="col col-12 col-center">
+                        <div class="col col-8 col-center">
                             <img ng-src="img/car/Shape.png" class="shapeImg">
                         </div>
+                        <div class="col col-2"></div>
                     </div>
                 </a>
             </div>
@@ -59,15 +57,13 @@
                 <div class="col col-6 col-center">
                    <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
-                <div class="col col-94 col-center colType">
+                <div class="col col-80 col-center colType">
                     <span>{{car.describe}}</span>
                 </div>
-            </div>
-            <div class="row row-center">
-                <div class="col col-88 col-center"></div>
-                <div class="col col-12 col-center">
+                <div class="col col-8 col-center">
                     <img ng-src="img/car/Shape.png" class="shapeImg">
                 </div>
+                <div class="col col-2"></div>
             </div>
         </div>
     </ion-content>

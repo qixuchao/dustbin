@@ -117,7 +117,7 @@ customerModule
             }
         };
         $scope.customer_showTitle = false;
-        //$scope.customer_showTitleStatus = false;
+        $scope.customer_showtarnsitionTitle = false;
         $scope.customer_TitleFlag=false;
         var customer_position;
         $scope.customer_onScroll = function () {
@@ -130,22 +130,31 @@ customerModule
                 }else{
                     $scope.customer_customerFlag = false;
                 };
-                if (customer_position > 30) {
+                if (customer_position > 40) {
                     $scope.customer_placeFlag = true;
                 }else{
                     $scope.customer_placeFlag = false;
                 };
-                if (customer_position >45) {
+                if (customer_position >60) {
                     $scope.customer_typeFlag = true;
                 }else{
                     $scope.customer_typeFlag = false;
                 };
+                if (customer_position >95) {
+                    $scope.customer_showTitle = false;
+                    $scope.customer_showtarnsitionTitle = true;
+                }else{
+                    $scope.customer_showTitle = true;
+                    $scope.customer_showtarnsitionTitle = false;
+                };
+
             } else {
                 $scope.customer_TitleFlag = false;
                 $scope.customer_showTitle = false;
                 $scope.customer_customerFlag = false;
                 $scope.customer_placeFlag = false;
                 $scope.ecustomer_typeFlag = false;
+                $scope.customer_showtarnsitionTitle = false;
             }
             //if (!$scope.$digest()) {
                 $scope.$apply();

@@ -1,26 +1,23 @@
 
 .SpareList{
-  b, strong {
-    font-weight: 100;
-  }
-  .bar .title{
+  .bar .title {
     position: absolute;
     right: 0;
     left: 0;
     z-index: 0;
     overflow: hidden;
+    margin: 0 10px;
     min-width: 30px;
-    padding: 5px;
     height: 43px;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 16px;
-    color: #fff;
+    color: rgb(250, 250, 250);
   }
-  .bar.bar-header .button+.title {
+  .bar.bar-header .button + .title {
     text-align: center;
-    line-height:44px;
+    line-height: 60px;
   }
   .bar {
     border-bottom: none;
@@ -33,13 +30,16 @@
     border-bottom: none;
     padding: 0;
     background-size: 0;
-    padding-top: 10px;
+    padding-top: 20px;
     .button-clear {
+      position: absolute;
       color: #fff;
       font-size: 22px;
+      max-height: 30px;
+      min-height: 20px;
+      top: 15px;
     }
-    .ion-chevron-left{
-      width: 12px;
+    .ion-chevron-left {
     }
 
   }
@@ -47,28 +47,58 @@
     height: 43px;
     display: block;
     padding: 8px;
-    .placeholder-icon {
-      color: #aaa;
-      position: absolute;
-      z-index: 2;
-      top: .8em;
-      left: 1em;
+    .search1 {
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .8em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: black;
+        vertical-align: middle;
+        font-size: 14px;
+        height: 28px;
+        width: 95%;
+        position: fixed;
+        border-radius: 5px;
+      }
     }
-    input {
-      display: block;
-      padding-left: 2em;
-      color: #ccc;
-      vertical-align: middle;
-      font-size: 14px;
-      height: 28px;
-      width: 96%;
-      position: fixed;
-      border-radius: 5px;
-    }
-    .ion-ios-close{
-      position: absolute;
-      right: 2em;
-      top: 12px;
+    .search2 {
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .8em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: #000;
+        vertical-align: middle;
+        font-size: 12px;
+        height: 25px;
+        width: 72%;
+        position: fixed;
+        border-radius: 5px;
+      }
+      .ion-ios-close {
+        position: fixed;
+        top: 13px;
+        left: 75%;
+        z-index: 2;
+        color: #aaa;
+      }
+      .button-clear {
+        position: relative;
+        left: 86%;
+        font-size: 16px;
+        top: -2px;
+      }
     }
   }
   .has-subheader {
@@ -126,32 +156,51 @@
     font-size: 16px;
     color: #000;
   }
+  .search{
+    .his-title{
+      color: #BFBFBF;
+    }
+    .ion-android-time{
+      margin-right: 5px;
+    }
+    .hisText{
+      white-space:nowrap;
+    }
+    .horizon-line{
+      background: #D8D8D8;
+      width: 100%;
+      height: 1px;
+      margin-left: 5px;
+    }
+    ion-item{
+      border-bottom: 1px solid #D8D8D8;
+      min-height: 0;
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  }
+  .content{
+    .item {
+      position: relative;
+      display: block;
+      margin: -1px;
+      font-size: 16px;
+      padding: 0;
+      //border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+    }
+  }
 }
 .Detail{
-
    .bar.bar-header .button + .title {
     text-align: center;
     color: white;
-    line-height: 3.5em;
-  }
-  .bar .title {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 0;
-    overflow: hidden;
-    min-width: 30px;
-    height: 43px;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 16px;
-    line-height: 44px;
+    line-height: 60px;
+     font-size: 16px;
+     
   }
   .bar .button.button-clear {
     color: #fff;
-    padding-top: 0.6em;
+    padding-top: 15px;
     font-size: 22px;
   }
   .bar{
@@ -166,7 +215,6 @@
     position: relative;
     font-size:15px;
     color:$crm-header-bar-bgcolor;
-    font-weight: 100;
     padding-bottom: 2em;
     .Car_countentbasicinfo{
       position: absolute;
@@ -202,8 +250,6 @@
       padding: 0.8em 0;
       .col-40{
         padding-left:0;
-        color: #000;
-        font-size: 16px;
       }
     }
     img{
@@ -212,8 +258,12 @@
       width: 100%;
     }
     span{
-      font-size: 15px;
+      font-size: 14px;
       color: gray;
+    }
+    .col-40 {
+      color: #000;
+      font-size: 16px;
     }
     .line{
       border-bottom: 1px solid #d2d2d2;

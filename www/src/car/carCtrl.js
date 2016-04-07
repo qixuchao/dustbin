@@ -19,14 +19,20 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
         CarService.setData(car);
         $scope.goSkip('carDetail');
     };
+    $scope.cancelSearch=function(){
+       $scope.searchFlag=false;
+    };
     $scope.changePage=function(){
         $scope.searchFlag=true;
+        $timeout(function () {
+            document.getElementById('searchId').focus();
+        }, 1)
     };
-    $scope.changeSearch=function(){
-        $scope.isSearch=true;
-    };
-    $scope.cancelSearch=function(){
-        $scope.searchFlag=false;
+    $scope.initSearch = function () {
+        $scope.carInfo = '';
+        $timeout(function () {
+            document.getElementById('searchId').focus();
+        }, 1)
     };
     $scope.search = function (x, e) {
         Prompter.showLoading('正在搜索');
@@ -39,8 +45,8 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
     };
 }
 ])
-.controller('CarDetailCtrl',['$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk',
-        function($scope,$state,CarService,$ionicHistory,$ionicScrollDelegate,ionicMaterialInk){
+.controller('CarDetailCtrl',['$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter',
+        function($scope,$state,CarService,$ionicHistory,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter){
         ionicMaterialInk.displayEffect();
         //$scope.select = true;
         $scope.showTitle = false;
@@ -71,10 +77,11 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
                 }else{
                     $scope.projectFlag = false;
                 }
-                if(position>108){
+                if(position>104){
                     if(maxPosition===null){
                         maxPosition=$ionicScrollDelegate.getScrollView().__maxScrollTop;
                     }
+                    console.log(position);
                     $scope.titleStatus=true;
                 }else{
                     $scope.titleStatus=false;
@@ -90,16 +97,22 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
             $scope.$apply();
         };
         $scope.carInfo=CarService.getData();
+        $scope.carDetailval = employeeService.get_employeeListvalue();
         //console.log($scope.cars.describe)
         $scope.projectName="CATL项目名称:";
+
         $scope.goSkip=function(pageName){
             $state.go(pageName);
+        };
+        //电话
+        $scope.carshowphone =function(types){
+            Prompter.showphone(types)
         }
 }
 ])
 
-.controller('MaintenanceCtrl',["$scope","ionicMaterialInk","ionicMaterialMotion","$ionicPopup", "$timeout", "$ionicPosition","$state","CarService","Prompter",
-        function($scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition,$state,CarService,Prompter) {
+.controller('MaintenanceCtrl',["$scope","ionicMaterialInk","ionicMaterialMotion", "$ionicPopup", "$timeout", "$ionicPosition","$state","CarService",
+        function($scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition,$state,CarService) {
         $scope.carInfo = CarService.getData().maintenance;
             $timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
                 //ionicMaterialInk.displayEffect();
@@ -172,6 +185,9 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
                 $scope.config.filterLocalService = false;
                 $scope.config.filterNewCarOnline = false;
                 $scope.config.filterBatchUpdate = false;
+                $scope.config.filterLocalService1 = false;
+                $scope.config.filterNewCarOnline1 = false;
+                $scope.config.filterBatchUpdate1 = false;
                 $scope.config.filterNone = true;
                 //筛选 规则 ----> 影响
                 $scope.config.filterImpactDamage = false;
@@ -335,14 +351,14 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
                 $scope.config.sortedTypeCompactDesc = false;
                 $scope.config.sortedTypeTimeAes = false;
                 $scope.config.sortedTypeTimeDesc = true;
-                //$scope.enterListMode();
-        };
+                $scope.enterListMode();
+            };
             $scope.sorteTimeAes = function(){
                 $scope.config.sortedTypeNone = false;
                 $scope.config.sortedTypeCompactDesc = false;
                 $scope.config.sortedTypeTimeAes = true;
                 $scope.config.sortedTypeTimeDesc = false;
-                //$scope.enterListMode();
+                $scope.enterListMode();
             };
             $scope.sorteNone = function(){
                 $scope.config.sortedTypeNone = true;
@@ -356,43 +372,93 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
                 $scope.config.sortedTypeCompactDesc = true;
                 $scope.config.sortedTypeTimeAes = false;
                 $scope.config.sortedTypeTimeDesc = false;
-                //$scope.enterListMode();
+                $scope.enterListMode();
             };
 
             $scope.selectFilterType = function(filterName){ // localService、batchUpdate、newcarOnline
-                if(filterName == 'localService'){
+
+                if(filterName === 'localService'){
                     if(!$scope.config.filterLocalService){
                         $scope.config.filterLocalService = true;
                         $scope.config.filterNone = false;
                         $scope.config.filterBatchUpdate = false;
                         $scope.config.filterNewCarOnline = false;
+                        $scope.config.filterLocalService1 = false;
+                        $scope.config.filterNewCarOnline1 = false;
+                        $scope.config.filterBatchUpdate1 = false;
                         return;
                     }
                     $scope.config.filterLocalService=!$scope.config.filterLocalService;
-                }else if(filterName == 'batchUpdate'){
+                }else if(filterName ==='batchUpdate'){
                     if(!$scope.config.filterBatchUpdate){
                         $scope.config.filterLocalService = false;
                         $scope.config.filterNone = false;
                         $scope.config.filterBatchUpdate = true;
                         $scope.config.filterNewCarOnline = false;
+                        $scope.config.filterLocalService1 = false;
+                        $scope.config.filterNewCarOnline1 = false;
+                        $scope.config.filterBatchUpdate1 = false;
                           return;
                     }
                     $scope.config.filterBatchUpdate=!$scope.config.filterBatchUpdate
 
-                }else if(filterName == 'newcarOnline'){
-                    if(!$scope.config.filterNewCarOnline){
+                }else if(filterName === 'newcarOnline') {
+                    if (!$scope.config.filterNewCarOnline) {
                         $scope.config.filterLocalService = false;
                         $scope.config.filterNone = false;
                         $scope.config.filterBatchUpdate = false;
                         $scope.config.filterNewCarOnline = true;
+                        $scope.config.filterLocalService1 = false;
+                        $scope.config.filterNewCarOnline1 = false;
+                        $scope.config.filterBatchUpdate1 = false;
                         return;
                     }
-                    $scope.config.filterNewCarOnline=!$scope.config.filterNewCarOnline;
+                    $scope.config.filterNewCarOnline = !$scope.config.filterNewCarOnline;
+                }else if(filterName === 'localService1'){
+                        if(!$scope.config.filterLocalService1){
+                            $scope.config.filterLocalService1 = true;
+                            $scope.config.filterNone = false;
+                            $scope.config.filterBatchUpdate = false;
+                            $scope.config.filterNewCarOnline = false;
+                            $scope.config.filterLocalService = false;
+                            $scope.config.filterNewCarOnline1 = false;
+                            $scope.config.filterBatchUpdate1 = false;
+                            return;
+                        }
+                        $scope.config.filterLocalService1=!$scope.config.filterLocalService1;
+                    }else if(filterName === 'batchUpdate1'){
+                        if(!$scope.config.filterBatchUpdate1){
+                            $scope.config.filterLocalService = false;
+                            $scope.config.filterNone = false;
+                            $scope.config.filterBatchUpdate1 = true;
+                            $scope.config.filterNewCarOnline = false;
+                            $scope.config.filterLocalService1 = false;
+                            $scope.config.filterNewCarOnline1 = false;
+                            $scope.config.filterBatchUpdate = false;
+                            return;
+                        }
+                        $scope.config.filterBatchUpdate1=!$scope.config.filterBatchUpdate1;
+
+                    }else if(filterName === 'newcarOnline1') {
+                    if (!$scope.config.filterNewCarOnline1) {
+                        $scope.config.filterLocalService = false;
+                        $scope.config.filterNone = false;
+                        $scope.config.filterBatchUpdate = false;
+                        $scope.config.filterNewCarOnline1 = true;
+                        $scope.config.filterLocalService1 = false;
+                        $scope.config.filterNewCarOnline = false;
+                        $scope.config.filterBatchUpdate1 = false;
+                        return;
+                    }
+                    $scope.config.filterNewCarOnline1 = !$scope.config.filterNewCarOnline1;
                 }else{
                     $scope.config.filterLocalService = false;
                     $scope.config.filterNone = true;
                     $scope.config.filterBatchUpdate = false;
                     $scope.config.filterNewCarOnline = false;
+                    $scope.config.filterLocalService1 = false;
+                    $scope.config.filterNewCarOnline1 = false;
+                    $scope.config.filterBatchUpdate1 = false;
                 }
             };
             $scope.selectFilterImpact = function(impactName){ // damage height middle low none
@@ -407,64 +473,40 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
                 if(impactName == 'damage'){
                     if(!$scope.config.filterImpactDamage){
                         $scope.config.filterImpactDamage =true;
-                        $scope.config.filterImpactHeight = false;
-                        $scope.config.filterImpactMiddle = false;
-                        $scope.config.filterImpactLow = false;
-                        $scope.config.filterImpactNone = false;
-                        $scope.config.filterImpactNoSelected = false;
                         return;
                     }
                     $scope.config.filterImpactDamage=!$scope.config.filterImpactDamage;
                 }else if(impactName == 'height'){
                     if(!$scope.config.filterImpactHeight){
-                        $scope.config.filterImpactDamage =false;
                         $scope.config.filterImpactHeight = true;
-                        $scope.config.filterImpactMiddle = false;
-                        $scope.config.filterImpactLow = false;
-                        $scope.config.filterImpactNone = false;
-                        $scope.config.filterImpactNoSelected = false;
                         return;
                     }
                     $scope.config.filterImpactHeight=!$scope.config.filterImpactHeight;
                 }else if(impactName == 'middle'){
                     if(!$scope.config.filterImpactMiddle){
-                        $scope.config.filterImpactDamage =false;
-                        $scope.config.filterImpactHeight = false;
                         $scope.config.filterImpactMiddle = true;
-                        $scope.config.filterImpactLow = false;
-                        $scope.config.filterImpactNone = false;
-                        $scope.config.filterImpactNoSelected = false;
                         return;
                     }
                     $scope.config.filterImpactMiddle=!$scope.config.filterImpactMiddle;
                 }else if(impactName == 'low'){
                     if(!$scope.config.filterImpactLow){
-                        $scope.config.filterImpactDamage =false;
-                        $scope.config.filterImpactHeight = false;
-                        $scope.config.filterImpactMiddle = false;
                         $scope.config.filterImpactLow = true;
-                        $scope.config.filterImpactNone = false;
-                        $scope.config.filterImpactNoSelected = false;
                         return;
                     }
                     $scope.config.filterImpactLow =!$scope.config.filterImpactLow ;
                 }else if(impactName == 'none'){
                     if(!$scope.config.filterImpactNone){
-                        $scope.config.filterImpactDamage =false;
-                        $scope.config.filterImpactHeight = false;
-                        $scope.config.filterImpactMiddle = false;
-                        $scope.config.filterImpactLow = false;
                         $scope.config.filterImpactNone = true;
-                        $scope.config.filterImpactNoSelected = false;
                         return;
                     }
                     $scope.config.filterImpactNone=!$scope.config.filterImpactNone;
+
                 }
             };
             $scope.selectFilterStatus = function(statusName){
                 __resetStatus();
                 $scope.config[statusName] = true;
-            }
+            };
             function __resetStatus(){
                 var status = ['filterStatusNew','filterStatusSendedWorker',
                     'filterStatusRefused', 'filterStatusHandling',
@@ -488,16 +530,12 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
                     maintenanceDescribe:'车辆电池出现重大问题'+i
                 };
                 i+=1;
-                Prompter.showLoading('正在加载');
-                $timeout(function(){
-                    Prompter.hideLoading();
-                    $scope.carInfo.push(spareInfo1);
-                },1000)
+                $scope.carInfo.push(spareInfo1);
             };
 
         }])
 
-.controller('SpareCtrl',['$scope','CarService',function($scope,CarService){
+.controller('SpareCtrl',['$scope','CarService','Prompter','$timeout',function($scope,CarService,Prompter,$timeout){
         $scope.spareList=CarService.getData().spare;
         var i=0;
         $scope.loadMore=function(){
@@ -509,10 +547,6 @@ carModule.controller('CarCtrl',['$scope','CarService','$timeout','$state','Promp
                 qualityDate:'2016.01.01-2018.01.01'
             };
             i+=1;
-            Prompter.showLoading('正在加载');
-            $timeout(function(){
-                Prompter.hideLoading();
-                $scope.spareList.push(spareInfo1);
-            },1000)
+            $scope.spareList.push(spareInfo1);
         };
 }]);

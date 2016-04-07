@@ -25,8 +25,8 @@
     padding:10px 13px 10px 13px;
     border: none;
     .customer_Querylistsimg{
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
       float: right;
     }
   };
@@ -43,8 +43,13 @@
     left: 0;
     bottom: 0;
   }
-  .customer_backtop{
-   background: url("../../img/saleDetail/BG1.png") no-repeat;
+  .customer_backtopa{
+   background: url("../../img/customer/customerbackga@2x.png") no-repeat;
+    background-size: 100% 100%;
+    width:100%;
+  }
+  .customer_backtopb{
+    background: url("../../img/customer/customerbackg@2x.png") no-repeat;
     background-size: 100% 100%;
     width:100%;
   }
@@ -85,10 +90,10 @@
 
   .customer_detailname{
     position: absolute;
-    top:26px;
+    top:37px;
     font-size:14px;
     width: 80%;
-    margin-left: 13%;
+    margin-left: 10%;
     color: white;
     text-align: center;
   }
@@ -100,7 +105,7 @@
     color: white;
     .customer_detailcontentname {
       position: absolute;
-      top: 1px;
+      top: 10px;
       left: 25px;
       .customer_detailcontentcicle {
         width: 14px;
@@ -115,12 +120,12 @@
     }
     .customer_detailcontentaddress{
       position: absolute;
-      top:25px;
+      top:35px;
       left:25px;
     }
     .customer_detailcontentphone{
       position: absolute;
-      top:50px;
+      top:60px;
       left:25px;
       .customer_detailcontentphonei{
         float: left;
@@ -182,6 +187,14 @@
   .customer_detail_countentlist{
     margin-top:35px;;
     font-size:16px;
+    .customer_detail_countentlistimg {
+      width: 16px;
+      height: 16px;
+      float: left;
+      margin-top: 2px;
+      margin-left: 8px;
+      margin-right: 5px
+    }
   }
   .customercontentbutton{
     width:55%;

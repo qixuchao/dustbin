@@ -16,10 +16,9 @@
   }
   .money{
     color: #1d63ae;
-    padding-left: 10%!important;
   }
   .time-icon{
-    padding-left: 6px!important;
+    padding-left: 6px;
   }
   .chanSubTitle{
     min-width: 77px;
@@ -55,12 +54,6 @@
   .top-back .selector {
     margin-top: 5px;
   }
-  .title_oval{
-    width: 12px;
-    position: relative;
-    top: 2.5px;
-    margin-right: 5px;
-  }
   .feel{
     background: url("../../img/saleDetail/feel.png") no-repeat;
     width: 60px;
@@ -70,6 +63,16 @@
     right: 5%;
     padding-top: 12px;
     text-align: center;
+  }
+  .saleChanInput{
+    padding: 0;
+    height: auto;
+    color:#9B9B9B;
+  }
+  .saleChanPreInput{
+    width: 80px;
+    height: auto;
+    color:#9B9B9B;
   }
 }
 .saleDetailPop{
@@ -131,5 +134,20 @@
   .popover{
     width: 230px;
     left: 49%;
+  }
+}
+.moneyTypesModal{
+  .content{
+    .selectItem{
+      padding: 0 16px;
+      font-size: 16px;
+      .row{
+        border-bottom: 1px solid $lineColor;
+        padding: 8px 5px;
+      }
+    }
+    .selected{
+      color: $crm-subject-blue;
+    }
   }
 }

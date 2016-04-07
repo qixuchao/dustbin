@@ -36,7 +36,7 @@
         <ion-content style="border-radius:10px">
             <div ng-repeat="types in customercontact_types track by $index" ng-click="customerContactsqueryType(types)" style="height:41px">
                <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:14px;background-color:white;margin:0">
-                   {{types}}
+                   {{types.type}}
                </ion-item>
                 <div style="width:80%;height: 1px;background-color: #9B9B9B;margin-left:10%"></div>
             </div>
