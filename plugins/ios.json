@@ -127,7 +127,8 @@
                     ]
                 }
             }
-        }
+        },
+        "files": {}
     },
     "installed_plugins": {
         "com.verso.cordova.clipboard": {
@@ -140,6 +141,9 @@
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
+        "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-datepicker": {

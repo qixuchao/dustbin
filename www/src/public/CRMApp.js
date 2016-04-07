@@ -19,6 +19,7 @@ var customerContactsModule = angular.module('customerContactsModule', []);
 var customerModuleServive = angular.module('customerModuleServive', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
+var worksheetReportModule = angular.module('worksheetReportModule', []);
 
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
@@ -44,7 +45,8 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'customerChanceModule',
     'customerkeyModule',
     'customerActivityModule',
-    'customerWorkorderModule'
+    'customerWorkorderModule',
+    "worksheetReportModule"
 ]);
 CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
         $ionicPlatform.ready(function () {
@@ -114,13 +116,8 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/employee/customerList.html',
                 controller: 'customerListCtrl'
             })
-            .state('saleChanList', {
-                url: 'apps/saleChanList',
-                templateUrl: 'src/applications/saleActivities/saleAct_List.html',
-                controller: 'saleChanListCtrl'
-            })
             .state('saleChanDetail', {
-                url: 'apps/saleChanList/detail',
+                url: 'apps/saleChanSearch/detail',
                 templateUrl: 'src/applications/saleChance/chanceDetail.html',
                 controller: 'saleChanDetailCtrl'
             })
@@ -320,11 +317,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 controller: 'WorksheetListReportedCtrl'
             })
 
-            //.state('worksheetReportedDetail', { // detailType取值: newCar、siteRepair、batchUpdate
-            //    url: '/worksheetDetail/{detailType}',
-            //    templateUrl: 'src/worksheet/detailAll/detailAll.html',
-            //    controller: 'worksheetDetailAllCtrl'
-            //})
+            .state('worksheetReportedDetail', {
+                url: '/worksheetReportedDetail',
+                templateUrl: 'src/worksheetReported/worksheetReportedDetail/worksheetReporteDetail.html',
+                controller: 'WorksheetListReportedDetailCtrl'
+            })
             .state('worksheetReportedInfosList', {
                 url: '/worksheetReportedInfosList',
                 templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',

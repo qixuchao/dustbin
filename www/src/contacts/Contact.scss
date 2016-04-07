@@ -1,57 +1,57 @@
 .contact_query{
-  .contact_head {
-    width: 100%;
-    height:88px;
-    z-index: 0;
-    background-color: #406FB3;
-    .contact_headtitle {
-      height: 44px;
-      line-height:44px;
-      text-align: center;
-      .contact_headtitlei {
-        font-size: 35px;
-        color: #C4D2E7;
-        display: block;
-        float: left;
-        margin-left: 15px;
-      }
-      .contact_headtitlespan {
-        font-size: 18px;
-        color: white;
-      }
-      .contact_headtitleimg{
-        width:25px;
-        height: 25px;
-        float: right;
-        margin-top:13px;
-        margin-right:15px;
-      }
-    }
-    .contact_headquery {
-      height: 50px;
-      //margin-top: 15px;
-      position: relative;
-      .employeequery_headqueryimg {
-        font-size: 20px;
-        color: #A8A8A8;
-        position: absolute;
-        top: 8px;
-        left: 15px;
-        z-index: 10;
-      }
-      .contact_headqueryinput {
-        height: 35px;
-        width: 96%;
-        border-radius: 5px;
-        padding-left: 30px;
-        background-color: white;
-        position: absolute;
-        top: 0;
-        left: 2%;
-        z-index: 1;
-      }
-    }
-  }
+  //.contact_head {
+  //  width: 100%;
+  //  height:88px;
+  //  z-index: 0;
+  //  background-color: #406FB3;
+  //  .contact_headtitle {
+  //    height: 44px;
+  //    line-height:44px;
+  //    text-align: center;
+  //    .contact_headtitlei {
+  //      font-size: 35px;
+  //      color: #C4D2E7;
+  //      display: block;
+  //      float: left;
+  //      margin-left: 15px;
+  //    }
+  //    .contact_headtitlespan {
+  //      font-size: 18px;
+  //      color: white;
+  //    }
+  //    .contact_headtitleimg{
+  //      width:25px;
+  //      height: 25px;
+  //      float: right;
+  //      margin-top:13px;
+  //      margin-right:15px;
+  //    }
+  //  }
+  //  .contact_headquery {
+  //    height: 50px;
+  //    //margin-top: 15px;
+  //    position: relative;
+  //    .employeequery_headqueryimg {
+  //      font-size: 20px;
+  //      color: #A8A8A8;
+  //      position: absolute;
+  //      top: 8px;
+  //      left: 15px;
+  //      z-index: 10;
+  //    }
+  //    .contact_headqueryinput {
+  //      height: 35px;
+  //      width: 96%;
+  //      border-radius: 5px;
+  //      padding-left: 30px;
+  //      background-color: white;
+  //      position: absolute;
+  //      top: 0;
+  //      left: 2%;
+  //      z-index: 1;
+  //    }
+  //  }
+  //}
   .contact_query_list{
     font-size: 16px;
     color: #4A4A4A;

@@ -42,12 +42,12 @@ worksheetReportModule.controller("WorksheetListReportedCtrl",[
 		filterBatchUpdate: false,
 		filterNone: true,
 		//筛选 规则 ----> 影响：damage height middle low none
-		filterImpactDamage: false,
-		filterImpactHeight: false,
-		filterImpactMiddle: false,
-		filterImpactLow: false,
-		filterImpactNone: false,
-		filterImpactNoSelected: true,
+		//filterImpactDamage: false,
+		//filterImpactHeight: false,
+		//filterImpactMiddle: false,
+		//filterImpactLow: false,
+		//filterImpactNone: false,
+		//filterImpactNoSelected: true,
 		//筛选 规则 ----> 状态
 		filterStatusNew: false, //新建
 		filterStatusSendedWorker: false,		//已派工
@@ -84,12 +84,12 @@ worksheetReportModule.controller("WorksheetListReportedCtrl",[
 		$scope.config.filterBatchUpdate = false;
 		$scope.config.filterNone = true;
 		//筛选 规则 ----> 影响
-		$scope.config.filterImpactDamage = false;
-		$scope.config.filterImpactHeight = false;
-		$scope.config.filterImpactMiddle = false;
-		$scope.config.filterImpactLow = false;
-		$scope.config.filterImpactNone = false;
-		$scope.config.filterImpactNoSelected = true;
+		//$scope.config.filterImpactDamage = false;
+		//$scope.config.filterImpactHeight = false;
+		//$scope.config.filterImpactMiddle = false;
+		//$scope.config.filterImpactLow = false;
+		//$scope.config.filterImpactNone = false;
+		//$scope.config.filterImpactNoSelected = true;
 		//筛选 规则 ----> 状态
 		__resetStatus();
 	};
@@ -374,52 +374,7 @@ worksheetReportModule.controller("WorksheetListReportedCtrl",[
 			$scope.config.filterNewCarOnline = false;
 		}
 	};
-	$scope.selectFilterImpact = function(impactName){ // damage height middle low none
-		if(!impactName){
-			$scope.config.filterImpactDamage =false;
-			$scope.config.filterImpactHeight = false;
-			$scope.config.filterImpactMiddle = false;
-			$scope.config.filterImpactLow = false;
-			$scope.config.filterImpactNone = false;
-			$scope.config.filterImpactNoSelected = true;
-		}
-		if(impactName == 'damage'){
-			$scope.config.filterImpactDamage =true;
-			$scope.config.filterImpactHeight = false;
-			$scope.config.filterImpactMiddle = false;
-			$scope.config.filterImpactLow = false;
-			$scope.config.filterImpactNone = false;
-			$scope.config.filterImpactNoSelected = false;
-		}else if(impactName == 'height'){
-			$scope.config.filterImpactDamage =false;
-			$scope.config.filterImpactHeight = true;
-			$scope.config.filterImpactMiddle = false;
-			$scope.config.filterImpactLow = false;
-			$scope.config.filterImpactNone = false;
-			$scope.config.filterImpactNoSelected = false;
-		}else if(impactName == 'middle'){
-			$scope.config.filterImpactDamage =false;
-			$scope.config.filterImpactHeight = false;
-			$scope.config.filterImpactMiddle = true;
-			$scope.config.filterImpactLow = false;
-			$scope.config.filterImpactNone = false;
-			$scope.config.filterImpactNoSelected = false;
-		}else if(impactName == 'low'){
-			$scope.config.filterImpactDamage =false;
-			$scope.config.filterImpactHeight = false;
-			$scope.config.filterImpactMiddle = false;
-			$scope.config.filterImpactLow = true;
-			$scope.config.filterImpactNone = false;
-			$scope.config.filterImpactNoSelected = false;
-		}else if(impactName == 'none'){
-			$scope.config.filterImpactDamage =false;
-			$scope.config.filterImpactHeight = false;
-			$scope.config.filterImpactMiddle = false;
-			$scope.config.filterImpactLow = false;
-			$scope.config.filterImpactNone = true;
-			$scope.config.filterImpactNoSelected = false;
-		}
-	};
+
 	$scope.selectFilterStatus = function(statusName){
 		__resetStatus();
 		$scope.config[statusName] = true;
@@ -462,194 +417,3 @@ worksheetReportModule.controller("WorksheetListReportedCtrl",[
 	}
 
 }]);
-
-worksheetModule.controller("WorksheetDetailCtrl",[
-	"$scope", 
-	"ionicMaterialInk",
-	"$ionicScrollDelegate",
-	"$timeout",
-	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout){
-
-	$scope.config = {
-		scrollDelegateHandler: null,
-		contentDetegateHandler: null,
-
-		headerScrollStart: false, //header未收缩
-		headerScrolling: false,
-		headerScrollEnd: false,		//header已经收缩至最小状态
-		headerScrollCan: true,
-		headerBarInitHeight: null,
-		headerInfoInitHeight: null,
-		headerBarTitleInitHeight: null
-	};
-
-	$scope.datas = {
-		header:{
-			title: '车辆出现重大问题，需要维修',
-			company: '郑州金龙客车股份有限公司福州分公司',
-			customer: '张三',
-			place: '福建省 福州市',
-			category: '关系维护',
-			status: '处理中'
-		},
-		temp: [
-			{title: '标题---1', content: '内容--------1'},
-			{title: '标题---2', content: '内容--------2'},
-			{title: '标题---3', content: '内容--------3'},
-			{title: '标题---4', content: '内容--------4'},
-			{title: '标题---5', content: '内容--------5'},
-			{title: '标题---6', content: '内容--------6'},
-			{title: '标题---7', content: '内容--------7'},
-			{title: '标题---8', content: '内容--------8'},
-			{title: '标题---9', content: '内容--------9'},
-			{title: '标题---10', content: '内容--------10'},
-			{title: '标题---11', content: '内容--------11'},
-		]
-	};
-
-	$scope.onContentScroll = function($event){
-		var position = contentDetegateHandler.getScrollPosition();
-		var top = position.top;
-	};
-
-	$scope.onContentScroll2 = function($event){
-		var position = scrollDelegateHandler.getScrollPosition();
-		var top = position.top;
-		var directionDown = top < 0 ? true : false;
-		var topOffset = top < 0 ? -top : top;
-		var viewEle = document.getElementById('worksheetdetail-view');
-		viewEleJQ = angular.element(viewEle);
-		var eleHeaderBar = document.getElementsByClassName("detail-header")[0];
-		var eles = viewEle.getElementsByClassName('detail-header-info');
-		var ele = eles && eles.length > 0 ? eles[0] : null;
-		if(ele == null){return;}
-		if($scope.config.headerInfoInitHeight == null){
-			$scope.config.headerInfoInitHeight = ele.offsetHeight;
-		}
-		if($scope.config.headerBarInitHeight == null){
-			$scope.config.headerBarInitHeight = eleHeaderBar.offsetHeight;
-		}
-
-		// 计算此次滚动 background-size 的高度
-		var imageHeight = $scope.config.headerBarInitHeight;
-		imageHeight -= top/2;
-		// 计算 此次滚动 header-bar 最终的高度
-		var finalHeight = ($scope.config.headerBarInitHeight - top);
-
-		if(!directionDown){ //上拉事件
-			finalHeight = Math.max(finalHeight, ($scope.config.headerBarInitHeight-$scope.config.headerInfoInitHeight));
-			imageHeight = Math.max(imageHeight, ($scope.config.headerBarInitHeight-$scope.config.headerInfoInitHeight)+($scope.config.headerInfoInitHeight/2));
-		}else{  //下拉事件
-			finalHeight = Math.min(finalHeight, $scope.config.headerBarInitHeight);
-			imageHeight = Math.min(imageHeight, $scope.config.headerBarInitHeight);
-		}
-
-		
-		ele.style.top = "-"+top+"px";
-		eleHeaderBar.style.backgroundSize = "100% "+imageHeight+"px";
-		eleHeaderBar.style.height = finalHeight+"px";
-		console.log(eleHeaderBar.offsetHeight+"px");
-	};
-
-	$scope.freezeContentScroll = function(freeze, time){		
-		$timeout(function(){
-			$scope.config.contentDetegateHandler.freezeScroll(freeze);
-		},time);	
-	};
-	$scope.freezeBottomScroll = function(freeze, time){
-		$timeout(function(){
-			$scope.config.scrollDelegateHandler.freezeScroll(freeze);
-		},time);		
-	};
-
-	$scope.init = function(){
-		ionicMaterialInk.displayEffect();
-		$scope.config.scrollDelegateHandler = $ionicScrollDelegate.$getByHandle('xbrDelegateScroll');
-		$scope.config.contentDetegateHandler = $ionicScrollDelegate.$getByHandle('xbrDelegateContent');
-		
-		initSwipeEvent();
-	};
-	$scope.init();
-
-	function initSwipeEvent() {
-        var viewEle = document.getElementById('worksheetdetail-view');
-        var eleHeaderBar = viewEle.getElementsByClassName("detail-header")[0];
-        var eleHeaderInfo = viewEle.getElementsByClassName('detail-header-info')[0];
-        var eleHeaderSubTitle = viewEle.getElementsByClassName("sub-title")[0];
-        eleHeaderSubTitle.style.display = "block";
-
-        if ($scope.config.headerInfoInitHeight == null) {
-            $scope.config.headerInfoInitHeight = eleHeaderInfo.offsetHeight;
-        }
-        if ($scope.config.headerBarInitHeight == null) {
-            $scope.config.headerBarInitHeight = eleHeaderBar.offsetHeight;
-        }
-        if ($scope.config.headerBarTitleInitHeight == null) {
-            $scope.config.headerBarTitleInitHeight = $scope.config.headerBarInitHeight - $scope.config.headerInfoInitHeight;
-        }
-
-        // 给 view 添加 touch 相关事件
-        if ('ontouchstart' in window) {
-            viewEle.addEventListener("touchstart", __touchStart, false);
-            viewEle.addEventListener("touchmove", __touchMove, false);
-            viewEle.addEventListener("touchend", __touchEnd, false);
-            viewEle.addEventListener("touchcancel", __touchEnd, false);
-        } else if (window.navigator.pointerEnabled) {
-            // Pointer Events
-            viewEle.addEventListener("pointerdown", __touchStart, false);
-            viewEle.addEventListener("pointermove", __touchMove, false);
-            viewEle.addEventListener("pointerup", __touchEnd, false);
-            viewEle.addEventListener("pointercancel", __touchEnd, false);
-        } else if (window.navigator.msPointerEnabled) {
-            // IE10, WP8 (Pointer Events)
-            viewEle.addEventListener("MSPointerDown", __touchStart, false);
-            viewEle.addEventListener("MSPointerMove", __touchMove, false);
-            viewEle.addEventListener("MSPointerUp", __touchEnd, false);
-            viewEle.addEventListener("MSPointerCancel", __touchEnd, false);
-        } else {
-            // Mouse Events
-            viewEle.addEventListener("mousedown", __touchStart, false);
-            viewEle.addEventListener("mousemove", __touchMove, false);
-            viewEle.addEventListener("mouseup", __touchEnd, false);
-        }
-        ;
-
-        //var startSingleTouch = false;
-        var posTouchStart = null;
-        var posLastMove = null;
-        var posCurrentMove = null;
-        var headerBarInfoTopLast = 0;
-        var touchStartPointValid = false;
-
-        function __touchStart(event) {
-            var e = posTouchStart = __getSingleEventTouches(event);
-            if (e == null) {
-                return;
-            }
-            //startSingleTouch = true;
-            //$scope.config.headerScrollStart = true;
-            touchStartPointValid = true;
-        }
-
-        function __touchMove(event) {
-            if (!touchStartPointValid) {
-                return;
-            }
-            var e = __getSingleEventTouches(event);
-            if (e == null) {
-                return;
-            }
-            if ($scope.config.scrollDelegateHandler.getScrollPosition().top < 5) {
-                $scope.config.headerScrollCan = true;
-                //posTouchStart = e;
-            }
-            if (!$scope.config.headerScrollCan) {
-                posLastMove = null;
-                return;
-            }
-            ;
-        }
-    }
-    }]);
-			
-			//console.log(e.x+"    "+e.y);

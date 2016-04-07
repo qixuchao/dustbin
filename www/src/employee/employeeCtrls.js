@@ -3,7 +3,23 @@
  */
 'use strict';
 employeeModule
-    .controller('userQueryCtrl',['$scope','$state','$http','$timeout','$ionicScrollDelegate','ionicMaterialInk','employeeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicScrollDelegate,ionicMaterialInk,employeeService,$ionicLoading){
+    .controller('userQueryCtrl',['$scope','$state','$http','HttpAppService','$timeout','$ionicScrollDelegate','ionicMaterialInk','employeeService','$ionicLoading',function($scope,$state,$http,HttpAppService,$timeout,$ionicScrollDelegate,ionicMaterialInk,employeeService,$ionicLoading){
+
+        var data = {
+            "I_SYSNAME": { "SysName": "CATL" },
+            "IS_PAGE": {
+                "CURRPAGE": "1",
+                "ITEMS": "10"
+            },
+            "IS_EMPLOYEE": { "NAME": "" }
+        }
+        var url =ROOTCONFIG.hempConfig.basePath + 'EMPLOYEE_LIST';
+        HttpAppService.post(url, data).success(function(response) {
+
+        }).error(function(){
+
+        })
+
        //头部上拉滑动
        ionicMaterialInk.displayEffect();
         $scope.employeefiledvalue ='';
