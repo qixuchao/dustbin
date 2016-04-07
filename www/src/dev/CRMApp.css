@@ -2383,8 +2383,9 @@ Copyright (c) 2015 Daniel Eden
 .bar {
   font-size: 16px; }
 
-.modal-wrapper {
-  pointer-events: auto !important; }
+input[readonly]:not(.cloned-text-input) {
+  background: none !important;
+  border: none !important; }
 
 /* Fix modal backdrop for smaller devices */
 @media (max-width: 679px) {
@@ -3855,8 +3856,9 @@ Copyright (c) 2015 Daniel Eden
   animation-fill-mode: both; }
 
 .createSaleActPop {
-  height: 238px !important;
-  width: 207px !important; }
+  height: 208px !important;
+  width: 208px !important;
+  margin-left: -104px; }
   .createSaleActPop .row {
     padding: 0 5px 5px 5px !important;
     margin: 8px 0 4px 0 !important; }

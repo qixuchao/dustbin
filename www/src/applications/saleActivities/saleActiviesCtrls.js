@@ -9,11 +9,12 @@ salesModule
         '$ionicLoading',
         '$ionicPopover',
         '$ionicModal',
+        '$cordovaToast',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'saleActService',
         'Prompter',
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, ionicMaterialInk,
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal,$cordovaToast, ionicMaterialInk,
                   ionicMaterialMotion, saleActService, Prompter) {
             console.log('销售活动列表');
             $scope.saleTitleText = '销售活动';
@@ -61,7 +62,7 @@ salesModule
             $scope.createPopTypes = saleActService.getCreatePopTypes();
             $scope.createPopOrgs = saleActService.getCreatePopOrgs();
             $scope.pop = {
-                type: {}, org: {}
+                type: {}
             };
             $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Pop.html', {
                 scope: $scope
@@ -70,12 +71,12 @@ salesModule
             });
             $scope.openCreatePop = function () {
                 $scope.pop.type = $scope.createPopTypes[0];
-                $scope.pop.org = $scope.createPopOrgs[0];
                 $scope.createPop.show();
             };
             $scope.showCreateModal = function () {
                 console.log($scope.pop);
                 $scope.createPop.hide();
+                $scope.create = {};
                 $scope.createModal.show();
                 //console.log(document.getElementsByClassName('modal-wrapper'));
                 var tempArr = document.getElementsByClassName('modal-wrapper');
@@ -85,15 +86,15 @@ salesModule
             };
             /*-------------------------------Pop 新建 end-------------------------------------*/
             /*-------------------------------Modal 新建-------------------------------------*/
-            $scope.create = {
-                description: '',
-                place: '',
-                customer: '',
-                contact: '',
-                startTime: '2016-4-1 15:00',
-                endTime: '2016-4-5 10:00',
-                annotate: '测试'
-            };
+            //$scope.create = {
+            //    description: '',
+            //    place: '',
+            //    customer: '',
+            //    contact: '',
+            //    de_startTime: '2016-4-1 15:00',
+            //    de_endTime: '2016-4-5 10:00',
+            //    annotation: '测试'
+            //};
             $scope.selectPersonflag = false;
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Modal.html', {
                 scope: $scope,
@@ -103,7 +104,27 @@ salesModule
             });
             $scope.saveCreateModal = function () {
                 console.log($scope.create);
-                $scope.createModal.hide();
+                $scope.create.type = $scope.pop.type.text;
+                $scope.create.relations = [{
+                    name:$scope.create.contact,
+                    sex:'男士',
+                    position:'开发工程师'
+                }];
+                $scope.create.saleNum = '1000034';
+                $scope.create.status = '处理中';
+                $scope.create.refer='商机-郑州客车销售机会';
+                if($scope.create.startTime){
+                    $scope.create.startTime = $scope.create.de_startTime.split(' ')[0];
+                }
+                saleActService.actDetail = $scope.create;
+                Prompter.showLoading('正在保存');
+                $timeout(function () {
+                    Prompter.hideLoading();
+                    saleActService.getSaleListArr().push($scope.create);
+                    //$cordovaToast.showShortBottom('保存成功');
+                    $state.go('saleActDetail');
+                    $scope.createModal.hide();
+                },1000);
             };
 
             //选择人
@@ -154,7 +175,7 @@ salesModule
                 $scope.referMoreflag = true;
                 $scope.isDropShow = true;
             };
-            $scope.initSearch = function () {
+            $scope.initCustomerSearch = function () {
                 $scope.input.customer = '';
                 $timeout(function () {
                     document.getElementById('selectCustomerId').focus();
@@ -164,6 +185,7 @@ salesModule
                 $scope.create.customer = x.text;
                 $scope.selectCustomerModal.hide();
             };
+
             $scope.$on('$destroy', function () {
                 $scope.createPop.remove();
                 $scope.createModal.remove();

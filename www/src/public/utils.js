@@ -104,10 +104,10 @@ utilsModule.service('Prompter', ['$ionicLoading', '$ionicPopup', '$ionicActionSh
             var time = getFormatTime(returnDate);
             switch (name) {
               case 'actDetailStart':
-                scope.details.startTime = time;
+                scope.details.de_startTime = time;
                 break;
               case 'actDetailEnd':
-                scope.details.endTime = time;
+                scope.details.de_endTime = time;
                 break;
             }
           });

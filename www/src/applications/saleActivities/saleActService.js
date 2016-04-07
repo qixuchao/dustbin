@@ -69,6 +69,8 @@ salesModule.factory('saleActService', function () {
         customer:'新能源项目组',
         place:'上海市',
         startTime:'2016-4-4',
+        de_startTime:'2016/3/1 12:00',
+        de_endTime:'2016/4/1 15:03',
         type:'放假性活动',
         status:'已完成',
         saleNum:'120036',
@@ -151,17 +153,17 @@ salesModule.factory('saleActService', function () {
     }];
     var actDetail = {};
     var relationsPopArr = [{
-        text: 'CATL销售',
+        text: 'CATL销售'
     }, {
-        text: '联系人',
+        text: '联系人'
     }, {
-        text: '正式客户',
+        text: '正式客户'
     }, {
-        text: '潜在客户',
+        text: '潜在客户'
     }, {
-        text: '竞争对手',
+        text: '竞争对手'
     }, {
-        text: '合作伙伴',
+        text: '合作伙伴'
     }];
     var relationSelections=[{
        name:'马云',

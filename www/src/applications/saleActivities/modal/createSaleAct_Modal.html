@@ -12,11 +12,11 @@
     <ion-content class="content">
         <div class="row row-center">
             <div class="col col-35">描述:</div>
-            <div class="col col-65"><input type="text" ng-model="create.description" value="sss"></div>
+            <div class="col col-65"><input type="text" ng-model="create.title"></div>
         </div>
         <div class="row row-center">
             <div class="col col-35">地点:</div>
-            <div class="col col-65"><input type="text" ng-model="create.place" value="sss"></div>
+            <div class="col col-65"><input type="text" ng-model="create.place"></div>
         </div>
         <div class="row row-center">
             <div class="col col-35">客户:</div>
@@ -28,15 +28,15 @@
         </div>
         <div class="row row-center">
             <div class="col col-35">开始时间</div>
-            <div class="col col-65">{{create.startTime}}</div>
+            <div class="col col-65">{{create.de_startTime}}</div>
         </div>
         <div class="row row-center">
             <div class="col col-35">结束时间</div>
-            <div class="col col-65">{{create.endTime}}</div>
+            <div class="col col-65">{{create.de_endTime}}</div>
         </div>
         <div class="annotate">
             <div class="text">注释:</div>
-            <textarea rows="6" ng-model="create.annotate"></textarea>
+            <textarea rows="6" ng-model="create.annotation"></textarea>
         </div>
     </ion-content>
 </ion-modal-view>
