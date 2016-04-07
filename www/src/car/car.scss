@@ -1,10 +1,15 @@
 @charset "UTF-8";
 //车辆查询
-.CarList{
+.CarList {
   b, strong {
     font-weight: 100;
   }
-  .bar .title{
+  .row {
+    .col {
+      padding: 0;
+    }
+  }
+  .bar .title {
     position: absolute;
     right: 0;
     left: 0;
@@ -20,8 +25,9 @@
     font-weight: 100;
     color: rgb(250, 250, 250);
   }
-  .bar.bar-header .button+.title {
+  .bar.bar-header .button + .title {
     text-align: center;
+    line-height: 60px;
   }
   .bar {
     border-bottom: none;
@@ -34,206 +40,238 @@
     border-bottom: none;
     padding: 0;
     background-size: 0;
-    padding-top: 5px;
+    padding-top: 20px;
     .button-clear {
-    color: #fff;
-    padding-top: 0.6em;
-    font-size: 22px;
-  }
-    .ion-chevron-left{
-      width: 12px;
+      position: absolute;
+      color: #fff;
+      font-size: 22px;
+      max-height: 30px;
+      min-height: 20px;
+      top: 13px;
+    }
+    .ion-chevron-left {
     }
 
   }
   .bar-subheader {
     height: 43px;
     display: block;
-    .placeholder-icon {
-      color: #aaa;
-      position: absolute;
-      z-index: 2;
-      top: .6em;
-      left: 1em;
+    padding: 8px;
+    .search1 {
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .8em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: black;
+        vertical-align: middle;
+        font-size: 14px;
+        height: 28px;
+        width: 95%;
+        position: fixed;
+        border-radius: 5px;
+      }
     }
-    input {
-      display: block;
-      padding: 8px;
-      padding-left: 2em;
-      color: #ccc;
-      vertical-align: middle;
-      font-size: 15px;
-      line-height: 16px;
-      width: 96%;
-      position: fixed;
-      right: 6px;
-      border-radius: 5px;
-    }
-    .ion-ios-close{
-      position: absolute;
-      right: 1em;
-      top: 8px;
-    }
-  }
-  .row+.row .row {
-    padding-top: 0;
-    height: 4em;
-  }
-  .Car_countentbasic{
-    position: relative;
-    font-size:15px;
-    color:$crm-header-bar-bgcolor;
-    font-weight: 100;
-    .Car_countentbasicinfo{
-      position: absolute;
-      top:0px;
-      left: 20px;
-    }
-    .Car_countentbasicline{
-      position: absolute;
-      top:10px;
-      left: 85px;
-      width: 100%;
-      height:1px;
-      background-color: $crm-header-bar-bgcolor;
-    }
-    .Car_countentbasicclok{
-      position: absolute;
-      top:15px;
-      margin-top: 2px;
-      left:0px;
-      width:55px;
-      height:15px;
-      border: 1px solid #406FB3;
-      border-top: none;
-      border-left: none;
-    }
-  }
-  .shapeImg{
-    height: 1.2em;
-    position: relative;
-    left: .8em;
-    top: .4em;
-  }
-   .contentType{
-    position: relative;
-    top: 2em;
-    border-bottom: 1px solid rgba(43, 43, 43, 0.17);
-  }
-  .row .col{
-     padding:0;
-  }
-  .rowType{
-    padding-top:.8em;
-    position: relative;
-    left:4%;
-    padding-left: 0;
-    .pointImg{
-      height: 0.7em;
-    }
-    .colType{
-      padding-left: 0;
-      span{
-        font-size: 1em;
-        color: #4a4a4a;
-        font-weight: 100;
+    .search2 {
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .8em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: #000;
+        vertical-align: middle;
+        font-size: 12px;
+        height: 25px;
+        width: 72%;
+        position: fixed;
+        border-radius: 5px;
+      }
+      .ion-ios-close {
+        position: absolute;
+        top: 13px;
+        right: 5em;
+        z-index: 2;
+        color: #aaa;
+      }
+      .button-clear {
+        position: relative;
+        left: 86%;
+        font-size: 16px;
+        top: -2px;
       }
     }
   }
-  .search{
-    .his-title{
-      color: #BFBFBF;
+    .row + .row .row {
+      padding-top: 0;
+      height: 4em;
     }
-    .ion-android-time{
-      margin-right: 5px;
+    .has-subheader {
+      top: 95px;
     }
-    .hisText{
-      white-space:nowrap;
-    }
-    .horizon-line{
-      background: #D8D8D8;
-      width: 100%;
-      height: 1px;
-      margin-left: 5px;
-    }
-    ion-item{
-      border-bottom: 1px solid #D8D8D8;
-      min-height: 0;
-      font-size: 16px;
-      padding: 10px 16px;
-    }
-  }
-  .content{
-    .item {
+    .Car_countentbasic {
       position: relative;
-      display: block;
-      margin: -1px;
-      font-size: 16px;
+      font-size: 15px;
+      color: $crm-header-bar-bgcolor;
+      font-weight: 100;
+      .Car_countentbasicinfo {
+        position: absolute;
+        top: 0px;
+        left: 20px;
+      }
+      .Car_countentbasicline {
+        position: absolute;
+        top: 10px;
+        left: 85px;
+        width: 100%;
+        height: 1px;
+        background-color: $crm-header-bar-bgcolor;
+      }
+      .Car_countentbasicclok {
+        position: absolute;
+        top: 15px;
+        margin-top: 2px;
+        left: 0px;
+        width: 55px;
+        height: 15px;
+        border: 1px solid #406FB3;
+        border-top: none;
+        border-left: none;
+      }
+    }
+    .shapeImg {
+      height: 1.2em;
+      position: relative;
+      top: .2em;
+      left: 0.4em;
+    }
+    .contentType {
+      position: relative;
+      top: 2em;
+      border-bottom: 1px solid rgba(43, 43, 43, 0.17);
+    }
+    .rowType {
+      position: relative;
+      left: 4%;
+      padding: 0.8em 0;
+      .pointImg {
+        height: 0.7em;
+      }
+      .colType {
+        padding-left: 0;
+        span {
+          font-size: 14px;
+          color: #000;
+        }
+      }
+    }
+    .search {
+      .his-title {
+        color: #BFBFBF;
+      }
+      .ion-android-time {
+        margin-right: 5px;
+      }
+      .hisText {
+        white-space: nowrap;
+      }
+      .horizon-line {
+        background: #D8D8D8;
+        width: 100%;
+        height: 1px;
+        margin-left: 5px;
+      }
+      ion-item {
+        border-bottom: 1px solid #D8D8D8;
+        min-height: 0;
+        font-size: 14px;
+        padding: 10px 16px;
+      }
+    }
+    .content {
+      .item {
+        position: relative;
+        display: block;
+        margin: -1px;
+        font-size: 14px;
+        padding: 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+      }
+    }
+  }
+
+  //车辆详情列表
+  .CarDetail {
+    .row .col {
       padding: 0;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+      margin: 0;
     }
-  }
-}
-//车辆详情列表
-.CarDetail {
-  .row .col{
-    padding:0;
-    margin: 0;
-  }
-  .absolute{
-    position: absolute;
-    z-index: 9;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-  }
-  .top-back3{
-    margin-top:-1px;
-    color: white;
-    height:3.28em;
-    font-size: 16px;
-    .title {
-      padding-top: 10px;
+    .absolute {
+      position: absolute;
+      z-index: 9;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+    }
+    .top-back3 {
+      margin-top: -1px;
       color: white;
-      i {
-        font-size: 25px;
-        color: #c9ddf0;
-        padding-left: 8px;
+      height: 3.28em;
+      font-size: 16px;
+      .title {
+        padding-top: 20px;
+        color: white;
+        i {
+          font-size: 25px;
+          color: #c9ddf0;
+          padding-left: 15px;
+        }
       }
     }
-  }
-  .top-back2{
-    background:url("../../img/car/barBg.png") no-repeat;
-    background-size:100% 100%!important;
-    margin-top:-1px;
-    color: white;
-    height:4em;
-    font-size: 16px;
-    .title {
-      padding-top: 20px;
+    .top-back {
+      background: url("../../img/car/headerBg.png") no-repeat;
+      background-size: 100% 100%;
       color: white;
-      i {
-        font-size: 25px;
-        color: #c9ddf0;
-        padding-left: 8px;
+      font-size: 16px;
+      height: 161px;
+      .title {
+        padding-top: 20px;
+        color: white;
+        i {
+          font-size: 25px;
+          color: #c9ddf0;
+          padding-left: 15px;
+        }
       }
     }
-  }
-  .top-back {
-    background:url("../../img/car/headerBg.png") no-repeat;
-    background-size:100% 100%;
-    color: white;
-    font-size: 16px;
-    height: 164px;
-    .title {
-      padding-top: 10px;
+    .top-back2 {
+      background: url("../../img/car/barBg1.png") no-repeat;
+      background-size: 100% 100% !important;
+      margin-top: -1px;
       color: white;
-      i {
-        font-size: 25px;
-        color: #c9ddf0;
-        padding-left: 8px;
+      height: 60px;
+      font-size: 16px;
+      .title {
+        padding-top: 20px;
+        color: white;
+        i {
+          font-size: 25px;
+          color: #c9ddf0;
+          padding-left: 15px;
+        }
       }
     }
+
     .mainInfo {
       .row {
         padding-bottom: 10px;
@@ -257,236 +295,235 @@
       }
 
     }
-  }
-  .row1 {
-    font-size: 16px;
-    position: relative;
-    left: 4%;
-    top: 0.5em;
-    color: white;
-    padding-left: 0;
-    .col{
-      padding-left: 0;
-      padding-right: 0;
-    }
-    .pointImg {
-      height: 0.7em;
-    }
-    .colText{
-      font-size: 15px;
-    }
-  }
-  .row2 {
-    font-size: 14px;
-    position: relative;
-    left: 4%;
-    top: 1em;
-    margin-top: 0;
-    color: white;
-    padding-left: 0;
-  }
-  .col-60{
-    font-size:1.1em;
-    color:rgba(155, 155, 155,0.9) ;
-  }
-  u{
-    color: $crm-header-bar-bgcolor;
-    font-size: 0.8em;
-  }
-  .col-80{
-    font-size:13px;
-    color:rgba(155, 155, 155,0.9) ;
-  }
-
-  .contentType{
-    position: relative;
-  }
-  .btType {
-    padding: 0 0.5em 0 0.5em;
-    height:38px;
-  }
-  .Car_countentbasic{
+    .row1 {
+      font-size: 16px;
       position: relative;
-      font-size:15px;
-      color:$crm-header-bar-bgcolor;
+      left: 4%;
+      top: 0.5em;
+      color: white;
+      padding-left: 0;
+      .col {
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .pointImg {
+        height: 0.7em;
+      }
+      .colText {
+        font-size: 15px;
+      }
+    }
+    .row2 {
+      font-size: 14px;
+      position: relative;
+      left: 4%;
+      top: 1em;
+      margin-top: 0;
+      color: white;
+      padding-left: 0;
+    }
+    .col-56 {
+      font-size: 14px;
+    }
+    u {
+      color: $crm-header-bar-bgcolor;
+      font-size: 0.8em;
+    }
+    .col-76 {
+      font-size: 13px;
+    }
+
+    .contentType {
+      position: relative;
+    }
+    .btType {
+      padding: 0 0.5em 0 0.5em;
+      height: 38px;
+    }
+    .Car_countentbasic {
+      position: relative;
+      font-size: 15px;
+      color: $crm-header-bar-bgcolor;
       margin-bottom: 2.5em;
       margin-top: 0.3em;
       font-weight: 100;
-      .Car_countentbasicinfo{
+      .Car_countentbasicinfo {
         position: absolute;
         left: 20px;
       }
-      .Car_countentbasicline{
+      .Car_countentbasicline {
         position: absolute;
-        top:10px;
+        top: 10px;
         left: 85px;
         width: 100%;
-        height:1px;
+        height: 1px;
         background-color: $crm-header-bar-bgcolor;
       }
-      .Car_countentbasicclok{
+      .Car_countentbasicclok {
         position: absolute;
-        top:15px;
+        top: 15px;
         margin-top: 4px;
-        left:0px;
-        width:55px;
-        height:15px;
+        left: 0px;
+        width: 55px;
+        height: 15px;
         border: 1px solid $crm-header-bar-bgcolor;
         border-top: none;
         border-left: none;
       }
-  }
-  .Car_countentbasic1{
-    position: relative;
-    font-size:15px;
-    color:$crm-header-bar-bgcolor;
-    margin-bottom: 2.5em;
-    margin-top: 0.3em;
-    font-weight: 100;
-    .Car_countentbasicinfo{
-      position: absolute;
-      left: 20px;
     }
-    .Car_countentbasicline{
-      position: absolute;
-      top:10px;
-      left: 100px;
+    .Car_countentbasic1 {
+      position: relative;
+      font-size: 15px;
+      color: $crm-header-bar-bgcolor;
+      margin-bottom: 2.5em;
+      margin-top: 0.3em;
+      font-weight: 100;
+      .Car_countentbasicinfo {
+        position: absolute;
+        left: 20px;
+      }
+      .Car_countentbasicline {
+        position: absolute;
+        top: 10px;
+        left: 100px;
+        width: 100%;
+        height: 1px;
+        background-color: $crm-header-bar-bgcolor;
+      }
+      .Car_countentbasicclok {
+        position: absolute;
+        top: 15px;
+        margin-top: 4px;
+        left: 0px;
+        width: 55px;
+        height: 15px;
+        border: 1px solid $crm-header-bar-bgcolor;
+        border-top: none;
+        border-left: none;
+      }
+    }
+    .titleType {
+      position: relative;
+      padding-top: 5px;
+      height: 2.1em;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .titleImg {
+      height: 2.5em;
       width: 100%;
-      height:1px;
-      background-color:$crm-header-bar-bgcolor;
+      padding-left: 0;
+      padding-right: 0;
     }
-    .Car_countentbasicclok{
-      position: absolute;
-      top:15px;
-      margin-top: 4px;
-      left:0px;
-      width:55px;
-      height:15px;
-      border: 1px solid $crm-header-bar-bgcolor;
-      border-top: none;
-      border-left: none;
+    b, strong {
+      font-weight: 100;
+      font-size: 15px;
+      color: rgb(0, 0, 0);
     }
-  }
-  .titleType {
-    position: relative;
-    padding-top: 5px;
-    height: 2.1em;
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .titleImg{
-    height:2.5em;
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-   }
-  b, strong {
-    font-weight: 100;
-    font-size: 15px;
-    color: rgb(0, 0, 0);
-  }
-   .rowType {
-     position: relative;
-     left: 4%;
-     padding-top: 1em;
-     padding-bottom: 1em;
-     padding-right: 0;
-     padding-left: 0;
-     .col{
-       padding:0;
-     }
-  }
-   .rowType1 {
-     position: relative;
-     left: 4%;
-     padding-top: 1em;
-     padding-bottom: 1em;
-     padding-right:0;
-     padding-left: 0;
-     .col{
-       padding:0;
-     }
-  }
-  .lineType1{
-    border-bottom: 1px solid #ccc;
-  }
-   .colType {
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-  .rowType2 {
-    padding: 0;
-    margin: 0;
-    .col{
-      padding:0;
+    .rowType {
+      position: relative;
+      left: 4%;
+      padding-top: 1em;
+      padding-bottom: 1em;
+      padding-right: 0;
+      padding-left: 0;
+      .col {
+        padding: 0;
+      }
+    }
+    .rowType1 {
+      position: relative;
+      left: 4%;
+      padding-top: 1em;
+      padding-bottom: 1em;
+      padding-right: 0;
+      padding-left: 0;
+      .col {
+        padding: 0;
+      }
+    }
+    .lineType1 {
+      border-bottom: 1px solid #ccc;
+    }
+    .colType {
+      padding-top: 0;
+      padding-bottom: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .rowType2 {
+      padding: 0;
+      margin: 0;
+      .col {
+        padding: 0;
+      }
+    }
+    .lastRow {
+      padding-left: 0.9em;
+      padding-top: 5px;
+      border-left: 1px solid rgba(128, 128, 128, 0.54);
     }
   }
- .lastRow {
-    padding-left: 0.9em;
-    padding-top: 5px;
-    border-left: 1px solid rgba(128, 128, 128, 0.54);
-  }
-}
-$worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
-.Maintenance {
+  $worksheetlist-selected-color: rgb(50, 89, 164); //#236CE6;
+  .Maintenance {
     background-color: $crm-header-bar-bgcolor;
 
-    ion-header-bar{
+    ion-header-bar {
       background-color: $crm-header-bar-bgcolor;
       transition: left 0.2s ease-out 0s;
       left: 0;
-      .left-back{
+      .left-back {
         @include display-flex;
         @include align-items(center);
         justify-content: center;
         font-size: 1.8rem;
         padding-left: 15px;
         color: white;
+        position: absolute;
+        top: 20px;
       }
       .left-back, .title, {
-        transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
+        transition: min-width .2s linear 0s, width .2s linear 0s, left .15s linear 0s;
       }
-      .buttons.right{
+      .buttons.right {
         background-color: #3259A4;
         width: 2.5rem;
         overflow: hidden;
         display: inline-block;
 
       }
-      .right-buttons-active{
+      .right-buttons-active {
         width: 100%;
         border: 1px solid red;
       }
-      &.query-mode{
-        .buttons.right{
+      &.query-mode {
+        .buttons.right {
           width: 96%;
           margin: auto;
-          .button-clear.search{
+          .button-clear.search {
             width: 1.8rem;
             min-width: 1.8rem;
             background-color: white;
             color: $crm-header-bar-bgcolor;
             border-radius: 10px 0px 0px 0px;
-            i:before{
+            i:before {
               font-size: 1.2rem;
             }
           }
-          input{
+          input {
             border-radius: 0px 0px 10px 0px;
           }
         }
-        .left-back, .title{
+        .left-back, .title {
           width: 0rem;
           min-width: 0px;
         }
-        .left-back{
+        .left-back {
           overflow: hidden;
           margin: 0px;
           padding: 0px;
         }
-        .title{
+        .title {
           overflow: hidden;
           margin: 0px;
           padding: 0px;
@@ -494,65 +531,66 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         }
       }
     }
-  .bar {
-    font-size: 16px;
-    height: 3.5em;
-  }
-  .bar .title {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 0;
-    overflow: hidden;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 16px;
-    font-weight: 100;
-    line-height: 3.5em;
-    color: white;
-  }
-    ion-content{
+    .bar {
+      font-size: 16px;
+      height: 3.5em;
+      padding-top: 20px;
+    }
+    .bar .title {
+      position: absolute;
+      top: 5px;
+      right: 0;
+      left: 0;
+      z-index: 0;
+      overflow: hidden;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 16px;
+      font-weight: 100;
+      line-height: 3.5em;
+      color: white;
+    }
+    ion-content {
       background-color: $crm-content-bgcolor;
       @include display-flex;
       @include flex-direction(column);
-      top:4em;
+      top: 4em;
     }
 
-  .divLine {
-    border-bottom: 1px solid rgba(128, 128, 128, 0.26);
-    .rowContent {
-      position: relative;
-      padding-left: 0;
-      left: 4%;
-      .col {
-        padding: 0;
+    .divLine {
+      border-bottom: 1px solid rgba(128, 128, 128, 0.26);
+      .rowContent {
+        position: relative;
+        padding-left: 0;
+        left: 4%;
+        .col {
+          padding: 0;
+        }
+        .pointImg {
+          height: 10px;
+        }
+        b {
+          font-weight: 100;
+          color: rgba(68, 68, 68, 0.89);;
+          font-size: 16px;
+        }
+        span {
+          font-size: 14px;
+          color: rgba(17, 17, 17, 0.43);
+          font-weight: 500;
+        }
       }
-      .pointImg {
-        height: 10px;
-      }
-      b {
-        font-weight: 100;
-        color: rgba(68, 68, 68, 0.89);;
-        font-size: 16px;
-      }
-      span {
-        font-size: 14px;
-        color: rgba(17, 17, 17, 0.43);
-        font-weight: 500;
+      .buttonText {
+        .span {
+          left: 25%;
+        }
       }
     }
-    .buttonText {
-      .span{
-        left: 25%;
-      }
-    }
-  }
 
-    .search-box-wrapper{
+    .search-box-wrapper {
       background-color: $crm-header-bar-bgcolor;
-      .search-box{
+      .search-box {
         width: 94%;
         border: 1px solid #DAD7D7;
         margin: auto;
@@ -562,7 +600,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         background-color: white;
         color: #969494;
       }
-      i{
+      i {
         width: 9%;
         display: inline-block;
         margin: auto;
@@ -571,7 +609,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         font-size: 1.2rem;
         vertical-align: middle;
       }
-      input{
+      input {
         display: inline-block;
         height: 2rem;
         line-height: 2rem;
@@ -579,156 +617,160 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
       }
     }
 
-
-    .divs-wrapper{
+    .divs-wrapper {
       position: relative;
       @include flex(1);
       overflow: hidden;
-      &.show-model{
+      &.show-model {
         //background-color: rgba(0, 0, 0, 0.14);
-        .divs-wrapper-bg{
+        .divs-wrapper-bg {
           background-color: rgba(2, 2, 2, 0.36);
         }
       }
-      pointer-events:auto;
-      .divs-wrapper-bg{
+      pointer-events: auto;
+      .divs-wrapper-bg {
         position: absolute;
-        top: 0px; bottom: 0px;
-        left: 0px; right: 0px;
-        pointer-events:auto;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        pointer-events: auto;
         //background-color: rgba(2, 2, 2, 0.36);
         @include transition(background-color .4s linear 0s);
       }
       //为动画而生
-      .tab-sort-content, .tab-filter-content{
+      .tab-sort-content, .tab-filter-content {
         transition: transform .2s linear 0s;
         transform: translateY(-100%);
       }
-      &.sort-from-click{
-        .tab-sort-content{
+      &.sort-from-click {
+        .tab-sort-content {
           transform: translateY(0%);
         }
-        .tab-filter-content{
+        .tab-filter-content {
           transition: transform 0s linear 0s;
           transform: translateX(100%);
         }
       }
-      &.sort-from-filter{
-        .tab-sort-content{
+      &.sort-from-filter {
+        .tab-sort-content {
           transform: translateX(0%);
         }
-        .tab-filter-content{
+        .tab-filter-content {
           transform: translateX(100%);
+          .row{
+            padding-left: 0;
+          }
         }
       }
-      &.filter-from-click{
-        .tab-filter-content{
+      &.filter-from-click {
+        .tab-filter-content {
           transform: translateY(0%);
         }
-        .tab-sort-content{
+        .tab-sort-content {
           transition: transform 0s linear 0s;
           transform: translateX(-100%);
         }
       }
-      &.filter-from-sort{
-        .tab-sort-content{
+      &.filter-from-sort {
+        .tab-sort-content {
           transform: translateX(-100%);
         }
-        .tab-filter-content{
+        .tab-filter-content {
           transform: translateX(0px);
         }
       }
 
-      &.sort-click-gone{
-        .tab-sort-content{
+      &.sort-click-gone {
+        .tab-sort-content {
           transform: translateY(-100%);
         }
-        .tab-filter-content{
+        .tab-filter-content {
           transition: transform 0s linear 0s;
           transform: translateY(-100%);
         }
       }
-      &.filter-click-gone{
-        .tab-sort-content{
+      &.filter-click-gone {
+        .tab-sort-content {
           //transition: transform 0s linear 0s;
           transform: translateY(-100%);
         }
-        .tab-filter-content{
+        .tab-filter-content {
           transform: translateY(-100%);
         }
       }
 
-      &.filter-gone-bymodelclick{
-        .tab-sort-content{
+      &.filter-gone-bymodelclick {
+        .tab-sort-content {
           transition: transform 0s linear 0s;
           transform: translateY(-100%);
         }
-        .tab-filter-content{
+        .tab-filter-content {
           transform: translateY(-100%);
         }
       }
-      &.sorte-gone-bymodelclick{
-        .tab-sort-content{
+      &.sorte-gone-bymodelclick {
+        .tab-sort-content {
           //transition: transform 0s linear 0s;
           transform: translateY(-100%);
         }
-        .tab-filter-content{
+        .tab-filter-content {
           transition: transform 0s linear 0s;
           transform: translateY(-100%);
         }
       }
     }
     $divs-wrapper-z-index: 1;
-    .worksheet-query-result{
+    .worksheet-query-result {
       width: 100%;
       height: 100%;
       position: absolute;
       z-index: 0;
       background-color: white;
-      .loading-more{
+      .loading-more {
         height: 3rem;
         line-height: 3rem;
         text-align: center;
         color: #ADAAAA;
       }
-      .list{
+      .list {
         padding-bottom: 0rem;
         margin-bottom: 0px;
       }
-      .item.ng-enter{
+      .item.ng-enter {
         transition: 0.4s linear all;
         opacity: 0;
       }
-      .item.ng-enter.ng-enter-active{
+      .item.ng-enter.ng-enter-active {
         opacity: 1;
       }
-      .item{
+      .item {
         background-color: transparent;
         border-bottom: 1px solid #CCC9C9;
         padding: .3rem .6rem;
         @include display-flex;
         //@include flex-direction(column);
-        .left{
+        .left {
           @include flex(75);
-          .item-line{
+          .item-line {
             line-height: 2rem;
             height: 2rem;
             margin-top: 0px;
             padding: 0px;
-            .name{
+            .name {
 
             }
-            .value{
+            .value {
               color: #888282;
             }
           }
         }
-        .right{
+        .right {
           @include flex(25);
           @include display-flex;
           @include flex-direction(column);
           @include justify-content(flex-end);
-          .enter-detail-btn{
+          .enter-detail-btn {
             @include flex(1);
             @include align-self(flex-end);
             text-align: right;
@@ -737,24 +779,24 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             @include display-flex;
             @include align-items(center);
             @include justify-content(flex-end);
-            i{
+            i {
               font-size: 1.8rem;
               color: #A29F9F;
               margin-top: 1rem;
             }
           }
-          .status{
+          .status {
             height: 2rem;
             line-height: 2rem;
-            .name{
+            .name {
 
             }
-            .value{
+            .value {
               font-size: 1rem;
-              &.new{
+              &.new {
                 color: #3259A4;
               }
-              &.handling{
+              &.handling {
                 color: #6EB150;
               }
             }
@@ -762,85 +804,84 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         }
       }
     }
-    .xbr-model-div.show{
+    .xbr-model-div.show {
       min-height: 400px;
       background-color: rgba(6, 6, 6, 0.14);
     }
 
-
-    .tab-buttons-line{
+    .tab-buttons-line {
       background-color: white;
       //background-color: blue;
       @include display-flex;
       color: #969494;
-      .tab-button-block{
+      .tab-button-block {
         display: inline-block;
         height: 3rem;
         line-height: 3rem;
         text-align: center;
         @include flex(1);
-        span{
+        span {
           font-size: 16px;
         }
-        img{
+        img {
           color: #B7B6B6;
           display: inline-block;
           position: relative;
           height: 14px;
           left: .3rem;
-          &:before{
+          &:before {
             @include transition(transform 0.4s ease-out 0.0s);
           }
         }
-        &.selected{
+        &.selected {
           //color: #ECB11B;
           color: $worksheetlist-selected-color;
           //border-bottom: 1px solid #ECB11B;
-          i:before{
+          i:before {
             //color: #ECB11B;
             color: $worksheetlist-selected-color;
             @include rotate(180deg);
           }
         }
-        &.activited{
+        &.activited {
           //border-color: red;
           //background-color: red;
           //box-shadow: ;
         }
       }
     }
-    .tab-buttons-line-border{
+    .tab-buttons-line-border {
       display: none;
       //display: block;
       width: 50%;
       height: 1px;
       @include transition(transform 0.2s ease-out 0.0s);
       //transition: transform 0.2s linear 0.0s;
-      &.left-sort{
-        @include translate(0,0);
+      &.left-sort {
+        @include translate(0, 0);
         //background-color: #ECB11B;
         background-color: $worksheetlist-selected-color;
         //transform: translate(0px,0);
       }
-      &.right-filter{
-        @include translate(100%,0);
+      &.right-filter {
+        @include translate(100%, 0);
         background-color: $worksheetlist-selected-color;
         //transform: translate(100%,0);
       }
     }
-    .tab-buttons-line-border2{
+    .tab-buttons-line-border2 {
       height: 1px;
       width: 100%;
       display: inline-block;
       //position: relative;
       @include display-flex;
-      .left{
+      .left {
         background-color: $crm-header-bar-bgcolor;
         @include flex(0);
         @include transition(flex 0.2s ease-out 0.0s);
         margin-right: 1px;
       }
-      .center{
+      .center {
         width: 10px;
         height: 10px;
         background-color: white;
@@ -851,54 +892,53 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         @include rotate(45deg);
         @include transition(border-color 0.2s ease-out 0.0s);
       }
-      .right{
-        background-color: rgba(98,157,3,1);
+      .right {
+        background-color: rgba(98, 157, 3, 1);
         @include flex(4);
         margin-left: 1px;
       }
-      &.left-sort{
-        .left{
+      &.left-sort {
+        .left {
           @include flex(1);
         }
-        .center{
-          border-color: rgba(0,49,136,1);
+        .center {
+          border-color: rgba(0, 49, 136, 1);
         }
-        .right{
+        .right {
           @include flex(3);
-          background: linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
+          background: linear-gradient(90deg, rgba(0, 49, 136, 1) 0, rgba(98, 157, 3, 1) 100%);
           padding-left: 2.6rem;
         }
       }
-      &.right-filter{
-        .left{
+      &.right-filter {
+        .left {
           @include flex(3);
           //background: linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
-          @include bg-linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
+          @include bg-linear-gradient(90deg, rgba(0, 49, 136, 1) 0, rgba(98, 157, 3, 1) 100%);
         }
-        .center{
-          border-color: rgba(98,157,3,1);
+        .center {
+          border-color: rgba(98, 157, 3, 1);
         }
-        .right{
+        .right {
           @include flex(1);
           padding-left: .3rem;
         }
       }
-      &.noShowColor{
+      &.noShowColor {
         //background-color: white;
-        background: linear-gradient(90deg, rgba(0,49,136,1) 0, rgba(98,157,3,1) 100%);
+        background: linear-gradient(90deg, rgba(0, 49, 136, 1) 0, rgba(98, 157, 3, 1) 100%);
         width: 100%;
         display: block;
-        .left,.center,.right{
+        .left, .center, .right {
           background-color: white;
         }
-        .center{
+        .center {
           display: none;
         }
       }
     }
 
-
-    .tab-sort-content{
+    .tab-sort-content {
       max-height: 95%;
       width: 100%;
       display: block;
@@ -909,33 +949,36 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
       z-index: $divs-wrapper-z-index;
       overflow: hidden;
       //background-color: rgba(2, 2, 2, 0.36);
-      .sort-type-item{
+      .sort-type-item {
         background-color: white;
         height: 2rem;
         line-height: 2rem;
         padding: 0px 0.8rem;
-        span{
+        span {
           border-bottom: 1px solid #D2D0D0;
           display: block;
           width: 100%;
           height: 100%;
         }
-        &.time-desc{ }
-        &.time-asc{ }
-        &.impact-desc{ }
-        &.none{
-          height: 3rem;
+        &.time-desc {
+        }
+        &.time-asc {
+        }
+        &.impact-desc {
+        }
+        &.none {
+          height: 1em;
           line-height: 3rem;
           text-align: center;
           font-size: 1rem;
           border-radius: 0px 0px 10px 10px;
         }
-        &.selected{
+        &.selected {
           color: $worksheetlist-selected-color;
         }
       }
     }
-    .tab-filter-content{
+    .tab-filter-content {
       display: block;
       position: absolute;
       top: 0px;
@@ -946,71 +989,75 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
       background-color: white;
       border-radius: 0px 0px 10px 10px;
       overflow: hidden;
-      ion-scroll{
+      ion-scroll {
         height: 100%;
       }
-      .filter-title{
+      .filter-title {
         height: 2rem;
         line-height: 2rem;
         font-size: 14px;
       }
       $filter-name-color: #828282;
-      $filter-item-bg: rgba(223,226,228,1);
-      $filter-item-selected-bg: rgb(50,89,164);
+      $filter-item-bg: rgba(223, 226, 228, 1);
+      $filter-item-selected-bg: rgb(50, 89, 164);
       padding-left: .6rem;
       padding-right: .4rem;
-      .filter-time{
+      .filter-time {
         $filter-time-line-height: 3.5rem;
         @include display-flex;
         height: $filter-time-line-height;
         border-bottom: 1px solid #eee;
-        .filter-time-title{
+        padding-left: 0;
+        .filter-time-title {
           @include flex(2.5);
           height: 100%;
           line-height: 3rem;
+
         }
-        .filter-times-start-end{
-          height:  $filter-time-line-height;
-          line-height:  $filter-time-line-height;
+        .filter-times-start-end {
+          height: $filter-time-line-height;
+          line-height: $filter-time-line-height;
           @include flex(7.5);
-          .filter-time-center-line{
+          .filter-time-center-line {
             display: inline-block;
             position: relative;
             border-bottom: 1px solid black;
             top: -0.2em;
           }
-          .filter-start-time, .filter-end-time{
+          .filter-start-time, .filter-end-time {
             display: inline-block;
-            max-width: 5.5rem;
-            width: 5.5rem;
+            max-width: 7em;
+            width: 7em;
             height: 2rem;
             line-height: 2rem;
             background-color: $filter-item-bg;
             text-align: center;
             color: $filter-name-color;
+            padding-top: 0;
           }
-          .filter-end-time{
+          .filter-end-time {
           }
         }
       }
-      .filter-worksheet-type{
+      .filter-worksheet-type {
         border-bottom: 1px solid #eee;
         padding-bottom: .6rem;
-        .filter-worksheet-type-title{ }
-        .filter-types{
+        .filter-worksheet-type-title {
+        }
+        .filter-types {
           height: 3rem;
           line-height: 3rem;
-          .filter-type{
+          .filter-type {
             display: inline-block;
-            height: 2rem;
-            line-height: 2rem;
+            height: 2.5em;
+            line-height: 2.5em;
             font-size: 12px;
-            padding: 0px .3rem;
+            padding: 0 .4em;
             text-align: center;
+            width: 140px;
             background-color: $filter-item-bg;
             color: $filter-name-color;
-            margin-right: 1em;
-            &.selected{
+            &.selected {
               background-color: $filter-item-selected-bg;
               color: white;
             }
@@ -1018,14 +1065,15 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         }
 
       }
-      .filter-impact{
+      .filter-impact {
         border-bottom: 1px solid #eee;
         padding-bottom: .8rem;
-        .filter-impact-title{ }
-        .filter-impacts{
+        .filter-impact-title {
+        }
+        .filter-impacts {
           height: 2.5rem;
           line-height: 2.5rem;
-          .filter-impact{
+          .filter-impact {
             width: 3rem;
             display: inline-block;
             font-size: 12px;
@@ -1034,30 +1082,31 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             background-color: $filter-item-bg;
             text-align: center;
             color: $filter-name-color;
-            &.selected{
+            &.selected {
               background-color: $filter-item-selected-bg;
               color: white;
             }
-            &.damage{ }
-            &.hight{
+            &.damage {
+            }
+            &.hight {
               margin-left: .4rem;
             }
-            &.middle{
+            &.middle {
               margin-left: .4rem;
             }
-            &.low{
+            &.low {
               margin-left: .4rem;
             }
-            &.none{
+            &.none {
               margin-left: .4rem;
             }
           }
         }
       }
-      .filter-action-buttons{
+      .filter-action-buttons {
         height: 4rem;
         text-align: right;
-        .filter-action-button{
+        .filter-action-button {
           text-align: center;
           margin-top: .8rem;
           display: inline-block;
@@ -1070,153 +1119,240 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
           border: 1px solid $crm-header-bar-bgcolor;
           border-radius: 5px;
           color: $crm-header-bar-bgcolor;
-          &.reset{
+          &.reset {
           }
-          &.confirm{
+          &.confirm {
           }
         }
       }
     }
 
-  .tab-sort-content.ng-show{
+    .tab-sort-content.ng-show {
     }
 
-  .modal-wrapper{
-    .show-more-modal-content{
-      position: relative;
-      min-width: 7rem;
-      top: 48px;
-      z-index: -2;
-      display: inline-block !important;
-      .top-line{
-        width: 14px;
-        height: 14px;
-        background-color: white;
-        transform: rotate(45deg);
+    .modal-wrapper {
+      .show-more-modal-content {
         position: relative;
-        left: 5.3rem;
-        top: 0px;
-      }
-      .content-lines{
-        background-color: white;
-        padding: 0px .6rem .4rem .6rem;
-        border-radius: 10px;
-        border-radius: 10px;
-        position: relative;
-        top: -7px;
-      }
-      .content-line{
-        border-bottom: 1px solid #eee;
-        color: #8E8B8B;
-        text-align: center;
-        padding: .4rem 0px;
-        font-size: 1rem;
+        min-width: 7rem;
+        top: 48px;
+        z-index: -2;
+        display: inline-block !important;
+        .top-line {
+          width: 14px;
+          height: 14px;
+          background-color: white;
+          transform: rotate(45deg);
+          position: relative;
+          left: 5.3rem;
+          top: 0px;
+        }
+        .content-lines {
+          background-color: white;
+          padding: 0px .6rem .4rem .6rem;
+          border-radius: 10px;
+          position: relative;
+          top: -7px;
+        }
+        .content-line {
+          border-bottom: 1px solid #eee;
+          color: #8E8B8B;
+          text-align: center;
+          padding: .4rem 0px;
+          font-size: 1rem;
+        }
       }
     }
   }
-}
 
-.SpareList1 {
-  b, strong {
-    font-weight: 100;
-  }
-  .bar .title{
-    position: absolute;
-    right: 0;
-    left: 0;
-    z-index: 0;
-    overflow: hidden;
-    margin: 0 10px;
-    min-width: 30px;
-    height: 43px;
-    text-align: center;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 16px;
-    font-weight: 100;
-    color: rgb(250, 250, 250);
-  }
-  .bar.bar-header .button+.title {
-    text-align: center;
-  }
-  .bar {
-    border-bottom: none;
-    padding: 0;
-    background-color: $crm-header-bar-bgcolor;
-    background-size: 0;
-    box-shadow: none;
-  }
-  .bar-header {
-    border-bottom: none;
-    padding: 0;
-    background-size: 0;
-    .button-clear {
-      color: #fff;
-      padding-left: 15px;
-      padding-top: 0.3em;
+  .SpareList1 {
+    b, strong {
+      font-weight: 100;
     }
-  }
-  .bar-subheader {
-    height: 2.4em;
-    display: block;
-    .placeholder-icon {
-      color: #aaa;
+    .bar .title {
       position: absolute;
-      z-index: 2;
-      top: .4em;
-      left: 1em;
+      right: 0;
+      left: 0;
+      z-index: 0;
+      overflow: hidden;
+      margin: 0 10px;
+      min-width: 30px;
+      height: 43px;
+      text-align: center;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 16px;
+      font-weight: 100;
+      color: rgb(250, 250, 250);
     }
-    input {
+    .bar.bar-header .button + .title {
+      text-align: center;
+      line-height: 60px;
+    }
+    .bar {
+      border-bottom: none;
+      padding: 0;
+      background-color: $crm-header-bar-bgcolor;
+      background-size: 0;
+      box-shadow: none;
+    }
+    .bar-header {
+      border-bottom: none;
+      padding: 0;
+      background-size: 0;
+      padding-top: 20px;
+      .button-clear {
+        position: absolute;
+        color: #fff;
+        font-size: 22px;
+        max-height: 30px;
+        min-height: 20px;
+        top: 13px;
+      }
+      .ion-chevron-left {
+      }
+
+    }
+    .bar-subheader {
+      height: 43px;
       display: block;
       padding: 8px;
-      padding-left: 2em;
-      color: #ccc;
-      vertical-align: middle;
-      font-size: 15px;
-      line-height: 16px;
-      width: 96%;
-      position: fixed;
-      right: 6px;
-      border-radius: 5px;
+      .search1 {
+        .placeholder-icon {
+          color: #aaa;
+          position: absolute;
+          z-index: 2;
+          top: .8em;
+          left: 1em;
+        }
+        input {
+          display: block;
+          padding-left: 2em;
+          color: black;
+          vertical-align: middle;
+          font-size: 14px;
+          height: 28px;
+          width: 95%;
+          position: fixed;
+          border-radius: 5px;
+        }
+      }
+      .search2 {
+        .placeholder-icon {
+          color: #aaa;
+          position: absolute;
+          z-index: 2;
+          top: .8em;
+          left: 1em;
+        }
+        input {
+          display: block;
+          padding-left: 2em;
+          color: #000;
+          vertical-align: middle;
+          font-size: 14px;
+          height: 25px;
+          width: 72%;
+          position: fixed;
+          border-radius: 5px;
+        }
+        .ion-ios-close {
+          position: absolute;
+          top: 13px;
+          right: 5em;
+          z-index: 2;
+          color: #aaa;
+        }
+        .button-clear {
+          position: relative;
+          left: 86%;
+          font-size: 16px;
+          top: -2px;
+        }
+      }
+    }
+    .divContent {
+      position: relative;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.41);
+    }
+    .row + .row {
+      margin-top: -5px;
+      padding-top: 5px;
+    }
+    img {
+      height: 0.8em;
+    }
+    .col {
+      padding: 0;
+      span {
+        font-size: 14px;
+        color: gray;
+      }
+      .spareName {
+        font-size: 15px;
+        color: #000;
+      }
+    }
+    .col-51 {
+      span {
+        font-size: 13px;
+        color: #000;
+      }
+    }
+    .col-44 {
+      span {
+        font-size: 13px;
+        color: #000;
+      }
+    }
+    .row-center {
+      b {
+        font-weight: 100;
+        color: rgba(17, 17, 17, 0.71);
+        font-size: 14px;
+      }
+    }
+    .rowType {
+      position: relative;
+      .button-clear {
+        left: 25%;
+      }
+    }
+    .col-45 {
+      text-align: center;
+      padding: 0;
+    }
+    .search{
+      .his-title{
+        color: #BFBFBF;
+      }
+      .ion-android-time{
+        margin-right: 5px;
+      }
+      .hisText{
+        white-space:nowrap;
+      }
+      .horizon-line{
+        background: #D8D8D8;
+        width: 100%;
+        height: 1px;
+        margin-left: 5px;
+      }
+      ion-item{
+        border-bottom: 1px solid #D8D8D8;
+        min-height: 0;
+        font-size: 14px;
+        padding: 10px 16px;
+      }
+    }
+    .content{
+      .item {
+        position: relative;
+        display: block;
+        margin: -1px;
+        font-size: 16px;
+        padding: 0;
+        //border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+      }
     }
   }
 
-  .divContent {
-    position: relative;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.41);
-  }
-  .row+.row {
-    margin-top: -5px;
-    padding-top: 5px;
-  }
-  img {
-    height: 0.8em;
-  }
-  .col {
-    padding: 0;
-    span {
-      font-size: 14px;
-      color: gray;
-    }
-    .spareName {
-      font-size: 1.2em;
-    }
-  }
-  .row-center {
-    b {
-      font-weight: 100;
-      color: rgba(17, 17, 17, 0.71);
-      font-size: 14px;
-    }
-  }
-  .rowType {
-    position: relative;
-    .button-clear{
-      left: 25%;
-    }
-  }
-  .col-45 {
-    text-align: center;
-    padding: 0;
-  }
-}
