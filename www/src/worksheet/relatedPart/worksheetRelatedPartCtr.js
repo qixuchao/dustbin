@@ -68,6 +68,9 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             $scope.deleteShow = true;
             $scope.checkboxDiy = "";
         }
+    $scope.phone = function(num){
+        Prompter.showphone(num);
+    }
 }]);
 
 

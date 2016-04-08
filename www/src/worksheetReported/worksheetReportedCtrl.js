@@ -1,3 +1,4 @@
+//open -a "Google Chrome" --args --disable-web-security
 worksheetReportModule.controller("WorksheetListReportedCtrl",[
 	"$scope", 
 	"ionicMaterialInk", 
@@ -41,23 +42,9 @@ worksheetReportModule.controller("WorksheetListReportedCtrl",[
 		filterNewCarOnline: false,
 		filterBatchUpdate: false,
 		filterNone: true,
-		//筛选 规则 ----> 影响：damage height middle low none
-		//filterImpactDamage: false,
-		//filterImpactHeight: false,
-		//filterImpactMiddle: false,
-		//filterImpactLow: false,
-		//filterImpactNone: false,
-		//filterImpactNoSelected: true,
 		//筛选 规则 ----> 状态
 		filterStatusNew: false, //新建
-		filterStatusSendedWorker: false,		//已派工
-		filterStatusRefused: false,		//已拒绝
-		filterStatusHandling: false,		//处理中
 		filterStatusReported: false,		//已报工
-		filterStatusFinished: false,		//已完工
-		filterStatusRevisited: false,		//已回访
-		filterStatusAudited: false,		//已审核
-		filterStatusReturned: false, 		//已打回
 		filterStatusCancled: false, // 已经取消
 
 		timeStart: '20150101',
@@ -83,31 +70,12 @@ worksheetReportModule.controller("WorksheetListReportedCtrl",[
 		$scope.config.filterNewCarOnline = false;
 		$scope.config.filterBatchUpdate = false;
 		$scope.config.filterNone = true;
-		//筛选 规则 ----> 影响
-		//$scope.config.filterImpactDamage = false;
-		//$scope.config.filterImpactHeight = false;
-		//$scope.config.filterImpactMiddle = false;
-		//$scope.config.filterImpactLow = false;
-		//$scope.config.filterImpactNone = false;
-		//$scope.config.filterImpactNoSelected = true;
 		//筛选 规则 ----> 状态
 		__resetStatus();
 	};
 	
 	$scope.goDetailState = function(i){
-		if(i == 0){
-			$state.go("worksheetDetail", {
-				detailType: 'newCar'
-			});
-		}else if(i==1){
-			$state.go("worksheetDetail",{
-				detailType: 'siteRepair'
-			});
-		}else if(i==3){
-			$state.go("worksheetDetail",{
-				detailType: 'batchUpdate'
-			});
-		}
+		$state.go("worksheetReportedDetail");
 	};
 
 	$scope.onSearchTextChange = function($event){
@@ -380,10 +348,8 @@ worksheetReportModule.controller("WorksheetListReportedCtrl",[
 		$scope.config[statusName] = true;
 	}
 	function __resetStatus(){
-		var status = ['filterStatusNew','filterStatusSendedWorker',
-		'filterStatusRefused', 'filterStatusHandling',
-		'filterStatusReported', 'filterStatusFinished', 'filterStatusRevisited',
-		'filterStatusAudited', 'filterStatusReturned', 'filterStatusCancled'];
+		var status = ['filterStatusNew',
+		'filterStatusReported', 'filterStatusCancled'];
 		for(var i = 0; i < status.length; i++){
 			$scope.config[status[i]] = false;
 		}
