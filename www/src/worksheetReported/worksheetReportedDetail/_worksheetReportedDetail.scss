@@ -150,7 +150,9 @@
             left: -#{0.9*$i}rem;
           }
         }
-        img{
+        .img{
+          background: url("../../img/worksheetReported/jiaoyi@2x.png") no-repeat !important;
+          background-size: 100% 100% !important;
           display: inline-block;
           //background-color: rgb(158, 216, 95);
           width: 2.2rem;
@@ -162,6 +164,14 @@
           position: relative;
           left: 1.1rem;
           top: -.1rem;
+        }
+        .img1{
+          background: url("../../img/worksheetReported/jiaoyi@2x.png") no-repeat !important;
+          background-size: 100% 100% !important;
+        }
+        .img2{
+          background: url("../../img/worksheetReported/baogong@2x.png") no-repeat !important;
+          background-size: 100% 100% !important;
         }
         span{
           display: inline-block;

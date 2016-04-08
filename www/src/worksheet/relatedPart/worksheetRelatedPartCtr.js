@@ -1,6 +1,6 @@
 
 worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter){
-        $ionicPopover.fromTemplateUrl('src/worksheet/relatedPart/worksheetRelate_select.html', {
+    $ionicPopover.fromTemplateUrl('src/worksheet/relatedPart/worksheetRelate_select.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.relatedpopover = popover;
@@ -18,10 +18,13 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         $scope.relatedqueryType = function(type){
             $scope.relatedPopoverhide();
         };
+
         $scope.title = "相关方列表";
         $scope.deleteShow = true;
+        $scope.showInput = true;
         $scope.delete = function(){
             $scope.checkboxDiy = "checkbox";
+            $scope.showInput = false;
             $scope.title = "相关方删除";
             $scope.deleteShow = false;
             var str=document.getElementsByName("deleteBox");
@@ -67,6 +70,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             }
             $scope.deleteShow = true;
             $scope.checkboxDiy = "";
+            $scope.showInput = true;
         }
     $scope.phone = function(num){
         Prompter.showphone(num);
