@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016/3/14 0014.
  */
-carModule.controller('CarCtrl',['HttpAppService','$scope','CarService','$timeout','$state','Prompter',function(HttpAppService,$scope,CarService,$timeout,$state,Prompter){
+carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',function($cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
     $scope.cars=[];
     $scope.searchFlag=false;
     $scope.isSearch=false;
