@@ -2,7 +2,7 @@
 <ion-view  id="worksheet_relatedPart"  align-title="center">
     <ion-header-bar align-title="center" class="bar-positive" >
         <div class="row row-center title rowTitle">
-            <div class="col col-15 text-left" ng-click="goBack()">
+            <div class="col col-15 col-center text-left" ng-click="goBack()">
                 <i class="ion-chevron-left" style="font-size: 27px;"></i>
             </div>
             <div class="col col-65 text-center" ng-show="deleteShow">{{title}}
@@ -54,7 +54,7 @@
                                 <div class="row row-center"><span style="vertical-align: middle;font-size: 13px;color:#D2D2D2">{{i.position}}</span></div>
                             </div>
                             <div class="col col-50 col-center" style="text-align: center">
-                                <span style="vertical-align: middle;color:#D2D2D2">{{i.phone}}</span>
+                                <span style="vertical-align: middle;color:#D2D2D2" ng-click="phone(i.phone)">{{i.phone}}</span>
                             </div>
                             <div class="col col-10 col-center">
                                 <img class="relatedPart_listfor" src="img/employee/Shape@2x.png" ng-show="deleteShow">

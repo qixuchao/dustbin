@@ -9224,3 +9224,181 @@ input[readonly]:not(.cloned-text-input) {
       text-align: center;
       padding: .4rem 0px;
       font-size: 1rem; }
+
+.worksheetReportedDetail .absolute {
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0; }
+
+.worksheetReportedDetail .top-back2 {
+  background: url("../../img/worksheetReported/BAR-BG@2x.png") no-repeat !important;
+  background-size: 100% 100% !important;
+  height: 60px !important; }
+
+.worksheetReportedDetail .top-back {
+  background: url("../../img/worksheetReported/BAR-BG@2x.png") no-repeat;
+  background-size: 100% 100%;
+  height: 156px;
+  color: white;
+  font-size: 16px; }
+  .worksheetReportedDetail .top-back .title {
+    padding-top: 20px;
+    color: white; }
+    .worksheetReportedDetail .top-back .title i {
+      font-size: 25px;
+      color: #c9ddf0;
+      padding-left: 8px; }
+  .worksheetReportedDetail .top-back .mainInfo {
+    padding-left: 26px; }
+    .worksheetReportedDetail .top-back .mainInfo .row {
+      padding-bottom: 6px;
+      padding-right: 10%; }
+      .worksheetReportedDetail .top-back .mainInfo .row .status {
+        color: #9fca17; }
+      .worksheetReportedDetail .top-back .mainInfo .row .col-16 {
+        padding: 0;
+        max-width: 45px;
+        min-width: 45px; }
+      .worksheetReportedDetail .top-back .mainInfo .row .num {
+        margin-left: 10px;
+        color: #9f9d99; }
+      .worksheetReportedDetail .top-back .mainInfo .row .edit {
+        position: fixed;
+        right: 10px;
+        width: 50px;
+        height: 30px;
+        text-align: right; }
+        .worksheetReportedDetail .top-back .mainInfo .row .edit img {
+          width: 15px;
+          position: relative;
+          top: 2px;
+          left: -3px; }
+    .worksheetReportedDetail .top-back .mainInfo i {
+      color: #9fca17;
+      margin-right: 5px;
+      font-size: 12px; }
+    .worksheetReportedDetail .top-back .mainInfo .title_oval {
+      width: 12px;
+      position: relative;
+      margin-right: 5px; }
+    .worksheetReportedDetail .top-back .mainInfo input {
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: white !important;
+      height: 28px;
+      position: relative;
+      padding: 0;
+      width: 100%; }
+    .worksheetReportedDetail .top-back .mainInfo .border-bottom-white {
+      border-bottom: 1px solid white; }
+    .worksheetReportedDetail .top-back .mainInfo select {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      height: 25px;
+      position: relative;
+      left: 1px; }
+  .worksheetReportedDetail .top-back .selector {
+    height: 27px;
+    margin: 0 10px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 12px;
+    font-size: 14px; }
+    .worksheetReportedDetail .top-back .selector .detail {
+      width: 50%;
+      float: left;
+      text-align: center;
+      height: 100%;
+      border-bottom-left-radius: 11px;
+      border-top-left-radius: 11px;
+      padding-top: 2px; }
+    .worksheetReportedDetail .top-back .selector .relative {
+      width: 50%;
+      float: right;
+      text-align: center;
+      height: 100%;
+      border-bottom-right-radius: 11px;
+      border-top-right-radius: 11px;
+      padding-top: 2px; }
+    .worksheetReportedDetail .top-back .selector .checked {
+      background: #c0d1e7;
+      color: #3f6eb2; }
+
+.worksheetReportedDetail .content {
+  font-size: 16px; }
+  .worksheetReportedDetail .content .history-info-relation-line {
+    padding: .4rem 0rem;
+    margin-top: .4rem;
+    min-height: 2.6rem; }
+    .worksheetReportedDetail .content .history-info-relation-line .line-inner {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      display: -webkit-box; }
+    .worksheetReportedDetail .content .history-info-relation-line .relation-box, .worksheetReportedDetail .content .history-info-relation-line .history-box, .worksheetReportedDetail .content .history-info-relation-line .info-box {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      height: 2rem;
+      vertical-align: middle;
+      left: 0rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-1, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-1, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-1 {
+        position: relative;
+        left: -0.9rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-2, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-2, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-2 {
+        position: relative;
+        left: -1.8rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-3, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-3, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-3 {
+        position: relative;
+        left: -2.7rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-4, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-4, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-4 {
+        position: relative;
+        left: -3.6rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-5, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-5, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-5 {
+        position: relative;
+        left: -4.5rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-6, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-6, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-6 {
+        position: relative;
+        left: -5.4rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-7, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-7, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-7 {
+        position: relative;
+        left: -6.3rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-8, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-8, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-8 {
+        position: relative;
+        left: -7.2rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-9, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-9, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-9 {
+        position: relative;
+        left: -8.1rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-10, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-10, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-10 {
+        position: relative;
+        left: -9rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box img, .worksheetReportedDetail .content .history-info-relation-line .history-box img, .worksheetReportedDetail .content .history-info-relation-line .info-box img {
+        display: inline-block;
+        width: 2.2rem;
+        height: 2.2rem;
+        font-size: 2.2rem;
+        text-align: center;
+        border-radius: 2.2rem;
+        color: white;
+        position: relative;
+        left: 1.1rem;
+        top: -.1rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box span, .worksheetReportedDetail .content .history-info-relation-line .history-box span, .worksheetReportedDetail .content .history-info-relation-line .info-box span {
+        display: inline-block;
+        border: 0px solid green;
+        height: 2rem;
+        line-height: 2rem;
+        background-color: #e1e1e1;
+        border-radius: 1rem;
+        padding: 0px .8rem 0px 1.2rem; }
