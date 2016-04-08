@@ -76,7 +76,7 @@ salesModule
             $scope.showCreateModal = function () {
                 console.log($scope.pop);
                 $scope.createPop.hide();
-                $scope.create = {};
+                $scope.create = {de_startTime:new Date().format('yyyy/M/d hh:ss'),de_endTime:getDefultStartTime()};
                 $scope.createModal.show();
                 //console.log(document.getElementsByClassName('modal-wrapper'));
                 var tempArr = document.getElementsByClassName('modal-wrapper');
@@ -95,6 +95,10 @@ salesModule
             //    de_endTime: '2016-4-5 10:00',
             //    annotation: '测试'
             //};
+            var getDefultStartTime = function () {
+                var dateArr = new Date().format('hh:mm').split(':');
+                return new Date().format('yyyy/M/d')+ ' ' + (Number(dateArr[0])+2) + ':' + dateArr[1];
+            };
             $scope.selectPersonflag = false;
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Modal.html', {
                 scope: $scope,
@@ -126,7 +130,15 @@ salesModule
                     $scope.createModal.hide();
                 }, 1000);
             };
-
+            //选择时间
+            $scope.selectCreateTime = function (type) {
+                console.log(type)
+                if (type == 'start') {
+                    Prompter.selectTime($scope, 'actCreateStart', new Date($scope.create.de_startTime).format('yyyy/MM/dd hh:mm'), 'datetime', '开始时间');
+                } else {
+                    Prompter.selectTime($scope, 'actCreateEnd', new Date($scope.create.de_endTime).format('yyyy/MM/dd hh:mm'), 'datetime', '结束时间');
+                }
+            };
             //选择人
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectPerson_Modal.html', {
                 scope: $scope,
@@ -356,9 +368,9 @@ salesModule
                 }
                 //iOS平台
                 if (type == 'start') {
-                    Prompter.selectTime($scope, 'actDetailStart', new Date($scope.details.de_startTime).format('yyyy/MM/dd hh:ss'), 'datetime', '开始时间');
+                    Prompter.selectTime($scope, 'actDetailStart', new Date($scope.details.de_startTime).format('yyyy/MM/dd hh:mm'), 'datetime', '开始时间');
                 } else {
-                    Prompter.selectTime($scope, 'actDetailEnd', new Date($scope.details.de_endTime).format('yyyy/MM/dd hh:ss'), 'datetime', '结束时间');
+                    Prompter.selectTime($scope, 'actDetailEnd', new Date($scope.details.de_endTime).format('yyyy/MM/dd hh:mm'), 'datetime', '结束时间');
                 }
             };
             /*----------------------------------选择时间  end------------------------------------*/

@@ -16,7 +16,7 @@
     <ion-header-bar align-title="center" class="head" ng-if="searchFlag">
         <div id="searchTitle" class="row row-center" ng-class="{'own-animated fadeIn':searchFlag}" ng-if="searchFlag">
             <div class="col col-80">
-                <div class="row row-center no-padding">
+                <div class="row row-center no-padding" style="height: 23px;">
                     <i class="ion-ios-search"></i>
                     <input id="saleListSearchId" type="search" ng-model="input.search" placeholder="请输入活动关键字">
                     <i class="ion-ios-close" ng-if="input.search" ng-click="initSearch()"></i>
