@@ -1,10 +1,12 @@
 <ion-view canClickEnterListMode class="Maintenance"  >
-    <ion-header-bar align-title="center"   ng-class="{'query-mode':config.isQueryMode}">
-        <div class="left-back" ng-click="goBack();">
-            <i class="ion-ios-arrow-back"></i>
-        </div>
-        <div class="title" canClickEnterListMode ng-click="clickEnterListMode($event);">维修记录</div>
-    </ion-header-bar>
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head ">
+            <div class="row row-center">
+                <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-60 text-center">维修记录</div>
+            </div>
+        </ion-header-bar>
+    </div>
     <div class="search-hearder-bar"></div>
     <ion-content  class="" style="" scroll="false" has-bouncing="false">
         <div class="tab-buttons-line">

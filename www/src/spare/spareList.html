@@ -1,8 +1,12 @@
-<ion-view class="SpareList">
-    <ion-header-bar class="bar" align-title="center">
-        <a class="button  button-clear ion-chevron-left" ng-click="goBack()"></a>
-        <div class="title">备件信息</div>
-    </ion-header-bar>
+<ion-view class="SpareList ">
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head ">
+            <div class="row row-center">
+                <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-60 text-center">备件信息</div>
+            </div>
+        </ion-header-bar>
+    </div>
     <ion-header-bar class="bar bar-subheader ">
         <div class="search1" ng-show="!searchFlag">
             <i class="icon ion-ios-search placeholder-icon"></i>
@@ -11,7 +15,7 @@
         <div class="search2" ng-show="searchFlag" ng-class="{'searchFlag':'animated fadeOutLeft'}">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
-            <input id="spareId" type="search" placeholder="输入备件信息" ng-model="spareInfo" >
+            <input id="spareId" type="search" placeholder="输入备件信息" ng-model="spareInfo" ng-change="spareLoadmoreIm()" >
             <i class="button button-clear" ng-click="cancelSearch()">取消</i>
         </div>
     </ion-header-bar>
@@ -26,27 +30,21 @@
         </ion-list>
         <div class="content">
             <div class="list" ng-if="spareInfo">
-                <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in spareList | filter:spareInfo">
-                    <div class="row row-center rowType1">
-                        <div class="col col-8 col-center">
-                            <img ng-src="img/car/Oval.png" class="pointImg">
-                        </div>
-                        <div class="col col-80 col-center colType">
-                            <span class="car2"><div ng-bind-html="x.spareName | highlight:spareInfo"></div></span>
-                        </div>
-                        <div class="col col-10 col-center">
-                            <img ng-src="img/car/Shape.png" class="shapeImg">
-                        </div>
+                <a ng-click="goDetail(x,$event)" class="row row-center rowType1" ng-repeat="x in spareList | filter:spareInfo">
+                    <div class="col col-8 col-center">
+                    <img ng-src="img/car/Oval.png" class="pointImg">
+                </div>
+                    <div class="col col-80 col-center colType">
+                        <span class="car2"><div ng-bind-html="x.SHORT_TEXT | highlight:spareInfo"></div></span>
+                    </div>
+                    <div class="col col-10 col-center">
+                        <img ng-src="img/car/Shape.png" class="shapeImg">
                     </div>
                 </a>
             </div>
         </div>
     </ion-content>
     <ion-content has-bouncing="false" ng-show="!searchFlag">
-        <ion-refresher
-                pulling-text="下拉刷新..."
-                on-refresh="doRefresh()">
-        </ion-refresher>
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">常用备件</div>
             <div class="Car_countentbasicline"></div>
@@ -58,12 +56,14 @@
                     <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
                 <div class="col col-80 col-center colType">
-                    <span class="car2">{{spare.spareName}}</span>
+                    <span class="car2">{{spare.SHORT_TEXT}}</span>
                 </div>
                 <div class="col col-10 col-center">
                     <img ng-src="img/car/Shape.png" class="shapeImg">
                 </div>
             </div>
         </div>
+        <ion-infinite-scroll on-infinite="spareLoadMore()" ng-if="spareisshow"></ion-infinite-scroll>
+        <ion-infinite-scroll on-infinite="spareLoadMoreIm()" ng-if="spareimisshow"></ion-infinite-scroll>
     </ion-content>
 </ion-view>

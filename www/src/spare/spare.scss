@@ -17,33 +17,15 @@
   }
   .bar.bar-header .button + .title {
     text-align: center;
-    line-height: 60px;
+    line-height: 55px;
   }
   .bar {
     border-bottom: none;
-    padding: 0;
     background-color: $crm-header-bar-bgcolor;
     background-size: 0;
     box-shadow: none;
   }
-  .bar-header {
-    border-bottom: none;
-    padding: 0;
-    background-size: 0;
-    padding-top: 20px;
-    .button-clear {
-      position: absolute;
-      color: #fff;
-      font-size: 22px;
-      max-height: 30px;
-      min-height: 20px;
-      top: 15px;
-    }
-    .ion-chevron-left {
-    }
-
-  }
-  .bar-subheader {
+    .bar-subheader {
     height: 43px;
     display: block;
     padding: 8px;
@@ -102,7 +84,7 @@
     }
   }
   .has-subheader {
-    top: 95px;
+    top: 100px;
   }
   .pointImg{
     height: 10px;
@@ -113,7 +95,7 @@
     position: relative;
     font-size:15px;
     color:$crm-header-bar-bgcolor;
-    font-weight: 100;
+    //font-weight: 100;
     .Car_countentbasicinfo{
       position: absolute;
       top:0px;
@@ -143,6 +125,9 @@
     position: relative;
     top: 1.5em;
   }
+  //ion-infinite-scroll {
+  //  height: 90%;
+  //}
   .rowType1{
     padding: 1em 0 0.6em 12px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.36);
@@ -158,8 +143,7 @@
     }
   }
   .col span {
-    font-size: 14px;
-    color: #000;
+    font-size: 16px;
   }
   .search{
     .his-title{
@@ -210,7 +194,6 @@
   }
   .bar{
     border-bottom: none;
-    padding: 0;
     height: 3.28em;
     background-color: $crm-header-bar-bgcolor;
     background-size: 0;
