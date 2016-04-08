@@ -1,0 +1,178 @@
+.worksheetReportedDetail {
+  .scroll {
+    //height:200%;
+  }
+  .absolute {
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+  .top-back2 {
+    background: url("../../img/worksheetReported/BAR-BG@2x.png") no-repeat !important;
+    background-size: 100% 100% !important;
+    height: 60px !important;
+  }
+  .top-back {
+    background: url("../../img/worksheetReported/BAR-BG@2x.png") no-repeat;
+    background-size: 100% 100%;
+    height: 156px;
+    color: white;
+    font-size: 16px;
+    .title {
+      padding-top: 20px;
+      color: white;
+      i {
+        font-size: 25px;
+        color: #c9ddf0;
+        padding-left: 8px;
+      }
+    }
+    .mainInfo {
+      padding-left: 26px;
+      .row {
+        padding-bottom: 6px;
+        padding-right: 10%;
+        .status {
+          color: #9fca17;
+        }
+        .col-16 {
+          padding: 0;
+          max-width: 45px;
+          min-width: 45px;
+        }
+        .num {
+          margin-left: 10px;
+          color: #9f9d99;
+        }
+        .edit {
+          position: fixed;
+          right: 10px;
+          width: 50px;
+          height: 30px;
+          text-align: right;
+          img {
+            width: 15px;
+            position: relative;
+            top: 2px;
+            left: -3px
+          }
+        }
+      }
+      i {
+        color: #9fca17;
+        margin-right: 5px;
+        font-size: 12px;
+      }
+      .title_oval{
+        width: 12px;
+        position: relative;
+        margin-right: 5px;
+      }
+      input {
+        background: none;
+        border: none;
+        font-size: 16px;
+        color: white !important;
+        height: 28px;
+        position: relative;
+        padding:0;
+        //border-bottom: 1px solid white;
+        width: 100%;
+      }
+      .border-bottom-white {
+        border-bottom: 1px solid white;
+      }
+      select {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 16px;
+        height: 25px;
+        position: relative;
+        //top: 1px;
+        left: 1px;
+      }
+    }
+    .selector {
+      height: 27px;
+      margin: 0 10px;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      font-size: 14px;
+      .detail {
+        width: 50%;
+        float: left;
+        text-align: center;
+        height: 100%;
+        border-bottom-left-radius: 11px;
+        border-top-left-radius: 11px;
+        padding-top: 2px;
+      }
+      .relative {
+        width: 50%;
+        float: right;
+        text-align: center;
+        height: 100%;
+        border-bottom-right-radius: 11px;
+        border-top-right-radius: 11px;
+        padding-top: 2px;
+      }
+      .checked {
+        background: #c0d1e7;
+        color: #3f6eb2;
+      }
+    }
+  }
+  .content {
+    font-size: 16px;
+    .history-info-relation-line{
+      padding: .4rem 0rem;
+      margin-top: .4rem;
+      min-height: 2.6rem;
+      .line-inner{
+        @include display-flex;
+        display: -webkit-box;
+      }
+      .relation-box, .history-box, .info-box{
+        @include display-flex;
+        //border: 1px solid red;
+        height: 2rem;
+        vertical-align: middle;
+        //float: left;
+        //position: relative;
+        left: 0rem;
+        @for $i from 1 through 10{
+          &.left-#{$i}{
+            position: relative;
+            left: -#{0.9*$i}rem;
+          }
+        }
+        img{
+          display: inline-block;
+          //background-color: rgb(158, 216, 95);
+          width: 2.2rem;
+          height: 2.2rem;
+          font-size: 2.2rem;
+          text-align: center;
+          border-radius: 2.2rem;
+          color: white;
+          position: relative;
+          left: 1.1rem;
+          top: -.1rem;
+        }
+        span{
+          display: inline-block;
+          border: 0px solid green;
+          height: 2rem;
+          line-height: 2rem;
+          background-color: rgb(225,225,225);
+          border-radius: 1rem;
+          padding: 0px .8rem 0px 1.2rem;
+        }
+      }
+    }
+  }
+}
