@@ -162,6 +162,9 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         }
     },
     "dependent_plugins": {}

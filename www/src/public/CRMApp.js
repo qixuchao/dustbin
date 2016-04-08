@@ -279,7 +279,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
             .state('worksheetFaultInfos', {
                 url: '/worksheetFaultInfos',
-                templateUrl: 'src/worksheet/faultinfos/worksheet_faultInfo.html',
+                templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo.html',
                 controller: 'WorksheetFaultInfoCtrl'
             })
             .state('worksheetSparepart', {
@@ -330,7 +330,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             .state('worksheetReportedInfosList', {
                 url: '/worksheetReportedInfosList',
                 templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
-                controller: 'WorksheetListReportedCtrl'
+                controller: 'WorksheetReportedListCtrl'
             })
             .state('worksheetReportedCreate', {
                 url: '/worksheetReportedCreate',

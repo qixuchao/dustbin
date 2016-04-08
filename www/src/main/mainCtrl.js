@@ -15,7 +15,7 @@ mainModule
         'ionicMaterialMotion',
         'Prompter',
         function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
-                  $ionicBackdrop, $ionicPopover,$cordovaDatePicker, ionicMaterialInk, ionicMaterialMotion,
+                  $ionicBackdrop, $ionicPopover, $cordovaDatePicker, ionicMaterialInk, ionicMaterialMotion,
                   Prompter) {
 
 
@@ -56,7 +56,7 @@ mainModule
                 value: '三',
                 flag: false
             }, {value: '四', flag: false},
-                {value: '五', flag: false}, {value: '六', flag: false}, {value: '七', flag: false, class: 'edgeDay'}];
+                {value: '五', flag: false}, {value: '六', flag: false}, {value: '日', flag: false, class: 'edgeDay'}];
             var todayDate = mydate.getFullYear() + '/' + (mydate.getMonth() + 1) + '/' + mydate.getDate();
             $scope.myTodayDate = todayDate;
             var isToday = function (days) {
@@ -71,7 +71,7 @@ mainModule
 
             $scope.days = [
                 {}, {}, {}
-            ]
+            ];
             //切换周视图和月视图
             $scope.changeView = function () {
                 $scope.viewFlag = !$scope.viewFlag;
@@ -139,17 +139,17 @@ mainModule
                 $timeout(function () {
                     $scope.topHeight = {
                         'margin-top': '198px'
-                    }
+                    };
                     document.getElementById('mainContentId').style.marginTop = '198px';
                     $scope.$apply();
-                }, 10)
+                }, 10);
                 $timeout(function () {
                     $scope.topHeight = {
                         'margin-top': '198px'
-                    }
+                    };
                     document.getElementById('mainContentId').style.marginTop = '198px';
                     $scope.$apply();
-                }, 200)
+                }, 200);
                 //当天周几
                 var init_day = new Date($scope.year + '/' + $scope.month + '/' + day).getDay();
                 //当天与周日差了几天
@@ -171,7 +171,7 @@ mainModule
                 }
                 $timeout(function () {
                     $scope.days[0].arr[countTem].checked = true;
-                }, 450)
+                }, 450);
                 //}
                 if ($scope.days[0].arr[6].value < $scope.days[0].arr[0].value && day > $scope.days[0].arr[6].value) {
                     $scope.month++;
@@ -184,7 +184,7 @@ mainModule
 
                 $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
                 $scope.days[2].arr = nextDays(-7, $scope.days[0].arr, $scope.days[2]);
-            }
+            };
             //以当前数组的最后一日为准
             var getDays = function (month, day) {
                 var days = [{}, {}, {}, {}, {}, {}, {}];
@@ -251,7 +251,7 @@ mainModule
                     locale: 'zh_cn'
                 };
                 document.addEventListener("deviceready", function () {
-                    $cordovaDatePicker.show(options).then(function(date){
+                    $cordovaDatePicker.show(options).then(function (date) {
                         alert(date);
                     });
 
@@ -315,6 +315,21 @@ mainModule
                 alert('月份右滑动')
             }
             $scope.selectDay = function (x, y) {
+                var monthHeightNow = document.getElementById('mainTopId').clientHeight;
+                if (monthHeightNow > 316) {
+                    $scope.monthHeight = {
+                        'height': '187px'
+                    };
+                } else {
+                    $scope.monthHeight = {
+                        'height': 'auto'
+                    };
+                }
+                $timeout(function () {
+                    $scope.topHeight = {
+                        'margin-top': monthHeightNow + 'px'
+                    }
+                }, 10);
                 if (y.value == '') {
                     return
                 }
@@ -333,11 +348,11 @@ mainModule
                 $scope.contenHideFlag = true;
                 $timeout(function () {
                     $scope.contentArr = [];
-                }, 200)
+                }, 200);
                 $timeout(function () {
                     $scope.contenHideFlag = false;
                     $scope.contentArr = tempArr;
-                }, 400)
+                }, 400);
                 $timeout(function () {
                     ionicMaterialMotion.fadeSlideInRight({
                         startVelocity: 3000,
@@ -347,11 +362,11 @@ mainModule
                 }, 500);
                 $scope.selectModeText = '销售活动';
 
-            }
-
+            };
             $scope.topHeight = {
                 'margin-top': '198px'
-            }
+            };
+
             var last_day;
             $scope.init = function () {
                 //初始化数据
@@ -380,7 +395,7 @@ mainModule
                 isToday($scope.days[0].arr);
                 $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
                 $scope.days[2].arr = nextDays(-7, $scope.days[0].arr, $scope.days[2]);
-            }
+            };
             $scope.init();
 //滚动日视图
             $scope.slideHasChanged = function (page_now) {
@@ -388,7 +403,7 @@ mainModule
                     $scope.topHeight = {
                         'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
                     }
-                }, 10)
+                }, 10);
                 $scope.year = $scope.days[page_now].year;
                 $scope.month = $scope.days[page_now].month;
                 if (isLeapYear($scope.year)) {
@@ -414,7 +429,7 @@ mainModule
                         $scope.days[1].arr = nextDays(-7, $scope.days[2].arr, $scope.days[1]);
                         break;
                 }
-            }
+            };
 
             /*----------------------------月视图----------------------------*/
             $scope.monthView = [{}, {}, {}];
@@ -448,11 +463,11 @@ mainModule
                 for (var j = 1; j <= months[month]; j++, count++) {
                     var temp = {
                         value: j
-                    }
+                    };
                     monthObj.arr.push(temp);
                 }
                 return monthObj;
-            }
+            };
             var initFirstMonth = function (day) {
                 console.log(day);
                 var month_page_now = $ionicSlideBoxDelegate.$getByHandle('monthView-handle').currentIndex();
@@ -476,14 +491,14 @@ mainModule
                 //$timeout(function(){
                 //    $scope.$apply();
                 //},1)
-            }
+            };
 
             var monthInit = function (year, month, day) {
                 $timeout(function () {
                     $scope.topHeight = {
-                        'margin-top': '284px'
-                    }
-                    document.getElementById('mainContentId').style.marginTop = '284px';
+                        'margin-top': '316px'
+                    };
+                    document.getElementById('mainContentId').style.marginTop = '316px';
                 }, 10)
                 $timeout(function () {
                     $scope.topHeight = {
@@ -509,12 +524,17 @@ mainModule
             }
             //仅测试用,正式使用时需注释
             //monthInit($scope.year,$scope.month,new Date().getDate());
+            var monthHeightTemp = 316;
             $scope.monthHasChanged = function (page_now) {
                 $timeout(function () {
+                    var monthHeightNow = document.getElementById('mainTopId').clientHeight;
+                    $scope.monthHeight = {
+                        'height': 'auto'
+                    };
                     $scope.topHeight = {
-                        'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
-                    }
-                }, 10)
+                        'margin-top': monthHeightNow + 'px'
+                    };
+                }, 10);
                 $scope.year = $scope.monthView[page_now].year;
                 $scope.month = $scope.monthView[page_now].month;
                 if (isLeapYear($scope.year)) {

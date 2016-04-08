@@ -307,14 +307,14 @@ salesModule
                 }
                 //iOS平台
                 if (type == 'start') {
-                    var options = getOptions(new Date($scope.chanceDetails.startTime).format('yyyy/MM/dd hh:ss'), 'datetime', '开始');
+                    var options = getOptions(new Date($scope.chanceDetails.startTime).format('yyyy/MM/dd hh:mm'), 'datetime', '开始');
                     document.addEventListener("deviceready", function () {
                         $cordovaDatePicker.show(options).then(function (iosDate) {
                             $scope.chanceDetails.startTime = getFormatTime(iosDate);
                         });
                     }, false);
                 } else {
-                    var options = getOptions(new Date($scope.chanceDetails.endTime).format('yyyy/MM/dd hh:ss'), 'datetime', '结束');
+                    var options = getOptions(new Date($scope.chanceDetails.endTime).format('yyyy/MM/dd hh:mm'), 'datetime', '结束');
                     document.addEventListener("deviceready", function () {
                         $cordovaDatePicker.show(options).then(function (iosDate) {
                             $scope.chanceDetails.endTime = getFormatTime(iosDate);

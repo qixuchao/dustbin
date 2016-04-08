@@ -33,14 +33,14 @@
             </div>
         </div>
         <!--月视图-->
-        <div id="monthViewId" on-swipe-down="changeView()" ng-show="!viewFlag" class="monthView">
+        <div id="monthViewId" on-swipe-up="changeView()" on-swipe-down="changeView()" ng-show="!viewFlag" class="monthView">
             <div class="row week">
                 <div class="col text-center" ng-repeat="x in weeks">
                     <div>{{x.value}}</div>
                 </div>
             </div>
-            <ion-slide-box does-continue="true" on-slide-changed="monthHasChanged($index)"
-                           delegate-handle="monthView-handle">
+            <ion-slide-box id="monthScrollId" does-continue="true" on-slide-changed="monthHasChanged($index)"
+                           delegate-handle="monthView-handle" ng-style="monthHeight">
                 <ion-slide ng-repeat="x in monthView track by $index">
                     <div class="row row-wrap">
                         <div class="col col-14" ng-repeat="y in x.arr track by $index"
