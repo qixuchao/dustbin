@@ -5315,7 +5315,7 @@ input[readonly]:not(.cloned-text-input) {
   -moz-appearance: none;
   -webkit-appearance: none;
   /*在选择框的最右侧中间显示小箭头图片*/
-  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+  background: url("img/customer/sanjiao.png") no-repeat scroll right center transparent;
   position: relative;
   left: 0px;
   top: -2px;
@@ -5545,14 +5545,11 @@ input[readonly]:not(.cloned-text-input) {
   border: 2px solid #92CB3A; }
 
 #worksheet_spareSelect .selectC {
-  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
   border: solid 0px white;
-  /*很关键：将默认的select选择框样式清除*/
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  /*在选择框的最右侧中间显示小箭头图片*/
-  background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+  background: url("img/customer/sanjiao.png") no-repeat scroll right center transparent;
   position: relative;
   left: 0px;
   top: -2px;
@@ -5560,7 +5557,6 @@ input[readonly]:not(.cloned-text-input) {
   line-height: 24px;
   border: 0px;
   color: #909993;
-  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
   padding-right: 14px; }
 
 #worksheet_relatedPart ion-header-bar {
@@ -9383,7 +9379,9 @@ input[readonly]:not(.cloned-text-input) {
       .worksheetReportedDetail .content .history-info-relation-line .relation-box.left-10, .worksheetReportedDetail .content .history-info-relation-line .history-box.left-10, .worksheetReportedDetail .content .history-info-relation-line .info-box.left-10 {
         position: relative;
         left: -9rem; }
-      .worksheetReportedDetail .content .history-info-relation-line .relation-box img, .worksheetReportedDetail .content .history-info-relation-line .history-box img, .worksheetReportedDetail .content .history-info-relation-line .info-box img {
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box .img, .worksheetReportedDetail .content .history-info-relation-line .history-box .img, .worksheetReportedDetail .content .history-info-relation-line .info-box .img {
+        background: url("../../img/worksheetReported/jiaoyi@2x.png") no-repeat !important;
+        background-size: 100% 100% !important;
         display: inline-block;
         width: 2.2rem;
         height: 2.2rem;
@@ -9394,6 +9392,12 @@ input[readonly]:not(.cloned-text-input) {
         position: relative;
         left: 1.1rem;
         top: -.1rem; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box .img1, .worksheetReportedDetail .content .history-info-relation-line .history-box .img1, .worksheetReportedDetail .content .history-info-relation-line .info-box .img1 {
+        background: url("../../img/worksheetReported/jiaoyi@2x.png") no-repeat !important;
+        background-size: 100% 100% !important; }
+      .worksheetReportedDetail .content .history-info-relation-line .relation-box .img2, .worksheetReportedDetail .content .history-info-relation-line .history-box .img2, .worksheetReportedDetail .content .history-info-relation-line .info-box .img2 {
+        background: url("../../img/worksheetReported/baogong@2x.png") no-repeat !important;
+        background-size: 100% 100% !important; }
       .worksheetReportedDetail .content .history-info-relation-line .relation-box span, .worksheetReportedDetail .content .history-info-relation-line .history-box span, .worksheetReportedDetail .content .history-info-relation-line .info-box span {
         display: inline-block;
         border: 0px solid green;

@@ -3,7 +3,7 @@
     <ion-header-bar align-title="center" class="bar-positive" >
         <div class="row row-center title rowTitle">
             <div class="col col-15 col-center text-left" ng-click="goBack()">
-                <i class="ion-chevron-left" style="font-size: 27px;"></i>
+                <i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px"></i>
             </div>
             <div class="col col-65 text-center" ng-show="deleteShow">{{title}}
             </div>
@@ -42,8 +42,8 @@
         <!--</div>-->
         <div class="list">
             <label class="item item-radio" ng-repeat="i in infos" >
-                <input type="{{checkboxDiy}}" name="deleteBox"  value="{{i}}" >
-                <div class="item-content" style="background-color: white;padding: 0 0 1px 0">
+                <input type="{{checkboxDiy}}" ng-disabled="showInput" name="deleteBox"  value="{{i}}" >
+                <div class="item-content" style="background-color: white;padding: 0 0 1px 0" >
                     <div  class="relatedPart_list" >
                         <div class="row row-center" style="padding: 0 0 0 0" >
                             <div class="col col-6 col-center" style="margin-left:5px">

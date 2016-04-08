@@ -16,38 +16,32 @@ worksheetReportModule.controller('WorksheetListReportedDetailCtrl', [
 	function ($scope, $rootScope,$state, $ionicHistory, $ionicScrollDelegate,
 			  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
 			  $cordovaToast, $cordovaDatePicker, Prompter) {
-		ionicMaterialInk.displayEffect();
-		$scope.statusArr = [{
-			value: '未处理',
-			code: '',
-			color:'#e24976'
-		}, {
-			value: '处理中',
-			code: '',
-			color:'#a0cb00'
-		}, {
-			value: '已完成',
-			code: '',
-			color:'#a0cb00'
-		}, {
-			value: '已取消',
-			code: '',
-			color:'#e24976'
-		}];;
-		$scope.mySelect = {
-			status: $scope.statusArr[2]
+		$ionicPopover.fromTemplateUrl('src/worksheetReported/worksheetReportedDetail/model/worksheetReported_select.html', {
+			scope: $scope
+		}).then(function(popover) {
+			$scope.relatedpopover = popover;
+		});
+		$scope.relatedPopoverShow = function() {
+			console.log("--");
+			$scope.relatedpopover.show();
+			//document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
 		};
-		$scope.isEdit = false;
-		$scope.editText = "编辑";
+		$scope.relatedPopoverhide = function() {
+			$scope.relatedpopover.hide();
+			//document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";
+		};
+		$scope.related_types = ['报工','已取消'];
+		$scope.relatedqueryType = function(type){
+			$scope.relatedPopoverhide();
+		};
+		ionicMaterialInk.displayEffect();
+
 		$scope.goBack = function () {
 				$rootScope.goBack();
 
 		};
 		$scope.showTitle = false;
 		$scope.showTitleStatus = false;
-		//$timeout(function () {
-		//    $('#relativeId').css('height', window.screen.height-112+'px');
-		//},100)
 
 		var position;
 		var maxTop;
@@ -101,25 +95,12 @@ worksheetReportModule.controller('WorksheetListReportedDetailCtrl', [
 			}
 
 		};
-
-
-
-		$scope.relationsPopArr = [{
-			text: 'CATL销售',
-		}, {
-			text: '联系人',
-		}, {
-			text: '正式客户',
-		}, {
-			text: '潜在客户',
-		}, {
-			text: '竞争对手',
-		}, {
-			text: '合作伙伴',
-		}];
-		$scope.openFollow = function () {
-			$scope.followUpModal.show();
-		};
+		$scope.edit = function (){
+			//$state.go("worksheetReportedInfosList");
+		}
+		$scope.reportedInfos = function(){
+			$state.go("worksheetReportedCreate");
+		}
 	}])
 
 

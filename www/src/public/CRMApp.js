@@ -331,7 +331,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             .state('worksheetReportedInfosList', {
                 url: '/worksheetReportedInfosList',
                 templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
-                controller: 'WorksheetListReportedCtrl'
+                controller: 'WorksheetReportedListCtrl'
             })
             .state('worksheetReportedCreate', {
                 url: '/worksheetReportedCreate',
