@@ -1,7 +1,120 @@
-<ion-view id="worksheetlistReported-view" class="worksheet-view-public"  align-title="center">
+<ion-view class="worksheetReportedDetail">
+    <div class="top-back absolute animated fadeIn" style="height: 75px;background: none"
+         ng-class="!TitleFlag?'fadeOut':''" ng-show="TitleFlag">
+        <div class="row row-center title">
+            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+            <div class="col col-70 text-center">报工单详细信息
+                <div style="font-size: 10px"></div>
+            </div>
+            <div class="col col-15 text-right" ng-click="relatedPopoverShow()"><i class="ion-ios-more" style="font-size: 20px;font-weight: bold"></i></div>
+        </div>
+    </div>
+    <div class="top-back absolute top-back2" ng-show="showTitleStatus">
+        <div class="row row-center title" style="padding-bottom: 0">
+            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+            <div class="col col-70 text-center">报工单详细信息
+                <div style="font-size: 10px"></div>
+            </div>
+            <div class="col col-15 text-right" ng-click="relatedPopoverShow()"><i class="ion-ios-more" style="font-size: 20px;font-weight: bold"></i></div>
+        </div>
+    </div>
+    <ion-content  has-bouncing="false" on-scroll="onScroll()" scrollbar-y="false">
+        <div id="saleTopBackId" class="top-back">
+            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+                <div class="col col-70 text-center">报工单详细信息</div>
+                <div class="col col-15 text-right" ng-click="relatedPopoverShow()"><i class="ion-ios-more" style="font-size: 20px;font-weight: bold"></i></div>
+            </div>
+            <div class="mainInfo">
+                <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+                    <img class="title_oval" src="img/saleDetail/title_oval.png">
+                    <input type="text" value="车辆出现重大问题，需要维修"  ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
+                </div>
+                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
+                    <input type="text" value="郑州金龙客车股份有限公司福州分公司1部"  ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
+                </div>
+                <div class="row row-center" ng-class="placeFlag?'animated fadeOut':'animated fadeIn'">
+                    <div class="col col-33" style="padding:0">外服人员:</div>
+                    <div class="col col-27"style="padding:0"><input type="text" value="张薇" ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}"></div>
+                    <div class="col col-20" style="padding:0">状态:</div>
+                    <div class="col col-20" style="padding:0;color: #88BA23">处理中</div>
+                </div>
+            </div>
+        </div>
 
-    <ion-content  class="" style="" scroll="false" has-bouncing="false">
+        <div class="content" >
+            <!--详细信息8DC129-->
 
+            <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
+                <div class="fill-height line-inner">
+                    <div class="fill-height line-inner">
+                        <div class="relation-box left-1" >
+                            <div class="img img1"></div>
+                            <span>交易历史</span>
+                        </div>
+                        <div class="relation-box left-1" ng-click="reportedInfos()">
+                            <div class="img img2"></div>
+                            <span>报工信息</span>
+                        </div>
+                    </div>
+                </div>
+            </ion-scroll>
+            <div id="worksheetReportCreate">
+                <div class="Car_countentbasic">
+                    <div class="Car_countentbasicinfo">基本信息</div>
+                    <div class="Car_countentbasicline"></div>
+                    <div class="Car_countentbasicclok"></div>
+                </div>
+                <div class="contentAll">
+                    <div class="row itemContent row-center">
+                        <div class="col-42 col-center">报工单类型：</div>
+                        <div class="col-58 col-center"  style="color:#A8A49F">{{}}</div>
+                    </div>
+                    <div class="row itemContent row-center">
+                        <div class="col-42 col-center">报工单单号：</div>
+                        <div class="col-58 fontColor col-center">{{}}</div>
+                    </div>
 
+                    <div class="row row-center itemContent">
+                        <div class="col-42 col-center">简单描述：</div>
+                        <div class="col-58  col-center"><input type="text" class="fontColor" ng-model="worksheetReport.worksheetDes"></div>
+                    </div>
+                    <div class="row itemContentT ">
+                        <div class="col-25 ">注释：</div>
+                        <div class="col-75 col-center">
+                            <textarea type="text"placeholder="请输入值" class="textareaCss fontColor" ng-model="worksheetReport.remark"></textarea>
+                        </div>
+                    </div>
+                    <div class="row itemContent row-center">
+                        <div class="col-42 col-center">状态：</div>
+                        <div class="col-58 col-center">
+                            <select class="selectC">
+                                <option selected>未处理</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row row-center itemContent">
+                        <div class="col-42 col-center">影响：</div>
+                        <div class="col-58 fontColor col-center">
+                            <select class="selectC">
+                                <option selected>灾难</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row row-center itemContent">
+                        <div class="col-42 col-center">外服人员：</div>
+                        <div class="col-48 fontColor col-center">王伟</div>
+                        <div><img class="relatedPart_listfor" src="img/employee/Shape@2x.png">
+                        </div>
+                    </div>
+                    <div class="row" style="padding-left: 20%;padding-right: 20%">
+                        <button class="button button-block" style="background-color: #8DC129;color:white" ng-click="edit()">
+                        编辑
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

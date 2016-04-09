@@ -234,7 +234,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		position: absolute;
 		z-index: 0;	
 		background-color: white;
-		.loading-more{
+		.loading-more, .has-more-data-no{
 			height: 3rem;
 			line-height: 3rem;
 			text-align: center;

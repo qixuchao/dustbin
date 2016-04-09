@@ -43,6 +43,8 @@
       height: 28px;
       border-radius: 4px;
       margin-left: 2px;
+      line-height: 28px;
+      vertical-align: middle;
       .ion-ios-search{
         font-size: 18px;
         position: relative;
@@ -54,17 +56,20 @@
       input{
         height:22px;
         min-height:22px;
+        line-height:22px;
+        vertical-align: middle;
         width: 90%;
         background: none;
         border: none;
         position: relative;
-        top: -3px;
+        //top: -3px;
       }
       .ion-ios-close{
         color: #CBCBCE;
         position: relative;
         width: 30px;
         text-align: center;
+        top: -2px;
       }
     }
     .cancel{

@@ -4,6 +4,7 @@
         "uninstalled": []
     },
     "config_munge": {
+<<<<<<< HEAD
         "files": {
             "res/xml/config.xml": {
                 "parents": {
@@ -47,6 +48,26 @@
                         {
                             "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"io.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"webView\" value=\"org.crosswalk.engine.XWalkWebViewEngine\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference default=\"17+\" name=\"xwalkVersion\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference default=\"--disable-pull-to-refresh-effect\" name=\"xwalkCommandLine\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference default=\"embedded\" name=\"xwalkMode\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference default=\"true\" name=\"xwalkMultipleApk\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -57,11 +78,22 @@
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
                             "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
+                            "count": 1
                         }
                     ]
                 }
             }
         }
+=======
+        "files": {}
+>>>>>>> Feature/T0001
     },
     "installed_plugins": {
         "com.verso.cordova.clipboard": {
@@ -75,6 +107,7 @@
         },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
+<<<<<<< HEAD
         },
         "cordova-plugin-datepicker": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
@@ -96,6 +129,11 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+=======
+>>>>>>> Feature/T0001
         }
     },
     "dependent_plugins": {}

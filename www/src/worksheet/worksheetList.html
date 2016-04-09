@@ -69,14 +69,7 @@
             'sort-click-gone':(config.sorteGoneByClick),
             'filter-gone-bymodelclick':(config.filterGoneByModelClick),
             'sorte-gone-bymodelclick':(config.sorteGoneByModelClick)}">
-                <!-- ng-show="config.isSorteMode" ng-class="{
-                    'active-from-click top-animation':(config.isSorteMode&&config.sortModeFromClick),
-                    'active-from-filter left-animation':(config.isSorteMode&&config.sortModeFromFilterMode)
-                    }"  ng-click="clickEnterListMode($event);"   
-                    ng-class="{
-                    'active-click-enter top-animation':(config.isSorteMode&&config.sortModeFromClick),
-                    'active-filter-enter left-animation':(config.isSorteMode&&config.sortModeFromFilterMode)
-                    }"-->
+                
                 <div canClickEnterListMode class="tab-sort-content tab-sort-content-inner" ng-click="clickEnterListMode($event);" >
                         <div canNotClickEnterListMode class="time-desc sort-type-item" ng-class="{'selected':config.sortedTypeTimeDesc}"  ng-click="sorteTimeDesc();">
                             <span>开始时间倒序</span>
@@ -87,15 +80,12 @@
                         <div canNotClickEnterListMode class="impact-desc sort-type-item" ng-class="{'selected':config.sortedTypeCompactDesc}" ng-click="sorteCompactDesc();">
                             <span>影响程序由高到低</span>
                         </div>
-                        <div canNotClickEnterListMode class="none sort-type-item" ng-click="sorteNone();">
+                        <!--div canNotClickEnterListMode class="none sort-type-item" ng-click="sorteNone();">
                             <span>取消</span>
-                        </div>
+                        </div-->
                 </div>
-                <!-- ng-show="config.isFilterMode"  ng-class="{
-                    'active-from-click top-animation': (config.isFilterMode&&config.filterModeFromClick),
-                    'active-from-sort left-animation': (config.isFilterMode&&config.filterModeFromSortMode)
-                    }"  ng-click="clickEnterListMode($event);" -->
-                <div canClickEnterListMode class="tab-filter-content" >
+                
+                <div canClickEnterListMode class="tab-filter-content" ng-click="clickEnterListMode($event);">
                     <ion-scroll canNotClickEnterListMode scrollbar-y="false" has-bouncing="false" class="tab-filter-content-inner">
                         <div canNotClickEnterListMode class="filter-time">
                             <div class="filter-time-title filter-title">日期区间</div>
@@ -149,40 +139,50 @@
                         </div>
                     </ion-scroll>
                 </div>
-
+                
                 <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
                     <ion-scroll class="fill-parent"  on-refresh="" has-bouncing="false">
+                        <ion-refresher ng-show="canReLoadData()" pulling-text="下拉刷新" on-refresh="reloadData();"></ion-refresher>
                         <div class="list">
-                            <div class="item animated " ng-class="{'flipInX':(config.showListItemAnimate)}" ng-repeat="item in datas.testDates" >
+                            <a class="item animated flipInX" ng-class="{'flipInX':(config.showListItemAnimate)}" ng-click="goDetailState($index);" ng-repeat="item in datas.serviceListDatas">
                                 <div class="left">
                                     <div class="row item-line">
                                         <div class="col-28 name">工单描述:</div>
-                                        <div class="col-72 value" ng-bind="item.desc"></div>
+                                        <div class="col-72 value" ng-bind="item.DESCRIPTION"></div>
                                     </div>
                                     <div class="row item-line">
                                         <div class="col-28 name">客户名称:</div>
-                                        <div class="col-72 value" ng-bind="item.costomer"></div>
+                                        <div class="col-72 value" ng-bind="item.NAME1"></div>
                                     </div>
                                     <div class="row item-line" >
                                         <div class="col-40 name">最后更新时间:</div>
-                                        <div class="col-60 value" ng-bind="item.lastModifyTime"></div>
+                                        <div class="col-60 value" ng-bind="item.CHANGED_AT | date:'yyyy-MM-dd HH:mm:ss'"></div>
                                     </div>
                                 </div>
-                                <div class="right" ng-click="goDetailState($index);">
+                                <div class="right" >
                                     <div class="enter-detail-btn">
                                         <i class="ion-android-arrow-forward"></i>
                                     </div>
                                     <div class="status">
                                         <span class="name">状态:</span>
-                                        <span class="value" ng-bind="item.status" ng-class="{'handling':(item.statusType=='HANDLING'),'new':(item.statusType=='NEW')}"></span>
+                                        <span class="value" ng-bind="item.STAT_T" ng-class="{'handling':(item.statusType=='HANDLING'),'new':(item.statusType=='NEW')}"></span>
                                     </div>
                                 </div>
-                            </div>         
+                            </a>         
                         </div>
-                        <div class="loading-more">
+                        <div class="loading-more" ng-if="config.hasMoreData && !config.isLoading" ng-click="loadMoreDatas()">
                             点击加载更多...
-                        </div>  
-                    </ion-scroll>                                   
+                        </div>
+                        <div class="has-more-data-no" ng-if="!config.hasMoreData && !config.isLoading">
+                            暂无更多数据
+                        </div>
+                        <div class="request-error-msg">
+                            <span ng-bind="config.loadingErrorMsg"></span>
+                        </div>
+                        <div class="is-loading" ng-if="config.isLoading" style="text-align:center;margin-top:1rem;">
+                            <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+                        </div>
+                    </ion-scroll>                            
                 </div>
                 <div canClickEnterListMode class="divs-wrapper-bg" ng-if="config.isSorteMode || config.isFilterMode" ng-click="clickEnterListMode($event);"></div>
         </div>

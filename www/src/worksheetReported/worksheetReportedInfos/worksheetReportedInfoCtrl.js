@@ -18,7 +18,7 @@ worksheetReportModule.controller("WorksheetReportedListCtrl",[
             code : "SV-AFS-03",
             num : "3"
         }]
-        worksheetReportservice.setReportlist($scope.listInfos);
+        //worksheetReportservice.setReportlist($scope.listInfos);
         $scope.goMaintain = function(){
             console.log("---");
             $state.go("worksheetReportedMaintain");

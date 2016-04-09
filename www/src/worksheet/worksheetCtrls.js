@@ -1,10 +1,20 @@
+/*
+	TODO: 
+		筛选：不点击“确定”按钮的时候，如果处理、		时间筛选、	工单类型筛选接口有问题
+
+*/
 worksheetModule.controller("WorksheetListCtrl",[
 	"$scope", 
 	"ionicMaterialInk", 
 	"ionicMaterialMotion",
 	"$ionicPopup", "$timeout", 
 	"$ionicPosition","$state",
-	function($scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition, $state){
+	"HttpAppService",
+	"worksheetHttpService",
+	function($scope, 
+		ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,
+		$ionicPosition, $state, 
+		HttpAppService, worksheetHttpService){
 	
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
@@ -14,7 +24,7 @@ worksheetModule.controller("WorksheetListCtrl",[
     }, 550);
     
 	$scope.config = {
-		searchText: '',
+		
 		//showXbrModel: false, //是否显示遮罩层
 		// page mode
 		isFilterMode: false,
@@ -32,8 +42,8 @@ worksheetModule.controller("WorksheetListCtrl",[
 		sorteGoneByModelClick: false,
 
 		//排序 规则
-		sortedTypeNone: true,    //不排序（默认）
-		sortedTypeTimeDesc: false,  //时间 降序
+		sortedTypeNone: true,    //不排序
+		sortedTypeTimeDesc: true,  //时间 降序（默认）
 		sortedTypeTimeAes: false,	//时间 升序
 		sortedTypeCompactDesc: false,
 		//筛选 规则 ----> 工单类型
@@ -69,12 +79,152 @@ worksheetModule.controller("WorksheetListCtrl",[
 		showListItemAnimate: false,
 
 
-		ok: true
+		ok: true,
+
+		currentParams: {
+	        IS_PAGE: {
+	            CURRPAGE: 1,
+	            ITEMS: 10
+	        },
+	        IS_SEARCH: {
+	            SEARCH: "",
+	            OBJECT_ID: "",
+	            DESCRIPTION: "",
+	            PARTNER: "",
+	            PRODUCT_ID: "",
+	            CAR_TEXT: "",
+	            CREATED_FROM: "",
+	            CREATED_TO: ""
+	        }
+	    },
+	    //请求参数相关
+	    searchText: '',
+	    IS_SORT: '',
+	    T_IN_IMPACT: {item:[]},
+	    T_IN_PARTNER: {},
+	    T_IN_PROCESS_TYPE: {item:[]},
+	    T_IN_STAT: {item: []},
+	    //网络请求状态相关
+	    currentPage: 0,
+	    isLoading: false,
+	    isReloading: false,
+	    hasMoreData: true,
+	    loadingErrorMsg: null
+	};
+	$scope.oldFilters = null;	
+	function __remeberCurrentFilters(){ //打开筛选界面的时候执行
+		if(!$scope.oldFilters){   //保存当前filters
+			$scope.oldFilters = {
+				//排序 规则
+				sortedTypeNone: $scope.config.sortedTypeNone,
+				sortedTypeTimeDesc: $scope.config.sortedTypeTimeDesc,
+				sortedTypeTimeAes: $scope.config.sortedTypeTimeAes,
+				sortedTypeCompactDesc: $scope.config.sortedTypeCompactDesc,
+				//筛选 规则 ----> 工单类型
+				filterLocalService: $scope.config.filterLocalService,
+				filterNewCarOnline: $scope.config.filterNewCarOnline,
+				filterBatchUpdate: $scope.config.filterBatchUpdate,
+				filterNone: $scope.config.filterNone,
+				//筛选 规则 ----> 影响：damage height middle low none
+				filterImpactDamage: $scope.config.filterImpactDamage,
+				filterImpactHeight: $scope.config.filterImpactHeight,
+				filterImpactMiddle: $scope.config.filterImpactMiddle,
+				filterImpactLow: $scope.config.filterImpactLow,
+				filterImpactNone: $scope.config.filterImpactNone,
+				filterImpactNoSelected: $scope.config.filterImpactNoSelected,
+				//筛选 规则 ----> 状态
+				filterStatusNew: $scope.config.filterStatusNew,
+				filterStatusSendedWorker: $scope.config.filterStatusSendedWorker,
+				filterStatusRefused: $scope.config.filterStatusRefused,
+				filterStatusHandling: $scope.config.filterStatusHandling,
+				filterStatusReported: $scope.config.filterStatusReported,
+				filterStatusFinished: $scope.config.filterStatusFinished,
+				filterStatusRevisited: $scope.config.filterStatusRevisited,
+				filterStatusAudited: $scope.config.filterStatusAudited,
+				filterStatusReturned: $scope.config.filterStatusReturned,
+				filterStatusCancled: $scope.config.filterStatusCancled,
+
+				timeStart: $scope.config.timeStart,
+				timeEnd: $scope.config.timeEnd
+			};
+		}else{ //更新filters、oldFilters则保持不变
+			angular.extend($scope.config, $scope.oldFilters);
+		}
 	};
 	
 	//依据所选 筛选条件 进行筛选操作
 	$scope.filterConfirm = function(){
-		// TODO
+		delete $scope.oldFilters;
+		$scope.oldFilters = null;
+		__clearResponseDatasForReloading();
+		//工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
+		$scope.config.T_IN_PROCESS_TYPE.item = [];
+		if($scope.config.filterNewCarOnline){
+			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE":"ZNCO"});
+		}
+		if($scope.config.filterLocalService){
+			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE":"ZPRO"});
+		}
+		if($scope.config.filterBatchUpdate){
+			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE":"ZPLO"});
+		}
+		//影响  filterImpactDamage:01 灾难 ;    filterImpactHeight:25 高     filterImpactMiddle:50 中
+		//			filterImpactLow:75 低	filterImpactNone: 99 无
+		$scope.config.T_IN_IMPACT.item = [];
+		if($scope.config.filterImpactDamage){
+			$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"01"});
+		}
+		if($scope.config.filterImpactHeight){
+			$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"25"});
+		}
+		if($scope.config.filterImpactMiddle){
+			$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"50"});
+		}
+		if($scope.config.filterImpactLow){
+			$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"75"});
+		}
+		if($scope.config.filterImpactNone){
+			$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"99"});
+		}
+		//筛选 规则 ----> 状态: 
+		//			filterStatusNew: E0001 新建;    filterStatusSendedWorker:E0002 已派工;
+		//			filterStatusRefused: E0003 已拒绝;    filterStatusHandling:E0004 处理中
+		//			filterStatusReported:E0005 已报工;	 filterStatusFinished:E0006 已完工
+		//			filterStatusRevisited: E0010 已回访;   filterStatusAudited:E0007 已审核
+		//			filterStatusReturned:E0008 已打回;		filterStatusCancled:E0009 已取消
+		$scope.config.T_IN_STAT.item = [];
+		if($scope.config.filterStatusNew){
+			$scope.config.T_IN_STAT.item.push({"STAT":"E0001"});
+		}
+		if($scope.config.filterStatusSendedWorker){
+			$scope.config.T_IN_STAT.item.push({"STAT":"E0002"});
+		}
+		if($scope.config.filterStatusRefused){
+			$scope.config.T_IN_STAT.item.push({"STAT":"E0003"});
+		}
+		if($scope.config.filterStatusHandling){
+			$scope.config.T_IN_STAT.item.push({"STAT":"E0004"});
+		}
+		if($scope.config.filterStatusReported){
+			$scope.config.T_IN_STAT.item.push({"STAT":"E0005"});
+		}
+		if($scope.config.filterStatusFinished){
+			$scope.config.T_IN_STAT.item.push({"STAT":"E0006"});
+		}
+		if($scope.config.filterStatusRevisited){
+			$scope.config.T_IN_STAT.item.push({"STAT":"E0010"});
+		}
+		if($scope.config.filterStatusAudited){
+			$scope.config.T_IN_STAT.item.push({"STAT":"E0007"});
+		}
+		if($scope.config.filterStatusReturned){
+			$scope.config.T_IN_STAT.item.push({"STAT":"E0008"});
+		}
+		if($scope.config.filterStatusCancled){
+			$scope.config.T_IN_STAT.item.push({"STAT":"E0009"});
+		}
+		$scope.enterListMode();
+		$scope.reloadData();		
 	};
 	//重置筛选条件
 	$scope.resetFilters = function(){
@@ -120,77 +270,166 @@ worksheetModule.controller("WorksheetListCtrl",[
 		return $scope.config.isFilterMode || $scope.config.isSorteMode;
 	};
 
+	function __clearResponseDatasForReloading(){
+		delete $scope.datas.serviceListDatas;
+		$scope.datas.serviceListDatas = [];
+		$scope.config.isLoading = true;
+		$scope.config.isReloading = true;
+	}
 	$scope.datas = {
+		serviceListDatas: [
+
+		],
 		testDates: [
 			{
-				costomer: '金龙客车',
-				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '新建',
-				statusType: 'NEW',
+				"CAR_NO": "0000000000000000000000000000112016020201",
+				"CAR_TEXT": "贵GU1229*15H647M-0001*112016020201",
+				"CHANGED_AT": 20160408052245,
+				"DESCRIPTION": 123456,
+				"IMPACT_T": "",
+				"NAME1": "武夷山市公交巴士旅游有限公司2",
+				"OBJECT_ID": 5200000297,
+				"PROCESS_TYPE": "ZPRO",
+				"PROCESS_TYPE_T": "现场维修工单",
+				"SOLDTO_NAME": "0000100137",
+				"STAT": "E0001",
+				"STAT_T": "新建",
+				"ZZIMPACT": "00"
 			},
 			{
-				costomer: '郑州宇通客车',
-				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '处理中',
-				statusType: 'HANDLING',
+				"CAR_NO": "0000000000000000000000000000114442300070",
+				"CAR_TEXT": "京AS9116*14H581P-0041*114442300070",
+				"CHANGED_AT": 20160409051909,
+				"DESCRIPTION": "现场维修工单测试",
+				"IMPACT_T": "灾难",
+				"NAME1": "武夷山市公交巴士旅游有限公司2",
+				"OBJECT_ID": 5200000253,
+				"PROCESS_TYPE": "ZPRO",
+				"PROCESS_TYPE_T": "现场维修工单",
+				"SOLDTO_NAME": "0000100137",
+				"STAT": "E0001",
+				"STAT_T": "新建",
+				"ZZIMPACT": "01"
 			},
 			{
-				costomer: '金龙客车',
-				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '新建',
-				statusType: 'NEW',
+				"CAR_NO": "0000000000000000000000000000114442300070",
+				"CAR_TEXT": "京AS9116*14H581P-0041*114442300070",
+				"CHANGED_AT": 20160409070615,
+				"DESCRIPTION": "现场维修工单服详情测试0409",
+				"IMPACT_T": "高",
+				"NAME1": "武夷山市公交巴士旅游有限公司2",
+				"OBJECT_ID": 5200000316,
+				"PROCESS_TYPE": "ZPRV",
+				"PROCESS_TYPE_T": "现场维修工单（服务商）",
+				"SOLDTO_NAME": "0000100137",
+				"STAT": "E0010",
+				"STAT_T": "已回访",
+				"ZZIMPACT": 25
 			},
 			{
-				costomer: '郑州宇通客车',
-				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '处理中',
-				statusType: 'HANDLING',
+				"CAR_NO": "14190-0024",
+				"CAR_TEXT": "φ30.0热缩套管-红色",
+				"CHANGED_AT": 20160409032723,
+				"DESCRIPTION": "新车上线工单详情测试0409",
+				"IMPACT_T": "",
+				"NAME1": 123,
+				"OBJECT_ID": 5100000188,
+				"PROCESS_TYPE": "ZNCO",
+				"PROCESS_TYPE_T": "新车档案收集工单",
+				"SOLDTO_NAME": "0000100409",
+				"STAT": "E0001",
+				"STAT_T": "新建",
+				"ZZIMPACT": "00"
 			},
 			{
-				costomer: '金龙客车',
-				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '新建',
-				statusType: 'NEW',
+				"CAR_NO": "0000000000000000000000000000114442300070",
+				"CAR_TEXT": "京AS9116*14H581P-0041*114442300070",
+				"CHANGED_AT": 20160409051335,
+				"DESCRIPTION": "现场维修工单详情测试0409",
+				"IMPACT_T": "灾难",
+				"NAME1": "武夷山市公交巴士旅游有限公司2",
+				"OBJECT_ID": 5200000315,
+				"PROCESS_TYPE": "ZPRO",
+				"PROCESS_TYPE_T": "现场维修工单",
+				"SOLDTO_NAME": "0000100137",
+				"STAT": "E0001",
+				"STAT_T": "新建",
+				"ZZIMPACT": "01"
 			},
 			{
-				costomer: '郑州宇通客车',
-				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '处理中',
-				statusType: 'HANDLING',
+				"CAR_NO": "0000000000000000000000000000114442300070",
+				"CAR_TEXT": "京AS9116*14H581P-0041*114442300070",
+				"CHANGED_AT": 20160409060013,
+				"DESCRIPTION": "批量改进工单服详情测试0409",
+				"IMPACT_T": "",
+				"NAME1": "武夷山市公交巴士旅游有限公司2",
+				"OBJECT_ID": 5300000224,
+				"PROCESS_TYPE": "ZPLV",
+				"PROCESS_TYPE_T": "批量改进工单（服务商）",
+				"SOLDTO_NAME": "0000100137",
+				"STAT": "E0001",
+				"STAT_T": "新建",
+				"ZZIMPACT": "00"
 			},
 			{
-				costomer: '金龙客车',
-				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '新建',
-				statusType: 'NEW',
+				"CAR_NO": "0000000000000000000000000000114442300070",
+				"CAR_TEXT": "京AS9116*14H581P-0041*114442300070",
+				"CHANGED_AT": 20160409053028,
+				"DESCRIPTION": "批量改进工单详情测试0409",
+				"IMPACT_T": "",
+				"NAME1": "武夷山市公交巴士旅游有限公司2",
+				"OBJECT_ID": 5300000223,
+				"PROCESS_TYPE": "ZPLO",
+				"PROCESS_TYPE_T": "批量改进工单",
+				"SOLDTO_NAME": "0000100137",
+				"STAT": "E0001",
+				"STAT_T": "新建",
+				"ZZIMPACT": "00"
 			},
 			{
-				costomer: '郑州宇通客车',
-				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '处理中',
-				statusType: 'HANDLING',
+				"CAR_NO": "0000000000000000000000000000114442300070",
+				"CAR_TEXT": "京AS9116*14H581P-0041*114442300070",
+				"CHANGED_AT": 20160409065854,
+				"DESCRIPTION": "批量改进工单更改测试0409",
+				"IMPACT_T": "",
+				"NAME1": "武夷山市公交巴士旅游有限公司2",
+				"OBJECT_ID": 5300000225,
+				"PROCESS_TYPE": "ZPLO",
+				"PROCESS_TYPE_T": "批量改进工单",
+				"SOLDTO_NAME": "0000100137",
+				"STAT": "E0009",
+				"STAT_T": "已取消",
+				"ZZIMPACT": "00"
 			},
 			{
-				costomer: '金龙客车',
-				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '新建',
-				statusType: 'NEW',
+				"CAR_NO": "0000000000000000000000000000002016032404",
+				"CAR_TEXT": "车牌*车工号*2016032404",
+				"CHANGED_AT": 20160409070354,
+				"DESCRIPTION": "现场维修工单",
+				"IMPACT_T": "灾难",
+				"NAME1": "武夷山市公交巴士旅游有限公司2",
+				"OBJECT_ID": 5200000317,
+				"PROCESS_TYPE": "ZPRO",
+				"PROCESS_TYPE_T": "现场维修工单",
+				"SOLDTO_NAME": "0000100137",
+				"STAT": "E0004",
+				"STAT_T": "正在处理",
+				"ZZIMPACT": "01"
 			},
 			{
-				costomer: '郑州宇通客车',
-				desc: '现场维修工单',
-				lastModifyTime: '2016.01.01 10:00:01',
-				status: '处理中',
-				statusType: 'HANDLING',
+				"CAR_NO": "0000000000000000000000000000114442300070",
+				"CAR_TEXT": "京AS9116*14H581P-0041*114442300070",
+				"CHANGED_AT": 20160408062023,
+				"DESCRIPTION": "Text 01 后续工单",
+				"IMPACT_T": "中",
+				"NAME1": "武夷山市公交巴士旅游有限公司2",
+				"OBJECT_ID": 5200000302,
+				"PROCESS_TYPE": "ZPRO",
+				"PROCESS_TYPE_T": "现场维修工单",
+				"SOLDTO_NAME": "0000100137",
+				"STAT": "E0002",
+				"STAT_T": "已派工",
+				"ZZIMPACT": 50
 			}
 		]
 	};
@@ -236,7 +475,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 			parent = parent.parentElement;
 		}
 	};
-
+    
 	$scope.enterFilterMode = function(){
 		__setSoftFilterAnimationProAllFalse();
 		if($scope.config.isFilterMode){
@@ -245,6 +484,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 			$scope.enterListMode();
 			return;
 		}
+		__remeberCurrentFilters(); //打开筛选界面的时候，先保存一份数据
 		$timeout(function (){
 				$scope.config.filterGoneByClick = false;
 		}, 400);
@@ -323,32 +563,40 @@ worksheetModule.controller("WorksheetListCtrl",[
 	};
 
 	$scope.sorteTimeDesc = function(){
+		__clearResponseDatasForReloading();
 		$scope.config.sortedTypeNone = false;
 		$scope.config.sortedTypeCompactDesc = false;
 		$scope.config.sortedTypeTimeAes = false;
 		$scope.config.sortedTypeTimeDesc = true;
 		$scope.enterListMode();
+		$scope.reloadData();
 	};
 	$scope.sorteTimeAes = function(){
+		__clearResponseDatasForReloading();
 		$scope.config.sortedTypeNone = false;
 		$scope.config.sortedTypeCompactDesc = false;
 		$scope.config.sortedTypeTimeAes = true;
 		$scope.config.sortedTypeTimeDesc = false;
 		$scope.enterListMode();
+		$scope.reloadData();
 	};
 	$scope.sorteNone = function(){
+		__clearResponseDatasForReloading();
 		$scope.config.sortedTypeNone = true;
 		$scope.config.sortedTypeCompactDesc = false;
 		$scope.config.sortedTypeTimeAes = false;
 		$scope.config.sortedTypeTimeDesc = false;
 		$scope.enterListMode();
+		$scope.reloadData();
 	};
 	$scope.sorteCompactDesc = function(){
+		__clearResponseDatasForReloading();
 		$scope.config.sortedTypeNone = false;
 		$scope.config.sortedTypeCompactDesc = true;
 		$scope.config.sortedTypeTimeAes = false;
 		$scope.config.sortedTypeTimeDesc = false;
 		$scope.enterListMode();
+		$scope.reloadData();
 	};
 	
 	$scope.selectFilterType = function(filterName){ // localService、batchUpdate、newcarOnline
@@ -390,14 +638,56 @@ worksheetModule.controller("WorksheetListCtrl",[
 			$scope.config[status[i]] = false;
 		}
 	}
+	///////////////////////////////////////////// 接口相关 ///////////////////////////////////////////////////
+	$scope.canReLoadData  = function(){
+		return true;
+	};
+
+	$scope.reloadData = function(){
+		$scope.datas.serviceListDatas = [];
+		if($scope.canReLoadData()){
+			$scope.config.currentPage = 0;
+			$scope.config.hasMoreData = true;
+			$scope.config.isReloading = true;
+			$scope.loadMoreDatas();
+		}else{
+			$scope.$broadcast('scroll.refreshComplete');
+		}
+	};
+
+	$scope.loadMoreDatas = function(){
+		// 默认:1 代表开始时间倒序:desc 	 2 是开始时间顺序:aes 	 3 是影响由高到低:
+		var sortedInt = $scope.config.sortedTypeTimeAes ? "2" : (
+				$scope.config.sortedTypeTimeDesc ? "1" : (
+						$scope.config.sortedTypeCompactDesc ? "3" : "1" 
+					)
+			);
+		var queryParams = {
+			IS_PAGE: {CURRPAGE: ++$scope.config.currentPage, ITEMS: 10},
+			IS_SEARCH:{ SEARCH: $scope.config.searchText },
+			IS_SORT: sortedInt,
+			T_IN_IMPACT: $scope.config.T_IN_IMPACT,
+			T_IN_PROCESS_TYPE: $scope.config.T_IN_PROCESS_TYPE,
+			T_IN_STAT: $scope.config.T_IN_STAT
+		};
+		console.log(queryParams);
+		if($scope.config.hasMoreData){
+			__requestServiceList(queryParams);
+		}
+	};
 
 	$scope.init = function(){
+		$timeout(function () {
+                ionicMaterialInk.displayEffect();
+            }, 100);
 		$scope.enterListMode();
+
 
 		$timeout(function (){
 			$scope.config.showListItemAnimate = true;
 		}, 150);
-		
+		//__requestServiceList({IS_PAGE:{CURRPAGE: ++$scope.config.currentPage, ITEMS: 10}});
+		$scope.reloadData();
 		/*$ionicPopup.alert({
 			title: '你好',
 			template: '你好不'
@@ -415,8 +705,47 @@ worksheetModule.controller("WorksheetListCtrl",[
 		var v1 = header.offsetHeight;
 		alert(document.body.attributes['class'].value);
 		alert(JSON.stringify(obj1)+"     "+JSON.stringify(obj2)+"     "+v1);
-
 	}
+
+	
+	
+	// {"ES_RESULT":{"ZFLAG":"E","ZRESULT":"无符合条件数据"},"T_OUT_LIST":""}
+
+	function __requestServiceList(options){
+        var postData = angular.copy(worksheetHttpService.serviceList.defaults);
+        angular.extend(postData, options);
+        var promise = HttpAppService.post(worksheetHttpService.serviceList.url,postData);
+        $scope.config.isLoading = true;
+        $scope.config.loadingErrorMsg = null;
+        promise.success(function(response){
+        	$scope.config.isLoading = false;
+        	if($scope.config.isReloading){
+        		$scope.config.isReloading = false;
+        		$scope.$broadcast('scroll.refreshComplete');
+        		$scope.datas.serviceListDatas = [];
+        	}        	
+        	if(response.ES_RESULT.ZFLAG == "E"){ // 未加载到数据
+        		$scope.config.hasMoreData = false;
+        		return;
+        	}
+        	if(!$scope.datas.serviceListDatas){
+        		$scope.datas.serviceListDatas = [];
+        	}
+        	$scope.datas.serviceListDatas = $scope.datas.serviceListDatas.concat(response.T_OUT_LIST.item);            
+        })
+        .error(function(errorResponse){
+        	$scope.config.isLoading = false;
+        	if($scope.config.isReloading){
+        		$scope.config.isReloading = false;
+        		$scope.$broadcast('scroll.refreshComplete');
+        		$scope.datas.serviceListDatas = [];
+        		$scope.config.hasMoreData = false;
+        	}
+        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
+        });
+	}
+
+
 
 }]);
 

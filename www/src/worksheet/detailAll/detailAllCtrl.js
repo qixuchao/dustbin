@@ -606,7 +606,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}else if(type == 'wangong'){
 
 				}else if(type == 'yiquxiao'){
-
+					
 				}
 			};
 			
