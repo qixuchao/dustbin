@@ -1,0 +1,24 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "com.verso.cordova.clipboard": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
+        "cordova-plugin-base64-joewsh": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        }
+    },
+    "dependent_plugins": {}
+}

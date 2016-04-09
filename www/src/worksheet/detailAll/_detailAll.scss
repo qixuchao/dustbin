@@ -16,19 +16,29 @@
 .platform-ios.platform-cordova:not(.fullscreen){
   //height: 64px; 
 }
-<<<<<<< HEAD
- 
-//#worksheetdetail-newcar-view, #worksheetdetail-siterepair-view{
-=======
-
-
->>>>>>> 22c7686bd6e292f5c3df2bfa66a0809e87771a2e
 .worksheet-detail-view-public{
 //#worksheetdetail-newcar-view, #worksheetdetail-siterepair-view{
 	ion-content>div.scroll{
         @include display-flex;
         @include flex-direction(column);
     }
+    ion-content{
+        margin-bottom: 3.8rem;
+    }
+    .fixed-buttons{
+        position: fixed;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background-color: white;
+        text-align: center;
+        height: 3.8rem;
+        .button{
+            margin: .4rem;
+        }
+    }
+
+
     .detail-header{
         background: #eee url("../../img/saleDetail/BG1.png") no-repeat;
         background-position: 0px 0px;
@@ -282,6 +292,16 @@
             }
             .row:nth-child(2){
                 font-size: 15px;
+            }
+            .detail-last-line{
+                @include display-flex;
+                .detail-customer, .detail-status{
+                    @include flex(1);
+                    @include display-flex;
+                    div:nth-child(2){
+                        margin-left: .4rem;
+                    }
+                }
             }
         }
     }

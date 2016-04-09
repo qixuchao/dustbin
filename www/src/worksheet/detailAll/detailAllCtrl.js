@@ -609,7 +609,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 				}
 			};
-
+			
 			$scope.showMoreModel = function($event, sourceClassName){
 			    if($scope.config.moreModal == null){
 			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content'>"+
@@ -631,8 +631,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		            });
 			    }
 			    $scope.config.moreModal.show();
-			    $scope.config.moreModal.$el.addClass("worksheet-detail-more-modal");
+			    $scope.config.moreModal.$el.addClass("worksheet-detail-more-modal");			    
 			    $scope.initMoreModal(sourceClassName);
+			    var eleBgJQ = $scope.config.moreModal.$el.find('.modal-backdrop-bg');
+			    eleBgJQ[0].style.opacity="0";
 			};
 			$scope.initMoreModal = function(sourceClassName){
 					var eleJQ = angular.element('.'+sourceClassName);
@@ -659,8 +661,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					modal.style.zIndex = 12; // 12  -2
 			};
 
-<<<<<<< HEAD
-
 			$scope.editSiteRepair = function(){
 				// TODO
 			};
@@ -668,8 +668,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				// TODO
 			};
 			
-=======
->>>>>>> 22c7686bd6e292f5c3df2bfa66a0809e87771a2e
         	$scope.config = {
 				scrollDelegateHandler: null,
 				contentDetegateHandler: null,
@@ -860,7 +858,9 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                     $scope.TitleFlag = false;
                     $scope.showTitleStatus = false;
                 }
-                $scope.$apply();
+                if(!$scope.$$phase) {
+                	$scope.$apply();
+                }                
             };
 
             $scope.init = function(){

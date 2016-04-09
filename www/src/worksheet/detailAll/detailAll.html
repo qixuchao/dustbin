@@ -22,6 +22,12 @@
             </div>
         </div>
     </div>
+
+    <div class="fixed-buttons buttons">
+        <div class="button button-crm-edit button-crm-edit-public">
+            编辑
+        </div>
+    </div>
     
     <ion-content has-bouncing="false" delegate-handle="xbrDelegateContent" on-scroll="onScroll()" scrollbar-y="false">
         <div id="saleTopBackId" class="top-back">
@@ -37,21 +43,25 @@
                     <i class="ion-android-radio-button-off"></i>
                     <!--<div>郑州金龙客车(福州)客户拜访</div>-->
                     <!--input type="text" value="郑州金龙客车(福州)客户拜访"  ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}"-->
-                    <span ng-bind="datas.header.title"></span>
+                    <div ng-bind="datas.header.title"></div>
                 </div>
-                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">                    
+                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
                     <span ng-bind="datas.header.company"></span>
                 </div>
-                <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
-                    <div>外服人员:</div>
-                    <span ng-bind="datas.header.customer"></span>
-                    <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select>
-                    <div class="num">状态</div>
-                    <div class="edit" ng-bind="datas.header.status"></div>
+                <div class="row row-center detail-last-line" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
+                    <div class="detail-customer">
+                        <div>外服人员:</div>
+                        <span ng-bind="datas.header.customer"></span>
+                    </div>
+                    <!--select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select-->
+                    <div class="detail-status">
+                        <div class="num">状态:</div>
+                        <div ng-bind="datas.header.status"></div>
+                    </div>                    
                 </div>
             </div>
         </div>
-        
+
         <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
             <div class="fill-height line-inner">
                 <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
@@ -127,11 +137,7 @@
                     <div class="col-40">上线结束时间:</div>
                     <div class="col-60" ng-bind="datas.basicInfoNewCar.timeOnlineStart"></div>
                 </div>
-<<<<<<< HEAD
-            </div>            
-=======
             </div>
->>>>>>> 22c7686bd6e292f5c3df2bfa66a0809e87771a2e
         </div>
 
         <div ng-if="config.detailTypeSiteRepair || config.detailTypeBatchUpdate">
@@ -278,18 +284,5 @@
             </div>
         </div>
         
-<<<<<<< HEAD
-        <div class="buttons">
-            <div class="button button-crm-edit button-crm-edit-public">
-                编辑
-            </div>
-        </div>
-        
-=======
-        <div class="button button-crm-edit button-crm-edit-public">
-            编辑
-        </div>
->>>>>>> 22c7686bd6e292f5c3df2bfa66a0809e87771a2e
-                
     </ion-content>
 </ion-view>

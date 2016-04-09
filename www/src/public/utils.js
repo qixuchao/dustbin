@@ -40,7 +40,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
             $ionicLoading.hide();
           }
         } catch (e) {
-
+          
         }
       }).error(function (response, status) {
       });
@@ -220,4 +220,10 @@ utilsModule.service('Prompter', ['$ionicLoading', '$ionicPopup', '$ionicActionSh
       }
     }
   }])
+
+
+
+
+
+
 
