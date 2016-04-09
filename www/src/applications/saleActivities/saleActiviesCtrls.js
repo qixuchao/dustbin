@@ -14,8 +14,9 @@ salesModule
         'ionicMaterialMotion',
         'saleActService',
         'Prompter',
+        'HttpAppService',
         function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, ionicMaterialInk,
-                  ionicMaterialMotion, saleActService, Prompter) {
+                  ionicMaterialMotion, saleActService, Prompter, HttpAppService) {
             console.log('销售活动列表');
             $scope.saleTitleText = '销售活动';
             $timeout(function () {
@@ -24,7 +25,57 @@ salesModule
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
             $scope.input = {search: '', customer: ''};
-            $scope.saleListArr = saleActService.getSaleListArr();
+            //$scope.saleListArr = saleActService.getSaleListArr();
+            var pageNum = 1;
+            $scope.saleListArr = [];
+            $scope.loadMoreFlag = true;
+            $scope.saleListArr = saleActService.saleListArr;
+            $scope.getList = function (type) {
+                if (type === 'refresh') {
+                    pageNum = 1;
+                }
+                console.log(pageNum);
+                //Prompter.showLoading('正在查询');
+
+                var data = {
+                    "LS_SYSTEM": {"SysName": "ATL"},
+                    "IS_ACTIVITY": {
+                        "OBJECT_ID": "",
+                        "DESCRIPTION": "",
+                        "PROCESS_TYPE": "",
+                        "ZZHDJJD": "",
+                        "CUSTOMER": "",
+                        "CUSTNAME": "",
+                        "DATE_FROM": "",
+                        "SALESNO": "",
+                        "SALESNAME": ""
+                    },
+                    "IS_PAGE": {
+                        "CURRPAGE": pageNum++,
+                        "ITEMS": "10"
+                    }
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_LIST', data)
+                    .success(function (response) {
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            if (type === 'refresh') {
+                                $scope.saleListArr = response.ET_LIST.item;
+                                saleActService.saleListArr = $scope.saleListArr;
+                                return
+                            }
+                            if (response.ET_LIST.item.length < 10) {
+                                $scope.loadMoreFlag = false;
+                            }
+                            $scope.saleListArr = $scope.saleListArr.concat(response.ET_LIST.item);
+                            saleActService.saleListArr = $scope.saleListArr;
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        }
+                    }).finally(function () {
+                    // 停止广播ion-refresher
+                    $scope.$broadcast('scroll.refreshComplete');
+                });
+            };
+            //getList();
             $scope.hisArr = [
                 '福州', '清明', '活动'
             ];
@@ -76,7 +127,7 @@ salesModule
             $scope.showCreateModal = function () {
                 console.log($scope.pop);
                 $scope.createPop.hide();
-                $scope.create = {de_startTime:new Date().format('yyyy/M/d hh:ss'),de_endTime:getDefultStartTime()};
+                $scope.create = {de_startTime: new Date().format('yyyy/M/d hh:ss'), de_endTime: getDefultStartTime()};
                 $scope.createModal.show();
                 //console.log(document.getElementsByClassName('modal-wrapper'));
                 var tempArr = document.getElementsByClassName('modal-wrapper');
@@ -97,7 +148,7 @@ salesModule
             //};
             var getDefultStartTime = function () {
                 var dateArr = new Date().format('hh:mm').split(':');
-                return new Date().format('yyyy/M/d')+ ' ' + (Number(dateArr[0])+2) + ':' + dateArr[1];
+                return new Date().format('yyyy/M/d') + ' ' + (Number(dateArr[0]) + 2) + ':' + dateArr[1];
             };
             $scope.selectPersonflag = false;
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Modal.html', {
@@ -225,9 +276,11 @@ salesModule
         'saleActService',
         'saleChanService',
         'Prompter',
+        'HttpAppService',
         function ($scope, $rootScope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, $cordovaDatePicker, $ionicActionSheet, saleActService, saleChanService, Prompter) {
+                  $cordovaToast, $cordovaDatePicker, $ionicActionSheet, saleActService, saleChanService, Prompter
+            , HttpAppService) {
             ionicMaterialInk.displayEffect();
             var getStatusIndex = function (data) {
                 for (var i = 0; i < $scope.statusArr.length; i++) {
@@ -237,11 +290,33 @@ salesModule
                 }
                 return 0;
             };
-            $scope.details = saleActService.actDetail;
-            $scope.statusArr = saleChanService.getStatusArr();
-            $scope.mySelect = {
-                status: $scope.statusArr[getStatusIndex($scope.details.status)]
+            $scope.listInfo = saleActService.actDetail;
+            var getDetails = function () {
+                Prompter.showLoading('正在查询');
+                var data = {
+                    "I_SYSTEM": {"SysName": "ATL"},
+                    "IS_USER": {"BNAME": ""},
+                    "I_OBJECT_ID": $scope.listInfo.OBJECT_ID
+                };
+                console.log(data)
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_DETAIL', data)
+                    .success(function (response) {
+                        console.log(response);
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            $scope.details = response.ES_ACTIVITY;
+                            $scope.details.de_startTime = $scope.details.DATE_FROM + ' ' + $scope.details.TIME_FROM.substring(0,5);
+                            $scope.details.de_endTime = $scope.details.DATE_TO + ' ' + $scope.details.TIME_TO.substring(0,5); $scope.mySelect = {
+                                status: $scope.statusArr[getStatusIndex($scope.details.STATUS_TXT)]
+                            };
+                            $scope.details.relations = response.ET_PARTNERS.item;
+                            Prompter.hideLoading();
+                        }
+                    });
             };
+            getDetails();
+            //$scope.details = saleActService.actDetail;
+            $scope.statusArr = saleChanService.getStatusArr();
+
             $scope.isEdit = false;
             $scope.editText = "编辑";
             $scope.goBack = function () {
@@ -368,9 +443,9 @@ salesModule
                 }
                 //iOS平台
                 if (type == 'start') {
-                    Prompter.selectTime($scope, 'actDetailStart', new Date($scope.details.de_startTime).format('yyyy/MM/dd hh:mm'), 'datetime', '开始时间');
+                    Prompter.selectTime($scope, 'actDetailStart', new Date($scope.details.de_startTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm'), 'datetime', '开始时间');
                 } else {
-                    Prompter.selectTime($scope, 'actDetailEnd', new Date($scope.details.de_endTime).format('yyyy/MM/dd hh:mm'), 'datetime', '结束时间');
+                    Prompter.selectTime($scope, 'actDetailEnd', new Date($scope.details.de_endTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm'), 'datetime', '结束时间');
                 }
             };
             /*----------------------------------选择时间  end------------------------------------*/
@@ -516,7 +591,7 @@ salesModule
             };
             var repTempIndex;
             $scope.showActionSheet = function (x) {
-                if(!$scope.isEdit){
+                if (!$scope.isEdit) {
                     return
                 }
                 repTempIndex = $scope.details.relations.indexOf(x);

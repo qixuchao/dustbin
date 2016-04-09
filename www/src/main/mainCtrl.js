@@ -18,7 +18,6 @@ mainModule
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, ionicMaterialInk, ionicMaterialMotion,
                   Prompter) {
 
-            console.log(ROOTCONFIG.urlConfig.testPath)
             //ionicMaterialMotion.fadeSlideInRight();
 
             $timeout(function () {
@@ -67,7 +66,7 @@ mainModule
                         $scope.weeks[i].flag = false;
                     }
                 }
-            }
+            };
 
             $scope.days = [
                 {}, {}, {}

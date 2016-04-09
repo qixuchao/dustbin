@@ -65,7 +65,7 @@ utilsModule.service('Prompter', ['$ionicLoading', '$ionicPopup', '$ionicActionSh
     function ($ionicLoading, $ionicPopup, $ionicActionSheet, $window, $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker) {
         var getFormatTime = function (date) {
             var dateTemp, minutes, hour, time;
-            dateTemp = date.format("yyyy/M/d");
+            dateTemp = date.format("yyyy-MM-dd");
             //分钟
             if (date.getMinutes().toString().length < 2) {
                 minutes = "0" + date.getMinutes();
@@ -121,7 +121,7 @@ utilsModule.service('Prompter', ['$ionicLoading', '$ionicPopup', '$ionicActionSh
             },
             showLoading: function (content) {
                 $ionicLoading.show({
-                    template: ('<ion-spinner icon="ios">content</ion-spinner>'),
+                    template: ('<ion-spinner icon="ios"></ion-spinner><p>' + content + '</p>'),
                     animation: 'fade-in',
                     showBackdrop: true,
                 });
