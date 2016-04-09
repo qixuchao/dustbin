@@ -1,8 +1,12 @@
 <ion-view class="CarList">
-    <ion-header-bar class="bar bar-header" align-title="center">
-        <a class="button  button-clear ion-chevron-left backType" ng-click="goBack()"></a>
-        <div class="title text-center">车辆信息</div>
-    </ion-header-bar>
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head ">
+            <div class="row row-center">
+                <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-60 text-center">车辆信息</div>
+            </div>
+        </ion-header-bar>
+    </div>
     <ion-header-bar class="bar bar-subheader ">
         <div class="search1" ng-show="!searchFlag">
             <i class="icon ion-ios-search placeholder-icon"></i>
@@ -32,7 +36,7 @@
                             <img ng-src="img/car/Oval.png" class="pointImg">
                         </div>
                         <div class="col col-80 col-center colType">
-                            <span><div ng-bind-html="x.describe | highlight:carInfo"></div></span>
+                            <span><div ng-bind-html="x.SHORT_TEXT | highlight:carInfo"></div></span>
                         </div>
                         <div class="col col-8 col-center">
                             <img ng-src="img/car/Shape.png" class="shapeImg">
@@ -44,23 +48,19 @@
 
     </ion-content>
     <ion-content has-bouncing="true" ng-show="!searchFlag">
-        <ion-refresher
-                pulling-text="下拉刷新..."
-                on-refresh="doRefresh()">
-        </ion-refresher>
         <!--<img ng-src="img/car/oftenCar.png" class="textImg">-->
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">常用车辆</div>
             <div class="Car_countentbasicline"></div>
             <div class="Car_countentbasicclok"></div>
         </div>
-        <div class="contentType animated" ng-repeat="car in cars|filter:carInfo" ng-click="goDetail(car.codeId)"  ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
+        <div class="contentType animated" ng-repeat="car in cars|filter:carInfo" ng-click="goDetail(car.ZBAR_CODE)"  ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
             <div class="row row-center rowType " >
                 <div class="col col-6 col-center">
                    <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
                 <div class="col col-80 col-center colType">
-                    <span>{{car.describe}}</span>
+                    <span>{{car.SHORT_TEXT}}</span>
                 </div>
                 <div class="col col-8 col-center">
                     <img ng-src="img/car/Shape.png" class="shapeImg">
@@ -68,5 +68,7 @@
                 <div class="col col-2"></div>
             </div>
         </div>
+        <ion-infinite-scroll  distance="1%" on-infinite="carLoadMore()" ng-if="carisshow"></ion-infinite-scroll>
+        <ion-infinite-scroll  distance="1%" on-infinite="carLoadMoreIm()" ng-if="carimisshow"></ion-infinite-scroll>
     </ion-content>
 </ion-view>
