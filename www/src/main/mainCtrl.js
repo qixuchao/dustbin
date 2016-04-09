@@ -18,7 +18,7 @@ mainModule
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, ionicMaterialInk, ionicMaterialMotion,
                   Prompter) {
 
-
+            console.log(ROOTCONFIG)
             //ionicMaterialMotion.fadeSlideInRight();
 
             $timeout(function () {
