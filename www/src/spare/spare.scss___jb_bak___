@@ -125,7 +125,7 @@
     position: relative;
   }
   .has-subheader {
-    margin-top: 50px;
+    margin-top: 60px;
   }
   .rowType1{
     padding: 1em 0 1em 12px;

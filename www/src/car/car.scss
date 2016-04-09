@@ -66,10 +66,11 @@
       input {
         display: block;
         padding-left: 2em;
+        color: black;
         vertical-align: middle;
         font-size: 14px;
-        height: 25px;
-        width: 72%;
+        height: 28px;
+        width: 80%;
         position: fixed;
         border-radius: 5px;
       }
@@ -85,6 +86,8 @@
         left: 86%;
         font-size: 16px;
         top: -2px;
+        min-height: 30px;
+        max-height: 30px;
       }
     }
   }
@@ -93,7 +96,7 @@
       height: 4em;
     }
     .has-subheader {
-      top: 100px;
+      margin-top: 60px;
     }
     .Car_countentbasic {
       position: relative;
@@ -137,7 +140,7 @@
         }
       }
       position: relative;
-      top: 2em;
+      top: -1em;
       border-bottom: 1px solid rgba(43, 43, 43, 0.17);
     }
   //ion-infinite-scroll {
@@ -146,7 +149,7 @@
     .rowType {
       position: relative;
       left: 4%;
-      padding: 0.8em 0;
+      padding: 1.2em 0;
       .pointImg {
         height: 0.7em;
       }
@@ -518,7 +521,6 @@
     .bar {
       font-size: 16px;
       height: 3.5em;
-      padding-top: 20px;
     }
     .bar .title {
       position: absolute;
@@ -1213,11 +1215,11 @@
         input {
           display: block;
           padding-left: 2em;
-          color: #000;
+          color: black;
           vertical-align: middle;
           font-size: 14px;
-          height: 25px;
-          width: 72%;
+          height: 28px;
+          width: 80%;
           position: fixed;
           border-radius: 5px;
         }
@@ -1233,6 +1235,8 @@
           left: 86%;
           font-size: 16px;
           top: -2px;
+          min-height: 30px;
+          max-height: 30px;
         }
       }
     }
