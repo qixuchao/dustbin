@@ -7,10 +7,10 @@
     loadConfigRequest.open('GET', 'config/ClientConfig.json',false);
     loadConfigRequest.send(null);
     if (loadConfigRequest.status === 200 || loadConfigRequest.status === 0) {
-        ROOTCONFIG = JSON.parse(loadConfigRequest.responseText)
+        ROOTCONFIG = JSON.parse(loadConfigRequest.responseText);
         //console.log(typeof (ROOTCONFIG));
     }
-})()
+})();
 
 function detectOS() {
     var sUserAgent = navigator.userAgent;
