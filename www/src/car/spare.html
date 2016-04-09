@@ -15,7 +15,7 @@
         <div class="search2" ng-show="searchFlag" ng-class="{'searchFlag':'animated fadeOutLeft'}">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="spareDesc.length>0" ng-click="initSearch()"></i>
-            <input id="searchSpareId" type="search" placeholder="请输入备件描述" ng-model="spareDesc">
+            <input id="searchSpareId" type="text" placeholder="请输入备件描述" ng-model="spareDesc">
             <i class="button button-clear" ng-click="cancelSearch()">取消</i>
         </div>
     </ion-header-bar>

@@ -74,45 +74,7 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
         }
     };
     $scope.carLoadMore1();
-    //var carlist=function(){
-    //    var url="http://117.28.248.23:9388/test/api/CRMAPP/CAR_LIST_BY_DCR";
-    //    var data =
-    //      {
-    //          "I_SYSNAME": { "SysName": "CATL" },
-    //          "IS_PAGE": {
-    //              "CURRPAGE": page,
-    //              "ITEMS": "10"
-    //          },
-    //          "IS_VEHICL_INPUT": { "SHORT_TEXT": "" }
-    //
-    //      };
-    //    HttpAppService.post(url,data).success(function(response){
-    //        var num=response.ET_VEHICL_OUTPUT.item.length;
-    //        console.log(num);
-    //        for(var i=0;i<num;i++){
-    //            var car={
-    //                codeId:"",
-    //                describe:""
-    //            };
-    //            car.codeId=response.ET_VEHICL_OUTPUT.item[i].ZBAR_CODE;
-    //            car.describe=response.ET_VEHICL_OUTPUT.item[i].SHORT_TEXT;
-    //            $scope.cars.push(car);
-    //        }
-    //    });
-    //};
-    //carlist();
-    //Prompter.showLoading('正在加载');
-    //$timeout(function () {
-    //    Prompter.hideLoading();
-    //}, 1000);
-    //下拉刷新
-    //$scope.doRefresh=function(){
-    //    page+=1;
-    //    carlist();
-    //    $timeout(function(){
-    //        $scope.$broadcast('scroll.refreshComplete');
-    //    },1000)
-    //};
+
     //页面跳转，并传递参数
     $scope.goDetail=function(car){
         CarService.setData(car);
@@ -128,7 +90,7 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
         $scope.searchFlag=true;
         $timeout(function () {
             document.getElementById('searchId').focus();
-        }, 1)
+        }, 1);
         $scope.carLoadMore1();
     };
     //清除输入框内的内容
@@ -137,16 +99,6 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
         $timeout(function () {
             document.getElementById('searchId').focus();
         }, 1)
-    };
-    //
-    $scope.search = function (x, e) {
-        Prompter.showLoading('正在搜索');
-        $timeout(function () {
-            Prompter.hideLoading();
-            $scope.carInfo = x;
-        }, 800);
-
-        e.stopPropagation();
     };
 }
 ])
@@ -279,6 +231,9 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
         $scope.goPage=function(data){
             CarService.setSpare(data);
             $state.go("spare");
+        };
+        $scope.goSkip=function(pageName){
+            $state.go(pageName);
         };
         //电话
         $scope.carshowphone =function(types){

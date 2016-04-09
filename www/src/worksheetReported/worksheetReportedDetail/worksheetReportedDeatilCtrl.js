@@ -16,6 +16,7 @@ worksheetReportModule.controller('WorksheetListReportedDetailCtrl', [
 	function ($scope, $rootScope,$state, $ionicHistory, $ionicScrollDelegate,
 			  ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
 			  $cordovaToast, $cordovaDatePicker, Prompter) {
+		//下拉框
 		$ionicPopover.fromTemplateUrl('src/worksheetReported/worksheetReportedDetail/model/worksheetReported_select.html', {
 			scope: $scope
 		}).then(function(popover) {
@@ -34,6 +35,19 @@ worksheetReportModule.controller('WorksheetListReportedDetailCtrl', [
 		$scope.relatedqueryType = function(type){
 			$scope.relatedPopoverhide();
 		};
+
+		//弹窗
+		$ionicPopover.fromTemplateUrl('src/worksheetReported/worksheetReportedDetail/model/worksheetReported_point.html', {
+			scope: $scope
+		}).then(function (popover) {
+			$scope.createPop = popover;
+		});
+		$scope.openpoint = function () {
+			console.log("==");
+			$scope.createPop.show();
+		};
+
+
 		ionicMaterialInk.displayEffect();
 
 		$scope.goBack = function () {
