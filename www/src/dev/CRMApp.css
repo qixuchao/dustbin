@@ -4924,33 +4924,35 @@ input[readonly]:not(.cloned-text-input) {
     color: #4C8AC7 !important; }
   .worksheet-detail-view-public .top-back2 {
     height: 75px !important; }
-  .worksheet-detail-view-public #saleTopBackId .mainInfo .row {
-    height: 2.5rem;
-    padding-right: 5%; }
-  .worksheet-detail-view-public #saleTopBackId .mainInfo .row:nth-child(2) {
-    font-size: 15px; }
-  .worksheet-detail-view-public #saleTopBackId .mainInfo .detail-last-line {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex; }
-    .worksheet-detail-view-public #saleTopBackId .mainInfo .detail-last-line .detail-customer, .worksheet-detail-view-public #saleTopBackId .mainInfo .detail-last-line .detail-status {
-      -webkit-box-flex: 1;
-      -webkit-flex: 1;
-      -moz-box-flex: 1;
-      -moz-flex: 1;
-      -ms-flex: 1;
-      flex: 1;
+  .worksheet-detail-view-public #saleTopBackId {
+    height: 170px; }
+    .worksheet-detail-view-public #saleTopBackId .mainInfo .row {
+      height: 2.5rem;
+      padding-right: 5%; }
+    .worksheet-detail-view-public #saleTopBackId .mainInfo .row:nth-child(2) {
+      font-size: 15px; }
+    .worksheet-detail-view-public #saleTopBackId .mainInfo .detail-last-line {
       display: -webkit-box;
       display: -webkit-flex;
       display: -moz-box;
       display: -moz-flex;
       display: -ms-flexbox;
       display: flex; }
-      .worksheet-detail-view-public #saleTopBackId .mainInfo .detail-last-line .detail-customer div:nth-child(2), .worksheet-detail-view-public #saleTopBackId .mainInfo .detail-last-line .detail-status div:nth-child(2) {
-        margin-left: .4rem; }
+      .worksheet-detail-view-public #saleTopBackId .mainInfo .detail-last-line .detail-customer, .worksheet-detail-view-public #saleTopBackId .mainInfo .detail-last-line .detail-status {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -moz-box-flex: 1;
+        -moz-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -moz-flex;
+        display: -ms-flexbox;
+        display: flex; }
+        .worksheet-detail-view-public #saleTopBackId .mainInfo .detail-last-line .detail-customer div:nth-child(2), .worksheet-detail-view-public #saleTopBackId .mainInfo .detail-last-line .detail-status div:nth-child(2) {
+          margin-left: .4rem; }
 
 #worksheet-baogong-list-view .left-back {
   font-size: 2rem;

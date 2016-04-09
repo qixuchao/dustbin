@@ -824,6 +824,49 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	position = $ionicScrollDelegate.$getByHandle('xbrDelegateContent').getScrollPosition().top;
                 //position = $ionicScrollDelegate.getScrollPosition().top;
                 //console.log(position)
+                console.log(position);
+                if (position > 10) {
+                    $scope.TitleFlag = true;
+                    $scope.showTitle = true;
+                    //console.log(position);
+                    if (position > 26) {
+                        $scope.customerFlag = true;
+                    } else {
+                        $scope.customerFlag = false;
+                    }
+                    if (position > 54) { // 54、80
+                        $scope.statusFlag = true;
+                    } else {
+                        $scope.statusFlag = false;
+                    }
+                    if (position > 80) {
+                        if (maxTop == undefined) {
+                            maxTop = $ionicScrollDelegate.$getByHandle('xbrDelegateContent').getScrollView().__maxScrollTop;
+                        }
+                        $scope.showTitleStatus = true;
+                    } else {
+                        $scope.showTitleStatus = false;
+                    }
+                    if (position > maxTop) {
+                        //$ionicScrollDelegate.scrollBottom(false)
+                    }
+                } else {
+                    $scope.customerFlag = false;
+                    $scope.placeFlag = false;
+                    $scope.typeFlag = false;
+                    $scope.statusFlag = false;
+                    $scope.showTitle = false;
+                    $scope.TitleFlag = false;
+                    $scope.showTitleStatus = false;
+                }
+                if(!$scope.$$phase) {
+                	$scope.$apply();
+                }                
+            };
+            $scope.onScroll333 = function () {
+            	position = $ionicScrollDelegate.$getByHandle('xbrDelegateContent').getScrollPosition().top;
+                //position = $ionicScrollDelegate.getScrollPosition().top;
+                //console.log(position)
                 if (position > 10) {
                     $scope.TitleFlag = true;
                     $scope.showTitle = true;
