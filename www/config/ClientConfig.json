@@ -1,5 +1,5 @@
 {
-	"urlConfig":
+	"hempConfig":
 	{
 		"testPath": "http://117.28.248.23:9388/test/api/CRMAPP/",
 		"basePath": "http://117.28.248.23:9388/test/api/CRMAPP/"

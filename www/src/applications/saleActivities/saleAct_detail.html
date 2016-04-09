@@ -4,7 +4,7 @@
         <div class="row row-center title">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">活动详情
-                <div style="font-size: 10px">{{details.title}}</div>
+                <div style="font-size: 10px">{{details.DESCRIPTION}}</div>
             </div>
             <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
         </div>
@@ -13,7 +13,7 @@
         <div class="row row-center title" style="padding-bottom: 0">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">活动详情
-                <div style="font-size: 10px">{{details.title}}</div>
+                <div style="font-size: 10px">{{details.DESCRIPTION}}</div>
             </div>
             <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
         </div>
@@ -34,18 +34,18 @@
                     <!--<i class="ion-android-radio-button-off"></i>-->
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
                     <!--<div>郑州金龙客车(福州)客户拜访</div>-->
-                    <input type="text" ng-model="details.title"  ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
+                    <input type="text" ng-model="details.DESCRIPTION"  ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
-                    <div class="col col-16">客户:</div><input type="text" ng-model="details.customer" ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
+                    <div class="col col-16">客户:</div><input type="text" ng-model="listInfo.CUSTNAME" ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center" ng-class="placeFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="col col-16">地点:</div>
-                    <input type="text" ng-model="details.place" ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
+                    <input type="text" ng-model="details.ACT_LOCATION" ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center" ng-class="{'animated fadeOut':typeFlag,'animated fadeIn':!typeFlag}">
                     <div class="col col-16">类型:</div>
-                    <input type="text" ng-model="details.type" style="border: none;" readonly>
+                    <input type="text" ng-model="details.PROCESS_TYPE" style="border: none;" readonly>
                 </div>
                 <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div>状态:</div>
@@ -66,7 +66,7 @@
             <div ng-show="select">
                 <div class="row">
                     <div class="col-15">注释:</div>
-                    <textarea rows="3" ng-readonly="!isEdit">{{details.annotation}}</textarea>
+                    <textarea rows="3" ng-readonly="!isEdit">{{details.TEXT}}</textarea>
                 </div>
                 <div class="row" style="padding-right: 0;">
                     <div class="row row-center">
@@ -116,8 +116,8 @@
             <!--相关方-->
             <div id="relativeId" class="relative" ng-show="!select">
                 <div class="row" ng-repeat="x in details.relations" on-hold="showActionSheet(x)">
-                    <div class="col">{{x.name}}&nbsp;&nbsp;{{x.sex}}</div>
-                    <div class="col text-center position">{{x.position}}</div>
+                    <div class="col">{{x.NAME}}&nbsp;&nbsp;{{x.sex}}</div>
+                    <!--<div class="col text-center position">{{x.position}}</div>-->
                 </div>
                 <div class="row row-center add" ng-if="isEdit"><div class="col" ng-click="openRelations()"><i class="ion-ios-plus-outline"></i>添加相关方</div></div>
             </div>

@@ -3,34 +3,30 @@
         <ion-header-bar align-title="center" class="head pub-head ">
             <div class="row row-center">
                 <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-60 text-center">备件信息</div>
+                <div class="col col-60 text-center">产品信息</div>
             </div>
         </ion-header-bar>
     </div>
     <ion-header-bar class="bar bar-subheader ">
         <div class="search1" ng-show="!searchFlag">
             <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="text" placeholder="输入备件信息" ng-click="changePage()">
+            <input type="text" placeholder="输入产品信息" ng-click="changePage()">
         </div>
         <div class="search2" ng-show="searchFlag" ng-class="{'searchFlag':'animated fadeOutLeft'}">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
-            <input id="spareId" type="search" placeholder="输入备件信息" ng-model="spareInfo" ng-change="spareLoadmoreIm()" >
+            <input id="spareId" type="text" placeholder="输入产品信息" ng-model="spareInfo" ng-change="spareLoadmoreIm()" >
             <i class="button button-clear" ng-click="cancelSearch()">取消</i>
         </div>
     </ion-header-bar>
     <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag" ng-click="changeSearch($event)">
-        <div class="row row-center his-title">
-            <i class="ion-android-time"></i>
-            <div class="hisText">历史记录</div>
-            <div class="horizon-line"></div>
-        </div>
+
         <ion-list ng-if="!spareInfo">
             <ion-item ng-click="search(x,$event)" ng-repeat="x in data">{{x}}</ion-item>
         </ion-list>
         <div class="content">
             <div class="list" ng-if="spareInfo">
-                <a ng-click="goDetail(x,$event)" class="row row-center rowType1" ng-repeat="x in spareList | filter:spareInfo">
+                <a ng-click="goDetail(x,$event)" class="row row-center rowType1" ng-repeat="x in spareList1 | filter:spareInfo">
                     <div class="col col-8 col-center">
                     <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
@@ -43,13 +39,21 @@
                 </a>
             </div>
         </div>
+        <ion-infinite-scroll on-infinite="spareLoadMoreIm()" ng-if="spareimisshow"></ion-infinite-scroll>
     </ion-content>
-    <ion-content has-bouncing="false" ng-show="!searchFlag">
-        <div class="Car_countentbasic">
-            <div class="Car_countentbasicinfo">常用备件</div>
+    <div class="baseDiv search" style="position: relative;top: 110px;" >
+        <div class="Car_countentbasic" ng-show="!searchFlag">
+            <div class="Car_countentbasicinfo">常用产品</div>
             <div class="Car_countentbasicline"></div>
             <div class="Car_countentbasicclok"></div>
         </div>
+        <div class="row row-center his-title" ng-show="searchFlag">
+            <i class="ion-android-time"></i>
+            <div class="hisText">历史记录</div>
+            <div class="horizon-line"></div>
+        </div>
+    </div>
+    <ion-content has-bouncing="false" ng-show="!searchFlag">
         <div class="contentType animated" ng-repeat="spare in spareList track by $index" ng-click="goDetail(spare)" ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
             <div class="row row-center rowType1">
                 <div class="col col-8 col-center">
@@ -64,6 +68,5 @@
             </div>
         </div>
         <ion-infinite-scroll on-infinite="spareLoadMore()" ng-if="spareisshow"></ion-infinite-scroll>
-        <ion-infinite-scroll on-infinite="spareLoadMoreIm()" ng-if="spareimisshow"></ion-infinite-scroll>
     </ion-content>
 </ion-view>

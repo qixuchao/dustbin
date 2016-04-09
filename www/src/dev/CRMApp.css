@@ -2343,9 +2343,6 @@ input[readonly]:not(.cloned-text-input) {
     display: inline-block; }
 
 /*公共样式*/
-.scroll {
-  height: 100%; }
-
 .no-padding {
   padding: 0 !important; }
 
@@ -2892,7 +2889,8 @@ input[readonly]:not(.cloned-text-input) {
 .apps .scroll {
   background: url("../../img/apps/background.png") no-repeat;
   background-size: 100% 100%;
-  padding: 60px 0px 0 10px; }
+  padding: 60px 0px 0 10px;
+  height: 100%; }
   .apps .scroll ion-item {
     text-align: center;
     padding: 18px; }
@@ -5188,14 +5186,11 @@ input[readonly]:not(.cloned-text-input) {
   width: 100%;
   height: 60px; }
 #worksheet_faultInfos .selectC {
-  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
   border: solid 0px white;
-  /*很关键：将默认的select选择框样式清除*/
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
-  /*在选择框的最右侧中间显示小箭头图片*/
-  background: url("img/customer/sanjiao.png") no-repeat scroll right center transparent;
+  background: url("../../img/worksheetReported/sanjiao.png") no-repeat scroll right center transparent;
   position: relative;
   left: 0px;
   top: -2px;
@@ -5203,7 +5198,6 @@ input[readonly]:not(.cloned-text-input) {
   line-height: 24px;
   border: 0px;
   color: #909993;
-  /*为下拉小箭头留出一点位置，避免被文字覆盖*/
   padding-right: 14px; }
 #worksheet_faultInfos .box {
   border: 0px solid #C0C0C0;
@@ -5737,10 +5731,11 @@ input[readonly]:not(.cloned-text-input) {
   .CarList .bar-subheader .search2 input {
     display: block;
     padding-left: 2em;
+    color: black;
     vertical-align: middle;
     font-size: 14px;
-    height: 25px;
-    width: 72%;
+    height: 28px;
+    width: 80%;
     position: fixed;
     border-radius: 5px; }
   .CarList .bar-subheader .search2 .ion-ios-close {
@@ -5753,12 +5748,14 @@ input[readonly]:not(.cloned-text-input) {
     position: relative;
     left: 86%;
     font-size: 16px;
-    top: -2px; }
+    top: -2px;
+    min-height: 30px;
+    max-height: 30px; }
 .CarList .row + .row .row {
   padding-top: 0;
   height: 4em; }
 .CarList .has-subheader {
-  top: 100px; }
+  margin-top: 60px; }
 .CarList .Car_countentbasic {
   position: relative;
   font-size: 15px;
@@ -5791,14 +5788,14 @@ input[readonly]:not(.cloned-text-input) {
   left: 0.5em; }
 .CarList .contentType {
   position: relative;
-  top: 2em;
+  top: -1em;
   border-bottom: 1px solid rgba(43, 43, 43, 0.17); }
   .CarList .contentType .row .col {
     padding: 0; }
 .CarList .rowType {
   position: relative;
   left: 4%;
-  padding: 0.8em 0; }
+  padding: 1.2em 0; }
   .CarList .rowType .pointImg {
     height: 0.7em; }
   .CarList .rowType .colType {
@@ -6090,8 +6087,7 @@ input[readonly]:not(.cloned-text-input) {
       left: 0 !important; }
   .Maintenance .bar {
     font-size: 16px;
-    height: 3.5em;
-    padding-top: 20px; }
+    height: 3.5em; }
   .Maintenance .bar .title {
     position: absolute;
     top: 5px;
@@ -6708,11 +6704,11 @@ input[readonly]:not(.cloned-text-input) {
   .SpareList1 .bar-subheader .search2 input {
     display: block;
     padding-left: 2em;
-    color: #000;
+    color: black;
     vertical-align: middle;
     font-size: 14px;
-    height: 25px;
-    width: 72%;
+    height: 28px;
+    width: 80%;
     position: fixed;
     border-radius: 5px; }
   .SpareList1 .bar-subheader .search2 .ion-ios-close {
@@ -6725,7 +6721,9 @@ input[readonly]:not(.cloned-text-input) {
     position: relative;
     left: 86%;
     font-size: 16px;
-    top: -2px; }
+    top: -2px;
+    min-height: 30px;
+    max-height: 30px; }
 .SpareList1 .divContent {
   position: relative;
   border-bottom: 1px solid rgba(128, 128, 128, 0.41); }
@@ -6829,11 +6827,11 @@ input[readonly]:not(.cloned-text-input) {
   .SpareList .bar-subheader .search2 input {
     display: block;
     padding-left: 2em;
-    color: #000;
+    color: black;
     vertical-align: middle;
     font-size: 14px;
-    height: 25px;
-    width: 72%;
+    height: 28px;
+    width: 80%;
     position: fixed;
     border-radius: 5px; }
   .SpareList .bar-subheader .search2 .ion-ios-close {
@@ -6846,9 +6844,9 @@ input[readonly]:not(.cloned-text-input) {
     position: relative;
     left: 86%;
     font-size: 16px;
-    top: -2px; }
-.SpareList .has-subheader {
-  top: 100px; }
+    top: -2px;
+    max-height: 30px;
+    min-height: 30px; }
 .SpareList .pointImg {
   height: 10px;
   position: relative;
@@ -6879,10 +6877,11 @@ input[readonly]:not(.cloned-text-input) {
     border-top: none;
     border-left: none; }
 .SpareList .contentType {
-  position: relative;
-  top: 1.5em; }
+  position: relative; }
+.SpareList .has-subheader {
+  margin-top: 50px; }
 .SpareList .rowType1 {
-  padding: 1em 0 0.6em 12px;
+  padding: 1em 0 1em 12px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.36); }
   .SpareList .rowType1 .col {
     padding-left: 0;
@@ -6910,12 +6909,14 @@ input[readonly]:not(.cloned-text-input) {
   min-height: 0;
   font-size: 14px;
   padding: 10px 16px; }
-.SpareList .content .item {
-  position: relative;
-  display: block;
-  margin: -1px;
-  font-size: 16px;
-  padding: 0; }
+.SpareList .content {
+  top: -20px; }
+  .SpareList .content .item {
+    position: relative;
+    display: block;
+    margin: -1px;
+    font-size: 16px;
+    padding: 0; }
 
 .Detail .bar.bar-header .button + .title {
   text-align: center;
@@ -6939,7 +6940,7 @@ input[readonly]:not(.cloned-text-input) {
   padding-bottom: 2em; }
   .Detail .Car_countentbasic .Car_countentbasicinfo {
     position: absolute;
-    top: 0px;
+    top: 0;
     left: 20px; }
   .Detail .Car_countentbasic .Car_countentbasicline {
     position: absolute;
@@ -8970,5 +8971,149 @@ input[readonly]:not(.cloned-text-input) {
         background-color: #e1e1e1;
         border-radius: 1rem;
         padding: 0px .8rem 0px 1.2rem; }
+
+.worksheetReportedInfolist ion-header-bar {
+  background-color: #2B60AB; }
+  .worksheetReportedInfolist ion-header-bar .rowTitle {
+    margin-right: 0px;
+    margin-left: 0px; }
+  .worksheetReportedInfolist ion-header-bar .fontColor {
+    color: white; }
+.worksheetReportedInfolist .rowList {
+  border-bottom: 1px solid #D6D3CE; }
+  .worksheetReportedInfolist .rowList .pic {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #9EC92A; }
+  .worksheetReportedInfolist .rowList .detailColor {
+    color: #D2D2D2; }
+
+.worksheetReportedMaintain ion-header-bar {
+  background-color: #2B60AB; }
+  .worksheetReportedMaintain ion-header-bar .rowTitle {
+    margin-right: 0px;
+    margin-left: 0px; }
+  .worksheetReportedMaintain ion-header-bar .fontColor {
+    color: white; }
+.worksheetReportedMaintain .rowList {
+  border-bottom: 1px solid #D6D3CE; }
+  .worksheetReportedMaintain .rowList .pic {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #9EC92A; }
+  .worksheetReportedMaintain .rowList .detailColor {
+    color: #D2D2D2; }
+  .worksheetReportedMaintain .rowList .iStyle {
+    display: inline-block;
+    font-size: 25px;
+    vertical-align: middle;
+    color: #276DAC; }
+  .worksheetReportedMaintain .rowList .inputSmall {
+    background-color: #ECF0F0;
+    width: 50%;
+    height: 22px;
+    margin: auto;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center; }
+
+#worksheetReportCreate ion-header-bar {
+  background-color: #2B60AB; }
+  #worksheetReportCreate ion-header-bar .rowTitle {
+    margin-right: 0px;
+    margin-left: 0px; }
+#worksheetReportCreate ion-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+#worksheetReportCreate .contentAll {
+  position: relative;
+  top: 4em; }
+#worksheetReportCreate .itemContent {
+  background-color: white;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  border-bottom: 1px solid #D6D3CE;
+  padding: 6px 10px 4px 10px;
+  height: 46px;
+  line-height: 30px;
+  font-size: 17px; }
+#worksheetReportCreate .itemContentT {
+  background-color: white;
+  margin-top: 1px;
+  margin-bottom: 1px;
+  padding: 6px 10px 4px 10px;
+  height: 80px;
+  line-height: 30px;
+  font-size: 1.0rem;
+  border-bottom: 1px solid #D6D3CE; }
+#worksheetReportCreate .labelInput {
+  padding: 0 0 0 0; }
+#worksheetReportCreate .fontColor {
+  color: #A8A49F;
+  font-size: 17px; }
+#worksheetReportCreate .Car_countentbasic {
+  position: relative;
+  font-size: 15px;
+  color: #406FB3;
+  top: 1.0em;
+  font-weight: 600; }
+  #worksheetReportCreate .Car_countentbasic .Car_countentbasicinfo {
+    position: absolute;
+    top: 0px;
+    left: 20px; }
+  #worksheetReportCreate .Car_countentbasic .Car_countentbasicline {
+    position: absolute;
+    top: 10px;
+    left: 85px;
+    width: 100%;
+    height: 1px;
+    background-color: #406FB3; }
+  #worksheetReportCreate .Car_countentbasic .Car_countentbasicclok {
+    position: absolute;
+    top: 15px;
+    margin-top: 2px;
+    left: 0px;
+    width: 55px;
+    height: 15px;
+    border: 1px solid #406FB3;
+    border-top: none;
+    border-left: none; }
+#worksheetReportCreate .textareaCss {
+  width: 100%;
+  height: 60px; }
+#worksheetReportCreate .selectC {
+  border: solid 0px white;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: url("../../img/worksheetReported/sanjiao.png") no-repeat scroll right center transparent;
+  position: relative;
+  left: 0px;
+  top: -2px;
+  font-size: 15px;
+  line-height: 24px;
+  border: 0px;
+  color: #909993;
+  padding-right: 14px; }
+#worksheetReportCreate .relatedPart_listfor {
+  width: 20px;
+  height: 18px;
+  vertical-align: middle; }
 
 /*# sourceMappingURL=CRMApp.css.map */

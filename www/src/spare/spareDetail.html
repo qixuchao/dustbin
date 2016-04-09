@@ -3,19 +3,21 @@
         <ion-header-bar align-title="center" class="head pub-head ">
             <div class="row row-center">
                 <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-60 text-center">备件信息详情</div>
+                <div class="col col-60 text-center">产品信息详情</div>
             </div>
         </ion-header-bar>
     </div>
-    <ion-content has-bouncing="false">
+    <div class="baseDiv" style="position: relative;top: 60px;">
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">基本信息</div>
             <div class="Car_countentbasicline"></div>
             <div class="Car_countentbasicclok"></div>
         </div>
+    </div>
+    <ion-content has-bouncing="false">
         <div class="row row-center rowType">
             <div class="col col-center col-40">
-                备件料码:
+                产品料码:
             </div>
             <div class="col col-center col-60">
                 <span>{{spareList.spareCode}}</span>
@@ -24,7 +26,7 @@
         <div class="line"></div>
         <div class="row row-center rowType">
             <div class="col col-center col-40">
-                备件描述:
+                产品描述:
             </div>
             <div class="col col-center col-60">
                 <span>{{spareList.spareDescribe}}</span>

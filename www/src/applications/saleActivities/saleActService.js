@@ -4,7 +4,7 @@
 'use strict';
 salesModule.factory('saleActService', function () {
 
-    var saleListArr = [{
+    var saleListArr2 = [{
         title:'福州龙福汽车交流活动',
         customer:'龙福汽车',
         place:'福建省 福州市',
@@ -98,6 +98,7 @@ salesModule.factory('saleActService', function () {
 
         }]
     }];
+    var saleListArr = [];
     var createPopTypes = [{
        text:'业务交流'
     },{
@@ -179,9 +180,7 @@ salesModule.factory('saleActService', function () {
         position:'保安'
     }];
     return{
-        getSaleListArr: function () {
-            return saleListArr;
-        },
+        saleListArr,
         getCreatePopTypes: function () {
             return createPopTypes;
         },
