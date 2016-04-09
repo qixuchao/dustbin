@@ -25,7 +25,7 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
     
     return {
         serviceList: {
-            url: ROOTCONFIG.urlConfig.basePath + 'SERVICE_LIST',   //工单列表接口
+            url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST',   //工单列表接口
             defaults: {
                 I_SYSNAME: { SysName: "CATL" },
                 IS_AUTHORITY: { BNAME: "" },
