@@ -379,6 +379,7 @@ mainModule
                 $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
                 var todayTemp = angular.copy(today);
                 if (todayTemp == 0) {
+                    // xueboren change this line.
                     //todayTemp = 6;
                     todayTemp = 5;
                 } else {
