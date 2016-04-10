@@ -6,13 +6,22 @@ contactModuleServive
         var contactcreatenewvalue;
         //从联系人进入创建联系人界面设置一个标记
         var contactcreate;
+        //从联系人列表-联系人详细信息保存联系人的标识
+        var contactlistvaluekey;
         return {
             //客户联系人数据
-            set_ContactsListvalue:function(conval){
+            set_Contactsdetailvalue:function(conval){
                 contactlistdeatilvalue = conval;
             },
-            get_ContactsListvalue:function(){
+            get_Contactsdetailvalue:function(){
                 return contactlistdeatilvalue;
+            },
+            //从联系人列表-联系人详细信息保存联系人的标识
+            set_ContactsListvalue:function(value){
+                contactlistvaluekey = value;
+             },
+            get_ContactsListvalue:function(){
+                return contactlistvaluekey;
             },
             //保存新建联系人的数据
             set_ContactCreatevalue:function(crval){

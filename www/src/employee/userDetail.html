@@ -1,14 +1,16 @@
 <ion-view class="employee_detail">
     <div class="employee_backtop" style="height:105px;padding-top:10px">
         <div class="employee_detailtitle">
-            <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="goBack()">
+            <div style="width:40px;height:40px;position: absolute;top: 5px;left: 5px;" ng-click="employgoBack()">
                 <i class="icon ion-ios-arrow-back publicheadtitlei"></i>
             </div>
             <span class="employeedeatil_headtitlespan">员工详细信息</span>
         </div>
         <div class="employee_detailcontent">
             <div class="employee_detailcontentname">
-                <div class="employee_detailcontentcicle"></div><span class="employee_detailcontentspan" ng-bind="userdetailval.NAME_FIRST">-销售人员</span>
+                <div class="employee_detailcontentcicle"></div><span class="employee_detailcontentspan" ng-bind="userdetailval.NAME_LAST"></span>
+                <span class="employee_detailcontentspan" ng-bind="userdetailval.NAME_FIRST"></span>
+                <span>-销售人员</span>
             </div>
             <div class="employee_detailcontentphone" ng-click="employeeshowphone(userdetailval.TELEPHONE)">
                 <i class="icon ion-ios-telephone-outline employee_detailcontentphonei"></i>
@@ -45,7 +47,7 @@
                     姓名
                 </div>
                 <div class="col col-60" style="color:#AEA3A3">
-                    <span ng-bind="userdetailval.PARTNER"></span><span ng-bind="userdetailval.NAME_FIRST"></span>
+                    <span ng-bind="userdetailval.NAME_LAST"></span><span ng-bind="userdetailval.NAME_FIRST"></span>
                 </div>
             </div>
             <div class="employee_query_listline">
@@ -55,7 +57,7 @@
                     性别
                 </div>
                 <div class="col col-60" style="color:#AEA3A3">
-                    <span ng-bind="userdetailval.sex"></span>
+                    <span ng-bind="userdetailval.TITLE_KEY"></span>
                 </div>
             </div>
             <div class="employee_query_listline">
@@ -66,22 +68,11 @@
                     电话/分机
                 </div>
                 <div class="col col-60" style="color:#4A90E2;margin-left: 7px;">
-                    <span ng-bind="userdetailval.SMTP_ADDR"></span>
+                    <span ng-bind="userdetailval.TEL_NUMBER"></span>-<span ng-bind="userdetailval.TEL_EXTENS"></span>
                 </div>
             </div>
             <div class="employee_query_listline">
             </div>
-            <!--<div class="row" style="padding:10px 5px" ng-click="employeeshowmoblie()">-->
-                <!--<div class="col col-40">-->
-                    <!--<img src="img/employee/ephonemu@2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 2px"/>-->
-                    <!--手机-->
-                <!--</div>-->
-                <!--<div class="col col-60" style="color:#4A90E2;margin-left: 7px;">-->
-                    <!--{{userdetailval.mobilenumber}}-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="employee_query_listline">-->
-            <!--</div>-->
             <div class="row" style="padding:5px 5px" ng-click="mailcopyvalue(userdetailval.SMTP_ADDR)">
                 <div class="col col-25">
                     <img src="img/employee/eemail@2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>

@@ -2,23 +2,23 @@
     <div class="absolute fadeIn" style="height:65px;padding-top:15px" ng-show="Contacts_showTitle"
          ng-class="!Contacts_TitleFlag?'animated fadeOut':'animated fadeIn'">
         <div class="Contacts_detailtitleview">
-            <div style="width:40px;height:40px;position: absolute;top:20px;left: 5px;" ng-click="goBack()">
+            <div style="width:40px;height:40px;position: absolute;top:20px;left: 5px;" ng-click="ContactgoBack()">
                 <i class="icon ion-ios-arrow-back view_publicheadtitlei" style="margin-top:1px;"></i>
             </div>
             <span class="Contactsdeatil_headtitlespanview">联系人详细信息</span>
             <div class="Contacts_detailname">
-                {{customerdetails.name}}
+                <span ng-bind="contactdetails.NAME_LAST"></span>
             </div>
         </div>
     </div>
     <div class="Contacts_backtopa absolute fadeIn" style="height:65px;padding-top:15px" ng-show="Contacts_TitletranstionFlag">
         <div class="Contacts_detailtitleview">
-            <div style="width:40px;height:40px;position: absolute;top:20px;left: 5px;" ng-click="goBack()">
+            <div style="width:40px;height:40px;position: absolute;top:20px;left: 5px;" ng-click="ContactgoBack()">
                 <i class="icon ion-ios-arrow-back view_publicheadtitlei" style="margin-top:1px;"></i>
             </div>
             <span class="Contactsdeatil_headtitlespanview">联系人详细信息</span>
             <div class="Contacts_detailname">
-                {{customerdetails.name}}
+                <span ng-bind="contactdetails.NAME_LAST"></span>
             </div>
         </div>
     </div>
@@ -26,32 +26,35 @@
     <ion-content has-bouncing="false" on-scroll="customerContacts_onScroll()">
         <div class="Contacts_backtopb" style="padding-top:20px;height:219px">
             <div class="Contacts_detailtitle" ng-class="Contacts_TitleFlag?'animated fadeOut':'animated fadeIn'">
-                <div style="width:40px;height:40px;position: absolute;top: 20px;left: 5px;" ng-click="goBack()">
+                <div style="width:40px;height:40px;position: absolute;top: 20px;left: 5px;" ng-click="ContactgoBack()">
                     <i class="icon ion-ios-arrow-back publicheadtitlei" style="margin-top:0"></i>
                 </div>
                 <span class="Contactsdeatil_headtitlespan">联系人详细信息</span>
             </div>
             <div class="Contacts_detailcontent">
                 <div class="Contacts_detailcontentname" ng-class="Contacts_customerFlag?'animated fadeOut':'animated fadeIn'">
-                    <div class="Contacts_detailcontentcicle"></div><span>{{customerdetails.name}}</span>
+                    <div class="Contacts_detailcontentcicle"></div><span ng-bind="contactdetails.NAME_LAST"></span>
                 </div>
                 <div class="Contacts_detailcontentkehu" ng-class="Contacts_placeFlag?'animated fadeOut':'animated fadeIn'">
-                    客户:<span>{{customerdetails.keuhuname}}</span>
+                    客户:<span ng-bind="contactdetails.NAME_ORG1"></span>
                 </div>
 
-                <div class="Contacts_detailcontentaddress" ng-class="Contacts_addressFlag?'animated fadeOut':'animated fadeIn'">
-                    地址:<span>{{customerdetails.dizhiname}}</span>
-                </div>
-                <div class="Contacts_detailcontentemploy" ng-class="Contacts_empolFlag?'animated fadeOut':'animated fadeIn'">
-                    销售员工:<span>{{customerdetails.xioshouyung}}</span>
-                </div>
                 <div class="Contacts_detailcontentphone" ng-class="Contacts_phoneFlag?'animated fadeOut':'animated fadeIn'" ng-click="contactshowphone(customerdetails.phonenumber)">
                     <img src="img/contact/phone@2x.png" style="width:15px;height:15px" class="customerContacts_detailcontentphonei"></img>
-                    <span style="margin-left: 4px;">{{customerdetails.phonenumber}}</span>
+                    <span style="margin-left: 4px;" ng-bind="contactdetails.TEL_NUMBER"></span>
                 </div>
                 <div class="Contacts_detailcontentmobile" ng-class="Contacts_mobileFlag?'animated fadeOut':'animated fadeIn'" ng-click="contactshowphone(customerdetails.mobilenumber)">
                     <img src="img/contact/tel@2x.png" style="width:15px;height:15px" class="Contacts_detailcontentmobilei"></img>
-                    <span style="margin-left: 4px;">{{customerdetails.mobilenumber}}</span>
+                    <span style="margin-left: 4px;" ng-bind="contactdetails.MOB_NUMBER"></span>
+                </div>
+                <div class="Contacts_detailcontentaddress" ng-class="Contacts_addressFlag?'animated fadeOut':'animated fadeIn'">
+                    地址:<span ng-bind="contactdetails.STREET"></span>
+                </div>
+                <div class="Contacts_detailcontentemploy" ng-class="Contacts_empolFlag?'animated fadeOut':'animated fadeIn'">
+                    销售员工:<span ng-bind="contactdetails.relationsalsname"></span>
+                </div>
+                <div class="Contacts_detailcontentenum" ng-class="Contacts_empolFlag?'animated fadeOut':'animated fadeIn'">
+                      <span>No:</span><span ng-bind="contactdetails.PARTNER"></span>
                 </div>
             </div>
         </div>
@@ -79,19 +82,39 @@
                 注释
             </div>
             <div class="col col-85" style="color:#AEA3A3">
-                {{customerdetails.customerzhushi}}
+                <span ng-bind="contactdetails.conatctdeatilnote"></span>
             </div>
         </div>
         <div class="employee_query_listline">
         </div>
-
-        <div class="row" style="padding:5px 5px" ng-click="contactmailcopyvalue(userdetailval.email)">
-            <div class="col col-25">
-                <img src="img/customer/customerchuanz2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
-                邮箱
+        <div class="row" style="padding:5px 5px">
+            <div class="col col-40" style="margin-left: 7px;">
+                性别
             </div>
-            <div class="col col-75" style="color:#4A90E2;margin-left: 10px;">
-                {{customerdetails.customermail}}
+            <div class="col col-60" style="color:#AEA3A3">
+                <span ng-bind="contactdetails.TITLE"></span>
+            </div>
+        </div>
+        <div class="employee_query_listline">
+        </div>
+        <div class="row" style="padding:5px 5px" ng-click="employeeshowphone(userdetailval.phoneNumber)">
+            <div class="col col-40">
+                <img src="img/customer/customerchuanz2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
+                传真
+            </div>
+            <div class="col col-60" style="color:#AEA3A3;margin-left: 7px;">
+                <span ng-bind="contactdetails.FAX_NUMBER"></span>
+            </div>
+        </div>
+        <div class="employee_query_listline">
+        </div>
+        <div class="row" style="padding:5px 5px" ng-click="employeeshowphone(userdetailval.phoneNumber)">
+            <div class="col col-40">
+                <img src="img/customer/customerchuanz2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
+                传真分机
+            </div>
+            <div class="col col-60" style="color:#AEA3A3;margin-left: 7px;">
+                <span ng-bind="contactdetails.FAX_EXTENS"></span>
             </div>
         </div>
         <div class="employee_query_listline">
@@ -101,7 +124,7 @@
                 部门
             </div>
             <div class="col col-60" style="color:#AEA3A3">
-                {{customerdetails.postion}}
+                <span ng-bind="contactdetails.DPRTMNT"></span>
             </div>
         </div>
         <div class="employee_query_listline">
@@ -111,7 +134,7 @@
                 职能
             </div>
             <div class="col col-60" style="color:#AEA3A3">
-                {{customerdetails.atend}}
+                <span ng-bind="contactdetails.FNCTN"></span>
             </div>
         </div>
         <div class="employee_query_listline">
@@ -121,7 +144,27 @@
                 国家
             </div>
             <div class="col col-60" style="color:#AEA3A3">
-                {{customerdetails.customercontrary}}
+                <span ng-bind="contactdetails.COUNTRY"></span>
+            </div>
+        </div>
+        <div class="employee_query_listline">
+        </div>
+        <div class="row" style="padding:5px 5px">
+            <div class="col col-40" style="margin-left: 7px;">
+                省份
+            </div>
+            <div class="col col-60" style="color:#AEA3A3">
+                <span ng-bind="contactdetails.BEZEI"></span>
+            </div>
+        </div>
+        <div class="employee_query_listline">
+        </div>
+        <div class="row" style="padding:5px 5px">
+            <div class="col col-40" style="margin-left: 7px;">
+                城市
+            </div>
+            <div class="col col-60" style="color:#AEA3A3">
+                <span ng-bind="contactdetails.CITY1"></span>
             </div>
         </div>
         <div class="employee_query_listline">
@@ -131,7 +174,7 @@
                 地区
             </div>
             <div class="col col-60" style="color:#AEA3A3">
-                {{customerdetails.customerregion}}
+                <span ng-bind="contactdetails.REGION"></span>
             </div>
         </div>
         <div class="employee_query_listline">
@@ -141,7 +184,7 @@
                 邮编
             </div>
             <div class="col col-60" style="color:#AEA3A3">
-                {{customerdetails.youbina}}
+                <span ng-bind="contactdetails.POST_CODE1"></span>
             </div>
         </div>
         <div class="employee_query_listline">
@@ -152,7 +195,17 @@
                 出生日期
             </div>
             <div class="col col-60" style="color:#AEA3A3">
-                {{customerdetails.birthday}}
+                <span ng-bind="contactdetails.BIRTHDT"></span>
+            </div>
+        </div>
+        <div class="employee_query_listline">
+        </div>
+        <div class="row" style="padding:5px 5px">
+            <div class="col col-40" style="margin-left: 7px;">
+                语言
+            </div>
+            <div class="col col-60" style="color:#AEA3A3">
+                <span ng-bind="contactdetails.LANGU"></span>
             </div>
         </div>
         <div class="employee_query_listline">
