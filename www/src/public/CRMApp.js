@@ -351,28 +351,3 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             .otherwise('/tabs');
     });
 
-
-
-
-
-
-/*.state('worksheetdetailnewcar', {
-    url: '/worksheetdetailnewcar',
-    templateUrl: 'src/worksheet/detail_newcar/worksheet_detail_newcar.html',
-    controller: 'WorksheetDetailNewcarCtrl'
-})
-.state('worksheetdetailsiterepair', {
-    url: '/worksheetdetailsiterepair',
-    templateUrl: 'src/worksheet/detail_siterepair/worksheet_detail_siterepair.html',
-    controller: 'WorksheetDetailSiterepairCtrl'
-})*/
-/*.state('worksheetDetailNewcar', {
-    url: '/worksheetDetailNewcar',
-    templateUrl: 'src/worksheet/detailNewcar/detailNewcar.html',
-    controller: 'worksheetDetailNewcarCtrl'
-})
-.state('worksheetDetailSiteRepair', {
-    url: '/worksheetDetailSiteRepair',
-    templateUrl: 'src/worksheet/detailSiteRepair/detailSiteRepair.html',
-    controller: 'worksheetDetailSiteRepairCtrl'
-})*/

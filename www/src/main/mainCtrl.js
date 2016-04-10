@@ -12,7 +12,7 @@ mainModule
         '$ionicPopover',
         '$cordovaDatePicker',
         'ionicMaterialInk',
-        'ionicMaterialMotion',
+        'ionicMaterialMotion', 
         'Prompter',
         function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, ionicMaterialInk, ionicMaterialMotion,
@@ -379,7 +379,8 @@ mainModule
                 $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
                 var todayTemp = angular.copy(today);
                 if (todayTemp == 0) {
-                    todayTemp = 6;
+                    //todayTemp = 6;
+                    todayTemp = 5;
                 } else {
                     todayTemp = todayTemp - 1;
                 }

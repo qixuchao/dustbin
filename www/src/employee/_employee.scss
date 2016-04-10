@@ -96,54 +96,31 @@
           color: white;
         }
      }
-    .employeequery_headquery{
-      height:50px;
-      position: relative;
-      .employeequery_headqueryimg{
-       font-size:20px;
-        color: #A8A8A8;
-        position: absolute;
-        top:8px;
-        left:15px;
-        z-index: 10;
-      }
-      .employeequery_headqueryinput{
-        height:35px;
-        width: 96%;
-        border-radius:5px;
-        padding-left:30px;
-        background-color: white;
-        position: absolute;
-        top:0;
-        left:2%;
-        z-index:1;
-      }
-    }
   }
-  .employee_query_historys{
-    margin-top:14px;
-    margin-left:12px;
-    font-size:16px;
-    text-align: left;
-    .employee_query_historysspan{
-      color:#A8A8A9;
-    }
-    .employee_query_historylist{
-      margin-top:10px;
-      height:35px;
-      line-height:35px;
-      text-align: center;
-      color: white;
-      background-color: #5E97F6;
-      border-radius:15px;
-      width:75px;
-    }
-    .employee_query_historyclear{
-      margin-top:15px;
-      color:#3DAFFD;
-    }
-
-  }
+  //.employee_query_historys{
+  //  margin-top:14px;
+  //  margin-left:12px;
+  //  font-size:16px;
+  //  text-align: left;
+  //  .employee_query_historysspan{
+  //    color:#A8A8A9;
+  //  }
+  //  .employee_query_historylist{
+  //    margin-top:10px;
+  //    height:35px;
+  //    line-height:35px;
+  //    text-align: center;
+  //    color: white;
+  //    background-color: #5E97F6;
+  //    border-radius:15px;
+  //    width:75px;
+  //  }
+  //  .employee_query_historyclear{
+  //    margin-top:15px;
+  //    color:#3DAFFD;
+  //  }
+  //
+  //}
 
   .employee_query_list{
     font-size: 16px;
@@ -183,6 +160,32 @@
   height: 1px;
   background-color: #D2D2D2;
 }
+//搜索历史
+.employee_query_historys{
+  margin-top:14px;
+  margin-left:12px;
+  font-size:16px;
+  text-align: left;
+  .employee_query_historysspan{
+    color:#A8A8A9;
+  }
+  .employee_query_historylist{
+    margin-top:10px;
+    height:35px;
+    line-height:35px;
+    text-align: center;
+    color: white;
+    background-color: #5E97F6;
+    border-radius:15px;
+    width:75px;
+  }
+  .employee_query_historyclear{
+    margin-top:15px;
+    color:#3DAFFD;
+  }
+
+}
+
 
 .employee_detail{
 

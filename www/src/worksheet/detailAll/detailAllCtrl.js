@@ -606,10 +606,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}else if(type == 'wangong'){
 
 				}else if(type == 'yiquxiao'){
-
+					
 				}
 			};
-
+			
 			$scope.showMoreModel = function($event, sourceClassName){
 			    if($scope.config.moreModal == null){
 			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content'>"+
@@ -631,11 +631,12 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		            });
 			    }
 			    $scope.config.moreModal.show();
-			    $scope.config.moreModal.$el.addClass("worksheet-detail-more-modal");
+			    $scope.config.moreModal.$el.addClass("worksheet-detail-more-modal");			    
 			    $scope.initMoreModal(sourceClassName);
+			    var eleBgJQ = $scope.config.moreModal.$el.find('.modal-backdrop-bg');
+			    eleBgJQ[0].style.opacity="0";
 			};
 			$scope.initMoreModal = function(sourceClassName){
-
 					var eleJQ = angular.element('.'+sourceClassName);
 					var elePos = $ionicPosition.position(eleJQ) || $ionicPosition.offset(eleJQ);		
 					var left = elePos.left + elePos.width/2;
@@ -660,6 +661,13 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					modal.style.zIndex = 12; // 12  -2
 			};
 
+			$scope.editSiteRepair = function(){
+				// TODO
+			};
+			$scope.editNewCar = function(){
+				// TODO
+			};
+			
         	$scope.config = {
 				scrollDelegateHandler: null,
 				contentDetegateHandler: null,
@@ -768,7 +776,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					handleResult: 'In the thmultuous business of cutting-in and attending to a whale, there is much running backwards and forwards among',
 				}
 			};
-
+			
             ionicMaterialInk.displayEffect();
             $scope.statusArr = [{
 			        value: '未处理',
@@ -850,7 +858,9 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                     $scope.TitleFlag = false;
                     $scope.showTitleStatus = false;
                 }
-                $scope.$apply();
+                if(!$scope.$$phase) {
+                	$scope.$apply();
+                }                
             };
 
             $scope.init = function(){
