@@ -94,7 +94,6 @@ spareModule.controller('SpareListCtrl',['$cordovaToast','HttpAppService','$http'
             });
         }
     };
-    $scope.spareLoadMore1();
 
     $scope.spareLoadmoreIm = function() {
         page+=1;

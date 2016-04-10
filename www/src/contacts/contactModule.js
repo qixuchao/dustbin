@@ -8,7 +8,16 @@ contactModuleServive
         var contactcreate;
         //从联系人列表-联系人详细信息保存联系人的标识
         var contactlistvaluekey;
+        //为联系人-关系界面保存数据(联系人详情界面的item)
+        var contactdeatrelationlist;
         return {
+            //为联系人-关系界面保存数据(联系人详情界面的item)
+            set_ContactsdeaRelationval:function(rvalue){
+                contactdeatrelationlist = rvalue;
+            },
+            get_ContactsdeaRelationval:function(){
+                return contactdeatrelationlist;
+            },
             //客户联系人数据
             set_Contactsdetailvalue:function(conval){
                 contactlistdeatilvalue = conval;

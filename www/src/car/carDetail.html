@@ -1,17 +1,16 @@
 <ion-view class="CarDetail">
-    <div class="top-back3 absolute animated fadeIn" ng-class="!showTitle?'animated fadeOut':'animated fadeIn'" ng-show="showTitle">
-        <div class="row row-center title" >
-            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
-            <div class="col col-69 text-center">车辆信息详情</div>
-        </div>
-    </div>
-    <div class="top-back2 absolute top-back"  ng-show="titleStatus">
-        <div class="row row-center title" >
-            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
-            <div class="col col-69 text-center">车辆信息详情</div>
-        </div>
-    </div>
-    <ion-content has-bouncing="false" on-scroll="onScroll()">
+    <!--<div class="top-back3 absolute animated fadeIn" ng-class="!showTitle?'animated fadeOut':'animated fadeIn'" ng-show="showTitle">-->
+        <!--<div class="row row-center title" >-->
+            <!--<div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>-->
+            <!--<div class="col col-69 text-center">车辆信息详情</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="top-back2 absolute top-back"  ng-show="titleStatus">-->
+        <!--<div class="row row-center title" >-->
+            <!--<div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>-->
+            <!--<div class="col col-69 text-center">车辆信息详情</div>-->
+        <!--</div>-->
+    <!--</div>-->
         <div class="top-back">
             <div class="row row-center title " ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
@@ -33,25 +32,23 @@
                     {{projectName}}&nbsp;&nbsp;{{carInfo1.projectName}}</div>
             </div>
         </div>
-
-
         <div class="contentType">
-           <div class="row row-center rowBt">
-               <div class="col col-40 col-center">
-                   <img ng-src="img/car/maintenance.png" class="btType" ng-click="goSkip('maintenance')" >
-               </div>
-               <div class="col col-45 col-center">
-                   <img ng-src="img/car/spare.png" class="btType" ng-click="goPage(carInfo1.code)">
-               </div>
-           </div>
-            <div class="Car_countentbasic">
+            <div class="row row-center rowBt">
+                <div class="col col-40 col-center">
+                    <img ng-src="img/car/maintenance.png" class="btType" ng-click="goSkip('maintenance')" >
+                </div>
+                <div class="col col-45 col-center">
+                    <img ng-src="img/car/spare.png" class="btType" ng-click="goPage(carInfo1.code1)">
+                </div>
+            </div>
+        </div>
+    <ion-content has-bouncing="false">
+            <div class="Car_countentbasic2">
                 <div class="Car_countentbasicinfo">基本信息</div>
                 <div class="Car_countentbasicline"></div>
                 <div class="Car_countentbasicclok"></div>
             </div>
-            <!--<div class="row row-center titleType">-->
-                <!--<img ng-src="img/car/baseInfo.png" class="titleImg">-->
-            <!--</div>-->
+
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     车辆安装点
@@ -144,7 +141,7 @@
                 <div class="col col-center col-40">
                     直接客户
                 </div>
-                <div class="col col-center col-56">
+                <div class="col col-center col-56" ng-click="goDetail(carInfo1.directCustomerId)">
                     <u>
                         {{carInfo1.directCustomer}}
                     </u>
@@ -152,7 +149,7 @@
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
-                <div class="col col-center col-40">
+                <div class="col col-center col-40" ng-click="goDetail(carInfo1.terminalId)">
                     终端客户
                 </div>
                 <div class="col col-center col-56">
@@ -172,11 +169,11 @@
                 <div class="col col-center col-56">{{carInfo1.driver}}</div>
             </div>
             <div class="lineType1"></div>
-            <div class="row row-center rowType" ng-click="carshowphone(carDetailval.phoneNumber)">
+            <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     驾驶员电话
                 </div>
-                <div class="col col-center col-56" >{{carInfo1.phoneNum}}</div>
+                <div class="col col-center col-56" ng-click="carshowphone(carInfo1.phoneNum)">{{carInfo1.phoneNum}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="Car_countentbasic">

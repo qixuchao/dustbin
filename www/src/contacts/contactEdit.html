@@ -36,7 +36,7 @@
             </span>
             <span class="item item-input">性别：
                 <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B"  ng-model="contactedit.TITLE" ng-options="a.name as a.name for a in contactlistvaluesel">
-                    <!--<option value="">称谓</option>-->
+                    <option value="" ng-bind="contactedit.TITLE"></option>
                 </select>
             </span>
             <span class="item item-input">传真：
@@ -62,10 +62,10 @@
                 </div>
                 <div class="col col-80">
                     <select style="border: none;color:#9B9B9B;padding-left:7px"  ng-model="contactedit.COUNTRY" ng-options="a.name as a.name for a in contactlistvaluesel">
-                        <!--<option value="">国家</option>-->
+                        <option value="" ng-bind="contactedit.COUNTRY"></option>
                     </select>
                     <select style="border: none;color:#9B9B9B;margin-left:20%"  ng-model="contactedit.BEZEI" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
-                        <!--<option value="">省份</option>-->
+                        <option value="" ng-bind="contactedit.BEZEI"></option>
                     </select>
                 </div>
             </div>
@@ -75,29 +75,27 @@
                 </div>
                 <div class="col col-80">
                     <select style="border: none;color:#9B9B9B;padding-left:7px"  ng-model="contactedit.CITY1" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
-                        <!--<option value="">城市</option>-->
+                        <option value="" ng-bind="contactedit.CITY1"></option>
                     </select>
                     <select style="border: none;color:#9B9B9B;margin-left:20%"  ng-model="contactedit.REGION" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
-                        <!--<option value="">地区</option>-->
+                        <option value="" ng-bind="contactedit.REGION"></option>
                     </select>
                 </div>
             </div>
-
-
             <span class="item item-input">邮编：
                 <input type="text" id="contpostm" placeholder="请输入部门邮编" class="contact_editinputsty"  ng-model="contactedit.POST_CODE1">
                 <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('POST_CODE1')"/>
             </span>
             <span class="item item-input">生日：
-                <input type="text" placeholder="请输入生日" class="contact_editinputsty"  readonly ng-model="contactedit.BIRTHDT" ng-click="conatactSavebr(contactedit.BIRTHDT)" style="background-color:white">
+                <input type="text" placeholder="请输入生日" class="contact_editinputsty"  readonly ng-model="contactedit.BIRTHDT" ng-click="conatactSavebr('contactBrithy')" style="background-color:white">
             </span>
              <span class="item item-input">语言：
                 <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B"  ng-model="contactedit.LANGU" ng-options="a.name as a.name for a in contactlistvaluesel">
-                    <!--<option value="">称谓</option>-->
+                    <option value="" ng-bind="contactedit.LANGU"></option>
                 </select>
             </span>
         </div>
     </ion-content>
-</ion-nav-view>rt
+</ion-nav-view>
 
 
