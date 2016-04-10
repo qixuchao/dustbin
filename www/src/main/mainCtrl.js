@@ -387,7 +387,7 @@ mainModule
                 $scope.days[0].arr[todayTemp].checked = true;
                 //模拟有代办事项
                 $scope.days[0].arr[todayTemp].toDo = true;
-                $scope.days[0].arr[todayTemp + 1].toDo = true;
+                //$scope.days[0].arr[todayTemp + 1].toDo = true;
 
                 $scope.year = addDateTemp.getFullYear();
                 $scope.month = addDateTemp.getMonth() + 1;
@@ -644,7 +644,7 @@ mainModule
                     arr[i].style.transitionDelay = '0s';
                 }
                 $timeout(function () {
-                    $scope.thingsToDo.splice($scope.thingsToDo.indexOf(x), 1);
+                    $scope.contentArr.splice($scope.contentArr.indexOf(x), 1);
                 }, 10)
                 //$scope.thingsToDo.splice($scope.thingsToDo.indexOf(x),1);
             };
