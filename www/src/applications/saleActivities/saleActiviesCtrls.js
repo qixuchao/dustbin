@@ -10,13 +10,14 @@ salesModule
         '$ionicPopover',
         '$ionicModal',
         '$cordovaToast',
+        '$ionicScrollDelegate',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'saleActService',
         'Prompter',
         'HttpAppService',
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, ionicMaterialInk,
-                  ionicMaterialMotion, saleActService, Prompter, HttpAppService) {
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast,$ionicScrollDelegate,
+                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService) {
             console.log('销售活动列表');
             $scope.saleTitleText = '销售活动';
             $timeout(function () {
@@ -125,9 +126,10 @@ salesModule
                 $scope.createPop.show();
             };
             $scope.showCreateModal = function () {
+                customerPage = 2;
                 console.log($scope.pop);
                 $scope.createPop.hide();
-                $scope.create = {de_startTime: new Date().format('yyyy/M/d hh:ss'), de_endTime: getDefultStartTime()};
+                $scope.create = {de_startTime: new Date().format('yyyy-MM-dd hh:ss'), de_endTime: getDefultStartTime()};
                 $scope.createModal.show();
                 //console.log(document.getElementsByClassName('modal-wrapper'));
                 var tempArr = document.getElementsByClassName('modal-wrapper');
@@ -135,6 +137,33 @@ salesModule
                     tempArr[i].style.pointerEvents = 'auto';
                 }
             };
+            var customerPage = 1;
+            $scope.customerArr = saleActService.customerArr;
+            $scope.getCustomerArr = function (search) {
+                console.log(customerPage);
+                var data = {
+                    "I_SYSNAME": {"SysName": "ATL"},
+                    "IS_PAGE": {
+                        "CURRPAGE": customerPage++,
+                        "ITEMS": "10"
+                    },
+                    "IS_SEARCH": {"SEARCH": search},
+                    "IT_IN_ROLE": {}
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
+                    .success(function (response) {
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.CustomerLoadMoreFlag = false;
+                            }
+                            $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                            $ionicScrollDelegate.resize();
+                            saleActService.customerArr = $scope.customerArr;
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        }
+                    });
+            };
+            $scope.getCustomerArr();
             /*-------------------------------Pop 新建 end-------------------------------------*/
             /*-------------------------------Modal 新建-------------------------------------*/
             //$scope.create = {
@@ -148,7 +177,7 @@ salesModule
             //};
             var getDefultStartTime = function () {
                 var dateArr = new Date().format('hh:mm').split(':');
-                return new Date().format('yyyy/M/d') + ' ' + (Number(dateArr[0]) + 2) + ':' + dateArr[1];
+                return new Date().format('yyyy-MM-dd') + ' ' + (Number(dateArr[0]) + 2) + ':' + dateArr[1];
             };
             $scope.selectPersonflag = false;
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Modal.html', {
@@ -175,15 +204,15 @@ salesModule
                 Prompter.showLoading('正在保存');
                 $timeout(function () {
                     Prompter.hideLoading();
-                    saleActService.getSaleListArr().push($scope.create);
+                    //saleActService.getSaleListArr().push($scope.create);
                     //$cordovaToast.showShortBottom('保存成功');
+                    saleActService.actDetail = '';
                     $state.go('saleActDetail');
                     $scope.createModal.hide();
                 }, 1000);
             };
             //选择时间
             $scope.selectCreateTime = function (type) {
-                console.log(type)
                 if (type == 'start') {
                     Prompter.selectTime($scope, 'actCreateStart', new Date($scope.create.de_startTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm'), 'datetime', '开始时间');
                 } else {
@@ -218,7 +247,6 @@ salesModule
                 $scope.selectCustomerModal = modal;
             });
             $scope.customerModalArr = saleActService.getCustomerTypes();
-            $scope.customerArr = saleActService.getCustomer();
             $scope.selectCustomerText = '竞争对手';
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;
@@ -245,7 +273,7 @@ salesModule
                 }, 1)
             };
             $scope.selectCustomer = function (x) {
-                $scope.create.customer = x.text;
+                $scope.create.customer = x.NAME_ORG1;
                 $scope.selectCustomerModal.hide();
             };
 
@@ -304,8 +332,9 @@ salesModule
                         console.log(response);
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             $scope.details = response.ES_ACTIVITY;
-                            $scope.details.de_startTime = $scope.details.DATE_FROM + ' ' + $scope.details.TIME_FROM.substring(0,5);
-                            $scope.details.de_endTime = $scope.details.DATE_TO + ' ' + $scope.details.TIME_TO.substring(0,5); $scope.mySelect = {
+                            $scope.details.de_startTime = $scope.details.DATE_FROM + ' ' + $scope.details.TIME_FROM.substring(0, 5);
+                            $scope.details.de_endTime = $scope.details.DATE_TO + ' ' + $scope.details.TIME_TO.substring(0, 5);
+                            $scope.mySelect = {
                                 status: $scope.statusArr[getStatusIndex($scope.details.STATUS_TXT)]
                             };
                             $scope.details.relations = response.ET_PARTNERS.item;
@@ -313,7 +342,9 @@ salesModule
                         }
                     });
             };
-            getDetails();
+            if (saleActService.actDetail) {
+                getDetails();
+            }
             //$scope.details = saleActService.actDetail;
             $scope.statusArr = saleChanService.getStatusArr();
 
