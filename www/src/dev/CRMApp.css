@@ -2374,26 +2374,28 @@ input[readonly]:not(.cloned-text-input) {
   font-size: 20px;
   color: #A8A8A8;
   position: absolute;
-  top: 8px;
+  top: 12px;
   left: 15px;
   z-index: 10; }
 .employeequery_headquery .employeequery_headqueryinput {
-  height: 35px;
-  line-height: 35px;
-  width: 96%;
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  width: 86%;
   border-radius: 5px;
-  padding-left: 30px;
   background-color: white;
+  padding-left: 10%;
   position: absolute;
-  top: 0;
+  top: 6px;
+  right: 2%;
   left: 2%;
   z-index: 1; }
 
 .platform-android .popover-backdrop, .platform-android .popover-backdrop.active {
-  background-color: rgba(0, 0, 0, 0.5); }
+  background-color: rgba(0, 0, 0, 0.38); }
 
 .popover-backdrop.active {
-  background-color: rgba(0, 0, 0, 0.5); }
+  background-color: rgba(0, 0, 0, 0.38); }
 
 .action-sheet-group {
   margin-bottom: 1px;
@@ -2992,45 +2994,6 @@ input[readonly]:not(.cloned-text-input) {
     .employee_query .employeequery_head .employeequery_headtitle .employeequery_headtitlespan {
       font-size: 18px;
       color: white; }
-  .employee_query .employeequery_head .employeequery_headquery {
-    height: 50px;
-    position: relative; }
-    .employee_query .employeequery_head .employeequery_headquery .employeequery_headqueryimg {
-      font-size: 20px;
-      color: #A8A8A8;
-      position: absolute;
-      top: 8px;
-      left: 15px;
-      z-index: 10; }
-    .employee_query .employeequery_head .employeequery_headquery .employeequery_headqueryinput {
-      height: 35px;
-      width: 96%;
-      border-radius: 5px;
-      padding-left: 30px;
-      background-color: white;
-      position: absolute;
-      top: 0;
-      left: 2%;
-      z-index: 1; }
-.employee_query .employee_query_historys {
-  margin-top: 14px;
-  margin-left: 12px;
-  font-size: 16px;
-  text-align: left; }
-  .employee_query .employee_query_historys .employee_query_historysspan {
-    color: #A8A8A9; }
-  .employee_query .employee_query_historys .employee_query_historylist {
-    margin-top: 10px;
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-    color: white;
-    background-color: #5E97F6;
-    border-radius: 15px;
-    width: 75px; }
-  .employee_query .employee_query_historys .employee_query_historyclear {
-    margin-top: 15px;
-    color: #3DAFFD; }
 .employee_query .employee_query_list {
   font-size: 16px;
   color: #4A4A4A; }
@@ -3057,6 +3020,26 @@ input[readonly]:not(.cloned-text-input) {
   width: 100%;
   height: 1px;
   background-color: #D2D2D2; }
+
+.employee_query_historys {
+  margin-top: 14px;
+  margin-left: 12px;
+  font-size: 16px;
+  text-align: left; }
+  .employee_query_historys .employee_query_historysspan {
+    color: #A8A8A9; }
+  .employee_query_historys .employee_query_historylist {
+    margin-top: 10px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: white;
+    background-color: #5E97F6;
+    border-radius: 15px;
+    width: 75px; }
+  .employee_query_historys .employee_query_historyclear {
+    margin-top: 15px;
+    color: #3DAFFD; }
 
 .employee_detail .absolute {
   position: absolute;
@@ -7125,6 +7108,14 @@ input[readonly]:not(.cloned-text-input) {
     height: 1px;
     background-color: #D2D2D2; }
 
+.contactqueryinputdelete {
+  position: absolute;
+  right: 20px;
+  z-index: 10;
+  top: 6px;
+  font-size: 35px;
+  color: #C5BCBC; }
+
 .Contacts_detail .absolute {
   position: absolute;
   z-index: 9;
@@ -7199,15 +7190,19 @@ input[readonly]:not(.cloned-text-input) {
     left: 25px; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentaddress {
     position: absolute;
-    top: 50px;
+    top: 100px;
     left: 25px; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentemploy {
     position: absolute;
-    top: 73px;
+    top: 127px;
     left: 25px; }
+  .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentenum {
+    position: absolute;
+    top: 127px;
+    right: 20px; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentphone {
     position: absolute;
-    top: 100px;
+    top: 53px;
     left: 25px; }
     .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentphone .Contacts_detailcontentphonei {
       float: left;
@@ -7215,7 +7210,7 @@ input[readonly]:not(.cloned-text-input) {
       font-size: 25px; }
   .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentmobile {
     position: absolute;
-    top: 124px;
+    top: 74px;
     left: 25px; }
     .Contacts_detail .Contacts_detailcontent .Contacts_detailcontentmobile .Contacts_detailcontentmobilei {
       float: left;

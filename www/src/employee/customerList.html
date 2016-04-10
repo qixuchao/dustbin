@@ -7,11 +7,12 @@
                 <div class="col col-15 add"><img src="img/employee/increase@2x.png"></div>
             </div>
         </ion-header-bar>
+
         <form ng-submit="employeecustomerQuery()">
             <div class="pub-subhead bar bar-subheader">
                 <div class="employeequery_headquery">
                     <i class="ion-ios-search employeequery_headqueryimg"></i>
-                    <input class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入客户公司名称" type="text"/>
+                    <input type="search" class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入客户公司名称"/>
                 </div>
             </div>
         </form>

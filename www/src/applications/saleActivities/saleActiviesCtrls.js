@@ -185,9 +185,9 @@ salesModule
             $scope.selectCreateTime = function (type) {
                 console.log(type)
                 if (type == 'start') {
-                    Prompter.selectTime($scope, 'actCreateStart', new Date($scope.create.de_startTime).format('yyyy/MM/dd hh:mm'), 'datetime', '开始时间');
+                    Prompter.selectTime($scope, 'actCreateStart', new Date($scope.create.de_startTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm'), 'datetime', '开始时间');
                 } else {
-                    Prompter.selectTime($scope, 'actCreateEnd', new Date($scope.create.de_endTime).format('yyyy/MM/dd hh:mm'), 'datetime', '结束时间');
+                    Prompter.selectTime($scope, 'actCreateEnd', new Date($scope.create.de_endTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm'), 'datetime', '结束时间');
                 }
             };
             //选择人

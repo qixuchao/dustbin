@@ -3,7 +3,30 @@
  */
 'use strict';
 ContactsModule
-    .controller('contactQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicActionSheet','$window','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicActionSheet,$window,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
+    .controller('contactQueryCtrl',['$scope','$rootScope','$state','$http','HttpAppService','$timeout','$ionicPopover','$ionicActionSheet','$window','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,HttpAppService,$timeout,$ionicPopover,$ionicActionSheet,$window,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
+        //历史记录显示
+        $scope.ContactListHistoryval = function(){
+            if(storedb('contactdb').find().arrUniq() != undefined || storedb('contactdb').find().arrUniq() != null){
+                $scope.contacts_userqueryflag = false;
+                $scope.contact_query_historylists = (storedb('contactdb').find().arrUniq());
+                if ($scope.contact_query_historylists.length > 5) {
+                    $scope.contact_query_historylists = $scope.contact_query_historylists.slice(0, 5);
+                };
+            }else{
+                $scope.contacts_userqueryflag = true;
+            };
+        };
+        $scope.ContactListHistoryval();
+
+
+        //广播修改界面显示flag
+        $rootScope.$on('contactdeatillist', function(event, data) {
+            $scope.contact.contactfiledvalue ='';
+            $scope.ContactListHistoryval();
+        });
+
+
+
         $ionicPopover.fromTemplateUrl('src/contacts/model/contact_selec.html', {
             scope: $scope
         }).then(function(popover) {
@@ -21,7 +44,7 @@ ContactsModule
                 url:""
             },
             {
-                type:"常用联系人",
+                type:"手动创建联系人",
                 url:'ContactCreate'
             }
         ];
@@ -29,30 +52,150 @@ ContactsModule
             if(type.url){
                 $state.go(type.url);
                 //从联系人进入创建联系人界面设置一个标记
-                if(type.type == "常用联系人"){
+                if(type.type == "手动创建联系人"){
                     contactService.set_ContactCreateflag();
                 }
             }
             $scope.Contactspopover.hide();
+        };
+        //查询
+        $scope.contact_query_list = [];
+        $scope.contact_query_list = new Array;
+        $scope.conitemImPage = 0;
+        $scope.contactLoadmore = function() {
+            //$scope.contactisshow = true;
+            $scope.conitemImPage = $scope.conitemImPage + 1;
+            var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST';
+            var data = {
+                "I_SYSNAME": { "SysName": "ATL" },
+                "IS_AUTHORITY": { "BNAME": "" },
+                "IS_PAGE": {
+                    "CURRPAGE": $scope.conitemImPage,
+                    "ITEMS": "10"
+                },
+                "IS_PARTNER": { "PARTNER": "" },
+                "IS_SEARCH": { "SEARCH": $scope.contact.contactfiledvalue}
+            }
+            console.log("data"+angular.toJson(data));
+            console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
+            console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
+            HttpAppService.post(url, data).success(function (response) {
+                console.log(angular.toJson(response.ET_EMPLOYEE));
+                if (response.ES_RESULT.ZFLAG == 'E') {
+                    $scope.contactisshow = false;
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                } else {
+                    if (response.ES_RESULT.ZFLAG == 'S') {
+                        if (response.ET_OUT_LIST.item.length == 0) {
+                            $scope.contactisshow = false;
+                            if ($scope.conitemImPage == 1) {
+                                $cordovaToast.showShortBottom('数据为空');
+                            } else {
+                                $cordovaToast.showShortBottom('没有更多数据了');
+                            }
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        } else {
+                            console.log(angular.toJson((response.ET_OUT_LIST.item)));
+                            $.each(response.ET_OUT_LIST.item, function (n, value) {
+                                $scope.contact_query_list.push(value);
+                            });
+                        }
+                        if (response.ET_OUT_LIST.item.length < 10) {
+                            $scope.contactisshow = false;
+                            if ($scope.conitemImPage > 1) {
+                                $cordovaToast.showShortBottom('没有更多数据了');
+                            }
+                        } else {
+                            $scope.contactisshow = true;
+                        }
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+
+                    }
+                }
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+                $scope.contactisshow = false;
+            });
         }
-        $scope.contact_query_list = [{
-            name: '王雨薇',
-            sex:'女',
-            keuhuname:'金龙客车',
-            dizhiname:'福建省福州市芙蓉大道20号',
-            xioshouyung:'张俊华',
-            phonenumber:'021-88223765',
-            mobilenumber:'123765892773',
-            customermail:'yuwei.wang@hand-china.com',
-            postion:'采购部',
-            atend:'采购助理',
-            customercontrary:'中国',
-            customerregion:'河南省',
-            youbina:'555876',
-            birthday:'2016.08.21',
-            'customerzhushi':'in the feahennmkk in in the feahennmkk'
-        }];
+        //实时搜索
+        //实时搜索变量初始化一次flag
+        $scope.contactinitflag = true;
+        $scope.contact ={contactfiledvalue :''};
+        var contatctimer;
+        setTimeout(function(){
+            document.getElementById('contactqueryinput').style.display = "none";
+            document.getElementById('contactinputvalueid').addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
+                if(!$scope.$$phase) {
+                    $scope.$apply();
+                };
+                $scope.contactisshow = false;
+                clearTimeout(contatctimer);
+                contatctimer = setTimeout(function() {
+                    if (document.getElementById('contactinputvalueid').value.length > 0) {
+                        document.getElementById('contactqueryinput').style.display = "inline-block";
+                        $scope.$apply(function(){
+                            $scope.contactisshow = false;
+                            //删除请求
+                            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+                            $scope.contact_query_list = [];
+                            $scope.contact_query_list = new Array;
+                            $scope.conitemImPage = 0;
+                        });
+                        $scope.contacts_userqueryflag = true;
+                        $ionicScrollDelegate.resize();
+                        $scope.contactisshow = true;
+                        if(!$scope.$$phase) {
+                            $scope.$apply();
+                        };
+                    } else {
+                        //删除请求
+                        $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+                        $scope.contactisshow = false;
+                        if(!$scope.$$phase) {
+                            $scope.$apply();
+                        };
+                        $ionicScrollDelegate.resize();
+                        document.getElementById('contactqueryinput').style.display = "none";
+                    }
+                }, 500);
+
+            });
+        },50);
+        $scope.contactiputDeletevalue = function(){
+            $scope.contact.contactfiledvalue ='';
+        };
+
+        //清除历史记录
+        $scope.ContactsClearhis = function(){
+            storedb('contactdb').remove();
+            $scope.contact_query_historylists = [];
+        };
+        //点击历史记录开始请求
+        $scope.ContactHisGetvalue = function(value){
+            $scope.contact.contactfiledvalue = value.name;
+            $scope.contact_query_list = [];
+            $scope.contact_query_list = new Array;
+            $scope.conitemImPage = 0;
+            $scope.contacts_userqueryflag = true;
+            $ionicScrollDelegate.resize();
+            $scope.contactisshow = true;
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            };
+        }
+
         $scope.Contacts_godetails = function(x){
+            $scope.contactisshow = false;
+            //存储历史记录
+            console.log($scope.contactfiledvalue)
+            storedb('contactdb').insert({"name": $scope.contact.contactfiledvalue}, function (err) {
+                if (!err) {
+                   console.log('历史记录保存成功')
+                } else {
+                    $cordovaToast.showShortBottom('历史记录保存失败');
+                }
+            });
             contactService.set_ContactsListvalue(x);
             $state.go('ContactDetail');
         };
@@ -63,22 +206,21 @@ ContactsModule
         });
 
         //拨打电话手机
-        $scope.employ_querynumber = function(data){
-            console.log(data)
+        $scope.conatct_querynumber = function(data){
            $ionicActionSheet.show({
                 buttons: [
-                    {text: data.mobilenumber},
-                    {text: data.phonenumber},
+                    {text: data.TEL_NUMBER},
+                    {text: data.MOB_NUMBER},
                 ],
                 titleText: '拨打电话',
                 cancelText: '取消',
                 buttonClicked: function (index) {
                     if (index == 0) {
-                        $window.location.href = "tel:" + data.mobilenumber;
+                        $window.location.href = "tel:" + data.TEL_NUMBER;
                         return true;
                     };
                     if (index == 1) {
-                        $window.location.href = "tel:" + data.phonenumber;
+                        $window.location.href = "tel:" + data.MOB_NUMBER;
                         return true;
                     }
                 }
@@ -86,7 +228,58 @@ ContactsModule
         }
 
     }])
-    .controller('contactDetailCtrl',['$scope','$rootScope','$state','Prompter','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$state,Prompter,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+    .controller('contactDetailCtrl',['$scope','$rootScope','$state','$ionicHistory','Prompter','HttpAppService','$cordovaToast','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$state,$ionicHistory,Prompter,HttpAppService,$cordovaToast,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+        ////定制从联系人详细界面进入列表界面改变界面flag
+        ////返回回退
+        $scope.ContactgoBack = function() {
+            $rootScope.$broadcast('contactdeatillist');
+            $ionicHistory.goBack();
+        }
+       //获取数据
+        Prompter.showLoading("数据加载中...");
+        var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
+        var data = {
+            "I_SYSNAME": { "SysName": "CATL" },
+            "IS_AUTHORITY": { "BNAME": "" },
+            "IS_PARTNER": { "PARTNER": contactService.get_ContactsListvalue().PARTNER}
+            //"IS_PARTNER": { "PARTNER":'6000000385'}
+
+        };
+        HttpAppService.post(url, data).success(function (response) {
+            Prompter.hideLoading();
+            if (response.ES_RESULT.ZFLAG == 'E') {
+                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+            } else {
+                $scope.contactdetails = response.ET_OUT_CONTACT.item;
+                //注释字段获取
+                if(response.ET_LINES != undefined || response.ET_LINES != ''){
+                    $scope.conatctdeatilnotelist = response.ET_LINES.item;
+                    $scope.conatctdeatilnote = '';
+                    $scope.conatctdeatilnotelenght = $scope.conatctdeatilnotelist.length;
+                    for(var i=0;i<$scope.conatctdeatilnotelenght;i++){
+                        $scope.conatctdeatilnote += $scope.conatctdeatilnotelist[i].TDLINE;
+                    };
+                    $scope.contactdetails.conatctdeatilnote =$scope.conatctdeatilnote;
+                }
+                //销售员工字段获取
+                if(response.ET_OUT_RELATION != undefined || response.ET_OUT_RELATION != ''){
+                    $scope.conatctdeatilsaleslist = response.ET_OUT_RELATION.item;
+                    $scope.conatctdeatilsalslenght = $scope.conatctdeatilsaleslist.length;
+                    for(var i=0;i<$scope.conatctdeatilsalslenght;i++){
+                        if( $scope.conatctdeatilsaleslist[i].BEZ50 == '负责员工是'){
+                            $scope.contactdetails.relationsalsname = $scope.conatctdeatilsaleslist[i].NAME_LAST;
+                        }
+                    }
+                };
+                console.log(angular.toJson($scope.contactdetails))
+            }
+        }).error(function(){
+            Prompter.hideLoading();
+            $cordovaToast.showShortBottom('请检查你的网络设备');
+        });
+
+
+
         $scope.customer_detailstypes = [{
             typemane:'活动',
             imgurl:'img/customer/customerhuod.png',
@@ -99,7 +292,6 @@ ContactsModule
             url:'ContactsRelationship',
         }];
         $scope.GocontactLists = function(convalue){
-            console.log(convalue)
             if(convalue.url){
                 $state.go(convalue.url);
             }
@@ -125,24 +317,25 @@ ContactsModule
                     $scope.Contacts_placeFlag = false;
                 }
                 if (Contacts_position > 50) {
-                    $scope.Contacts_addressFlag = true;
-                } else {
-                    $scope.Contacts_addressFlag = false;
-                }
-                if (Contacts_position > 80) {
-                    $scope.Contacts_empolFlag = true;
-                } else {
-                    $scope.Contacts_empolFlag = false;
-                }
-                if (Contacts_position > 95) {
                     $scope.Contacts_phoneFlag = true;
                 } else {
                     $scope.Contacts_phoneFlag = false;
                 }
-                if (Contacts_position > 120) {
+                if (Contacts_position > 80) {
                     $scope.Contacts_mobileFlag = true;
                 } else {
                     $scope.Contacts_mobileFlag = false;
+                }
+
+                if (Contacts_position > 95) {
+                    $scope.Contacts_addressFlag = true;
+                } else {
+                    $scope.Contacts_addressFlag = false;
+                }
+                if (Contacts_position > 120) {
+                    $scope.Contacts_empolFlag = true;
+                } else {
+                    $scope.Contacts_empolFlag = false;
                 }
                 if (Contacts_position > 154) {
                     $scope.Contacts_showTitle = false;
@@ -162,7 +355,9 @@ ContactsModule
                 $scope.customer_showtarnsitionTitle = false;
 
             }
-            $scope.$apply();
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            }
         }
 
         //电话
@@ -173,15 +368,20 @@ ContactsModule
         $scope.contactmailcopyvalue = function(valuecopy){
             Prompter.showpcopy(valuecopy)
         };
-        //数据获取
-        $scope.customerdetails = contactService.get_ContactsListvalue();
         //广播修改数据
         $rootScope.$on('contactEditvalue', function(event, data) {
-            $scope.customerdetails = contactService.get_ContactsListvalue();
+            $scope.contactdetails = contactService.get_Contactsdetailvalue();
         });
 
         $scope.contact_deatilgoedit = function(){
-            $state.go("ContactsEdit");
+            //判断数据是否获取成功
+            if($scope.contactdetails !=undefined ||  $scope.contactdetails != ""){
+                contactService.set_Contactsdetailvalue($scope.contactdetails);
+                $state.go("ContactsEdit");
+            }else{
+                $cordovaToast.showShortBottom("数据获取失败,不能编辑");
+            }
+
         }
     }])
     .controller('contactCreateCtrl',['$scope','$rootScope','$ionicHistory','$state','Prompter','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,Prompter,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
@@ -200,7 +400,7 @@ ContactsModule
             if(contactService.get_ContactCreateflag() == true){
                 contactService.set_ContactCreateflagfalse();
                 $rootScope.$broadcast('contactCreatevalue');
-                //$state.go('ContactQuery');
+                $state.go('ContactQuery');
             }else{
                 $rootScope.$broadcast('customercontactCreatevalue');
                 $state.go('customerContactQuery');
@@ -208,39 +408,45 @@ ContactsModule
             $ionicHistory.goBack(-2);
         }
     }])
-    .controller('contactEditCtrl',['$scope','$rootScope','$timeout','$state','Prompter','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$timeout,$rootScope,$state,Prompter,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
-        $scope.edittitleType = [{
+    .controller('contactEditCtrl',['$scope','$rootScope','$timeout','$state','Prompter','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$timeout,$state,Prompter,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+        $scope.contactlistvaluesel = [{
             name:'先生',
         },{
             name:'小姐'
         }];
         $scope.contactedit = {
-            customerzhushi:contactService.get_ContactsListvalue().customerzhushi,
-            keuhuname:contactService.get_ContactsListvalue().keuhuname,
-            customermail:contactService.get_ContactsListvalue().customermail,
-            postion:contactService.get_ContactsListvalue().postion,
-            atend:contactService.get_ContactsListvalue().atend,
-            //contactediteaddress:contactService.get_ContactsListvalue().customerzhushi,
-            customercontrary:contactService.get_ContactsListvalue().customercontrary,
-            customerregion:contactService.get_ContactsListvalue().customerregion,
-            youbina:contactService.get_ContactsListvalue().youbina,
-            birthday:contactService.get_ContactsListvalue().birthday,
-            ///
-            name:contactService.get_ContactsListvalue().name,
-            dizhiname:contactService.get_ContactsListvalue().dizhiname,
-            xioshouyung:contactService.get_ContactsListvalue().xioshouyung,
-            phonenumber:contactService.get_ContactsListvalue().phonenumber,
-            mobilenumber:contactService.get_ContactsListvalue().mobilenumber,
+            conatctdeatilnote:contactService.get_Contactsdetailvalue().conatctdeatilnote,
+            TITLE:contactService.get_Contactsdetailvalue().TITLE,
+            FAX_NUMBER:contactService.get_Contactsdetailvalue().FAX_NUMBER,
+            FAX_EXTENS:contactService.get_Contactsdetailvalue().FAX_EXTENS,
+            DPRTMNT:contactService.get_Contactsdetailvalue().DPRTMNT,
+            FNCTN:contactService.get_Contactsdetailvalue().FNCTN,
+            COUNTRY:contactService.get_Contactsdetailvalue().COUNTRY,
+            BEZEI:contactService.get_Contactsdetailvalue().BEZEI,
+            CITY1:contactService.get_Contactsdetailvalue().CITY1,
+            REGION:contactService.get_Contactsdetailvalue().REGION,
+            POST_CODE1:contactService.get_Contactsdetailvalue().POST_CODE1,
+            BIRTHDT:contactService.get_Contactsdetailvalue().BIRTHDT,
+            LANGU:contactService.get_Contactsdetailvalue().LANGU,
+
+            NAME_LAST:contactService.get_Contactsdetailvalue().NAME_LAST,
+            TEL_NUMBER:contactService.get_Contactsdetailvalue().TEL_NUMBER,
+            MOB_NUMBER:contactService.get_Contactsdetailvalue().MOB_NUMBER,
+            STREET:contactService.get_Contactsdetailvalue().STREET,
+        //不需要改的
+            NAME_ORG1:contactService.get_Contactsdetailvalue().NAME_ORG1,
+            relationsalsname:contactService.get_Contactsdetailvalue().relationsalsname,
+            PARTNER:contactService.get_Contactsdetailvalue().PARTNER,
         };
         //保存
         //日期的选择
-        $scope.setva_datetime = function (type) {
+        $scope.conatactSavebr = function (type) {
             var datepicker_time = '';
             var datepickerdate = '';
             var datepicker_hour = '';
             var datetime_Minutes = '';
             var optionsdatedate = {
-                date: new Date($scope.contactedit.birthday),
+                date: new Date(type),
                 mode: 'date',
                 titleText: '请选择时间',
                 okText: '确定',
@@ -251,12 +457,13 @@ ContactsModule
                 androidTheme: window.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT
             }
             $cordovaDatePicker.show(optionsdatedate).then(function (datetime) {
-                $scope.contactedit.birthday = datepickerdate;
+                $scope.contactedit.BIRTHDT = datepickerdate;
             })
         };
         $scope.contactKeepEditvalue = function(){
-            contactService.set_ContactsListvalue($scope.contactedit);
+            contactService.set_Contactsdetailvalue($scope.contactedit);
             //广播修改详细信息界面的数据
+            console.log(contactService.get_Contactsdetailvalue())
             $rootScope.$broadcast('contactEditvalue');
             $state.go('ContactDetail');
 
@@ -272,46 +479,57 @@ ContactsModule
                 });
             },20)
         };
-        $scope.contactDeleteListener('cusnote','cusnoteimg');
-        $scope.contactDeleteListener('cusmail','cusmailimg');
-        $scope.contactDeleteListener('cusposition','cuspositionimg');
-        $scope.contactDeleteListener('cusatend','cusatendimg');
-        $scope.contactDeleteListener('cuscontray','cuscontrayimg');
-        $scope.contactDeleteListener('cusregion','cusregionimg');
-        $scope.contactDeleteListener('cusyoubian','cusyoubianimg');
+        $scope.contactDeleteListener('contname','contnameimg');
+        $scope.contactDeleteListener('contphonenumber','contphonenumberimg');
+        $scope.contactDeleteListener('contmobilenumber','contmobilenumberimg');
+        $scope.contactDeleteListener('contaddressname','contaddressnameimg');
+        $scope.contactDeleteListener('contmobilenumber','contmobilenumberimg');
 
+        $scope.contactDeleteListener('contnotename','contnotenameimg');
+        $scope.contactDeleteListener('contfax','contfaximg');
+        $scope.contactDeleteListener('contfaxexit','contfaxexitimg');
+        $scope.contactDeleteListener('contpartment','contpartmentimg');
+        $scope.contactDeleteListener('contatend','contatendimg');
+        $scope.contactDeleteListener('contpostm','contpostmimg');
         //delete
         $scope.contactDeletevalue = function(type){
             switch (type) {
-                case 'note':
-                    $scope.contactedit.customerzhushi = '';
-                    document.getElementById('cusnoteimg').style.display = "none";
+                case 'NAME_LAST':
+                    $scope.contactedit.NAME_LAST = '';
+                    document.getElementById('contnameimg').style.display = "none";
                     break;
-                case 'customer':
-                    $scope.contactedit.keuhuname = '';
+                case 'TEL_NUMBER':
+                    $scope.contactedit.TEL_NUMBER = '';
+                    document.getElementById('contphonenumberimg').style.display = "none";
                     break;
-                case 'mail':
-                    $scope.contactedit.customermail = '';
-                    document.getElementById('cusmailimg').style.display = "none";
+                case 'MOB_NUMBER':
+                    $scope.contactedit.MOB_NUMBER = '';
+                    document.getElementById('contmobilenumberimg').style.display = "none";
                     break;
-                case 'position':
-                    $scope.contactedit.postion = '';
-                    document.getElementById('cuspositionimg').style.display = "none";
+                case 'STREET':
+                    $scope.contactedit.STREET = '';
+                    document.getElementById('contaddressnameimg').style.display = "none";
                     break;
-                case 'atend':
-                    $scope.contactedit.atend = '';
-                    document.getElementById('cusatendimg').style.display = "none";
+                case 'FAX_NUMBER':
+                    $scope.contactedit.FAX_NUMBER = '';
+                    document.getElementById('contfaximg').style.display = "none";
                     break;
-                case 'customercontrary':
-                    $scope.contactedit.customercontrary = '';
-                    document.getElementById('cuscontrayimg').style.display = "none";
+                case 'FAX_EXTENS':
+                    $scope.contactedit.FAX_EXTENS = '';
+                    document.getElementById('contfaxexitimg').style.display = "none";
                     break;
-                case 'customerregion':
-                    $scope.contactedit.customerregion = '';
-                    document.getElementById('cusregionimg').style.display = "none";
+                case 'DPRTMNT':
+                    $scope.contactedit.DPRTMNT = '';
+                    document.getElementById('contpartmentimg').style.display = "none";
                     break;
-                case 'youbina':
-                    $scope.contactedit.youbina = '';
+                case 'FNCTN':
+                    $scope.contactedit.FNCTN = '';
+                    document.getElementById('contatendimg').style.display = "none";
+                    break;
+
+                case 'POST_CODE1':
+                    $scope.contactedit.POST_CODE1 = '';
+                    document.getElementById('contpostmimg').style.display = "none";
                     break;
             }
         }
