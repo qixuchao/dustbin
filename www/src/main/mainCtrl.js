@@ -676,6 +676,7 @@ mainModule
                     $scope.selectModeText = x.text;
                 }
                 $scope.modeFlag = x.flag;
+                $('#mainSelectionsId').removeClass('own-animated');
                 $scope.showPop = false;
 
             };
