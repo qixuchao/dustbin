@@ -6,15 +6,24 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
     $scope.searchFlag=false;
     $scope.isSearch=false;
     $scope.carInfo="";
+    $scope.data=[];
 
+    $scope.search = function (x, e) {
+        Prompter.showLoading('正在搜索');
+        $timeout(function () {
+            Prompter.hideLoading();
+            $scope.spareDesc = x;
+        }, 800);
+
+        e.stopPropagation();
+    };
     $scope.goSkip=function(pageName){
         $state.go(pageName);
     };
     //车辆列表接口
     var page=0;
     $scope.carLoadMore1 = function(){
-        $scope.carimisshow = false;
-        $scope.carisshow = true;
+        $scope.carisshow = false;
         $scope.carLoadMore = function() {
             page+= 1;
             var url = ROOTCONFIG.hempConfig.basePath + 'CAR_LIST_BY_DCR';
@@ -26,13 +35,10 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
                 },
                 "IS_VEHICL_INPUT": { "SHORT_TEXT": $scope.carInfo }
             };
-            //console.log("data"+angular.toJson(data));
-            //console.log("name"+angular.toJson(data.IS_EMPLOYEE.NAME));
-            //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
             HttpAppService.post(url, data).success(function (response) {
                 //console.log(angular.toJson(response.ET_PRODMAS_OUTPUT.item.length));
                 if (response.ES_RESULT.ZFLAG == 'E') {
-                    $scope.spareisshow = false;
+                    $scope.carisshow = false;
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     if(key != ""){
                         $scope.cars = [];
@@ -73,8 +79,6 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
             });
         }
     };
-    $scope.carLoadMore1();
-
     //页面跳转，并传递参数
     $scope.goDetail=function(car){
         CarService.setData(car);
@@ -100,6 +104,16 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
             document.getElementById('searchId').focus();
         }, 1)
     };
+    $scope.carListHistoryval = function(){
+        if(storedb('cardb').find().arrUniq() != undefined || storedb('cardb').find().arrUniq() != null){
+            $scope.data = (storedb('cardb').find().arrUniq());
+            if ($scope.data.length > 5) {
+                $scope.data = $scope.data.slice(0, 5);
+            }
+        }
+    };
+    $scope.carListHistoryval();
+
 }
 ])
 .controller('CarDetailCtrl',['HttpAppService','$timeout','$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter',
@@ -168,7 +182,7 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
             HttpAppService.post(url,data).success(function(response){
                 Prompter.hideLoading();
                 var carInfoData=response.ES_VEHICL_OUTPUT;
-                console.log(carInfoData.ZZ0011);
+                //console.log(carInfoData.ZZ0011);
 
                 var carInfo={
                     describe:"",
@@ -180,6 +194,7 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
                     operationDate:"",
                     point:"",
                     code:"",
+                    code1:"",
                     barCode:"",
                     carCode:"",
                     driver:"",
@@ -189,10 +204,27 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
                     CSC_V1:"",
                     SCS_V2:"",
                     directCustomer:"",
+                    directCustomerId:"",
                     terminal:"",
+                    terminalId:"",
                     version:"",
                     quality:""
                 };
+                //console.log(carInfoData.IBASE.length);
+                for(var i=0;i<carInfoData.IBASE.length;i++){
+                    if(carInfoData.IBASE[i]!=="0"){
+                        //console.log(i);
+                         var point=carInfoData.IBASE.substr(i,carInfoData.IBASE.length-i);
+                         break;
+                    }
+                }
+                for(var a=0;a<carInfoData.PRODUCT_ID.length;a++){
+                    if(carInfoData.PRODUCT_ID[a]!=="0"){
+                        //console.log(a);
+                        var code=carInfoData.PRODUCT_ID.substr(a,carInfoData.PRODUCT_ID.length-a);
+                        break;
+                    }
+                }
                 carInfo.describe=carInfoData.SHORT_TEXT;
                 carInfo.carNumber=carInfoData.ZZ0012;
                 carInfo.projectName=carInfoData.ZZ0017;
@@ -200,8 +232,9 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
                 carInfo.endDate=carInfoData.END_DATE;
                 carInfo.buyDate=carInfoData.ZZ0019;
                 carInfo.operationDate=carInfoData.ZZ0020;
-                carInfo.point=carInfoData.IBASE;
-                carInfo.code=carInfoData.PRODUCT_ID;
+                carInfo.point=point;
+                carInfo.code=code;
+                carInfo.code1=carInfoData.PRODUCT_ID;
                 carInfo.barCode=carInfoData.ZZ0010;
                 carInfo.carCode=carInfoData.ZZ0011;
                 carInfo.driver=carInfoData.ZZ0015;
@@ -212,13 +245,15 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
                 carInfo.SCS_V2=carInfoData.ZZ0025;
                 carInfo.version=carInfoData.ZZ0013;
                 carInfo.directCustomer=carInfoData.ZDIR_PARTN_NAME;
+                carInfo.directCustomerId=carInfoData.ZDIR_PARTNER;
                 carInfo.terminal=carInfoData.ZSRV_REP_TEXT;
+                carInfo.terminalId=carInfoData.ZSRV_REPRENT;
                 carInfo.quality=carInfoData.Z_SHORT_TEXT;
 
                 console.log(carInfo.describe);
 
                 $scope.carInfo1=carInfo;
-                console.log($scope.carInfo1.describe);
+                //console.log($scope.carInfo1.describe);
 
             });
         };
@@ -237,7 +272,7 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
         };
         //电话
         $scope.carshowphone =function(types){
-            Prompter.showphone(types)
+            Prompter.showphone(types);
         }
 }
 ])
@@ -693,19 +728,21 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
             }, 1)
         };
         //
-        $scope.search = function (x, e) {
-            Prompter.showLoading('正在搜索');
-            $timeout(function () {
-                Prompter.hideLoading();
-                $scope.spareDesc = x;
-            }, 800);
-
-            e.stopPropagation();
-        };
+        //$scope.search = function (x, e) {
+        //    Prompter.showLoading('正在搜索');
+        //    $timeout(function () {
+        //        Prompter.hideLoading();
+        //        $scope.spareDesc = x;
+        //    }, 800);
+        //
+        //    e.stopPropagation();
+        //};
         var code= CarService.getSpare();
+        console.log(code);
+
         var page=1;
         var spare=function(){
-            var url="http://117.28.248.23:9388/test/api/CRMAPP/ATTACHMENT_LIST";
+            var url=ROOTCONFIG.hempConfig.basePath+'ATTACHMENT_LIST';
             var data = {
                 "IS_SYSTEM": { "SysName": "CATL" },
                 "IS_PAGE": {
@@ -715,6 +752,7 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
                 "IS_VEHICLID": { "PRODUCT_ID": code }
             };
             HttpAppService.post(url,data).success(function(response) {
+                console.log(response.ET_COMM_LIST);
                 if(response.ET_COMM_LIST !==""&&response.ET_COMM_LIST !==null) {
                     var sparelist = response.ET_COMM_LIST.Item;
                     var num = response.ET_COMM_LIST.Item.length;
@@ -727,7 +765,7 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
                             qualityDate: ""
                         };
                         spare.spareName = sparelist[i].SHORT_TEXT;
-                        spare.spareNum = sparelist[i].Z_IL_PRODUCT_ID;
+                        spare.spareNum = sparelist[i].PRODUCT_ID;
                         spare.count = sparelist[i].AMOUNT;
                         spare.qualityTime = sparelist[i].Z_SHORT_TEXT;
                         spare.qualityDate = sparelist[i].START_DATE + "-" + sparelist[i].END_DATE;

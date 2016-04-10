@@ -26,15 +26,15 @@
     box-shadow: none;
   }
     .bar-subheader {
-    height: 43px;
-    display: block;
-    padding: 8px;
+      height: 37px;
+      display: block;
+      padding: 0 2% 8px 2%;
     .search1 {
       .placeholder-icon {
         color: #aaa;
         position: absolute;
         z-index: 2;
-        top: .8em;
+        top: .3em;
         left: 1em;
       }
       input {
@@ -44,7 +44,7 @@
         vertical-align: middle;
         font-size: 14px;
         height: 28px;
-        width: 95%;
+        width: 96%;
         position: fixed;
         border-radius: 5px;
       }
@@ -54,7 +54,7 @@
         color: #aaa;
         position: absolute;
         z-index: 2;
-        top: .8em;
+        top: .3em;
         left: 1em;
       }
       input {
@@ -70,7 +70,7 @@
       }
       .ion-ios-close {
         position: fixed;
-        top: 13px;
+        top: 5px;
         left: 75%;
         z-index: 2;
         color: #aaa;
@@ -85,7 +85,6 @@
       }
     }
   }
-
   .pointImg{
     height: 10px;
     position: relative;
@@ -125,7 +124,7 @@
     position: relative;
   }
   .has-subheader {
-    margin-top: 50px;
+    margin-top: 60px;
   }
   .rowType1{
     padding: 1em 0 1em 12px;
@@ -231,7 +230,7 @@
   }
   ion-content {
     position: relative;
-    top:4.5em;
+    top:0;
     .rowType {
       position: relative;
       left: 4%;
