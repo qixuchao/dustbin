@@ -63,7 +63,7 @@
 
         <div class="content" id="saleContentId">
             <!--详细信息-->
-            <div ng-show="select">
+            <div ng-if="select">
                 <div class="row">
                     <div class="col-15">注释:</div>
                     <textarea rows="3" ng-readonly="!isEdit">{{details.TEXT}}</textarea>
@@ -114,7 +114,7 @@
 
             </div>
             <!--相关方-->
-            <div id="relativeId" class="relative" ng-show="!select">
+            <div id="relativeId" class="relative" ng-if="!select">
                 <div class="row" ng-repeat="x in details.relations" on-hold="showActionSheet(x)">
                     <div class="col">{{x.NAME}}&nbsp;&nbsp;{{x.sex}}</div>
                     <!--<div class="col text-center position">{{x.position}}</div>-->

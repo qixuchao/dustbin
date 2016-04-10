@@ -17,21 +17,27 @@
         </ion-header-bar>
     </div>
     <div class="addRelationsModal">
+        <!--<ion-spinner icon="ios"></ion-spinner>-->
         <ion-content class="content has-header">
             <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="changeReferMoreflag()"></div>
             <div class="selectionsDown pushDown-animated refer-selectionsDown"
                  ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'slideInDown':referMoreflag}"
                  ng-show="referMoreflag">
                 <ion-list>
-                    <ion-item ng-repeat="x in customerModalArr" ng-class="{'selected':selectCustomerText==x.text}" ng-click="selectPop(x)">{{x.text}}</ion-item>
+                    <ion-item ng-repeat="x in customerModalArr" ng-class="{'selected':selectCustomerText==x.text}"
+                              ng-click="selectPop(x)">{{x.text}}
+                    </ion-item>
                 </ion-list>
             </div>
             <ion-list>
-                <ion-item class="selectItem" ng-repeat="x in customerArr | filter:input.customer" ng-click="selectCustomer(x)">
-                    <span ng-bind-html="x.text | highlight:input.customer"></span> <img ng-if="x.text!=create.customer" class="selectImg" src="img/saleList/blank.png">
-                    <img ng-if="x.text==create.customer" class="selectImg" src="img/saleList/selected.png">
+                <ion-item class="selectItem" ng-repeat="x in customerArr | filter:input.customer"
+                          ng-click="selectCustomer(x)">
+                    <span ng-bind-html="x.NAME_ORG1"></span> <img
+                        ng-if="x.NAME_ORG1!=create.customer" class="selectImg" src="img/saleList/blank.png">
+                    <img ng-if="x.NAME_ORG1==create.customer" class="selectImg" src="img/saleList/selected.png">
                 </ion-item>
             </ion-list>
+            <div class="loadMore" ng-click="getCustomerArr()"><span>点击加载更多...</span></div>
         </ion-content>
     </div>
 </ion-modal-view>

@@ -179,7 +179,11 @@ salesModule.factory('saleActService', function () {
         sex:'女士',
         position:'保安'
     }];
+    var customerArr=[];
     return{
+        getSaleListArr: function () {
+          return saleListArr2;
+        },
         saleListArr,
         getCreatePopTypes: function () {
             return createPopTypes;
@@ -202,6 +206,7 @@ salesModule.factory('saleActService', function () {
         },
         getRelationSelections: function () {
             return relationSelections;
-        }
+        },
+        customerArr
     };
 });
