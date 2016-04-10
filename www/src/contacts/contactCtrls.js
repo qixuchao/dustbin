@@ -169,7 +169,7 @@ ContactsModule
         //清除历史记录
         $scope.ContactsClearhis = function(){
             storedb('contactdb').remove();
-            $scope.employee_query_historylists = [];
+            $scope.contact_query_historylists = [];
         };
         //点击历史记录开始请求
         $scope.ContactHisGetvalue = function(value){
