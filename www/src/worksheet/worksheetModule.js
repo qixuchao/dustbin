@@ -21,6 +21,17 @@ worksheetModule.directive('crmToast', function() {
     };
 });
 
+worksheetModule.service('worksheetDataService', [function(){
+  return {
+    worksheetList:{
+      toDetail:{
+        //  "IS_OBJECT_ID": "5200000297"
+        //  "IS_PROCESS_TYPE": "ZPRO"
+      }
+    }
+  };
+}]);
+
 worksheetModule.service('worksheetHttpService', ['HttpAppService', function(HttpAppService){
     
     return {
@@ -49,6 +60,9 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
                 T_IN_PROCESS_TYPE: {},
                 T_IN_STAT: {}
             }
+        },
+        serviceDetail: {
+            url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL'   //工单详情接口
         }
     };
 

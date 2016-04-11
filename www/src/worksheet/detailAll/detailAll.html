@@ -1,5 +1,5 @@
 <ion-view class="saleActDetail worksheet-detail-view-public">
-    <div class="top-back absolute animated fadeIn" style="height: 75px;background: none"
+    <!--div class="top-back absolute animated fadeIn" style="height: 75px;background: none"
          ng-class="!TitleFlag?'fadeOut':''" ng-show="TitleFlag">
         <div class="row row-center title">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
@@ -10,8 +10,8 @@
                 <span><i class="ion-ios-more"></i></span>
             </div>
         </div>
-    </div>
-    <div class="top-back absolute top-back2" ng-show="showTitleStatus">
+    </div-->
+    <!--div class="top-back absolute top-back2" ng-show="showTitleStatus">
         <div class="row row-center title" style="padding-bottom: 0">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">工单详细信息
@@ -21,16 +21,8 @@
                 <span><i class="ion-ios-more"></i></span>
             </div>
         </div>
-    </div>
-
-    <div class="fixed-buttons buttons">
-        <div class="button button-crm-edit button-crm-edit-public">
-            编辑
-        </div>
-    </div>
-    
-    <ion-content has-bouncing="false" delegate-handle="xbrDelegateContent" on-scroll="onScroll()" scrollbar-y="false">
-        <div id="saleTopBackId" class="top-back">
+    </div-->
+    <div id="saleTopBackId" class="top-back">
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">工单详细信息</div>
@@ -60,7 +52,16 @@
                     </div>                    
                 </div>
             </div>
+    </div>
+
+    <div class="fixed-buttons buttons">
+        <div class="button button-crm-edit button-crm-edit-public">
+            编辑
         </div>
+    </div>
+    
+    <ion-content class="has-header" style="top:170px;" has-bouncing="false" delegate-handle="xbrDelegateContent"  scrollbar-y="false">
+        
 
         <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
             <div class="fill-height line-inner">
@@ -74,7 +75,7 @@
                 </div>
                 <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
                     <i class="ion-ios-more"></i>
-                    <span>报工信息</span>
+                    <span>费用结算</span>
                 </div>
             </div>
         </ion-scroll>
@@ -139,7 +140,7 @@
                 </div>
             </div>
         </div>
-
+        
         <div ng-if="config.detailTypeSiteRepair || config.detailTypeBatchUpdate">
             <div class="basic-info first-line commment-info-lines">
                 <div class="crm-line-title">
@@ -151,35 +152,58 @@
                 </div>
                 <div class="row">
                     <div class="col-40">工单类型&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.category"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TYPE_DESC"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">工单单号&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.num"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">简单描述&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.simpleDesc"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
                 </div>
-                <div class="text-row">
+                <!--div class="text-row">
                     <div class="">备注&nbsp;:</div>
                     <div class="" ng-bind="datas.basicInfoSiteRepair.desc"></div>
-                </div>
+                </div-->
                 <div class="row">
                     <div class="col-40">状态&nbsp;:</div>
-                    <div class="col-60 status-not-handle" ng-bind="datas.basicInfoSiteRepair.status"></div>
+                    <div class="col-60 status-not-handle" ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
+                                            'stat-new':(datas.detail.ES_OUT_LIST.STATU=='E0001'),
+                                            'stat-sendedworker':(datas.detail.ES_OUT_LIST.STATU=='E0002'),
+                                            'stat-refused':(datas.detail.ES_OUT_LIST.STATU=='E0003'),
+                                            'stat-handing':(datas.detail.ES_OUT_LIST.STATU=='E0004'),
+                                            'stat-reported':(datas.detail.ES_OUT_LIST.STATU=='E0005'),
+                                            'stat-finished':(datas.detail.ES_OUT_LIST.STATU=='E0006'),
+                                            'stat-revisited':(datas.detail.ES_OUT_LIST.STATU=='E0010'),
+                                            'stat-audited':(datas.detail.ES_OUT_LIST.STATU=='E0007'),
+                                            'stat-returned':(datas.detail.ES_OUT_LIST.STATU=='E0008'),
+                                            'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
+                                            'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">影响&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.impact"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.IMPACT_DESC"></div>
                 </div>
                 <div class="row">
+                    <div class="col-40">总金额&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.NET_VALUE"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">货币&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.CURRENCY"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">需要回访:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
+                </div>
+                <!--div class="row">
                     <div class="col-40">外服人员&nbsp;:</div>
                     <div class="col-50 color-common-blue" ng-bind="datas.basicInfoSiteRepair.user"></div>
                     <div class="col-10 line-right-icon">
                         <i class="ion-android-arrow-forward"></i>
                     </div>
-                </div>
+                </div-->
             </div>
             <div class="fuwuduixiang-info commment-info-lines"> 
                 <div class="crm-line-title">
@@ -190,21 +214,15 @@
                     <span class="title-bottom"></span>
                 </div>
                 <div class="text-row has-right-icon">
-                    <div class="">车辆&nbsp;:</div>
-                    <div class="color-common-blue" ng-bind="datas.basicInfoSiteRepair.car"></div>
-                    <div class="line-right-icon">
-                        <i class="ion-android-arrow-forward"></i>
-                    </div>
+                    <div class="">车辆编号&nbsp;:</div>
+                    <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO"></div>
                 </div>
-                <div class="row">
-                    <div class="col-40">客户&nbsp;:</div>
-                    <div class="col-50 color-common-blue" ng-bind="datas.basicInfoSiteRepair.customer"></div>
-                    <div class="col-10 line-right-icon">
-                        <i class="ion-android-arrow-forward"></i>
-                    </div>
+                <div class="text-row">
+                    <div class="">车辆描述&nbsp;:</div>
+                    <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
                 </div>
             </div>
-
+            
             <div class="time-info commment-info-lines">
                 <div class="crm-line-title">
                     <div class="title-top">
@@ -215,14 +233,14 @@
                 </div>
                 <div class="row">
                     <div class="col-40">维修开始时间&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.timeRepairStart"></div>
+                    <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">维修结束时间&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.timeRepairEnd"></div>
+                    <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.END_DATE}} {{datas.detail.ES_OUT_LIST.END_TIME}}"></div>
                 </div>
             </div>
-
+            
             <div class="fuwuhetong-zhibao-info commment-info-lines">
                 <div class="crm-line-title">
                     <div class="title-top">
@@ -232,12 +250,12 @@
                     <span class="title-bottom"></span>
                 </div>
                 <div class="row">
-                    <div class="col-40">质保编号&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.zhibaoNum"></div>
+                    <div class="col-40">质保标识&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.WARRANTY_ID"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">质保描述&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.zhibaoDesc"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.WARRANTY_DESC"></div>
                 </div>
             </div>
 
@@ -251,35 +269,35 @@
                 </div>
                 <div class="row">
                     <div class="col-40">故障发生场景&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.gzfscj"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.SCEARIO"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">责任方&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.zerenfang"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.REPINSE"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">故障分类&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.guzhangCategory"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST."></div>
                 </div>
                 <div class="row">
-                    <div class="col-40">部件分类&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.bujianCategory"></div>
+                    <div class="col-40">产品类型&nbsp;:</div> <!-- 部件分类 -->
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.COMPONENT"></div>
                 </div>
                 <div class="row">
-                    <div class="col-40">部件&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.bujian"></div>
+                    <div class="col-40">故障部件&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
                 </div>
                 <div class="row">
-                    <div class="col-40">故障原因&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoSiteRepair.guzhangReson"></div>
+                    <div class="col-40">故障名称&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.REASON"></div>
                 </div>
                 <div class="text-row">
                     <div class="">注释&nbsp;:</div>
-                    <div class="" ng-bind="datas.basicInfoSiteRepair.zhushi"></div>
+                    <div class="" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
                 </div>
                 <div class="text-row">
                     <div class="">处理结果&nbsp;:</div>
-                    <div class="" ng-bind="datas.basicInfoSiteRepair.handleResult"></div>
+                    <div class="" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
                 </div>
             </div>
         </div>

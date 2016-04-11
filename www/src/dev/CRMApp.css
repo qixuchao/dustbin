@@ -2257,6 +2257,39 @@ input[readonly]:not(.cloned-text-input) {
 /**
  * 公共的 mixin  
  */
+.stat-new {
+  color: #2B60AB !important; }
+
+.stat-sendedworker {
+  color: #48C3BB !important; }
+
+.stat-refused {
+  color: red !important; }
+
+.stat-handing {
+  color: #F18E1D !important; }
+
+.stat-reported {
+  color: #DC6C5D !important; }
+
+.stat-finished {
+  color: #0FF747 !important; }
+
+.stat-revisited {
+  color: #0431F1 !important; }
+
+.stat-audited {
+  color: #09F1E1 !important; }
+
+.stat-audited-out {
+  color: #C001DC !important; }
+
+.stat-returned {
+  color: #DC6C5D !important; }
+
+.stat-cancled {
+  color: #BDBABA !important; }
+
 /*
   设置button style type：button-crm-edit : 编辑button   主要是调整颜色，字体大小等请自行调整
   使用方法如下：
@@ -3643,6 +3676,10 @@ input[readonly]:not(.cloned-text-input) {
   background: rgba(160, 160, 160, 0.4);
   left: -20px;
   width: 120%; }
+.addRelationsModal .loadMore {
+  text-align: center;
+  color: #ADA9A9;
+  font-size: 15px; }
 .addRelationsModal .own-backDrop-off {
   left: -20px;
   width: 120%; }
@@ -3863,6 +3900,65 @@ input[readonly]:not(.cloned-text-input) {
     -moz-flex-direction: column;
     -ms-flex-direction: column;
     flex-direction: column; }
+  #worksheetlist-view .search-history {
+    display: none;
+    padding-right: 1.2rem; }
+    #worksheetlist-view .search-history.isSearchingMode {
+      display: block;
+      background-color: rgba(251, 251, 251, 0.95);
+      position: absolute;
+      top: 47px;
+      right: 0;
+      z-index: 100;
+      left: 0px;
+      bottom: 0px; }
+      #worksheetlist-view .search-history.isSearchingMode.no-show-search-box {
+        display: none; }
+      #worksheetlist-view .search-history.isSearchingMode .history-title {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-box;
+        display: -moz-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        -moz-align-items: center;
+        align-items: center;
+        color: #BFBFBF; }
+        #worksheetlist-view .search-history.isSearchingMode .history-title i {
+          font-size: 1rem;
+          margin-left: .4rem;
+          width: 1.5rem;
+          text-align: center; }
+        #worksheetlist-view .search-history.isSearchingMode .history-title span.text {
+          width: 4rem; }
+        #worksheetlist-view .search-history.isSearchingMode .history-title span.line {
+          -webkit-box-flex: 1;
+          -webkit-flex: 1;
+          -moz-box-flex: 1;
+          -moz-flex: 1;
+          -ms-flex: 1;
+          flex: 1;
+          background: #BFBFBF;
+          height: 1px; }
+    #worksheetlist-view .search-history .list {
+      padding-left: 1rem;
+      padding-right: 1rem; }
+      #worksheetlist-view .search-history .list .item {
+        min-height: 2rem;
+        border-bottom: 1px solid #D8D8D8;
+        font-size: 1rem;
+        letter-spacing: 2px;
+        padding: 0rem 0px;
+        height: 2.2rem;
+        line-height: 2.2rem; }
   #worksheetlist-view .search-box-wrapper {
     background-color: #2B60AB; }
     #worksheetlist-view .search-box-wrapper .search-box {
@@ -3873,21 +3969,72 @@ input[readonly]:not(.cloned-text-input) {
       margin-top: .4rem;
       margin-bottom: .4rem;
       background-color: white;
-      color: #969494; }
+      color: #969494;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex; }
     #worksheetlist-view .search-box-wrapper i {
-      width: 9%;
+      width: 1.5rem;
       display: inline-block;
       margin: auto;
       text-align: center;
       background-color: white;
       font-size: 1.2rem;
       vertical-align: middle; }
+      #worksheetlist-view .search-box-wrapper i.right {
+        font-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-right: .1rem;
+        color: #D2D2D2; }
     #worksheetlist-view .search-box-wrapper input {
       display: inline-block;
       height: 2rem;
       line-height: 1rem;
       padding: .5rem 0px;
-      width: 87%; }
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+      -moz-box-flex: 1;
+      -moz-flex: 1;
+      -ms-flex: 1;
+      flex: 1; }
+    #worksheetlist-view .search-box-wrapper .cancle-button {
+      display: none; }
+    #worksheetlist-view .search-box-wrapper.isSearchingMode {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -moz-box;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      justify-content: center; }
+      #worksheetlist-view .search-box-wrapper.isSearchingMode .search-box {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        -moz-box-flex: 1;
+        -moz-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        margin-left: .4rem; }
+      #worksheetlist-view .search-box-wrapper.isSearchingMode .cancle-button {
+        width: 4rem;
+        padding: .5rem;
+        min-width: 4rem;
+        color: white;
+        line-height: 2rem;
+        display: inline-block; }
   #worksheetlist-view .divs-wrapper {
     position: relative;
     -webkit-box-flex: 1;
@@ -3978,6 +4125,8 @@ input[readonly]:not(.cloned-text-input) {
     position: absolute;
     z-index: 0;
     background-color: white; }
+    #worksheetlist-view .worksheet-query-result .icon-refreshing ion-spinner {
+      display: none; }
     #worksheetlist-view .worksheet-query-result .loading-more, #worksheetlist-view .worksheet-query-result .has-more-data-no {
       height: 3rem;
       line-height: 3rem;
@@ -4002,12 +4151,20 @@ input[readonly]:not(.cloned-text-input) {
       display: -ms-flexbox;
       display: flex; }
       #worksheetlist-view .worksheet-query-result .item .left {
-        -webkit-box-flex: 75;
-        -webkit-flex: 75;
-        -moz-box-flex: 75;
-        -moz-flex: 75;
-        -ms-flex: 75;
-        flex: 75; }
+        -webkit-box-flex: 85;
+        -webkit-flex: 85;
+        -moz-box-flex: 85;
+        -moz-flex: 85;
+        -ms-flex: 85;
+        flex: 85; }
+        #worksheetlist-view .worksheet-query-result .item .left.single-line-ellipsis {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis; }
+        #worksheetlist-view .worksheet-query-result .item .left .single-line-ellipsis {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis; }
         #worksheetlist-view .worksheet-query-result .item .left .item-line {
           line-height: 2rem;
           height: 2rem;
@@ -4016,12 +4173,12 @@ input[readonly]:not(.cloned-text-input) {
           #worksheetlist-view .worksheet-query-result .item .left .item-line .value {
             color: #888282; }
       #worksheetlist-view .worksheet-query-result .item .right {
-        -webkit-box-flex: 25;
-        -webkit-flex: 25;
-        -moz-box-flex: 25;
-        -moz-flex: 25;
-        -ms-flex: 25;
-        flex: 25;
+        -webkit-box-flex: 15;
+        -webkit-flex: 15;
+        -moz-box-flex: 15;
+        -moz-flex: 15;
+        -ms-flex: 15;
+        flex: 15;
         display: -webkit-box;
         display: -webkit-flex;
         display: -moz-box;
@@ -4075,7 +4232,8 @@ input[readonly]:not(.cloned-text-input) {
             margin-top: 1rem; }
         #worksheetlist-view .worksheet-query-result .item .right .status {
           height: 2rem;
-          line-height: 2rem; }
+          line-height: 2rem;
+          text-align: right; }
           #worksheetlist-view .worksheet-query-result .item .right .status .value {
             font-size: 1rem; }
             #worksheetlist-view .worksheet-query-result .item .right .status .value.new {
@@ -4446,7 +4604,7 @@ input[readonly]:not(.cloned-text-input) {
       				}
       			}*/ }
       #worksheetlist-view .tab-filter-content .filter-worksheet-type .filter-types {
-        height: 3rem;
+        max-height: 9rem;
         line-height: 3rem; }
         #worksheetlist-view .tab-filter-content .filter-worksheet-type .filter-types .filter-type {
           display: inline-block;
@@ -4587,9 +4745,67 @@ input[readonly]:not(.cloned-text-input) {
       text-align: center;
       padding: .4rem 0px;
       font-size: 1rem; }
+    .modal-wrapper .show-more-modal-content .yishenhe, .modal-wrapper .show-more-modal-content .paigong, .modal-wrapper .show-more-modal-content .judan, .modal-wrapper .show-more-modal-content .jiedan, .modal-wrapper .show-more-modal-content .beijian, .modal-wrapper .show-more-modal-content .chelianglicheng, .modal-wrapper .show-more-modal-content .guzhangxinxi, .modal-wrapper .show-more-modal-content .fuwupaizhao, .modal-wrapper .show-more-modal-content .baogong, .modal-wrapper .show-more-modal-content .wangong, .modal-wrapper .show-more-modal-content .yiquxiao {
+      display: none; }
+    .modal-wrapper .show-more-modal-content.ZNCO .paigong {
+      display: block; }
+    .modal-wrapper .show-more-modal-content.ZNCO .judan {
+      display: block; }
+    .modal-wrapper .show-more-modal-content.ZNCO .jiedan {
+      display: block; }
+    .modal-wrapper .show-more-modal-content.ZNCO .fuwupaizhao {
+      display: block; }
+    .modal-wrapper .show-more-modal-content.ZNCO .baogong {
+      display: block; }
+    .modal-wrapper .show-more-modal-content.ZNCO .wangong {
+      display: block; }
+    .modal-wrapper .show-more-modal-content.ZNCO .yiquxiao {
+      display: block; }
+    .modal-wrapper .show-more-modal-content.ZPRO .paigong, .modal-wrapper .show-more-modal-content.ZPRO .judan, .modal-wrapper .show-more-modal-content.ZPRO .jiedan, .modal-wrapper .show-more-modal-content.ZPRO .beijian, .modal-wrapper .show-more-modal-content.ZPRO .chelianglicheng, .modal-wrapper .show-more-modal-content.ZPRO .guzhangxinxi, .modal-wrapper .show-more-modal-content.ZPRO .fuwupaizhao, .modal-wrapper .show-more-modal-content.ZPRO .baogong, .modal-wrapper .show-more-modal-content.ZPRO .wangong, .modal-wrapper .show-more-modal-content.ZPRO .yiquxiao, .modal-wrapper .show-more-modal-content.ZPLO .paigong, .modal-wrapper .show-more-modal-content.ZPLO .judan, .modal-wrapper .show-more-modal-content.ZPLO .jiedan, .modal-wrapper .show-more-modal-content.ZPLO .beijian, .modal-wrapper .show-more-modal-content.ZPLO .chelianglicheng, .modal-wrapper .show-more-modal-content.ZPLO .guzhangxinxi, .modal-wrapper .show-more-modal-content.ZPLO .fuwupaizhao, .modal-wrapper .show-more-modal-content.ZPLO .baogong, .modal-wrapper .show-more-modal-content.ZPLO .wangong, .modal-wrapper .show-more-modal-content.ZPLO .yiquxiao {
+      display: block; }
+    .modal-wrapper .show-more-modal-content.ZNCV .yishenhe, .modal-wrapper .show-more-modal-content.ZPRV .yishenhe, .modal-wrapper .show-more-modal-content.ZPLV .yishenhe {
+      display: block; }
 
+/*
+.paigong{
+	display: none;
+}
+.judan{
+	display: none;
+}
+.jiedan{
+	display: none;
+}
+.beijian{
+	display: none;
+}
+.chelianglicheng{
+	display: none;
+}
+.guzhangxinxi{
+	display: none;
+}
+.fuwupaizhao{
+	display: none;
+}
+.baogong{
+	display: none;
+}
+.wangong{
+	display: none;
+}
+.yiquxiao{
+	display: none;
+}
+*/
 .worksheet-detail-view-public {
-  font-size: .9rem; }
+  font-size: .9rem;
+  /*.status-handleing{ 
+  	color: #9ED85F !important;
+  }  
+  .status-not-handle{
+  	color: red !important;
+  }*/ }
   .worksheet-detail-view-public ion-content > div.scroll {
     display: -webkit-box;
     display: -webkit-flex;
@@ -4879,7 +5095,8 @@ input[readonly]:not(.cloned-text-input) {
       border-bottom: 1px solid #eee; }
       .worksheet-detail-view-public .commment-info-lines .text-row div:first-child {
         padding-left: 1rem;
-        width: 4.5rem; }
+        width: 6rem;
+        margin-right: .4rem; }
       .worksheet-detail-view-public .commment-info-lines .text-row div:nth-child(2) {
         -webkit-box-flex: 5;
         -webkit-flex: 5;
@@ -4888,7 +5105,9 @@ input[readonly]:not(.cloned-text-input) {
         -ms-flex: 5;
         flex: 5;
         color: #8E8B8B;
-        padding-right: .2rem; }
+        padding-right: .2rem;
+        overflow: hidden;
+        margin-right: .4rem; }
       .worksheet-detail-view-public .commment-info-lines .text-row.has-right-icon .line-right-icon {
         width: 2rem; }
   .worksheet-detail-view-public .button-crm-edit-public {
@@ -4899,10 +5118,6 @@ input[readonly]:not(.cloned-text-input) {
     word-spacing: .6rem;
     letter-spacing: .6rem;
     text-align: center; }
-  .worksheet-detail-view-public .status-handleing {
-    color: #9ED85F !important; }
-  .worksheet-detail-view-public .status-not-handle {
-    color: red !important; }
   .worksheet-detail-view-public .color-common-blue {
     color: #4C8AC7 !important; }
   .worksheet-detail-view-public .top-back2 {
@@ -5688,14 +5903,14 @@ input[readonly]:not(.cloned-text-input) {
   background-size: 0;
   box-shadow: none; }
 .CarList .bar-subheader {
-  height: 43px;
+  height: 37px;
   display: block;
-  padding: 8px; }
+  padding: 0 2% 8px 2%; }
   .CarList .bar-subheader .search1 .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .8em;
+    top: .3em;
     left: 1em; }
   .CarList .bar-subheader .search1 input {
     display: block;
@@ -5704,14 +5919,14 @@ input[readonly]:not(.cloned-text-input) {
     vertical-align: middle;
     font-size: 14px;
     height: 28px;
-    width: 95%;
+    width: 96%;
     position: fixed;
     border-radius: 5px; }
   .CarList .bar-subheader .search2 .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .8em;
+    top: .3em;
     left: 1em; }
   .CarList .bar-subheader .search2 input {
     display: block;
@@ -5725,7 +5940,7 @@ input[readonly]:not(.cloned-text-input) {
     border-radius: 5px; }
   .CarList .bar-subheader .search2 .ion-ios-close {
     position: absolute;
-    top: 13px;
+    top: 5px;
     right: 5em;
     z-index: 2;
     color: #aaa; }
@@ -5840,7 +6055,7 @@ input[readonly]:not(.cloned-text-input) {
   font-size: 16px;
   height: 161px; }
   .CarDetail .top-back .title {
-    padding-top: 20px;
+    padding-top: 30px;
     color: white; }
     .CarDetail .top-back .title i {
       font-size: 25px;
@@ -5860,16 +6075,14 @@ input[readonly]:not(.cloned-text-input) {
       font-size: 25px;
       color: #c9ddf0;
       padding-left: 15px; }
-.CarDetail .mainInfo .row {
-  padding-bottom: 10px; }
-  .CarDetail .mainInfo .row .status {
-    color: #9fca17; }
-  .CarDetail .mainInfo .row .num {
-    margin-left: 20px;
-    color: #9f9d99; }
-  .CarDetail .mainInfo .row .edit {
-    position: fixed;
-    right: 10px; }
+.CarDetail .mainInfo .row .status {
+  color: #9fca17; }
+.CarDetail .mainInfo .row .num {
+  margin-left: 20px;
+  color: #9f9d99; }
+.CarDetail .mainInfo .row .edit {
+  position: fixed;
+  right: 10px; }
 .CarDetail .mainInfo i {
   color: #9fca17;
   margin-right: 5px;
@@ -5879,7 +6092,6 @@ input[readonly]:not(.cloned-text-input) {
   font-size: 16px;
   position: relative;
   left: 4%;
-  top: 0.5em;
   color: white;
   padding-left: 0; }
   .CarDetail .row1 .col {
@@ -5893,7 +6105,7 @@ input[readonly]:not(.cloned-text-input) {
   font-size: 14px;
   position: relative;
   left: 4%;
-  top: 1em;
+  top: 0.5em;
   margin-top: 0;
   color: white;
   padding-left: 0; }
@@ -5904,11 +6116,38 @@ input[readonly]:not(.cloned-text-input) {
   font-size: 0.8em; }
 .CarDetail .col-76 {
   font-size: 13px; }
+.CarDetail ion-content {
+  margin-top: 210px; }
 .CarDetail .contentType {
   position: relative; }
 .CarDetail .btType {
   padding: 0 0.5em 0 0.5em;
   height: 38px; }
+.CarDetail .Car_countentbasic2 {
+  position: relative;
+  font-size: 15px;
+  color: #2B60AB;
+  padding-bottom: 2em; }
+  .CarDetail .Car_countentbasic2 .Car_countentbasicinfo {
+    position: absolute;
+    left: 20px; }
+  .CarDetail .Car_countentbasic2 .Car_countentbasicline {
+    position: absolute;
+    top: 10px;
+    left: 85px;
+    width: 100%;
+    height: 1px;
+    background-color: #2B60AB; }
+  .CarDetail .Car_countentbasic2 .Car_countentbasicclok {
+    position: absolute;
+    top: 15px;
+    margin-top: 4px;
+    left: 0px;
+    width: 55px;
+    height: 15px;
+    border: 1px solid #2B60AB;
+    border-top: none;
+    border-left: none; }
 .CarDetail .Car_countentbasic {
   position: relative;
   font-size: 15px;
@@ -6784,14 +7023,14 @@ input[readonly]:not(.cloned-text-input) {
   background-size: 0;
   box-shadow: none; }
 .SpareList .bar-subheader {
-  height: 43px;
+  height: 37px;
   display: block;
-  padding: 8px; }
+  padding: 0 2% 8px 2%; }
   .SpareList .bar-subheader .search1 .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .8em;
+    top: .3em;
     left: 1em; }
   .SpareList .bar-subheader .search1 input {
     display: block;
@@ -6800,14 +7039,14 @@ input[readonly]:not(.cloned-text-input) {
     vertical-align: middle;
     font-size: 14px;
     height: 28px;
-    width: 95%;
+    width: 96%;
     position: fixed;
     border-radius: 5px; }
   .SpareList .bar-subheader .search2 .placeholder-icon {
     color: #aaa;
     position: absolute;
     z-index: 2;
-    top: .8em;
+    top: .3em;
     left: 1em; }
   .SpareList .bar-subheader .search2 input {
     display: block;
@@ -6821,7 +7060,7 @@ input[readonly]:not(.cloned-text-input) {
     border-radius: 5px; }
   .SpareList .bar-subheader .search2 .ion-ios-close {
     position: fixed;
-    top: 13px;
+    top: 5px;
     left: 75%;
     z-index: 2;
     color: #aaa; }
@@ -6864,7 +7103,7 @@ input[readonly]:not(.cloned-text-input) {
 .SpareList .contentType {
   position: relative; }
 .SpareList .has-subheader {
-  margin-top: 50px; }
+  margin-top: 60px; }
 .SpareList .rowType1 {
   padding: 1em 0 1em 12px;
   border-bottom: 1px solid rgba(128, 128, 128, 0.36); }
@@ -6946,7 +7185,7 @@ input[readonly]:not(.cloned-text-input) {
     border-left: none; }
 .Detail ion-content {
   position: relative;
-  top: 4.5em; }
+  top: 0; }
   .Detail ion-content .rowType {
     position: relative;
     left: 4%;
