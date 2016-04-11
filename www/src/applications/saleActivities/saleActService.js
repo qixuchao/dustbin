@@ -184,7 +184,6 @@ salesModule.factory('saleActService', function () {
         getSaleListArr: function () {
           return saleListArr2;
         },
-        saleListArr,
         getCreatePopTypes: function () {
             return createPopTypes;
         },
@@ -200,13 +199,13 @@ salesModule.factory('saleActService', function () {
         getContact: function () {
             return contacts;
         },
-        actDetail,
+
         getRelationsPopArr : function () {
             return relationsPopArr;
         },
         getRelationSelections: function () {
             return relationSelections;
-        },
-        customerArr
+        }
+
     };
 });

@@ -151,15 +151,15 @@ employeeModule
         }
         //进入详细界面传递标识
         $scope.employee_govalue = function(value){
-            $scope.employisshow = false;
-            //存储历史记录
-            storedb('employdb').insert({"name": $scope.employ.employeefiledvalue}, function (err) {
-                if (!err) {
-                    console.log('历史记录保存成功')
-                } else {
-                    $cordovaToast.showShortBottom('历史记录保存失败');
-                }
-            });
+                $scope.employisshow = false;
+                //存储历史记录
+                storedb('employdb').insert({"name": $scope.employ.employeefiledvalue}, function (err) {
+                    if (!err) {
+                        console.log('历史记录保存成功')
+                    } else {
+                        $cordovaToast.showShortBottom('历史记录保存失败');
+                    }
+                });
             employeeService.set_employeeListvalue(value);
             $state.go('userDetail');
         }

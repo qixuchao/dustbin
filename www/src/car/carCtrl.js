@@ -1,93 +1,149 @@
 /**
  * Created by Administrator on 2016/3/14 0014.
  */
-carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',function($cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
+carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',function($ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
     $scope.cars=[];
     $scope.searchFlag=false;
     $scope.isSearch=false;
     $scope.carInfo="";
     $scope.data=[];
 
-    $scope.search = function (x, e) {
+    $scope.search = function (x, e){
         Prompter.showLoading('正在搜索');
-        $timeout(function () {
-            Prompter.hideLoading();
-            $scope.spareDesc = x;
-        }, 800);
-
-        e.stopPropagation();
+        $scope.searchFlag=true;
+        $scope.carInfo = x;
+        $scope.carLoadMore1Im();
     };
-    $scope.goSkip=function(pageName){
-        $state.go(pageName);
-    };
-    //车辆列表接口
-    var page=0;
-    $scope.carLoadMore1 = function(){
-        $scope.carisshow = false;
-        $scope.carLoadMore = function() {
-            page+= 1;
-            var url = ROOTCONFIG.hempConfig.basePath + 'CAR_LIST_BY_DCR';
-            var data = {
-                "I_SYSNAME": {"SysName": "CATL"},
-                "IS_PAGE": {
-                    "CURRPAGE": page,
-                    "ITEMS": "10"
-                },
-                "IS_VEHICL_INPUT": { "SHORT_TEXT": $scope.carInfo }
-            };
-            HttpAppService.post(url, data).success(function (response) {
-                //console.log(angular.toJson(response.ET_PRODMAS_OUTPUT.item.length));
-                if (response.ES_RESULT.ZFLAG == 'E') {
-                    $scope.carisshow = false;
-                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                    if(key != ""){
-                        $scope.cars = [];
-                    }
-                } else {
-                    if (response.ES_RESULT.ZFLAG == 'S') {
-                        if (response.ET_VEHICL_OUTPUT.item.length == 0) {
-                            $scope.carisshow = false;
-                            Prompter.hideLoading();
-                            if (page == 1) {
-                                $cordovaToast.showShortBottom('数据为空');
-                            } else {
-                                $cordovaToast.showShortBottom('没有更多数据了');
-                            }
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
-                            //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
-                            $.each(response.ET_VEHICL_OUTPUT.item, function (n, value) {
-                                $scope.cars.push(value);
-                            });
-                        }
-                        if (response.ET_VEHICL_OUTPUT.item.length < 10) {
-                            $scope.carisshow = false;
-                            if (page > 1) {
-                                //console.log("没有更多数据了");
-                                $cordovaToast.showShortBottom('没有更多数据了');
-                            }
-                        } else {
-                            $scope.carisshow = true;
-                        }
-                        $scope.$broadcast('scroll.infiniteScrollComplete');
-
-                    }
-                }
-            }).error(function (response, status) {
-                $cordovaToast.showShortBottom('请检查你的网络设备');
-                $scope.carisshow = false;
-            });
+    $scope.carListHistoryval = function(){
+        if(storedb('cardb').find().arrUniq() != undefined || storedb('cardb').find().arrUniq() != null){
+            $scope.data = (storedb('cardb').find().arrUniq());
+            if ($scope.data.length > 5) {
+                $scope.data = $scope.data.slice(0, 5);
+            }
         }
     };
+    $scope.carListHistoryval();
+    //车辆列表接口
+    var page=0;
+    $scope.carLoadMore1Im = function(){
+        $scope.cars=[];
+        page+= 1;
+        var url = ROOTCONFIG.hempConfig.basePath + 'CAR_LIST_BY_DCR';
+        var data = {
+            "I_SYSNAME": {"SysName": "CATL"},
+            "IS_PAGE": {
+                "CURRPAGE": page,
+                "ITEMS": "10"
+            },
+            "IS_VEHICL_INPUT": { "SHORT_TEXT": $scope.carInfo }
+        };
+        HttpAppService.post(url, data).success(function (response) {
+            //console.log(angular.toJson(response.ET_PRODMAS_OUTPUT.item.length));
+            if (response.ES_RESULT.ZFLAG == 'E') {
+                Prompter.hideLoading();
+                $scope.carimisshow = false;
+                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                if(key != ""){
+                    $scope.cars = [];
+                }
+            } else {
+                if (response.ES_RESULT.ZFLAG == 'S') {
+                    Prompter.hideLoading();
+                    if (response.ET_VEHICL_OUTPUT.item.length == 0) {
+                        $scope.carimisshow = false;
+                        if (page == 1) {
+                            $cordovaToast.showShortBottom('数据为空');
+                        } else {
+                            $cordovaToast.showShortBottom('没有更多数据了');
+                        }
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                    } else {
+                        //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
+                        $.each(response.ET_VEHICL_OUTPUT.item, function (n, value) {
+                            if($scope.carInfo===""){
+                                $scope.cars=[];
+                                return;
+                            }
+                            $scope.cars.push(value);
+                            //$scope.spareimisshow=false;
+                            //$scope.$broadcast('scroll.infiniteScrollComplete');
+                        });
+                    }
+                    if (response.ET_VEHICL_OUTPUT.item.length < 10) {
+                        $scope.carimisshow = false;
+                        if (page > 1) {
+                            $cordovaToast.showShortBottom('没有更多数据了');
+                        }
+                    } else {
+                        $scope.carimisshow = true;
+                    }
+                    //$scope.$broadcast('scroll.infiniteScrollComplete');
+
+                }
+            }
+        }).error(function (response, status) {
+            $cordovaToast.showShortBottom('请检查你的网络设备');
+            $scope.carimisshow = false;
+        });
+    };
+
+    //var cartimer;
+    //setTimeout(function(){
+    //    //document.getElementById('employeequeryinput').style.display = "none";
+    //    document.getElementById('searchId').addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
+    //        if(!$scope.$$phase) {
+    //            $scope.$apply();
+    //        }
+    //        $scope.carimisshow = false;
+    //        clearTimeout(cartimer);
+    //        cartimer = setTimeout(function() {
+    //            if (document.getElementById('searchId').value.length > 0) {
+    //                //document.getElementById('employeequeryinput').style.display = "inline-block";
+    //                $scope.$apply(function(){
+    //                    $scope.carimisshow = false;
+    //                    //删除请求
+    //                    $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CAR_LIST_BY_DCR');
+    //                    $scope.cars = [];
+    //                    $scope.cars = new Array;
+    //                    page = 0;
+    //                });
+    //                $ionicScrollDelegate.resize();
+    //                $scope.carimisshow = true;
+    //                if(!$scope.$$phase) {
+    //                    $scope.$apply();
+    //                };
+    //            } else {
+    //                //删除请求
+    //                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CAR_LIST_BY_DCR');
+    //                $scope.carimisshow = false;
+    //                $scope.cars = [];
+    //                page = 0;
+    //                if(!$scope.$$phase) {
+    //                    $scope.$apply();
+    //                }
+    //                $ionicScrollDelegate.resize();
+    //                //document.getElementById('employeequeryinput').style.display = "none";
+    //            }
+    //        }, 500);
+    //    });
+    //},50);
     //页面跳转，并传递参数
     $scope.goDetail=function(car){
+        storedb('cardb').insert({"name": $scope.carInfo}, function (err) {
+            if (!err) {
+                console.log('历史记录保存成功')
+            } else {
+                $cordovaToast.showShortBottom('历史记录保存失败');
+            }
+        });
         CarService.setData(car);
-        $scope.goSkip('carDetail');
+        $state.go('carDetail');
     };
     //取消按钮
     $scope.cancelSearch=function(){
        $scope.searchFlag=false;
-        $scope.initSearch();
+       $scope.initSearch();
+       $scope.carListHistoryval();
     };
     //显示搜索页面
     $scope.changePage=function(){
@@ -95,7 +151,6 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
         $timeout(function () {
             document.getElementById('searchId').focus();
         }, 1);
-        $scope.carLoadMore1();
     };
     //清除输入框内的内容
     $scope.initSearch = function () {
@@ -112,8 +167,6 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
             }
         }
     };
-    $scope.carListHistoryval();
-
 }
 ])
 .controller('CarDetailCtrl',['HttpAppService','$timeout','$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter',
@@ -188,9 +241,11 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
                     describe:"",
                     carNumber:"",
                     projectName:"",
+                    productionDate1:"",
                     productionDate:"",
                     endDate:"",
                     buyDate:"",
+                    newDate:"",
                     operationDate:"",
                     point:"",
                     code:"",
@@ -225,13 +280,25 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
                         break;
                     }
                 }
+                var Date1=function(date){
+                    for(var i=0;i<date.length;i++){
+                        if(date[0]==='0'){
+                            date="";
+                        }else if(date[i]==='-'){
+                            date = date.replace('-',':');
+                        }
+                    }
+                    return date;
+                };
                 carInfo.describe=carInfoData.SHORT_TEXT;
                 carInfo.carNumber=carInfoData.ZZ0012;
                 carInfo.projectName=carInfoData.ZZ0017;
+                carInfo.productionDate1=Date1(carInfoData.ZZ0018)+"-"+Date1(carInfoData.END_DATE);
                 carInfo.productionDate=carInfoData.ZZ0018;
                 carInfo.endDate=carInfoData.END_DATE;
                 carInfo.buyDate=carInfoData.ZZ0019;
                 carInfo.operationDate=carInfoData.ZZ0020;
+                carInfo.newDate=carInfoData.ZZ0021;
                 carInfo.point=point;
                 carInfo.code=code;
                 carInfo.code1=carInfoData.PRODUCT_ID;
@@ -267,8 +334,9 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
             CarService.setSpare(data);
             $state.go("spare");
         };
-        $scope.goSkip=function(pageName){
-            $state.go(pageName);
+        $scope.goDetail=function(data){
+            CarService.setSpare(data);
+            $state.go("maintenance");
         };
         //电话
         $scope.carshowphone =function(types){
@@ -277,16 +345,84 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
 }
 ])
 
-.controller('MaintenanceCtrl',["$scope","ionicMaterialInk","ionicMaterialMotion", "$ionicPopup", "$timeout", "$ionicPosition","$state","CarService",
-        function($scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition,$state,CarService) {
-        $scope.carInfo = CarService.getData().maintenance;
+.controller('MaintenanceCtrl',['$cordovaToast','Prompter',"HttpAppService","$scope","ionicMaterialInk","ionicMaterialMotion", "$ionicPopup", "$timeout", "$ionicPosition","$state","CarService",
+        function($cordovaToast,Prompter,HttpAppService,$scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition,$state,CarService) {
+        $scope.maintenanceInfo = [];
+            var code = CarService.getData();
             $timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
                 //ionicMaterialInk.displayEffect();
                 ionicMaterialMotion.fadeSlideIn({
                     selector: '.animate-fade-slide-in .item'
                 });
             }, 100);
+            var page=0;
+            $scope.maintenanceLoad = function() {
+                //$scope.spareimisshow = true;
+                page+=1;
+                var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST';
+                var data = {
+                    I_SYSNAME: { SysName: "CATL" },
+                    IS_AUTHORITY: { BNAME: "" },
+                    IS_PAGE: {
+                        CURRPAGE: page,
+                        ITEMS: 10
+                    },
+                    IS_SEARCH: {
+                        SEARCH: "",
+                        OBJECT_ID: "",
+                        DESCRIPTION: "",
+                        PARTNER: "",
+                        PRODUCT_ID: code,
+                        CAR_TEXT: "",
+                        CREATED_FROM: "",
+                        CREATED_TO: ""
+                    },
+                    IS_SORT: "1",
+                    T_IN_IMPACT: {},
+                    T_IN_PARTNER: {},
+                    T_IN_PROCESS_TYPE: {},
+                    T_IN_STAT: {}
+                };
+                HttpAppService.post(url, data).success(function (response) {
+                    console.log(page);
+                    if (response.ES_RESULT.ZFLAG == 'E') {
+                        Prompter.showPopupAlert("加载失败","没有更多数据");
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                    } else {
+                        if (response.ES_RESULT.ZFLAG == 'S') {
+                            Prompter.hideLoading();
+                            if (response.T_OUT_LIST.item.length == 0) {
+                                if (page == 1) {
+                                    Prompter.showPopupAlert("加载失败","....")
+                                } else {
+                                    Prompter.showPopupAlert("加载失败","没有更多数据");
+                                    $cordovaToast.showShortBottom('没有更多数据了');
+                                }
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
+                            } else {
+                                //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
+                                $.each(response.T_OUT_LIST.item, function (n, value) {
+                                    $scope.maintenanceInfo.push(value);
+                                    //$scope.spareimisshow=false;
+                                    //$scope.$broadcast('scroll.infiniteScrollComplete');
+                                });
+                            }
+                            if (response.T_OUT_LIST.item.length < 10) {
+                                $scope.spareimisshow = false;
+                                if (page > 1) {
+                                    $cordovaToast.showShortBottom('没有更多数据了');
+                                }
+                            }
+                            //$scope.$broadcast('scroll.infiniteScrollComplete');
 
+                        }
+                    }
+                }).error(function (response, status) {
+                    $cordovaToast.showShortBottom('请检查你的网络设备');
+                });
+            };
+            $scope.maintenanceLoad();
             $scope.config = {
                 searchText: '',
                 //showXbrModel: false, //是否显示遮罩层
@@ -688,16 +824,6 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
 
             };
             $scope.init();
-            var i=0;
-            $scope.loadMore=function(){
-                var spareInfo1={
-                    listType:'现场维修工单',
-                    maintenanceDate:'2016.01.01 10:00:01-2016.12.31 12:00:00',
-                    maintenanceDescribe:'车辆电池出现重大问题'+i
-                };
-                i+=1;
-                $scope.carInfo.push(spareInfo1);
-            };
 
         }])
 
@@ -764,11 +890,21 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
                             qualityTime: "",
                             qualityDate: ""
                         };
+                        var Date1=function(date){
+                            for(var i=0;i<date.length;i++){
+                                if(date[0]==='0'){
+                                    date="";
+                                }else if(date[i]==='-'){
+                                    date = date.replace('-',':');
+                                }
+                            }
+                            return date;
+                        };
                         spare.spareName = sparelist[i].SHORT_TEXT;
                         spare.spareNum = sparelist[i].PRODUCT_ID;
                         spare.count = sparelist[i].AMOUNT;
                         spare.qualityTime = sparelist[i].Z_SHORT_TEXT;
-                        spare.qualityDate = sparelist[i].START_DATE + "-" + sparelist[i].END_DATE;
+                        spare.qualityDate = Date1(sparelist[i].START_DATE) + "-" + Date1(sparelist[i].END_DATE);
 
                         $scope.spareList.push(spare);
                     }
@@ -788,4 +924,7 @@ carModule.controller('CarCtrl',['$cordovaToast','HttpAppService','$scope','CarSe
         };
 
         spare();
-}]);
+}])
+.filter('DateFilter',function(){
+
+    })

@@ -20,7 +20,7 @@
         </div>
     </ion-header-bar>
     <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag" ng-click="changeSearch($event)">
-        <div class="row row-center his-title">
+        <div class="row row-center his-title" ng-if="!spareDesc">
             <i class="ion-android-time"></i>
             <div class="hisText">历史记录</div>
             <div class="horizon-line"></div>
@@ -28,42 +28,38 @@
         <ion-list ng-if="!spareDesc">
             <ion-item ng-click="search(x,$event)" ng-repeat="x in data">{{x}}</ion-item>
         </ion-list>
-        <div class="content">
-            <div class="" ng-if="spareDesc">
-                <a class="row row-center rowType" ng-repeat="x in spareList | filter:spareDesc">
-                    <div>
-                        <div class="col col-5">
-                            <img ng-src="img/car/Oval.png">
-                        </div>
-                        <div class="col col-center">
-                            <span class="spareName"><div ng-bind-html="x.spareName | highlight:spareDesc"></div>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row row-center">
-                        <div class="col col-5"></div>
-                        <div class="col col-50 col-center">
-                            备件编码:
-                            <span>{{x.spareNum}}</span>
-                        </div>
-                        <div class="col col-45 col-center">
-                            标准使用数量:
-                            <span>{{x.count}}</span>
-                        </div>
-                    </div>
-                    <div class="row row-center">
-                        <div class="col col-5"></div>
-                        <div class="col col-51 col-center">
-                            质保:
-                            <span>{{x.qualityTime}}</span>
-                        </div>
-                        <div class="col col-44 col-center">
-                            <span>{{x.qualityDate}}</span>
-                        </div>
-                    </div>
-                </a>
+        <div class="divContent" ng-repeat="x in spareList | filter:spareDesc" ng-if="spareDesc">
+             <div class="row row-center ">
+                <div class="col col-5">
+                    <img ng-src="img/car/Oval.png">
+                </div>
+                <div class="col col-center">
+                    <span class="spareName"><div ng-bind-html="x.spareName | highlight:spareDesc"></div>
+                    </span>
+                </div>
+             </div>
+            <div class="row row-center">
+                <div class="col col-5"></div>
+                <div class="col col-50 col-center">
+                    备件编码:
+                    <span>{{x.spareNum}}</span>
+                </div>
+                <div class="col col-45 col-center">
+                    标准使用数量:
+                    <span>{{x.count}}</span>
+                </div>
             </div>
-        </div>
+            <div class="row row-center">
+                <div class="col col-5"></div>
+                <div class="col col-51 col-center">
+                    质保:
+                    <span>{{x.qualityTime}}</span>
+                </div>
+                <div class="col col-44 col-center">
+                    <span>{{x.qualityDate}}</span>
+                </div>
+            </div>
+             </div>
     </ion-content>
     <ion-content has-bouncing="false"  ng-show="!searchFlag">
         <div class="divContent" ng-repeat="spare in spareList">

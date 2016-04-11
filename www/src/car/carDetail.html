@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="row row2 row-center" ng-class="qualityFlag?'animated fadeOut':'animated fadeIn'">
-                    质保:&nbsp;&nbsp;{{carInfo1.productionDate}}-{{carInfo1.endDate}}</div>
+                    质保:&nbsp;&nbsp;{{carInfo1.productionDate1}}</div>
                 <div class="row row2 row-center" ng-class="projectFlag?'animated fadeOut':'animated fadeIn'">
                     {{projectName}}&nbsp;&nbsp;{{carInfo1.projectName}}</div>
             </div>
@@ -35,7 +35,7 @@
         <div class="contentType">
             <div class="row row-center rowBt">
                 <div class="col col-40 col-center">
-                    <img ng-src="img/car/maintenance.png" class="btType" ng-click="goSkip('maintenance')" >
+                    <img ng-src="img/car/maintenance.png" class="btType" ng-click="goDetail(carInfo1.code1)" >
                 </div>
                 <div class="col col-45 col-center">
                     <img ng-src="img/car/spare.png" class="btType" ng-click="goPage(carInfo1.code1)">
@@ -197,11 +197,18 @@
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
-                    运营日起
+                    运营日期
                 </div>
                 <div class="col col-center col-56">{{carInfo1.operationDate}}</div>
             </div>
             <div class="lineType1"></div>
+        <div class="row row-center rowType">
+            <div class="col col-center col-40">
+                更新日期
+            </div>
+            <div class="col col-center col-56">{{carInfo1.newDate}}</div>
+        </div>
+        <div class="lineType1"></div>
             <div class="Car_countentbasic">
                 <div class="Car_countentbasicinfo">BMU版本</div>
                 <div class="Car_countentbasicline"></div>

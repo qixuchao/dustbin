@@ -102,7 +102,7 @@
 
             <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
                 <ion-scroll class="fill-parent" on-refresh="" has-bouncing="false">
-                    <div class="divLine" ng-repeat="record in carInfo" ng-click="">
+                    <div class="divLine" ng-repeat="record in maintenanceInfo" ng-click="go">
                         <div class="row row-center rowContent">
                             <div class="col col-center col-5">
                                 <img ng-src="img/car/Oval.png" class="pointImg">
@@ -110,21 +110,21 @@
                             <div class="col col-95 col-center colType1">
                                 <div class="row row-center">
                                     <div class="col col-center col-28">
-                                        <b>工单类型</b>
+                                        <span>工单类型</span>
                                     </div>
                                     <div class="col col-center col-72">
-                                        <span>{{record.listType}}</span>
+                                        <span>{{record.PROCESS_TYPE_T}}</span>
                                     </div>
                                 </div>
                                 <div class="row row-center">
-                                    <span>{{record.maintenanceDate}}</span>
+                                    <span>{{record.CHANGED_AT | date:'yyyy-MM-dd HH:mm:ss'}}</span>
                                 </div>
                                 <div class="row row-center">
                                     <div class="col col-center col-28">
-                                        <b>工单描述</b>
+                                        <span>工单描述</span>
                                     </div>
                                     <div class="col col-center col-72">
-                                        <span>{{record.maintenanceDescribe}}</span>
+                                        <span>{{record.DESCRIPTION}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
                     <div class="row row-center">
                         <div class="col col-25"></div>
                         <div class="col col-center">
-                            <a class="button button-clear buttonText" ng-click="loadMore()">
+                            <a class="button button-clear buttonText" ng-click="maintenanceLoad()">
                                <span>点击加载更多</span>
                             </a>
                         </div>

@@ -95,9 +95,6 @@
       padding-top: 0;
       height: 4em;
     }
-    .has-subheader {
-      margin-top: 60px;
-    }
     .Car_countentbasic {
       position: relative;
       font-size: 15px;
@@ -140,7 +137,7 @@
         }
       }
       position: relative;
-      top: -1em;
+      top: 1em;
       border-bottom: 1px solid rgba(43, 43, 43, 0.17);
     }
   //ion-infinite-scroll {
@@ -294,7 +291,7 @@
         height: 0.7em;
       }
       .colText {
-        font-size: 15px;
+        font-size: 16px;
       }
     }
     .row2 {
@@ -582,17 +579,17 @@
         .col {
           padding: 0;
         }
+        .col-28 {
+          span {
+            font-size: 16px;
+          }
+        }
         .pointImg {
           height: 10px;
         }
-        b {
-          //font-weight: 100;
-          color: rgba(68, 68, 68, 0.89);;
-          font-size: 16px;
-        }
         span {
           font-size: 14px;
-          color: rgba(17, 17, 17, 0.43);
+          color: rgba(17, 17, 17, 0.86);
           //font-weight: 500;
         }
       }
@@ -1272,50 +1269,50 @@
     .divContent {
       position: relative;
       border-bottom: 1px solid rgba(128, 128, 128, 0.41);
-    }
-    .row + .row {
-      margin-top: -5px;
-      padding-top: 5px;
-    }
-    img {
-      height: 0.8em;
-    }
-    .col {
-      padding: 0;
-      span {
-        font-size: 14px;
-        color: gray;
+      .row + .row {
+        margin-top: -5px;
+        padding-top: 5px;
       }
-      .spareName {
-        font-size: 15px;
+      img {
+        height: 0.8em;
       }
-    }
-    .col-51 {
-      span {
-        font-size: 13px;
+      .col {
+        padding: 0;
+        span {
+          font-size: 14px;
+          color: gray;
+        }
+        .spareName {
+          font-size: 15px;
+        }
       }
-    }
-    .col-44 {
-      span {
-        font-size: 13px;
+      .col-51 {
+        span {
+          font-size: 13px;
+        }
       }
-    }
-    .row-center {
-      b {
-        //font-weight: 100;
-        color: rgba(17, 17, 17, 0.71);
-        font-size: 14px;
+      .col-44 {
+        span {
+          font-size: 13px;
+        }
       }
-    }
-    .rowType {
-      position: relative;
-      .button-clear {
-        left: 25%;
+      .row-center {
+        b {
+          //font-weight: 100;
+          color: rgba(17, 17, 17, 0.71);
+          font-size: 14px;
+        }
       }
-    }
-    .col-45 {
-      text-align: center;
-      padding: 0;
+      .rowType {
+        position: relative;
+        .button-clear {
+          left: 25%;
+        }
+      }
+      .col-45 {
+        text-align: center;
+        padding: 0;
+      }
     }
     .search{
       .his-title{
