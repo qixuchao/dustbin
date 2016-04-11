@@ -1,90 +1,263 @@
 
-worksheetModule.controller("WorksheetSparepartCtrl",["$scope",
-    "ionicMaterialInk",
-    "ionicMaterialMotion",
-    "$ionicPopup", "$timeout", function($scope, ionicMaterialInk){
+worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetHttpService',
+    function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService){
     ionicMaterialInk.displayEffect();
-        $scope.infos = [{
-          name : "400A高压熔断器",
-            code : 13099,
-            num  : 1,
-            selectNum : 0
-        },{
-            name : "msd上盖",
-            code : 13099,
-            num  : 1,
-            selectNum : 0
-        },{
-            name : "六角头",
-            code : 13099,
-            num  : 1,
-            selectNum : 0
-        },]
+        $scope.shi = { "item": {
+            "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
+            "STORAGE": "",
+            "STORAGE_DESC": "",
+            "PROD": "",
+            "PROD_DESC": "",
+            "APPLY_NUM": "",
+            "SEND_NUM": "",
+            "RETURN_NUM": "",
+            "OLDNUM": "",
+            "PARTNER_NO": "PI_CA3_340",
+            "PARTNER_NAME": "PI_CA3_340",
+            "NOTE": ""
+        }};
+
+        $scope.infos  =
+            [{
+                "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
+                "STORAGE": "1",
+                "STORAGE_DESC": "客服/售后服务仓-备件中心-南京",
+                "PROD_DESC" : "400A高压熔断器",
+                "PROD" : 13097,
+                "num"  : 1,
+                "APPLY_NUM" : 0
+            },{
+                "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
+                "STORAGE": "1",
+                "STORAGE_DESC": "客服/售后服务仓-备件中心-南京",
+                PROD_DESC : "msd上盖",
+                PROD : 13098,
+                num  : 1,
+                APPLY_NUM : 0
+            },{
+                "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
+                "STORAGE": "2",
+                "STORAGE_DESC": "客服/售后服务仓-备件中心-南京",
+                PROD_DESC : "六角头",
+                PROD : 13099,
+                num  : 1,
+                APPLY_NUM : 0
+            }];
+        $scope.selectWarehouse = "南京"
+        $scope.selectInfos = function(){
+            var str=document.getElementsByName("selectSparePart");
+            chestr = new Array();
+            for (var i=0;i<str.length;i++) {
+                if(str[i].checked == true)
+                {
+                    chestr.push(JSON.parse(str[i].value));
+                }
+            }
+            console.log(angular.toJson(chestr));
+            console.log(angular.toJson($scope.selectWarehouse));
+        }
+        //暂存
+        $scope.goDetailList = function(){
+            var str=document.getElementsByName("selectSparePart");
+            chestr = new Array();
+            for (var i=0;i<str.length;i++) {
+                if(str[i].checked == true)
+                {
+                    chestr.push(JSON.parse(str[i].value));
+                }
+            }
+            console.log(angular.toJson(chestr));
+           var b = {
+                STORAGE_DESC : "客服/售后服务仓-备件中心-南京",
+                flag : true,scrollStyle : "",
+                detail : chestr
+            }
+            worksheetHttpService.setSparePart(b);
+            $state.go("worksheetSelect");
+        }
+        $scope.selectDetail = function(){
+            console.log("11"+$scope.info);
+        }
+        //增加数量
         $scope.add = function(item){
-            item.selectNum += 1;
+            item.APPLY_NUM += 1;
             console.log(angular.toJson($scope.infos));
         }
+        //减少数量
         $scope.reduce = function(item){
-            if(item.selectNum > 0){
-                item.selectNum -= 1;
+            if(item.APPLY_NUM > 0){
+                item.APPLY_NUM -= 1;
             }
             console.log(angular.toJson($scope.infos));
         }
+        //input
+        $scope.ngBlur = function(){
+            console.log(angular.toJson($scope.infos));
+        }
 }]);
-worksheetModule.controller("WorksheetPareSelectCtrl",["$scope",
-    "ionicMaterialInk",
-    "ionicMaterialMotion",
-    "$ionicPopup", "$timeout", function($scope, ionicMaterialInk){
+worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetHttpService',
+    function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService){
         ionicMaterialInk.displayEffect();
         $scope.upDown = true;
         $scope.showDetail = function(items) {
+            console.log(items.detail.length);
+            var scrHe = sco - items.detail.length * 116;
+            console.log("内容高度"+scrHe);
+            if(scrHe < 0){
+                items.scrollStyle = "height:"+sco+"px";
+             }else {
+                items.scrollStyle = "height:"+items.detail.length * 116+"px";
+            }
+            console.log(angular.toJson($scope.spareDetail));
+            for(var i=0;i<$scope.spareDetail.length;i++){
+                if($scope.spareDetail[i].flag === false && $scope.spareDetail[i].STORAGE_DESC !== items.STORAGE_DESC){
+                    $scope.spareDetail[i].flag = true;
+
+                }
+                if($scope.spareDetail[i].flag === false && $scope.spareDetail[i].STORAGE_DESC === items.STORAGE_DESC){
+                    items.scrollStyle = "height:"+0+"px";
+                }
+            }
             var a = items.flag;
             items.flag = !a;
-            console.log(flag);
+            console.log(angular.toJson($scope.spareDetail));
         }
         $scope.showDetailInfos = false;
+        $scope.spareDetailShi = [{
+            "item": {
+                "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
+                "STORAGE": "",
+                "STORAGE_DESC": "",
+                "PROD": "",
+                "PROD_DESC": "",
+                "APPLY_NUM": "",
+                "SEND_NUM": "",
+                "RETURN_NUM": "",
+                "OLDNUM": "",
+                "PARTNER_NO": "PI_CA3_340",
+                "PARTNER_NAME": "PI_CA3_340",
+                "NOTE": ""
+            }
+        }]
         $scope.spareDetail = [{
-            name : "客服/售后服务仓-备件中心-北京",
-            flag : "true",
+            STORAGE_DESC : "客服/售后服务仓-备件中心-北京",
+            flag : true,scrollStyle : "",
             detail : [{
-                nameDetais : "MSD上盖（CATL）",
-                code : "13132-3132",
-                sqq : 30,
-                yfq : 20,
-                yhq : 10,
-                jjq : 20,
-                remark : "由于库存不足，暂时发20个"
+                PROD_DESC : "MSD上盖（CATL）",
+                PROD : "13132-3132",
+                APPLY_NUM : 30,
+                SEND_NUM : 20,
+                RETURN_NUM : 10,
+                OLDNUM : 20,
+                NOTE : "由于库存不足，暂时发20个",
             },
             {
-                nameDetais : "MSD上盖（CATL）",
-                code : "13132-3132",
-                sqq : 30,
-                yfq : 20,
-                yhq : 10,
-                jjq : 20,
-                remark : "由于库存不足，暂时发20个"
-            }]
-        },
-            {
-                name : "客服/售后服务仓-备件中心-上海",
-                flag : "true",
-                detail : [{
-                    nameDetais : "六头（CATL）",
-                    code : "13132-3132",
-                    sqq : 10,
-                    yfq : 10,
-                    yhq : 10,
-                    jjq : 10,
-                    remark : "由于库存不足，暂时发20个"
-                },
-                    {
-                        nameDetais : "木箱（CATL）",
-                        code : "13132-3132",
-                        sqq : 30,
-                        yfq : 20,
-                        yhq : 10,
-                        jjq : 20,
-                        remark : "由于库存不足，暂时发20个"
-                    }]
-            }];
+                PROD_DESC : "MSD上盖（CATL）",
+                PROD : "13132-3132",
+                APPLY_NUM : 30,
+                SEND_NUM : 20,
+                RETURN_NUM : 10,
+                OLDNUM : 20,
+                NOTE : "由于库存不足，暂时发20个",
+            },            {
+                    PROD_DESC : "MSD上盖（CATL）",
+                    PROD : "13132-3132",
+                    APPLY_NUM : 30,
+                    SEND_NUM : 20,
+                    RETURN_NUM : 10,
+                    OLDNUM : 20,
+                    NOTE : "由于库存不足，暂时发20个",
+                },            {
+                    PROD_DESC : "MSD上盖（CATL）",
+                    PROD : "13132-3132",
+                    APPLY_NUM : 30,
+                    SEND_NUM : 20,
+                    RETURN_NUM : 10,
+                    OLDNUM : 20,
+                    NOTE : "由于库存不足，暂时发20个",
+                },            {
+                    PROD_DESC : "MSD上盖（CATL）",
+                    PROD : "13132-3132",
+                    APPLY_NUM : 30,
+                    SEND_NUM : 20,
+                    RETURN_NUM : 10,
+                    OLDNUM : 20,
+                    NOTE : "由于库存不足，暂时发20个",
+                }]
+        },{
+            STORAGE_DESC : "客服/售后服务仓-备件中心-上海",
+            flag : true,scrollStyle : "",
+            detail : [{
+                PROD_DESC : "MSD上盖（CATL）",
+                PROD : "13132-3132",
+                APPLY_NUM : 30,
+                SEND_NUM : 20,
+                RETURN_NUM : 10,
+                OLDNUM : 20,
+                NOTE : "由于库存不足，暂时发20个",
+            },
+                {
+                    PROD_DESC : "MSD上盖（CATL）",
+                    PROD : "13132-3132",
+                    APPLY_NUM : 30,
+                    SEND_NUM : 20,
+                    RETURN_NUM : 10,
+                    OLDNUM : 20,
+                    NOTE : "由于库存不足，暂时发20个",
+                }]
+        },{
+            STORAGE_DESC : "客服/售后服务仓-备件中心-北京",
+            flag : true,scrollStyle : "",
+            detail : [{
+                PROD_DESC : "MSD上盖（CATL）",
+                PROD : "13132-3132",
+                APPLY_NUM : 30,
+                SEND_NUM : 20,
+                RETURN_NUM : 10,
+                OLDNUM : 20,
+                NOTE : "由于库存不足，暂时发20个",
+            },
+                {
+                    PROD_DESC : "MSD上盖（CATL）",
+                    PROD : "13132-3132",
+                    APPLY_NUM : 30,
+                    SEND_NUM : 20,
+                    RETURN_NUM : 10,
+                    OLDNUM : 20,
+                    NOTE : "由于库存不足，暂时发20个",
+                },            {
+                    PROD_DESC : "MSD上盖（CATL）",
+                    PROD : "13132-3132",
+                    APPLY_NUM : 30,
+                    SEND_NUM : 20,
+                    RETURN_NUM : 10,
+                    OLDNUM : 20,
+                    NOTE : "由于库存不足，暂时发20个",
+                },            {
+                    PROD_DESC : "MSD上盖（CATL）",
+                    PROD : "13132-3132",
+                    APPLY_NUM : 30,
+                    SEND_NUM : 20,
+                    RETURN_NUM : 10,
+                    OLDNUM : 20,
+                    NOTE : "由于库存不足，暂时发20个",
+                },            {
+                    PROD_DESC : "MSD上盖（CATL）",
+                    PROD : "13132-3132",
+                    APPLY_NUM : 30,
+                    SEND_NUM : 20,
+                    RETURN_NUM : 10,
+                    OLDNUM : 20,
+                    NOTE : "由于库存不足，暂时发20个",
+                }]
+        }];
+        var info = worksheetHttpService.getSparePart();
+        console.log(angular.toJson(info));
+        $scope.spareDetail.push(info);
+        console.log(angular.toJson($scope.spareDetail));
+        var a=document.getElementById("content").offsetHeight-44;
+        console.log(a + "内容高度");//48  116
+        var h = $scope.spareDetail.length;
+        var sco = a - 48*h;
+        console.log(sco + "剩余高度");
     }]);

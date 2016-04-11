@@ -22,7 +22,8 @@ worksheetModule.directive('crmToast', function() {
 });
 
 worksheetModule.service('worksheetHttpService', ['HttpAppService', function(HttpAppService){
-    
+    //配件的选择数据
+    var sparePart;
     return {
         serviceList: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST',   //工单列表接口
@@ -49,6 +50,13 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
                 T_IN_PROCESS_TYPE: {},
                 T_IN_STAT: {}
             }
+        },
+        setSparePart:function(data){
+            sparePart=data;
+            return sparePart;
+        },
+        getSparePart:function(){
+            return sparePart;
         }
     };
 
