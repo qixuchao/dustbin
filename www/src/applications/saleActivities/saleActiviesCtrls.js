@@ -16,7 +16,7 @@ salesModule
         'saleActService',
         'Prompter',
         'HttpAppService',
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast,$ionicScrollDelegate,
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService) {
             console.log('销售活动列表');
             $scope.saleTitleText = '销售活动';
@@ -27,7 +27,7 @@ salesModule
             $scope.searchFlag = false;
             $scope.input = {search: '', customer: ''};
             //$scope.saleListArr = saleActService.getSaleListArr();
-            var pageNum = 1;
+            var pageNum = saleActService.listPage;
             $scope.saleListArr = [];
             $scope.loadMoreFlag = true;
             $scope.saleListArr = saleActService.saleListArr;
@@ -36,10 +36,8 @@ salesModule
                     pageNum = 1;
                 }
                 console.log(pageNum);
-                //Prompter.showLoading('正在查询');
-
                 var data = {
-                    "LS_SYSTEM": {"SysName": "ATL"},
+                    "LS_SYSTEM": {"SysName": "CATL"},
                     "IS_ACTIVITY": {
                         "OBJECT_ID": "",
                         "DESCRIPTION": "",
@@ -56,20 +54,26 @@ salesModule
                         "ITEMS": "10"
                     }
                 };
+                saleActService.listPage = pageNum;
+                if (pageNum == 1) {
+                    return
+                }
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_LIST', data)
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             if (type === 'refresh') {
                                 $scope.saleListArr = response.ET_LIST.item;
                                 saleActService.saleListArr = $scope.saleListArr;
+                                $ionicScrollDelegate.resize();
                                 return
                             }
                             if (response.ET_LIST.item.length < 10) {
                                 $scope.loadMoreFlag = false;
                             }
                             $scope.saleListArr = $scope.saleListArr.concat(response.ET_LIST.item);
-                            saleActService.saleListArr = $scope.saleListArr;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
+                            $ionicScrollDelegate.resize();
+                            saleActService.saleListArr = $scope.saleListArr;
                         }
                     }).finally(function () {
                     // 停止广播ion-refresher
@@ -125,12 +129,14 @@ salesModule
                 $scope.pop.type = $scope.createPopTypes[0];
                 $scope.createPop.show();
             };
+
             $scope.showCreateModal = function () {
                 customerPage = 2;
                 console.log($scope.pop);
                 $scope.createPop.hide();
                 $scope.create = {de_startTime: new Date().format('yyyy-MM-dd hh:ss'), de_endTime: getDefultStartTime()};
                 $scope.createModal.show();
+                $scope.getCustomerArr();
                 //console.log(document.getElementsByClassName('modal-wrapper'));
                 var tempArr = document.getElementsByClassName('modal-wrapper');
                 for (var i = 0; i < tempArr.length; i++) {
@@ -139,10 +145,17 @@ salesModule
             };
             var customerPage = 1;
             $scope.customerArr = saleActService.customerArr;
+            $scope.customerSearch = true;
             $scope.getCustomerArr = function (search) {
+                if (search) {
+                    $scope.customerSearch = false;
+                    customerPage = 1;
+                }else{
+                    $scope.spinnerFlag = true;
+                }
                 console.log(customerPage);
                 var data = {
-                    "I_SYSNAME": {"SysName": "ATL"},
+                    "I_SYSNAME": {"SysName": "CATL"},
                     "IS_PAGE": {
                         "CURRPAGE": customerPage++,
                         "ITEMS": "10"
@@ -156,14 +169,22 @@ salesModule
                             if (response.ET_OUT_LIST.item.length < 10) {
                                 $scope.CustomerLoadMoreFlag = false;
                             }
-                            $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                            if (search) {
+                                $scope.customerArr = response.ET_OUT_LIST.item;
+                            } else {
+                                $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                            }
+                            $scope.spinnerFlag = false;
+                            $scope.customerSearch = true;
                             $ionicScrollDelegate.resize();
                             saleActService.customerArr = $scope.customerArr;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
                     });
             };
-            $scope.getCustomerArr();
+            $scope.searchCustomer = function () {
+                console.log('searchCustomer');
+            };
             /*-------------------------------Pop 新建 end-------------------------------------*/
             /*-------------------------------Modal 新建-------------------------------------*/
             //$scope.create = {
@@ -322,7 +343,7 @@ salesModule
             var getDetails = function () {
                 Prompter.showLoading('正在查询');
                 var data = {
-                    "I_SYSTEM": {"SysName": "ATL"},
+                    "I_SYSTEM": {"SysName": "CATL"},
                     "IS_USER": {"BNAME": ""},
                     "I_OBJECT_ID": $scope.listInfo.OBJECT_ID
                 };

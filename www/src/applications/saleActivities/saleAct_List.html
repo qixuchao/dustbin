@@ -52,7 +52,6 @@
                  ng-click="changeSearch($event)">
         <div class="row row-center his-title" ng-if="!input.search">
             <i class="ion-android-time"></i>
-
             <div class="hisText">历史记录</div>
             <div class="horizon-line"></div>
         </div>
@@ -64,7 +63,6 @@
                 <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr | filter:input.search">
                     <div class="row row-center">
                         <img class="title_oval" src="img/saleDetail/title_oval.png">
-
                         <div class="title" ng-bind-html="x.DESCRIPTION | highlight:input.search"></div>
                         <div class="col text-right"><img class="shape" src="img/saleDetail/Shape.png"></div>
                     </div>

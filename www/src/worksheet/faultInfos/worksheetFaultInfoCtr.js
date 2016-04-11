@@ -2,7 +2,20 @@
 worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
     "ionicMaterialInk",
     "ionicMaterialMotion",
-    "$ionicPopup", "$timeout", function($scope, ionicMaterialInk){
+    "$ionicPopup", "$timeout","$state", function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state){
     ionicMaterialInk.displayEffect();
-        console.log("==");
+        $scope.edit = function(){
+            $state.go("worksheetFaultInfosEdit");
+        }
 }]);
+
+
+worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
+    "ionicMaterialInk",
+    "ionicMaterialMotion",
+    "$ionicPopup", "$timeout","$state", function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state){
+        ionicMaterialInk.displayEffect();
+        $scope.keep = function(){
+            $state.go("worksheetFaultInfos");
+        }
+    }]);
