@@ -282,6 +282,17 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo.html',
                 controller: 'WorksheetFaultInfoCtrl'
             })
+
+            .state('worksheetCarMileageEdit',{
+                url: '/worksheetCarMileageEdit',
+                templateUrl: 'src/worksheet/carMileage/worksheet_carMileage_edit.html',
+                controller: 'WorksheetCarMileageEditCtrl'
+            })
+            .state('worksheetFaultInfosEdit', {
+                url: '/worksheetFaultInfosEdit',
+                templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo_edit.html',
+                controller: 'WorksheetFaultInfoEditCtrl'
+            })
             .state('worksheetSparepart', {
                 url: '/worksheetSparepart',
                 templateUrl: 'src/worksheet/sparePart/worksheet_sparePart.html',
