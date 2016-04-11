@@ -1,0 +1,46 @@
+<ion-modal-view class="createSaleActModal">
+    <!--<div ng-class="selectPersonflag?'own-backDrop-on':'own-backDrop-off'"></div>-->
+    <div class="saleList">
+        <ion-header-bar no-tap-scroll="true" align-title="center" class="head pub-head no-padding">
+            <div class="row row-center">
+                <a class="col col-20 text-left goBack" ng-click="createModal.hide()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-60 text-center">新建销售活动</div>
+                <div class="col col-20 add" ng-click="saveCreateModal()">保存</div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <ion-content class="content">
+        <div class="row row-center">
+            <div class="col col-41">描述:</div>
+            <div class="col col-59"><input type="text" ng-model="create.title" placeholder="请输入描述"></div>
+        </div>
+        <div class="row row-center">
+            <div class="col col-41">潜在客户:</div>
+            <div class="col col-59" ng-click="openSelectCustomer()" ng-class="{'selectPlease':!create.customer}">{{create.customer?create.customer:'-请选择-'}}</div>
+        </div>
+        <div class="row row-center">
+            <div class="col col-41">主要联系人:</div>
+            <div class="col col-59" ng-click="openSelectPerson()" ng-class="{'selectPlease':!create.contact}">{{create.contact?create.contact:'-请选择-'}}</div>
+        </div>
+        <div class="row row-center">
+            <div class="col col-41">销售阶段:</div>
+            <div class="col col-59"><select type="text"><option>关系建立阶段</option></select></div>
+        </div>
+        <div class="row row-center">
+            <div class="col col-41">项目编号:</div>
+            <div class="col col-59"><input type="text" placeholder="请输入项目编号"></div>
+        </div>
+        <div class="row row-center">
+            <div class="col col-41">开始时间:</div>
+            <div class="col col-59" ng-click="selectCreateTime('start')">2016-01-03 00:00</div>
+        </div>
+        <div class="row row-center">
+            <div class="col col-41">计划结束时间:</div>
+            <div class="col col-59" ng-click="selectCreateTime('end')">{{create.de_endTime}}</div>
+        </div>
+        <div class="annotate">
+            <div class="text">注释:</div>
+            <textarea rows="6" ng-model="create.annotation"></textarea>
+        </div>
+    </ion-content>
+</ion-modal-view>
