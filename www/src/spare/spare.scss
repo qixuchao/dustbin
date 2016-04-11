@@ -123,9 +123,6 @@
   .contentType{
     position: relative;
   }
-  .has-subheader {
-    margin-top: 60px;
-  }
   .rowType1{
     padding: 1em 0 1em 12px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.36);
@@ -174,7 +171,6 @@
       margin: -1px;
       font-size: 16px;
       padding: 0;
-      //border-bottom: 1px solid rgba(0, 0, 0, 0.16);
     }
   }
 }
@@ -203,6 +199,7 @@
     font-size:15px;
     color:$crm-header-bar-bgcolor;
     padding-bottom: 2em;
+    margin-top: 5em;
     .Car_countentbasicinfo{
       position: absolute;
       top:0;
@@ -229,8 +226,8 @@
     }
   }
   ion-content {
-    position: relative;
-    top:0;
+    position: fixed;
+    top:0px;
     .rowType {
       position: relative;
       left: 4%;

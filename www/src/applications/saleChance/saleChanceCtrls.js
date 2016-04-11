@@ -97,7 +97,7 @@ salesModule
                 annotate: '测试'
             };
             $scope.selectPersonflag = false;
-            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Modal.html', {
+            $ionicModal.fromTemplateUrl('src/applications/saleChance/modal/create_Modal.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
             }).then(function (modal) {
@@ -124,6 +124,45 @@ salesModule
                 $scope.selectPersonModal.hide();
                 //arr[0].className = 'modal-backdrop hide';
             };
+
+            //选择客户
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.selectCustomerModal = modal;
+            });
+            $scope.customerModalArr = saleActService.getCustomerTypes();
+            $scope.selectCustomerText = '竞争对手';
+            $scope.openSelectCustomer = function () {
+                $scope.isDropShow = true;
+                $scope.selectCustomerModal.show();
+            };
+            $scope.closeSelectCustomer = function () {
+                $scope.selectCustomerModal.hide();
+            };
+            $scope.selectPop = function (x) {
+                $scope.selectCustomerText = x.text;
+                $scope.referMoreflag = !$scope.referMoreflag;
+            };
+            $scope.changeReferMoreflag = function () {
+                $scope.referMoreflag = !$scope.referMoreflag;
+            };
+            $scope.showChancePop = function () {
+                $scope.referMoreflag = true;
+                $scope.isDropShow = true;
+            };
+            $scope.initCustomerSearch = function () {
+                $scope.input.customer = '';
+                $timeout(function () {
+                    document.getElementById('selectCustomerId').focus();
+                }, 1)
+            };
+            $scope.selectCustomer = function (x) {
+                $scope.create.customer = x.NAME_ORG1;
+                $scope.selectCustomerModal.hide();
+            };
+
             $scope.$on('$destroy', function() {
                 $scope.createPop.remove();
                 $scope.createModal.remove();

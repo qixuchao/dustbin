@@ -12,11 +12,12 @@ mainModule
         '$ionicPopover',
         '$cordovaDatePicker',
         'ionicMaterialInk',
-        'ionicMaterialMotion', 
+        'ionicMaterialMotion',
         'Prompter',
+        'HttpAppService',
         function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, ionicMaterialInk, ionicMaterialMotion,
-                  Prompter) {
+                  Prompter, HttpAppService) {
 
             //ionicMaterialMotion.fadeSlideInRight();
 
@@ -33,14 +34,15 @@ mainModule
             //判断是否是闰年,2月平年28天、闰年29天
             var isLeapYear = function (year) {
                 return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
-            }
+            };
+            var selectDate = new Date().format('yyyy-MM-dd');
             var mydate = new Date();
-            $scope.modeFlag = true;//判断显示销售活动还是待办事项
+            $scope.modeFlag = true;//判断显示销售活动还是服务工单
             $scope.showPop = false;
             //当天周几
             var today = mydate.getDay();
             //当天多少号
-            $scope.selectModeText = '待办事项';
+            $scope.selectModeText = '销售活动';
             var day = mydate.getDate();
             $scope.year = mydate.getFullYear();
             $scope.month = mydate.getMonth() + 1;
@@ -208,7 +210,7 @@ mainModule
                     }
                     return days;
                 }
-            }
+            };
 
             var addDate = function (date, days) {
                 var d = new Date(date);
@@ -312,8 +314,14 @@ mainModule
             $scope.onMonthSwipeRight = function () {
                 //nextDays(-7);
                 alert('月份右滑动')
-            }
+            };
+            var lastSelectedDate = selectDate;
             $scope.selectDay = function (x, y) {
+                selectDate = new Date($scope.year + '-' + $scope.month + '-' + y.value).format('yyyy-MM-dd');
+                if (selectDate === lastSelectedDate) {
+                    return
+                }
+                lastSelectedDate = selectDate;
                 var monthHeightNow = document.getElementById('mainTopId').clientHeight;
                 if (monthHeightNow > 316) {
                     $scope.monthHeight = {
@@ -340,26 +348,39 @@ mainModule
                     y.isToday = true;
                 }
                 y.checked = true;
-
-
-                var tempArr = $scope.salesArr;
-                Prompter.showLoading('正在查询');
-                $scope.contenHideFlag = true;
+                /*刷新content*/
+                $scope.loadMoreFlag = false;
+                salePageNum = 0;
+                //var arr = document.getElementsByClassName('obj');
+                //for (var i = 0; i < arr.length; i++) {
+                //    arr[i].style.transitionDelay = '0s';
+                //}
                 $timeout(function () {
+                    $scope.loadMoreFlag = true;
                     $scope.contentArr = [];
-                }, 200);
-                $timeout(function () {
-                    $scope.contenHideFlag = false;
-                    $scope.contentArr = tempArr;
-                }, 400);
-                $timeout(function () {
-                    ionicMaterialMotion.fadeSlideInRight({
-                        startVelocity: 3000,
-                        selector: '.animate-fade-slide-in-right .item'
-                    });
-                    Prompter.hideLoading();
-                }, 500);
-                $scope.selectModeText = '销售活动';
+                    $scope.getList('init');
+                },10);
+
+                /*刷新content end*/
+
+                //var tempArr = $scope.salesArr;
+                //Prompter.showLoading('正在查询');
+                //$scope.contenHideFlag = true;
+                //$timeout(function () {
+                //    $scope.contentArr = [];
+                //}, 200);
+                //$timeout(function () {
+                //    $scope.contenHideFlag = false;
+                //    $scope.contentArr = tempArr;
+                //}, 400);
+                //$timeout(function () {
+                //    ionicMaterialMotion.fadeSlideInRight({
+                //        startVelocity: 3000,
+                //        selector: '.animate-fade-slide-in-right .item'
+                //    });
+                //    Prompter.hideLoading();
+                //}, 500);
+                //$scope.selectModeText = '销售活动';
 
             };
             $scope.topHeight = {
@@ -488,7 +509,7 @@ mainModule
                         arr[i].checked = false;
                     }
                     $scope.$apply();
-                }, 1)
+                }, 1);
                 //$timeout(function(){
                 //    $scope.$apply();
                 //},1)
@@ -500,13 +521,13 @@ mainModule
                         'margin-top': '316px'
                     };
                     document.getElementById('mainContentId').style.marginTop = '316px';
-                }, 10)
+                }, 10);
                 $timeout(function () {
                     $scope.topHeight = {
                         'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
-                    }
+                    };
                     document.getElementById('mainContentId').style.marginTop = document.getElementById('mainTopId').clientHeight + 'px';
-                }, 50)
+                }, 50);
                 var month_page_now = $ionicSlideBoxDelegate.$getByHandle('monthView-handle').currentIndex();
                 var addTemp = month_page_now + 1;
                 var decTemp = month_page_now - 1;
@@ -522,7 +543,7 @@ mainModule
                 $scope.monthView[decTemp] = getMonthView(year, month - 1);
 
 
-            }
+            };
             //仅测试用,正式使用时需注释
             //monthInit($scope.year,$scope.month,new Date().getDate());
             var monthHeightTemp = 316;
@@ -557,87 +578,85 @@ mainModule
                         $scope.monthView[1] = getMonthView($scope.year, $scope.month - 1);
                         break;
                 }
-            }
+            };
             /*----------------------------月视图 end----------------------------*/
             /*-------------------------------------------日历 end-------------------------------------------*/
             $scope.marks = ['#cf021b', '#f5a623', '#4a90e2', '#f8e71c', '#417505'];
-
-            $scope.thingsToDo = [{
-                title: '到青浦购买机械装备',
-                year: 2016,
-                month: 3,
-                day: 12,
-                startTime: '15:00',
-                endTime: '18:00',
-                mark: '#417505',
-                showMarks: true
-            }, {
-                title: '浦东新区工程监督',
-                year: 2016,
-                month: 3,
-                day: 16,
-                startTime: '15:00',
-                endTime: '18:00',
-                mark: '#cf021b',
-                showMarks: false
-            }, {
-                title: 'LOL拿首胜',
-                year: 2016,
-                month: 3,
-                day: 16,
-                startTime: '19:00',
-                endTime: '21:00',
-                mark: '#4a90e2',
-                showMarks: false
-            }, {
-                title: 'LOL拿首胜',
-                year: 2016,
-                month: 3,
-                day: 16,
-                startTime: '19:00',
-                endTime: '21:00',
-                mark: '#4a90e2',
-                showMarks: false
-            }];
-
-
-            $scope.salesArr = [{
-                title: '销售活动测试1',
-                year: 2016,
-                month: 3,
-                day: 12,
-                startTime: '15:00',
-                endTime: '18:00',
-                mark: '#417505',
-                showMarks: true
-            }, {
-                title: '销售活动测试2',
-                year: 2016,
-                month: 3,
-                day: 16,
-                startTime: '15:00',
-                endTime: '18:00',
-                mark: '#cf021b',
-                showMarks: false
-            }, {
-                title: '销售活动测试3',
-                year: 2016,
-                month: 3,
-                day: 16,
-                startTime: '19:00',
-                endTime: '21:00',
-                mark: '#4a90e2',
-                showMarks: false
-            }];
-
+            $scope.loadMoreFlag = true;
+            $scope.thingsToDo = [];
+            $scope.salesArr = [];
+            var salePageNum = 1;
+            var getSalesArr = function (type) {
+                var data = {
+                    "LS_SYSTEM": {"SysName": "CATL"},
+                    "IS_ACTIVITY": {
+                        "OBJECT_ID": "",
+                        "DESCRIPTION": "",
+                        "PROCESS_TYPE": "",
+                        "ZZHDJJD": "",
+                        "CUSTOMER": "",
+                        "CUSTNAME": "",
+                        "DATE_FROM": selectDate,
+                        "SALESNO": "",
+                        "SALESNAME": ""
+                    },
+                    "IS_PAGE": {
+                        "CURRPAGE": salePageNum++,
+                        "ITEMS": "10"
+                    }
+                };
+                //if (salePageNum == 1) {
+                //    return
+                //}
+                console.log(data)
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_LIST', data)
+                    .success(function (response) {
+                        console.log(response)
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            $scope.contenHideFlag = false;
+                            if (response.ET_LIST.item.length < 10) {
+                                $scope.loadMoreFlag = false;
+                            }
+                            ;
+                            var tempArr = response.ET_LIST.item;
+                            angular.forEach(tempArr, function (x) {
+                                x.title = x.DESCRIPTION;
+                                x.date = new Date(x.DATE_FROM);
+                                x.startTime = x.TIME_FROM.substring(0,6);
+                                x.endTime = x.TIME_TO.substring(0,6);
+                            });
+                            if(type==='init'){
+                                $scope.contentArr = tempArr;
+                            }else{
+                                $scope.contentArr = $scope.contentArr.concat(tempArr);
+                            }
+                            $timeout(function () {
+                                ionicMaterialMotion.fadeSlideInRight({
+                                    startVelocity: 3000,
+                                    selector: '.animate-fade-slide-in-right .item'
+                                });
+                            }, 100);
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                            $ionicScrollDelegate.resize();
+                        } else {
+                            $scope.loadMoreFlag = false;
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        }
+                    });
+            };
+            $scope.getList = function (type) {
+                if ($scope.selectModeText == '销售活动') {
+                    getSalesArr(type);
+                }
+            };
             $scope.contentArr = $scope.thingsToDo;
             $scope.moreApps = function () {
                 //$ionicBackdrop.retain();
-            }
+            };
             $scope.chooseMark = function (x, color) {
                 x.showMarks = false;
                 x.mark = color;
-            }
+            };
             $scope.delete = function (x) {
                 x.class = 'own-animated zoomOutRight';
                 var arr = document.getElementsByClassName('obj');
@@ -647,12 +666,11 @@ mainModule
                 }
                 $timeout(function () {
                     $scope.contentArr.splice($scope.contentArr.indexOf(x), 1);
-                }, 10)
-                //$scope.thingsToDo.splice($scope.thingsToDo.indexOf(x),1);
+                }, 10);
             };
 
             /*切换销售活动与代办*/
-            $scope.selectArr = [{text: '销售活动', flag: false}, {text: '待办事项', flag: true}];
+            $scope.selectArr = [{text: '销售活动', flag: false}, {text: '服务工单', flag: true}];
             $scope.changePop = function (x) {
                 if ($scope.selectModeText != x.text) {
                     var tempArr;
@@ -666,7 +684,7 @@ mainModule
                     $timeout(function () {
                         $scope.contenHideFlag = false;
                         $scope.contentArr = tempArr;
-                    }, 400)
+                    }, 400);
                     $timeout(function () {
                         ionicMaterialMotion.fadeSlideInRight({
                             startVelocity: 3000,

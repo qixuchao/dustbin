@@ -117,7 +117,7 @@ ContactsModule
                 $cordovaToast.showShortBottom('请检查你的网络设备');
                 $scope.contactisshow = false;
             });
-        }
+        };
         //实时搜索
         //实时搜索变量初始化一次flag
         $scope.contactinitflag = true;

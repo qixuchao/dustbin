@@ -26,7 +26,7 @@ appModule
             url:'img/apps/saleQuote.png',
             go:'worksheetList'
         },{
-            url:'img/apps/sparePart.png',
+            url:'img/apps/proInfo.png',
             go:'spareList'
         },{
             url:'img/apps/empInfo.png',
@@ -39,7 +39,7 @@ appModule
             ionicMaterialMotion.fadeSlideInRight({
                 selector: '.animate-fade-slide-in .col-33'
             });
-        },50)
+        },50);
 
         $scope.returnToMain = function(){
             for(var i=0;i<$scope.tabs.length;i++){

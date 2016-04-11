@@ -4,7 +4,7 @@
             <div class="col col-15 text-left" ng-click="$ionicGoBack();">取消</div>
             <div class="col col-70 text-center">车辆里程维护
             </div>
-            <div class="col col-15 text-right" ng-click="edit()">编辑</div>
+            <div class="col col-15 text-right" ng-click="keep()">保存</div>
         </div>
     </ion-header-bar>
     <ion-content>
@@ -31,20 +31,20 @@
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">读取日期：</div>
                 <div class="col-58 col-center">
-                    <input type="text"placeholder="">
+                    <input type="text" placeholder="" ng-medol="readDate">
                 </div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">值：</div>
                 <div class="col-58 col-center">
-
+                    <input type="text"placeholder="请输入值" ng-model="readValue">
                 </div>
             </div>
 
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">读取描述：</div>
                 <div class="col-58 col-center">
-
+                <input type="text"placeholder="请输入读取描述" ng-model="readDescription">
                 </div>
             </div>
         </div>

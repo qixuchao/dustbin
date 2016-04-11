@@ -85,7 +85,7 @@ $lineColor:#d2d2d2;
 @mixin crm-circle-div($width:12px, $border-width:2px, $border-color:rgb(142,193,33)){ // 圆环
   width: $width;
   height:$width;
-  border-radius: $width;
+  border-radius: $width;   
   display: inline-block;
   border: $border-width solid $border-color;
 }

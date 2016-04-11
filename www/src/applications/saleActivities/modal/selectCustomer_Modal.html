@@ -8,7 +8,8 @@
                 <div class="col input">
                     <div class="row row-center no-padding">
                         <i class="ion-ios-search"></i>
-                        <input id="selectCustomerId" type="search" ng-model="input.customer" placeholder="请输入关键字">
+                        <input id="selectCustomerId" type="search" ng-change="getCustomerArr(input.customer)"
+                               ng-model="input.customer" placeholder="请输入关键字">
                         <i class="ion-ios-close" ng-if="input.customer" ng-click="initCustomerSearch()"></i>
                     </div>
                 </div>
@@ -17,27 +18,31 @@
         </ion-header-bar>
     </div>
     <div class="addRelationsModal">
-        <!--<ion-spinner icon="ios"></ion-spinner>-->
         <ion-content class="content has-header">
-            <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="changeReferMoreflag()"></div>
-            <div class="selectionsDown pushDown-animated refer-selectionsDown"
-                 ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'slideInDown':referMoreflag}"
-                 ng-show="referMoreflag">
+           <ion-spinner class="mySpinner" icon="ios" ng-if="!customerSearch"></ion-spinner>
+            <div ng-if="customerSearch">
+                <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"
+                     ng-click="changeReferMoreflag()"></div>
+                <div class="selectionsDown pushDown-animated refer-selectionsDown"
+                     ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'slideInDown':referMoreflag}"
+                     ng-show="referMoreflag">
+                    <ion-list>
+                        <ion-item ng-repeat="x in customerModalArr" ng-class="{'selected':selectCustomerText==x.text}"
+                                  ng-click="selectPop(x)">{{x.text}}
+                        </ion-item>
+                    </ion-list>
+                </div>
                 <ion-list>
-                    <ion-item ng-repeat="x in customerModalArr" ng-class="{'selected':selectCustomerText==x.text}"
-                              ng-click="selectPop(x)">{{x.text}}
+                    <ion-item class="selectItem" ng-repeat="x in customerArr"
+                              ng-click="selectCustomer(x)">
+                        <span ng-bind-html="x.NAME_ORG1"></span> <img
+                            ng-if="x.NAME_ORG1!=create.customer" class="selectImg" src="img/saleList/blank.png">
+                        <img ng-if="x.NAME_ORG1==create.customer" class="selectImg" src="img/saleList/selected.png">
                     </ion-item>
                 </ion-list>
             </div>
-            <ion-list>
-                <ion-item class="selectItem" ng-repeat="x in customerArr | filter:input.customer"
-                          ng-click="selectCustomer(x)">
-                    <span ng-bind-html="x.NAME_ORG1"></span> <img
-                        ng-if="x.NAME_ORG1!=create.customer" class="selectImg" src="img/saleList/blank.png">
-                    <img ng-if="x.NAME_ORG1==create.customer" class="selectImg" src="img/saleList/selected.png">
-                </ion-item>
-            </ion-list>
-            <div class="loadMore" ng-click="getCustomerArr()"><span>点击加载更多...</span></div>
+            <div class="loadMore" ng-click="getCustomerArr()" ng-if="customerSearch&&!spinnerFlag"><span>点击加载更多...</span></div>
+            <div class="loadMore" ng-click="getCustomerArr()" ng-if="spinnerFlag"><ion-spinner icon="ios" ng-if="!customerSearch"></ion-spinner></div>
         </ion-content>
     </div>
 </ion-modal-view>

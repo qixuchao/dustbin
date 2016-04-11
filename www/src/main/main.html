@@ -84,7 +84,7 @@
     </div>
 </div>
 <ion-content id="mainContentId" class="main animate-fade-slide-in has-footer" has-bouncing="false" ng-class="{expanded:isExpanded}"
-             ng-style="topHeight">
+             ng-style="topHeight" style="height: 100%;">
     <div class="content">
         <div class="line-vertical"></div>
         <div class="main-content animate-fade-slide-in-right">
@@ -95,14 +95,14 @@
                     <div class="col col-80">
                         <div class="text">{{x.title}}</div>
                         <div class="row time">
-                            <div>2016</div>
-                            <div class="paddingLeft">{{(x.month+'').length==1?('0'+x.month):x.month}}</div>
-                            <div class="paddingLeft">{{(x.day+'').length==1?('0'+x.day):x.day}}</div>
-                            <div class="paddingLeft">{{x.startTime}}—{{x.endTime}}</div>
+                            <div>{{x.date | date:'yyyy MM dd'}}</div>
+                            <!--<div class="paddingLeft">{{(x.month+'').length==1?('0'+x.month):x.month}}</div>-->
+                            <!--<div class="paddingLeft">{{(x.day+'').length==1?('0'+x.day):x.day}}</div>-->
+                            <div class="paddingLeft">{{x.startTime}}<span ng-if="x.startTime&&x.endTime">—<span>{{x.endTime}}</div>
                         </div>
                     </div>
                     <div class="col col-10 text-center"><i class="ion-ios-arrow-right"
-                                                           style="{{'color:'+ (x.mark=='#417505'?'':x.mark)}}"></i>
+                                                           style="{{'color:'+ x.mark}}"></i>
                     </div>
                     <div class="col col-10 text-center" ng-click="x.showMarks=!x.showMarks"><img
                             src="img/main/dash.png" class="more"></div>
@@ -119,10 +119,11 @@
                             </div>
                         </div>
                     </div>
-                    <img src="img/main/delete.png" class="deleteImg" ng-click="delete(x)">
-                    <div class="markText" ng-click="delete(x)">删除</div>
+                    <!--<img src="img/main/delete.png" class="deleteImg" ng-click="delete(x)">-->
+                    <!--<div class="markText" ng-click="delete(x)">删除</div>-->
                 </div>
             </div>
         </div>
     </div>
+    <ion-infinite-scroll on-infinite="getList()" distance="1%" ng-if="loadMoreFlag"></ion-infinite-scroll>
 </ion-content>
