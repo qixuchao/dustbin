@@ -8,7 +8,8 @@ worksheetModule.controller("worksheetDetailAllCtrlOld",[
 	"$ionicGesture",
 	"$ionicModal",
 	"$state", 
-	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout, $ionicBackdrop, $ionicPosition, $ionicGesture, $ionicModal, $state){
+	"worksheetDataService",
+	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout, $ionicBackdrop, $ionicPosition, $ionicGesture, $ionicModal, $state, worksheetDataService){
 	
 	$scope.config = { 
 		scrollDelegateHandler: null,
@@ -239,10 +240,45 @@ worksheetModule.controller("worksheetDetailAllCtrlOld",[
 		$scope.config.scrollDelegateHandler = $ionicScrollDelegate.$getByHandle('xbrDelegateScroll');
 		$scope.config.contentDetegateHandler = $ionicScrollDelegate.$getByHandle('xbrDelegateContent');
 		
-		initSwipeEvent();
+		//initSwipeEvent();
 		//justTest();
+		__requestDetailDatas();
 	};
 	$scope.init();
+
+	function __requestDetailDatas(){
+        var queryParams = $scope.config.requestParams;
+        var promise = HttpAppService.post(worksheetHttpService.serviceDetail.url,queryParams);
+        $scope.config.isLoading = true;
+        $scope.config.loadingErrorMsg = null;
+        promise.success(function(response){
+        	$scope.config.isLoading = false;
+        	if($scope.config.isReloading){
+        		$scope.config.isReloading = false;
+        		$scope.$broadcast('scroll.refreshComplete');
+        		$scope.datas.serviceListDatas = [];
+        	}	
+        	if(response.ES_RESULT.ZFLAG == "E"){ // 未加载到数据
+        		$scope.config.hasMoreData = false;
+        		return;
+        	}
+        	if(!$scope.datas.serviceListDatas){
+        		$scope.datas.serviceListDatas = [];
+        	}
+        	$scope.datas.detail = response;
+        	console.log(response);
+        })
+        .error(function(errorResponse){
+        	$scope.config.isLoading = false;
+        	if($scope.config.isReloading){
+        		$scope.config.isReloading = false;
+        		$scope.$broadcast('scroll.refreshComplete');
+        		$scope.datas.serviceListDatas = [];
+        		$scope.config.hasMoreData = false;
+        	}
+        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
+        });
+	}
 
 	function justTest(){
 		var header = document.getElementById("xbr-test-header-newcar");
@@ -556,9 +592,12 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         '$cordovaToast',
         '$stateParams',
         '$ionicPosition',
+        'HttpAppService',
+        'worksheetHttpService',
+        "worksheetDataService",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, $stateParams, $ionicPosition) {
+                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService) {
 
         	$scope.$on('$destroy', function() {
 				if($scope.config.moreModal != null){			
@@ -607,29 +646,33 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 				}else if(type == 'yiquxiao'){
 					
+				}else if(type == 'yishenhe'){
+					
 				}
 			};
 			
 			$scope.showMoreModel = function($event, sourceClassName){
 			    if($scope.config.moreModal == null){
-			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content'>"+
+			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content "+$scope.config.typeStr+"'>"+
 		                "<div><div class='top-line'></div></div>"+
 		                "<div class='content-lines'>"+
-		                    "<div class='content-line' ng-click='moreModalClickHandler(\"paigong\");'>派工</div>"+
-		                    "<div class='content-line' ng-click='moreModalClickHandler(\"judan\");'>拒单</div>"+
-		                    "<div class='content-line' ng-click='moreModalClickHandler(\"jiedan\");'>接单</div>"+
-		                    "<div class='content-line' ng-click='moreModalClickHandler(\"beijianshengqing\");'>备件申请</div>"+
-		                    "<div class='content-line' ng-click='moreModalClickHandler(\"chelianglicheng\");'>车辆里程</div>"+
-		                    "<div class='content-line' ng-click='moreModalClickHandler(\"guzhangxinxi\");'>故障信息</div>"+
-		                    "<div class='content-line' ng-click='moreModalClickHandler(\"fuwupaizhao\");'>服务拍照</div>"+
-		                    "<div class='content-line' ng-click='moreModalClickHandler(\"baogong\");'>报工</div>"+
-		                    "<div class='content-line' ng-click='moreModalClickHandler(\"wangong\");'>完工</div>"+
-		                    "<div class='content-line' ng-click='moreModalClickHandler(\"yiquxiao\");'>已取消</div>"+
+		                    "<div class='content-line paigong' ng-click='moreModalClickHandler(\"paigong\");'>派工</div>"+
+		                    "<div class='content-line judan' ng-click='moreModalClickHandler(\"judan\");'>拒单</div>"+
+		                    "<div class='content-line jiedan' ng-click='moreModalClickHandler(\"jiedan\");'>接单</div>"+
+		                    "<div class='content-line beijian' ng-click='moreModalClickHandler(\"beijianshengqing\");'>备件申请</div>"+
+		                    "<div class='content-line chelianglicheng' ng-click='moreModalClickHandler(\"chelianglicheng\");'>车辆里程</div>"+
+		                    "<div class='content-line guzhangxinxi' ng-click='moreModalClickHandler(\"guzhangxinxi\");'>故障信息</div>"+
+		                    "<div class='content-line fuwupaizhao' ng-click='moreModalClickHandler(\"fuwupaizhao\");'>服务拍照</div>"+
+		                    "<div class='content-line baogong' ng-click='moreModalClickHandler(\"baogong\");'>报工</div>"+
+		                    "<div class='content-line wangong' ng-click='moreModalClickHandler(\"wangong\");'>完工</div>"+
+		                    "<div class='content-line yiquxiao' ng-click='moreModalClickHandler(\"yiquxiao\");'>已取消</div>"+
+		                    "<div class='content-line yishenhe' ng-click='moreModalClickHandler(\"yishenhe\");'>已审核</div>"+
 		                "</div>"+
 		            "</div>", {
 		                scope: $scope
 		            });
 			    }
+
 			    $scope.config.moreModal.show();
 			    $scope.config.moreModal.$el.addClass("worksheet-detail-more-modal");			    
 			    $scope.initMoreModal(sourceClassName);
@@ -669,6 +712,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			};
 			
         	$scope.config = {
+        		typeStr: '',
+
 				scrollDelegateHandler: null,
 				contentDetegateHandler: null,
 
@@ -676,10 +721,14 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				detailTypeNewCar: false,
 				detailTypeSiteRepair: false,
 				detailTypeBatchUpdate: false,
+				detailTypeNewCarFWS: false,
+				detailTypeSiteRepairFWS: false,
+				detailTypeBatchUpdateFWS: false,
 				
 				moreModal: null
 			};
 			$scope.datas = {
+				detail: null,
 				header: {
 
 				},
@@ -863,48 +912,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                 	$scope.$apply();
                 }                
             };
-            $scope.onScroll333 = function () {
-            	position = $ionicScrollDelegate.$getByHandle('xbrDelegateContent').getScrollPosition().top;
-                //position = $ionicScrollDelegate.getScrollPosition().top;
-                //console.log(position)
-                if (position > 10) {
-                    $scope.TitleFlag = true;
-                    $scope.showTitle = true;
-                    //console.log(position);
-                    if (position > 26) {
-                        $scope.customerFlag = true;
-                    } else {
-                        $scope.customerFlag = false;
-                    }
-                    if (position > 54) { // 54、80
-                        $scope.statusFlag = true;
-                    } else {
-                        $scope.statusFlag = false;
-                    }
-                    if (position > 95) {
-                        if (maxTop == undefined) {
-                            maxTop = $ionicScrollDelegate.$getByHandle('xbrDelegateContent').getScrollView().__maxScrollTop;
-                        }
-                        $scope.showTitleStatus = true;
-                    } else {
-                        $scope.showTitleStatus = false;
-                    }
-                    if (position > maxTop) {
-                        //$ionicScrollDelegate.scrollBottom(false)
-                    }
-                } else {
-                    $scope.customerFlag = false;
-                    $scope.placeFlag = false;
-                    $scope.typeFlag = false;
-                    $scope.statusFlag = false;
-                    $scope.showTitle = false;
-                    $scope.TitleFlag = false;
-                    $scope.showTitleStatus = false;
-                }
-                if(!$scope.$$phase) {
-                	$scope.$apply();
-                }                
-            };
 
             $scope.init = function(){
             	// newCar、siteRepair、batchUpdate
@@ -922,9 +929,54 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	}else{
             		throw "type 不在预期范围内!";
             	}
+
+            	$scope.config.requestParams = worksheetDataService.worksheetList.toDetail;
+            	$scope.config.typeStr = worksheetDataService.worksheetList.toDetail.IS_PROCESS_TYPE;
+            	__requestDetailDatas();
             };
 
             $scope.init();
+
+            function __requestDetailDatas(){
+		        var params = $scope.config.requestParams;
+		        var queryParams = {
+				    "I_SYSNAME": { "SysName": "CATL" },
+				    "IS_AUTHORITY": { "BNAME": "" },
+				    "IS_OBJECT_ID": params.IS_OBJECT_ID,
+				    "IS_PROCESS_TYPE": params.IS_PROCESS_TYPE
+				}
+
+		        var promise = HttpAppService.post(worksheetHttpService.serviceDetail.url,queryParams);
+		        $scope.config.isLoading = true;
+		        $scope.config.loadingErrorMsg = null;
+		        promise.success(function(response){
+		        	$scope.config.isLoading = false;
+		        	if($scope.config.isReloading){
+		        		$scope.config.isReloading = false;
+		        		$scope.$broadcast('scroll.refreshComplete');
+		        		$scope.datas.serviceListDatas = [];
+		        	}	
+		        	if(response.ES_RESULT.ZFLAG == "E"){ // 未加载到数据
+		        		$scope.config.hasMoreData = false;
+		        		return;
+		        	}
+		        	if(!$scope.datas.serviceListDatas){
+		        		$scope.datas.serviceListDatas = [];
+		        	}
+		        	$scope.datas.detail = response;
+		        	console.log(response);
+		        })
+		        .error(function(errorResponse){
+		        	$scope.config.isLoading = false;
+		        	if($scope.config.isReloading){
+		        		$scope.config.isReloading = false;
+		        		$scope.$broadcast('scroll.refreshComplete');
+		        		$scope.datas.serviceListDatas = [];
+		        		$scope.config.hasMoreData = false;
+		        	}
+		        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
+		        });
+			}
 
             
         }]);
