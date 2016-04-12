@@ -7,6 +7,18 @@
             </div>
         </ion-header-bar>
     </div>
+    <ion-header-bar class="bar bar-subheader ">
+        <div class="search1" ng-show="!searchFlag">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="text" placeholder="输入产品信息" ng-click="changePage()">
+        </div>
+        <div class="search2" ng-show="searchFlag">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
+            <input id="spareId" type="text" placeholder="输入维修记录信息" ng-model="spareInfo" ng-change="spareLoadmoreIm()" >
+            <i class="button button-clear" ng-click="cancelSearch()">取消</i>
+        </div>
+    </ion-header-bar>
     <div class="search-hearder-bar"></div>
     <ion-content  class="" style="" scroll="false" has-bouncing="false">
         <div class="tab-buttons-line">
@@ -74,7 +86,7 @@
                             <div class="filter-type batch-update1" ng-click="selectFilterType('batchUpdate1');" ng-class="{'selected':config.filterBatchUpdate1}">批量改进工单(服务商)</div>
                         </div>
                         <div class="row row-center filter-types">
-                            <div class="filter-type batch-update" ng-click="selectFilterType('batchUpdate');" ng-class="{'selected':config.filterBatchUpdate}">现场维修</div>
+                            <div class="filter-type newcar-online" ng-click="selectFilterType('newcarOnline');" ng-class="{'selected':config.filterNewCarOnline}">新车上线工单</div>
                             <div class="col col-10"></div>
                             <div class="filter-type newcar-online1" ng-click="selectFilterType('newcarOnline1');" ng-class="{'selected':config.filterNewCarOnline1}">新车上线工单(服务商)</div>
                         </div>
