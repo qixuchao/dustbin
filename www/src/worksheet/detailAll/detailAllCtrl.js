@@ -926,5 +926,46 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
             $scope.init();
 
+            function __requestDetailDatas(){
+		        var params = $scope.config.requestParams;
+		        var queryParams = {
+				    "I_SYSNAME": { "SysName": "CATL" },
+				    "IS_AUTHORITY": { "BNAME": "" },
+				    "IS_OBJECT_ID": params.IS_OBJECT_ID,
+				    "IS_PROCESS_TYPE": params.IS_PROCESS_TYPE
+				}
+
+		        var promise = HttpAppService.post(worksheetHttpService.serviceDetail.url,queryParams);
+		        $scope.config.isLoading = true;
+		        $scope.config.loadingErrorMsg = null;
+		        promise.success(function(response){
+		        	$scope.config.isLoading = false;
+		        	if($scope.config.isReloading){
+		        		$scope.config.isReloading = false;
+		        		$scope.$broadcast('scroll.refreshComplete');
+		        		$scope.datas.serviceListDatas = [];
+		        	}	
+		        	if(response.ES_RESULT.ZFLAG == "E"){ // 未加载到数据
+		        		$scope.config.hasMoreData = false;
+		        		return;
+		        	}
+		        	if(!$scope.datas.serviceListDatas){
+		        		$scope.datas.serviceListDatas = [];
+		        	}
+		        	$scope.datas.detail = response;
+		        	worksheetDataService.detailDatas = response;
+		        	//debugger;
+		        })
+		        .error(function(errorResponse){
+		        	$scope.config.isLoading = false;
+		        	if($scope.config.isReloading){
+		        		$scope.config.isReloading = false;
+		        		$scope.$broadcast('scroll.refreshComplete');
+		        		$scope.datas.serviceListDatas = [];
+		        		$scope.config.hasMoreData = false;
+		        	}
+		        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
+		        });
+			}
             
         }]);
