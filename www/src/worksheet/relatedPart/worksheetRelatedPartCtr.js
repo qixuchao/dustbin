@@ -14,7 +14,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             $scope.relatedpopover.hide();
             //document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";
         };
-        $scope.related_types = ['联系人','服务商','外服'];
+        $scope.related_types = ['联系人','服务商'];
         $scope.relatedqueryType = function(type){
             $scope.relatedPopoverhide();
         };
