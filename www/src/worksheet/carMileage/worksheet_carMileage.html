@@ -2,7 +2,7 @@
     <ion-header-bar align-title="center" class="bar bar-positive bar-header disable-user-behavior" >
         <div class="row row-center title rowTitle">
             <div class="col col-15 text-left" ng-click="$ionicGoBack();">取消</div>
-            <div class="col col-70 text-center">车辆里程维护
+            <div class="col col-70 text-center">车辆里程
             </div>
             <div class="col col-15 text-right" ng-click="edit()">编辑</div>
         </div>
@@ -16,35 +16,35 @@
         <div class="contentAll">
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">计数器：</div>
-            <div class="col-58 col-center"  style="color:#A8A49F">车辆里程12222</div>
+            <div class="col-58 col-center"  style="color:#A8A49F">{{carMile.MILEAGE_COUNTER}}</div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">上一值：</div>
-                <div class="col-58 fontColor col-center">车辆里程1000</div>
+                <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LAST}}</div>
             </div>
 
             <div class="row row-center itemContent">
                 <div class="col-42 col-center">最后读取日期：</div>
-                <div class="col-58 fontColor col-center">2016.03.03</div>
+                <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LDATE}}</div>
             </div>
 
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">读取日期：</div>
                 <div class="col-58 col-center">
-                    <input type="text"placeholder="">
+                    {{carMile.MILEAGE_DATE}}
                 </div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">值：</div>
                 <div class="col-58 col-center">
-
+                    {{carMile.MILEAGE_VALUE}}
                 </div>
             </div>
 
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">读取描述：</div>
                 <div class="col-58 col-center">
-
+                    {{carMile.MILEAGE_DESC}}
                 </div>
             </div>
         </div>
