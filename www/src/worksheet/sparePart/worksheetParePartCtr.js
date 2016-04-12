@@ -1,7 +1,29 @@
 
-worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetHttpService',
-    function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService){
+worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetHttpService','HttpAppService',
+    function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService,HttpAppService){
     ionicMaterialInk.displayEffect();
+        //var worksheetDetail = worksheetDataService.detailDatas;
+        //var data={
+        //    "IS_SYSTEM": { "SysName": "CATL" },
+        //    "IS_PAGE": {
+        //        "CURRPAGE": "1",
+        //        "ITEMS": "10"
+        //    },
+        //    "IS_VEHICLID": { "PRODUCT_ID": worksheetDetail.ES_OUT_LIST.CAR_NO}
+        //}
+        //var url = ROOTCONFIG.hempConfig.basePath + 'ATTACHMENT_LIST';
+        //var parePartList = HttpAppService.post(url, data).success(function(response){
+        //
+        //}).error(function(err){
+        //
+        //});
+        //console.log(angular.toJson(parePartList));
+        $scope.goLoadMore = function(){
+
+        }
+        $scope.goMore = true;
+        $scope.goNo = false;
+        $scope.goLoad = false;
         $scope.shi = { "item": {
             "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
             "STORAGE": "",
@@ -95,9 +117,12 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             console.log(angular.toJson($scope.infos));
         }
 }]);
-worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetHttpService',
-    function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService){
+worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetHttpService','worksheetDataService',
+    function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService,worksheetDataService){
         ionicMaterialInk.displayEffect();
+        //工单详情
+        var worksheetDetail = worksheetDataService.detailDatas;
+        console.log(angular.toJson(worksheetDetail));
         $scope.upDown = true;
         $scope.showDetail = function(items) {
             console.log(items.detail.length);
