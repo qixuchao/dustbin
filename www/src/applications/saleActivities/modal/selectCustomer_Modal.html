@@ -41,7 +41,7 @@
                     </ion-item>
                 </ion-list>
             </div>
-            <div class="loadMore" ng-click="getCustomerArr()" ng-if="customerSearch&&!spinnerFlag"><span>点击加载更多...</span></div>
+            <div class="loadMore" ng-click="getCustomerArr()" ng-if="customerSearch"><span>点击加载更多...</span></div>
             <div class="loadMore" ng-click="getCustomerArr()" ng-if="spinnerFlag"><ion-spinner icon="ios" ng-if="!customerSearch"></ion-spinner></div>
         </ion-content>
     </div>

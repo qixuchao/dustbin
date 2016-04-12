@@ -1,3 +1,108 @@
+.saleChanList{
+  .scroll{
+    height:100%;
+  }
+  .listFilter{
+    position: absolute;
+    background: white;
+    z-index: 12;
+    width: 75%;
+    height: 305px;
+    padding: 10px;
+    border-bottom-right-radius: 10px;
+    .type{
+      padding-bottom: 12px;
+      font-size: 16px;
+    }
+    .typeRow{
+      padding: 0px 0 5px 0;
+      border-bottom: 1px solid #E6E6E6;
+    }
+    .selected{
+      background: $crm-subject-blue!important;
+      color: white!important;
+    }
+    .typeSelections{
+      padding: 6px;
+      margin: 0 10px 10px 0;
+      background: #dfe2e4;
+      color: #828282;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 13px;
+    }
+    .status{
+      font-size: 16px;
+      padding-top: 8px;
+    }
+    .statusRow{
+      padding: 10px 0 5px 0;
+      font-size: 16px;
+    }
+    .statusSecond{
+      border-bottom: 1px solid #E6E6E6;
+      padding-left: 0;
+    }
+    .bottomButton{
+      margin: 0;
+      padding-top: 10px;
+      text-align: right;
+      .reset{
+        position: fixed;
+        right: 85px;
+        text-align: center;
+        width: 60px;
+        border: 1px solid #2B60AB;
+        border-radius: 5px;
+        height: 25px;
+        line-height: 25px;
+      }
+      .sure{
+        position: fixed;
+        right: 10px;
+        text-align: center;
+        width: 60px;
+        border: 1px solid #2B60AB;
+        border-radius: 5px;
+        height: 25px;
+        line-height: 25px;
+      }
+    }
+  }
+  .own-backDrop-on{
+    background-color: rgba(0,0,0,.38)!important;
+  }
+  .col{
+    @include single-line-ellipsis();
+  }
+  .sub-title{
+    font-size: 13px!important;
+    padding-top: 7px;
+  }
+  .chanStatus{
+    padding: 0 !important;
+    text-align: right;
+  }
+}
+.createSaleChanPop{
+  height: 244px !important;
+  width: 232px !important;
+  margin-left: -116px;
+  .row {
+    padding: 0 5px 5px 5px !important;
+    margin: 8px 0 4px 0 !important;
+  }
+  .myHeader {
+    width: 80% !important;
+    margin-left: 10% !important;
+  }
+  ion-content {
+    padding: 2% 20px 0 20px !important;
+  }
+  .select {
+    padding-left: 8px;
+  }
+}
 .saleChanDetail{
   .top-back2{
     background:url("../../img/saleDetail/chan_bg2.png") no-repeat!important;

@@ -3,14 +3,14 @@
         <ion-header-bar no-tap-scroll="true" align-title="center" class="head pub-head no-padding">
             <div class="row row-center">
                 <a class="col col-15 text-left goBack" ng-click="moneyTypesModal.hide()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-70 text-center">币种</div>
+                <div class="col col-70 text-center">{{unitTitle}}</div>
             </div>
         </ion-header-bar>
     </div>
     <ion-content class="content has-header">
             <div class="selectItem" ng-repeat="x in moneyTypesArr" ng-click="selectMoneyType(x)">
                 <div class="row">
-                    <div class="col col-30" ng-class="{'selected':chanceDetails.preMountType==x.value}">{{x.value}}</div>
+                    <div class="col col-30" ng-class="{'selected':chanceDetails.preMountType==x.value||chanceDetails.preMoneyType==x.value}">{{x.value}}</div>
                     <div class="col col-70">{{x.text}}</div>
                 </div>
             </div>

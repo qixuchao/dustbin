@@ -1,0 +1,24 @@
+<ion-popover-view class="createSaleChanPop saleDetailPop own-animated slideInUp"
+                  style="animation-duration:.4s;margin-top: 50%;">
+    <div class="myHeader">
+        <div class="headerText">请选择</div>
+    </div>
+    <ion-content has-bouncing="false" scroll="false">
+        <div class="row row-center">
+            <div>活动类型</div>
+            <div class="select">
+                <select ng-model="pop.type" ng-options="x as x.text for x in createPopData.types">{{pop.text}}</select>
+            </div>
+        </div>
+        <div class="row row-center">
+            <div>销售组织</div>
+            <div class="select">
+                <select ng-model="pop.org" ng-options="x as x.text for x in createPopData.channels">{{pop.text}}</select>
+            </div>
+        </div>
+        <button ng-click="showCreateModal()" class="save">完成</button>
+        <div>
+            <button ng-click="createPop.hide()" class="cancel">取消</button>
+        </div>
+    </ion-content>
+</ion-popover-view>
