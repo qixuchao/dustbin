@@ -6,14 +6,15 @@ platforms/*
 .idea/
 .gitignore
 */.gitignore
-#plugins/
-#plugins/*
+plugins/
+plugins/*
 www/npm-debug.log
 www/src/dev/
 www/src/dev/*
 www/.sass-cache
 www/.sass-cache/
 www/.sass-cache/*
+www/src/public/.sass-cache/
 
 www/node_modulesOld/
 www/node_modules/

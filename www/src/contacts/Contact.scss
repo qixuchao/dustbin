@@ -237,7 +237,15 @@
 //联系人edit+create + 客户编辑界面+客户联系人新建界面
 .contact_Edit {
   .list {
+    .contacteditlocation{
+      border: none;
+      color:#9B9B9B;
+      padding-left:7px;
+      -webkit-appearance:none;
+      background:white
+    }
     .item {
+      font-size:16px;
       border: 1px solid #dddddd;
       border-top-style: none;
       border-right-style: none;
@@ -247,10 +255,14 @@
       }
       .item-input {
         padding: 2px 0 5px 16px;
+        input[type=text]{
+          font-size:16px;
+        }
         .contact_edit_listfor {
           width: 16px;
           height: 16px;
           margin-top:4px;
+
         }
         .contact_editinputsty {
           padding-left: 35px;

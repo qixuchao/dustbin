@@ -58,8 +58,8 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 
 		$scope.datas = {
 			showImageItem: {},
-			selectedImagesTest:[],
-			selectedImages: [
+			selectedImages:[],
+			selectedImagesTest: [
 				{	
 					filepath: '',
 					base64Str: '../../../img/login/login_bg@3x.png',
@@ -198,7 +198,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	            navigator.camera.getPicture(function (successRes){
 	            	getBase64FromFilepath(successRes);
 	            }, function (errorRes){
-	            	if(errorRes == "no image selected"){
+	            	/*if(errorRes == "no image selected"){
 	            		alert("未选择照片!");
 	            	}else if(errorRes == "Camera cancelled"){
 	            		alert("取消拍照!");
@@ -206,7 +206,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	            		alert("未选择照片!");
 	            	}else{
 	            		alert("照片选择失败!");
-	            	}
+	            	}*/
 	            }, options);
 	        }else{
 	            alert("Camera 插件未安装!");

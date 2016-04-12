@@ -2,8 +2,8 @@
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
-                <a class="col col-15 text-left goBack" ng-click="goBack()">取消</a>
-                <div class="col col-70 text-center">创建联系人</div>
+                <a class="col col-20 text-left goBack" ng-click="Createancel()">取消</a>
+                <div class="col col-65 text-center">创建联系人</div>
                 <div class="col col-20 add" ng-click="contactCreatevalue()" style="text-align: left">创建</div>
             </div>
         </ion-header-bar>
@@ -11,43 +11,44 @@
     <ion-content>
         <div class="list" style="font-size: 16px;margin-top:5px">
             <!--title-->
-               <span class="item item-input">姓名：
-                <input type="text" id="concreatename" class="contact_editinputsty" placeholder="请输入姓名" ng-model="contactcreat.NAME_LAST">
-                <img id="contcreatenameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('NAME_LAST')"/>
-              </span>
-
-             <span class="item item-input">电话：
-                <input type="number" id="contcreatephonenumber" class="contact_editinputsty" placeholder="请输入电话号码" ng-model="contactcreat.TEL_NUMBER">
-                <img id="concreatetphonenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('TEL_NUMBER')"/>
-            </span>
-             <span class="item item-input">手机：
-                <input type="number" id="contcreatemobilenumber" class="contact_editinputsty" placeholder="请输入手机号码" ng-model="contactcreat.MOB_NUMBER">
-                <img id="contcreatemobilenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('MOB_NUMBER')"/>
-            </span>
-             <span class="item item-input">地址：
-                <input type="text" id="contcreateaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactcreat.STREET">
-                <img id="contcreaaddressnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('STREET')"/>
-            </span>
-
-            <span class="item item-input">注释：
+               <span class="item item-input">注释：
                 <input type="text" id="contcreanotename" class="contact_editinputsty" placeholder="请输入注释" ng-model="contactcreat.conatctdeatilnote">
                 <img id="contcreanotenameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('conatctdeatilnote')"/>
             </span>
-            <span class="item item-input">性别：
-                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B"  ng-model="contactcreat.TITLE" ng-options="a.name as a.name for a in contactlistvaluesel">
-                    <option value="">性别</option>
-                </select>
-            </span>
-            <label class="item item-input">客户：
-                <div class="row">
+             <span class="item item-input">客户：
+                <div class="row" ng-click="openSelectCustomer()">
                     <div class="col col-74 col-center" style="color:#9B9B9B" ng-bind="contactcreat.PARTNER2"></div>
                     <div class="col col-26 col-center" style="text-align: right;padding-right:12px;">
                         <img class="contact_edit_listfor" src="img/employee/Shape@2x.png"></img>
                     </div>
                 </div>
-            </label>
-
-            <span class="item item-input">传真：
+            </span>
+              <span class="item item-input">部门：
+                <input type="text" id="contcreapartment" placeholder="请输入部门" class="contact_editinputsty" ng-model="contactcreat.DPRTMNT">
+                <img id="contcreapartmentimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('DPRTMNT')"/>
+            </span>
+                <span class="item item-input">职能：
+                <input type="text" id="contcreaatend" placeholder="请输入职能" class="contact_editinputsty" ng-model="contactcreat.FNCTN">
+                <img id="contcreaatendimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('FNCTN')"/>
+            </span>
+              <span class="item item-input">性别：
+                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B; -webkit-appearance:none;background:white"  ng-model="contactcreat.TITLE" ng-options="a.name as a.name for a in contactlistvaluesel">
+                    <option value="">性别</option>
+                </select>
+            </span>
+               <span class="item item-input">姓名：
+                <input type="text" id="concreatename" class="contact_editinputsty" placeholder="请输入姓名" ng-model="contactcreat.NAME_LAST">
+                <img id="contcreatenameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('NAME_LAST')"/>
+              </span>
+              <span class="item item-input">手机：
+                <input type="number" id="contcreatemobilenumber" class="contact_editinputsty" placeholder="请输入手机号码" ng-model="contactcreat.MOB_NUMBER">
+                <img id="contcreatemobilenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('MOB_NUMBER')"/>
+            </span>
+             <span class="item item-input">电话：
+                <input type="number" id="contcreatephonenumber" class="contact_editinputsty" placeholder="请输入电话号码" ng-model="contactcreat.TEL_NUMBER">
+                <img id="concreatetphonenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('TEL_NUMBER')"/>
+            </span>
+             <span class="item item-input">传真：
                 <input type="text" id="contcreatefax" placeholder="请输入传真" class="contact_editinputsty" ng-model="contactcreat.FAX_NUMBER">
                 <img id="contcreafaximg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('FAX_NUMBER')"/>
             </span>
@@ -55,24 +56,31 @@
                 <input type="text" id="contcreafaxexit" placeholder="请输入传真分机" class="contact_editinputsty" ng-model="contactcreat.FAX_EXTENS">
                 <img id="contcreafaxexitimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('FAX_EXTENS')"/>
             </span>
-            <span class="item item-input">部门：
-                <input type="text" id="contcreapartment" placeholder="请输入部门" class="contact_editinputsty" ng-model="contactcreat.DPRTMNT">
-                <img id="contcreapartmentimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('DPRTMNT')"/>
+             <span class="item item-input">邮编：
+                <input type="text" id="contcreapostm" placeholder="请输入部门邮编" class="contact_editinputsty"  ng-model="contactcreat.POST_CODE1">
+                <img id="contcreapostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('POST_CODE1')"/>
             </span>
-            <span class="item item-input">职能：
-                <input type="text" id="contcreaatend" placeholder="请输入职能" class="contact_editinputsty" ng-model="contactcreat.FNCTN">
-                <img id="contcreaatendimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('FNCTN')"/>
+            <span class="item item-input">生日：
+                <input type="text" placeholder="请输入生日" class="contact_editinputsty"  readonly ng-model="contactcreat.BIRTHDT" ng-click="conatactCavebr()" style="background-color:white">
             </span>
-
+             <span class="item item-input">语言：
+                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="contactcreat.LANGU" ng-options="a.name as a.name for a in contactlistvaluesel">
+                    <option value="" ng-bind="contactcreat.LANGU"></option>
+                </select>
+            </span>
+             <span class="item item-input">地址：
+                <input type="text" id="contcreateaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactcreat.STREET">
+                <img id="contcreaaddressnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('STREET')"/>
+            </span>
             <div class="row">
                 <div class="col col-20" style="font-size: 14px;padding-left: 9px;color:#9B9B9B;">
                     位置:
                 </div>
                 <div class="col col-80">
-                    <select style="border: none;color:#9B9B9B;padding-left:7px"  ng-model="contactcreat.COUNTRY" ng-options="a.name as a.name for a in contactlistvaluesel">
+                    <select style="border: none;color:#9B9B9B;padding-left:7px; -webkit-appearance:none;background:white"  ng-model="contactcreat.COUNTRY" ng-options="a.name as a.name for a in contactlistvaluesel">
                         <option value="" >国家</option>
                     </select>
-                    <select style="border: none;color:#9B9B9B;margin-left:20%"  ng-model="contactcreat.BEZEI" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
+                    <select style="border: none;color:#9B9B9B;margin-left:20%; -webkit-appearance:none;background:white"  ng-model="contactcreat.BEZEI" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
                         <option value="">省份</option>
                     </select>
                 </div>
@@ -82,26 +90,14 @@
 
                 </div>
                 <div class="col col-80">
-                    <select style="border: none;color:#9B9B9B;padding-left:7px"  ng-model="contactcreat.CITY1" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
+                    <select style="border: none;color:#9B9B9B;padding-left:7px;-webkit-appearance:none;background:white"  ng-model="contactcreat.CITY1" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
                         <option value="">城市</option>
                     </select>
-                    <select style="border: none;color:#9B9B9B;margin-left:20%"  ng-model="contactcreat.REGION" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
+                    <select style="border: none;color:#9B9B9B;margin-left:20%;-webkit-appearance:none;background:white"  ng-model="contactcreat.REGION" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
                         <option value="">地区</option>
                     </select>
                 </div>
             </div>
-            <span class="item item-input">邮编：
-                <input type="text" id="contcreapostm" placeholder="请输入部门邮编" class="contact_editinputsty"  ng-model="contactcreat.POST_CODE1">
-                <img id="contcreapostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('POST_CODE1')"/>
-            </span>
-            <span class="item item-input">生日：
-                <input type="text" placeholder="请输入生日" class="contact_editinputsty"  readonly ng-model="contactcreat.BIRTHDT" ng-click="conatactSavebr('contactBrithy')" style="background-color:white">
-            </span>
-             <span class="item item-input">语言：
-                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B"  ng-model="contactcreat.LANGU" ng-options="a.name as a.name for a in contactlistvaluesel">
-                    <option value="" ng-bind="contactcreat.LANGU"></option>
-                </select>
-            </span>
         </div>
     </ion-content>
 </ion-nav-view>

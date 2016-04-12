@@ -1,65 +1,99 @@
 <ion-view class="customer_detail">
-    <div class="absolute fadeIn" style="height:56px;z-index:1;padding-top:20px" ng-show="customer_showTitle"
-         ng-class="!customer_TitleFlag?'animated fadeOut':'animated fadeIn'">
-        <div class="customer_detailtitleview">
-            <div style="width:40px;height:40px;position: absolute;top: 10px;left: 5px;" ng-click="goBack()">
-                <i class="icon ion-ios-arrow-back view_publicheadtitlei"></i>
+    <!--<div class="absolute fadeIn" style="height:56px;z-index:1;padding-top:20px" ng-show="customer_showTitle"-->
+         <!--ng-class="!customer_TitleFlag?'animated fadeOut':'animated fadeIn'">-->
+        <!--<div class="customer_detailtitleview">-->
+            <!--<div style="width:40px;height:40px;position: absolute;top: 10px;left: 5px;" ng-click="goBack()">-->
+                <!--<i class="icon ion-ios-arrow-back view_publicheadtitlei"></i>-->
+            <!--</div>-->
+            <!--<span class="customerdeatil_headtitlespanview">客户详细信息</span>-->
+            <!--<div class="customer_detailname">-->
+                <!--{{customerdetails.customername}}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="customer_backtopa absolute fadeIn" style="height:56px;z-index:1;padding-top:20px" ng-show="customer_showtarnsitionTitle">-->
+        <!--<div class="customer_detailtitleview">-->
+            <!--<div style="width:40px;height:40px;position: absolute;top: 10px;left: 5px;" ng-click="goBack()">-->
+                <!--<i class="icon ion-ios-arrow-back view_publicheadtitlei"></i>-->
+            <!--</div>-->
+            <!--<span class="customerdeatil_headtitlespanview">客户详细信息</span>-->
+            <!--<div class="customer_detailname">-->
+                <!--{{customerdetails.customername}}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="customer_backtopb" style="z-index:-1;padding-top:20px;height:156px">
+        <div class="customer_detailtitle" ng-class="customer_TitleFlag?'animated fadeOut':'animated fadeIn'">
+            <div style="width:40px;height:40px;position: absolute;top: 20px;left: 5px;" ng-click="CustomergoBack()">
+                <i class="icon ion-ios-arrow-back publicheadtitlei" style="margin-top:0"></i>
             </div>
-            <span class="customerdeatil_headtitlespanview">客户详细信息</span>
-            <div class="customer_detailname">
-                {{customerdetails.customername}}
+            <span class="customerdeatil_headtitlespan">客户详细信息</span>
+        </div>
+        <div class="customer_detailcontent">
+            <div class="customer_detailcontentname" ng-class="customer_customerFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="customer_detailcontentcicle"></div><span>{{customerdetails.customername}}</span>
+            </div>
+            <div class="customer_detailcontentaddress" ng-class="customer_placeFlag?'animated fadeOut':'animated fadeIn'">
+                地址:<span>{{customerdetails.customeraddress}}</span>
+            </div>
+            <div class="customer_detailcontentphone" ng-class="customer_typeFlag?'animated fadeOut':'animated fadeIn'" ng-click="customershowphone(customerdetails.customerphonenumber)">
+                <i class="icon ion-ios-telephone-outline customer_detailcontentphonei"></i>
+                <span style="margin-left: 4px;">{{customerdetails.customerphonenumber}}</span><span style=" margin-left: 90px;">NO-100034</span>
             </div>
         </div>
     </div>
-
-    <div class="customer_backtopa absolute fadeIn" style="height:56px;z-index:1;padding-top:20px" ng-show="customer_showtarnsitionTitle">
-        <div class="customer_detailtitleview">
-            <div style="width:40px;height:40px;position: absolute;top: 10px;left: 5px;" ng-click="goBack()">
-                <i class="icon ion-ios-arrow-back view_publicheadtitlei"></i>
-            </div>
-            <span class="customerdeatil_headtitlespanview">客户详细信息</span>
-            <div class="customer_detailname">
-                {{customerdetails.customername}}
-            </div>
-        </div>
-    </div>
-
-    <ion-content has-bouncing="false" on-scroll="customer_onScroll()" scrollbar-y="false">
-        <div class="customer_backtopb" style="z-index:-1;padding-top:20px;height:156px">
-            <div class="customer_detailtitle" ng-class="customer_TitleFlag?'animated fadeOut':'animated fadeIn'">
-                <div style="width:40px;height:40px;position: absolute;top: 20px;left: 5px;" ng-click="goBack()">
-                    <i class="icon ion-ios-arrow-back publicheadtitlei" style="margin-top:0"></i>
-                </div>
-                <span class="customerdeatil_headtitlespan">客户详细信息</span>
-            </div>
-            <div class="customer_detailcontent">
-                <div class="customer_detailcontentname" ng-class="customer_customerFlag?'animated fadeOut':'animated fadeIn'">
-                    <div class="customer_detailcontentcicle"></div><span>{{customerdetails.customername}}</span>
-                </div>
-                <div class="customer_detailcontentaddress" ng-class="customer_placeFlag?'animated fadeOut':'animated fadeIn'">
-                    地址:<span>{{customerdetails.customeraddress}}</span>
-                </div>
-                <div class="customer_detailcontentphone" ng-class="customer_typeFlag?'animated fadeOut':'animated fadeIn'" ng-click="customershowphone(customerdetails.customerphonenumber)">
-                    <i class="icon ion-ios-telephone-outline customer_detailcontentphonei"></i>
-                    <span style="margin-left: 4px;">{{customerdetails.customerphonenumber}}</span><span style=" margin-left: 90px;">NO-100034</span>
-                </div>
-            </div>
-        </div>
-        <div class="item item-list-detail" style="padding: 0px 3px;border: none;margin-top: 5px;">
-            <ion-scroll direction="x" scrollbar-x="false">
+    <div class="item item-list-detail" style="padding: 0px 3px;border: none;margin-top: 5px;">
+        <ion-scroll direction="x" scrollbar-x="false">
                     <span style="position: relative;margin-right:55px;" ng-repeat="lists in customer_detailstypes"  ng-click="gocustomerLists(lists)" >
                         <img class="customer_detail_countentbu image-list-thumb" ng-src="{{lists.imgurl}}" alt=""/>
                         <span class="customer_detail_countentimgbase">
                             {{lists.typemane}}
                         </span>
                     </span>
-            </ion-scroll>
-        </div>
-        <div class="customer_detail_countentbasic">
-            <div class="customer_detail_countentbasicinfo">基本信息</div>
-            <div class="customer_detail_countentbasicline"></div>
-            <div class="customer_detail_countentbasicclok"></div>
-        </div>
+        </ion-scroll>
+    </div>
+    <div class="customer_detail_countentbasic">
+        <div class="customer_detail_countentbasicinfo">基本信息</div>
+        <div class="customer_detail_countentbasicline"></div>
+        <div class="customer_detail_countentbasicclok"></div>
+    </div>
+    <ion-content style="margin-top:235px">
+        <!--<div class="customer_backtopb"0 style="z-index:-1;padding-top:20px;height:156px">-->
+            <!--<div class="customer_detailtitle" ng-class="customer_TitleFlag?'animated fadeOut':'animated fadeIn'">-->
+                <!--<div style="width:40px;height:40px;position: absolute;top: 20px;left: 5px;" ng-click="goBack()">-->
+                    <!--<i class="icon ion-ios-arrow-back publicheadtitlei" style="margin-top:0"></i>-->
+                <!--</div>-->
+                <!--<span class="customerdeatil_headtitlespan">客户详细信息</span>-->
+            <!--</div>-->
+            <!--<div class="customer_detailcontent">-->
+                <!--<div class="customer_detailcontentname" ng-class="customer_customerFlag?'animated fadeOut':'animated fadeIn'">-->
+                    <!--<div class="customer_detailcontentcicle"></div><span>{{customerdetails.customername}}</span>-->
+                <!--</div>-->
+                <!--<div class="customer_detailcontentaddress" ng-class="customer_placeFlag?'animated fadeOut':'animated fadeIn'">-->
+                    <!--地址:<span>{{customerdetails.customeraddress}}</span>-->
+                <!--</div>-->
+                <!--<div class="customer_detailcontentphone" ng-class="customer_typeFlag?'animated fadeOut':'animated fadeIn'" ng-click="customershowphone(customerdetails.customerphonenumber)">-->
+                    <!--<i class="icon ion-ios-telephone-outline customer_detailcontentphonei"></i>-->
+                    <!--<span style="margin-left: 4px;">{{customerdetails.customerphonenumber}}</span><span style=" margin-left: 90px;">NO-100034</span>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="item item-list-detail" style="padding: 0px 3px;border: none;margin-top: 5px;">-->
+            <!--<ion-scroll direction="x" scrollbar-x="false">-->
+                    <!--<span style="position: relative;margin-right:55px;" ng-repeat="lists in customer_detailstypes"  ng-click="gocustomerLists(lists)" >-->
+                        <!--<img class="customer_detail_countentbu image-list-thumb" ng-src="{{lists.imgurl}}" alt=""/>-->
+                        <!--<span class="customer_detail_countentimgbase">-->
+                            <!--{{lists.typemane}}-->
+                        <!--</span>-->
+                    <!--</span>-->
+            <!--</ion-scroll>-->
+        <!--</div>-->
+        <!--<div class="customer_detail_countentbasic">-->
+            <!--<div class="customer_detail_countentbasicinfo">基本信息</div>-->
+            <!--<div class="customer_detail_countentbasicline"></div>-->
+            <!--<div class="customer_detail_countentbasicclok"></div>-->
+        <!--</div>-->
         <div class="customer_detail_countentlist">
 
             <div class="row" style="padding:5px 5px">

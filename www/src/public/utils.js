@@ -29,6 +29,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
             return get;
         },
         post: function (url, paramter) {
+
             var post = $http.post(url, paramter, {
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
@@ -60,8 +61,8 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
     }
     return request;
 }]);
-utilsModule.service('Prompter', ['$ionicLoading', '$ionicPopup', '$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker',
-    function ($ionicLoading, $ionicPopup, $ionicActionSheet, $window, $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker) {
+utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$cordovaDialogs','$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker',
+    function ($ionicLoading,$rootScope,$ionicPopup,$cordovaDialogs, $ionicActionSheet, $window, $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker) {
         var getFormatTime = function (date) {
             var dateTemp, minutes, hour, time;
             dateTemp = date.format("yyyy-MM-dd");
@@ -222,6 +223,19 @@ utilsModule.service('Prompter', ['$ionicLoading', '$ionicPopup', '$ionicActionSh
                         ;
                     }
                 });
+            },
+              //点击取消事件
+
+            //客户和联系人创建和编辑界面点击取消公共函数
+            ContactCreateCancelvalue: function () {
+                return $cordovaDialogs.confirm('是否退出编辑界面', '提示', ['确定', '取消'])
+                    .then(function (buttonIndex) {
+                        // no button = 0, 'OK' = 1, 'Cancel' = 2
+                        var btnIndex = buttonIndex;
+                        if (btnIndex == 1) {
+                            $rootScope.goBack();
+                        }
+                    });
             }
         }
     }])

@@ -6,15 +6,25 @@ employeeModule
     .controller('userQueryCtrl',['$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading',function($scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading){
 
         $scope.EmployeeListHistoryval = function(){
-            if(storedb('employdb').find().arrUniq() != undefined || storedb('employdb').find().arrUniq() != null){
-                $scope.employee_userqueryflag = false;
-                $scope.employee_query_historylists = (storedb('employdb').find().arrUniq());
+            $scope.employee_userqueryflag = false;
+            if(storedb('employdb').find() != undefined || storedb('employdb').find() != null){
+                $scope.employee_query_historylists = (storedb('employdb').find());
                 if ($scope.employee_query_historylists.length > 5) {
                     $scope.employee_query_historylists = $scope.employee_query_historylists.slice(0, 5);
                 };
-            }else{
-                $scope.employee_userqueryflag = true;
             };
+
+            //常用联系人显示
+            if (JSON.parse(localStorage.getItem("usuaemploydb")) != null || JSON.parse(localStorage.getItem("usuaemploydb")) != undefined) {
+                $scope.usuaemployee_query_list = JSON.parse(localStorage.getItem("usuaemploydb"));
+                if ($scope.usuaemployee_query_list.length > 15) {
+                    $scope.usuaemployee_query_list = $scope.usuaemployee_query_list.slice(0, 15);
+                };
+            } else {
+                $scope.usuaemployee_query_list = [];
+            };
+
+
         };
         $scope.EmployeeListHistoryval();
 
@@ -45,7 +55,7 @@ employeeModule
                 HttpAppService.post(url, data).success(function (response) {
                     if (response.ES_RESULT.ZFLAG == 'E') {
                         $scope.employisshow = false;
-                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                        $cordovaToast.showShortCenter('无符合条件数据');
                     } else {
                         if (response.ES_RESULT.ZFLAG == 'S') {
                             if (response.ET_EMPLOYEE.item.length == 0) {
@@ -54,7 +64,7 @@ employeeModule
                                 if ($scope.empitemPage == 1) {
                                     $cordovaToast.showShortBottom('数据为空');
                                 } else {
-                                    $cordovaToast.showShortBottom('没有更多数据了');
+                                    $cordovaToast.showShortBottom('没有更多数据');
                                 }
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                             } else {
@@ -67,7 +77,7 @@ employeeModule
                                 $scope.employisshow = false;
                                 if ($scope.empitemPage > 1) {
                                     //console.log("没有更多数据了");
-                                    $cordovaToast.showShortBottom('没有更多数据了');
+                                    $cordovaToast.showShortBottom('没有更多数据');
                                 }
                             } else {
                                 $scope.employisshow = true;
@@ -148,23 +158,99 @@ employeeModule
             if(!$scope.$$phase) {
                 $scope.$apply();
             };
+        };
+        //电话
+        $scope.employeequeryphone =function(types){
+            if(types == undefined || types == ""){
+                $cordovaToast.showShortBottom('没有数据');
+            }else{
+                Prompter.showphone(types)
+            }
+
         }
         //进入详细界面传递标识
+        $scope.employeehislistvalue = new Array();
         $scope.employee_govalue = function(value){
-                $scope.employisshow = false;
-                //存储历史记录
-                storedb('employdb').insert({"name": $scope.employ.employeefiledvalue}, function (err) {
-                    if (!err) {
-                        console.log('历史记录保存成功')
-                    } else {
-                        $cordovaToast.showShortBottom('历史记录保存失败');
+            $scope.employisshow = false;
+            $scope.usuallyemployeelist = x;
+            //存储历史记录
+
+            //存储历史记录
+            if($scope.employ.employeefiledvalue != ''){
+                if(storedb('employdb').find() != undefined || storedb('employdb').find() != null){
+                    var employeehislistvalue = storedb('employdb').find();
+                    var employeehislistvaluelength = storedb('employdb').find().length;
+                    //判断是否有相同的值
+                    var emplyeehislistflag = true;
+                    for(var i=0;i<employeehislistvaluelength;i++){
+                        if(employeehislistvalue[i].name ==  $scope.employ.employeefiledvalue) {
+                            //删除原有的，重新插入
+                            storedb('employdb').remove({"name":employeehislistvalue[i].name}, function (err) {
+                                if (!err) {
+                                } else {
+                                }
+
+                            })
+                            storedb('employdb').insert({"name": $scope.employ.employeefiledvalue}, function (err) {
+                                if (!err) {
+                                } else {
+                                    $cordovaToast.showShortBottom('历史记录保存失败');
+                                }
+                            });
+                            emplyeehislistflag = false;
+                        }
+                    };
+                    if(emplyeehislistflag == true){
+                        storedb('employdb').insert({"name": $scope.employ.employeefiledvalue}, function (err) {
+                            if (!err) {
+                            } else {
+                                $cordovaToast.showShortBottom('历史记录保存失败');
+                            }
+                        });
                     }
-                });
+                }else{
+                    storedb('employdb').insert({"name": $scope.employ.employeefiledvalue}, function (err) {
+                        if (!err) {
+                        } else {
+                            $cordovaToast.showShortBottom('历史记录保存失败');
+                        }
+                    });
+                };
+            };
+
+
+            //存储常用联系人
+            if (JSON.parse(localStorage.getItem("usuaemploydb")) != null || JSON.parse(localStorage.getItem("usuaemploydb")) != undefined) {
+                //判断是否有相同的值
+                var usuaemployhislistflag = true;
+                for(var i=0;i<$scope.employeehislistvalue.length;i++){
+                    if($scope.employeehislistvalue[i].NAME_LAST == $scope.usuallyemployeelist.NAME_LAST) {
+                        //删除原有的，重新插入
+                        $scope.employeehislistvalue = JSON.parse(localStorage.getItem("usuaemploydb"));
+                        $scope.employeehislistvalue.splice(i,1);
+                        $scope.employeehislistvalue.unshift($scope.usuallyemployeelist);
+                        localStorage['usuaemploydb'] = JSON.stringify( $scope.employeehislistvalue);
+                        usuaemployhislistflag = false;
+                    }
+                };
+                if(usuaemployhislistflag == true){
+                    $scope.employeehislistvalue.unshift($scope.usuallyemployeelist);
+                    localStorage['usuaemploydb'] = JSON.stringify( $scope.employeehislistvalue);
+                }
+
+            }else{
+                $scope.employeehislistvalue.unshift($scope.usuallyemployeelist);
+                localStorage['usuaemploydb'] = JSON.stringify( $scope.employeehislistvalue);
+            };
+
+
+
+
             employeeService.set_employeeListvalue(value);
             $state.go('userDetail');
         }
     }])
-    .controller('userDetailCtrl',['$scope','$state','$rootScope','$ionicHistory','Prompter','HttpAppService','$cordovaInAppBrowser','$ionicLoading','$cordovaClipboard','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','employeeService','$window','$ionicActionSheet',function($scope,$state,$rootScope,$ionicHistory,Prompter,HttpAppService,$cordovaInAppBrowser,$ionicLoading,$cordovaClipboard,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,employeeService,$window,$ionicActionSheet){
+    .controller('userDetailCtrl',['$scope','$state','$rootScope','$ionicHistory','Prompter','HttpAppService','$cordovaInAppBrowser','$ionicLoading','$cordovaToast','$cordovaClipboard','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','employeeService','$window','$ionicActionSheet',function($scope,$state,$rootScope,$ionicHistory,Prompter,HttpAppService,$cordovaInAppBrowser,$ionicLoading,$cordovaToast,$cordovaClipboard,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,employeeService,$window,$ionicActionSheet){
         ////返回回退
         $scope.employgoBack = function() {
             console.log("返回成功")
@@ -181,53 +267,16 @@ employeeModule
             //    "IS_EMPLOYEE": { "PARTNER":'E060000051'}
         }
         HttpAppService.post(url, data).success(function (response) {
-            $scope.userdetailval = response.ES_EMPLOYEE;
-            $scope.userdetailcustomerlist = response.ET_RELATIONSHIP;
+            if(response.ES_EMPLOYEE != ""){
+                $scope.userdetailval = response.ES_EMPLOYEE;
+            };
+            if(response.ET_RELATIONSHIP != ''){
+                $scope.userdetailcustomerlist = response.ET_RELATIONSHIP;
+            }
             Prompter.hideLoading();
         }).error(function(){
             Prompter.hideLoading();
         });
-
-        $scope.userdetailval = employeeService.get_employeeListvalue();
-
-
-        $scope.employ_showTitle = false;
-        $scope.employee_showTitleStatus = false;
-        $scope.employee_TitleFlag=false;
-
-        var employee_position;
-        $scope.employ_onScroll = function () {
-            employee_position = $ionicScrollDelegate.getScrollPosition().top;
-            if (employee_position > 24) {
-                $scope.employ_TitleFlag=true;
-                $scope.employ_showTitle = true;
-
-                if (employee_position > 25) {
-                    $scope.employ_customerFlag = true;
-                }else{
-                    $scope.employ_customerFlag = false;
-                }
-                if (employee_position > 26) {
-                    $scope.employ_placeFlag = true;
-                }else{
-                    $scope.employ_placeFlag = false;
-                }
-                if (employee_position > 36) {
-                    $scope.employ_typeFlag = true;
-                }else{
-                    $scope.employ_typeFlag = false;
-                }
-            } else {
-                $scope.employ_customerFlag = false;
-                $scope.employ_placeFlag = false;
-                $scope.employ_typeFlag = false;
-                $scope.employ_TitleFlag = false;
-            }
-            if(!$scope.$$phase) {
-                $scope.$apply();
-            }
-        }
-
         $scope.gocustomerList = function(){
             employeeService.set_employeecustomerlist($scope.userdetailcustomerlist)
             $state.go('customerList');
@@ -235,7 +284,11 @@ employeeModule
         $scope.userdetailval = employeeService.get_employeeListvalue();
         //电话
         $scope.employeeshowphone =function(types){
-            Prompter.showphone(types)
+            if(types == undefined || types == ""){
+                $cordovaToast.showShortBottom('没有数据');
+            }else{
+                Prompter.showphone(types)
+            }
         }
         //邮箱
         $scope.mailcopyvalue = function(valuecopy){
@@ -243,12 +296,18 @@ employeeModule
         }
 
     }])
-    .controller('customerListCtrl',['$scope','$state','ionicMaterialInk','employeeService',function($scope,$state,ionicMaterialInk,employeeService){
+    .controller('customerListCtrl',['$scope','$state','$cordovaToast','ionicMaterialInk','employeeService',function($scope,$state,$cordovaToast,ionicMaterialInk,employeeService){
         ionicMaterialInk.displayEffect();
         console.log(employeeService.get_employeecustomerlist())
         $scope.employcustomerlist = new Array;
-        $.each(employeeService.get_employeecustomerlist().item, function (n, value) {
-            $scope.employcustomerlist.push(value);
-        });
+        if(employeeService.get_employeecustomerlist() == undefined){
+            $scope.employcustomerlist = [];
+            $cordovaToast.showShortBottom('没有负责客户');
+        }else{
+            $.each(employeeService.get_employeecustomerlist().item, function (n, value) {
+                $scope.employcustomerlist.push(value);
+            });
+        }
+
 
     }])

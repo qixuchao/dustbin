@@ -9,6 +9,7 @@ var employeeModule = angular.module('employeeModule', []);
 var employeeModuleServive = angular.module('employeeModuleServive', []);
 var customerModule = angular.module('customerModule', []);
 var ContactsModule = angular.module('ContactsModule', []);
+var ContactsRelationModule = angular.module('ContactsRelationModule', []);
 var contactModuleServive = angular.module('contactModuleServive', []);
 var customerVehicleModule = angular.module('customerVehicleModule', []);
 var customerChanceModule = angular.module('customerChanceModule', []);
@@ -37,6 +38,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'salesModule',
     'worksheetModule',
     'ContactsModule',
+    'ContactsRelationModule',
     'contactModuleServive',
     'customerModule',
     'customerVehicleModule',
@@ -90,6 +92,16 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/tabs/tabs.html',
                 controller: 'TabsCtrl'
             })
+            //.state('tabs.main', {
+            //    url: '/main',
+            //    templateUrl: 'src/main/main.html',
+            //    controller: 'MainCtrl'
+            //})
+            //.state('tabs.apps', {
+            //    url: '/apps',
+            //    templateUrl: 'src/applications/applications.html',
+            //    controller: 'AppCtrl'
+            //})
             .state('saleActList', {
                 url: 'apps/saleActList',
                 templateUrl: 'src/applications/saleActivities/saleAct_List.html',
@@ -118,7 +130,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
             .state('saleChanList', {
                 url: 'apps/saleChanList',
-                templateUrl: 'src/applications/saleActivities/saleAct_List.html',
+                templateUrl: 'src/applications/saleChance/saleChanList.html',
                 controller: 'saleChanListCtrl'
             })
             .state('saleChanDetail', {
@@ -128,7 +140,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
             //联系人
             .state('ContactQuery', {
-                cache:false,
+                //cache:false,
                 url: '/contactQuery',
                 templateUrl: 'src/contacts/contactQuery.html',
                 controller: 'contactQueryCtrl'
@@ -159,7 +171,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             
             //客户
             .state('customerQuery', {
-                cache:false,
+                //cache:false,
                 url: '/customerQuery',
                 templateUrl: 'src/customer/customerinfo/customerQuery.html',
                 controller: 'customerQueryCtrl'

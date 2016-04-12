@@ -10,6 +10,7 @@ contactModuleServive
         var contactlistvaluekey;
         //为联系人-关系界面保存数据(联系人详情界面的item)
         var contactdeatrelationlist;
+
         return {
             //为联系人-关系界面保存数据(联系人详情界面的item)
             set_ContactsdeaRelationval:function(rvalue){
@@ -49,6 +50,6 @@ contactModuleServive
             //设置变量为fals
             set_ContactCreateflagfalse:function(){
                 contactcreate = false;
-            }
+            },
         }
     }])

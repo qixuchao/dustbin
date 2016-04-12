@@ -15,7 +15,7 @@ appModule
             go:"saleActList"
         },{
             url:'img/apps/acPlan.png',
-            go:''
+            go:'saleChanDetail'
         },{
             url:'img/apps/saleChance.png',
             go:'saleChanList'
