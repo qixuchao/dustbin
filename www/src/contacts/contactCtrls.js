@@ -314,7 +314,7 @@ ContactsModule
         var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
         var data = {
             "I_SYSNAME": { "SysName": "CATL" },
-            "IS_AUTHORITY": { "BNAME": "" },
+            "IS_AUTHORITY": { "BNAME": "handlcx02" },
             "IS_PARTNER": { "PARTNER": contactService.get_ContactsListvalue().PARTNER}
             //"IS_PARTNER": { "PARTNER":'6000000385'}
         };
@@ -529,7 +529,7 @@ ContactsModule
                     "FAX_NUMBER": "",
                     "FAX_EXTENS": "",
                     "SMTP_ADDR": "888888@qq.com",
-                    "BAPIBNAME": "HANDLCX",
+                    "BAPIBNAME": "handlcx02",
                     "MODE": "I"
                 },
                 "IT_LINES": {
@@ -892,7 +892,7 @@ ContactsModule
                     "FAX_NUMBER": "",
                     "FAX_EXTENS": "",
                     "SMTP_ADDR": "",
-                    "BAPIBNAME": "HANDLCX",
+                    "BAPIBNAME": "handlcx02",
                     "MODE": "a"
                 },
                 "IT_LINES": {
