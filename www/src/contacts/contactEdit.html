@@ -10,7 +10,7 @@
         </ion-header-bar>
     </div>
     <ion-content>
-        <div class="list" style="font-size: 16px;margin-top:5px">
+        <div class="list" style="font-size: 18px;margin-top:5px">
             <!--title-->
                <span class="item item-input">注释：
                 <input type="text" id="contnotename" class="contact_editinputsty" placeholder="请输入注释" ng-model="contactedit.conatctdeatilnote">
@@ -25,7 +25,7 @@
                 <img id="contatendimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('FNCTN')"/>
             </span>
               <span class="item item-input">性别：
-                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B"  ng-model="contactedit.TITLE" ng-options="a.name as a.name for a in contactlistvaluesel">
+                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="contactedit.TITLE" ng-options="a.name as a.name for a in contactlistvaluesel">
                     <option value="" ng-bind="contactedit.TITLE"></option>
                 </select>
             </span>
@@ -70,10 +70,10 @@
                     位置:
                 </div>
                 <div class="col col-80">
-                    <select style="border: none;color:#9B9B9B;padding-left:7px"  ng-model="contactedit.COUNTRY" ng-options="a.name as a.name for a in contactlistvaluesel">
+                    <select style="border: none;color:#9B9B9B;padding-left:7px;-webkit-appearance:none;background:white"  ng-model="contactedit.COUNTRY" ng-options="a.name as a.name for a in contactlistvaluesel">
                         <option value="" ng-bind="contactedit.COUNTRY"></option>
                     </select>
-                    <select style="border: none;color:#9B9B9B;margin-left:20%"  ng-model="contactedit.BEZEI" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
+                    <select style="border: none;color:#9B9B9B;margin-left:20%;-webkit-appearance:none;background:white"  ng-model="contactedit.BEZEI" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
                         <option value="" ng-bind="contactedit.BEZEI"></option>
                     </select>
                 </div>
@@ -83,10 +83,10 @@
 
                 </div>
                 <div class="col col-80">
-                    <select style="border: none;color:#9B9B9B;padding-left:7px"  ng-model="contactedit.CITY1" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
+                    <select style="border: none;color:#9B9B9B;padding-left:7px;-webkit-appearance:none;background:white"  ng-model="contactedit.CITY1" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
                         <option value="" ng-bind="contactedit.CITY1"></option>
                     </select>
-                    <select style="border: none;color:#9B9B9B;margin-left:20%"  ng-model="contactedit.REGION" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
+                    <select style="border: none;color:#9B9B9B;margin-left:20%;-webkit-appearance:none;background:white"  ng-model="contactedit.REGION" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
                         <option value="" ng-bind="contactedit.REGION"></option>
                     </select>
                 </div>

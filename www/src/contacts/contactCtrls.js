@@ -603,16 +603,37 @@ ContactsModule
 
         //日期的选择
         $scope.conatactCavebr = function () {
-            alert($scope.contactcreat.BIRTHDT)
-            Prompter.selectTime($scope, 'CBrithy', new Date($scope.contactcreat.BIRTHDT.replace(/-/g, "/")).format('yyyy/MM/dd'), 'date', '选择生日');
-            alert($scope.contactcreat.BIRTHDT)
-
+            var Creoptionsdatedate = {
+                date: new Date($scope.contactcreat.BIRTHDT),
+                mode: 'date',
+                titleText: '请选择时间',
+                okText: '确定',
+                cancelText: '取消',
+                doneButtonLabel: '确认',
+                cancelButtonLabel: '取消',
+                locale: 'zh_cn',
+                androidTheme: window.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT
+            }
+            document.addEventListener("deviceready", function () {
+                $cordovaDatePicker.show(Creoptionsdatedate).then(function (date) {
+                    alert(date)
+                    $scope.contactcreat.BIRTHDT = date.Format('yyyy-MM-dd');
+                    alert($scope.contactcreat.BIRTHDT)
+                })
+            })
         };
         //选择客户
 
         var customerPage = 1;
-        $scope.customerArr = saleActService.customerArr;
+        $scope.customerArr = new Array;;
+        $scope.customerSearch = true;
         $scope.getCustomerArr = function (search) {
+            if (search) {
+                $scope.customerSearch = false;
+                customerPage = 1;
+            }else{
+                $scope.spinnerFlag = true;
+            }
             console.log(customerPage);
             var data = {
                 "I_SYSNAME": {"SysName": "CATL"},
@@ -629,14 +650,25 @@ ContactsModule
                         if (response.ET_OUT_LIST.item.length < 10) {
                             $scope.CustomerLoadMoreFlag = false;
                         }
-                        $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                        if (search) {
+                            $scope.customerArr = response.ET_OUT_LIST.item;
+                        } else {
+                            $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                        }
+                        $scope.spinnerFlag = false;
+                        $scope.customerSearch = true;
                         $ionicScrollDelegate.resize();
                         saleActService.customerArr = $scope.customerArr;
                         $scope.$broadcast('scroll.infiniteScrollComplete');
                     }
                 });
         };
+        //$scope.searchCustomer = function () {
+        //    console.log('searchCustomer');
+        //};
+        //$scope.getCustomerArr();
         $scope.getCustomerArr();
+
         $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
             scope: $scope,
             animation: 'slide-in-up'
@@ -646,7 +678,6 @@ ContactsModule
         $scope.customerModalArr = saleActService.getCustomerTypes();
         $scope.selectCustomerText = '竞争对手';
         $scope.openSelectCustomer = function () {
-            //console.log(1);
             $scope.isDropShow = true;
             $scope.selectCustomerModal.show();
         };
@@ -676,11 +707,10 @@ ContactsModule
         };
 
         $scope.$on('$destroy', function () {
-            //$scope.createPop.remove();
-            //$scope.createModal.remove();
-            //$scope.selectPersonModal.remove();
+            $scope.createModal.remove();
             $scope.selectCustomerModal.remove();
         });
+
 
         ////点击取消事件
         $scope.Createancel = function(){
@@ -747,8 +777,8 @@ ContactsModule
                 cancelText: '取消',
                 doneButtonLabel: '确认',
                 cancelButtonLabel: '取消',
-                //locale: 'zh_cn',
-                //androidTheme: window.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT
+                locale: 'zh_cn',
+                androidTheme: window.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT
             }
             document.addEventListener("deviceready", function () {
                 $cordovaDatePicker.show(optionsdatedate).then(function (date) {
