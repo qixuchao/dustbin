@@ -134,7 +134,7 @@ salesModule
                 customerPage = 2;
                 console.log($scope.pop);
                 $scope.createPop.hide();
-                $scope.create = {de_startTime: new Date().format('yyyy-MM-dd hh:ss'), de_endTime: getDefultStartTime()};
+                $scope.create = {de_startTime: new Date().format('yyyy-MM-dd hh:mm'), de_endTime: getDefultStartTime()};
                 $scope.createModal.show();
                 $scope.getCustomerArr();
                 //console.log(document.getElementsByClassName('modal-wrapper'));
@@ -163,6 +163,7 @@ salesModule
                     "IS_SEARCH": {"SEARCH": search},
                     "IT_IN_ROLE": {}
                 };
+                console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
@@ -373,7 +374,7 @@ salesModule
             $scope.editText = "编辑";
             $scope.goBack = function () {
                 if ($scope.isEdit) {
-                    $cordovaDialogs.confirm('请先保存当前的更改', '提示', ['保存', '不保存'])
+                    $cordovaDialogs.confirm('请先保存当前的更改', '提示', ['保存', '放弃'])
                         .then(function (buttonIndex) {
                             // no button = 0, 'OK' = 1, 'Cancel' = 2
                             var btnIndex = buttonIndex;

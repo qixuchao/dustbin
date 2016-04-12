@@ -92,6 +92,16 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/tabs/tabs.html',
                 controller: 'TabsCtrl'
             })
+            //.state('tabs.main', {
+            //    url: '/main',
+            //    templateUrl: 'src/main/main.html',
+            //    controller: 'MainCtrl'
+            //})
+            //.state('tabs.apps', {
+            //    url: '/apps',
+            //    templateUrl: 'src/applications/applications.html',
+            //    controller: 'AppCtrl'
+            //})
             .state('saleActList', {
                 url: 'apps/saleActList',
                 templateUrl: 'src/applications/saleActivities/saleAct_List.html',
@@ -120,7 +130,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
             .state('saleChanList', {
                 url: 'apps/saleChanList',
-                templateUrl: 'src/applications/saleActivities/saleAct_List.html',
+                templateUrl: 'src/applications/saleChance/saleChanList.html',
                 controller: 'saleChanListCtrl'
             })
             .state('saleChanDetail', {
