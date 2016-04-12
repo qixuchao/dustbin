@@ -17,7 +17,7 @@
   animation-duration: .5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-} 
+}
 .scroll-content{
   margin-top: 0;
   padding-top: 0;
@@ -85,43 +85,9 @@ $lineColor:#d2d2d2;
 @mixin crm-circle-div($width:12px, $border-width:2px, $border-color:rgb(142,193,33)){ // 圆环
   width: $width;
   height:$width;
-  border-radius: $width;   
+  border-radius: $width;
   display: inline-block;
   border: $border-width solid $border-color;
-}
-// 工单状态的文字颜色：
-.stat-new{
-  color: #2B60AB !important;
-}
-.stat-sendedworker{
-  color: #48C3BB !important;
-}
-.stat-refused{
-  color: red !important;
-}
-.stat-handing{
-  color: #F18E1D !important;
-}
-.stat-reported{
-  color: #DC6C5D !important;
-}
-.stat-finished{
-  color: #0FF747 !important;
-}
-.stat-revisited{
-  color: #0431F1 !important;
-}
-.stat-audited{
-  color: #09F1E1 !important;
-}
-.stat-audited-out{
-  color: #C001DC !important;
-}
-.stat-returned{
-  color: #DC6C5D !important;
-}
-.stat-cancled{
-  color: #BDBABA !important;
 }
 /*
   设置button style type：button-crm-edit : 编辑button   主要是调整颜色，字体大小等请自行调整

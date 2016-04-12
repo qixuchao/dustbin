@@ -9,6 +9,7 @@ var employeeModule = angular.module('employeeModule', []);
 var employeeModuleServive = angular.module('employeeModuleServive', []);
 var customerModule = angular.module('customerModule', []);
 var ContactsModule = angular.module('ContactsModule', []);
+var ContactsRelationModule = angular.module('ContactsRelationModule', []);
 var contactModuleServive = angular.module('contactModuleServive', []);
 var customerVehicleModule = angular.module('customerVehicleModule', []);
 var customerChanceModule = angular.module('customerChanceModule', []);
@@ -37,6 +38,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'salesModule',
     'worksheetModule',
     'ContactsModule',
+    'ContactsRelationModule',
     'contactModuleServive',
     'customerModule',
     'customerVehicleModule',
