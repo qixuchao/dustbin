@@ -8,14 +8,13 @@
                 <div class="col col-20 add" ng-click="customerPopover($event)" style="text-align: left">筛选</div>
             </div>
         </ion-header-bar>
-        <form ng-submit="employeecustomerQuery()">
             <div class="pub-subhead bar bar-subheader">
                 <div class="employeequery_headquery">
                     <i class="ion-ios-search employeequery_headqueryimg"></i>
-                    <input type="search" class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入客户关键字"/>
+                    <input type="search" id="customerinputvalueid" class="employeequery_headqueryinput" ng-model="customer.customerfiledvalue" placeholder="请输入客户关键字"/>
+                    <i id="customerqueryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="customeriputDeletevalue()"></i>
                 </div>
             </div>
-        </form>
         <div class="employee_detail_countentbasic" style="margin-top: 93px;">
             <div class="employee_detail_countentbasicinfo">{{customerqueryTypeunit}}</div>
             <div class="employee_detail_countentbasicline" ng-class="employbasiclineflag?'employee_detail_countentbasiclinea':'employee_detail_countentbasiclineb'"></div>
@@ -23,13 +22,35 @@
         </div>
     </div>
     <ion-content style="margin-top:88px">
-            <div ng-repeat="x in customerQuery_list" ng-click="customergodeatil(x)">
+        <!--显示常用联系人-->
+        <div ng-if="!customer_queryflag" ng-repeat="x in usuallycustomerQuery_list" ng-click="customergodeatil(x)">
+            <div class="item customer_Querylists">
+                <span>{{x.NAME_ORG1}}</span>
+                <img class="customer_Querylistsimg" src="img/employee/Shape@2x.png"></img>
+            </div>
+            <div class="employee_query_listline"></div>
+        </div>
+
+        <!--搜索历史-->
+        <div ng-if="!customer_queryflag" class="employee_query_historys">
+            <div class="employee_query_historysspan">
+                搜索历史
+            </div>
+            <div class="employee_query_historylist" ng-repeat="list in customer_query_historylists" ng-click="CustomerHisGetvalue(list)">
+                {{list.name}}
+            </div>
+            <div class="employee_query_historyclear" ng-click="CustomerClearhis()">
+                清楚历史记录
+            </div>
+        </div>
+            <div ng-if="customer_queryflag" ng-repeat="x in customerQuery_list" ng-click="customergodeatil(x)">
                 <div class="item customer_Querylists">
-                    <span>{{x.customername}}</span>
+                    <span>{{x.NAME_ORG1}}</span>
                     <img class="customer_Querylistsimg" src="img/employee/Shape@2x.png"></img>
                 </div>
                 <div class="employee_query_listline"></div>
             </div>
+        <ion-infinite-scroll on-infinite="customerLoadmore()" ng-if="customerisshow"></ion-infinite-scroll>
     </ion-content>
 </ion-view>
 
