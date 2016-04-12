@@ -11,16 +11,22 @@ mainModule
         '$ionicBackdrop',
         '$ionicPopover',
         '$cordovaDatePicker',
+        '$location',
+        '$templateCache',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'Prompter',
         'HttpAppService',
         function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
-                  $ionicBackdrop, $ionicPopover, $cordovaDatePicker, ionicMaterialInk, ionicMaterialMotion,
-                  Prompter, HttpAppService) {
-
+                  $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location,
+                  ionicMaterialInk,$templateCache,
+                  ionicMaterialMotion, Prompter, HttpAppService) {
+            //$location.path('/tab/main');
             //ionicMaterialMotion.fadeSlideInRight();
-
+            //$templateCache.get('src/main/main.html');
+            //$scope.$on("$stateChangeSuccess", function () {
+            //    $scope.test();
+            //});
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
                 ionicMaterialInk.displayEffect();

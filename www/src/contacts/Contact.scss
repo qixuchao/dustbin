@@ -237,6 +237,13 @@
 //联系人edit+create + 客户编辑界面+客户联系人新建界面
 .contact_Edit {
   .list {
+    .contacteditlocation{
+      border: none;
+      color:#9B9B9B;
+      padding-left:7px;
+      -webkit-appearance:none;
+      background:white
+    }
     .item {
       font-size:16px;
       border: 1px solid #dddddd;

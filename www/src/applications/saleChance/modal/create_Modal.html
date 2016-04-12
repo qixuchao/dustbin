@@ -24,7 +24,7 @@
         </div>
         <div class="row row-center">
             <div class="col col-41">销售阶段:</div>
-            <div class="col col-59"><select type="text"><option>关系建立阶段</option></select></div>
+            <div class="col col-59"><select ng-model="create.stage" ng-options="x as x.text for x in saleStages">{{create.stage.text}}</select></div>
         </div>
         <div class="row row-center">
             <div class="col col-41">项目编号:</div>
@@ -32,7 +32,7 @@
         </div>
         <div class="row row-center">
             <div class="col col-41">开始时间:</div>
-            <div class="col col-59" ng-click="selectCreateTime('start')">2016-01-03 00:00</div>
+            <div class="col col-59" ng-click="selectCreateTime('start')">{{create.de_startTime}}</div>
         </div>
         <div class="row row-center">
             <div class="col col-41">计划结束时间:</div>

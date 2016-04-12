@@ -6,14 +6,22 @@ ContactsModule
     .controller('contactQueryCtrl',['$scope','$rootScope','$state','$http','HttpAppService','$timeout','$ionicPopover','$ionicActionSheet','$window','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,HttpAppService,$timeout,$ionicPopover,$ionicActionSheet,$window,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
         //历史记录显示
         $scope.ContactListHistoryval = function(){
-            if(storedb('contactdb').find().arrUniq() != undefined || storedb('contactdb').find().arrUniq() != null){
-                $scope.contacts_userqueryflag = false;
-                $scope.contact_query_historylists = (storedb('contactdb').find().arrUniq());
+            $scope.contacts_userqueryflag = false;
+            if(storedb('contactdb').find() != undefined || storedb('contactdb').find() != null) {
+                $scope.contact_query_historylists = (storedb('contactdb').find());
                 if ($scope.contact_query_historylists.length > 5) {
                     $scope.contact_query_historylists = $scope.contact_query_historylists.slice(0, 5);
+                }
+                ;
+            }
+            //常用联系人显示
+            if (JSON.parse(localStorage.getItem("usuacontactdb")) != null || JSON.parse(localStorage.getItem("usuacontactdb")) != undefined) {
+                $scope.usuallycontactQuery_list = JSON.parse(localStorage.getItem("usuacontactdb"));
+                if ($scope.usuallycontactQuery_list.length > 15) {
+                    $scope.usuallycontactQuery_list = $scope.usuallycontactQuery_list.slice(0, 15);
                 };
-            }else{
-                $scope.contacts_userqueryflag = true;
+            } else {
+                $scope.usuallycontactQuery_list = [];
             };
         };
         $scope.ContactListHistoryval();
@@ -185,28 +193,91 @@ ContactsModule
                 $scope.$apply();
             };
         }
-
+        $scope.contacthislistvalue = new Array();
         $scope.Contacts_godetails = function(x){
             $scope.contactisshow = false;
             //存储历史记录
-            console.log($scope.contactfiledvalue)
+            $scope.usuallycontactlist = x;
             if($scope.contact.contactfiledvalue != ''){
-                storedb('contactdb').insert({"name": $scope.contact.contactfiledvalue}, function (err) {
-                    if (!err) {
-                        console.log('历史记录保存成功')
-                    } else {
-                        $cordovaToast.showShortBottom('历史记录保存失败');
+                if(storedb('contactdb').find() != undefined || storedb('contactdb').find() != null){
+                    var conatcthislistvalue = storedb('contactdb').find();
+                    var contacthislistvaluelength = storedb('contactdb').find().length;
+                    //判断是否有相同的值
+                    var contacthislistflag = true;
+                    for(var i=0;i<contacthislistvaluelength;i++){
+                        if(conatcthislistvalue[i].name ==  $scope.contact.contactfiledvalue){
+                            //删除原有的，重新插入
+                            storedb('contactdb').remove({"name":conatcthislistvalue[i].name}, function (err) {
+                                if (!err) {
+                                } else {
+                                }
+                            })
+                            //storedb('customerdb').find().splice(i,1);
+                            storedb('contactdb').insert({"name": $scope.contact.contactfiledvalue}, function (err) {
+                                if (!err) {
+                                } else {
+                                    $cordovaToast.showShortBottom('历史记录保存失败');
+                                }
+                            });
+                            contacthislistflag = false;
+                        }
+                    };
+                    if(contacthislistflag == true){
+                        storedb('contactdb').insert({"name": $scope.contact.contactfiledvalue}, function (err) {
+                            if (!err) {
+                                //console.log('历史记录保存成功')
+                            } else {
+                                $cordovaToast.showShortBottom('历史记录保存失败');
+                            }
+                        });
                     }
-                });
+                }else{
+                    storedb('contactdb').insert({"name": $scope.contact.contactfiledvalue}, function (err) {
+                        if (!err) {
+                            //console.log('历史记录保存成功')
+                        } else {
+                            $cordovaToast.showShortBottom('历史记录保存失败');
+                        }
+                    });
+                };
+            };
+
+
+            //存储常用联系人
+            if (JSON.parse(localStorage.getItem("usuacontactdb")) != null || JSON.parse(localStorage.getItem("usuacontactdb")) != undefined) {
+                //判断是否有相同的值
+                var usuacontacthislistflag = true;
+                for(var i=0;i<$scope.contacthislistvalue.length;i++){
+                    if($scope.contacthislistvalue[i].NAME_LAST == $scope.usuallycontactlist.NAME_LAST) {
+                        //删除原有的，重新插入
+                        $scope.contacthislistvalue = JSON.parse(localStorage.getItem("usuacontactdb"));
+                        $scope.contacthislistvalue.splice(i,1);
+                        $scope.contacthislistvalue.unshift($scope.usuallycontactlist);
+                        localStorage['usuacontactdb'] = JSON.stringify( $scope.contacthislistvalue);
+
+                        usuacontacthislistflag = false;
+                    }
+                };
+                if(usuacontacthislistflag == true){
+                    $scope.contacthislistvalue.unshift($scope.usuallycontactlist);
+                    localStorage['usuacontactdb'] = JSON.stringify( $scope.contacthislistvalue);
+                }
+
+            }else{
+                $scope.contacthislistvalue.unshift($scope.usuallycontactlist);
+                localStorage['usuacontactdb'] = JSON.stringify( $scope.contacthislistvalue);
             }
+
+
+
             contactService.set_ContactsListvalue(x);
             $state.go('ContactDetail');
         };
         //广播添加联系人
-        $rootScope.$on('contactCreatevalue', function(event, data) {
-            $scope.contact_query_list.push(contactService.get_ContactCreatevalue());
-            console.log($scope.contact_query_list)
-        });
+        //$rootScope.$on('contactCreatevalue', function(event, data) {
+        //    $scope.contact_query_list.push(contactService.get_ContactCreatevalue());
+        //    console.log($scope.contact_query_list)
+        //});
 
         //拨打电话手机
         $scope.conatct_querynumber = function(data){
@@ -243,7 +314,7 @@ ContactsModule
         var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
         var data = {
             "I_SYSNAME": { "SysName": "CATL" },
-            "IS_AUTHORITY": { "BNAME": "" },
+            "IS_AUTHORITY": { "BNAME": "handlcx02" },
             "IS_PARTNER": { "PARTNER": contactService.get_ContactsListvalue().PARTNER}
             //"IS_PARTNER": { "PARTNER":'6000000385'}
         };
@@ -458,7 +529,7 @@ ContactsModule
                     "FAX_NUMBER": "",
                     "FAX_EXTENS": "",
                     "SMTP_ADDR": "888888@qq.com",
-                    "BAPIBNAME": "HANDLCX",
+                    "BAPIBNAME": "handlcx02",
                     "MODE": "I"
                 },
                 "IT_LINES": {
@@ -707,7 +778,6 @@ ContactsModule
         };
 
         $scope.$on('$destroy', function () {
-            $scope.createModal.remove();
             $scope.selectCustomerModal.remove();
         });
 
@@ -788,6 +858,10 @@ ContactsModule
                 })
             })
         };
+        //国家的选择
+
+
+
         $scope.contactKeepEditvalue = function(){
             contactService.set_Contactsdetailvalue($scope.contactedit);
             //提交修改数据
@@ -818,7 +892,7 @@ ContactsModule
                     "FAX_NUMBER": "",
                     "FAX_EXTENS": "",
                     "SMTP_ADDR": "",
-                    "BAPIBNAME": "HANDLCX",
+                    "BAPIBNAME": "handlcx02",
                     "MODE": "a"
                 },
                 "IT_LINES": {
@@ -829,7 +903,7 @@ ContactsModule
                 }
             };
             data.IS_CUSTOMER.PARTNER = $scope.contactedit.PARTNER;
-            data.IS_CUSTOMER.PARTNER2 = $scope.contactedit.PARTNER2;
+            data.IS_CUSTOMER.PARTNER2 = contactService.get_Contactsdetailvalue().PARTNER2;
             //data.IS_CUSTOMER.PARTNER = '2284';
             data.IS_CUSTOMER.TITLE = $scope.contactedit.TITLE;
             data.IS_CUSTOMER.NAME_LAST = $scope.contactedit.NAME_LAST;
@@ -850,7 +924,7 @@ ContactsModule
             //if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined || data.IS_CUSTOMER.PARTNER == ''|| data.IS_CUSTOMER.PARTNER == undefined){
             if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined
                 || data.IS_CUSTOMER.COUNTRY == ''|| data.IS_CUSTOMER.COUNTRY == ''){
-                $cordovaToast.showShortCenter('请输入客户姓名或标识');
+                $cordovaToast.showShortCenter('请输入客户姓名或国家');
                 //console.log("请输入客户姓名或标识");
                 Prompter.hideLoading();
             }else{

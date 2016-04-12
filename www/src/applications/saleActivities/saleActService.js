@@ -203,6 +203,7 @@ salesModule.factory('saleActService', function () {
         },
         getRelationSelections: function () {
             return relationSelections;
-        }
+        },
+        customerArr,listPage
     };
 });

@@ -29,6 +29,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
             return get;
         },
         post: function (url, paramter) {
+
             var post = $http.post(url, paramter, {
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
