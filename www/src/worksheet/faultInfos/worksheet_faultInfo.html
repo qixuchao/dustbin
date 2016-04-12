@@ -3,7 +3,7 @@
     <ion-header-bar align-title="center" class="bar-positive" >
         <div class="row row-center title rowTitle">
             <div class="col col-15 text-left"  ng-click="goBack()">取消</div>
-            <div class="col col-70 text-center">故障信息维护
+            <div class="col col-70 text-center">故障信息
             </div>
             <div class="col col-15 text-right" ng-click="edit()">编辑</div>
         </div>
@@ -18,21 +18,21 @@
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">故障发生场景：</div>
                 <div class="col-62 col-center fontColor" >
-                    未装车
+                    {{faulInfos.SCENARIO_DESC}}
                 </div>
             </div>
 
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">责任方：</div>
                 <div class="col-62 col-center fontColor">
-                    user
+                    {{faulInfos.RESPONSE}}
                 </div>
             </div>
 
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">故障分类：</div>
             <div class="col-62 col-center fontColor">
-                安全
+                {{faulInfos}}
             </div>
             </div>
 

@@ -310,7 +310,16 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',
                 controller: 'WorksheetRelatedCtrl'
             })
-
+            .state('worksheetRelatedPartContact', {
+                url: '/worksheetRelatedPartContact',
+                templateUrl: 'src/worksheet/relatedPart/worksheet_relatePartContact.html',
+                controller: 'WorksheetRelatedContactCtrl'
+            })
+            .state('worksheetRelatedPartCust', {
+                url: '/worksheetRelatedPartCust',
+                templateUrl: 'src/worksheet/relatedPart/worksheet_relatePartCust.html',
+                controller: 'WorksheetRelatedCustCtrl'
+            })
             .state('worksheetRelatedPartDelete', {
                 url: '/worksheetRelatedPartDelete',
                 templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPartDelete.html',
