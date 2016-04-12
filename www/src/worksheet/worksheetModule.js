@@ -28,7 +28,8 @@ worksheetModule.service('worksheetDataService', [function(){
         //  "IS_OBJECT_ID": "5200000297"
         //  "IS_PROCESS_TYPE": "ZPRO"
       }
-    }
+    },
+    worksheetDetailData: null
   };
 }]);
 
