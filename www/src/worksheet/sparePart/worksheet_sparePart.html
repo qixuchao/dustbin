@@ -70,6 +70,15 @@
                     <i class="ion-ios-plus-outline iStyle" ng-click="add(i)"></i>
                 </div>
             </div>
+            <div class="row row-center" style="height: 48px;font-size: 16px;text-align: center;" ng-if="goMore" ng-click="goLoadMore()">
+                <div class="col col-center">点击加载更多...</div>
+            </div>
+            <div class="is-loading"  style="text-align:center;margin-top:1rem;" ng-if="goLoad">
+                <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+            </div>
+            <div class="row row-center" style="height: 48px;font-size: 16px;text-align: center;" ng-if="goNo">
+                <div class="col col-center">没有更多内容...</div>
+            </div>
         </ul>
     </ion-content>
 </ion-view>

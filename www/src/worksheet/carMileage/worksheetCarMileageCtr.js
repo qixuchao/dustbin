@@ -4,9 +4,11 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
     "ionicMaterialMotion",
     "$ionicPopup", "$timeout","$state", function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state){
     ionicMaterialInk.displayEffect();
-    $scope.edit = function(){
-        $state.go("worksheetCarMileageEdit");
-    }
+        $scope.edit = function(){
+            $state.go("worksheetCarMileageEdit");
+        }
+        var worksheetDetail = worksheetDataService.detailDatas;
+        
 }]);
 
 worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",

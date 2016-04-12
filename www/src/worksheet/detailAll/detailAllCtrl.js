@@ -954,7 +954,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	}
 		        	$scope.datas.detail = response;
 		        	worksheetDataService.detailDatas = response;
-		        	//debugger;
+		        	debugger;
 		        })
 		        .error(function(errorResponse){
 		        	$scope.config.isLoading = false;
