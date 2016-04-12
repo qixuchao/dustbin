@@ -7,7 +7,6 @@
         </div>
     </ion-header-bar>
 
-    <form ng-submit="employeecustomerQuery()">
         <div class="pub-subhead bar bar-subheader">
             <div class="employeequery_headquery">
                 <i class="ion-ios-search employeequery_headqueryimg"></i>
@@ -15,9 +14,27 @@
                 <i id="employeequeryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="employeeiputDeletevalue()"></i>
             </div>
         </div>
-    </form>
 </div>
     <ion-content style="margin-top:44px">
+        <div ng-if="!employee_userqueryflag" class="employee_query_list" ng-repeat="lists in usuaemployee_query_list">
+            <div class="row row-center" style="padding:5px 5px">
+                <div class="col col-6" style="margin-left:5px">
+                    <div class="employee_query_listcicle" ng-class="{employee_query_listcicleA: !$odd, employee_query_listcicleB: !$even}"></div>
+                </div>
+                <div class="col col-24" style="text-align: left">
+                    <span style="vertical-align: middle">{{lists.NAME_LAST}}{{lists.NAME_FIRST}}</span>
+                </div>
+                <div class="col col-60" style="text-align: center" ng-click="employeequeryphone(lists.TEL_NUMBER)">
+                    <span style="vertical-align: middle">{{lists.TEL_NUMBER}}</span>
+                </div>
+                <div class="col col-10" ng-click="employee_govalue(lists,$index)">
+                    <img class="employee_query_listfor" src="img/employee/Shape@2x.png"></img>
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
+        </div>
+
         <div ng-if="!employee_userqueryflag" class="employee_query_historys">
             <div class="employee_query_historysspan">
                 搜索历史
