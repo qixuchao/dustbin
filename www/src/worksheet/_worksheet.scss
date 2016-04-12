@@ -5,14 +5,11 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		background-color: $crm-header-bar-bgcolor;
 	}
 }
-
 #worksheetlist-view{
 	background-color: $crm-header-bar-bgcolor;
-
-	
 	
 	ion-header-bar{
-		background-color: $crm-header-bar-bgcolor;
+		background-color: $crm-header-bar-bgcolor;	
 		transition: left 0.2s ease-out 0s;
 		//border: 1px solid red;
 		left: 0;
@@ -24,7 +21,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    padding-right: 1.5rem;
 		    justify-content: center;
 		    font-size: 1.8rem;
-		} 
+		}
 		.left-back, .title{
 			transition: min-width .2s linear 0s, width .2s linear 0s,left .15s linear 0s;
 		}
@@ -101,56 +98,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	}
 
 
-	.search-history{
-		display: none;
-		padding-right: 1.2rem;
-		&.isSearchingMode{
-			display: block;
-			&.no-show-search-box{
-				display: none;
-			}
-			background-color: rgba(251, 251, 251, 0.95);
-		    position: absolute;
-		    top: 47px;
-		    right: 0;
-		    z-index: 100;
-		    left: 0px;
-		    bottom: 0px;		    
-            .history-title{
-            	@include display-flex;
-				@include justify-content(center);
-				@include align-items(center);
-				color: #BFBFBF;
-                i{
-					font-size: 1rem;
-				    margin-left: .4rem;
-				    width: 1.5rem;
-    				text-align: center;
-                }
-                span.text{
-					width: 4rem;
-                }
-                span.line{
-                	@include flex(1);
-				    background: #BFBFBF;
-				    height: 1px;
-                }
-            }
-		}
-		.list{
-			padding-left: 1rem;
-    		padding-right: 1rem;
-			.item{
-			    min-height: 2rem;
-			    border-bottom: 1px solid #D8D8D8;
-			    font-size: 1rem;
-			    letter-spacing: 2px;
-			    padding: 0rem 0px;
-			    height: 2.2rem;
-			    line-height: 2.2rem;
-			}
-		}		
-	}
+
 	.search-box-wrapper{
 		background-color: $crm-header-bar-bgcolor;
 		.search-box{
@@ -162,52 +110,22 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		    margin-bottom: .4rem;
 		    background-color: white;
 		    color: #969494;
-		    @include display-flex;
 		}
 		i{
-			width: 1.5rem;
+			width: 9%;
 		    display: inline-block;
 		    margin: auto;
 		    text-align: center;
 		    background-color: white;
 		    font-size: 1.2rem;
 		    vertical-align: middle;
-		    &.right{
-	    	    font-size: 1.5rem;
-			    width: 1.5rem;
-			    height: 1.5rem;
-			    margin-right: .1rem;
-			    color: #D2D2D2;
-		    }
 		}
 		input{
 			display: inline-block;
 		    height: 2rem;
 		    line-height: 1rem;
     		padding: .5rem 0px;
-		    //width: 87%;
-		    @include flex(1);
-		}
-		.cancle-button{
-			display: none;
-		}
-		&.isSearchingMode{
-			@include display-flex;
-			@include align-items(center);
-			@include justify-content(center);
-			.search-box{
-				//flex: 1;
-				@include flex(1);
-    			margin-left: .4rem;
-			}
-			.cancle-button{
-				width: 4rem;
-			    padding: .5rem;
-			    min-width: 4rem;
-			    color: white;
-			    line-height: 2rem;
-			    display: inline-block;
-			}
+		    width: 87%;
 		}
 	}
 
@@ -311,11 +229,6 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	
 	$divs-wrapper-z-index: 1;
 	.worksheet-query-result{
-		.icon-refreshing{
-			ion-spinner{
-	            display: none;
-	        }
-		}
 		width: 100%;
 		height: 100%;
 		position: absolute;
@@ -327,7 +240,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			text-align: center;
 			color: #ADAAAA;
 		}
-		.list{
+		.list{ 
 			padding-bottom: 0rem;
 			margin-bottom: 0px;
 		} 
@@ -346,14 +259,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			 
 			////@include flex-direction(column); 
             .left{ 
-            	//@include flex(75); 
-            	@include flex(85); 
-            	&.single-line-ellipsis{
-            		@include single-line-ellipsis;
-            	}
-            	.single-line-ellipsis{
-            		@include single-line-ellipsis;
-            	}
+            	@include flex(75); 
                 .item-line{
                 	line-height: 2rem;
     				height: 2rem;
@@ -368,8 +274,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
                 }
             }
             .right{
-            	//@include flex(25);
-            	@include flex(15);
+            	@include flex(25);
             	@include display-flex;
             	@include flex-direction(column);
             	@include justify-content(flex-end);
@@ -391,8 +296,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
                 .status{
                 	height: 2rem;
     				line-height: 2rem;
-    				text-align: right;
-                    .name{			
+                    .name{
+					
                     }
                     .value{
 						font-size: 1rem;    					
@@ -749,8 +654,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			padding-bottom: .6rem;
     		.filter-worksheet-type-title{ }
     		.filter-types{
-				max-height: 9rem;
-				// height: 3rem;
+				height: 3rem;
 				line-height: 3rem;
 				.filter-type{
 					display: inline-block;
@@ -923,12 +827,11 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
     		}
     	}
 	}
-	
+
 	.tab-sort-content.ng-show{
 	}
 	
 }
-
 
 .modal-wrapper{
 	pointer-events: none;
@@ -968,79 +871,6 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             padding: .4rem 0px;
             font-size: 1rem;
         }
-		
-        
-		.yishenhe, .paigong, .judan, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong, .yiquxiao{
-			display: none;
-		}
-        // paigong   judan   jiedan    beijian    chelianglicheng  guzhangxinxi   fuwupaizhao   baogong   wangong   yiquxiao
-        //工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
-		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
-        &.ZNCO{  // 新车档案收集工单  
-			.paigong{
-				display: block;
-			}
-			.judan{
-				display: block;
-			}
-			.jiedan{
-				display: block;
-			}
-			.fuwupaizhao{
-				display: block;
-			}
-			.baogong{
-				display: block;
-			}
-			.wangong{
-				display: block;
-			}
-			.yiquxiao{
-				display: block;
-			}
-        }
-        &.ZPRO, &.ZPLO{
-        	.paigong, .judan, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong, .yiquxiao{
-				display: block;
-			}
-        }
-        &.ZNCV, &.ZPRV, &.ZPLV{
-			.yishenhe{
-				display: block;
-			}
-        }
     }
 }
 
-/*
-.paigong{
-	display: none;
-}
-.judan{
-	display: none;
-}
-.jiedan{
-	display: none;
-}
-.beijian{
-	display: none;
-}
-.chelianglicheng{
-	display: none;
-}
-.guzhangxinxi{
-	display: none;
-}
-.fuwupaizhao{
-	display: none;
-}
-.baogong{
-	display: none;
-}
-.wangong{
-	display: none;
-}
-.yiquxiao{
-	display: none;
-}
-*/

@@ -11,11 +11,10 @@ worksheetModule.controller("WorksheetListCtrl",[
 	"$ionicPosition","$state",
 	"HttpAppService",
 	"worksheetHttpService",
-	"worksheetDataService",
 	function($scope, 
 		ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,
 		$ionicPosition, $state, 
-		HttpAppService, worksheetHttpService, worksheetDataService){
+		HttpAppService, worksheetHttpService){
 	
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
@@ -23,17 +22,15 @@ worksheetModule.controller("WorksheetListCtrl",[
             selector: '.animate-fade-slide-in .item'
         });*/
     }, 550);
-
-
     
 	$scope.config = {
+		
 		//showXbrModel: false, //是否显示遮罩层
 		// page mode
 		isFilterMode: false,
 		isSorteMode: false,
 		isQueryMode: false,
 		isListMode: false,
-		queryModeNew: false,
 		//为动画而生
 		sortModeFromFilterMode: false,
 		sortModeFromClick: false,
@@ -43,6 +40,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		filterGoneByClick: false,
 		filterGoneByModelClick: false,
 		sorteGoneByModelClick: false,
+
 		//排序 规则
 		sortedTypeNone: true,    //不排序
 		sortedTypeTimeDesc: true,  //时间 降序（默认）
@@ -52,9 +50,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 		filterLocalService: false,
 		filterNewCarOnline: false,
 		filterBatchUpdate: false,
-		filterLocalServiceFWS: false,
-		filterNewCarOnlineFWS: false,
-		filterBatchUpdateFWS: false,
 		filterNone: true,
 		//筛选 规则 ----> 影响：damage height middle low none
 		filterImpactDamage: false,
@@ -71,8 +66,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		filterStatusReported: false,		//已报工
 		filterStatusFinished: false,		//已完工
 		filterStatusRevisited: false,		//已回访
-		filterStatusAudited: false,		// 内部已审核
-		filterStatusAuditedOut: false,  // 外部已审核
+		filterStatusAudited: false,		//已审核
 		filterStatusReturned: false, 		//已打回
 		filterStatusCancled: false, // 已经取消
 
@@ -115,14 +109,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 	    isLoading: false,
 	    isReloading: false,
 	    hasMoreData: true,
-	    loadingErrorMsg: null,
-
-	    showHistoryLog: true,
-	    searchInputHasText: false,
-
-	    historyStrs: [{text:"测试1"},{text:'测试2'},{text:'测试3'}]
+	    loadingErrorMsg: null
 	};
-	$scope.oldFilters = null;
+	$scope.oldFilters = null;	
 	function __remeberCurrentFilters(){ //打开筛选界面的时候执行
 		if(!$scope.oldFilters){   //保存当前filters
 			$scope.oldFilters = {
@@ -135,9 +124,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 				filterLocalService: $scope.config.filterLocalService,
 				filterNewCarOnline: $scope.config.filterNewCarOnline,
 				filterBatchUpdate: $scope.config.filterBatchUpdate,
-				filterLocalServiceFWS: $scope.config.filterLocalServiceFWS,
-				filterNewCarOnlineFWS: $scope.config.filterNewCarOnlineFWS,
-				filterBatchUpdateFWS: $scope.config.filterBatchUpdateFWS,
+				filterNone: $scope.config.filterNone,
 				//筛选 规则 ----> 影响：damage height middle low none
 				filterImpactDamage: $scope.config.filterImpactDamage,
 				filterImpactHeight: $scope.config.filterImpactHeight,
@@ -164,83 +151,22 @@ worksheetModule.controller("WorksheetListCtrl",[
 			angular.extend($scope.config, $scope.oldFilters);
 		}
 	};
-
-	$scope.cancleQueryMode = function(){
-		var eleContent = angular.element("#xbr-worksheet-list-content");
-		eleContent.addClass("has-header");
-		$scope.config.queryModeNew = false;
-		if($scope.config.searchText && $scope.config.searchText!=""){
-			var hasExist = false;
-			for (var i = 0; i < $scope.config.historyStrs.length; i++) {
-				if($scope.config.historyStrs[i].text == $scope.config.searchText){
-					hasExist = true;
-				}
-			};
-			if(!hasExist){
-				$scope.config.historyStrs.push({text: $scope.config.searchText});
-			}
-		}
-	};
-	$scope.clickSearchInput = function(){
-		var eleContent = angular.element("#xbr-worksheet-list-content");
-		eleContent.removeClass("has-header");
-		$scope.config.queryModeNew = true;
-		$scope.config.showHistoryLog = true;
-	};
-	$scope.selectOldSearch = function(text){
-		$scope.config.searchText = text;
-		$scope.config.showHistoryLog = false;
-		$scope.config.searchInputHasText = true;
-		$scope.reloadData();
-	};
-	$scope.onSearchTextChange = function($event){
-		//console.log("onSearchTextChange");
-		if($scope.config.searchText && $scope.config.searchText.trim()!=''){
-			$scope.enterListMode();
-			$scope.config.showHistoryLog = false;
-			$scope.config.searchInputHasText = true;
-			$scope.reloadData();
-		}else{
-			$scope.enterQueryMode();
-			$scope.config.showHistoryLog = true;
-			$scope.config.searchInputHasText = false;
-		}
-	};
-	$scope.clearSearchText = function(){
-		$scope.config.searchText = "";
-		$scope.config.showHistoryLog = true;
-		$scope.config.searchInputHasText = false;
-		if(!$scope.config.queryModeNew){
-			$scope.reloadData();
-		}		
-	};
 	
 	//依据所选 筛选条件 进行筛选操作
 	$scope.filterConfirm = function(){
 		delete $scope.oldFilters;
 		$scope.oldFilters = null;
 		__clearResponseDatasForReloading();
-
 		//工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
-		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
 		$scope.config.T_IN_PROCESS_TYPE.item = [];
 		if($scope.config.filterNewCarOnline){
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZNCO"});
+			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE":"ZNCO"});
 		}
 		if($scope.config.filterLocalService){
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPRO"});
+			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE":"ZPRO"});
 		}
 		if($scope.config.filterBatchUpdate){
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPLO"});
-		}
-		if($scope.config.filterNewCarOnlineFWS){     
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZNCV"});
-		}
-		if($scope.config.filterLocalServiceFWS){
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPRV"});
-		}
-		if($scope.config.filterBatchUpdateFWS){
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPLV"});
+			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE":"ZPLO"});
 		}
 		//影响  filterImpactDamage:01 灾难 ;    filterImpactHeight:25 高     filterImpactMiddle:50 中
 		//			filterImpactLow:75 低	filterImpactNone: 99 无
@@ -266,7 +192,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 		//			filterStatusReported:E0005 已报工;	 filterStatusFinished:E0006 已完工
 		//			filterStatusRevisited: E0010 已回访;   filterStatusAudited:E0007 已审核
 		//			filterStatusReturned:E0008 已打回;		filterStatusCancled:E0009 已取消
-
 		$scope.config.T_IN_STAT.item = [];
 		if($scope.config.filterStatusNew){
 			$scope.config.T_IN_STAT.item.push({"STAT":"E0001"});
@@ -292,9 +217,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 		if($scope.config.filterStatusAudited){
 			$scope.config.T_IN_STAT.item.push({"STAT":"E0007"});
 		}
-		if($scope.config.filterStatusAuditedOut){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0011"}); ///////外部已审核
-		}
 		if($scope.config.filterStatusReturned){
 			$scope.config.T_IN_STAT.item.push({"STAT":"E0008"});
 		}
@@ -310,9 +232,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.filterLocalService = false;
 		$scope.config.filterNewCarOnline = false;
 		$scope.config.filterBatchUpdate = false;
-		$scope.config.filterLocalServiceFWS = false;
-		$scope.config.filterNewCarOnlineFWS = false;
-		$scope.config.filterBatchUpdateFWS = false;
 		$scope.config.filterNone = true;
 		//筛选 规则 ----> 影响
 		$scope.config.filterImpactDamage = false;
@@ -325,29 +244,27 @@ worksheetModule.controller("WorksheetListCtrl",[
 		__resetStatus();
 	};
 	
-	$scope.goDetailState = function(item, i){
-		//工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
-		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
-		worksheetDataService.worksheetList.toDetail = {
-			"IS_OBJECT_ID": item.OBJECT_ID,
-    		"IS_PROCESS_TYPE": item.PROCESS_TYPE
-		};
-		if(item.PROCESS_TYPE == "ZNCO" || item.PROCESS_TYPE == "ZNCV"){
+	$scope.goDetailState = function(i){
+		if(i == 0){
 			$state.go("worksheetDetail", {
 				detailType: 'newCar'
 			});
-		}else if(item.PROCESS_TYPE == "ZPRO" || item.PROCESS_TYPE == "ZPRV"){
+		}else if(i==1){
 			$state.go("worksheetDetail",{
 				detailType: 'siteRepair'
 			});
-		}else if(item.PROCESS_TYPE == "ZPLO" || item.PROCESS_TYPE == "ZPLV"){
+		}else if(i==3){
 			$state.go("worksheetDetail",{
 				detailType: 'batchUpdate'
 			});
 		}
 	};
 
-	
+	$scope.onSearchTextChange = function($event){
+		if($scope.config.searchText && $scope.config.searchText.trim()!=''){
+			$scope.enterListMode();
+		}
+	};
 
 	$scope.showXbrModel = function(){
 		return $scope.config.isFilterMode || $scope.config.isSorteMode;
@@ -689,12 +606,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 			$scope.config.filterBatchUpdate = !$scope.config.filterBatchUpdate;
 		}else if(filterName == 'newcarOnline'){
 			$scope.config.filterNewCarOnline = !$scope.config.filterNewCarOnline;
-		}if(filterName == 'localServiceFWS'){
-			$scope.config.filterLocalServiceFWS = !$scope.config.filterLocalServiceFWS;
-		}else if(filterName == 'batchUpdateFWS'){
-			$scope.config.filterBatchUpdateFWS = !$scope.config.filterBatchUpdateFWS;
-		}else if(filterName == 'newcarOnlineFWS'){
-			$scope.config.filterNewCarOnlineFWS = !$scope.config.filterNewCarOnlineFWS;
 		}else{
 			$scope.config.filterNone = !$scope.config.filterNone;
 		}
@@ -722,7 +633,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		var status = ['filterStatusNew','filterStatusSendedWorker',
 		'filterStatusRefused', 'filterStatusHandling',
 		'filterStatusReported', 'filterStatusFinished', 'filterStatusRevisited',
-		'filterStatusAudited', 'filterStatusReturned', 'filterStatusCancled','filterStatusAuditedOut'];
+		'filterStatusAudited', 'filterStatusReturned', 'filterStatusCancled'];
 		for(var i = 0; i < status.length; i++){
 			$scope.config[status[i]] = false;
 		}
@@ -734,9 +645,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 	$scope.reloadData = function(){
 		$scope.datas.serviceListDatas = [];
-		if(!$scope.$$phase) {
-        	$scope.$apply();
-        }
 		if($scope.canReLoadData()){
 			$scope.config.currentPage = 0;
 			$scope.config.hasMoreData = true;
@@ -762,7 +670,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 			T_IN_PROCESS_TYPE: $scope.config.T_IN_PROCESS_TYPE,
 			T_IN_STAT: $scope.config.T_IN_STAT
 		};
-		//console.log(queryParams);
+		console.log(queryParams);
 		if($scope.config.hasMoreData){
 			__requestServiceList(queryParams);
 		}
@@ -846,8 +754,7 @@ worksheetModule.controller("WorksheetDetailCtrl",[
 	"ionicMaterialInk",
 	"$ionicScrollDelegate",
 	"$timeout",
-	"worksheetDataService",
-	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout, worksheetDataService){
+	function($scope, ionicMaterialInk, $ionicScrollDelegate, $timeout){
 
 	$scope.config = {
 		scrollDelegateHandler: null,
@@ -859,14 +766,7 @@ worksheetModule.controller("WorksheetDetailCtrl",[
 		headerScrollCan: true,
 		headerBarInitHeight: null,
 		headerInfoInitHeight: null,
-		headerBarTitleInitHeight: null,
-
-		// 网络请求相关
-		requestParams: null
-		/*{
-			"IS_OBJECT_ID": "5200000297"
-          "IS_PROCESS_TYPE": "ZPRO"
-		}*/
+		headerBarTitleInitHeight: null
 	};
 
 	$scope.datas = {
@@ -953,15 +853,9 @@ worksheetModule.controller("WorksheetDetailCtrl",[
 		$scope.config.scrollDelegateHandler = $ionicScrollDelegate.$getByHandle('xbrDelegateScroll');
 		$scope.config.contentDetegateHandler = $ionicScrollDelegate.$getByHandle('xbrDelegateContent');
 		
-		//initSwipeEvent();
-
-		$scope.config.requestParams = worksheetDataService.worksheetList.toDetail;
-
-		__requestDetailDatas();
+		initSwipeEvent();
 	};
 	$scope.init();
-
-
 
 	function initSwipeEvent() {
         var viewEle = document.getElementById('worksheetdetail-view');

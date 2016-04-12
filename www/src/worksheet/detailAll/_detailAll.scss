@@ -240,19 +240,15 @@
             @include display-flex;
             font-size: 1rem;
             padding: .6rem 0px;
-            border-bottom: 1px solid #eee;            
+            border-bottom: 1px solid #eee;
             div:first-child{
                 padding-left: 1rem;
-                //width: 4.5rem;
-                width: 6rem;
-                margin-right: .4rem;
+                width: 4.5rem;
             }
             div:nth-child(2){
                 @include flex(5);
                 color: #8E8B8B;
                 padding-right: .2rem;
-                overflow: hidden;
-                margin-right: .4rem;
             }
             &.has-right-icon{
             	.line-right-icon{
@@ -270,23 +266,24 @@
         word-spacing: .6rem;
         letter-spacing: .6rem;
         text-align: center;
-	}
-	/*.status-handleing{ 
+	} 
+	.status-handleing{ 
 		color: #9ED85F !important;
 	}  
 	.status-not-handle{
 		color: red !important;
-	}*/
+	}
 	.color-common-blue{    
 		color: #4C8AC7 !important;
 	}
+    
     
     .top-back2{
         height: 75px !important;
     }
     .worksheet-detail-view-public .saleTopBackId .mainInfo .row{
-        
-    }   
+
+    }
     #saleTopBackId{
         height: 170px;
         .mainInfo{
