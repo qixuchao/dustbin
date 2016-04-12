@@ -23,7 +23,7 @@ worksheetModule.controller("WorksheetListCtrl",[
             selector: '.animate-fade-slide-in .item'
         });*/
     }, 550);
-
+ 
 
     
 	$scope.config = {
@@ -330,7 +330,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
 		worksheetDataService.worksheetList.toDetail = {
 			"IS_OBJECT_ID": item.OBJECT_ID,
-    		"IS_PROCESS_TYPE": item.PROCESS_TYPE
+    		"IS_PROCESS_TYPE": item.PROCESS_TYPE,
+    		"ydWorksheetNum": item.SOLDTO_NAME,
+    		'ydStatusNum': item.STAT
 		};
 		if(item.PROCESS_TYPE == "ZNCO" || item.PROCESS_TYPE == "ZNCV"){
 			$state.go("worksheetDetail", {

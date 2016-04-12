@@ -20,13 +20,18 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService) {
 
         	$scope.$on('$destroy', function() {
+				__destroyMoreModal();
+			});
+
+			function __destroyMoreModal(){
 				if($scope.config.moreModal != null){			
 					$scope.config.moreModal.remove();
 					$scope.config.moreModal = null;
 				}
-			});
+			}
 
 			$scope.goState = function(stateName){
+				__destroyMoreModal();
 				$timeout(function (){
 					$state.go(stateName);
 				}, 100);		
@@ -47,11 +52,11 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			$scope.moreModalClickHandler = function(type){
 				$scope.config.moreModal.hide();		
 				if(type == 'paigong'){ 
-
+					requestChangeStatus("E0002", "派工");
 				}else if(type == 'judan'){
-
+					requestChangeStatus("E0003", "拒绝");
 				}else if(type == 'jiedan'){
-
+					requestChangeStatus("E0004", "接单");
 				}else if(type == 'beijianshengqing'){
 					$scope.goState("worksheetSparepart");
 				}else if(type == 'chelianglicheng'){
@@ -63,17 +68,27 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}else if(type == 'baogong'){
 					$scope.goState("worksheetbaogonglist");
 				}else if(type == 'wangong'){
-
+					requestChangeStatus("E0006", "完工");
 				}else if(type == 'yiquxiao'){
-					
-				}else if(type == 'yishenhe'){
-					
+					requestChangeStatus("E0009", "取消");
+				}else if(type == 'yishenhe'){  // E0007 内部已审核
+					requestChangeStatus("E0010", "外服审核");
+				}
+			};
+
+			$scope.showRequestModel = function(){
+				if($scope.cofnig.requestModal == null){
+					$scope.config.requestModal = $ionicModal.fromTemplate("<div class='show-request-modal-content worksheet-detail'>"+
+						+"<div ng-bind='config.requestModalStr'></div>"+
+						+"</div>", {
+						scope: $scope
+					});
 				}
 			};
 			
 			$scope.showMoreModel = function($event, sourceClassName){
 			    if($scope.config.moreModal == null){
-			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content "+$scope.config.typeStr+"'>"+
+			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content "+$scope.config.typeStr+" "+$scope.config.statusStr+"'>"+
 		                "<div><div class='top-line'></div></div>"+
 		                "<div class='content-lines'>"+
 		                    "<div class='content-line paigong' ng-click='moreModalClickHandler(\"paigong\");'>派工</div>"+
@@ -133,6 +148,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			
         	$scope.config = {
         		typeStr: '',
+        		statusStr'',
 
 				scrollDelegateHandler: null,
 				contentDetegateHandler: null,
@@ -145,10 +161,19 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				detailTypeSiteRepairFWS: false,
 				detailTypeBatchUpdateFWS: false,
 				
-				moreModal: null
+				moreModal: null,
+				requestModal: null,
+				requestModalStr: '正在加载'
 			};
 			$scope.datas = {
 				detail: null,
+				/*
+					{
+						kyhuMingCheng: 客户名称
+						waifuRenyuan: 外服人员姓名
+						......
+					}
+				*/
 				header: {
 
 				},
@@ -351,11 +376,12 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	}
 
             	$scope.config.requestParams = worksheetDataService.worksheetList.toDetail;
+            	$scope.config.ydStatusNum = worksheetDataService.worksheetList.toDetail.ydStatusNum;
             	$scope.config.typeStr = worksheetDataService.worksheetList.toDetail.IS_PROCESS_TYPE;
             	__requestDetailDatas();
             };
 
-            $scope.init(); 
+            $scope.init();
 
             function __requestDetailDatas(){
 		        var params = $scope.config.requestParams;
@@ -383,10 +409,30 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	if(!$scope.datas.serviceListDatas){
 		        		$scope.datas.serviceListDatas = [];
 		        	}
-		        	$scope.datas.detail = response;
-		        	worksheetDataService.wsDetailData = response;
+		        	var kyhuMingCheng = "";
+					var waifuRenyuan = ""; 
+		        	var tempResponse = response;
+		        	if(tempResponse && tempResponse.ET_PARTNER){
+		        		var items = tempResponse.ET_PARTNER.item;
+			        	if(items && items.length >= 0){
+			        		for(var j = 0; j < items.length; j++){
+				        		if(items[j].PARTNER_FCT == "ZCUSTOME"){  //: 客户名称
+				        			kyhuMingCheng = items[j].NAME1;
+				        		}
+				        		if(items[j].PARTNER_FCT == "ZSRVEMPL"){ //: 外服人员姓名
+				        			waifuRenyuan = items[j].NAME1;
+				        		}    		
+				        	}
+			        	}
+		        	}
+		        	
+		        	tempResponse.ydWorksheetNum = params.IS_OBJECT_ID;
+		        	tempResponse.kyhuMingCheng = kyhuMingCheng;
+		        	tempResponse.waifuRenyuan = waifuRenyuan;
+		        	$scope.datas.detail = tempResponse;
+		        	worksheetDataService.wsDetailData = tempResponse;
 		        	//debugger;
-		        	//console.log(response);
+		        	console.log(tempResponse);
 		        })
 		        .error(function(errorResponse){
 		        	$scope.config.isLoading = false;
@@ -396,6 +442,33 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        		$scope.datas.serviceListDatas = [];
 		        		$scope.config.hasMoreData = false;
 		        	}
+		        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
+		        });
+			}
+			// 修改工单状态
+			function requestChangeStatus(statusId, statusStr){
+				var params = $scope.config.requestParams;
+		        var queryParams = {
+				    "I_SYSNAME": { "SysName": "CATL" },
+				    "IS_AUTHORITY": { "BNAME": "" },
+				    "IS_OBJECT_ID": '"'+params.IS_OBJECT_ID+'"',
+				    "IS_PROCESS_TYPE": params.IS_PROCESS_TYPE,
+				    "IS_HEAD_DATA": {
+				    	"STATUS": statusId
+				    }
+				}
+
+		        var promise = HttpAppService.post(worksheetHttpService.serviceDetailChange.url,queryParams);
+		        $scope.config.isLoading = true;
+		        $scope.config.loadingErrorMsg = null;
+		        promise.success(function(response){
+		        	$scope.config.isLoading = false;
+		        	if(!$scope.datas.serviceListDatas){
+		        		$scope.datas.serviceListDatas = [];
+		        	}		        	
+		        })
+		        .error(function(errorResponse){
+		        	$scope.config.isLoading = false;
 		        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
 		        });
 			}

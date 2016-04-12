@@ -5,11 +5,33 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		background-color: $crm-header-bar-bgcolor;
 	}
 }
+	
+#xbr-worksheet-list-content{
+	.search-box-wrapper{
+		//@mixin transition(padding-top .2s linear 0.0s);
+		-webkit-transition: padding-top 0.2s linear 0s;
+				transition: padding-top 0.2s linear 0s;
+	}
+	.search-history{
+		//@mixin transition(top .2s linear 0.0s);
+		-webkit-transition: top 0.2s linear 0s;
+				transition: top 0.2s linear 0s;
+	}
+}
+	
+.platform-ios{
+	#xbr-worksheet-list-content{
+		.search-box-wrapper.isSearchingMode{
+			padding-top: 20px;
+		}
+		.search-history.isSearchingMode{
+			top: 67px;  // 正常情况下:47px
+		}
+	}
+}
 
 #worksheetlist-view{
 	background-color: $crm-header-bar-bgcolor;
-
-	
 	
 	ion-header-bar{
 		background-color: $crm-header-bar-bgcolor;
@@ -969,14 +991,13 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             font-size: 1rem;
         }
 		
-        
 		.yishenhe, .paigong, .judan, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong, .yiquxiao{
 			display: none;
 		}
         // paigong   judan   jiedan    beijian    chelianglicheng  guzhangxinxi   fuwupaizhao   baogong   wangong   yiquxiao
         //工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
 		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
-        &.ZNCO{  // 新车档案收集工单  
+        /*&.ZNCO{  // 新车档案收集工单  
 			.paigong{
 				display: block;
 			}
@@ -998,6 +1019,9 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			.yiquxiao{
 				display: block;
 			}
+			&.E0001{
+
+			}
         }
         &.ZPRO, &.ZPLO{
         	.paigong, .judan, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong, .yiquxiao{
@@ -1007,6 +1031,94 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         &.ZNCV, &.ZPRV, &.ZPLV{
 			.yishenhe{
 				display: block;
+			}
+        }*/
+
+
+        &.ZNCO, &.ZPLO, &.ZPRO{  //外服工单
+        	&.E0001{  // 新建
+        		.paigong{
+        			display: block;
+        		}
+        	}  
+        	&.E0002{  // 派工
+				.jiedan, .judan, .baogong, .yiquxiao{
+					display: block;
+				}
+			}
+			&.E0003{ //拒绝
+				.paigong, .jiedan, .baogong, .yiquxiao{
+					display: block;
+				}
+			}
+			&.E0004{ //处理中
+				.paigong, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .yiquxiao{
+					display: block;
+				}
+			}
+			&.E0005{ //报工
+				.chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong{
+					display: block;
+				}
+			}
+			&.E0006{ //已完工
+				
+			}
+			&.E0007{ // 审核
+				
+			}
+			&.E0008{  //打回
+
+			}
+			&.E0009{ //取消
+
+			}
+			&.E0010{ //回访
+
+			}
+        }
+        &.ZPRV, &.ZPLV, &.ZNCV{
+        	&.E0001{  // 新建
+        		.paigong{
+        			display: block;
+        		}
+        	}  
+        	&.E0002{  // 派工
+				.jiedan, .judan, .baogong, .yiquxiao{
+					display: block;
+				}
+			}
+			&.E0003{ //拒绝
+				.paigong, .jiedan, .baogong, .yiquxiao{
+					display: block;
+				}
+			}
+			&.E0004{ //处理中
+				.paigong, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .yiquxiao{
+					display: block;
+				}
+			}
+			&.E0005{ //报工
+				.chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong{
+					display: block;
+				}
+			}
+			&.E0006{ //已完工
+				.yishenhe{
+					display: block;
+				}
+			}
+			&.E0007{ // 审核
+				
+			}
+			&.E0008{  //打回
+
+			}
+			&.E0009{ //取消
+
+			}
+			&.E0010{ //回访
+
 			}
         }
     }

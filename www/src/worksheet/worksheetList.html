@@ -32,7 +32,7 @@
         </div-->
     </div>
     <ion-content id="xbr-worksheet-list-content"  class="" style="" scroll="false" has-bouncing="false">
-    	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);" ng-class="{'isSearchingMode':(config.queryModeNew)}">
+    	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);"  ng-class="{'isSearchingMode':(config.queryModeNew)}">
     		<div class="search-box">
 	            <i class="icon ion-ios-search-strong left"></i>
 	            <input type="search" ng-model="config.searchText" style="font-size: 12px;padding-top:0px; padding-bottom:0px;" ng-change="onSearchTextChange($event);" ng-click="clickSearchInput();" type="text" placeholder="{{config.searchPlaceholder}}">

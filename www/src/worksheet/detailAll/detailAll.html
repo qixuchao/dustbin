@@ -35,25 +35,36 @@
                     <i class="ion-android-radio-button-off"></i>
                     <!--<div>郑州金龙客车(福州)客户拜访</div>-->
                     <!--input type="text" value="郑州金龙客车(福州)客户拜访"  ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}"-->
-                    <div class="crm-circle-div" ng-bind="datas.header.title"></div>
+                    <div class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
                 </div>
                 <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
-                    <span class="crm-circle-div" ng-bind="datas.header.company"></span>
+                    <span class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.kyhuMingCheng"></span>
                 </div>
                 <div class="row row-center detail-last-line" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="detail-customer">
                         <div>外服人员:</div>
-                        <span ng-bind="datas.header.customer"></span>
+                        <span ng-bind="datas.detail.waifuRenyuan"></span>
                     </div>
                     <!--select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select-->
                     <div class="detail-status">
-                        <div class="num">状态:</div>
-                        <div ng-bind="datas.header.status"></div>
+                        <div class="num" style="color:white;">状态:</div>
+                        <div ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
+                                            'stat-new':(datas.detail.ES_OUT_LIST.STATU=='E0001'),
+                                            'stat-sendedworker':(datas.detail.ES_OUT_LIST.STATU=='E0002'),
+                                            'stat-refused':(datas.detail.ES_OUT_LIST.STATU=='E0003'),
+                                            'stat-handing':(datas.detail.ES_OUT_LIST.STATU=='E0004'),
+                                            'stat-reported':(datas.detail.ES_OUT_LIST.STATU=='E0005'),
+                                            'stat-finished':(datas.detail.ES_OUT_LIST.STATU=='E0006'),
+                                            'stat-revisited':(datas.detail.ES_OUT_LIST.STATU=='E0010'),
+                                            'stat-audited':(datas.detail.ES_OUT_LIST.STATU=='E0007'),
+                                            'stat-returned':(datas.detail.ES_OUT_LIST.STATU=='E0008'),
+                                            'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
+                                            'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
                     </div>                    
                 </div>
             </div>
     </div>
-
+    
     <div class="fixed-buttons buttons">
         <div class="button button-crm-edit button-crm-edit-public">
             编辑
@@ -62,7 +73,6 @@
     
     <ion-content class="has-header" style="top:170px;" has-bouncing="false" delegate-handle="xbrDelegateContent"  scrollbar-y="false">
         
-
         <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
             <div class="fill-height line-inner">
                 <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
@@ -91,17 +101,53 @@
                 </div>
                 <div class="row">
                     <div class="col-40">工单类型&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoNewCar.category"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TYPE_DESC"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">工单单号&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoNewCar.num"></div>
+                    <div class="col-60" ng-bind="datas.detail.ydWorksheetNum"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">简单描述&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoNewCar.simpleDesc"></div>
+                    <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                        <div ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
+                    </ion-scroll>                 
                 </div>
-                <div class="text-row">
+
+                <div class="row">
+                    <div class="col-40">状态&nbsp;:</div>
+                    <div class="col-60 status-not-handle" ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
+                                            'stat-new':(datas.detail.ES_OUT_LIST.STATU=='E0001'),
+                                            'stat-sendedworker':(datas.detail.ES_OUT_LIST.STATU=='E0002'),
+                                            'stat-refused':(datas.detail.ES_OUT_LIST.STATU=='E0003'),
+                                            'stat-handing':(datas.detail.ES_OUT_LIST.STATU=='E0004'),
+                                            'stat-reported':(datas.detail.ES_OUT_LIST.STATU=='E0005'),
+                                            'stat-finished':(datas.detail.ES_OUT_LIST.STATU=='E0006'),
+                                            'stat-revisited':(datas.detail.ES_OUT_LIST.STATU=='E0010'),
+                                            'stat-audited':(datas.detail.ES_OUT_LIST.STATU=='E0007'),
+                                            'stat-returned':(datas.detail.ES_OUT_LIST.STATU=='E0008'),
+                                            'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
+                                            'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">影响&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.IMPACT_DESC"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">总金额&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.NET_VALUE"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">货币&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.CURRENCY"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">需要回访:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
+                </div>
+                
+
+                <!--div class="text-row">
                     <div class="">备注&nbsp;:</div>
                     <div class="" ng-bind="datas.basicInfoNewCar.desc"></div>
                 </div>
@@ -112,15 +158,16 @@
                 <div class="row">
                     <div class="col-40">上线客户&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.basicInfoNewCar.onlinePro"></div>
-                </div>
-                <div class="row">
+                </div-->
+
+                <!--div class="row">
                     <div class="col-40">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态&nbsp;:</div>
                     <div class="col-60 status-not-handle" ng-bind="datas.basicInfoNewCar.status"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">外服人员&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.basicInfoNewCar.user"></div>
-                </div>
+                </div-->
             </div>
             <div class="time-info commment-info-lines">
                 <div class="crm-line-title word-2">
@@ -132,11 +179,11 @@
                 </div>
                 <div class="row">
                     <div class="col-40">上线开始时间:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoNewCar.timeOnlineStart"></div>
+                    <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">上线结束时间:</div>
-                    <div class="col-60" ng-bind="datas.basicInfoNewCar.timeOnlineStart"></div>
+                    <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.END_DATE}} {{datas.detail.ES_OUT_LIST.END_TIME}}"></div>
                 </div>
             </div>
         </div>
@@ -156,11 +203,14 @@
                 </div>
                 <div class="row">
                     <div class="col-40">工单单号&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
+                    <div class="col-60" ng-bind="datas.detail.ydWorksheetNum"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">简单描述&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
+                    <!--div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div-->
+                    <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                        <div ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
+                    </ion-scroll>
                 </div>
                 <!--div class="text-row">
                     <div class="">备注&nbsp;:</div>
@@ -213,13 +263,27 @@
                     </div>
                     <span class="title-bottom"></span>
                 </div>
-                <div class="text-row has-right-icon">
+                <!--div class="text-row has-right-icon">
                     <div class="">车辆编号&nbsp;:</div>
                     <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO"></div>
                 </div>
                 <div class="text-row">
                     <div class="">车辆描述&nbsp;:</div>
                     <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
+                </div-->
+                <div class="row">
+                    <div class="col-40">车辆编号&nbsp;:</div>
+                    <!--div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO"></div-->
+                    <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                        <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO"></div>
+                    </ion-scroll>
+                </div>
+                <div class="row">
+                    <div class="col-40">车辆描述&nbsp;:</div>
+                    <!--div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div-->
+                    <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                        <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
+                    </ion-scroll>
                 </div>
             </div>
             
@@ -269,23 +333,23 @@
                 </div>
                 <div class="row">
                     <div class="col-40">故障发生场景&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.SCEARIO"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.SCENARIO_DESC"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">责任方&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.REPINSE"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.RESPONSE_DESC"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">故障分类&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.DEFECT_DESC"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">产品类型&nbsp;:</div> <!-- 部件分类 -->
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.COMPONENT"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.COMP_TYPE"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">故障部件&nbsp;:</div>
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.COMPONENT"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">故障名称&nbsp;:</div>

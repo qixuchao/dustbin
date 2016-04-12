@@ -27,9 +27,13 @@ worksheetModule.service('worksheetDataService', [function(){
       toDetail:{
         //  "IS_OBJECT_ID": "5200000297"
         //  "IS_PROCESS_TYPE": "ZPRO"
+        //  "ydWorksheetNum": 
       }
     },
-    worksheetDetailData: null
+    wsDetailData: null
+    /*{
+      ydWorksheetNum: 
+    }*/
   };
 }]);
 
@@ -72,6 +76,65 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
         },
         serviceDetail: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL'   //工单详情接口
+        },
+        serviceDetailChange: {
+            url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE',   //工单详情修改接口
+            defaults: {
+                "I_SYSTEM": { "SysName": "ATL" },
+                "IS_AUTHORITY": { "BNAME": "" }
+                /*,
+                "IS_HEAD_DATA": {
+                  "DESCRIPTION": "",
+                  "CAR_NO": "",
+                  "STATUS": "",
+                  "IMPACT": "0",
+                  "START_DATE": "",
+                  "START_TIME": "14:20:00.0Z",
+                  "END_DATE": "",
+                  "END_TIME": "14:20:00.0Z",
+                  "SCENARIO": "",
+                  "RESPONSE": "",
+                  "DEFECT": "",
+                  "COMP_TYPE": "",
+                  "COMPONENT": "",
+                  "REASON": "",
+                  "ZZBXR": "",
+                  "ZZBXDH": ""
+                },
+                "IS_PROCESS_TYPE": "",
+                "IT_MAT_LIST": {
+                  "item": {
+                    "STORAGE": "",
+                    "PROD": "",
+                    "APPLY_NUM": "",
+                    "SEND_NUM": "",
+                    "RETURN_NUM": "",
+                    "OLDNUM": "",
+                    "ZMODE": "a"
+                  }
+                },
+                "IT_MILEAGE": {
+                  "item": {
+                    "MILEAGE_REF": "",
+                    "MILEAGE_VALUE": "",
+                    "MILEAGE_DATE": "",
+                    "MILEAGE_DESC": ""
+                  }
+                },
+                "IT_PARTNER": {
+                  "item": {
+                    "PARTNER_FCT": "",
+                    "PARTNER_NO": "",
+                    "ZMODE": ""
+                  }
+                },
+                "IT_TEXT": {
+                  "item": {
+                    "TDID": "",
+                    "TEXT": ""
+                  }
+                }*/
+            }
         }
     };
 

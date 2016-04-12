@@ -212,6 +212,21 @@
     }
 	
 	font-size: .9rem;
+    .basic-info, .fuwuduixiang-info{
+        ion-scroll.xbr-scroll-x{
+            .scroll{
+                height: 2.5rem;
+                padding-left: 0px !important;
+                div{
+                    height: 2.5rem;
+                    padding-left: 0px !important;
+                    line-height: 2.5rem;
+                    white-space: nowrap;
+                    overflow: visible;
+                }
+            }
+        }
+    }
 	.commment-info-lines{
 		margin-top: .8rem;
 		&.first-line{
@@ -286,7 +301,7 @@
     }
     .worksheet-detail-view-public .saleTopBackId .mainInfo .row{
         
-    }   
+    }
     #saleTopBackId{
         height: 170px;
         .mainInfo{
