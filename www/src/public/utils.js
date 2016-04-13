@@ -128,7 +128,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
             },
             showLoading: function (content) {
                 $ionicLoading.show({
-                    template: ('<ion-spinner icon="ios"></ion-spinner><p ng-if=content>' + content + '</p>'),
+                    template: ('<ion-spinner icon="ios"></ion-spinner><p>' + content + '</p>'),
                     animation: 'fade-in',
                     showBackdrop: true,
                 });
@@ -236,6 +236,16 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
             //客户和联系人创建和编辑界面点击取消公共函数
             ContactCreateCancelvalue: function () {
                 return $cordovaDialogs.confirm('是否退出编辑界面', '提示', ['确定', '取消'])
+                    .then(function (buttonIndex) {
+                        // no button = 0, 'OK' = 1, 'Cancel' = 2
+                        var btnIndex = buttonIndex;
+                        if (btnIndex == 1) {
+                            $rootScope.goBack();
+                        }
+                    });
+            },
+            deleteInfosPoint: function (text) {
+                return $cordovaDialogs.confirm(text, '提示', ['确定'])
                     .then(function (buttonIndex) {
                         // no button = 0, 'OK' = 1, 'Cancel' = 2
                         var btnIndex = buttonIndex;

@@ -23,8 +23,7 @@
                 <h2 style="color: #276DAC">请选择</h2>
                 <p>
                     <select class="selectC" ng-click="selectDetail(info)" ng-model="selectWarehouse">
-                        <option selected value="南京">客服/售后服务仓-备件中心-南京</option>
-                        <!--<option value="上海">客服/售后服务仓-备件中心-上海</option>-->
+                        <option selected value="" ng-repeat="wareHouseitem in wareHouse">{{wareHouseitem.ZZSTORAGE_DESC}}</option>
                     </select>
                 </p>
             </div>
