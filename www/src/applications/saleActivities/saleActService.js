@@ -178,7 +178,8 @@ salesModule.factory('saleActService', function () {
         position: '保安'
     }];
     var customerArr = [];
-    var listPage = 0;
+    var listPage = 1;
+    var saleListArr;
     return {
         getSaleListArr: function () {
             return saleListArr2;
@@ -204,6 +205,6 @@ salesModule.factory('saleActService', function () {
         getRelationSelections: function () {
             return relationSelections;
         },
-        customerArr,listPage
+        customerArr,listPage,saleListArr
     };
 });

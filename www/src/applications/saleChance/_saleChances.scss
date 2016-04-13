@@ -145,11 +145,12 @@
     border-bottom: 1px solid white;
     height: 28px;
     padding-top: 4px;
+    @include single-line-ellipsis();
     .right-arrow{
       color: white!important;
       font-size: 20px!important;
       position: fixed;
-      right: 33%;
+      right: 25%;
     }
   }
   .top-back .mainInfo .row {
@@ -184,6 +185,8 @@
   margin-top: 44%;
   font-size: 14px;
   height: 274px;
+  margin-left: -117px!important;
+  width: 235px!important;
   .row{
     padding: 8px 0 4px 0;
     border-bottom: 1px solid #E0DBD7;
@@ -215,7 +218,8 @@
       background: none;
       border: none;
       position: relative;
-      left: -6px;
+      -webkit-appearance: none;
+      left: 16px;
     }
     .save{
       width: 80%;
