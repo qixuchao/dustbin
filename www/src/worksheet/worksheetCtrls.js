@@ -12,10 +12,11 @@ worksheetModule.controller("WorksheetListCtrl",[
 	"HttpAppService",
 	"worksheetHttpService",
 	"worksheetDataService",
+	"customeService",
 	function($scope, 
 		ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,
 		$ionicPosition, $state, 
-		HttpAppService, worksheetHttpService, worksheetDataService){
+		HttpAppService, worksheetHttpService, worksheetDataService, customeService){
 	
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
@@ -45,7 +46,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		sorteGoneByModelClick: false,
 		//排序 规则
 		sortedTypeNone: true,    //不排序
-		sortedTypeTimeDesc: true,  //时间 降序（默认）
+		sortedTypeTimeDesc: false,  //时间 降序（默认）
 		sortedTypeTimeAes: false,	//时间 升序
 		sortedTypeCompactDesc: false,
 		//筛选 规则 ----> 工单类型
@@ -781,6 +782,10 @@ worksheetModule.controller("WorksheetListCtrl",[
 			$scope.config.showListItemAnimate = true;
 		}, 150);
 		//__requestServiceList({IS_PAGE:{CURRPAGE: ++$scope.config.currentPage, ITEMS: 10}});
+		
+		var temp = customeService.get_customerWorkordervalue();
+		console.log(temp);
+
 		$scope.reloadData();
 		/*$ionicPopup.alert({
 			title: '你好',
@@ -817,7 +822,7 @@ worksheetModule.controller("WorksheetListCtrl",[
         		$scope.config.isReloading = false;
         		$scope.$broadcast('scroll.refreshComplete');
         		$scope.datas.serviceListDatas = [];
-        	}        	
+        	}
         	if(response.ES_RESULT.ZFLAG == "E"){ // 未加载到数据
         		$scope.config.hasMoreData = false;
         		return;
@@ -842,6 +847,22 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 
 }]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 worksheetModule.controller("WorksheetDetailCtrl",[
 	"$scope", 
