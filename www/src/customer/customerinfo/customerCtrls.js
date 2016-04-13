@@ -46,6 +46,8 @@ customerModule
             $scope.CustomerHisGetvaluehis();
         });
         //查询
+        //初始化查询参数
+        $scope.customerselecttyperole = '';
         $scope.customerQuery_list = [];
         $scope.customerQuery_list = new Array;
         $scope.customerPage = 0;
@@ -60,9 +62,10 @@ customerModule
                     "ITEMS": "10"
                 },
                 "IS_SEARCH": { "SEARCH": ""},
-                "IT_IN_ROLE": {
+                "IT_IN_ROLE": { "RLTYP":$scope.customerselecttyperole
                 }
             };
+            //var data = data2;
             console.log("data"+angular.toJson(data));
             console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
@@ -152,6 +155,26 @@ customerModule
         $scope.customeriputDeletevalue = function(){
             $scope.customer.customerfiledvalue ='';
         };
+
+
+        $scope.customerSelectTypeGet = function(){
+            ////改变角色的参数
+            //$scope.$apply(function(){
+            //    $scope.customerisshow = false;
+            //    //删除请求
+            //    $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
+            //    $scope.customerQuery_list = [];
+            //    $scope.customerQuery_list = new Array;
+            //    $scope.customerPage = 0;
+            //});
+            //$scope.customer_queryflag = true;
+            //$ionicScrollDelegate.resize();
+            //$scope.customerisshow = true;
+            //if(!$scope.$$phase) {
+            //    $scope.$apply();
+            //};
+            //$scope.customerselecttyperole = '';
+        }
 
         //清除历史记录
         $scope.CustomerClearhis = function(){
@@ -255,59 +278,33 @@ customerModule
             $state.go('customerDetail');
         };
         $scope.customer_types = ['潜在客户','正式客户','竞争对手','助销伙伴','终端客户','服务端'];
-        $scope.customerQuery_list = [{
-            customername: '福州龙福汽车有限责任公司',
-            customeraddress:'河南省郑州市芙蓉街汇金路55号',
-            customerphonenumber:'021-88221731',
-            customernumber:'NO.100036',
-            customerposition:'正式客户',
-            customerpayway:'电汇/90天',
-            customerpaydate:'通用日历',
-            customercheckperiod:'10',
-            customerwillcheckperiod:'10',
-            customerfax:'010-86543777',
-            customermail:'yuwei.wang@hand-china.com',
-            customerwebsite:'www.jinlonggao.com',
-            customercontrary:'中国',
-            customerregion:'河南省',
-            customercity:'郑州市',
-            customerstreet:'芙蓉街汇金路55',
-            customerborad:'55号',
-            customerpostal:'5567001',
-            'customerzhushi':'in the feahennmkk in the feahennmkk in the feahennmkk in the feahennmkk'
-        }, {
-                customername: '福州龙福汽车有限责任公司',
-                customeraddress:'河南省郑州市芙蓉街汇金路55号',
-                customerphonenumber:'021-88221731',
-                customernumber:'NO.100036',
-                customerposition:'正式客户',
-                customerpayway:'电汇/90天',
-                customerpaydate:'通用日历',
-                customercheckperiod:'10',
-                customerwillcheckperiod:'10',
-                customerfax:'010-86543777',
-                customermail:'yuwei.wang@hand-china.com',
-                customerwebsite:'www.jinlonggao.com',
-                customercontrary:'中国',
-                customerregion:'河南省',
-                customercity:'郑州市',
-                customerstreet:'芙蓉街汇金路55',
-                customerborad:'55号',
-                customerpostal:'5567001',
-                'customerzhushi':'in the feahennmkk in the feahennmkk in the feahennmkk in the feahennmkk'
-            }
-        ];
-
         $scope.customerqueryTypeunit = "常用客户";
-        $scope.employbasiclineflag = true;
-        //$scope.customer_Querylistheadlinestyle = 'customer_QuerylistheadlineA'
+        //$scope.employbasiclineflag = true;
         $scope.customerqueryType = function(type){
             $scope.customerqueryTypeunit = type;
             if(type == "服务端"){
                 $scope.employbasiclineflag = false;
             }else{
                 $scope.employbasiclineflag = true;
-            }
+            };
+            //改变角色的参数
+            //$scope.$apply(function(){
+                $scope.customerisshow = false;
+                //删除请求
+                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
+                $scope.customerQuery_list = [];
+                $scope.customerQuery_list = new Array;
+                $scope.customerPage = 0;
+                $scope.customer_queryflag = true;
+                $ionicScrollDelegate.resize();
+                $scope.customerselecttyperole = '';
+                $scope.customerLoadmore()
+                $scope.customerisshow = true;
+            //});
+            //$scope.customer_queryflag = true;
+            //$ionicScrollDelegate.resize();
+            //$scope.customerisshow = true;
+
             $scope.customerPopoverhide();
         };
 
