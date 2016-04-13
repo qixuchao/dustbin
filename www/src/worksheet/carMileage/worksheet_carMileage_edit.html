@@ -15,10 +15,6 @@
         </div>
         <div class="contentAll">
             <div class="row itemContent row-center">
-                <div class="col-42 col-center">计数器：</div>
-                <div class="col-58 col-center"  style="color:#A8A49F">{{carMile.MILEAGE_COUNTER}}</div>
-            </div>
-            <div class="row itemContent row-center">
                 <div class="col-42 col-center">上一值：</div>
                 <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LAST}}</div>
             </div>
@@ -31,22 +27,23 @@
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">读取日期：</div>
                 <div class="col-58 col-center">
-                    <input type="text" placeholder="" ng-medol="readDate">
+                    <input type="text" placeholder="日期" ng-model="update.readDate"  style="font-size: 16px" class="fontColor" >
                 </div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">值：</div>
                 <div class="col-58 col-center">
-                    <input type="text"placeholder="请输入值" ng-model="readValue">
+                    <input type="text" placeholder="请输入值" ng-model="update.readValue" value="" style="font-size: 16px" class="fontColor" >
                 </div>
             </div>
 
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">读取描述：</div>
                 <div class="col-58 col-center">
-                <input type="text"placeholder="请输入读取描述" ng-model="readDescription">
+                <input type="text"placeholder="请输入读取描述" ng-model="update.readDescription" value="" style="font-size: 16px" class="fontColor">
                 </div>
             </div>
+
         </div>
     </ion-content>
 </ion-view>
