@@ -42,17 +42,17 @@
                         <div class="relatedPart_listcicle" ng-class="{relatedPart_listcicleA: !$odd, relatedPart_listcicleB: !$even}"></div>
                     </div>
                     <div class="col col-38 col-center" style="text-align: left;padding-left:0px">
-                        <div class="row row-center"><span style="vertical-align: middle">{{i.name}}</span></div>
-                        <div class="row row-center"><span style="vertical-align: middle;font-size: 13px;color:#D2D2D2">{{i.position}}</span></div>
+                        <div class="row row-center"><span style="vertical-align: middle">{{i.NAME1}}</span></div>
+                        <div class="row row-center"><span style="vertical-align: middle;font-size: 13px;color:#D2D2D2">{{i.FCT_DESCRIPTION}}</span></div>
                     </div>
                     <div class="col col-47 col-center" style="text-align: left">
-                        <span style="vertical-align: middle;color:#D2D2D2" ng-click="show(i.phone)">{{i.phone}}</span>
+
                     </div>
                     <div class="col col-10 col-center">
                         <img class="relatedPart_listfor" src="img/employee/Shape@2x.png">
                     </div>
                 </div>
-                <ion-option-button style="width:30px;text-align: center" class="button-assertive">
+                <ion-option-button style="width:30px;text-align: center" class="button-assertive" ng-click="deleteInfos(i)">
                     <i class="icon ion-ios-trash-outline" style="font-size: 50px;"></i>
                 </ion-option-button>
             </ion-item>

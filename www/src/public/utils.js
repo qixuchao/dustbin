@@ -2,7 +2,8 @@
  * Created by Gusenlin on 2015/10/16.
  */
 'use strict';
-utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 'Prompter', '$ionicLoading', function ($log, $http, $rootScope, $state, Prompter, $ionicLoading) {
+utilsModule.service('HttpAppService', ['$log','$http', '$rootScope', '$state', 'Prompter', '$ionicLoading','$timeout' ,
+    function ($log, $http, $rootScope, $state, Prompter, $ionicLoading,$timeout) {
     var debug = function (text) {
         $log.debug(procedure + " success");
     };
@@ -29,12 +30,16 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
             return get;
         },
         post: function (url, paramter) {
-
+            var flag = false;
+            $timeout(function () {
+                $ionicLoading.hide();
+            },30000);
             var post = $http.post(url, paramter, {
                 headers: {
                     'Content-Type': 'application/json;charset=UTF-8'
                 }
             }).success(function (response) {
+                flag=true;
                 try {
                     if (response.status === 'ETOKEN') {
                         $ionicLoading.hide();
@@ -121,7 +126,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
             },
             showLoading: function (content) {
                 $ionicLoading.show({
-                    template: ('<ion-spinner icon="ios"></ion-spinner><p>' + content + '</p>'),
+                    template: ('<ion-spinner icon="ios"></ion-spinner><p ng-if='+content+'>' + content + '</p>'),
                     animation: 'fade-in',
                     showBackdrop: true,
                 });

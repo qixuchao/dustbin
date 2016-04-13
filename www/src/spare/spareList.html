@@ -15,7 +15,7 @@
         <div class="search2" ng-show="searchFlag">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
-            <input id="spareId" type="text" placeholder="输入产品信息" ng-model="spareInfo" ng-change="spareLoadmoreIm()" >
+            <input id="spareId" type="text" ng-focus="true" placeholder="输入产品信息" ng-model="spareInfo" ng-change="initLoad()">
             <i class="button button-clear" ng-click="cancelSearch()">取消</i>
         </div>
     </ion-header-bar>
@@ -55,6 +55,6 @@
                 </div>
             </div>
         </div>
-        <ion-infinite-scroll on-infinite="spareLoadMoreIm()" ng-if="spareimisshow"></ion-infinite-scroll>
+        <ion-infinite-scroll distance="1%" on-infinite="spareLoadmoreIm()" ng-if="spareimisshow"></ion-infinite-scroll>
     </ion-content>
 </ion-view>

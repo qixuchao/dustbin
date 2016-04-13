@@ -15,11 +15,11 @@
         <div class="search2" ng-show="searchFlag" ng-class="{'searchFlag':'animated fadeOutLeft'}">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="spareDesc.length>0" ng-click="initSearch()"></i>
-            <input id="searchSpareId" type="text" placeholder="请输入备件描述" ng-model="spareDesc">
+            <input id="searchSpareId" type="text" placeholder="请输入备件描述" ng-model="spareDesc" ng-change="initLoad()">
             <i class="button button-clear" ng-click="cancelSearch()">取消</i>
         </div>
     </ion-header-bar>
-    <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag" ng-click="changeSearch($event)">
+    <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag">
         <div class="row row-center his-title" ng-if="!spareDesc">
             <i class="ion-android-time"></i>
             <div class="hisText">历史记录</div>

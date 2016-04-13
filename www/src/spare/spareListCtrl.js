@@ -15,7 +15,6 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
 
     $scope.spareListHistoryval = function(){
         if(storedb('sparedb').find().arrUniq() != undefined || storedb('sparedb').find().arrUniq() != null){
-            $scope.employee_userqueryflag = false;
             $scope.data = (storedb('sparedb').find().arrUniq());
             if ($scope.data.length > 5) {
                 $scope.data = $scope.data.slice(0, 5);
@@ -25,17 +24,21 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
     $scope.spareListHistoryval();
 
     //广播修改界面显示flag
-    $rootScope.$on('sparedeatillist', function(event, data) {
+    $rootScope.$on('customercontactCreatevalue1', function(event, data) {
         console.log("接收成功");
-        $scope.spareInfo ='';
-        $scope.spareListHistoryval();
+        $scope.spareInfo =data;
+        //$scope.spareListHistoryval();
     });
-
+        $rootScope.$on('sparelist', function(event, data) {
+            console.log("接收成功1");
+            $scope.spareInfo ="";
+            $scope.spareListHistoryval();
+        });
     $scope.changePage=function(){
         $scope.searchFlag=true;
-        $timeout(function () {
-            document.getElementById('spareId').focus();
-        }, 1)
+        //$timeout(function () {
+        //    document.getElementById('spareId').focus();
+        //}, 1)
     };
     $scope.changeSearch=function(){
         $scope.isSearch=true;
@@ -58,8 +61,8 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
         $scope.spareLoadmoreIm();
     };
     $scope.spareLoadmoreIm = function() {
-        //$scope.spareimisshow = true;
-        $scope.spareList=[];
+        //$scope.spareimisshow = false;
+        //console.log("第1步");
         page+=1;
         var url = ROOTCONFIG.hempConfig.basePath + 'PRODUCT_LIST';
         var data = {
@@ -73,14 +76,16 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
         HttpAppService.post(url, data).success(function (response) {
             console.log(page);
             if (response.ES_RESULT.ZFLAG == 'E') {
+                //console.log("第3步");
                 $scope.spareimisshow = false;
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             } else {
                 if (response.ES_RESULT.ZFLAG == 'S') {
+                    //console.log("第4步");
                     Prompter.hideLoading();
+                    $scope.spareimisshow = false;
                     if (response.ET_PRODMAS_OUTPUT.item.length == 0) {
-                        $scope.spareimisshow = false;
                         if (page == 1) {
                             $cordovaToast.showShortBottom('数据为空');
                         } else {
@@ -90,9 +95,14 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
                     } else {
                         //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
                         $.each(response.ET_PRODMAS_OUTPUT.item, function (n, value) {
-                            $scope.spareList.push(value);
-                            //$scope.spareimisshow=false;
-                            //$scope.$broadcast('scroll.infiniteScrollComplete');
+                            if($scope.spareInfo===""){
+                                $scope.spareList=new Array;
+                            }else{
+                                $scope.spareList.push(value);
+                            }
+
+                            //console.log("第5步");
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
                         });
                     }
                     if (response.ET_PRODMAS_OUTPUT.item.length < 10) {
@@ -101,9 +111,13 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
                             $cordovaToast.showShortBottom('没有更多数据了');
                         }
                     } else {
-                        $scope.spareimisshow = true;
+                        if($scope.spareList.length===0){
+                            $scope.spareimisshow=false;
+                        }else{
+                            $scope.spareimisshow = true;
+                        }
                     }
-                    //$scope.$broadcast('scroll.infiniteScrollComplete');
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
 
                 }
             }
@@ -112,6 +126,27 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
             $scope.spareimisshow = false;
         });
     };
+    //进入详细界面传递标识
+    $scope.goDetail = function(value){
+        //存储历史记录
+        if(storedb('sparedb').find($scope.spareInfo)) {
+            storedb('sparedb').remove($scope.spareInfo);
+        }
+        storedb('sparedb').insert({"name": $scope.spareInfo}, function (err) {
+            if (!err) {
+                console.log('历史记录保存成功')
+            } else {
+                $cordovaToast.showShortBottom('历史记录保存失败');
+            }
+        });
+        SpareListService.set(value);
+        $state.go('spareDetail');
+    };
+        $scope.initLoad=function(){
+            page=0;
+            $scope.spareList = new Array;
+            $scope.spareLoadmoreIm();
+        };
         //var sparetimer;
         //setTimeout(function(){
         //    //document.getElementById('employeequeryinput').style.display = "none";
@@ -152,21 +187,10 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
         //        }, 500);
         //    });
         //
-    //进入详细界面传递标识
-    $scope.goDetail = function(value){
-        //存储历史记录
-        storedb('sparedb').insert({"name": $scope.spareInfo}, function (err) {
-            if (!err) {
-                console.log('历史记录保存成功')
-            } else {
-                $cordovaToast.showShortBottom('历史记录保存失败');
-            }
-        });
-        SpareListService.set(value);
-        $state.go('spareDetail');
-    }
 }
 ])
-.controller('SpareDetailCtrl',['$scope','SpareListService',function($scope,SpareListService){
+.controller('SpareDetailCtrl',['$rootScope','$scope','SpareListService',function($rootScope,$scope,SpareListService){
         $scope.spareList=SpareListService.get();
+
+        $rootScope.$broadcast('customercontactCreatevalue','false');
     }]);

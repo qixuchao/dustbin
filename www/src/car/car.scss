@@ -563,11 +563,71 @@
       line-height: 3.5em;
       color: white;
     }
+    .bar-subheader {
+      height: 43px;
+      display: block;
+      padding: 8px;
+      .search1 {
+        .placeholder-icon {
+          color: #aaa;
+          position: absolute;
+          z-index: 2;
+          top: .8em;
+          left: 1em;
+        }
+        input {
+          display: block;
+          padding-left: 2em;
+          color: black;
+          vertical-align: middle;
+          font-size: 14px;
+          height: 28px;
+          width: 95%;
+          position: fixed;
+          border-radius: 5px;
+        }
+      }
+      .search2 {
+        .placeholder-icon {
+          color: #aaa;
+          position: absolute;
+          z-index: 2;
+          top: .8em;
+          left: 1em;
+        }
+        input {
+          display: block;
+          padding-left: 2em;
+          color: black;
+          vertical-align: middle;
+          font-size: 14px;
+          height: 28px;
+          width: 80%;
+          position: fixed;
+          border-radius: 5px;
+        }
+        .ion-ios-close {
+          position: absolute;
+          top: 13px;
+          right: 5em;
+          z-index: 2;
+          color: #aaa;
+        }
+        .button-clear {
+          position: relative;
+          left: 86%;
+          font-size: 16px;
+          top: -2px;
+          min-height: 30px;
+          max-height: 30px;
+        }
+      }
+    }
     ion-content {
       background-color: $crm-content-bgcolor;
       @include display-flex;
       @include flex-direction(column);
-      top: 4em;
+      top: 6.2em;
     }
 
     .divLine {
@@ -828,8 +888,8 @@
       color: #969494;
       .tab-button-block {
         display: inline-block;
-        height: 3rem;
-        line-height: 3rem;
+        height: 3em;
+        line-height: 3em;
         text-align: center;
         @include flex(1);
         span {
@@ -1038,8 +1098,8 @@
           }
           .filter-start-time, .filter-end-time {
             display: inline-block;
-            max-width: 7em;
-            width: 7em;
+            max-width: 7.8em;
+            width: 7.8em;
             height: 2rem;
             line-height: 2rem;
             background-color: $filter-item-bg;

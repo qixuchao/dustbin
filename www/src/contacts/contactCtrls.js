@@ -75,7 +75,7 @@ ContactsModule
             $scope.conitemImPage = $scope.conitemImPage + 1;
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST';
             var data = {
-                "I_SYSNAME": { "SysName": "CATL" },
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_AUTHORITY": { "BNAME": "" },
                 "IS_PAGE": {
                     "CURRPAGE": $scope.conitemImPage,
@@ -313,7 +313,7 @@ ContactsModule
         Prompter.showLoading("数据加载中...");
         var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
         var data = {
-            "I_SYSNAME": { "SysName": "CATL" },
+            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
             "IS_AUTHORITY": { "BNAME": "handlcx02" },
             "IS_PARTNER": { "PARTNER": contactService.get_ContactsListvalue().PARTNER}
             //"IS_PARTNER": { "PARTNER":'6000000385'}
@@ -505,7 +505,7 @@ ContactsModule
             Prompter.showLoading("数据保存中...");
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_CHANGE';
             var data = {
-                "I_SYSTEM": { "SysName": "CATL" },
+                "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_AUTHORITY": { "BNAME": "" },
                 "IS_CUSTOMER": {
                     "PARTNER": "",
@@ -707,7 +707,7 @@ ContactsModule
             }
             console.log(customerPage);
             var data = {
-                "I_SYSNAME": {"SysName": "CATL"},
+                "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_PAGE": {
                     "CURRPAGE": customerPage++,
                     "ITEMS": "10"
@@ -868,7 +868,7 @@ ContactsModule
             Prompter.showLoading("数据保存中...");
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_CHANGE';
             var data = {
-                "I_SYSTEM": { "SysName": "CATL" },
+                "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_AUTHORITY": { "BNAME": "" },
                 "IS_CUSTOMER": {
                     "PARTNER": "",

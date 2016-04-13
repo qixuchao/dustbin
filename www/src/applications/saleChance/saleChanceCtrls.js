@@ -127,8 +127,9 @@ salesModule
             //筛选
             $scope.filterFlag = false;
             //$scope.isDropShow = true;
-            $scope.changeFilterFlag = function () {
+            $scope.changeFilterFlag = function (e) {
                 $scope.filterFlag = !$scope.filterFlag;
+                e.stopPropagation();
             };
             $scope.goDetail = function (x, e) {
                 saleChanService.obj_id = x.OBJECT_ID;
@@ -315,8 +316,10 @@ salesModule
         '$cordovaDatePicker',
         'saleChanService',
         'Prompter',
+        'HttpAppService',
         function ($scope, $rootScope, $state, ionicMaterialInk, ionicMaterialMotion, $timeout, $ionicScrollDelegate,
-                  $ionicPopover, $ionicModal, $cordovaDialogs, $cordovaToast, $cordovaDatePicker, saleChanService, Prompter) {
+                  $ionicPopover, $ionicModal, $cordovaDialogs, $cordovaToast, $cordovaDatePicker, saleChanService,
+                  Prompter,HttpAppService) {
             console.log('chanceDetail')
             ionicMaterialInk.displayEffect();
             //ionicMaterialMotion.fadeSlideInRight();
@@ -347,6 +350,7 @@ salesModule
                 }
             };
             var getDetails = function () {
+                Prompter.showLoading();
                 var data = {
                     "I_SYSTEM": {"SysName": "CATL"},
                     "IS_USER": {"BNAME": ""},
@@ -374,6 +378,7 @@ salesModule
                     $scope.$broadcast('scroll.refreshComplete');
                 });
             };
+            getDetails();
             getInitStatus();
             $scope.isEdit = false;
             $scope.editText = "编辑";
@@ -426,7 +431,6 @@ salesModule
             var position;
             $scope.onScroll = function () {
                 position = $ionicScrollDelegate.getScrollPosition().top;
-                console.log(position)
                 if (position > 10) {
                     $scope.TitleFlag = true;
                     $scope.showTitle = true;
@@ -584,6 +588,9 @@ salesModule
             });
 
             $scope.openMoneyModal = function (type) {
+                if(!$scope.isEdit){
+                    return
+                }
                 if(type=='money'){
                     $scope.unitTitle = '币种';
                     $scope.moneyTypesArr = saleChanService.getMoneyTypesArr();

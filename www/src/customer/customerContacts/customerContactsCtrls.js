@@ -3,7 +3,7 @@
  */
 'use strict';
 customerContactsModule
-    .controller('customerContactQueryCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,contactService,$ionicLoading){
+    .controller('customerContactQueryCtrl',['$scope','$rootScope','$state','$http','HttpAppService','$cordovaToast','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,HttpAppService,$cordovaToast,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,contactService,$ionicLoading){
 
         $ionicPopover.fromTemplateUrl('src/customer/model/customercontact_selec.html', {
             scope: $scope
@@ -16,22 +16,84 @@ customerContactsModule
         $scope.customerContactsPopoverhide = function() {
             $scope.customerContactspopover.hide();
         };
-        $scope.customerContacts_query_list = [{
-            name: '王雨薇',
-            sex:'女',
-            keuhuname:'金龙客车',
-            dizhiname:'福建省福州市芙蓉大道20号',
-            xioshouyung:'张俊华',
-            phonenumber:'021-88223765',
-            customermail:'yuwei.wang@hand-china.com',
-            postion:'采购部',
-            atend:'采购助理',
-            customercontrary:'中国',
-            customerregion:'河南省',
-            youbina:'555876',
-            birthday:'2016.08.21',
-            'customerzhushi':'in the feahennmkk in the feahennmkk in the feahennmkk in the feahennmkk'
-        }];
+        //alert(1)
+        //调用接口数据
+        //获取数据列表函数
+        $scope.customercontactisshow = true;
+        $scope.customerContacts_query_list = new Array();
+        $scope.customerContacts_query_list = [];
+        $scope.customercontactPage = 0;
+        $scope.customercontactLoadmore = function(){
+            $scope.customercontactisshow = true;
+            $scope.customercontactPage = $scope.customercontactPage + 1;
+            var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST';
+            var data = {
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_AUTHORITY": { "BNAME": "handlcx02" },
+                "IS_PAGE": {
+                    "CURRPAGE": $scope.customercontactPage,
+                    "ITEMS": "10"
+                },
+                "IS_PARTNER": { "PARTNER": "000008878A" },
+                "IS_SEARCH": { "SEARCH": "" }
+            };
+            HttpAppService.post(url, data).success(function (response) {
+                if (response.ES_RESULT.ZFLAG == 'E') {
+                    $scope.customercontactisshow = false;
+                    $cordovaToast.showShortCenter('无符合条件数据');
+                } else {
+                    if (response.ES_RESULT.ZFLAG == 'S') {
+                        if (response.ET_EMPLOYEE.item.length == 0) {
+                            $scope.customercontactisshow = false;
+                            Prompter.hideLoading();
+                            if ($scope.customercontactPage == 1) {
+                                $cordovaToast.showShortBottom('数据为空');
+                            } else {
+                                $cordovaToast.showShortBottom('没有更多数据');
+                            }
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        } else {
+                            $.each(response.ET_EMPLOYEE.item, function (n, value) {
+                                $scope.customerContacts_query_list.push(value);
+                            });
+                        }
+                        if (response.ET_EMPLOYEE.item.length < 10) {
+                            $scope.customercontactisshow = false;
+                            if ($scope.customercontactPage > 1) {
+                                //console.log("没有更多数据了");
+                                $cordovaToast.showShortBottom('没有更多数据');
+                            }
+                        } else {
+                            $scope.customercontactisshow = true;
+                        }
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+
+                    }
+                }
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+                $scope.customercontactisshow = false;
+            });
+        }
+
+
+
+        //$scope.customerContacts_query_list = [{
+        //    name: '王雨薇',
+        //    sex:'女',
+        //    keuhuname:'金龙客车',
+        //    dizhiname:'福建省福州市芙蓉大道20号',
+        //    xioshouyung:'张俊华',
+        //    phonenumber:'021-88223765',
+        //    customermail:'yuwei.wang@hand-china.com',
+        //    postion:'采购部',
+        //    atend:'采购助理',
+        //    customercontrary:'中国',
+        //    customerregion:'河南省',
+        //    youbina:'555876',
+        //    birthday:'2016.08.21',
+        //    'customerzhushi':'in the feahennmkk in the feahennmkk in the feahennmkk in the feahennmkk'
+        //}];
 
         $scope.customerContacts_godetails = function(x){
             customeService.set_customerContactsListvalue(x);
@@ -46,10 +108,6 @@ customerContactsModule
             },
             {
                 type:"手动创建新联系人",
-                url:'ContactCreate'
-            },
-            {
-                type:"关联其联系人",
                 url:'ContactCreate'
             }
         ];
