@@ -70,7 +70,6 @@ customerModule
             console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
             HttpAppService.post(url, data).success(function (response) {
-                console.log(angular.toJson(response.ET_EMPLOYEE));
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.customerisshow = false;
                     //$cordovaToast.showShortCenter(response.ES_RESULT.ZRESULT);
@@ -140,13 +139,17 @@ customerModule
                         };
                     } else {
                         //删除请求
-                        $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
+                        $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
+                        $scope.customer_queryflag = false;
                         $scope.customerisshow = false;
+                        $scope.customerQuery_list = [];
+                        $scope.customerPage = 0;
                         if(!$scope.$$phase) {
                             $scope.$apply();
                         };
                         $ionicScrollDelegate.resize();
                         document.getElementById('customerqueryinput').style.display = "none";
+
                     }
                 }, 500);
 
@@ -277,16 +280,61 @@ customerModule
             //contactService.set_ContactsListvalue(x);
             $state.go('customerDetail');
         };
-        $scope.customer_types = ['潜在客户','正式客户','竞争对手','助销伙伴','终端客户','服务端'];
+
+        //判断是ATL还是CATL
+        if(ROOTCONFIG.hempConfig.baseEnvironment == 'CATL'){
+            $scope.customer_types = ['潜在客户','正式客户','竞争对手','助销伙伴','终端客户','服务供应商'];
+        }else{
+            $scope.customer_types = ['潜在客户','正式客户','竞争对手','服务供应商'];
+        }
+
         $scope.customerqueryTypeunit = "常用客户";
-        //$scope.employbasiclineflag = true;
+        $scope.employbasiclineflag = true;
         $scope.customerqueryType = function(type){
             $scope.customerqueryTypeunit = type;
-            if(type == "服务端"){
+            if(type == "服务供应商"){
                 $scope.employbasiclineflag = false;
             }else{
                 $scope.employbasiclineflag = true;
             };
+            //改变参数
+            if(ROOTCONFIG.hempConfig.baseEnvironment == 'CATL'){
+                switch (type) {
+                    case '潜在客户':
+                        $scope.customerselecttyperole = 'Z00001';
+                        break;
+                    case '正式客户':
+                        $scope.customerselecttyperole = 'CRM000';
+                        break;
+                    case '竞争对手':
+                        $scope.customerselecttyperole = 'Z00002';
+                        break;
+                    case '助销伙伴':
+                        $scope.customerselecttyperole = 'Z00003';
+                        break;
+                    case '终端客户':
+                        $scope.customerselecttyperole = 'Z00004';
+                        break;
+                    case '服务供应商':
+                        $scope.customerselecttyperole = 'BBP000';
+                        break;
+                }
+            }else{
+                switch (type) {
+                    case '潜在客户':
+                        $scope.customerselecttyperole = 'ZATL';
+                        break;
+                    case '正式客户':
+                        $scope.customerselecttyperole = 'CRM000';
+                        break;
+                    case '竞争对手':
+                        $scope.customerselecttyperole = 'ZATL05';
+                        break;
+                    case '助销伙伴':
+                        $scope.customerselecttyperole = 'ZATL06';
+                        break;
+                }
+            }
             //改变角色的参数
             //$scope.$apply(function(){
                 $scope.customerisshow = false;
@@ -297,25 +345,19 @@ customerModule
                 $scope.customerPage = 0;
                 $scope.customer_queryflag = true;
                 $ionicScrollDelegate.resize();
-                $scope.customerselecttyperole = '';
                 $scope.customerLoadmore()
                 $scope.customerisshow = true;
-            //});
-            //$scope.customer_queryflag = true;
-            //$ionicScrollDelegate.resize();
-            //$scope.customerisshow = true;
-
             $scope.customerPopoverhide();
         };
 
-        ////跳转detail界面
-        //$scope.customergodeatil = function(cusvalue){
-        //    customeService.set_customerListvalue(cusvalue);
-        //    $state.go("customerDetail");
-        //}
+        //跳转detail界面
+        $scope.customergodeatil = function(cusvalue){
+            customeService.set_customerListvalue(cusvalue);
+            $state.go("customerDetail");
+        }
     }])
     .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','Prompter','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,Prompter,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
-
+        customeService.get_customerListvalue().PARTNER;
         ////返回回退
         $scope.CustomergoBack = function() {
             $rootScope.$broadcast('customerdeatillist');

@@ -42,7 +42,7 @@ employeeModule
                 $scope.empitemPage = $scope.empitemPage + 1;
                 var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST';
                 var data = {
-                    "I_SYSNAME": {"SysName": "CATL"},
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_PAGE": {
                         "CURRPAGE": $scope.empitemPage,
                         "ITEMS": "10"
@@ -262,7 +262,7 @@ employeeModule
         Prompter.showLoading("数据加载中...");
         var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_DETAIL';
         var data = {
-            "I_SYSNAME": { "SysName": "CATL" },
+            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
             "IS_EMPLOYEE": { "PARTNER": employeeService.get_employeeListvalue().PARTNER}
             //    "IS_EMPLOYEE": { "PARTNER":'E060000051'}
         }

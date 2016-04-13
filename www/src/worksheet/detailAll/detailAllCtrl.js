@@ -58,7 +58,11 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}else if(type == 'jiedan'){
 					requestChangeStatus("E0004", "接单");
 				}else if(type == 'beijianshengqing'){
-					$scope.goState("worksheetSparepart");
+					if(__hasBeijianInfo()){
+						$scope.goState("worksheetSelect");
+					}else{
+						$scope.goState("worksheetSparepart");
+					}
 				}else if(type == 'chelianglicheng'){
 					$scope.goState("worksheetCarMileage");
 				}else if(type == 'guzhangxinxi'){
@@ -139,16 +143,21 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					modal.style.zIndex = 12; // 12  -2
 			};
 
-			$scope.editSiteRepair = function(){
+			$scope.editDetail = function(){
 				// TODO
 			};
-			$scope.editNewCar = function(){
-				// TODO
+
+			$scope.canShowEditBtn = function(){
+				var type = $scope.config.typeStr;
+				if(type == 'ZPRO' || type =='ZPLO' || type == 'ZNCO'){
+					return true;
+				}
+				return false;
 			};
 			
         	$scope.config = {
         		typeStr: '',
-        		statusStr'',
+        		statusStr:'',
 
 				scrollDelegateHandler: null,
 				contentDetegateHandler: null,
@@ -270,6 +279,14 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					handleResult: 'In the thmultuous business of cutting-in and attending to a whale, there is much running backwards and forwards among',
 				}
 			};
+
+			function __hasBeijianInfo(){
+				var beijian = $scope.datas.detail.ET_MAT_LIST;
+				if(beijian && beijian.item && beijian.item.length>0){
+					return true;
+				}
+				return false;
+			}
 			
             ionicMaterialInk.displayEffect();
             $scope.statusArr = [{
@@ -312,53 +329,9 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                 time: '2016-3-8  12:11'
             }];
 
-            var position;
-            var maxTop;
-            $scope.onScroll = function () {
-            	position = $ionicScrollDelegate.$getByHandle('xbrDelegateContent').getScrollPosition().top;
-                //position = $ionicScrollDelegate.getScrollPosition().top;
-                //console.log(position)
-                console.log(position);
-                if (position > 10) {
-                    $scope.TitleFlag = true;
-                    $scope.showTitle = true;
-                    //console.log(position);
-                    if (position > 26) {
-                        $scope.customerFlag = true;
-                    } else {
-                        $scope.customerFlag = false;
-                    }
-                    if (position > 54) { // 54、80
-                        $scope.statusFlag = true;
-                    } else {
-                        $scope.statusFlag = false;
-                    }
-                    if (position > 80) {
-                        if (maxTop == undefined) {
-                            maxTop = $ionicScrollDelegate.$getByHandle('xbrDelegateContent').getScrollView().__maxScrollTop;
-                        }
-                        $scope.showTitleStatus = true;
-                    } else {
-                        $scope.showTitleStatus = false;
-                    }
-                    if (position > maxTop) {
-                        //$ionicScrollDelegate.scrollBottom(false)
-                    }
-                } else {
-                    $scope.customerFlag = false;
-                    $scope.placeFlag = false;
-                    $scope.typeFlag = false;
-                    $scope.statusFlag = false;
-                    $scope.showTitle = false;
-                    $scope.TitleFlag = false;
-                    $scope.showTitleStatus = false;
-                }
-                if(!$scope.$$phase) {
-                	$scope.$apply();
-                }                
-            };
 
             $scope.init = function(){
+            	console.log($stateParams.detailType);
             	// newCar、siteRepair、batchUpdate
             	var type = $stateParams.detailType;
             	$scope.config.detailType = type;
@@ -378,6 +351,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	$scope.config.requestParams = worksheetDataService.worksheetList.toDetail;
             	$scope.config.ydStatusNum = worksheetDataService.worksheetList.toDetail.ydStatusNum;
             	$scope.config.typeStr = worksheetDataService.worksheetList.toDetail.IS_PROCESS_TYPE;
+            	$scope.config.statusStr = worksheetDataService.worksheetList.toDetail.ydStatusNum;
+				$scope.config.statusStr = worksheetDataService.worksheetList.toDetail.ydStatusNum;
             	__requestDetailDatas();
             };
 
@@ -429,10 +404,12 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	tempResponse.ydWorksheetNum = params.IS_OBJECT_ID;
 		        	tempResponse.kyhuMingCheng = kyhuMingCheng;
 		        	tempResponse.waifuRenyuan = waifuRenyuan;
+		        	tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
+					tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
 		        	//debugger;
-		        	console.log(tempResponse);
+		        	//console.log(tempResponse);
 		        })
 		        .error(function(errorResponse){
 		        	$scope.config.isLoading = false;

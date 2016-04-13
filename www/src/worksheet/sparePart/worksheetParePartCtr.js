@@ -2,26 +2,29 @@
 worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetHttpService','HttpAppService','worksheetDataService',
     function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService,HttpAppService,worksheetDataService){
     ionicMaterialInk.displayEffect();
-        //var worksheetDetail = worksheetDataService.wsDetailData;
-        //console.log(angular.toJson(worksheetDetail));
-        //var data={
-        //    "IS_SYSTEM": { "SysName": "CATL" },
-        //    "IS_PAGE": {
-        //        "CURRPAGE": "1",
-        //        "ITEMS": "10"
-        //    },
-        //    "IS_VEHICLID": { "PRODUCT_ID": worksheetDetail.ES_OUT_LIST.CAR_NO}
-        //}
-        //var url = ROOTCONFIG.hempConfig.basePath + 'ATTACHMENT_LIST';
-        //HttpAppService.post(url, data).success(function(response){
-        //    $scope.infos = response.ET_COMM_LIST.Item;
-        //    console.log(angular.toJson($scope.infos));
-        //}).error(function(err){
-        //
-        //});
+        var worksheetDetail = worksheetDataService.wsDetailData;
+        console.log(angular.toJson(worksheetDetail));
+        var data={
+            "IS_SYSTEM": { "SysName": "CATL" },
+            "IS_PAGE": {
+                "CURRPAGE": "1",
+                "ITEMS": "10"
+            },
+            "IS_VEHICLID": { "PRODUCT_ID": worksheetDetail.ES_OUT_LIST.CAR_NO}
+        }
+        var url = ROOTCONFIG.hempConfig.basePath + 'ATTACHMENT_LIST';
+        HttpAppService.post(url, data).success(function(response){
+            $scope.infos = response.ET_COMM_LIST.Item;
+            console.log(angular.toJson($scope.infos));
+        }).error(function(err){
+
+        });
 
         $scope.goLoadMore = function(){
 
+        }
+        $scope.goUpdate = function(){
+            $state.go("worksheetSelect");
         }
         $scope.goMore = true;
         $scope.goNo = false;
@@ -40,33 +43,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             "PARTNER_NAME": "PI_CA3_340",
             "NOTE": ""
         }};
-
-        //$scope.infos  =
-        //    [{
-        //        "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
-        //        "STORAGE": "1",
-        //        "STORAGE_DESC": "客服/售后服务仓-备件中心-南京",
-        //        "PROD_DESC" : "400A高压熔断器",
-        //        "PROD" : 13097,
-        //        "num"  : 1,
-        //        "APPLY_NUM" : 0
-        //    },{
-        //        "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
-        //        "STORAGE": "1",
-        //        "STORAGE_DESC": "客服/售后服务仓-备件中心-南京",
-        //        PROD_DESC : "msd上盖",
-        //        PROD : 13098,
-        //        num  : 1,
-        //        APPLY_NUM : 0
-        //    },{
-        //        "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
-        //        "STORAGE": "2",
-        //        "STORAGE_DESC": "客服/售后服务仓-备件中心-南京",
-        //        PROD_DESC : "六角头",
-        //        PROD : 13099,
-        //        num  : 1,
-        //        APPLY_NUM : 0
-        //    }];
         $scope.selectWarehouse = "南京"
         $scope.selectInfos = function(){
             var str=document.getElementsByName("selectSparePart");
@@ -123,8 +99,53 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
     function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService,worksheetDataService){
         ionicMaterialInk.displayEffect();
         //工单详情
-        //var worksheetDetail = worksheetDataService.wsDetailData;
-        //console.log(angular.toJson(worksheetDetail));
+        var worksheetDetail = worksheetDataService.wsDetailData.IT_MAT_LIST.item;
+        console.log(angular.toJson(worksheetDetail));
+
+        $scope.spareDetailShi = [{
+            "item": {
+                "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
+                "STORAGE": "",
+                "STORAGE_DESC": "",
+                "PROD": "",
+                "PROD_DESC": "",
+                "APPLY_NUM": "",
+                "SEND_NUM": "",
+                "RETURN_NUM": "",
+                "OLDNUM": "",
+                "PARTNER_NO": "PI_CA3_340",
+                "PARTNER_NAME": "PI_CA3_340",
+                "NOTE": ""
+            }
+        }]
+        var map = {};
+        var dest = [];
+        for(var i = 0; i < worksheetDetail.length; i++){
+            var ai = worksheetDetail[i];
+            if(!map[ai.id]){
+                dest.push({
+                    STORAGE: ai.STORAGE,
+                    STORAGE_DESC: ai.STORAGE_DESC,
+                    flag : true,
+                    scrollStyle : "",
+                    data: [ai]
+                });
+                map[ai.id] = ai;
+            }else{
+                for(var j = 0; j < dest.length; j++){
+                    var dj = dest[j];
+                    if(dj.id == ai.id){
+                        dj.data.push(ai);
+                        break;
+                    }
+                }
+            }
+        }
+        console.log(angular.toJson(dest));
+        $scope.goDetail = function(){
+
+            $state.go("worksheetDetail");
+        }
         $scope.upDown = true;
         $scope.showDetail = function(items) {
             for(var i=0;i<$scope.spareDetail.length;i++){
@@ -153,23 +174,8 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
             items.flag = !a;
             console.log(angular.toJson($scope.spareDetail));
         }
+
         $scope.showDetailInfos = false;
-        $scope.spareDetailShi = [{
-            "item": {
-                "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
-                "STORAGE": "",
-                "STORAGE_DESC": "",
-                "PROD": "",
-                "PROD_DESC": "",
-                "APPLY_NUM": "",
-                "SEND_NUM": "",
-                "RETURN_NUM": "",
-                "OLDNUM": "",
-                "PARTNER_NO": "PI_CA3_340",
-                "PARTNER_NAME": "PI_CA3_340",
-                "NOTE": ""
-            }
-        }]
         $scope.spareDetail = [{
             STORAGE_DESC : "客服/售后服务仓-备件中心-北京",
             flag : true,scrollStyle : "",
