@@ -8,18 +8,13 @@
         </ion-header-bar>
     </div>
     <ion-header-bar class="bar bar-subheader ">
-        <div class="search1" ng-show="!searchFlag">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <input type="text" placeholder="输入产品信息" ng-click="changePage()">
-        </div>
-        <div class="search2" ng-show="searchFlag">
+        <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
-            <input id="spareId" type="text" placeholder="输入维修记录信息" ng-model="spareInfo" ng-change="spareLoadmoreIm()" >
-            <i class="button button-clear" ng-click="cancelSearch()">取消</i>
+            <input type="text" placeholder="请输入维修信息" ng-model="maintenanceInfo" ng-click="changePage()" ng-change="initLoad()">
+            <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
         </div>
     </ion-header-bar>
-    <div class="search-hearder-bar"></div>
     <ion-content  class="" style="" scroll="false" has-bouncing="false">
         <div class="tab-buttons-line">
             <div class="tab-button-block" ng-class="{'selected':config.isSorteMode}" ng-click="enterSorteMode();">
@@ -114,7 +109,7 @@
 
             <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
                 <ion-scroll class="fill-parent" on-refresh="" has-bouncing="false">
-                    <div class="divLine" ng-repeat="record in maintenanceInfo" ng-click="go">
+                    <div class="divLine" ng-repeat="record in maintenanceInfo" ng-click="goDetailState(record,$index)">
                         <div class="row row-center rowContent">
                             <div class="col col-center col-5">
                                 <img ng-src="img/car/Oval.png" class="pointImg">
