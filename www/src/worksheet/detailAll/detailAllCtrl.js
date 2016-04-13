@@ -148,7 +148,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			
         	$scope.config = {
         		typeStr: '',
-        		statusStr'',
+        		statusStr :'',
 
 				scrollDelegateHandler: null,
 				contentDetegateHandler: null,
@@ -378,6 +378,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	$scope.config.requestParams = worksheetDataService.worksheetList.toDetail;
             	$scope.config.ydStatusNum = worksheetDataService.worksheetList.toDetail.ydStatusNum;
             	$scope.config.typeStr = worksheetDataService.worksheetList.toDetail.IS_PROCESS_TYPE;
+				$scope.config.statusStr = worksheetDataService.worksheetList.toDetail.ydStatusNum;
             	__requestDetailDatas();
             };
 
@@ -429,6 +430,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	tempResponse.ydWorksheetNum = params.IS_OBJECT_ID;
 		        	tempResponse.kyhuMingCheng = kyhuMingCheng;
 		        	tempResponse.waifuRenyuan = waifuRenyuan;
+					tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
 		        	//debugger;
