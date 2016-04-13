@@ -1,12 +1,13 @@
 
-worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope){
+worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService){
     $ionicPopover.fromTemplateUrl('src/worksheet/relatedPart/worksheetRelate_select.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.relatedpopover = popover;
         });
-        var worksheetDetail = worksheetDataService.wsDetailData;
-        console.log(angular.toJson(worksheetDetail));
+        var  worksheetDetailData = worksheetDataService.wsDetailData;
+        $scope.infos = worksheetDataService.wsDetailData.ET_PARTNER.item;
+        console.log(angular.toJson(worksheetDataService.wsDetailData));
         $scope.relatedPopoverShow = function() {
             $scope.relatedpopover.show();
             //document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
@@ -28,22 +29,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         };
 
         $scope.title = "相关方列表";
-        $scope.infos = [{
-            id : 1,
-            name : "往事",
-            position : "服务代理商联系人",
-            phone : "18298182058"
-        },{
-            id : 2,
-            name : "往事如风",
-            position : "服务代理商",
-            phone : "18298182053"
-        },{
-            id : 3,
-            name : "走走走",
-            position : "负责员工",
-            phone : "18298182052"
-        }]
         $rootScope.$on('worksheetRelatePartItem', function(event,msg) {
             if(msg!==undefined){
                 $scope.infos.push({
@@ -57,11 +42,33 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         });
         $scope.deleteInfos = function(item){
             for(var k=0;k<$scope.infos.length;k++){
-                if(item.id === $scope.infos[k].id){
+                if(item.PARTNER_NO === $scope.infos[k].PARTNER_NO){
                     console.log(angular.toJson($scope.infos[k]));
                     $scope.infos.splice(k,1);
                 }
             }
+
+            var data={
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
+                "IS_OBJECT_ID": worksheetDetailData.IS_PROCESS_TYPE,
+                "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
+                "IT_PARTNER": {
+                    "item": [
+                        {
+                            "PARTNER_FCT":item.PARTNER_FCT,
+                            "PARTNER_NO":item.PARTNER_NO,
+                            "ZMODE" : "D"
+                        }
+                    ]
+                }};
+            console.log(angular.toJson(data));
+            var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
+            HttpAppService.post(url, data).success(function(response){
+                console.log(angular.toJson(response));
+            }).error(function(err){
+                console.log(angular.toJson(err));
+            });
         }
     $scope.phone = function(num){
         Prompter.showphone(num);
