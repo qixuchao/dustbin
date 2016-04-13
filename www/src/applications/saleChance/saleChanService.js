@@ -40,13 +40,13 @@ salesModule.factory('saleChanService', function () {
         color:'#e24976'
     }];
     var stagesArr = [{
-        value: '关系建立',
+        value: '关系建立阶段',
         code: ''
     }, {
-        value: '方案沟通',
+        value: '方案沟通阶段',
         code: ''
     }, {
-        value: '样品合同',
+        value: '样品合同阶段',
         code: ''
     }, {
         value: '样品设计',
@@ -61,7 +61,7 @@ salesModule.factory('saleChanService', function () {
         value: 'SOP阶段',
         code: ''
     }, {
-        value: '投标报价',
+        value: '投标报价阶段',
         code: ''
     }, {
         value: '合同签订',

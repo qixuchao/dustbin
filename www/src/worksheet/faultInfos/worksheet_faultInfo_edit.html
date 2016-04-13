@@ -19,7 +19,7 @@
                 <div class="col-38 col-center">故障发生场景：</div>
                 <div class="col-62 col-center">
                     <select class="selectC">
-                         <option selected>未装车</option>
+                         <option ng-repeat="scenarioitem in scenario">{{scenarioitem.DESCRIPTION}}</option>
                     </select>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="col-38 col-center">责任方：</div>
                 <div class="col-62 col-center">
                     <select class="selectC">
-                        <option selected>user</option>
+                        <option ng-repeat="responseitem in response">{{responseitem.DESCRIPTION}}</option>
                     </select>
                 </div>
             </div>
@@ -37,7 +37,7 @@
                 <div class="col-38 col-center">故障分类：</div>
             <div class="col-62 col-center">
                 <select class="selectC">
-                    <option selected>安全</option>
+                    <option ng-repeat="defectitem in defect">{{defectitem.DESCRIPTION}}</option>
                 </select>
             </div>
             </div>
@@ -46,7 +46,7 @@
                 <div class="col-38 col-center">部件分类：</div>
                 <div class="col-62 col-center">
                     <select class="selectC">
-                         <option selected>高压盒</option>
+                         <option ng-repeat="scenarioitem in scenario"></option>
                     </select>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 <div class="col-38 col-center">部件：</div>
                 <div class="col-62 col-center">
                     <select class="selectC">
-                        <option selected>主副继电器</option>
+                        <option ng-repeat="scenarioitem in scenario"></option>
                     </select>
                 </div>
             </div>
@@ -62,20 +62,20 @@
                 <div class="col-38 col-center">故障原因：</div>
                 <div class="col-62 col-center">
                     <select class="selectC">
-                        <option selected>工艺问题</option>
+                        <option ng-repeat="scenarioitem in scenario"></option>
                     </select>
                 </div>
             </div>
             <div class="row itemContentT ">
                 <div class="col-38 ">注释：</div>
                 <div class="col-62 col-center">
-                    <textarea type="text"placeholder="请输入值" class="textareaCss"></textarea>
+                    <textarea type="text"placeholder="请输入值" class="textareaCss" ng-model="otherInfos.remark" style="background-color: white;color: #A0A09F"></textarea>
                 </div>
             </div>
             <div class="row itemContentT ">
                 <div class="col-38 ">处理结果：</div>
                 <div class="col-62 col-center">
-                    <textarea type="text"placeholder="请输入读取描述" class="textareaCss"></textarea>
+                    <textarea type="text"placeholder="请输入读取描述" class="textareaCss" ng-model="otherInfos.result" style="background-color: white;color: #A0A09F"></textarea>
                 </div>
             </div>
             </div>

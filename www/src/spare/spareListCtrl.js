@@ -24,15 +24,18 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
     $scope.spareListHistoryval();
 
     //广播修改界面显示flag
-    $rootScope.$on('customercontactCreatevalue1', function(event, data) {
-        console.log("接收成功");
-        $scope.spareInfo =data;
+    $rootScope.$on('customercontactCreatevalue', function(event, data) {
+        console.log("接收成功"+data);
+        $scope.searchFlag =data;
+        $scope.cancelSearch();
+
         //$scope.spareListHistoryval();
     });
         $rootScope.$on('sparelist', function(event, data) {
             console.log("接收成功1");
-            $scope.spareInfo ="";
-            $scope.spareListHistoryval();
+        $scope.spareInfo ="";
+        $scope.spareListHistoryval();
+
         });
     $scope.changePage=function(){
         $scope.searchFlag=true;
@@ -45,14 +48,16 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
     };
     $scope.initSearch = function () {
         $scope.spareInfo = '';
-        $timeout(function () {
-            document.getElementById('spareId').focus();
-        }, 1)
+        //$timeout(function () {
+        //    document.getElementById('spareId').focus();
+        //}, 1)
     };
     $scope.cancelSearch=function(){
         $scope.searchFlag=false;
         $scope.spareInfo = '';
+        $scope.spareList=new Array;
         $scope.spareListHistoryval();
+        page=0;
     };
     $scope.search = function (x, e) {
         Prompter.showLoading('正在搜索');
@@ -189,8 +194,11 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
         //
 }
 ])
-.controller('SpareDetailCtrl',['$rootScope','$scope','SpareListService',function($rootScope,$scope,SpareListService){
+.controller('SpareDetailCtrl',['$ionicHistory','$rootScope','$scope','SpareListService',function($ionicHistory,$rootScope,$scope,SpareListService){
         $scope.spareList=SpareListService.get();
+        $scope.back=function(){
+            $rootScope.$broadcast('customercontactCreatevalue','false');
+            $ionicHistory.goBack();
+        };
 
-        $rootScope.$broadcast('customercontactCreatevalue','false');
     }]);

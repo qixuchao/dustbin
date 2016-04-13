@@ -7552,7 +7552,10 @@ ionic.views.Slider = ionic.views.View.inherit({
     options.continuous = options.continuous !== undefined ? options.continuous : true;
 
     function setup() {
-
+      console.log('setup')
+      if (!container.offsetWidth) {
+        return;
+      }
       // cache slides
       slides = element.children;
       length = slides.length;
@@ -8056,7 +8059,6 @@ ionic.views.Slider = ionic.views.View.inherit({
       // reset slides
       var pos = slides.length;
       while(pos--) {
-
         var slide = slides[pos];
         slide.style.width = '';
         slide.style.left = '';

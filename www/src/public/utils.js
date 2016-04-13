@@ -2,8 +2,8 @@
  * Created by Gusenlin on 2015/10/16.
  */
 'use strict';
-utilsModule.service('HttpAppService', ['$log','$http', '$rootScope', '$state', 'Prompter', '$ionicLoading','$timeout' ,
-    function ($log, $http, $rootScope, $state, Prompter, $ionicLoading,$timeout) {
+utilsModule.service('HttpAppService', ['$log','$http', '$rootScope', '$state', 'Prompter', '$ionicLoading','$timeout' ,'$cordovaToast',
+    function ($log, $http, $rootScope, $state, Prompter, $ionicLoading,$timeout,$cordovaToast) {
     var debug = function (text) {
         $log.debug(procedure + " success");
     };
@@ -44,6 +44,10 @@ utilsModule.service('HttpAppService', ['$log','$http', '$rootScope', '$state', '
                     if (response.status === 'ETOKEN') {
                         $ionicLoading.hide();
                     }
+                    if(response.ES_RESULT.ZFLAG==='E'){
+                        $ionicLoading.hide();
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    }
                 } catch (e) {
 
                 }
@@ -76,8 +80,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
                 minutes = "0" + date.getMinutes();
             } else {
                 minutes = date.getMinutes();
-            }
-            ;
+            };
             //小时
             if (date.getHours().toString().length < 2) {
                 hour = "0" + date.getHours();
@@ -85,8 +88,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
             } else {
                 hour = date.getHours();
                 time = hour + ":" + minutes;
-            }
-            ;
+            };
             return dateTemp + " " + time;
         };
         var getOptions = function (date, mode, title) {
@@ -126,7 +128,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
             },
             showLoading: function (content) {
                 $ionicLoading.show({
-                    template: ('<ion-spinner icon="ios"></ion-spinner><p>'+ content + '</p>'),
+                    template: ('<ion-spinner icon="ios"></ion-spinner><p>' + content + '</p>'),
                     animation: 'fade-in',
                     showBackdrop: true,
                 });
@@ -234,6 +236,16 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
             //客户和联系人创建和编辑界面点击取消公共函数
             ContactCreateCancelvalue: function () {
                 return $cordovaDialogs.confirm('是否退出编辑界面', '提示', ['确定', '取消'])
+                    .then(function (buttonIndex) {
+                        // no button = 0, 'OK' = 1, 'Cancel' = 2
+                        var btnIndex = buttonIndex;
+                        if (btnIndex == 1) {
+                            $rootScope.goBack();
+                        }
+                    });
+            },
+            deleteInfosPoint: function (text) {
+                return $cordovaDialogs.confirm(text, '提示', ['确定'])
                     .then(function (buttonIndex) {
                         // no button = 0, 'OK' = 1, 'Cancel' = 2
                         var btnIndex = buttonIndex;

@@ -28,7 +28,6 @@ salesModule
             $scope.input = {search: '', customer: ''};
             //$scope.saleListArr = saleActService.getSaleListArr();
             var pageNum = saleActService.listPage;
-            $scope.saleListArr = [];
             $scope.loadMoreFlag = true;
             $scope.saleListArr = saleActService.saleListArr;
             $scope.getList = function (type) {
@@ -37,22 +36,23 @@ salesModule
                 }
                 console.log(pageNum);
                 var data = {
-                    "LS_SYSTEM": {"SysName": "CATL"},
+                    "I_SYSTEM": {"SysName": "CATL"},
                     "IS_ACTIVITY": {
                         "OBJECT_ID": "",
-                        "DESCRIPTION": "",
+                        "DESCSEARCH": "",
                         "PROCESS_TYPE": "",
                         "ZZHDJJD": "",
                         "CUSTOMER": "",
-                        "CUSTNAME": "",
                         "DATE_FROM": "",
-                        "SALESNO": "",
-                        "SALESNAME": ""
+                        "DATE_TO": "",
+                        "ESTAT": "",
+                        "SALESNO": ""
                     },
                     "IS_PAGE": {
                         "CURRPAGE": pageNum++,
                         "ITEMS": "10"
-                    }
+                    },
+                    "IS_USER": {"BNAME": "HANDBLH"}
                 };
                 saleActService.listPage = pageNum;
                 if (pageNum == 1) {
@@ -131,12 +131,13 @@ salesModule
             };
 
             $scope.showCreateModal = function () {
-                customerPage = 2;
+                customerPage = 1;
                 console.log($scope.pop);
                 $scope.createPop.hide();
-                $scope.create = {de_startTime: new Date().format('yyyy-MM-dd hh:mm'), de_endTime: getDefultStartTime()};
+                $scope.create = {de_startTime: new Date().format('yyyy-MM-dd hh:ss'), de_endTime: getDefultStartTime()};
+                $scope.CustomerLoadMoreFlag = true;
                 $scope.createModal.show();
-                $scope.getCustomerArr();
+                //$scope.getCustomerArr();
                 //console.log(document.getElementsByClassName('modal-wrapper'));
                 var tempArr = document.getElementsByClassName('modal-wrapper');
                 for (var i = 0; i < tempArr.length; i++) {
@@ -145,15 +146,15 @@ salesModule
             };
             var customerPage = 1;
             $scope.customerArr = saleActService.customerArr;
-            $scope.customerSearch = true;
+            $scope.customerSearch = false;
             $scope.getCustomerArr = function (search) {
+                $scope.CustomerLoadMoreFlag = false;
                 if (search) {
                     $scope.customerSearch = false;
                     customerPage = 1;
-                }else{
+                } else {
                     $scope.spinnerFlag = true;
                 }
-                console.log(customerPage);
                 var data = {
                     "I_SYSNAME": {"SysName": "CATL"},
                     "IS_PAGE": {
@@ -177,14 +178,40 @@ salesModule
                             }
                             $scope.spinnerFlag = false;
                             $scope.customerSearch = true;
-                            $ionicScrollDelegate.resize();
+                            $scope.CustomerLoadMoreFlag = true;
+                            //$ionicScrollDelegate.resize();
                             saleActService.customerArr = $scope.customerArr;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
                     });
             };
-            $scope.searchCustomer = function () {
-                console.log('searchCustomer');
+            $scope.contacts = [];
+            var contactPage = 1;
+            $scope.contactsLoadMoreFlag = false;
+            $scope.getContacts = function () {
+                var data = {
+                    "I_SYSNAME": {"SysName": "CATL"},
+                    "IS_AUTHORITY": {"BNAME": "HANDLCX02"},
+                    "IS_PAGE": {
+                        "CURRPAGE": contactPage++,
+                        "ITEMS": "10"
+                    },
+                    "IS_PARTNER": {"PARTNER": $scope.create.customer},
+                    "IS_SEARCH": {"SEARCH": ""}
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
+                    .success(function (response) {
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.contactsLoadMoreFlag = false;
+                            }
+                            $scope.contacts = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        }else{
+                            $scope.contactsLoadMoreFlag = false;
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                        }
+                    });
             };
             /*-------------------------------Pop 新建 end-------------------------------------*/
             /*-------------------------------Modal 新建-------------------------------------*/
@@ -248,7 +275,7 @@ salesModule
             }).then(function (modal) {
                 $scope.selectPersonModal = modal;
             });
-            $scope.contacts = saleActService.getContact();
+            //$scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
                 $scope.selectPersonflag = true;
                 $scope.selectPersonModal.show();
@@ -272,6 +299,7 @@ salesModule
             $scope.selectCustomerText = '竞争对手';
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;
+                $scope.customerSearch = true;
                 $scope.selectCustomerModal.show();
             };
             $scope.closeSelectCustomer = function () {
@@ -290,12 +318,16 @@ salesModule
             };
             $scope.initCustomerSearch = function () {
                 $scope.input.customer = '';
+                //$scope.getCustomerArr();
                 $timeout(function () {
                     document.getElementById('selectCustomerId').focus();
                 }, 1)
             };
             $scope.selectCustomer = function (x) {
                 $scope.create.customer = x.NAME_ORG1;
+                contactPage = 1;
+                $scope.contactsLoadMoreFlag = true;
+                //$scope.getContacts();
                 $scope.selectCustomerModal.hide();
             };
 
@@ -345,7 +377,7 @@ salesModule
                 Prompter.showLoading('正在查询');
                 var data = {
                     "I_SYSTEM": {"SysName": "CATL"},
-                    "IS_USER": {"BNAME": ""},
+                    "IS_USER": {"BNAME": "HANDBLH"},
                     "I_OBJECT_ID": $scope.listInfo.OBJECT_ID
                 };
                 console.log(data)
@@ -698,4 +730,19 @@ salesModule
 
         return fn;
     })
+    .directive('focusMe', function ($timeout) {
+    return {
+        link: function (scope, element, attrs) {
+            if (attrs.focusMeDisable === "true") {
+                return;
+            }
+            $timeout(function () {
+                element[0].focus();
+                if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+                    cordova.plugins.Keyboard.show(); //open keyboard manually
+                }
+            }, 350);
+        }
+    };
+});
 ;

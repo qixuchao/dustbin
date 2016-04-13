@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2016/3/14 0014.
  */
-carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',function($ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
+carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',
+    function($rootScope,$ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
     $scope.cars=[];
     $scope.searchFlag=false;
     $scope.isSearch=false;
@@ -14,6 +15,13 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
         $scope.carInfo = x;
         $scope.carLoadMore1Im();
     };
+    $rootScope.$on('carCreatevalue1', function(event, data) {
+        console.log("接收成功"+data);
+        $scope.searchFlag =data;
+        $scope.cancelSearch();
+
+        //$scope.spareListHistoryval();
+    });
     $scope.carListHistoryval = function(){
         if(storedb('cardb').find().arrUniq() != undefined || storedb('cardb').find().arrUniq() != null){
             $scope.data = (storedb('cardb').find().arrUniq());
@@ -154,23 +162,23 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
     };
     //取消按钮
     $scope.cancelSearch=function(){
-       $scope.searchFlag=false;
-       $scope.initSearch();
-       $scope.carListHistoryval();
+        $scope.searchFlag=false;
+        $scope.carInfo = '';
+        $scope.cars=new Array;
+        $scope.carListHistoryval();
+        page=0;
     };
     //显示搜索页面
     $scope.changePage=function(){
         $scope.searchFlag=true;
-        $timeout(function () {
-            document.getElementById('searchId').focus();
-        }, 1);
+
     };
     //清除输入框内的内容
     $scope.initSearch = function () {
         $scope.carInfo = '';
-        $timeout(function () {
-            document.getElementById('searchId').focus();
-        }, 1)
+        //$timeout(function () {
+        //    document.getElementById('searchId').focus();
+        //}, 1)
     };
     $scope.carListHistoryval = function(){
         if(storedb('cardb').find().arrUniq() != undefined || storedb('cardb').find().arrUniq() != null){
@@ -182,8 +190,8 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
     };
 }
 ])
-.controller('CarDetailCtrl',['HttpAppService','$timeout','$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter',
-        function(HttpAppService,$timeout,$scope,$state,CarService,$ionicHistory,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter){
+.controller('CarDetailCtrl',['$rootScope','HttpAppService','$timeout','$scope','$state','CarService','$ionicHistory','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter',
+        function ($rootScope,HttpAppService,$timeout,$scope,$state,CarService,$ionicHistory,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter){
         ionicMaterialInk.displayEffect();
         //$scope.select = true;
         $scope.showTitle = false;
@@ -191,6 +199,10 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
 
         var position;
         var maxPosition;
+        $scope.back=function(){
+            $rootScope.$broadcast('carCreatevalue1','false');
+            $ionicHistory.goBack();
+        };
         $scope.onScroll = function(){
             position = $ionicScrollDelegate.getScrollPosition().top;
             if(position>5){
@@ -248,6 +260,7 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
             HttpAppService.post(url,data).success(function(response){
                 Prompter.hideLoading();
                 var carInfoData=response.ES_VEHICL_OUTPUT;
+                console.log(carInfoData);
                 //console.log(carInfoData.ZZ0011);
 
                 var carInfo={
@@ -312,9 +325,9 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
                 carInfo.describe=carInfoData.SHORT_TEXT;
                 carInfo.carNumber=carInfoData.ZZ0012;
                 carInfo.projectName=carInfoData.ZZ0017;
-                carInfo.productionDate1=(carInfoData.ZZ0018[0]!=='0'&&carInfoData.END_DATE!=='0')?Date1(carInfoData.ZZ0018)+"-"+Date1(carInfoData.END_DATE):"";
-                carInfo.productionDate=Date1(carInfoData.ZZ0018);
-                carInfo.endDate=Date1(carInfoData.END_DATE);
+                carInfo.productionDate1=(carInfoData.ZZ0018[0]!=='0'&&carInfoData.END_DATE!=='0')?Date1(carInfoData.ZZ0019)+"-"+Date1(carInfoData.END_DATE):"";
+                carInfo.productionDate=Date2(carInfoData.ZZ0018);
+                carInfo.endDate=Date2(carInfoData.END_DATE);
                 carInfo.buyDate=Date2(carInfoData.ZZ0019);
                 carInfo.operationDate=Date2(carInfoData.ZZ0020);
                 carInfo.newDate=carInfoData.ZZ0021;
@@ -364,10 +377,11 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
 }
 ])
 
-.controller('MaintenanceCtrl',['$cordovaToast','Prompter',"HttpAppService","$scope","ionicMaterialInk","ionicMaterialMotion", "$ionicPopup", "$timeout", "$ionicPosition","$state","CarService",
-        function($cordovaToast,Prompter,HttpAppService,$scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition,$state,CarService) {
+.controller('MaintenanceCtrl',['worksheetDataService','$cordovaToast','Prompter',"HttpAppService","$scope","ionicMaterialInk","ionicMaterialMotion", "$ionicPopup", "$timeout", "$ionicPosition","$state","CarService",
+        function(worksheetDataService,$cordovaToast,Prompter,HttpAppService,$scope, ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,$ionicPosition,$state,CarService) {
             var sortedInt=1;
             var page=0;
+            $scope.searchFlag=false;
             $scope.config = {
                 searchText: '',
                 //showXbrModel: false, //是否显示遮罩层
@@ -758,7 +772,7 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
                         OBJECT_ID: "",
                         DESCRIPTION: "",
                         PARTNER: "",
-                        PRODUCT_ID: code,
+                        PRODUCT_ID:code,
                         CAR_TEXT: "",
                         CREATED_FROM: "",
                         CREATED_TO: ""
@@ -771,6 +785,8 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
                 };
                 HttpAppService.post(url, data).success(function (response) {
                     console.log(page);
+                    console.log(code);
+                    console.log(response.T_OUT_LIST);
                     if (response.ES_RESULT.ZFLAG == 'E') {
                         Prompter.showPopupAlert("加载失败","没有更多数据");
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -780,7 +796,7 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
                             Prompter.hideLoading();
                             if (response.T_OUT_LIST.item.length == 0) {
                                 if (page == 1) {
-                                    Prompter.showPopupAlert("加载失败","....")
+                                    Prompter.showPopupAlert("加载失败","暂无数据")
                                 } else {
                                     Prompter.showPopupAlert("加载失败","没有更多数据");
                                     $cordovaToast.showShortBottom('没有更多数据了');
@@ -790,6 +806,7 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
                                 //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
                                 $.each(response.T_OUT_LIST.item, function (n, value) {
                                     $scope.maintenanceInfo.push(value);
+                                    //console.log($scope.maintenanceInfo.CHANGED_AT);
                                     //$scope.spareimisshow=false;
                                     //$scope.$broadcast('scroll.infiniteScrollComplete');
                                 });
@@ -815,20 +832,40 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
 
             };
             $scope.init();
+            $scope.goDetailState = function(record,i) {
+                worksheetDataService.worksheetList.toDetail = {
+                    "IS_OBJECT_ID": record.OBJECT_ID,
+                    "IS_PROCESS_TYPE": record.PROCESS_TYPE,
+                    "ydWorksheetNum": record.SOLDTO_NAME,
+                    'ydStatusNum': record.STAT
+                };
+                if (record.PROCESS_TYPE == "ZNCO" || record.PROCESS_TYPE == "ZNCV") {
+                    $state.go("worksheetDetail", {
+                        detailType: 'newCar'
+                    });
+                } else if (record.PROCESS_TYPE == "ZPRO" || record.PROCESS_TYPE == "ZPRV") {
+                    $state.go("worksheetDetail", {
+                        detailType: 'siteRepair'
+                    });
+                } else if (record.PROCESS_TYPE == "ZPLO" || record.PROCESS_TYPE == "ZPLV") {
+                    $state.go("worksheetDetail", {
+                        detailType: 'batchUpdate'
+                    });
+                }
+            }
 
         }])
 
-.controller('SpareCtrl',['HttpAppService','$scope','CarService','Prompter','$timeout',function(HttpAppService,$scope,CarService,Prompter,$timeout){
+.controller('SpareCtrl',['$cordovaToast','HttpAppService','$scope','CarService','Prompter','$timeout',function($cordovaToast,HttpAppService,$scope,CarService,Prompter,$timeout){
         $scope.spareList=[];
         $scope.searchFlag=false;
-        $scope.data=[
-            'B50 NCM',
-            'YT-3P2s',
-            '模组'
-        ];
+        $scope.spareDesc="";
+        $scope.buttonShow=false;
+        var sparelist=[];
         $scope.cancelSearch=function(){
             $scope.searchFlag=false;
-            $scope.initSearch();
+            $scope.spareDesc="";
+            $scope.spareList1=new Array;
         };
         //显示搜索页面
         $scope.changePage=function(){
@@ -844,67 +881,166 @@ carModule.controller('CarCtrl',['$ionicScrollDelegate','$http','$cordovaToast','
                 document.getElementById('searchSpareId').focus();
             }, 1)
         };
-        //
-        //$scope.search = function (x, e) {
-        //    Prompter.showLoading('正在搜索');
-        //    $timeout(function () {
-        //        Prompter.hideLoading();
-        //        $scope.spareDesc = x;
-        //    }, 800);
-        //
-        //    e.stopPropagation();
-        //};
         var code= CarService.getSpare();
-        console.log(code);
 
-        var page=1;
-        var spare=function(){
+        var Date1=function(date){
+            for(var i=0;i<date.length;i++){
+                if(date[0]==='0'){
+                    date="";
+                }else if(date[i]==='-'){
+                    date = date.replace('-',':');
+                }
+            }
+            return date;
+        };
+        var page=0;
+        $scope.spare=function(){
+            console.log(page);
+            page+=1;
             var url=ROOTCONFIG.hempConfig.basePath+'ATTACHMENT_LIST';
             var data = {
-                "IS_SYSTEM": { "SysName": "CATL" },
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "" },
                 "IS_PAGE": {
-                    "CURRPAGE": page,
+                    "CURRPAGE": "1",
                     "ITEMS": "10"
                 },
-                "IS_VEHICLID": { "PRODUCT_ID": code }
+                "IS_VEHICLID": {
+                    "PRODUCT_ID": code,
+                    "PRODUCT_TEXT": ""
+                }
             };
             HttpAppService.post(url,data).success(function(response) {
+                console.log(code+'spare');
                 console.log(response.ET_COMM_LIST);
-                if(response.ET_COMM_LIST !==""&&response.ET_COMM_LIST !==null) {
-                    var sparelist = response.ET_COMM_LIST.Item;
-                    var num = response.ET_COMM_LIST.Item.length;
-                    for (var i = 0; i < num; i++) {
-                        var spare = {
-                            spareName: "",
-                            spareNum: "",
-                            count: "",
-                            qualityTime: "",
-                            qualityDate: ""
-                        };
-                        var Date1=function(date){
-                            for(var i=0;i<date.length;i++){
-                                if(date[0]==='0'){
-                                    date="";
-                                }else if(date[i]==='-'){
-                                    date = date.replace('-',':');
-                                }
+                if (response.ES_RESULT.ZFLAG == 'E') {
+                    Prompter.showPopupAlert("加载失败","没有更多数据");
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                } else {
+                    if (response.ES_RESULT.ZFLAG == 'S') {
+                        Prompter.hideLoading();
+                        if (response.ET_COMM_LIST.Item.length == 0) {
+                            if (page == 1) {
+                                Prompter.showPopupAlert("加载失败","暂无数据")
+                            } else {
+                                Prompter.showPopupAlert("加载失败","没有更多数据");
+                                $cordovaToast.showShortBottom('没有更多数据了');
                             }
-                            return date;
-                        };
-                        spare.spareName = sparelist[i].SHORT_TEXT;
-                        spare.spareNum = sparelist[i].PRODUCT_ID;
-                        spare.count = sparelist[i].AMOUNT;
-                        spare.qualityTime = sparelist[i].Z_SHORT_TEXT;
-                        spare.qualityDate =(sparelist[i].START_DATE[0]!=='0'&& sparelist[i].END_DATE[0]!=='0')? Date1(sparelist[i].START_DATE) + "-" + Date1(sparelist[i].END_DATE):"";
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        } else {
+                            //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
+                            $.each(response.ET_COMM_LIST.Item, function (n, value) {
 
-                        $scope.spareList.push(spare);
+                                sparelist.push(value);
+                                console.log(sparelist.length);
+                                    var spare = {
+                                        spareName: "",
+                                        spareNum: "",
+                                        count: "",
+                                        qualityTime: "",
+                                        qualityDate: ""
+                                    };
+                                    spare.spareName = sparelist[n].SHORT_TEXT;
+                                    spare.spareNum = sparelist[n].PRODUCT_ID;
+                                    spare.count = sparelist[n].AMOUNT;
+                                    spare.qualityTime = sparelist[n].Z_SHORT_TEXT;
+                                    spare.qualityDate =(sparelist[n].START_DATE[0]!=='0'&& sparelist[n].END_DATE[0]!=='0')? Date1(sparelist[n].START_DATE) + "-" + Date1(sparelist[n].END_DATE):"";
+
+                                    $scope.spareList.push(spare);
+                                    $scope.buttonShow1
+                            });
+                        }
+                        if (response.ET_COMM_LIST.Item.length < 10) {
+                            $scope.spareimisshow = false;
+                            if (page > 1) {
+                                Prompter.showPopup("加载失败","没有更多数据")
+                            }
+                        }
                     }
-                }else{
-                    Prompter.showPopup("加载失败","没有更多数据")
                 }
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
             });
-
         };
-        spare();
+
+
+        $scope.spare1=function(){
+            page+=1;
+            console.log(page);
+            var url=ROOTCONFIG.hempConfig.basePath+'ATTACHMENT_LIST';
+            var data = {
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "" },
+                "IS_PAGE": {
+                    "CURRPAGE": "1",
+                    "ITEMS": "10"
+                },
+                "IS_VEHICLID": {
+                    "PRODUCT_ID": code,
+                    "PRODUCT_TEXT": $scope.spareDesc
+                }
+            };
+            HttpAppService.post(url,data).success(function(response) {
+                console.log(code+'spare');
+                console.log(response.ET_COMM_LIST);
+                if (response.ES_RESULT.ZFLAG == 'E') {
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                } else {
+                    if (response.ES_RESULT.ZFLAG == 'S') {
+                        Prompter.hideLoading();
+                        if (response.ET_COMM_LIST.Item.length == 0) {
+                            if (page == 1) {
+                                Prompter.showPopupAlert("加载失败","暂无数据")
+                            } else {
+                                Prompter.showPopupAlert("加载失败","没有更多数据");
+                                $cordovaToast.showShortBottom('没有更多数据了');
+                            }
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        } else {
+                            //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
+                            $.each(response.ET_COMM_LIST.Item, function (n, value) {
+
+                                sparelist.push(value);
+                                    var spare = {
+                                        spareName: "",
+                                        spareNum: "",
+                                        count: "",
+                                        qualityTime: "",
+                                        qualityDate: ""
+                                    };
+                                    spare.spareName = sparelist[n].SHORT_TEXT;
+                                    spare.spareNum = sparelist[n].PRODUCT_ID;
+                                    spare.count = sparelist[n].AMOUNT;
+                                    spare.qualityTime = sparelist[n].Z_SHORT_TEXT;
+                                    spare.qualityDate =(sparelist[n].START_DATE[0]!=='0'&& sparelist[n].END_DATE[0]!=='0')? Date1(sparelist[n].START_DATE) + "-" + Date1(sparelist[n].END_DATE):"";
+                                     if($scope.spareDesc===''){
+                                         $scope.spareList1=new Array;
+                                     }else{
+                                         $scope.spareList1.push(spare);
+                                         $scope.buttonShow=true;
+                                     }
+                            });
+                        }
+                        if (response.ET_COMM_LIST.Item.length < 10) {
+                            $scope.buttonShow=false;
+                            if (page >= 1) {
+                                $scope.buttonShow=false;
+                            }
+                        }
+                    }
+                }
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+            });
+        };
+        $scope.spare();
+        $scope.initLoad=function(){
+            page=0;
+            $scope.spareList1 = new Array;
+            $scope.buttonShow=false;
+            $scope.spare1();
+        };
 
 }]);
