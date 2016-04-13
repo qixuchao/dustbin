@@ -19,7 +19,7 @@
                         <div class="customerContacts_query_listcicle"></div>
                     </div>
                     <div class="col col-40" style="text-align:center;margin-top:1px">
-                        <span style="vertical-align: middle">{{x.name}}</span>
+                        <span style="vertical-align: middle">{{x.NAME_LAST}}</span>
                     </div>
                 </div>
                 <ion-option-button style="width:30px;text-align: center" class="button-assertive">
@@ -27,6 +27,7 @@
                 </ion-option-button>
             </ion-item>
         </ion-list>
+        <ion-infinite-scroll on-infinite="customercontactLoadmore()" ng-if="customercontactisshow"></ion-infinite-scroll>
     </ion-content>
 </ion-view>
 

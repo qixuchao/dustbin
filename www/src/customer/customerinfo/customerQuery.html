@@ -15,13 +15,13 @@
                     <i id="customerqueryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="customeriputDeletevalue()"></i>
                 </div>
             </div>
-        <div class="employee_detail_countentbasic androidcustomertop iostop">
+        <div ng-if="customer_queryflag" class="employee_detail_countentbasic androidcustomertop iostop">
             <div class="employee_detail_countentbasicinfo">{{customerqueryTypeunit}}</div>
             <div class="employee_detail_countentbasicline" ng-class="employbasiclineflag?'employee_detail_countentbasiclinea':'employee_detail_countentbasiclineb'"></div>
             <div class="employee_detail_countentbasicclok" ng-class="employbasiclineflag?'employee_detail_countentbasiclocka':'employee_detail_countentbasiclockb'"></div>
         </div>
     </div>
-    <ion-content style="margin-top:88px">
+    <ion-content ng-class="customer_queryflag?'customercontenttopt':'customercontenttopf'">
         <!--显示常用联系人-->
         <div ng-if="!customer_queryflag" ng-repeat="x in usuallycustomerQuery_list" ng-click="customergodeatil(x)">
             <div class="item customer_Querylists">
