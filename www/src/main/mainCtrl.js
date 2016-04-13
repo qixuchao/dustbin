@@ -12,17 +12,16 @@ mainModule
         '$ionicPopover',
         '$cordovaDatePicker',
         '$location',
-        '$templateCache',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'Prompter',
         'HttpAppService',
         function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location,
-                  ionicMaterialInk,$templateCache,
+                  ionicMaterialInk,
                   ionicMaterialMotion, Prompter, HttpAppService) {
             //$location.path('/tab/main');
-            //ionicMaterialMotion.fadeSlideInRight();
+            ionicMaterialMotion.fadeSlideInRight();
             //$templateCache.get('src/main/main.html');
             //$scope.$on("$stateChangeSuccess", function () {
             //    $scope.test();
@@ -97,6 +96,9 @@ mainModule
                 if ($scope.viewFlag == false) {
                     document.getElementById('monthViewId').className = 'monthView own-animated fadeInDown';
                     document.getElementById('dayViewId').className = 'dayView';
+                    $timeout(function () {
+                        document.getElementById('monthViewId').className = 'monthView';
+                    },500);
                     var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                     var page_index = dayViewHandle.currentIndex();
                     var arr = $scope.days[page_index].arr;
@@ -131,6 +133,9 @@ mainModule
                 } else {
                     document.getElementById('monthViewId').className = 'monthView';
                     document.getElementById('dayViewId').className = 'dayView own-animated fadeInDown';
+                    $timeout(function () {
+                        document.getElementById('dayViewId').className = 'dayView';
+                    },500);
                     var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('monthView-handle');
                     var page_index = dayViewHandle.currentIndex();
                     var arr = $scope.monthView[page_index].arr;
@@ -598,22 +603,24 @@ mainModule
             var salePageNum = 1;
             var getSalesArr = function (type) {
                 var data = {
-                    "LS_SYSTEM": {"SysName": "CATL"},
+                    "I_SYSTEM": { "SysName": "CATL" },
                     "IS_ACTIVITY": {
-                        "OBJECT_ID": "",
-                        "DESCRIPTION": "",
+                    "OBJECT_ID": "",
+                        "DESCSEARCH": "",
                         "PROCESS_TYPE": "",
                         "ZZHDJJD": "",
                         "CUSTOMER": "",
-                        "CUSTNAME": "",
-                        "DATE_FROM": selectDate,
-                        "SALESNO": "",
-                        "SALESNAME": ""
-                    },
+                        //"DATE_FROM": selectDate,
+                        "DATE_FROM": '',
+                        "DATE_TO": "",
+                        "ESTAT": "",
+                        "SALESNO": ""
+                },
                     "IS_PAGE": {
-                        "CURRPAGE": salePageNum++,
+                    "CURRPAGE": salePageNum++,
                         "ITEMS": "10"
-                    }
+                },
+                    "IS_USER": { "BNAME": "HANDBLH" }
                 };
                 //if (salePageNum == 1) {
                 //    return

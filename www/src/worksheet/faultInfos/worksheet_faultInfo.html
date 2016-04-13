@@ -25,45 +25,45 @@
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">责任方：</div>
                 <div class="col-62 col-center fontColor">
-                    {{faulInfos.RESPONSE}}
+                    {{faulInfos.RESPONSE_DESC}}
                 </div>
             </div>
 
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">故障分类：</div>
             <div class="col-62 col-center fontColor">
-                {{faulInfos}}
+                {{faulInfos.DEFECT_DESC}}
             </div>
             </div>
 
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">部件分类：</div>
                 <div class="col-62 col-center fontColor">
-                    高压盒
+                    {{faulInfos.COMP_TYPE}}
                 </div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">部件：</div>
                 <div class="col-62 col-center fontColor">
-                    主副继电器
+                    {{faulInfos.COMPONENT}}
                 </div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">故障原因：</div>
                 <div class="col-62 col-center fontColor">
-                   工艺问题
+                   {{faulInfos.REASON}}
                 </div>
             </div>
             <div class="row itemContentT ">
                 <div class="col-38 ">注释：</div>
                 <div class="col-62 col-center fontColor">
-                    <textarea type="text"placeholder="请输入值" class="textareaCss" readonly style="background-color: white"></textarea>
+                    <textarea type="text"placeholder=""  ng-model="otherInfos.remark" class="textareaCss" readonly style="background-color: white;color: #A0A09F"></textarea>
                 </div>
             </div>
             <div class="row itemContentT ">
                 <div class="col-38 ">处理结果：</div>
                 <div class="col-62 col-center fontColor">
-                    <textarea type="text"placeholder="请输入读取描述" class="textareaCss" readonly style="background-color: white"></textarea>
+                    <textarea type="text" placeholder="" ng-model="otherInfos.result" class="textareaCss" readonly style="background-color: white;color: #A0A09F"></textarea>
                 </div>
             </div>
             </div>

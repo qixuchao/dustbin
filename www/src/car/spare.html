@@ -19,16 +19,16 @@
             <i class="button button-clear" ng-click="cancelSearch()">取消</i>
         </div>
     </ion-header-bar>
-    <ion-content class="has-header search " ng-class="searchFlag?'animated fadeIn':''" ng-show="searchFlag">
-        <div class="row row-center his-title" ng-if="!spareDesc">
-            <i class="ion-android-time"></i>
-            <div class="hisText">历史记录</div>
-            <div class="horizon-line"></div>
-        </div>
-        <ion-list ng-if="!spareDesc">
-            <ion-item ng-click="search(x,$event)" ng-repeat="x in data">{{x}}</ion-item>
-        </ion-list>
-        <div class="divContent" ng-repeat="x in spareList | filter:spareDesc" ng-if="spareDesc">
+    <ion-content class="has-header search " ng-show="searchFlag">
+        <!--<div class="row row-center his-title" ng-if="!spareDesc">-->
+            <!--<i class="ion-android-time"></i>-->
+            <!--<div class="hisText">历史记录</div>-->
+            <!--<div class="horizon-line"></div>-->
+        <!--</div>-->
+        <!--<ion-list ng-if="!spareDesc">-->
+            <!--<ion-item ng-click="search(x,$event)" ng-repeat="x in data">{{x}}</ion-item>-->
+        <!--</ion-list>-->
+        <div class="divContent" ng-repeat="x in spareList1">
              <div class="row row-center ">
                 <div class="col col-5">
                     <img ng-src="img/car/Oval.png">
@@ -59,7 +59,13 @@
                     <span>{{x.qualityDate}}</span>
                 </div>
             </div>
-             </div>
+        </div>
+        <div class="row row-center rowType" style="text-align: center">
+            <div class="col col-100 col-center">
+                <span ng-click="spare1()" ng-show="buttonShow">点击加载更多</span>
+                <span ng-hide="buttonShow">无更多数据显示</span>
+            </div>
+        </div>
     </ion-content>
     <ion-content has-bouncing="false"  ng-show="!searchFlag">
         <div class="divContent" ng-repeat="spare in spareList">
@@ -95,7 +101,8 @@
         </div>
         <div class="row row-center rowType" style="text-align: center">
             <div class="col col-100 col-center">
-                <span ng-click="loadMore()">点击加载更多</span>
+                <span ng-click="spare()" ng-show="buttonShow1">点击加载更多</span>
+                <span ng-hide="buttonShow1">无更多数据显示</span>
             </div>
         </div>
     </ion-content>

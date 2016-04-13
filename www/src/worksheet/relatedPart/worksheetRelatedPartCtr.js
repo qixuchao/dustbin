@@ -40,35 +40,42 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             }
             console.log('' + angular.toJson(msg));
         });
-        $scope.deleteInfos = function(item){
-            for(var k=0;k<$scope.infos.length;k++){
-                if(item.PARTNER_NO === $scope.infos[k].PARTNER_NO){
-                    console.log(angular.toJson($scope.infos[k]));
-                    $scope.infos.splice(k,1);
-                }
-            }
 
-            var data={
-                "I_SYSTEM": { "SysName": "CATL" },
-                "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
-                "IS_OBJECT_ID": worksheetDetailData.IS_PROCESS_TYPE,
-                "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
-                "IT_PARTNER": {
-                    "item": [
-                        {
-                            "PARTNER_FCT":item.PARTNER_FCT,
-                            "PARTNER_NO":item.PARTNER_NO,
-                            "ZMODE" : "D"
+        $scope.deleteInfos = function(item){
+            if(item !== ZCUSTCTT ){
+                Prompter.deleteInfosPoint(item.FCT_DESCRIPTION + "不允许删除");
+            }else{
+                Prompter.showLoading();
+                var data={
+                    "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
+                    "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
+                    "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
+                    "IT_PARTNER": {
+                        "item": [
+                            {
+                                "PARTNER_FCT":item.PARTNER_FCT,
+                                "PARTNER_NO":item.PARTNER_NO,
+                                "ZMODE" : "D"
+                            }
+                        ]
+                    }};
+                console.log(angular.toJson(data));
+                var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
+                HttpAppService.post(url, data).success(function(response){
+                    Prompter.hideLoading();
+                    Prompter.deleteInfosPoint(response.ZRESULT);
+                    for(var k=0;k<$scope.infos.length;k++){
+                        if(item.PARTNER_NO === $scope.infos[k].PARTNER_NO){
+                            console.log(angular.toJson($scope.infos[k]));
+                            $scope.infos.splice(k,1);
                         }
-                    ]
-                }};
-            console.log(angular.toJson(data));
-            var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
-            HttpAppService.post(url, data).success(function(response){
-                console.log(angular.toJson(response));
-            }).error(function(err){
-                console.log(angular.toJson(err));
-            });
+                    }
+                    console.log(angular.toJson(response));
+                }).error(function(err){
+                    console.log(angular.toJson(err));
+                });
+            }
         }
     $scope.phone = function(num){
         Prompter.showphone(num);

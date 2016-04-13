@@ -27,14 +27,14 @@ customerContactsModule
             $scope.customercontactisshow = true;
             $scope.customercontactPage = $scope.customercontactPage + 1;
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST';
-            var data = {
-                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": "handlcx02" },
+           var data = {
+               "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_AUTHORITY": { "BNAME": "HANDLCX02" },
                 "IS_PAGE": {
-                    "CURRPAGE": $scope.customercontactPage,
-                    "ITEMS": "10"
-                },
-                "IS_PARTNER": { "PARTNER": "000008878A" },
+                "CURRPAGE": "1",
+                    "ITEMS": "100"
+            },
+                "IS_PARTNER": { "PARTNER": "0000100037" },
                 "IS_SEARCH": { "SEARCH": "" }
             };
             HttpAppService.post(url, data).success(function (response) {
@@ -43,30 +43,34 @@ customerContactsModule
                     $cordovaToast.showShortCenter('无符合条件数据');
                 } else {
                     if (response.ES_RESULT.ZFLAG == 'S') {
-                        if (response.ET_EMPLOYEE.item.length == 0) {
-                            $scope.customercontactisshow = false;
-                            Prompter.hideLoading();
-                            if ($scope.customercontactPage == 1) {
-                                $cordovaToast.showShortBottom('数据为空');
+                        if(response.ET_EMPLOYEE != ''){
+                            if (response.ET_OUT_LIST.item.length == 0) {
+                                $scope.customercontactisshow = false;
+                                Prompter.hideLoading();
+                                if ($scope.customercontactPage == 1) {
+                                    $cordovaToast.showShortBottom('数据为空');
+                                } else {
+                                    $cordovaToast.showShortBottom('没有更多数据');
+                                }
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
                             } else {
-                                $cordovaToast.showShortBottom('没有更多数据');
+                                $.each(response.ET_OUT_LIST.item, function (n, value) {
+                                    $scope.customerContacts_query_list.push(value);
+                                });
+                            }
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.customercontactisshow = false;
+                                if ($scope.customercontactPage > 1) {
+                                    //console.log("没有更多数据了");
+                                    $cordovaToast.showShortBottom('没有更多数据');
+                                }
+                            } else {
+                                $scope.customercontactisshow = true;
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
-                            $.each(response.ET_EMPLOYEE.item, function (n, value) {
-                                $scope.customerContacts_query_list.push(value);
-                            });
+                        }else{
+                            $cordovaToast.showShortBottom('查询数据为空');
                         }
-                        if (response.ET_EMPLOYEE.item.length < 10) {
-                            $scope.customercontactisshow = false;
-                            if ($scope.customercontactPage > 1) {
-                                //console.log("没有更多数据了");
-                                $cordovaToast.showShortBottom('没有更多数据');
-                            }
-                        } else {
-                            $scope.customercontactisshow = true;
-                        }
-                        $scope.$broadcast('scroll.infiniteScrollComplete');
 
                     }
                 }
@@ -75,25 +79,6 @@ customerContactsModule
                 $scope.customercontactisshow = false;
             });
         }
-
-
-
-        //$scope.customerContacts_query_list = [{
-        //    name: '王雨薇',
-        //    sex:'女',
-        //    keuhuname:'金龙客车',
-        //    dizhiname:'福建省福州市芙蓉大道20号',
-        //    xioshouyung:'张俊华',
-        //    phonenumber:'021-88223765',
-        //    customermail:'yuwei.wang@hand-china.com',
-        //    postion:'采购部',
-        //    atend:'采购助理',
-        //    customercontrary:'中国',
-        //    customerregion:'河南省',
-        //    youbina:'555876',
-        //    birthday:'2016.08.21',
-        //    'customerzhushi':'in the feahennmkk in the feahennmkk in the feahennmkk in the feahennmkk'
-        //}];
 
         $scope.customerContacts_godetails = function(x){
             customeService.set_customerContactsListvalue(x);
@@ -118,15 +103,18 @@ customerContactsModule
                 //从客户联系人进入创建联系人界面设置一个标记
                 if(types.type == "手动创建新联系人"){
                     contactService.set_ContactCreateflagfalse();
-                    alert(contactService.get_ContactCreateflag())
                 }
             }
             $scope.customerContactsPopoverhide();
         };
-        //接收广播创建取数据
-        $rootScope.$on('customercontactCreatevalue', function(event, data) {
-            console.log(contactService.get_ContactCreatevalue())
-        });
+        //接收广播创建取数据contactService.get_ContactsListvalue()
+        //$rootScope.$on('customercontactCreatevalue', function(event, data) {
+        //    console.log(contactService.get_ContactCreatevalue())
+        //});
+        $scope.customercontactsgoDetail =function(cmvalue){
+            contactService.set_ContactsListvalue(cmvalue);
+            $state.go('ContactDetail')
+        }
 
 
     }])

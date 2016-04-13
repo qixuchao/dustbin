@@ -13,12 +13,12 @@ tabsModule
             };
             $scope.tabs = [{
                 name: '主页',
-                isActive: false,
+                isActive: true,
                   onClass: 'main-on',
                 offClass: 'main-off'
             }, {
                 name: '应用',
-                isActive: true,
+                isActive: false,
                 onClass: 'app-on',
                 offClass: 'app-off'
             }, {
@@ -33,7 +33,7 @@ tabsModule
                 offClass: 'my-off'
             }];
             $scope.clickTab = function (tab) {
-                $ionicSlideBoxDelegate.update();
+                //$ionicSlideBoxDelegate.update();
                 for (var i = 0; i < $scope.tabs.length; i++) {
                     $scope.tabs[i].isActive = false;
                 }

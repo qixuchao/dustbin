@@ -1,59 +1,57 @@
 <ion-view class="saleActDetail saleChanDetail">
-    <div class="top-back absolute animated fadeIn" style="height: 75px;background: none"
-         ng-class="!TitleFlag?'fadeOut':''" ng-show="TitleFlag">
-        <div class="row row-center title">
-            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
-            <div class="col col-70 text-center">机会详情
-                <div style="font-size: 10px">郑州金龙客车(福州)客户拜访</div>
-            </div>
-            <div class="col col-15 text-right">后续</div>
-        </div>
-    </div>
-    <div class="top-back absolute top-back2" ng-show="showTitleStatus">
-        <div class="row row-center title" style="padding-bottom: 0">
-            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
-            <div class="col col-70 text-center">机会详情
-                <div style="font-size: 10px">{{chanceDetails.title}}</div>
-            </div>
-            <div class="col col-15 text-right">后续</div>
-        </div>
-        <div class="selector">
-            <div class="detail" ng-class="{checked:select}" ng-click="changeStatus(true)">详细信息</div>
-            <div class="relative" ng-class="{checked:!select}" ng-click="changeStatus(false)">相关方</div>
-        </div>
-    </div>
-    <ion-content has-bouncing="false" on-scroll="onScroll()" scrollbar-y="false">
+    <!--<div class="top-back absolute animated fadeIn" style="height: 75px;background: none"-->
+         <!--ng-class="!TitleFlag?'fadeOut':''" ng-show="TitleFlag">-->
+        <!--<div class="row row-center title">-->
+            <!--<div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>-->
+            <!--<div class="col col-70 text-center">机会详情-->
+                <!--<div style="font-size: 10px">{{chanceDetails.DESCRIPTION}}</div>-->
+            <!--</div>-->
+            <!--<div class="col col-15 text-right">后续</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="top-back absolute top-back2" ng-show="showTitleStatus">-->
+        <!--<div class="row row-center title" style="padding-bottom: 0">-->
+            <!--<div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>-->
+            <!--<div class="col col-70 text-center">机会详情-->
+                <!--<div style="font-size: 10px">{{chanceDetails.DESCRIPTION}}</div>-->
+            <!--</div>-->
+            <!--<div class="col col-15 text-right">后续</div>-->
+        <!--</div>-->
+        <!--<div class="selector">-->
+            <!--<div class="detail" ng-class="{checked:select}" ng-click="changeStatus(true)">详细信息</div>-->
+            <!--<div class="relative" ng-class="{checked:!select}" ng-click="changeStatus(false)">相关方</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <ion-content>
         <div id="saleTopBackId" class="top-back">
-            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+            <div class="row row-center title">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">机会详情</div>
                 <div class="col col-15 text-right">后续</div>
             </div>
             <div class="mainInfo">
-                <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="row row-center">
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
-                    <input type="text" ng-model="chanceDetails.title" ng-readonly="!isEdit"
+                    <input type="text" ng-model="chanceDetails.DESCRIPTION" ng-readonly="!isEdit"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
-                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="row row-center">
                     <div class="chanSubTitle">潜在客户:</div>
-                    <div class="editText" ng-if="isEdit">BYD<i class="ion-arrow-right-c right-arrow"></i></div>
-                    <input type="text" ng-model="chanceDetails.hideCustomer" ng-if="!isEdit" readonly>
-
-                    <div class="feel">{{chanceDetails.feelNum+'%'}}</div>
+                    <div class="editText" ng-if="isEdit">{{chanceDetails.PARTNER_TXT}}<i class="ion-arrow-right-c right-arrow"></i></div>
+                    <input type="text" ng-model="chanceDetails.PARTNER_TXT" ng-if="!isEdit" readonly>
+                    <div class="feel">{{chanceDetails.PROBABILITY+'%'}}</div>
                 </div>
-                <div class="row row-center" ng-class="placeFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="row row-center">
                     <div class="chanSubTitle">销售阶段:</div>
-                    <div class="editText" ng-click="openPopover()" ng-if="isEdit">{{chanceDetails.saleStage}}<i
+                    <div class="editText" ng-click="openPopover()" ng-if="isEdit">{{chanceDetails.PHASE}}<i
                             class="ion-arrow-right-c right-arrow"></i></div>
-                    <input type="text" ng-model="chanceDetails.saleStage" ng-if="!isEdit" readonly>
+                    <input type="text" ng-model="chanceDetails.PHASE" ng-if="!isEdit" readonly>
                 </div>
-                <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
-                    <div>状态:</div>
+                <div class="row row-center">
+                    <div style="min-width: 37px;">状态:</div>
                     <select ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
-
-                    <div class="num">{{'NO.'+chanceDetails.saleNum}}</div>
+                    <div class="num">{{'NO.'+chanceDetails.OBJECT_ID}}</div>
                     <div class="edit" ng-click="edit()"><img ng-show="!isEdit" src="img/saleDetail/edit.png">{{editText}}
                     </div>
                 </div>
@@ -69,7 +67,7 @@
             <div ng-show="select">
                 <div class="row">
                     <div class="col-15">注释:</div>
-                    <textarea rows="3" ng-readonly="!isEdit">In the tumultuous business of cutting-in and attending to a whale, there is much running backwards and forwards among</textarea>
+                    <textarea rows="3" ng-readonly="!isEdit" ng-model="chanceDetails.CRM_ORDERH_T"></textarea>
                 </div>
                 <div class="row no-padding-right">
                     <div class="row row-center">
@@ -77,12 +75,12 @@
                             <div class="row">
                                 <div class="col-30 text-left">开始时间:</div>
                                 <div class="text col-70 startTime" ng-click="selectTime('start')">
-                                    {{chanceDetails.startTime}}<i
+                                    {{chanceDetails.STARTDATE}}<i
                                         class="ion-arrow-down-b time-icon"></i></div>
                             </div>
                             <div class="row endTime">
                                 <div class="col-30 text-left">结束时间:</div>
-                                <div class="text col-70" ng-click="selectTime('end')">{{chanceDetails.endTime}}<i
+                                <div class="text col-70" ng-click="selectTime('end')">{{chanceDetails.EXPECT_END}}<i
                                         class="ion-arrow-down-b time-icon"></i></div>
                             </div>
                         </div>
@@ -93,16 +91,16 @@
                         <div class="col col-30 text-left">项目编号:</div>
                         <div class="col text col-70">
                             <input type="text" ng-readonly="!isEdit" class="saleChanInput"
-                                   ng-model="chanceDetails.proNum"></div>
+                                   ng-model="chanceDetails.ZZXMBH"></div>
                     </div>
                 </div>
                 <div class="row no-padding-right">
                     <div class="row row-center">
                         <div class="col col-30 text-left">预期销售量:</div>
                         <div class="text"><input type="text" ng-blur="returnScroll()" class="saleChanPreInput"
-                                                 ng-readonly="!isEdit" ng-model="chanceDetails.preMount"></div>
+                                                 ng-readonly="!isEdit" ng-model="chanceDetails.ZZXSYXL"></div>
                         <div class="col col-30 text-left money" ng-click="openMoneyModal('money')">
-                            {{'-'+chanceDetails.preMountType+'-'}}
+                            {{'-'+chanceDetails.CURRENCY+'-'}}
                         </div>
                     </div>
                 </div>
@@ -110,27 +108,20 @@
                     <div class="row row-center">
                         <div class="col col-30 text-left">预期销售额:</div>
                         <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
-                                                 ng-model="chanceDetails.preMoney"></div>
+                                                 ng-model="chanceDetails.EXP_REVENUE"></div>
                         <div class="col col-30 text-left money" ng-click="openMoneyModal('unit')">
-                            {{'-'+chanceDetails.preMoneyType+'-'}}</div>
+                            {{'-'+chanceDetails.ZZYQXSLDW+'-'}}</div>
                     </div>
                 </div>
             </div>
             <!--相关方-->
             <div id="relativeId" class="relative" ng-show="!select">
-                <div class="row">
-                    <div class="col">王紫薇&nbsp;&nbsp;女士</div>
-                    <div class="col text-center position">CATL销售</div>
+                <div class="row" ng-repeat="x in relationArr">
+                    <!--<div class="col">王紫薇&nbsp;&nbsp;女士</div>-->
+                    <div class="col">{{x.NAME}}</div>
+                    <!--<div class="col text-center position">CATL销售</div>-->
                 </div>
-                <div class="row">
-                    <div class="col">王紫薇&nbsp;&nbsp;女士</div>
-                    <div class="col text-center position">CATL销售</div>
-                </div>
-                <div class="row">
-                    <div class="col">王紫薇&nbsp;&nbsp;女士</div>
-                    <div class="col text-center position">CATL销售</div>
-                </div>
-                <div class="row row-center add">
+                <div class="row row-center add" ng-if="isEdit">
                     <div class="col"><i class="ion-ios-plus-outline"></i>添加相关方</div>
                 </div>
             </div>
