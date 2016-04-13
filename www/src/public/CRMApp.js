@@ -272,6 +272,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/worksheet/detailAll/detailAll.html',
                 controller: 'worksheetDetailAllCtrl'
             })
+            .state('worksheetEdit', { // detailType取值: newCar、siteRepair、batchUpdate
+                url: '/worksheetEdit/{detailType}',
+                templateUrl: 'src/worksheet/detailEdit/detailAllEdit.html',
+                controller: 'worksheetEditAllCtrl'
+            })
 
             .state('worksheetBaoGonglist', {   //报工信息列表界面
                 url: '/worksheetBaoGonglist',
@@ -320,7 +325,16 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',
                 controller: 'WorksheetRelatedCtrl'
             })
-
+            .state('worksheetRelatedPartContact', {
+                url: '/worksheetRelatedPartContact',
+                templateUrl: 'src/worksheet/relatedPart/worksheet_relatePartContact.html',
+                controller: 'WorksheetRelatedContactCtrl'
+            })
+            .state('worksheetRelatedPartCust', {
+                url: '/worksheetRelatedPartCust',
+                templateUrl: 'src/worksheet/relatedPart/worksheet_relatePartCust.html',
+                controller: 'WorksheetRelatedCustCtrl'
+            })
             .state('worksheetRelatedPartDelete', {
                 url: '/worksheetRelatedPartDelete',
                 templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPartDelete.html',

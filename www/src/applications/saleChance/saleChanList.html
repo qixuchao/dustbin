@@ -15,9 +15,9 @@
         </div>
     </div>
     <div class="referModal" ng-if="searchFlag">
-        <ion-header-bar class="head" no-tap-scroll="true">
+        <ion-header-bar class="head" no-tap-scroll="true" ng-class="{'animated fadeIn':searchFlag}">
             <div class="row row-center">
-                <div class="text-center selections" ng-click="changeFilterFlag()">
+                <div class="text-center selections" ng-click="changeFilterFlag($event)">
                     筛选<img class="chanceImg" src="img/saleList/oval.png">
                 </div>
                 <div class="col input">
@@ -54,7 +54,7 @@
     <ion-content class="has-header search" ng-show="searchFlag"
                  ng-click="changeSearch($event)">
         <div ng-class="filterFlag?'own-backDrop-on':'own-backDrop-off'"
-             ng-click="changeFilterFlag()"></div>
+             ng-click="changeFilterFlag($event)"></div>
         <div class="listFilter selectionsDown pushDown-animated refer-selectionsDown"
              ng-class="{'slideOutUp':!filterFlag,'slideInDown':filterFlag}"
              ng-show="filterFlag" ng-click="filterPrevent($event)">

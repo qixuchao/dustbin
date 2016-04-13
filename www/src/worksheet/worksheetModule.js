@@ -28,6 +28,7 @@ worksheetModule.service('worksheetDataService', [function(){
         //  "IS_OBJECT_ID": "5200000297"
         //  "IS_PROCESS_TYPE": "ZPRO"
         //  "ydWorksheetNum": 
+        //  "ydStatusNum":
       }
     },
     wsDetailData: null
@@ -40,6 +41,8 @@ worksheetModule.service('worksheetDataService', [function(){
 worksheetModule.service('worksheetHttpService', ['HttpAppService', function(HttpAppService){
     //配件的选择数据
     var sparePart;
+    //相关方数据
+    var worksheetRelatePart;
     return {
         serviceList: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST',   //工单列表接口
@@ -67,12 +70,21 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
                 T_IN_STAT: {}
             }
         },
+        //备件
         setSparePart:function(data){
             sparePart=data;
             return sparePart;
         },
         getSparePart:function(){
             return sparePart;
+        },
+        //相关方
+        setWorksheetRelatePart:function(data){
+            worksheetRelatePart=data;
+            return worksheetRelatePart;
+        },
+        getWorksheetRelatePart:function(){
+            return worksheetRelatePart;
         },
         serviceDetail: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL'   //工单详情接口
@@ -137,5 +149,4 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
             }
         }
     };
-
 }]);

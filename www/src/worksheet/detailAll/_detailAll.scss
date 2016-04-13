@@ -24,6 +24,9 @@
     }
     ion-content{
         margin-bottom: 3.8rem;
+        &.can-not-editor-detail{
+            margin-bottom: 0px;
+        }
     }
     .fixed-buttons{
         position: fixed;
@@ -287,10 +290,10 @@
         text-align: center;
 	}
 	/*.status-handleing{ 
-		color: #9ED85F !important;
-	}  
-	.status-not-handle{
-		color: red !important;
+    		color: #9ED85F !important;
+    	}  
+    	.status-not-handle{
+    		color: red !important;
 	}*/
 	.color-common-blue{    
 		color: #4C8AC7 !important;

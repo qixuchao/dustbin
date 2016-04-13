@@ -4,8 +4,8 @@
 
 'use strict';
 tabsModule
-    .controller('TabsCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$templateCache', 'ionicMaterialInk',
-        function ($scope, $rootScope, $state, $ionicHistory, $templateCache, ionicMaterialInk) {
+    .controller('TabsCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$templateCache','$ionicSlideBoxDelegate', 'ionicMaterialInk',
+        function ($scope, $rootScope, $state, $ionicHistory, $templateCache, $ionicSlideBoxDelegate,ionicMaterialInk) {
             //ionicMaterialInk.displayEffect();
             $rootScope.goBack = function () {
                 console.log('goback')
@@ -14,7 +14,7 @@ tabsModule
             $scope.tabs = [{
                 name: '主页',
                 isActive: false,
-                onClass: 'main-on',
+                  onClass: 'main-on',
                 offClass: 'main-off'
             }, {
                 name: '应用',
@@ -33,6 +33,7 @@ tabsModule
                 offClass: 'my-off'
             }];
             $scope.clickTab = function (tab) {
+                $ionicSlideBoxDelegate.update();
                 for (var i = 0; i < $scope.tabs.length; i++) {
                     $scope.tabs[i].isActive = false;
                 }

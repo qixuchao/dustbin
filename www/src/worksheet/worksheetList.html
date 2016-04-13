@@ -35,7 +35,7 @@
     	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);"  ng-class="{'isSearchingMode':(config.queryModeNew)}">
     		<div class="search-box">
 	            <i class="icon ion-ios-search-strong left"></i>
-	            <input type="search" ng-model="config.searchText" style="font-size: 12px;padding-top:0px; padding-bottom:0px;" ng-change="onSearchTextChange($event);" ng-click="clickSearchInput();" type="text" placeholder="{{config.searchPlaceholder}}">
+	            <input type="search" ng-model="config.searchText" style="font-size: 12px;padding-top:0px; padding-bottom:0px;" ng-change="onSearchTextChange($event);" ng-click="clickSearchInput();" placeholder="{{config.searchPlaceholder}}">
                 <i ng-if="config.searchInputHasText" class="ion-ios-close right" ng-click="clearSearchText();"></i>
 	        </div>
             <div class="cancle-button button button-clear" ng-click="cancleQueryMode();">取消</div>
@@ -46,7 +46,7 @@
                 <span class="text">历史记录</span>
                 <span class="line"></span>
             </div>
-            <div class="list" >
+            <div class="list">
                 <div class="item" ng-click="selectOldSearch(item.text)" ng-repeat="item in config.historyStrs"><span ng-bind="item.text"></span></div>
             </div>            
         </div>
@@ -118,7 +118,7 @@
                                 <div class="filter-type newcar-online-fws" ng-click="selectFilterType('newcarOnlineFWS');" ng-class="{'selected':config.filterNewCarOnlineFWS}">新车上线工单(服务商)</div>
                             </div>
                         </div>
-                        <div canNotClickEnterListMode class="filter-impact">
+                        <div canNotClickEnterListMode class="filter-impact" style="display:none;">
                             <div class="filter-impact-title filter-title">影响</div>
                             <div class="filter-impacts">
                                 <div class="filter-impact damage" ng-class="{'selected':config.filterImpactDamage}" ng-click="selectFilterImpact('damage');">灾难</div>

@@ -1,8 +1,8 @@
 <ion-view class="customer_Query">
 
     <div class="saleList">
-        <ion-header-bar align-title="center" class="head pub-head">
-            <div class="row row-center">
+        <ion-header-bar align-title="center" class="head pub-head" style="height:88px">
+            <div class="row">
                 <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
                 <div class="col col-70 text-center">客户</div>
                 <div class="col col-20 add" ng-click="customerPopover($event)" style="text-align: left">筛选</div>
@@ -11,17 +11,17 @@
             <div class="pub-subhead bar bar-subheader">
                 <div class="employeequery_headquery">
                     <i class="ion-ios-search employeequery_headqueryimg"></i>
-                    <input type="search" id="customerinputvalueid" class="employeequery_headqueryinput" ng-model="customer.customerfiledvalue" placeholder="请输入客户关键字"/>
+                    <input id="customerinputvalueid" class="employeequery_headqueryinput" type="text" ng-model="customer.customerfiledvalue" placeholder="请输入客户关键字">
                     <i id="customerqueryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="customeriputDeletevalue()"></i>
                 </div>
             </div>
-        <div class="employee_detail_countentbasic" style="margin-top: 93px;">
+        <div ng-if="customer_queryflag" class="employee_detail_countentbasic androidcustomertop iostop">
             <div class="employee_detail_countentbasicinfo">{{customerqueryTypeunit}}</div>
             <div class="employee_detail_countentbasicline" ng-class="employbasiclineflag?'employee_detail_countentbasiclinea':'employee_detail_countentbasiclineb'"></div>
             <div class="employee_detail_countentbasicclok" ng-class="employbasiclineflag?'employee_detail_countentbasiclocka':'employee_detail_countentbasiclockb'"></div>
         </div>
     </div>
-    <ion-content style="margin-top:88px">
+    <ion-content ng-class="customer_queryflag?'customercontenttopt':'customercontenttopf'">
         <!--显示常用联系人-->
         <div ng-if="!customer_queryflag" ng-repeat="x in usuallycustomerQuery_list" ng-click="customergodeatil(x)">
             <div class="item customer_Querylists">
