@@ -19,7 +19,7 @@
                 </div>
                 <ion-slide-box does-continue="true" on-slide-changed="slideHasChanged($index)"
                                delegate-handle="dayView-handle">
-                    <ion-slide ng-repeat="x in days" style="width: 100%!important;">
+                    <ion-slide ng-repeat="x in days">
                         <div class="row day">
                             <div class="col text-center no-padding myDay" ng-repeat="y in x.arr"
                                  ng-class="{'edgeDay':(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6),'checked':y.checked}"
@@ -41,7 +41,7 @@
             </div>
             <ion-slide-box id="monthScrollId" does-continue="true" on-slide-changed="monthHasChanged($index)"
                            delegate-handle="monthView-handle" ng-style="monthHeight">
-                <ion-slide ng-repeat="x in monthView track by $index" style="width: 100%!important;">
+                <ion-slide ng-repeat="x in monthView track by $index">
                     <div class="row row-wrap">
                         <div class="col col-14" ng-repeat="y in x.arr track by $index"
                              ng-class="(year+'/'+month+'/'+y.value)==myTodayDate?'today_text':''"
@@ -125,5 +125,5 @@
             </div>
         </div>
     </div>
-    <ion-infinite-scroll on-infinite="getList()" distance="1%" ng-if="loadMoreFlag"></ion-infinite-scroll>
+    <!--<ion-infinite-scroll on-infinite="getList()" distance="1%" ng-if="loadMoreFlag"></ion-infinite-scroll>-->
 </ion-content>

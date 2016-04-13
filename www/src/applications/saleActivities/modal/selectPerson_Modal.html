@@ -1,7 +1,8 @@
 <div class="selectPersonModal">
     <div class="modal transparent content">
         <ion-scroll>
-            <div class="person" ng-class="{'selected':create.contact==x.text}" ng-repeat="x in contacts" ng-click="selectContact(x)">{{x.text}}</div>
+            <div class="person" ng-class="{'selected':create.contact==x.NAME_LAST}" ng-repeat="x in contacts" ng-click="selectContact(x)">{{x.NAME_LAST}}</div>
+            <ion-infinite-scroll on-infinite="getContacts()" distance="1%" ng-if="contactsLoadMoreFlag"></ion-infinite-scroll>
         </ion-scroll>
         <div class="cancel"><img class="cancelImg" src="img/apps/cancel.png" ng-click="closeSelectPerson()"></div>
     </div>

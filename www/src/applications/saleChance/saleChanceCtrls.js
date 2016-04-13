@@ -39,19 +39,20 @@ salesModule
                     pageNum = 1;
                 }
                 var data = {
-                    "IS_SYSTEM": {"SysName": "CATL"},
+                    "IS_SYSTEM": { "SysName": "CATL" },
+                    "IS_USER": { "BNAME": "HANDBLH" },
                     "IS_PAGE": {
                         "CURRPAGE": pageNum++,
                         "ITEMS": "10"
                     },
                     "IS_SEARCH": {
-                        "ZSRTING": "报价单",
+                        "ZSRTING": "",
                         "PARTNER_NO": "",
                         "OBJECT_ID": "",
                         "PHASE": "",
                         "STARTDATE": ""
                     }
-                };
+                }
                 saleChanService.listPage = pageNum;
                 //if (pageNum == 1) {
                 //    return
@@ -320,28 +321,18 @@ salesModule
         function ($scope, $rootScope, $state, ionicMaterialInk, ionicMaterialMotion, $timeout, $ionicScrollDelegate,
                   $ionicPopover, $ionicModal, $cordovaDialogs, $cordovaToast, $cordovaDatePicker, saleChanService,
                   Prompter,HttpAppService) {
-            console.log('chanceDetail')
+            console.log('chanceDetail');
             ionicMaterialInk.displayEffect();
-            //ionicMaterialMotion.fadeSlideInRight();
             $scope.statusArr = saleChanService.getStatusArr();
             $scope.chanceDetails = {
-                title: 'APP 120KWh PHEV Pack需求',
-                hideCustomer: 'BYD',
-                saleStage: 'SOP阶段',
-                status: '处理中',
-                saleNum: '100036',
-                feelNum: 80,
-                startTime: '2016/3/1 12:00',
-                endTime: '2016/3/1 12:00',
                 preMount: '0.00',
-                preMountType: 'CNY',
+                CURRENCY: 'CNY',
                 preMoney: '0.00',
-                preMoneyType: 'AH',
-                proNum: '9999001'
+                preMoneyType: 'AH'
             };
             var getInitStatus = function () {
                 for (var i = 0; i < $scope.statusArr.length; i++) {
-                    if ($scope.statusArr[i].value == $scope.chanceDetails.status) {
+                    if ($scope.statusArr[i].value == $scope.chanceDetails.STATUS) {
                         $scope.mySelect = {
                             status: $scope.statusArr[i]
                         };
@@ -359,27 +350,15 @@ salesModule
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_DETAIL', data)
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
-                            if (type === 'refresh') {
-                                $scope.saleListArr = response.ET_OPPORT.item;
-                                saleChanService.chanListArr = $scope.saleListArr;
-                                $ionicScrollDelegate.resize();
-                                return
-                            }
-                            if (response.ET_OPPORT.item.length < 10) {
-                                $scope.loadMoreFlag = false;
-                            }
-                            $scope.saleListArr = $scope.saleListArr.concat(response.ET_OPPORT.item);
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                            $ionicScrollDelegate.resize();
-                            saleChanService.chanListArr = $scope.saleListArr;
+                            $scope.chanceDetails = response.ES_OPPORT_H;
+                            $scope.relationArr = response.ET_RELEATION.item;
+                            Prompter.hideLoading();
+                            getInitStatus();
                         }
-                    }).finally(function () {
-                    // 停止广播ion-refresher
-                    $scope.$broadcast('scroll.refreshComplete');
-                });
+                    });
             };
             getDetails();
-            getInitStatus();
+
             $scope.isEdit = false;
             $scope.editText = "编辑";
             $scope.edit = function () {
@@ -539,7 +518,7 @@ salesModule
             };
             var getInitStage = function () {
                 for (var i = 0; i < $scope.saleStages.length; i++) {
-                    if ($scope.saleStages[i].value == $scope.chanceDetails.saleStage) {
+                    if ($scope.saleStages[i].value == $scope.chanceDetails.PHASE) {
                         $scope.pop.stage = $scope.saleStages[i]
                         return
                     }
@@ -552,16 +531,16 @@ salesModule
             });
             $scope.openPopover = function ($event) {
                 getInitStage();
-                $scope.pop.feel = $scope.chanceDetails.feelNum;
-                $scope.pop.proNum = $scope.chanceDetails.proNum;
+                $scope.pop.feel = $scope.chanceDetails.PROBABILITY;
+                $scope.pop.proNum = $scope.chanceDetails.ZZXMBH;
                 $scope.popover.show($event);
             };
             $scope.savePop = function () {
                 console.log($scope.pop.stage.value)
-                $scope.chanceDetails.saleStage = $scope.pop.stage.value;
+                $scope.chanceDetails.PHASE = $scope.pop.stage.value;
                 //getInitStatus();
-                $scope.chanceDetails.feelNum = $scope.pop.feel;
-                $scope.chanceDetails.proNum = $scope.pop.proNum;
+                $scope.chanceDetails.PROBABILITY = $scope.pop.feel;
+                $scope.chanceDetails.ZZXMBH = $scope.pop.proNum;
                 $scope.popover.hide();
             };
             $scope.closePop = function () {
@@ -602,7 +581,7 @@ salesModule
             };
             $scope.selectMoneyType = function (x) {
                 if($scope.unitTitle == '币种'){
-                    $scope.chanceDetails.preMountType = x.value;
+                    $scope.chanceDetails.CURRENCY = x.value;
                 }else{
                     $scope.chanceDetails.preMoneyType = x.value;
                 }

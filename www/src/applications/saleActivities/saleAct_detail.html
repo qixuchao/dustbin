@@ -51,7 +51,7 @@
                     <div>状态:</div>
                     <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
-                    <div class="num">{{'NO.'+details.saleNum}}</div>
+                    <div class="num">{{'NO.'+details.OBJECT_ID}}</div>
                     <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}</div>
                 </div>
             </div>
@@ -88,8 +88,8 @@
                     <div class="row row-center">
                         <div class="col col-85 col-center">
                             <div class="row">
-                                <div class="col-30 text-left">参考:</div>
-                                <div class="text col-70 underline">{{details.refer}}</div>
+                                <div class="col-30 text-left col-center">参考:</div>
+                                <div class="text col-70 underline">{{details.OPPORT_NO}}<span ng-if="details.OPPORT_NO&&details.OPPORT_DESC">—</span>{{details.OPPORT_DESC}}</div>
                             </div>
                         </div>
                         <div class="col col-15 text-right rewrite"><img src="img/saleDetail/Shape.png"></div>
@@ -123,7 +123,7 @@
             </div>
         </div>
     </ion-content>
-    <div class="bar bar-footer content">
+    <div class="bar bar-footer content item-input-inset">
         <div class="submit">
             <div class="row row-center">
                 <div class="col col-82 no-padding">
