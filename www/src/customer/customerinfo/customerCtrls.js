@@ -56,7 +56,7 @@ customerModule
             $scope.customerPage = $scope.customerPage + 1;
             var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST';
             var data = {
-                "I_SYSNAME": { "SysName": "ATL" },
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_PAGE": {
                     "CURRPAGE": $scope.customerPage,
                     "ITEMS": "10"
