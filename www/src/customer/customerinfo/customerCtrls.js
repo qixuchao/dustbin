@@ -42,6 +42,14 @@ customerModule
 
         //广播修改界面显示flag
         $rootScope.$on('customerdeatillist', function(event, data) {
+            //返回初始化
+            $scope.customerisshow = false;
+            //删除请求
+            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
+            $scope.customerQuery_list = [];
+            $scope.customerQuery_list = new Array;
+            $scope.customerPage = 0;
+
             $scope.customer.customerfiledvalue ='';
             $scope.CustomerHisGetvaluehis();
         });
@@ -134,9 +142,9 @@ customerModule
                         $scope.customer_queryflag = true;
                         $ionicScrollDelegate.resize();
                         $scope.customerisshow = true;
-                        if(!$scope.$$phase) {
-                            $scope.$apply();
-                        };
+                        //if(!$scope.$$phase) {
+                        //    $scope.$apply();
+                        //};
                     } else {
                         //删除请求
                         $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
@@ -351,13 +359,13 @@ customerModule
         };
 
         //跳转detail界面
-        $scope.customergodeatil = function(cusvalue){
-            customeService.set_customerListvalue(cusvalue);
-            $state.go("customerDetail");
-        }
+        //$scope.customergodeatil = function(cusvalue){
+        //    customeService.set_customerListvalue(cusvalue);
+        //    $state.go("customerDetail");
+        //}
     }])
     .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','Prompter','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,Prompter,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
-        customeService.get_customerListvalue().PARTNER;
+        //customeService.get_customerListvalue().PARTNER;
         ////返回回退
         $scope.CustomergoBack = function() {
             $rootScope.$broadcast('customerdeatillist');
@@ -379,7 +387,7 @@ customerModule
         },{
             typemane:'工单',
             imgurl:'img/customer/customergongd@2x.png',
-            url:'customerWorkorderQuery'
+            url:'worksheetList'
         },{
             typemane:'线索',
             imgurl:'img/customer/customerxians@2x.png',
@@ -397,8 +405,16 @@ customerModule
         }
         ];
         $scope.gocustomerLists = function(cusvalue){
-            console.log(cusvalue)
             if(cusvalue.url){
+
+                //从客户详情-工单进入服务工单界面
+                if(cusvalue.url == 'customerWorkorderQuery'){
+                    var customerWorkorderdata = {
+                        "PARTNER": "0000101186",
+                        "STATE":'customerDetail'
+                    };
+                    customeService.set_customerWorkordervalue(customerWorkorderdata);
+                }
                 $state.go(cusvalue.url);
             }
         };

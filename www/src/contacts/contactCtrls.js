@@ -135,9 +135,9 @@ ContactsModule
         setTimeout(function(){
             document.getElementById('contactqueryinput').style.display = "none";
             document.getElementById('contactinputvalueid').addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
-                if(!$scope.$$phase) {
-                    $scope.$apply();
-                };
+                //if(!$scope.$$phase) {
+                //    $scope.$apply();
+                //};
                 $scope.contactisshow = false;
                 clearTimeout(contatctimer);
                 contatctimer = setTimeout(function() {
@@ -159,6 +159,7 @@ ContactsModule
                         };
                     } else {
                         //删除请求
+                        $scope.contacts_userqueryflag = false;
                         $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
                         $scope.contactisshow = false;
                         if(!$scope.$$phase) {
@@ -281,24 +282,29 @@ ContactsModule
 
         //拨打电话手机
         $scope.conatct_querynumber = function(data){
-           $ionicActionSheet.show({
-                buttons: [
-                    {text: data.TEL_NUMBER},
-                    {text: data.MOB_NUMBER},
-                ],
-                titleText: '拨打电话',
-                cancelText: '取消',
-                buttonClicked: function (index) {
-                    if (index == 0) {
-                        $window.location.href = "tel:" + data.TEL_NUMBER;
-                        return true;
-                    };
-                    if (index == 1) {
-                        $window.location.href = "tel:" + data.MOB_NUMBER;
-                        return true;
+            console.log(data)
+            if(data.TEL_NUMBER == '' && data.MOB_NUMBER == ""){
+                $cordovaToast.showShortBottom('没有数据');
+            }else{
+                $ionicActionSheet.show({
+                    buttons: [
+                        {text: data.TEL_NUMBER},
+                        {text: data.MOB_NUMBER},
+                    ],
+                    titleText: '拨打电话',
+                    cancelText: '取消',
+                    buttonClicked: function (index) {
+                        if (index == 0) {
+                            $window.location.href = "tel:" + data.TEL_NUMBER;
+                            return true;
+                        };
+                        if (index == 1) {
+                            $window.location.href = "tel:" + data.MOB_NUMBER;
+                            return true;
+                        }
                     }
-                }
-            })
+                })
+            }
         }
 
     }])
@@ -324,7 +330,7 @@ ContactsModule
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
             } else {
                 if(response.ET_OUT_CONTACT != ''){
-                    $scope.contactdetails = response.ET_OUT_CONTACT.item;
+                    $scope.contactdetails = response.ET_OUT_CONTACT.item[0];
                 }
                 //注释字段获取
                 if(response.ET_LINES != ''){

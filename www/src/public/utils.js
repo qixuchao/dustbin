@@ -126,7 +126,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
             },
             showLoading: function (content) {
                 $ionicLoading.show({
-                    template: ('<ion-spinner icon="ios"></ion-spinner><p ng-if='+content+'>' + content + '</p>'),
+                    template: ('<ion-spinner icon="ios"></ion-spinner><p>'+ content + '</p>'),
                     animation: 'fade-in',
                     showBackdrop: true,
                 });

@@ -18,10 +18,10 @@
     <ion-content style="margin-top:44px">
         <div ng-if="!employee_userqueryflag" class="employee_query_list" ng-repeat="lists in usuaemployee_query_list">
             <div class="row row-center" style="padding:5px 5px">
-                <div class="col col-6" style="margin-left:5px">
+                <div class="col col-6" style="margin-left:5px" ng-click="employee_govalue(lists,$index)">
                     <div class="employee_query_listcicle" ng-class="{employee_query_listcicleA: !$odd, employee_query_listcicleB: !$even}"></div>
                 </div>
-                <div class="col col-24" style="text-align: left">
+                <div class="col col-24" style="text-align: left" ng-click="employee_govalue(lists,$index)">
                     <span style="vertical-align: middle">{{lists.NAME_LAST}}{{lists.NAME_FIRST}}</span>
                 </div>
                 <div class="col col-60" style="text-align: center" ng-click="employeequeryphone(lists.TEL_NUMBER)">
@@ -48,10 +48,10 @@
         </div>
         <div ng-if="employee_userqueryflag" class="employee_query_list" ng-repeat="lists in employee_query_list">
             <div class="row row-center" style="padding:5px 5px">
-                <div class="col col-6" style="margin-left:5px">
+                <div class="col col-6" style="margin-left:5px" ng-click="employee_govalue(lists,$index)">
                     <div class="employee_query_listcicle" ng-class="{employee_query_listcicleA: !$odd, employee_query_listcicleB: !$even}"></div>
                 </div>
-                <div class="col col-24" style="text-align: left">
+                <div class="col col-24" style="text-align: left" ng-click="employee_govalue(lists,$index)">
                    <span style="vertical-align: middle">{{lists.NAME_LAST}}{{lists.NAME_FIRST}}</span>
                 </div>
                 <div class="col col-60" style="text-align: center" ng-click="employeequeryphone(lists.TEL_NUMBER)">

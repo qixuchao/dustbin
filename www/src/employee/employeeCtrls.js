@@ -58,33 +58,39 @@ employeeModule
                         $cordovaToast.showShortCenter('无符合条件数据');
                     } else {
                         if (response.ES_RESULT.ZFLAG == 'S') {
-                            if (response.ET_EMPLOYEE.item.length == 0) {
-                                $scope.employisshow = false;
-                                Prompter.hideLoading();
-                                if ($scope.empitemPage == 1) {
-                                    $cordovaToast.showShortBottom('数据为空');
+
+                            if(response.ET_EMPLOYEE != '') {
+
+                                if (response.ET_EMPLOYEE.item.length == 0) {
+                                    $scope.employisshow = false;
+                                    Prompter.hideLoading();
+                                    if ($scope.empitemPage == 1) {
+                                        $cordovaToast.showShortBottom('数据为空');
+                                    } else {
+                                        $cordovaToast.showShortBottom('没有更多数据');
+                                    }
+                                    $scope.$broadcast('scroll.infiniteScrollComplete');
                                 } else {
-                                    $cordovaToast.showShortBottom('没有更多数据');
+                                    console.log(angular.toJson((response.ET_EMPLOYEE.item)));
+                                    $.each(response.ET_EMPLOYEE.item, function (n, value) {
+                                        $scope.employee_query_list.push(value);
+                                    });
+                                }
+                                if (response.ET_EMPLOYEE.item.length < 10) {
+                                    $scope.employisshow = false;
+                                    if ($scope.empitemPage > 1) {
+                                        //console.log("没有更多数据了");
+                                        $cordovaToast.showShortBottom('没有更多数据');
+                                    }
+                                } else {
+                                    $scope.employisshow = true;
                                 }
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
-                            } else {
-                                console.log(angular.toJson((response.ET_EMPLOYEE.item)));
-                                $.each(response.ET_EMPLOYEE.item, function (n, value) {
-                                    $scope.employee_query_list.push(value);
-                                });
+                            }else{
+                                $cordovaToast.showShortBottom('搜索数据为空');
                             }
-                            if (response.ET_EMPLOYEE.item.length < 10) {
-                                $scope.employisshow = false;
-                                if ($scope.empitemPage > 1) {
-                                    //console.log("没有更多数据了");
-                                    $cordovaToast.showShortBottom('没有更多数据');
-                                }
-                            } else {
-                                $scope.employisshow = true;
-                            }
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
 
-                        }
+                        };
                     }
                 }).error(function (response, status) {
                     $cordovaToast.showShortBottom('请检查你的网络设备');
@@ -172,7 +178,7 @@ employeeModule
         $scope.employeehislistvalue = new Array();
         $scope.employee_govalue = function(value){
             $scope.employisshow = false;
-            $scope.usuallyemployeelist = x;
+            $scope.usuallyemployeelist = value;
             //存储历史记录
 
             //存储历史记录
@@ -292,7 +298,11 @@ employeeModule
         }
         //邮箱
         $scope.mailcopyvalue = function(valuecopy){
-            Prompter.showpcopy(valuecopy)
+            if(valuecopy == undefined || valuecopy == ""){
+                $cordovaToast.showShortBottom('没有数据');
+            }else{
+                Prompter.showpcopy(valuecopy)
+            }
         }
 
     }])
