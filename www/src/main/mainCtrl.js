@@ -73,6 +73,10 @@ mainModule
                     } else {
                         $scope.weeks[i].flag = false;
                     }
+                    //判断当天选择的天
+                    if(new Date(selectDate).format('yyyy/M/d')==$scope.year + '/' + $scope.month + '/' + days[i].value){
+
+                    }
                 }
             };
 

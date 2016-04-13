@@ -69,25 +69,34 @@ salesModule.factory('saleChanService', function () {
     }];
     var filters = {
         types:[{
-            text:'EBUS销售机会'
+            text:'EBUS销售机会',
+            value:'ZO02'
         },{
-            text:'ESS销售机会'
+            text:'ESS销售机会',
+            value:'ZO04'
         },{
-            text:'ECAR销售机会'
+            text:'ECAR销售机会',
+            value:'ZO03'
         },{
-            text:'销售机会'
+            text:'销售机会',
+            value:'ZO01'
         }],
         statusFirst:[{
-            text:'赢得'
+            text:'赢得',
+            value:'E0002'
         },{
-            text:'失去'
+            text:'失去',
+            value:'E0003'
         },{
-            text:'处理中'
+            text:'处理中',
+            value:'E0001'
         }],
         statusSecond:[{
-            text:'被客户终止'
+            text:'被客户终止',
+            value:'E0004'
         },{
-            text:'被我们终止'
+            text:'被我们终止',
+            value:'E0005'
         }]
     };
     var createPop = {
@@ -114,28 +123,28 @@ salesModule.factory('saleChanService', function () {
     };
     var saleStages = [{
         text:'关系建立阶段',
-        value:''
+        value:'Z01'
     },{
         text:'方案沟通确认',
-        value:''
+        value:'Z03'
     },{
         text:'A样',
-        value:''
+        value:'Z08'
     },{
         text:'B样',
-        value:''
+        value:'Z09'
     },{
         text:'C样',
-        value:''
+        value:'Z10'
     },{
         text:'D样',
-        value:''
+        value:'Z11'
     },{
         text:'SOP阶段',
-        value:''
+        value:'Z12'
     },{
         text:'投标报价阶段',
-        value:''
+        value:'Z13'
     }];
     var saleUnits = [{
         value:'AH',
