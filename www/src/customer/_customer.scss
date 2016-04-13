@@ -20,7 +20,9 @@
       margin-top: 8px;
     }
   }
-
+  .androidcustomertop{
+    margin-top:96px;
+  }
   .customer_Querylists{
     padding:10px 13px 10px 13px;
     border: none;
@@ -31,7 +33,9 @@
     }
   };
 };
-
+.platform-ios .iostop{
+  margin-top:116px;
+}
 
 //customerdeatil
 .customer_detail{
