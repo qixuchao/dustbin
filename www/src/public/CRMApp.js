@@ -272,6 +272,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/worksheet/detailAll/detailAll.html',
                 controller: 'worksheetDetailAllCtrl'
             })
+            .state('worksheetEdit', { // detailType取值: newCar、siteRepair、batchUpdate
+                url: '/worksheetEdit/{detailType}',
+                templateUrl: 'src/worksheet/detailEdit/detailAllEdit.html',
+                controller: 'worksheetEditAllCtrl'
+            })
 
             .state('worksheetBaoGonglist', {   //报工信息列表界面
                 url: '/worksheetBaoGonglist',
