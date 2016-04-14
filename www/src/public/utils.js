@@ -250,7 +250,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
                         // no button = 0, 'OK' = 1, 'Cancel' = 2
                         var btnIndex = buttonIndex;
                         if (btnIndex == 1) {
-                            $rootScope.goBack();
+                            //$rootScope.goBack();
                         }
                     });
             }
