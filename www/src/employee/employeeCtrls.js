@@ -31,7 +31,14 @@ employeeModule
 
         //广播修改界面显示flag
         $rootScope.$on('employeedeatillist', function(event, data) {
-            console.log("接收成功")
+            //数据初始化
+            //删除请求
+            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST');
+            $scope.employee_userqueryflag = false;
+            $scope.employisshow = false;
+            $scope.employee_query_list = [];
+            $scope.empitemPage = 0;
+
             $scope.employ.employeefiledvalue ='';
             $scope.EmployeeListHistoryval();
         });
@@ -145,6 +152,11 @@ employeeModule
 
         //清除历史记录
         $scope.employeeiputDeletevalue = function(){
+            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST');
+            $scope.employee_userqueryflag = false;
+            $scope.employisshow = false;
+            $scope.employee_query_list = [];
+            $scope.empitemPage = 0;
             $scope.employ.employeefiledvalue = '';
 
         };
@@ -175,7 +187,13 @@ employeeModule
 
         }
         //进入详细界面传递标识
-        $scope.employeehislistvalue = new Array();
+        //初始化本地数据
+        if (JSON.parse(localStorage.getItem("usuaemploydb")) != null || JSON.parse(localStorage.getItem("usuaemploydb")) != undefined) {
+            $scope.employeehislistvalue = JSON.parse(localStorage.getItem("usuaemploydb"));
+        }else{
+            $scope.employeehislistvalue = new Array;
+        }
+
         $scope.employee_govalue = function(value){
             $scope.employisshow = false;
             $scope.usuallyemployeelist = value;
@@ -273,15 +291,20 @@ employeeModule
             //    "IS_EMPLOYEE": { "PARTNER":'E060000051'}
         }
         HttpAppService.post(url, data).success(function (response) {
-            if(response.ES_EMPLOYEE != ""){
-                $scope.userdetailval = response.ES_EMPLOYEE;
+            if (response.ES_RESULT.ZFLAG == 'E') {
+                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+            } else {
+                if(response.ES_EMPLOYEE != ""){
+                    $scope.userdetailval = response.ES_EMPLOYEE;
+                };
+                if(response.ET_RELATIONSHIP != ''){
+                    $scope.userdetailcustomerlist = response.ET_RELATIONSHIP;
+                }
             };
-            if(response.ET_RELATIONSHIP != ''){
-                $scope.userdetailcustomerlist = response.ET_RELATIONSHIP;
-            }
             Prompter.hideLoading();
         }).error(function(){
             Prompter.hideLoading();
+            $cordovaToast.showShortBottom('请检查你的网络设备');
         });
         $scope.gocustomerList = function(){
             employeeService.set_employeecustomerlist($scope.userdetailcustomerlist)

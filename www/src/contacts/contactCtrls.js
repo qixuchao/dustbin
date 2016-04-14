@@ -29,6 +29,15 @@ ContactsModule
 
         //广播修改界面显示flag
         $rootScope.$on('contactdeatillist', function(event, data) {
+            //数据初始化
+
+            //删除请求
+            $scope.contact_query_list = [];
+            $scope.contact_query_list = new Array;
+            $scope.conitemImPage = 0;
+            $scope.contacts_userqueryflag = false;
+            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+            $scope.contactisshow = false;
             $scope.contact.contactfiledvalue ='';
             $scope.ContactListHistoryval();
         });
@@ -159,6 +168,9 @@ ContactsModule
                         };
                     } else {
                         //删除请求
+                        $scope.contact_query_list = [];
+                        $scope.contact_query_list = new Array;
+                        $scope.conitemImPage = 0;
                         $scope.contacts_userqueryflag = false;
                         $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
                         $scope.contactisshow = false;
@@ -173,6 +185,13 @@ ContactsModule
             });
         },50);
         $scope.contactiputDeletevalue = function(){
+            //删除请求
+            $scope.contact_query_list = [];
+            $scope.contact_query_list = new Array;
+            $scope.conitemImPage = 0;
+            $scope.contacts_userqueryflag = false;
+            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+            $scope.contactisshow = false;
             $scope.contact.contactfiledvalue ='';
         };
 
@@ -193,8 +212,14 @@ ContactsModule
             if(!$scope.$$phase) {
                 $scope.$apply();
             };
-        }
-        $scope.contacthislistvalue = new Array();
+        };
+
+        //初始化本地数据
+        if (JSON.parse(localStorage.getItem("usuacontactdb")) != null || JSON.parse(localStorage.getItem("usuacontactdb")) != undefined) {
+            $scope.contacthislistvalue = JSON.parse(localStorage.getItem("usuacontactdb"));
+        }else{
+            $scope.contacthislistvalue = new Array;
+        };
         $scope.Contacts_godetails = function(x){
             $scope.contactisshow = false;
             //存储历史记录
@@ -380,69 +405,6 @@ ContactsModule
                 $state.go(convalue.url);
             }
         }
-        //$scope.Contacts_showTitle = false;
-        //$scope.Contacts_TitleFlag=false;
-        //$scope.Contacts_TitletranstionFlag = false;
-        //
-        //var Contacts_position;
-        //$scope.customerContacts_onScroll = function () {
-        //    Contacts_position = $ionicScrollDelegate.getScrollPosition().top;
-        //    if (Contacts_position > 16) {
-        //        $scope.Contacts_TitleFlag = true;
-        //        $scope.Contacts_showTitle = true;
-        //        if (Contacts_position > 20) {
-        //            $scope.Contacts_customerFlag = true;
-        //        } else {
-        //            $scope.Contacts_customerFlag = false;
-        //        }
-        //        if (Contacts_position > 28) {
-        //            $scope.Contacts_placeFlag = true;
-        //        } else {
-        //            $scope.Contacts_placeFlag = false;
-        //        }
-        //        if (Contacts_position > 50) {
-        //            $scope.Contacts_phoneFlag = true;
-        //        } else {
-        //            $scope.Contacts_phoneFlag = false;
-        //        }
-        //        if (Contacts_position > 80) {
-        //            $scope.Contacts_mobileFlag = true;
-        //        } else {
-        //            $scope.Contacts_mobileFlag = false;
-        //        }
-        //
-        //        if (Contacts_position > 95) {
-        //            $scope.Contacts_addressFlag = true;
-        //        } else {
-        //            $scope.Contacts_addressFlag = false;
-        //        }
-        //        if (Contacts_position > 120) {
-        //            $scope.Contacts_empolFlag = true;
-        //        } else {
-        //            $scope.Contacts_empolFlag = false;
-        //        }
-        //        if (Contacts_position > 154) {
-        //            $scope.Contacts_showTitle = false;
-        //            $scope.Contacts_TitletranstionFlag = true;
-        //        }else{
-        //            $scope.Contacts_showTitle = true;
-        //            $scope.Contacts_TitletranstionFlag = false;
-        //        }
-        //    } else {
-        //        $scope.Contacts_customerFlag = false;
-        //        $scope.Contacts_placeFlag = false;
-        //        $scope.Contacts_typeFlag = false;
-        //        $scope.Contacts_addressFlag = false;
-        //        $scope.Contacts_empolFlag = false;
-        //        $scope.Contacts_showTitle = false;
-        //        $scope.Contacts_TitleFlag=false;
-        //        $scope.customer_showtarnsitionTitle = false;
-        //
-        //    }
-        //    if(!$scope.$$phase) {
-        //        $scope.$apply();
-        //    }
-        //}
 
         //电话
         $scope.contactshowphone =function(types){
@@ -512,10 +474,10 @@ ContactsModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_CHANGE';
             var data = {
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": "" },
+                "IS_AUTHORITY": { "BNAME": "handcxl02" },
                 "IS_CUSTOMER": {
                     "PARTNER": "",
-                    "PARTNERROLE": "",
+                    "PARTNERROLE": "Z00005",
                     "TITLE": "",
                     "NAME_LAST": "",
                     "BIRTHDT": "",
@@ -535,7 +497,7 @@ ContactsModule
                     "FAX_NUMBER": "",
                     "FAX_EXTENS": "",
                     "SMTP_ADDR": "888888@qq.com",
-                    "BAPIBNAME": "handlcx02",
+                    "BAPIBNAME": "",
                     "MODE": "I"
                 },
                 "IT_LINES": {
@@ -552,7 +514,8 @@ ContactsModule
             data.IS_CUSTOMER.LANGU = $scope.contactcreat.LANGU;
             data.IS_CUSTOMER.FNCTN = $scope.contactcreat.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactcreat.DPRTMNT;
-            data.IS_CUSTOMER.COUNTRY = $scope.contactcreat.COUNTRY;
+            //data.IS_CUSTOMER.COUNTRY = $scope.contactcreat.COUNTRY;
+            data.IS_CUSTOMER.COUNTRY = "CN";
             data.IS_CUSTOMER.REGION = $scope.contactcreat.REGION;
             data.IS_CUSTOMER.CITY1 = $scope.contactcreat.CITY1;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.POST_CODE1;
@@ -576,8 +539,8 @@ ContactsModule
                 console.log("data.IS_CUSTOMER.PARTNER2"+data.IS_CUSTOMER.PARTNER2)
                 console.log("data.IS_CUSTOMER.NAME_LAST"+data.IS_CUSTOMER.NAME_LAST)
                 console.log("data.IS_CUSTOMER.COUNTRY"+data.IS_CUSTOMER.COUNTRY)
-                $cordovaToast.showShortCenter('请输入客户姓名,标识或国家');
-                //console.log("请输入客户");
+                //$cordovaToast.showShortCenter('请输入客户姓名,标识或国家');
+                console.log("请输入客户姓名,标识或国家");
                 Prompter.hideLoading();
 
 

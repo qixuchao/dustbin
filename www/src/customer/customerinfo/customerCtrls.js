@@ -69,14 +69,14 @@ customerModule
                     "CURRPAGE": $scope.customerPage,
                     "ITEMS": "10"
                 },
-                "IS_SEARCH": { "SEARCH": ""},
+                "IS_SEARCH": { "SEARCH": $scope.customer.customerfiledvalue},
                 "IT_IN_ROLE": { "RLTYP":$scope.customerselecttyperole
                 }
             };
             //var data = data2;
-            console.log("data"+angular.toJson(data));
-            console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
-            console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
+            //console.log("data"+angular.toJson(data));
+            //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
+            //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
             HttpAppService.post(url, data).success(function (response) {
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.customerisshow = false;
@@ -164,28 +164,14 @@ customerModule
             });
         },50);
         $scope.customeriputDeletevalue = function(){
+            //删除请求
+            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
+            $scope.customer_queryflag = false;
+            $scope.customerisshow = false;
+            $scope.customerQuery_list = [];
+            $scope.customerPage = 0;
             $scope.customer.customerfiledvalue ='';
         };
-
-
-        $scope.customerSelectTypeGet = function(){
-            ////改变角色的参数
-            //$scope.$apply(function(){
-            //    $scope.customerisshow = false;
-            //    //删除请求
-            //    $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
-            //    $scope.customerQuery_list = [];
-            //    $scope.customerQuery_list = new Array;
-            //    $scope.customerPage = 0;
-            //});
-            //$scope.customer_queryflag = true;
-            //$ionicScrollDelegate.resize();
-            //$scope.customerisshow = true;
-            //if(!$scope.$$phase) {
-            //    $scope.$apply();
-            //};
-            //$scope.customerselecttyperole = '';
-        }
 
         //清除历史记录
         $scope.CustomerClearhis = function(){
@@ -211,7 +197,16 @@ customerModule
         //    customeService.set_customerListvalue(cusvalue);
         //    $state.go("customerDetail");
         //}
-        $scope.customerhislistvalue = new Array;
+
+
+        //初始化本地数据
+        if (JSON.parse(localStorage.getItem("usuacustomerdb")) != null || JSON.parse(localStorage.getItem("usuacustomerdb")) != undefined) {
+            $scope.customerhislistvalue = JSON.parse(localStorage.getItem("usuacustomerdb"));
+        }else{
+            $scope.customerhislistvalue = new Array;
+        }
+
+
         $scope.customergodeatil = function(x){
             $scope.customerisshow = false;
             $scope.usuallycustomerlist = x;
@@ -285,8 +280,8 @@ customerModule
                 localStorage['usuacustomerdb'] = JSON.stringify( $scope.customerhislistvalue);
             };
 
-            //contactService.set_ContactsListvalue(x);
-            $state.go('customerDetail');
+            customeService.set_customerListvalue(x);
+            $state.go("customerDetail");
         };
 
         //判断是ATL还是CATL
@@ -299,6 +294,7 @@ customerModule
         $scope.customerqueryTypeunit = "常用客户";
         $scope.employbasiclineflag = true;
         $scope.customerqueryType = function(type){
+            //$scope.customer.customerfiledvalue ='';
             $scope.customerqueryTypeunit = type;
             if(type == "服务供应商"){
                 $scope.employbasiclineflag = false;
@@ -342,7 +338,8 @@ customerModule
                         $scope.customerselecttyperole = 'ZATL06';
                         break;
                 }
-            }
+            };
+
             //改变角色的参数
             //$scope.$apply(function(){
                 $scope.customerisshow = false;
@@ -364,9 +361,52 @@ customerModule
         //    $state.go("customerDetail");
         //}
     }])
-    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','Prompter','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,Prompter,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
-        //customeService.get_customerListvalue().PARTNER;
-        ////返回回退
+    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
+
+        //根据角色检查字段初始化
+        //付款方式
+        $scope.customerDetailplayway = true;
+        //付款日历
+        $scope.customerDetailplaydate = true;
+        //验收周期
+        $scope.customerDetailcheckdate = true;
+        //预验收周期
+        $scope.customerDetailwillcheckdate = true;
+        //国家
+        $scope.customerDetailcontrary = true;
+        //代收人
+        $scope.customerDetailnameco = true;
+        //街道二
+        $scope.customerDetailstrret = true;
+        //街道三
+        $scope.customerDetailstrreth = true;
+
+
+
+
+        Prompter.showLoading("数据加载中...");
+        var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
+        var data = {
+            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER},
+            //"IS_PARTNER": { "PARTNER":'000008878A'},
+            "IS_AUTHORITY": { "BNAME": "" }
+        };
+        HttpAppService.post(url, data).success(function (response) {
+            Prompter.hideLoading();
+            console.log(response.ES_RESULT)
+            if (response.ES_RESULT.ZFLAG == 'E') {
+                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+            } else {
+                if(response.ET_OUT_DETAIL != ''){
+                    $scope.customerdetails = response.ET_OUT_DETAIL.item[0];
+                }
+            }
+        }).error(function(){
+            Prompter.hideLoading();
+            $cordovaToast.showShortBottom('请检查你的网络设备');
+        });
+
         $scope.CustomergoBack = function() {
             $rootScope.$broadcast('customerdeatillist');
             $ionicHistory.goBack();
@@ -406,68 +446,47 @@ customerModule
         ];
         $scope.gocustomerLists = function(cusvalue){
             if(cusvalue.url){
-
-                //从客户详情-工单进入服务工单界面
-                if(cusvalue.url == 'customerWorkorderQuery'){
-                    var customerWorkorderdata = {
-                        "PARTNER": "0000101186",
-                        "STATE":'customerDetail'
-                    };
-                    customeService.set_customerWorkordervalue(customerWorkorderdata);
-                }
+                //从客户详情-进入各个详情界面
+                var customerWorkorderdata = {
+                    "PARTNER": $scope.customerdetails.PARTNER,
+                };
+                customeService.set_customerWorkordervalue(customerWorkorderdata);
                 $state.go(cusvalue.url);
-            }
+            };
         };
-        //$scope.customer_showTitle = false;
-        //$scope.customer_showtarnsitionTitle = false;
-        //$scope.customer_TitleFlag=false;
-        //var customer_position;
-        //$scope.customer_onScroll = function () {
-        //    customer_position = $ionicScrollDelegate.getScrollPosition().top;
-        //    if (customer_position > 15) {
-        //        $scope.customer_TitleFlag=true;
-        //        $scope.customer_showTitle = true;
-        //        if (customer_position >25) {
-        //            $scope.customer_customerFlag = true;
-        //        }else{
-        //            $scope.customer_customerFlag = false;
-        //        };
-        //        if (customer_position > 40) {
-        //            $scope.customer_placeFlag = true;
-        //        }else{
-        //            $scope.customer_placeFlag = false;
-        //        };
-        //        if (customer_position >60) {
-        //            $scope.customer_typeFlag = true;
-        //        }else{
-        //            $scope.customer_typeFlag = false;
-        //        };
-        //        if (customer_position >95) {
-        //            $scope.customer_showTitle = false;
-        //            $scope.customer_showtarnsitionTitle = true;
-        //        }else{
-        //            $scope.customer_showTitle = true;
-        //            $scope.customer_showtarnsitionTitle = false;
-        //        };
-        //
-        //    } else {
-        //        $scope.customer_TitleFlag = false;
-        //        $scope.customer_showTitle = false;
-        //        $scope.customer_customerFlag = false;
-        //        $scope.customer_placeFlag = false;
-        //        $scope.ecustomer_typeFlag = false;
-        //        $scope.customer_showtarnsitionTitle = false;
-        //    }
-        //    //if (!$scope.$digest()) {
-        //        $scope.$apply();
-        //    //}
-        //};
-
-        $scope.customerdetails = customeService.get_customerListvalue();
         //电话
         $scope.customershowphone =function(types){
             Prompter.showphone(types)
+        };
+
+        //拨打电话手机
+        $scope.customerdeatil_querynumber = function(data){
+            if(data.TEL_NUMBER == '' && data.TEL_EXTENS == ""){
+                $cordovaToast.showShortBottom('没有数据');
+            }else{
+                $ionicActionSheet.show({
+                    buttons: [
+                        {text: data.TEL_NUMBER},
+                        {text: data.TEL_EXTENS},
+                    ],
+                    titleText: '拨打电话',
+                    cancelText: '取消',
+                    buttonClicked: function (index) {
+                        if (index == 0) {
+                            $window.location.href = "tel:" + data.TEL_NUMBER;
+                            return true;
+                        };
+                        if (index == 1) {
+                            $window.location.href = "tel:" + data.TEL_EXTENS;
+                            return true;
+                        }
+                    }
+                })
+            }
         }
+
+
+
         //邮箱
         $scope.customermailcopyvalue = function(valuecopy){
             Prompter.showpcopy(valuecopy)
