@@ -195,7 +195,7 @@ salesModule.factory('saleActService', function () {
             return saleListArr2;
         },
         getCreatePopTypes: function () {
-            return createPopTypes;
+          return   createPopTypes;
         },
         getCreatePopOrgs: function () {
             return createPopOrgs;
@@ -215,6 +215,10 @@ salesModule.factory('saleActService', function () {
         getRelationSelections: function () {
             return relationSelections;
         },
-        customerArr,listPage,saleListArr,actDetail
+        customerArr,
+        listPage,
+        saleListArr,
+        actDetail,
+        createPopTypes
     };
 });

@@ -40,8 +40,8 @@ salesModule
                     pageNum = 1;
                 }
                 var data = {
-                    "IS_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                    "IS_USER": { "BNAME": "HANDBLH" },
+                    "IS_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_USER": {"BNAME": "HANDBLH"},
                     "IS_PAGE": {
                         "CURRPAGE": pageNum++,
                         "ITEMS": "10"
@@ -59,12 +59,23 @@ salesModule
                 //if (pageNum == 1) {
                 //    return
                 //}
+                $scope.statusArr = saleChanService.listStatusArr;
+                var getStatusObj = function (status) {
+                    for (var i = 0; i < $scope.statusArr.length; i++) {
+                        if ($scope.statusArr[i].value == status) {
+                            return $scope.statusArr[i];
+                        }
+                    }
+                };
                 console.log('saleChanListPageNum---------' + pageNum);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_LIST', data)
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             if (type === 'refresh') {
                                 $scope.saleListArr = response.ET_OPPORT.item;
+                                angular.forEach($scope.saleListArr, function (data) {
+                                    data.status = getStatusObj(data.STATUS);
+                                });
                                 saleChanService.chanListArr = $scope.saleListArr;
                                 $ionicScrollDelegate.resize();
                                 return
@@ -72,6 +83,9 @@ salesModule
                             if (response.ET_OPPORT.item.length < 10) {
                                 $scope.loadMoreFlag = false;
                             }
+                            angular.forEach(response.ET_OPPORT.item, function (data) {
+                                data.status = getStatusObj(data.STATUS);
+                            });
                             $scope.saleListArr = $scope.saleListArr.concat(response.ET_OPPORT.item);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $ionicScrollDelegate.resize();
@@ -87,21 +101,21 @@ salesModule
             ];
             var tempFilterArr = angular.copy($scope.filters);
             var onceCilck = true;
-            $scope.filterSelect = function (x,type) {
-                if($scope.filterFlag&&onceCilck){
-                    tempFilterArr=angular.copy($scope.filters);
-                    onceCilck=false;
+            $scope.filterSelect = function (x, type) {
+                if ($scope.filterFlag && onceCilck) {
+                    tempFilterArr = angular.copy($scope.filters);
+                    onceCilck = false;
                 }
-                if(type=='type'){
+                if (type == 'type') {
                     angular.forEach($scope.filters.types, function (data) {
-                        data.flag=false;
+                        data.flag = false;
                     })
-                }else{
+                } else {
                     angular.forEach($scope.filters.statusFirst, function (data) {
-                        data.flag=false;
+                        data.flag = false;
                     });
                     angular.forEach($scope.filters.statusSecond, function (data) {
-                        data.flag=false;
+                        data.flag = false;
                     })
                 }
                 x.flag = !x.flag;
@@ -152,13 +166,13 @@ salesModule
             //$scope.isDropShow = true;
             $scope.changeFilterFlag = function (e) {
                 console.log('ss')
-                if(tempFilterArr){
+                if (tempFilterArr) {
                     $scope.filters = tempFilterArr;
 
                 }
                 tempFilterArr = '';
                 $scope.filterFlag = !$scope.filterFlag;
-                if($scope.filterFlag){
+                if ($scope.filterFlag) {
                     onceCilck = true;
                 }
                 e.stopPropagation();
@@ -244,7 +258,7 @@ salesModule
             addContactsModal();
             //$scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
-                if(isNoContacts){
+                if (isNoContacts) {
                     Prompter.alert('当前客户无联系人');
                     return
                 }
@@ -298,7 +312,7 @@ salesModule
                             $scope.CustomerLoadMoreFlag = true;
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
-                            $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
                     });
             };
@@ -311,14 +325,14 @@ salesModule
                 isNoContacts = false;
                 $scope.contactsLoadMoreFlag = false;
                 var data = {
-                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                    "IS_AUTHORITY": { "BNAME": "HANDLCX02" },
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_AUTHORITY": {"BNAME": "HANDLCX02"},
                     "IS_PAGE": {
                         "CURRPAGE": contactPage++,
                         "ITEMS": "10"
                     },
-                    "IS_PARTNER": { "PARTNER": $scope.create.customer.PARTNER },
-                    "IS_SEARCH": { "SEARCH": "" }
+                    "IS_PARTNER": {"PARTNER": $scope.create.customer.PARTNER},
+                    "IS_SEARCH": {"SEARCH": ""}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
                     .success(function (response) {
@@ -328,12 +342,12 @@ salesModule
                                 $scope.contactsLoadMoreFlag = false;
                             }
                             $scope.contacts = $scope.contacts.concat(response.ET_OUT_LIST.item);
-                            if($scope.contacts.length==0){
+                            if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                        }else{
-                            if($scope.contacts.length==0){
+                        } else {
+                            if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
                             $scope.contactsLoadMoreFlag = false;
@@ -379,7 +393,7 @@ salesModule
             };
             $scope.selectCustomer = function (x) {
                 $scope.create.customer = x;
-                $scope.create.contact='';
+                $scope.create.contact = '';
                 contactPage = 1;
                 $scope.contacts = [];
                 $scope.contactsLoadMoreFlag = true;
@@ -412,10 +426,11 @@ salesModule
         'HttpAppService',
         function ($scope, $rootScope, $state, ionicMaterialInk, ionicMaterialMotion, $timeout, $ionicScrollDelegate,
                   $ionicPopover, $ionicModal, $cordovaDialogs, $cordovaToast, $cordovaDatePicker, saleChanService,
-                  Prompter,HttpAppService) {
+                  Prompter, HttpAppService) {
             console.log('chanceDetail');
             ionicMaterialInk.displayEffect();
-            $scope.statusArr = saleChanService.getStatusArr();
+            $scope.statusArr = saleChanService.listStatusArr;
+            $scope.relationsTypes = saleChanService.relationsTypes;
             $scope.chanceDetails = {
                 preMount: '0.00',
                 CURRENCY: 'CNY',
@@ -424,13 +439,21 @@ salesModule
             };
             var getInitStatus = function () {
                 for (var i = 0; i < $scope.statusArr.length; i++) {
-                    if ($scope.statusArr[i].value == $scope.chanceDetails.STATUS) {
+                    if ($scope.statusArr[i].text == $scope.chanceDetails.STATUS) {
                         $scope.mySelect = {
                             status: $scope.statusArr[i]
                         };
                         return
                     }
                 }
+            };
+            var getRelationsType = function (code) {
+                for (var i = 0; i < $scope.relationsTypes.length; i++) {
+                    if ($scope.relationsTypes[i].code == code) {
+                        return $scope.relationsTypes[i].text;
+                    }
+                }
+                return "";
             };
             var getDetails = function () {
                 Prompter.showLoading();
@@ -444,6 +467,9 @@ salesModule
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             $scope.chanceDetails = response.ES_OPPORT_H;
                             $scope.relationArr = response.ET_RELEATION.item;
+                            angular.forEach($scope.relationArr, function (x) {
+                                x.typeText = getRelationsType(x.PARTNER_FCT);
+                            });
                             Prompter.hideLoading();
                             getInitStatus();
                         }
@@ -464,8 +490,53 @@ salesModule
                 } else {
                     //执行保存操作
                     Prompter.showLoading('正在保存');
-
-
+                    var data = {
+                        "I_SYSNAME": { "SysName": "CATL" },
+                        "IS_OPPORT_H": {
+                            "OBJECT_ID": "0040000134",
+                            "DESCRIPTION": "测试报价单商机123",
+                            "STARTDATE": "",
+                            "EXPECT_END": "",
+                            "PHASE": "",
+                            "PROBABILITY": "",
+                            "STATUS": "",
+                            "ZZXMBH": "",
+                            "EXP_REVENUE": "",
+                            "CURRENCY": "",
+                            "ZZXSYXL": "",
+                            "ZZYQXSLDW": "",
+                            "ZZMBCP": "",
+                            "ZZFLD00002E": "",
+                            "ZTEXT": ""
+                        },
+                        "IS_USER": { "BNAME": "HANDBLH" },
+                        "IT_COMPETITOR": {
+                            "item": {
+                                "PARTNER_NO": "",
+                                "ADVANTAGE": "",
+                                "DISADVANTAGE": ""
+                            }
+                        },
+                        "IT_CONTACT": {
+                            "item": {
+                                "PARTNER_NO": "",
+                                "INFLUENCE": "",
+                                "NEED": "",
+                                "OUR_OPINION": ""
+                            }
+                        },
+                        "IT_PARTNER": {
+                            "item": {
+                                "MODE": "",
+                                "PARTNER_FCT": "",
+                                "PARTNER": "",
+                                "MAINPARTNER": "",
+                                "OLD_FCT": "",
+                                "OLD_PARTNER": "",
+                                "RELATION_PARTNER": ""
+                            }
+                        }
+                    };
 
                     $timeout(function () {
                         Prompter.hideLoading();
@@ -622,22 +693,22 @@ salesModule
             });
 
             $scope.openMoneyModal = function (type) {
-                if(!$scope.isEdit){
+                if (!$scope.isEdit) {
                     return
                 }
-                if(type=='money'){
+                if (type == 'money') {
                     $scope.unitTitle = '币种';
                     $scope.moneyTypesArr = saleChanService.getMoneyTypesArr();
-                }else{
+                } else {
                     $scope.unitTitle = '销量单位';
                     $scope.moneyTypesArr = saleChanService.saleUnits;
                 }
                 $scope.moneyTypesModal.show();
             };
             $scope.selectMoneyType = function (x) {
-                if($scope.unitTitle == '币种'){
+                if ($scope.unitTitle == '币种') {
                     $scope.chanceDetails.CURRENCY = x.value;
-                }else{
+                } else {
                     $scope.chanceDetails.preMoneyType = x.value;
                 }
 

@@ -4,8 +4,8 @@
 
 'use strict';
 tabsModule
-    .controller('TabsCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$templateCache','$ionicSlideBoxDelegate', 'ionicMaterialInk',
-        function ($scope, $rootScope, $state, $ionicHistory, $templateCache, $ionicSlideBoxDelegate,ionicMaterialInk) {
+    .controller('TabsCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$templateCache','$ionicSlideBoxDelegate','$ionicPlatform', 'ionicMaterialInk',
+        function ($scope, $rootScope, $state, $ionicHistory, $templateCache, $ionicSlideBoxDelegate,$ionicPlatform,ionicMaterialInk) {
             //ionicMaterialInk.displayEffect();
             $rootScope.goBack = function () {
                 console.log('goback')
