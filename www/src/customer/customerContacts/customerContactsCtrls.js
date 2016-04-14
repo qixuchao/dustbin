@@ -34,7 +34,7 @@ customerContactsModule
                 "CURRPAGE": "1",
                     "ITEMS": "100"
             },
-                "IS_PARTNER": { "PARTNER": "0000100037" },
+                "IS_PARTNER": { "PARTNER": customeService.get_customerWorkordervalue().PARTNER},
                 "IS_SEARCH": { "SEARCH": "" }
             };
             HttpAppService.post(url, data).success(function (response) {

@@ -46,7 +46,7 @@ salesModule.factory('saleChanService', function () {
         value: '方案沟通阶段',
         code: ''
     }, {
-        value: '样品合同阶段',
+        value: '样品合同签订',
         code: ''
     }, {
         value: '样品设计',
@@ -70,16 +70,20 @@ salesModule.factory('saleChanService', function () {
     var filters = {
         types:[{
             text:'EBUS销售机会',
-            value:'ZO02'
+            value:'ZO02',
+            sysName:'CATL'
         },{
             text:'ESS销售机会',
-            value:'ZO04'
+            value:'ZO04',
+            sysName:'CATL'
         },{
             text:'ECAR销售机会',
-            value:'ZO03'
+            value:'ZO03',
+            sysName:'CATL'
         },{
             text:'销售机会',
-            value:'ZO01'
+            value:'ZO01',
+            sysName:'ATL'
         }],
         statusFirst:[{
             text:'赢得',

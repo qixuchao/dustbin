@@ -17,7 +17,7 @@
             </span>
              <span class="item item-input">客户：
                 <div class="row" ng-click="openSelectCustomer()">
-                    <div class="col col-74 col-center" style="color:#9B9B9B" ng-bind="contactcreat.PARTNER2"></div>
+                    <div class="col col-74 col-center" style="color:#9B9B9B" ng-bind="contactcreat.PARTNER2VALUE"></div>
                     <div class="col col-26 col-center" style="text-align: right;padding-right:12px;">
                         <img class="contact_edit_listfor" src="img/employee/Shape@2x.png"></img>
                     </div>
@@ -78,7 +78,7 @@
                 </div>
                 <div class="col col-80">
                     <select style="border: none;color:#9B9B9B;padding-left:7px; -webkit-appearance:none;background:white"  ng-model="contactcreat.COUNTRY" ng-options="a.name as a.name for a in contactlistvaluesel">
-                        <option value="" >国家</option>
+                        <option value="" >中国</option>
                     </select>
                     <select style="border: none;color:#9B9B9B;margin-left:20%; -webkit-appearance:none;background:white"  ng-model="contactcreat.BEZEI" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="">
                         <option value="">省份</option>

@@ -9,6 +9,22 @@
     .goBack {
       padding-left: 10px;
     }
+    .preVentScrollTop{
+      max-width: 100px;
+      min-height: 0;
+      .ink-ripple{
+        background-color: $crm-subject-blue;
+        opacity: 1!important;
+        -webkit-transition-duration: 0ms;
+        transition-duration: 0ms!important;
+        transition: none;
+        -webkit-transition: none;
+        transform: none!important;
+        -webkit-transform: none!important;
+        color: white;
+        z-index: -1;
+      }
+    }
     .add {
       text-align: right;
       padding-right: 10px;
@@ -582,7 +598,7 @@
 .createSaleActPop {
   height: 208px !important;
   width: 208px !important;
-  margin-left: -104px;
+  margin-left: -104px!important;
   .row {
     padding: 0 5px 5px 5px !important;
     margin: 8px 0 4px 0 !important;

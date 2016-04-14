@@ -23,6 +23,7 @@ salesModule
             //ionicMaterialMotion.fadeSlideInRight();
             console.log('销售机会列表');
             $scope.saleTitleText = '销售机会';
+            $scope.sysName = ROOTCONFIG.hempConfig.baseEnvironment;
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
             }, 100);
@@ -39,7 +40,7 @@ salesModule
                     pageNum = 1;
                 }
                 var data = {
-                    "IS_SYSTEM": { "SysName": "CATL" },
+                    "IS_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                     "IS_USER": { "BNAME": "HANDBLH" },
                     "IS_PAGE": {
                         "CURRPAGE": pageNum++,
@@ -50,9 +51,10 @@ salesModule
                         "PARTNER_NO": "",
                         "OBJECT_ID": "",
                         "PHASE": "",
-                        "STARTDATE": ""
+                        "STARTDATE": "",
+                        "STATUS": ""
                     }
-                }
+                };
                 saleChanService.listPage = pageNum;
                 //if (pageNum == 1) {
                 //    return
@@ -83,7 +85,25 @@ salesModule
             $scope.hisArr = [
                 '福州', '清明', '活动'
             ];
-            $scope.filterSelect = function (x) {
+            var tempFilterArr = angular.copy($scope.filters);
+            var onceCilck = true;
+            $scope.filterSelect = function (x,type) {
+                if($scope.filterFlag&&onceCilck){
+                    tempFilterArr=angular.copy($scope.filters);
+                    onceCilck=false;
+                }
+                if(type=='type'){
+                    angular.forEach($scope.filters.types, function (data) {
+                        data.flag=false;
+                    })
+                }else{
+                    angular.forEach($scope.filters.statusFirst, function (data) {
+                        data.flag=false;
+                    });
+                    angular.forEach($scope.filters.statusSecond, function (data) {
+                        data.flag=false;
+                    })
+                }
                 x.flag = !x.flag;
             };
             $scope.filterReset = function () {
@@ -94,7 +114,9 @@ salesModule
                 });
             };
             $scope.filterSure = function () {
+
                 $scope.filterFlag = !$scope.filterFlag;
+                tempFilterArr = $scope.filters;
             };
             $scope.filterPrevent = function (e) {
                 e.stopPropagation();
@@ -129,7 +151,16 @@ salesModule
             $scope.filterFlag = false;
             //$scope.isDropShow = true;
             $scope.changeFilterFlag = function (e) {
+                console.log('ss')
+                if(tempFilterArr){
+                    $scope.filters = tempFilterArr;
+
+                }
+                tempFilterArr = '';
                 $scope.filterFlag = !$scope.filterFlag;
+                if($scope.filterFlag){
+                    onceCilck = true;
+                }
                 e.stopPropagation();
             };
             $scope.goDetail = function (x, e) {
@@ -139,7 +170,7 @@ salesModule
             };
             /*-------------------------------Pop 新建-------------------------------------*/
             $scope.pop = {
-                type: {}, org: {}
+                type: {}
             };
             $scope.createPopData = saleChanService.createPop;
             $ionicPopover.fromTemplateUrl('src/applications/saleChance/modal/create_Pop.html', {
@@ -184,7 +215,8 @@ salesModule
             //选择时间
             $scope.selectCreateTime = function (type) {
                 if (type == 'start') {
-                    Prompter.selectTime($scope, 'actCreateStart', new Date($scope.create.de_startTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm'), 'datetime', '开始时间');
+                    Prompter.selectTime($scope, 'actCreateStart',
+                        new Date($scope.create.de_startTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm'), 'datetime', '开始时间');
                 } else {
                     Prompter.selectTime($scope, 'actCreateEnd', new Date($scope.create.de_endTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm'), 'datetime', '结束时间');
                 }
@@ -201,36 +233,47 @@ salesModule
             };
 
             //选择人
-            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectPerson_Modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function (modal) {
-                $scope.selectPersonModal = modal;
-            });
+            var addContactsModal = function () {
+                $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectPerson_Modal.html', {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then(function (modal) {
+                    $scope.selectPersonModal = modal;
+                });
+            };
+            addContactsModal();
+            //$scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
+                if(isNoContacts){
+                    Prompter.alert('当前客户无联系人');
+                    return
+                }
                 $scope.selectPersonflag = true;
                 $scope.selectPersonModal.show();
             };
             $scope.closeSelectPerson = function () {
                 $scope.selectPersonflag = false;
                 $scope.selectPersonModal.hide();
-                //arr[0].className = 'modal-backdrop hide';
+            };
+            $scope.selectContact = function (x) {
+                $scope.create.contact = x;
+                $scope.selectPersonModal.hide();
             };
 
             //选择客户
             var customerPage = 1;
-            $scope.customerArr = saleActService.customerArr;
-            $scope.customerSearch = true;
+            $scope.customerArr = [];
+            $scope.customerSearch = false;
             $scope.getCustomerArr = function (search) {
+                $scope.CustomerLoadMoreFlag = false;
                 if (search) {
                     $scope.customerSearch = false;
                     customerPage = 1;
                 } else {
                     $scope.spinnerFlag = true;
                 }
-                console.log(customerPage);
                 var data = {
-                    "I_SYSNAME": {"SysName": "CATL"},
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_PAGE": {
                         "CURRPAGE": customerPage++,
                         "ITEMS": "10"
@@ -252,15 +295,57 @@ salesModule
                             }
                             $scope.spinnerFlag = false;
                             $scope.customerSearch = true;
+                            $scope.CustomerLoadMoreFlag = true;
                             $ionicScrollDelegate.resize();
-                            saleActService.customerArr = $scope.customerArr;
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                            //saleActService.customerArr = $scope.customerArr;
+                            $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         }
                     });
             };
+            //选择联系人
+            $scope.contacts = [];
+            var contactPage = 1;
+            $scope.contactsLoadMoreFlag = false;
+            var isNoContacts = false;
+            $scope.getContacts = function () {
+                isNoContacts = false;
+                $scope.contactsLoadMoreFlag = false;
+                var data = {
+                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_AUTHORITY": { "BNAME": "HANDLCX02" },
+                    "IS_PAGE": {
+                        "CURRPAGE": contactPage++,
+                        "ITEMS": "10"
+                    },
+                    "IS_PARTNER": { "PARTNER": $scope.create.customer.PARTNER },
+                    "IS_SEARCH": { "SEARCH": "" }
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
+                    .success(function (response) {
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            $scope.contactsLoadMoreFlag = true;
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.contactsLoadMoreFlag = false;
+                            }
+                            $scope.contacts = $scope.contacts.concat(response.ET_OUT_LIST.item);
+                            if($scope.contacts.length==0){
+                                isNoContacts = true;
+                            }
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        }else{
+                            if($scope.contacts.length==0){
+                                isNoContacts = true;
+                            }
+                            $scope.contactsLoadMoreFlag = false;
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                        }
+                    });
+            };
+            //选择客户Modal
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
                 scope: $scope,
-                animation: 'slide-in-up'
+                animation: 'slide-in-up',
+                focusFirstInput: true
             }).then(function (modal) {
                 $scope.selectCustomerModal = modal;
             });
@@ -268,6 +353,7 @@ salesModule
             $scope.selectCustomerText = '竞争对手';
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;
+                $scope.customerSearch = true;
                 $scope.selectCustomerModal.show();
             };
             $scope.closeSelectCustomer = function () {
@@ -286,12 +372,18 @@ salesModule
             };
             $scope.initCustomerSearch = function () {
                 $scope.input.customer = '';
+                //$scope.getCustomerArr();
                 $timeout(function () {
                     document.getElementById('selectCustomerId').focus();
                 }, 1)
             };
             $scope.selectCustomer = function (x) {
-                $scope.create.customer = x.NAME_ORG1;
+                $scope.create.customer = x;
+                $scope.create.contact='';
+                contactPage = 1;
+                $scope.contacts = [];
+                $scope.contactsLoadMoreFlag = true;
+                //$scope.getContacts();
                 $scope.selectCustomerModal.hide();
             };
 
@@ -343,7 +435,7 @@ salesModule
             var getDetails = function () {
                 Prompter.showLoading();
                 var data = {
-                    "I_SYSTEM": {"SysName": "CATL"},
+                    "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_USER": {"BNAME": ""},
                     "IS_ID": {"OBJECT_ID": saleChanService.obj_id}
                 };
@@ -372,6 +464,9 @@ salesModule
                 } else {
                     //执行保存操作
                     Prompter.showLoading('正在保存');
+
+
+
                     $timeout(function () {
                         Prompter.hideLoading();
                         $cordovaToast.showShortBottom('保存成功');
@@ -450,58 +545,18 @@ salesModule
                 $scope.onScroll();
             };
             /*------------------------------------选择时间------------------------------------*/
-            var getFormatTime = function (date) {
-                var dateTemp, minutes, hour, time;
-                dateTemp = date.format("yyyy/M/d");
-                //分钟
-                if (date.getMinutes().toString().length < 2) {
-                    minutes = "0" + date.getMinutes();
-                } else {
-                    minutes = date.getMinutes();
-                }
-                ;
-                //小时
-                if (date.getHours().toString().length < 2) {
-                    hour = "0" + date.getHours();
-                    time = hour + ":" + minutes;
-                } else {
-                    hour = date.getHours();
-                    time = hour + ":" + minutes;
-                }
-                ;
-                return dateTemp + " " + time;
-            };
-            var getOptions = function (date, mode, text) {
-                return {
-                    date: new Date(date),
-                    mode: mode,
-                    titleText: text + '时间',
-                    okText: '确定',
-                    cancelText: '取消',
-                    doneButtonLabel: '确认',
-                    cancelButtonLabel: '取消',
-                    locale: 'zh_cn'
-                }
-            };
+
             $scope.selectTime = function (type) {
                 if (!$scope.isEdit) {
                     return;
                 }
                 //iOS平台
                 if (type == 'start') {
-                    var options = getOptions(new Date($scope.chanceDetails.startTime).format('yyyy/MM/dd hh:mm'), 'datetime', '开始');
-                    document.addEventListener("deviceready", function () {
-                        $cordovaDatePicker.show(options).then(function (iosDate) {
-                            $scope.chanceDetails.startTime = getFormatTime(iosDate);
-                        });
-                    }, false);
+                    Prompter.selectTime($scope, 'chanDetailStart',
+                        new Date($scope.chanceDetails.STARTDATE.replace(/-/g, "/")).format('yyyy/MM/dd'), 'date', '开始时间');
                 } else {
-                    var options = getOptions(new Date($scope.chanceDetails.endTime).format('yyyy/MM/dd hh:mm'), 'datetime', '结束');
-                    document.addEventListener("deviceready", function () {
-                        $cordovaDatePicker.show(options).then(function (iosDate) {
-                            $scope.chanceDetails.endTime = getFormatTime(iosDate);
-                        });
-                    }, false);
+                    Prompter.selectTime($scope, 'chanDetailEnd',
+                        new Date($scope.chanceDetails.EXPECT_END.replace(/-/g, "/")).format('yyyy/MM/dd'), 'date', '结束时间');
                 }
             };
             /*----------------------------------选择时间  end------------------------------------*/

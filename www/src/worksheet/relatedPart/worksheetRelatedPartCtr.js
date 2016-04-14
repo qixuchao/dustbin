@@ -42,7 +42,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         });
 
         $scope.deleteInfos = function(item){
-            if(item !== ZCUSTCTT ){
+            if(item.PARTNER_FCT !== "ZCUSTCTT" ){
                 Prompter.deleteInfosPoint(item.FCT_DESCRIPTION + "不允许删除");
             }else{
                 Prompter.showLoading();
