@@ -14,11 +14,28 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
 
 
     $scope.spareListHistoryval = function(){
+
         if(storedb('sparedb').find().arrUniq() != undefined || storedb('sparedb').find().arrUniq() != null){
             $scope.data = (storedb('sparedb').find().arrUniq());
             if ($scope.data.length > 5) {
                 $scope.data = $scope.data.slice(0, 5);
             }
+        }
+
+        //if(storedb('sparedb1').find().arrUniq() != undefined || storedb('sparedb1').find().arrUniq() != null){
+        //    $scope.spareList1 = (storedb('sparedb1').find().arrUniq());
+        //    if ($scope.spareList1.length > 15) {
+        //        $scope.spareList1 = $scope.spareList1.slice(0,15);
+        //    }
+        //}
+        if (JSON.parse(localStorage.getItem("oftenSparedb")) != null || JSON.parse(localStorage.getItem("oftenSparedb")) != undefined) {
+            $scope.spareList1 = JSON.parse(localStorage.getItem("oftenSparedb"));
+            //console.log($scope.spareList1.SHORT_TEXT);
+            if ($scope.spareList1.length > 15) {
+                $scope.spareList1 = $scope.spareList1.slice(0, 15);
+            }
+        } else {
+            $scope.spareList1 = [];
         }
     };
     $scope.spareListHistoryval();
@@ -27,16 +44,17 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
     $rootScope.$on('customercontactCreatevalue', function(event, data) {
         console.log("接收成功"+data);
         $scope.searchFlag =data;
+        $scope.spareInfo ="";
         $scope.cancelSearch();
 
         //$scope.spareListHistoryval();
     });
-        $rootScope.$on('sparelist', function(event, data) {
-            console.log("接收成功1");
-        $scope.spareInfo ="";
-        $scope.spareListHistoryval();
-
-        });
+        //$rootScope.$on('sparelist', function(event, data) {
+        //    console.log("接收成功1");
+        //
+        //    $scope.spareListHistoryval();
+        //
+        //});
     $scope.changePage=function(){
         $scope.searchFlag=true;
         //$timeout(function () {
@@ -71,7 +89,7 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
         page+=1;
         var url = ROOTCONFIG.hempConfig.basePath + 'PRODUCT_LIST';
         var data = {
-            "I_SYSNAME": {"SysName": "ATL"},
+            "I_SYSNAME": {"SysName": "CATL"},
             "IS_PAGE": {
                 "CURRPAGE": page,
                 "ITEMS": "10"
@@ -132,6 +150,7 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
         });
     };
     //进入详细界面传递标识
+    $scope.oftenSpareList=new Array;
     $scope.goDetail = function(value){
         //存储历史记录
         if(storedb('sparedb').find($scope.spareInfo)) {
@@ -144,6 +163,32 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
                 $cordovaToast.showShortBottom('历史记录保存失败');
             }
         });
+
+        //存储常用
+        if (JSON.parse(localStorage.getItem("oftenSparedb")) != null || JSON.parse(localStorage.getItem("oftenSparedb")) != undefined) {
+            //判断是否有相同的值
+            for (var i = 0; i < $scope.oftenSpareList.length; i++) {
+                var spareIsIn=true;
+                if ($scope.oftenSpareList[i].PRODUCT_ID == value.PRODUCT_ID) {
+                    //删除原有的，重新插入
+                    $scope.oftenSpareList = JSON.parse(localStorage.getItem("oftenSparedb"));
+                    $scope.oftenSpareList.splice(i, 1);
+                    $scope.oftenSpareList.unshift(value);
+                    localStorage['oftenSparedb'] = JSON.stringify($scope.oftenSpareList);
+                    console.log("产品保存成功");
+                    spareIsIn=true;
+                }
+            }
+            if(spareIsIn == true){
+                $scope.oftenSpareList.unshift(value);
+                localStorage['oftenSparedb'] = JSON.stringify( $scope.oftenSpareList);
+                console.log("产品1保存成功");
+            }
+
+        }else{
+            $scope.oftenSpareList.unshift(value);
+            localStorage['oftenSparedb'] = JSON.stringify( $scope.oftenSpareList);
+        }
         SpareListService.set(value);
         $state.go('spareDetail');
     };

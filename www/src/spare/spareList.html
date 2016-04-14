@@ -22,28 +22,45 @@
         <!--</div>-->
     </ion-header-bar>
     <!--<div class="baseDiv search" style="position: relative;top: 100px;" ng-show="!searchFlag">-->
-        <!--&lt;!&ndash;<div class="Car_countentbasic" ng-show="!searchFlag">&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="Car_countentbasicinfo">常用产品</div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="Car_countentbasicline"></div>&ndash;&gt;-->
-        <!--&lt;!&ndash;<div class="Car_countentbasicclok"></div>&ndash;&gt;-->
-        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
         <!--<div class="row row-center his-title" >-->
             <!--<i class="ion-android-time"></i>-->
             <!--<div class="hisText">历史记录</div>-->
             <!--<div class="horizon-line"></div>-->
         <!--</div>-->
     <!--</div>-->
-    <ion-content has-bouncing="true" class="has-header search " ng-show="!searchFlag">
-        <div class="row row-center his-title">
-            <i class="ion-android-time"></i>
-            <div class="hisText">历史记录</div>
-            <div class="horizon-line"></div>
+    <ion-content ng-show="!searchFlag">
+        <div class="Car_countentbasic" >
+            <div class="Car_countentbasicinfo">常用产品</div>
+            <div class="Car_countentbasicline"></div>
+            <div class="Car_countentbasicclok"></div>
         </div>
-        <ion-list>
-            <ion-item ng-click="search(x.name,$event)" ng-repeat="x in data">{{x.name}}</ion-item>
-        </ion-list>
+        <div class="contentType animated" ng-repeat="spare in spareList1 track by $index" ng-click="goDetail(spare)" >
+            <div class="row row-center rowType1">
+                <div class="col col-8 col-center">
+                    <img ng-src="img/car/Oval.png" class="pointImg">
+                </div>
+                <div class="col col-80 col-center colType">
+                    <span class="car2">{{spare.SHORT_TEXT}}</span>
+                </div>
+                <div class="col col-10 col-center">
+                    <img ng-src="img/car/Shape.png" class="shapeImg">
+                </div>
+            </div>
+        </div>
     </ion-content>
-    <ion-content has-bouncing="false" ng-show="searchFlag">
+    <ion-content has-bouncing="true" class="has-header search " ng-show="searchFlag">
+       <div ng-show="!spareInfo.length>0">
+            <div class="row row-center his-title">
+                <i class="ion-android-time"></i>
+                <div class="hisText">历史记录</div>
+                <div class="horizon-line"></div>
+            </div>
+            <ion-list>
+                <ion-item ng-click="search(x.name,$event)" ng-repeat="x in data">{{x.name}}</ion-item>
+            </ion-list>
+        </div>
+        <!--<div ng-show="spareInfo.length">-->
         <div class="contentType animated" ng-repeat="spare in spareList track by $index" ng-click="goDetail(spare)" ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
             <div class="row row-center rowType1">
                 <div class="col col-8 col-center">

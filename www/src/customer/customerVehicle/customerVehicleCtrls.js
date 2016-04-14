@@ -21,7 +21,7 @@ customerVehicleModule
                     "CURRPAGE": "1",
                     "ITEMS": "10"
                 },
-                "IS_PARTNER_INPUT": { "PARTNER": "0000100137" }
+                "IS_PARTNER_INPUT": { "PARTNER": customeService.get_customerWorkordervalue().PARTNER}
             }
 
             HttpAppService.post(url, data).success(function (response) {
@@ -68,7 +68,7 @@ customerVehicleModule
         }
 
        $scope.customerVehicleGoDetail = function(value){
-           CarService.setData(value.ZBAR_CODE);
+           CarService.setData(value);
            $state.go('carDetail');
        };
     }])

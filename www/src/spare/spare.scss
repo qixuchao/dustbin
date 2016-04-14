@@ -94,7 +94,7 @@
     position: relative;
     font-size:15px;
     color:$crm-header-bar-bgcolor;
-    //font-weight: 100;
+    padding-bottom: 2em;
     .Car_countentbasicinfo{
       position: absolute;
       top:0px;
@@ -189,7 +189,6 @@
   }
   .bar{
     border-bottom: none;
-    height: 3.28em;
     background-color: $crm-header-bar-bgcolor;
     background-size: 0;
     box-shadow: none;
@@ -199,7 +198,7 @@
     font-size:15px;
     color:$crm-header-bar-bgcolor;
     padding-bottom: 2em;
-    //top: 4em;
+    ;
     .Car_countentbasicinfo{
       position: absolute;
       top:0;
@@ -226,8 +225,6 @@
     }
   }
   ion-content {
-    position: fixed;
-    top:0px;
     .rowType {
       position: relative;
       left: 4%;
