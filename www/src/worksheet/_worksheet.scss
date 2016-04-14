@@ -5,7 +5,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		background-color: $crm-header-bar-bgcolor;
 	}
 }
-	
+
 #xbr-worksheet-list-content{
 	.search-box-wrapper{
 		//@mixin transition(padding-top .2s linear 0.0s);
@@ -27,6 +27,34 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		.search-history.isSearchingMode{
 			top: 67px;  // 正常情况下:47px
 		}
+	}
+}
+
+.text-row-ion-scroll .scroll{
+	padding-left: 0px;
+	width: 100%;
+}
+.row.has-toggle{
+	.margin-top: 0px;
+	.item-toggle{
+		padding: 0px;
+	    margin: 0px;
+	    border: 0px;
+	    height: 3.2rem;
+	    label{
+	    	position: inherit;
+	    	right: 0px;
+	    }
+	    input:checked + .track{
+	    	border-color: #2B60AB;
+			background-color: #2B60AB;
+	    }
+	}
+	select{
+		background: none;
+	    border: none;
+	    appearance: none;
+	    -webkit-appearance: none;
 	}
 }
 
@@ -991,7 +1019,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             font-size: 1rem;
         }
 		
-		.yishenhe, .paigong, .judan, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong, .yiquxiao{
+		.yidahui, .yishenhe, .paigong, .judan, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong, .yiquxiao{
 			display: none;
 		}
         // paigong   judan   jiedan    beijian    chelianglicheng  guzhangxinxi   fuwupaizhao   baogong   wangong   yiquxiao
@@ -1037,7 +1065,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 
         &.ZNCO, &.ZPLO, &.ZPRO{  //外服工单
         	&.E0001{  // 新建
-        		.paigong{
+        		.paigong, .yiquxiao{
         			display: block;
         		}
         	}  
@@ -1052,59 +1080,62 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				}
 			}
 			&.E0004{ //处理中
-				.paigong, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .yiquxiao{
+				.paigong, .judan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .yiquxiao{
 					display: block;
 				}
 			}
 			&.E0005{ //报工
-				.chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong{
+				.chelianglicheng, .guzhangxinxi, .fuwupaizhao, .wangong{
 					display: block;
 				}
 			}
 			&.E0006{ //已完工
 				
+			}
+			&.E0010{ //回访
+
 			}
 			&.E0007{ // 审核
 				
 			}
 			&.E0008{  //打回
-
+				.baogong{ display: block; }
 			}
 			&.E0009{ //取消
-
+				.paigong, .jiedan, .judan, .baogong{
+					display: block;
+				}
 			}
-			&.E0010{ //回访
-
-			}
+			
         }
         &.ZPRV, &.ZPLV, &.ZNCV{
         	&.E0001{  // 新建
-        		.paigong{
-        			display: block;
-        		}
+        		//.paigong{
+        		//	display: block;
+        		//}
         	}  
         	&.E0002{  // 派工
-				.jiedan, .judan, .baogong, .yiquxiao{
-					display: block;
-				}
+				//.jiedan, .judan, .baogong, .yiquxiao{
+				//	display: block;
+				//}
 			}
 			&.E0003{ //拒绝
-				.paigong, .jiedan, .baogong, .yiquxiao{
-					display: block;
-				}
+				//.paigong, .jiedan, .baogong, .yiquxiao{
+				//	display: block;
+				//}
 			}
 			&.E0004{ //处理中
-				.paigong, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .yiquxiao{
-					display: block;
-				}
+				//.paigong, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .yiquxiao{
+				//	display: block;
+				//}
 			}
 			&.E0005{ //报工
-				.chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong{
-					display: block;
-				}
+				//.chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong{
+					//display: block;
+				//}
 			}
 			&.E0006{ //已完工
-				.yishenhe{
+				.yishenhe, .yidahui{
 					display: block;
 				}
 			}
@@ -1122,6 +1153,18 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			}
         }
     }
+}
+.worksheet-detail-view-public .detail-all-more-button{
+	&.ZNCO, &.ZPLO, &.ZPRO{
+		&.E0006, &.E0010, &.E0007{ //已完工  //回访  // 审核
+			display: none !important;
+		}
+	}
+	&.ZPRV, &.ZPLV, &.ZNCV{
+		&.E0001, &.E0002, &.E0003, &.E0004, &.E0005, &.E0007, &.E0008, &.E0009, &.E0010{
+			display: none !important;
+		}
+	}
 }
 
 /*
