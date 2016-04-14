@@ -7,14 +7,56 @@
             </div>
         </ion-header-bar>
     </div>
-    <ion-header-bar class="bar bar-subheader ">
-        <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
-            <i class="icon ion-ios-search placeholder-icon"></i>
-            <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
-            <input type="text" placeholder="请输入维修信息" ng-model="maintenanceInfo" ng-click="changePage()" ng-change="initLoad()">
-            <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
+    <!--<ion-header-bar class="bar bar-subheader ">-->
+        <!--<div ng-class="{true:'search2',false:'search1'}[searchFlag]">-->
+            <!--<i class="icon ion-ios-search placeholder-icon"></i>-->
+            <!--<i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>-->
+            <!--<input type="text" placeholder="请输入维修信息" ng-model="maintenanceInfo" ng-click="changePage()" ng-change="initLoad()">-->
+            <!--<i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>-->
+        <!--</div>-->
+    <!--</ion-header-bar>-->
+    <ion-content ng-show="searchFlag">
+        <div class="divLine" ng-repeat="record in maintenanceInfo" >
+            <div class="row row-center rowContent">
+                <div class="col col-center col-5">
+                    <img ng-src="img/car/Oval.png" class="pointImg">
+                </div>
+                <div class="col col-95 col-center colType1">
+                    <div class="row row-center">
+                        <div class="col col-center col-28">
+                            <span>工单类型</span>
+                        </div>
+                        <div class="col col-center col-72">
+                            <span>{{record.PROCESS_TYPE_T}}</span>
+                        </div>
+                    </div>
+                    <div class="row row-center">
+                        <span>{{record.CHANGED_AT | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col col-center col-28">
+                            <span>工单描述</span>
+                        </div>
+                        <div class="col col-center col-72">
+                            <span>{{record.DESCRIPTION}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </ion-header-bar>
+        <div class="row row-center">
+            <div class="col col-25"></div>
+            <div class="col col-center">
+                <a class="button button-clear buttonText" ng-show="showButton" ng-click="maintenanceLoad()">
+                    <span>点击加载更多</span>
+                </a>
+                <a class="button button-clear buttonText" ng-show="!showButton" >
+                    <span>无数据显示</span>
+                </a>
+            </div>
+
+        </div>
+    </ion-content>
     <ion-content  class="" style="" scroll="false" has-bouncing="false">
         <div class="tab-buttons-line">
             <div class="tab-button-block" ng-class="{'selected':config.isSorteMode}" ng-click="enterSorteMode();">
@@ -52,9 +94,6 @@
                 <div canNotClickEnterListMode class="time-asc sort-type-item" ng-class="{'selected':config.sortedTypeTimeAes}" ng-click="sorteTimeAes();">
                     <span>开始时间顺序</span>
                 </div>
-                <div canNotClickEnterListMode class="impact-desc sort-type-item" ng-class="{'selected':config.sortedTypeCompactDesc}" ng-click="sorteCompactDesc();">
-                    <span>影响程序由高到低</span>
-                </div>
                 <div canNotClickEnterListMode class="none sort-type-item" ng-click="sorteNone();">
                 </div>
             </div>
@@ -86,29 +125,29 @@
                             <div class="filter-type newcar-online1" ng-click="selectFilterType('newcarOnline1');" ng-class="{'selected':config.filterNewCarOnline1}">新车上线工单(服务商)</div>
                         </div>
                     </div>
-                    <div canNotClickEnterListMode class="filter-impact">
-                        <div class="filter-impact-title filter-title">影响</div>
-                        <div class="row row-center filter-impacts">
-                            <div class="filter-impact damage" ng-class="{'selected':config.filterImpactDamage}" ng-click="selectFilterImpact('damage');">灾难</div>
-                            <div class="col col-5"></div>
-                            <div class="filter-impact hight" ng-class="{'selected':config.filterImpactHeight}" ng-click="selectFilterImpact('height');">高</div>
-                            <div class="col col-5"></div>
-                            <div class="filter-impact middle" ng-class="{'selected':config.filterImpactMiddle}" ng-click="selectFilterImpact('middle');">中</div>
-                            <div class="col col-5"></div>
-                            <div class="filter-impact low" ng-class="{'selected':config.filterImpactLow}" ng-click="selectFilterImpact('low');">低</div>
-                            <div class="col col-5"></div>
-                            <div class="filter-impact none" ng-class="{'selected':config.filterImpactNone}" ng-click="selectFilterImpact('none');">无</div>
-                        </div>
-                    </div>
+                    <!--<div canNotClickEnterListMode class="filter-impact">-->
+                        <!--<div class="filter-impact-title filter-title">影响</div>-->
+                        <!--<div class="row row-center filter-impacts">-->
+                            <!--<div class="filter-impact damage" ng-class="{'selected':config.filterImpactDamage}" ng-click="selectFilterImpact('damage');">灾难</div>-->
+                            <!--<div class="col col-5"></div>-->
+                            <!--<div class="filter-impact hight" ng-class="{'selected':config.filterImpactHeight}" ng-click="selectFilterImpact('height');">高</div>-->
+                            <!--<div class="col col-5"></div>-->
+                            <!--<div class="filter-impact middle" ng-class="{'selected':config.filterImpactMiddle}" ng-click="selectFilterImpact('middle');">中</div>-->
+                            <!--<div class="col col-5"></div>-->
+                            <!--<div class="filter-impact low" ng-class="{'selected':config.filterImpactLow}" ng-click="selectFilterImpact('low');">低</div>-->
+                            <!--<div class="col col-5"></div>-->
+                            <!--<div class="filter-impact none" ng-class="{'selected':config.filterImpactNone}" ng-click="selectFilterImpact('none');">无</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div canNotClickEnterListMode class="filter-action-buttons">
                         <div class="filter-action-button reset" ng-click="resetFilters();">重置</div>
-                        <div canClickEnterListMode class="filter-action-button confirm" ng-click="filterConfirm();">确认</div>
+                        <div canClickEnterListMode class="filter-action-button confirm">确认</div>
                     </div>
                 </ion-scroll>
             </div>
 
             <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
-                <ion-scroll class="fill-parent" on-refresh="" has-bouncing="false">
+                <ion-scroll class="fill-parent"  has-bouncing="false">
                     <div class="divLine" ng-repeat="record in maintenanceInfo" ng-click="goDetailState(record,$index)">
                         <div class="row row-center rowContent">
                             <div class="col col-center col-5">
@@ -140,8 +179,11 @@
                     <div class="row row-center">
                         <div class="col col-25"></div>
                         <div class="col col-center">
-                            <a class="button button-clear buttonText" ng-click="maintenanceLoad()">
+                            <a class="button button-clear buttonText" ng-show="showButton" ng-click="maintenanceLoad()">
                                <span>点击加载更多</span>
+                            </a>
+                            <a class="button button-clear buttonText" ng-show="!showButton" >
+                                <span>无数据显示</span>
                             </a>
                         </div>
 
