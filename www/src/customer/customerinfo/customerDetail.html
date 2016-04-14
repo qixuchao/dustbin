@@ -44,12 +44,12 @@
                     <div class="customer_detailcontentphone" style="top:36px">
                         名称4:<span ng-bind="customerdetails.NAME_ORG4"></span>
                     </div>
-                    <div class="customer_detailcontentphone" style="top:54px">
-                        搜索项:<span ng-bind="customerdetails.BU_SORT1"></span>
-                    </div>
-                    <div class="customer_detailcontentphone" style="top:72px">
-                        搜索项2:<span ng-bind="customerdetails.BU_SORT2"></span>
-                    </div>
+                    <!--<div class="customer_detailcontentphone" style="top:54px" ng-if="customerDetailsearcho">-->
+                        <!--搜索项:<span ng-bind="customerdetails.BU_SORT1"></span>-->
+                    <!--</div>-->
+                    <!--<div class="customer_detailcontentphone" style="top:72px" ng-if="customerDetailsearcht">-->
+                        <!--搜索项2:<span ng-bind="customerdetails.BU_SORT2"></span>-->
+                    <!--</div>-->
                 </div>
             </div>
         </ion-slide>
@@ -121,7 +121,7 @@
                 </div>
             </div>
             <div class="employee_query_listline"></div>
-            <div class="row" style="padding:5px 5px" ng-click="customershowphone(customerdetails.MOB_NUMBER)">
+            <div class="row" style="padding:5px 5px" ng-click="customershowphone(customerdetails.MOB_NUMBER)" ng-if="customerDetailmobilenum">
                 <div class="col col-40">
                     <img src="img/employee/ephone@2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
                     移动电话
@@ -130,7 +130,7 @@
                     <span ng-bind="customerdetails.MOB_NUMBER"></span>
                 </div>
             </div>
-            <div class="employee_query_listline"></div>
+            <div class="employee_query_listline" ng-if="customerDetailmobilenum"></div>
 
             <div class="row" style="padding:5px 5px" ng-click="employeeshowphone(userdetailval.phoneNumber)">
                 <div class="col col-40">

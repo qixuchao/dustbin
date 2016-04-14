@@ -446,6 +446,8 @@ ContactsModule
             name:'小姐'
         }];
         $scope.contactcreat = {
+            //客户编号
+            PARTNER2VALUE:'',
             conatctdeatilnote:"",
             TITLE:"",
             FAX_NUMBER:"",
@@ -474,10 +476,10 @@ ContactsModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_CHANGE';
             var data = {
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": "handcxl02" },
+                "IS_AUTHORITY": { "BNAME": "" },
                 "IS_CUSTOMER": {
                     "PARTNER": "",
-                    "PARTNERROLE": "Z00005",
+                    "PARTNERROLE": "",
                     "TITLE": "",
                     "NAME_LAST": "",
                     "BIRTHDT": "",
@@ -497,7 +499,7 @@ ContactsModule
                     "FAX_NUMBER": "",
                     "FAX_EXTENS": "",
                     "SMTP_ADDR": "888888@qq.com",
-                    "BAPIBNAME": "",
+                    "BAPIBNAME": "HANDLCX02",
                     "MODE": "I"
                 },
                 "IT_LINES": {
@@ -526,11 +528,11 @@ ContactsModule
             data.IS_CUSTOMER.FAX_EXTENS = $scope.contactcreat.FAX_EXTENS;
 
             //根据登陆接口来判断 角色字段的类型
-            var rolevalue = ' ';
+            var rolevalue = '';
             if(rolevalue == '销售'){
-                data.IS_CUSTOMER.PARTNERROLE == 'BUP001';
+                data.IS_CUSTOMER.PARTNERROLE = 'BUP001';
             }else{
-                data.IS_CUSTOMER.PARTNERROLE == 'Z00005';
+                data.IS_CUSTOMER.PARTNERROLE = 'Z00005';
             }
             if(data.IS_CUSTOMER.PARTNER2 == '' || data.IS_CUSTOMER.PARTNER2 == undefined
                 || data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined
@@ -539,8 +541,8 @@ ContactsModule
                 console.log("data.IS_CUSTOMER.PARTNER2"+data.IS_CUSTOMER.PARTNER2)
                 console.log("data.IS_CUSTOMER.NAME_LAST"+data.IS_CUSTOMER.NAME_LAST)
                 console.log("data.IS_CUSTOMER.COUNTRY"+data.IS_CUSTOMER.COUNTRY)
-                //$cordovaToast.showShortCenter('请输入客户姓名,标识或国家');
-                console.log("请输入客户姓名,标识或国家");
+                $cordovaToast.showShortCenter('请输入客户姓名,标识或国家');
+                //console.log("请输入客户姓名,标识或国家");
                 Prompter.hideLoading();
 
 
@@ -665,16 +667,16 @@ ContactsModule
         //选择客户
 
         var customerPage = 1;
-        $scope.customerArr = new Array;;
-        $scope.customerSearch = true;
+        $scope.customerArr = [];
+        $scope.customerSearch = false;
         $scope.getCustomerArr = function (search) {
+            $scope.CustomerLoadMoreFlag = false;
             if (search) {
                 $scope.customerSearch = false;
                 customerPage = 1;
-            }else{
+            } else {
                 $scope.spinnerFlag = true;
             }
-            console.log(customerPage);
             var data = {
                 "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_PAGE": {
@@ -684,6 +686,7 @@ ContactsModule
                 "IS_SEARCH": {"SEARCH": search},
                 "IT_IN_ROLE": {}
             };
+            console.log(data);
             HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                 .success(function (response) {
                     if (response.ES_RESULT.ZFLAG === 'S') {
@@ -697,21 +700,20 @@ ContactsModule
                         }
                         $scope.spinnerFlag = false;
                         $scope.customerSearch = true;
+                        $scope.CustomerLoadMoreFlag = true;
                         $ionicScrollDelegate.resize();
-                        saleActService.customerArr = $scope.customerArr;
-                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                        //saleActService.customerArr = $scope.customerArr;
+                        $rootScope.$broadcast('scroll.infiniteScrollComplete');
                     }
                 });
         };
-        //$scope.searchCustomer = function () {
-        //    console.log('searchCustomer');
-        //};
-        //$scope.getCustomerArr();
         $scope.getCustomerArr();
 
+        //选择客户
         $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
             scope: $scope,
-            animation: 'slide-in-up'
+            animation: 'slide-in-up',
+            focusFirstInput: true
         }).then(function (modal) {
             $scope.selectCustomerModal = modal;
         });
@@ -719,6 +721,7 @@ ContactsModule
         $scope.selectCustomerText = '竞争对手';
         $scope.openSelectCustomer = function () {
             $scope.isDropShow = true;
+            $scope.customerSearch = true;
             $scope.selectCustomerModal.show();
         };
         $scope.closeSelectCustomer = function () {
@@ -737,16 +740,27 @@ ContactsModule
         };
         $scope.initCustomerSearch = function () {
             $scope.input.customer = '';
+            //$scope.getCustomerArr();
             $timeout(function () {
                 document.getElementById('selectCustomerId').focus();
             }, 1)
         };
         $scope.selectCustomer = function (x) {
-            $scope.contactcreat.PARTNER2 = x.NAME_ORG1;
+
+            $scope.contactcreat.PARTNER2VALUE = x.NAME_ORG1;
+            $scope.contactcreat.PARTNER2 = x.PARTNER;
+            //$scope.create.contact='';
+            //contactPage = 1;
+            //$scope.contacts = [];
+            $scope.contactsLoadMoreFlag = true;
+            //$scope.getContacts();
             $scope.selectCustomerModal.hide();
         };
 
         $scope.$on('$destroy', function () {
+            $scope.createPop.remove();
+            $scope.createModal.remove();
+            $scope.selectPersonModal.remove();
             $scope.selectCustomerModal.remove();
         });
 
@@ -821,9 +835,9 @@ ContactsModule
             }
             document.addEventListener("deviceready", function () {
                 $cordovaDatePicker.show(optionsdatedate).then(function (date) {
-                    alert(date)
+                    //alert(date)
                     $scope.contactedit.BIRTHDT = date.Format('yyyy-MM-dd');
-                    alert($scope.contactedit.BIRTHDT)
+                    //alert($scope.contactedit.BIRTHDT)
                 })
             })
         };
@@ -849,7 +863,7 @@ ContactsModule
                     "PARTNER2": "",
                     "FNCTN": "",
                     "DPRTMNT": "",
-                    "COUNTRY": "",
+                    "COUNTRY": "CN",
                     "REGION": "",
                     "CITY1": "",
                     "POST_CODE1": "",
@@ -861,8 +875,8 @@ ContactsModule
                     "FAX_NUMBER": "",
                     "FAX_EXTENS": "",
                     "SMTP_ADDR": "",
-                    "BAPIBNAME": "handlcx02",
-                    "MODE": "a"
+                    "BAPIBNAME": "HANDLCX02",
+                    "MODE": "U"
                 },
                 "IT_LINES": {
                     "item": {

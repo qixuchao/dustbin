@@ -364,6 +364,10 @@ customerModule
     .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
 
         //根据角色检查字段初始化
+        ////搜索项
+        //$scope.customerDetailsearcho = true;
+        ////搜索项2
+        //$scope.customerDetailsearcht = true;
         //付款方式
         $scope.customerDetailplayway = true;
         //付款日历
@@ -372,6 +376,8 @@ customerModule
         $scope.customerDetailcheckdate = true;
         //预验收周期
         $scope.customerDetailwillcheckdate = true;
+        //移动电话
+        $scope.customerDetailmobilenum = true;
         //国家
         $scope.customerDetailcontrary = true;
         //代收人
@@ -380,7 +386,30 @@ customerModule
         $scope.customerDetailstrret = true;
         //街道三
         $scope.customerDetailstrreth = true;
-
+        $scope.roletype='竞争对手';
+        if($scope.roletype == "潜在客户" || $scope.roletype == "正式客户"){
+            $scope.customerDetailmobilenum = false;
+        }else if($scope.roletype == "竞争对手" || $scope.roletype == "助销伙伴"){
+            //付款方式
+            $scope.customerDetailplayway = false;
+            //付款日历
+            $scope.customerDetailplaydate = false;
+            //验收周期
+            $scope.customerDetailcheckdate = false;
+            //预验收周期
+            $scope.customerDetailwillcheckdate = false;
+            //移动电话
+            $scope.customerDetailmobilenum = false;
+        }else if($scope.roletype == "服务商"){
+            //付款方式
+            $scope.customerDetailplayway = false;
+            //付款日历
+            $scope.customerDetailplaydate = false;
+            //验收周期
+            $scope.customerDetailcheckdate = false;
+            //预验收周期
+            $scope.customerDetailwillcheckdate = false;
+        }
 
 
 
@@ -518,6 +547,15 @@ customerModule
         ];
         //初始化数据
         $scope.customeredit = {
+
+            //从新来
+            //不允许修改
+            NAME_ORG1:customeService.get_customerListvalue().NAME_ORG1,
+            NAME_ORG2:customeService.get_customerListvalue().NAME_ORG2,
+            NAME_ORG3:customeService.get_customerListvalue().NAME_ORG3,
+            NAME_ORG4:customeService.get_customerListvalue().NAME_ORG4,
+
+
             customerposition:customeService.get_customerListvalue().customerposition,
             customerpayway:customeService.get_customerListvalue().customerpayway,
             customerpaydate:customeService.get_customerListvalue().customerpaydate,
