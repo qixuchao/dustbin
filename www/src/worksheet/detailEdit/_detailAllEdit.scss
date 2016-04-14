@@ -1,0 +1,41 @@
+#worksheet-detail-edit-content{
+	margin-bottom: 0px;
+	
+	.basic-info, .fuwuduixiang-info, .time-info, .guzhang-info{
+		.row{
+			margin-top: 0px;
+			div:nth-child(2){
+				@include display-flex;
+				@include align-items(center);
+				//@include justify-content(center);
+				padding-right: 10px;
+				input{
+					height: 2.2rem;
+					width: 100%;
+				}
+				
+			}
+		}
+		.item-toggle{
+			padding: 0px;
+		    margin: 0px;
+		    border: 0px;
+		    height: 3.2rem;
+		    label{
+		    	position: inherit;
+		    	right: 0px;
+		    }
+		    input:checked + .track{
+		    	border-color: #2B60AB;
+    			background-color: #2B60AB;
+		    }
+		}
+		select{
+			background: none;
+		    border: none;
+		    appearance: none;
+		    -webkit-appearance: none;
+		}
+	}
+	
+}

@@ -104,8 +104,9 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		                    "<div class='content-line fuwupaizhao' ng-click='moreModalClickHandler(\"fuwupaizhao\");'>服务拍照</div>"+
 		                    "<div class='content-line baogong' ng-click='moreModalClickHandler(\"baogong\");'>报工</div>"+
 		                    "<div class='content-line wangong' ng-click='moreModalClickHandler(\"wangong\");'>完工</div>"+
-		                    "<div class='content-line yiquxiao' ng-click='moreModalClickHandler(\"yiquxiao\");'>已取消</div>"+
+		                    "<div class='content-line yiquxiao' ng-click='moreModalClickHandler(\"yiquxiao\");'>取消</div>"+
 		                    "<div class='content-line yishenhe' ng-click='moreModalClickHandler(\"yishenhe\");'>已审核</div>"+
+		                    "<div class='content-line yidahui' ng-click='moreModalClickHandler(\"yidahui\");'>已打回</div>"+
 		                "</div>"+
 		            "</div>", {
 		                scope: $scope
@@ -144,7 +145,20 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			};
 
 			$scope.editDetail = function(){
-				// TODO
+				var params = $scope.config.requestParams;
+				if(params.IS_PROCESS_TYPE == 'ZNCO'){	//ZNCO 新车档案收集工单 
+					$state.go("worksheetEdit", {
+						detailType: 'newCar'
+					});
+				}else if(params.IS_PROCESS_TYPE == 'ZPRO'){  //ZPRO 现场维修工单 
+					$state.go("worksheetEdit", {
+						detailType: 'siteRepair'
+					});
+				}else if(params.IS_PROCESS_TYPE == 'ZPLO'){	// ZPLO 批量改进工单
+					$state.go("worksheetEdit", {
+						detailType: 'batchUpdate'
+					});
+				}
 			};
 
 			$scope.canShowEditBtn = function(){
@@ -352,7 +366,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	$scope.config.ydStatusNum = worksheetDataService.worksheetList.toDetail.ydStatusNum;
             	$scope.config.typeStr = worksheetDataService.worksheetList.toDetail.IS_PROCESS_TYPE;
             	$scope.config.statusStr = worksheetDataService.worksheetList.toDetail.ydStatusNum;
-				$scope.config.statusStr = worksheetDataService.worksheetList.toDetail.ydStatusNum;
             	__requestDetailDatas();
             };
 
@@ -396,16 +409,41 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				        		}
 				        		if(items[j].PARTNER_FCT == "ZSRVEMPL"){ //: 外服人员姓名
 				        			waifuRenyuan = items[j].NAME1;
-				        		}    		
+				        		}
 				        	}
 			        	}
 		        	}
+		        	if(tempResponse.ET_TEXT && tempResponse.ET_TEXT.item && tempResponse.ET_TEXT.item.length > 0){
+		        		var texts = tempResponse.ET_TEXT.item;
+		        		var lines = [];     var linesJieGuo = [];
+		        		for(var i = 0; i < texts.length; i ++){
+		        			if(texts[i].TDID == "Z001"){
+		        				var tempStr = texts[i].TDLINE+"";
+		        				tempStr.replace(/[\s]{10}/g, " ");
+		        				tempStr.replace(/[\s]{5}/g, " ");
+		        				tempStr.replace(/[\s]{2}/g, " ");
+		        				tempStr.replace(/[\s]{2}/g, " ");
+		        				texts[i].finalStr = tempStr;
+		        				lines.push(angular.copy(texts[i]));
+		        			}
+		        			if(texts[i].TDID == "Z005"){
+		        				var tempStr2 = texts[i].TDLINE+"";
+		        				tempStr2.replace(/[\s]{10}/g, " ");
+		        				tempStr2.replace(/[\s]{5}/g, " ");
+		        				tempStr2.replace(/[\s]{2}/g, " ");
+		        				tempStr2.replace(/[\s]{2}/g, " ");
+		        				texts[i].finalStr = tempStr2;
+		        				linesJieGuo.push(angular.copy(texts[i]));
+		        			}
+		        		}
+		        	}
+		        	tempResponse.XBRZHUSHIS = lines;
+		        	tempResponse.XBRCHULIJIEGUOS = linesJieGuo;
 		        	
 		        	tempResponse.ydWorksheetNum = params.IS_OBJECT_ID;
 		        	tempResponse.kyhuMingCheng = kyhuMingCheng;
 		        	tempResponse.waifuRenyuan = waifuRenyuan;
 		        	tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
-					tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
 		        	//debugger;
