@@ -46,7 +46,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		sorteGoneByModelClick: false,
 		//排序 规则
 		sortedTypeNone: true,    //不排序
-		sortedTypeTimeDesc: false,  //时间 降序（默认）
+		sortedTypeTimeDesc: false,  //时间 降序（不默认）
 		sortedTypeTimeAes: false,	//时间 升序
 		sortedTypeCompactDesc: false,
 		//筛选 规则 ----> 工单类型
@@ -121,7 +121,11 @@ worksheetModule.controller("WorksheetListCtrl",[
 	    showHistoryLog: true,
 	    searchInputHasText: false,
 
-	    historyStrs: [{text:"测试1"},{text:'测试2'},{text:'测试3'}]
+	    historyStrs: [{text:"测试1"},{text:'测试2'},{text:'测试3'}],
+
+
+	    //从其他界面跳转到该界面的一些参数信息
+	    PARTNER: null
 	};
 	$scope.oldFilters = null;
 	function __remeberCurrentFilters(){ //打开筛选界面的时候执行
@@ -757,6 +761,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 						$scope.config.sortedTypeCompactDesc ? "3" : "1" 
 					)
 			);
+		var IS_Search = { };
+
+
 		var queryParams = {
 			IS_PAGE: {CURRPAGE: ++$scope.config.currentPage, ITEMS: 10},
 			IS_SEARCH:{ SEARCH: $scope.config.searchText },
@@ -765,6 +772,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 			T_IN_PROCESS_TYPE: $scope.config.T_IN_PROCESS_TYPE,
 			T_IN_STAT: $scope.config.T_IN_STAT
 		};
+		if($scope.config.PARTNER){
+			queryParams.IS_SEARCH.PARTNER = $scope.config.PARTNER;
+		}
 		//console.log(queryParams);
 		if($scope.config.hasMoreData){
 			__requestServiceList(queryParams);
@@ -783,8 +793,12 @@ worksheetModule.controller("WorksheetListCtrl",[
 		}, 150);
 		//__requestServiceList({IS_PAGE:{CURRPAGE: ++$scope.config.currentPage, ITEMS: 10}});
 		
+		// 从客户界面进入
 		var temp = customeService.get_customerWorkordervalue();
-		console.log(temp);
+		if(temp && temp.PARTNER && temp.PARTNER.trim && temp.PARTNER.trim()!= ""){
+			$scope.config.PARTNER = temp.PARTNER;
+		}
+		customeService.set_customerWorkordervalue(null);
 
 		$scope.reloadData();
 		/*$ionicPopup.alert({
@@ -830,7 +844,10 @@ worksheetModule.controller("WorksheetListCtrl",[
         	if(!$scope.datas.serviceListDatas){
         		$scope.datas.serviceListDatas = [];
         	}
-        	$scope.datas.serviceListDatas = $scope.datas.serviceListDatas.concat(response.T_OUT_LIST.item);            
+        	$scope.datas.serviceListDatas = $scope.datas.serviceListDatas.concat(response.T_OUT_LIST.item);
+        	if(response.T_OUT_LIST.item.length < 10){
+        		$scope.config.hasMoreData = false;
+        	}
         })
         .error(function(errorResponse){
         	$scope.config.isLoading = false;

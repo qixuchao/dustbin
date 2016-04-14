@@ -27,6 +27,17 @@
         &.can-not-editor-detail{
             margin-bottom: 0px;
         }
+        /*  ZNCO 新车档案收集工单
+            ZPRO 现场维修工单
+            ZPLO 批量改进工单
+            ZPRV 现场维修工单(服务商)
+            ZPLV 批量改进工单(服务商)
+            ZNCV 新车上线工单(服务商)
+        */
+        
+        .ZNCO-hide, .ZPRO-hide, .ZPLO-hide, .ZPRV-hide, .ZPLV-hide, .ZNCV-hide{
+            display: none;
+        }
     }
     .fixed-buttons{
         position: fixed;
@@ -227,6 +238,22 @@
                     white-space: nowrap;
                     overflow: visible;
                 }
+            }
+        }
+        .cheliang-desc{
+            height: 5rem !important;
+            .scroll{
+                height: 5rem !important;
+            }
+            ion-scroll{
+                margin-top: 0.4rem !important;
+            }
+            .color-common-blue{
+                overflow: hidden !important;
+                height: 5rem !important;
+                white-space: normal !important;
+                line-height: 1.4rem !important;
+                padding-top: .6rem !important;
             }
         }
     }
