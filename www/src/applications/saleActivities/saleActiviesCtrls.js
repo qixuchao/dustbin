@@ -3,7 +3,7 @@
  */
 'use strict';
 salesModule
-    .controller('saleActListCtrl', ['$scope',
+    .controller('saleActListCtrl', ['$scope','$rootScope',
         '$state',
         '$timeout',
         '$ionicLoading',
@@ -16,7 +16,7 @@ salesModule
         'saleActService',
         'Prompter',
         'HttpAppService',
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
+        function ($scope,$rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService) {
             console.log('销售活动列表');
             $scope.saleTitleText = '销售活动';
@@ -27,16 +27,20 @@ salesModule
             $scope.searchFlag = false;
             $scope.input = {search: '', customer: ''};
             //$scope.saleListArr = saleActService.getSaleListArr();
+            $scope.isloading = true;
             var pageNum = saleActService.listPage;
             $scope.loadMoreFlag = true;
             $scope.saleListArr = saleActService.saleListArr;
             $scope.getList = function (type) {
+                if(!$scope.saleListArr.length){
+                    $scope.isloading = false;
+                }
                 if (type === 'refresh') {
                     pageNum = 1;
                 }
                 console.log(pageNum);
                 var data = {
-                    "I_SYSTEM": {"SysName": "CATL"},
+                    "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_ACTIVITY": {
                         "OBJECT_ID": "",
                         "DESCSEARCH": "",
@@ -60,6 +64,7 @@ salesModule
                 }
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_LIST', data)
                     .success(function (response) {
+                        $scope.isloading = true;
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             if (type === 'refresh') {
                                 $scope.saleListArr = response.ET_LIST.item;
@@ -125,9 +130,10 @@ salesModule
             }).then(function (popover) {
                 $scope.createPop = popover;
             });
-            $scope.openCreatePop = function () {
+            $scope.openCreatePop = function (e) {
                 $scope.pop.type = $scope.createPopTypes[0];
                 $scope.createPop.show();
+                //e.stopPropagation();
             };
 
             $scope.showCreateModal = function () {
@@ -137,7 +143,7 @@ salesModule
                 $scope.create = {de_startTime: new Date().format('yyyy-MM-dd hh:ss'), de_endTime: getDefultStartTime()};
                 $scope.CustomerLoadMoreFlag = true;
                 $scope.createModal.show();
-                //$scope.getCustomerArr();
+                $scope.getCustomerArr();
                 //console.log(document.getElementsByClassName('modal-wrapper'));
                 var tempArr = document.getElementsByClassName('modal-wrapper');
                 for (var i = 0; i < tempArr.length; i++) {
@@ -145,7 +151,7 @@ salesModule
                 }
             };
             var customerPage = 1;
-            $scope.customerArr = saleActService.customerArr;
+            $scope.customerArr = [];
             $scope.customerSearch = false;
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
@@ -156,7 +162,7 @@ salesModule
                     $scope.spinnerFlag = true;
                 }
                 var data = {
-                    "I_SYSNAME": {"SysName": "CATL"},
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_PAGE": {
                         "CURRPAGE": customerPage++,
                         "ITEMS": "10"
@@ -179,35 +185,45 @@ salesModule
                             $scope.spinnerFlag = false;
                             $scope.customerSearch = true;
                             $scope.CustomerLoadMoreFlag = true;
-                            //$ionicScrollDelegate.resize();
-                            saleActService.customerArr = $scope.customerArr;
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                            $ionicScrollDelegate.resize();
+                            //saleActService.customerArr = $scope.customerArr;
+                            $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         }
                     });
             };
             $scope.contacts = [];
             var contactPage = 1;
             $scope.contactsLoadMoreFlag = false;
+            var isNoContacts = false;
             $scope.getContacts = function () {
+                isNoContacts = false;
+                $scope.contactsLoadMoreFlag = false;
                 var data = {
-                    "I_SYSNAME": {"SysName": "CATL"},
-                    "IS_AUTHORITY": {"BNAME": "HANDLCX02"},
+                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_AUTHORITY": { "BNAME": "HANDLCX02" },
                     "IS_PAGE": {
-                        "CURRPAGE": contactPage++,
+                    "CURRPAGE": contactPage++,
                         "ITEMS": "10"
-                    },
-                    "IS_PARTNER": {"PARTNER": $scope.create.customer},
-                    "IS_SEARCH": {"SEARCH": ""}
+                },
+                    "IS_PARTNER": { "PARTNER": $scope.create.customer.PARTNER },
+                    "IS_SEARCH": { "SEARCH": "" }
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
+                            $scope.contactsLoadMoreFlag = true;
                             if (response.ET_OUT_LIST.item.length < 10) {
                                 $scope.contactsLoadMoreFlag = false;
                             }
-                            $scope.contacts = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                            $scope.contacts = $scope.contacts.concat(response.ET_OUT_LIST.item);
+                            if($scope.contacts.length==0){
+                                isNoContacts = true;
+                            }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }else{
+                            if($scope.contacts.length==0){
+                                isNoContacts = true;
+                            }
                             $scope.contactsLoadMoreFlag = false;
                             $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         }
@@ -236,29 +252,66 @@ salesModule
                 $scope.createModal = modal;
             });
             $scope.saveCreateModal = function () {
-                console.log($scope.create);
-                $scope.create.type = $scope.pop.type.text;
-                $scope.create.relations = [{
-                    name: $scope.create.contact,
-                    sex: '男士',
-                    position: '开发工程师'
-                }];
-                $scope.create.saleNum = '1000034';
-                $scope.create.status = '处理中';
-                $scope.create.refer = '商机-郑州客车销售机会';
-                if ($scope.create.startTime) {
-                    $scope.create.startTime = $scope.create.de_startTime.split(' ')[0];
-                }
-                saleActService.actDetail = $scope.create;
                 Prompter.showLoading('正在保存');
-                $timeout(function () {
-                    Prompter.hideLoading();
-                    //saleActService.getSaleListArr().push($scope.create);
-                    //$cordovaToast.showShortBottom('保存成功');
-                    saleActService.actDetail = '';
-                    $state.go('saleActDetail');
-                    $scope.createModal.hide();
-                }, 1000);
+                var data = {
+                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_DATE": {
+                        "DATE_FROM": $scope.create.de_startTime.split(' ')[0],
+                        "TIME_FROM": $scope.create.de_startTime.split(' ')[1]+':00',
+                        "DATE_TO": $scope.create.de_endTime.split(' ')[0],
+                        "TIME_TO": $scope.create.de_endTime.split(' ')[1]+':00'
+                    },
+                    "IS_HEAD": {
+                        "PROCESS_TYPE": $scope.pop.type.value,
+                        "DESCRIPTION": $scope.create.title,
+                        "ZZHDJJD": "01",
+                        "ZZHDZLXSM": "",
+                        "ACT_LOCATION": $scope.create.place,
+                        "ESTAT": "E0001",
+                        "REF_DOC_NO": ""
+                    },
+                    "IS_ORGMAN": {
+                        "SALES_ORG": "",
+                        "DIS_CHANNEL": "",
+                        "DIVISION": "",
+                        "SALES_OFFICE": "",
+                        "SALES_GROUP": "",
+                        "SALES_ORG_RESP": ""
+                    },
+                    "IS_USER": { "BNAME": "HANDBLH" },
+                    "IT_LINES": {
+                        "item": {
+                            "TDFORMAT": "*",
+                            "TDLINE": $scope.create.annotation
+                        }
+                    },
+                    "IT_PARTNER": {
+                        "item": [{
+                            "PARTNER_FCT": "00000009",//客户
+                            "PARTNER": $scope.create.customer.PARTNER
+                        },{
+                            "PARTNER_FCT": "00000015",//联系人
+                            "PARTNER": $scope.create.contact.PARTNER
+                        }]
+                    }
+                };
+                console.log(data)
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_CREATE', data)
+                    .success(function (response) {
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            $scope.createModal.hide();
+                            //Prompter.showShortToastBotton('创建成功');
+                            saleActService.actDetail={
+                                OBJECT_ID:response.EV_OBJECT_ID
+                            };
+                            $state.go('saleActDetail');
+                            Prompter.hideLoading();
+                        }else{
+                            //Prompter.showShortToastBotton('创建失败');
+                            Prompter.hideLoading();
+                            $scope.createModal.hide();
+                        }
+                    });
             };
             //选择时间
             $scope.selectCreateTime = function (type) {
@@ -269,14 +322,21 @@ salesModule
                 }
             };
             //选择人
-            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectPerson_Modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function (modal) {
-                $scope.selectPersonModal = modal;
-            });
+            var addContactsModal = function () {
+                $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectPerson_Modal.html', {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then(function (modal) {
+                    $scope.selectPersonModal = modal;
+                });
+            };
+            addContactsModal();
             //$scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
+                if(isNoContacts){
+                    Prompter.alert('当前客户无联系人');
+                    return
+                }
                 $scope.selectPersonflag = true;
                 $scope.selectPersonModal.show();
             };
@@ -285,13 +345,14 @@ salesModule
                 $scope.selectPersonModal.hide();
             };
             $scope.selectContact = function (x) {
-                $scope.create.contact = x.text;
+                $scope.create.contact = x;
                 $scope.selectPersonModal.hide();
             };
             //选择客户
             $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
                 scope: $scope,
-                animation: 'slide-in-up'
+                animation: 'slide-in-up',
+                focusFirstInput: true
             }).then(function (modal) {
                 $scope.selectCustomerModal = modal;
             });
@@ -324,8 +385,10 @@ salesModule
                 }, 1)
             };
             $scope.selectCustomer = function (x) {
-                $scope.create.customer = x.NAME_ORG1;
+                $scope.create.customer = x;
+                $scope.create.contact='';
                 contactPage = 1;
+                $scope.contacts = [];
                 $scope.contactsLoadMoreFlag = true;
                 //$scope.getContacts();
                 $scope.selectCustomerModal.hide();
@@ -376,7 +439,7 @@ salesModule
             var getDetails = function () {
                 Prompter.showLoading('正在查询');
                 var data = {
-                    "I_SYSTEM": {"SysName": "CATL"},
+                    "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_USER": {"BNAME": "HANDBLH"},
                     "I_OBJECT_ID": $scope.listInfo.OBJECT_ID
                 };

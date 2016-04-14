@@ -48,8 +48,8 @@
       padding-top: 10px;
       text-align: right;
       .reset{
-        position: fixed;
-        right: 85px;
+        position: relative;
+        right: 120px;
         text-align: center;
         width: 60px;
         border: 1px solid #2B60AB;
@@ -87,7 +87,7 @@
 .createSaleChanPop{
   height: 213px !important;
   width: 232px !important;
-  margin-left: -116px;
+  margin-left: -116px!important;
   .row {
     padding: 0 5px 5px 5px !important;
     margin: 8px 0 4px 0 !important;
@@ -185,8 +185,8 @@
   margin-top: 44%;
   font-size: 14px;
   height: 274px;
-  margin-left: -117px!important;
-  width: 235px!important;
+  margin-left: -117px;
+  width: 234px;
   .row{
     padding: 8px 0 4px 0;
     border-bottom: 1px solid #E0DBD7;
@@ -219,7 +219,7 @@
       border: none;
       position: relative;
       -webkit-appearance: none;
-      left: 16px;
+      left: 8px;
     }
     .save{
       width: 80%;
