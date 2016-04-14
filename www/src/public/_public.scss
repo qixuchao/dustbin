@@ -282,6 +282,27 @@ $button-crm-edit-text:                 white;
   -webkit-animation-duration: 5s;
   animation-duration: 5s;
 }
+.slider-pager .slider-pager-page.active {
+  -webkit-transition: opacity 0.4s ease-in;
+  transition: opacity 0.4s ease-in;
+  opacity: 1;
+  color: #9EC92A;
+}
+.slider-pager .slider-pager-page {
+  display: inline-block;
+  margin: 0px 3px;
+  width: 15px;
+  color: white;
+  text-decoration: none;
+  opacity: 0.3;
+}
+
+.slider-pager {
+  //text-align: right;
+  bottom: 6px;
+  //right: 1em;
+}
+
 
 
 

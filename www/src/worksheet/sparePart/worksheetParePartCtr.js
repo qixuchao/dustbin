@@ -2,20 +2,38 @@
 worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetHttpService','HttpAppService','worksheetDataService',
     function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService,HttpAppService,worksheetDataService){
     ionicMaterialInk.displayEffect();
+        var dataCang = {
+            "I_SYSTEM": { "SysName": "CATL" },
+            "IS_USER": { "BNAME": "" }
+        }
+        //cangku
+        var urlCang = ROOTCONFIG.hempConfig.basePath + 'SERVICE_ORDER_STORAGE';
+        HttpAppService.post(urlCang, dataCang).success(function(response){
+            $scope.wareHouse = response.ET_STORAGE.item;
+            console.log(angular.toJson(response)+"仓库");
+        }).error(function(err){
+            console.log(angular.toJson(err));
+        });
+
         var worksheetDetail = worksheetDataService.wsDetailData;
         console.log(angular.toJson(worksheetDetail));
-        var data={
-            "IS_SYSTEM": { "SysName": "CATL" },
+        var data = {
+            "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_USER": { "BNAME": "" },
             "IS_PAGE": {
                 "CURRPAGE": "1",
                 "ITEMS": "10"
             },
-            "IS_VEHICLID": { "PRODUCT_ID": worksheetDetail.ES_OUT_LIST.CAR_NO}
+            "IS_VEHICLID": {
+                "PRODUCT_ID": worksheetDetail.ES_OUT_LIST.CAR_NO,
+                "PRODUCT_TEXT": ""
+            }
         }
+        console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'ATTACHMENT_LIST';
         HttpAppService.post(url, data).success(function(response){
             $scope.infos = response.ET_COMM_LIST.Item;
-            console.log(angular.toJson($scope.infos));
+            console.log(angular.toJson(response));
         }).error(function(err){
 
         });
@@ -58,21 +76,21 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         }
         //暂存
         $scope.goDetailList = function(){
-            var str=document.getElementsByName("selectSparePart");
-            chestr = new Array();
-            for (var i=0;i<str.length;i++) {
-                if(str[i].checked == true)
-                {
-                    chestr.push(JSON.parse(str[i].value));
-                }
-            }
-            console.log(angular.toJson(chestr));
-           var b = {
-                STORAGE_DESC : "客服/售后服务仓-备件中心-南京",
-                flag : true,scrollStyle : "",
-                detail : chestr
-            }
-            worksheetHttpService.setSparePart(b);
+           // var str=document.getElementsByName("selectSparePart");
+           // chestr = new Array();
+           // for (var i=0;i<str.length;i++) {
+           //     if(str[i].checked == true)
+           //     {
+           //         chestr.push(JSON.parse(str[i].value));
+           //     }
+           // }
+           // console.log(angular.toJson(chestr));
+           //var b = {
+           //     STORAGE_DESC : "客服/售后服务仓-备件中心-南京",
+           //     flag : true,scrollStyle : "",
+           //     detail : chestr
+           // }
+           // worksheetHttpService.setSparePart(b);
             $state.go("worksheetSelect");
         }
         $scope.selectDetail = function(){
@@ -99,25 +117,8 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
     function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService,worksheetDataService){
         ionicMaterialInk.displayEffect();
         //工单详情
-        var worksheetDetail = worksheetDataService.wsDetailData.IT_MAT_LIST.item;
+        var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
         console.log(angular.toJson(worksheetDetail));
-
-        $scope.spareDetailShi = [{
-            "item": {
-                "RECORD_ID": "AFBWgycOHtW/qxd08Vc/Ug==",
-                "STORAGE": "",
-                "STORAGE_DESC": "",
-                "PROD": "",
-                "PROD_DESC": "",
-                "APPLY_NUM": "",
-                "SEND_NUM": "",
-                "RETURN_NUM": "",
-                "OLDNUM": "",
-                "PARTNER_NO": "PI_CA3_340",
-                "PARTNER_NAME": "PI_CA3_340",
-                "NOTE": ""
-            }
-        }]
         var map = {};
         var dest = [];
         for(var i = 0; i < worksheetDetail.length; i++){
@@ -128,26 +129,42 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                     STORAGE_DESC: ai.STORAGE_DESC,
                     flag : true,
                     scrollStyle : "",
-                    data: [ai]
+                    detail: [ai]
                 });
                 map[ai.id] = ai;
             }else{
                 for(var j = 0; j < dest.length; j++){
                     var dj = dest[j];
                     if(dj.id == ai.id){
-                        dj.data.push(ai);
+                        dj.detail.push(ai);
                         break;
                     }
                 }
             }
         }
         console.log(angular.toJson(dest));
+        $scope.spareDetail = dest;
+        //返回详情页
         $scope.goDetail = function(){
+            console.log(worksheetDataService.wsDetailData.IS_PROCESS_TYPE);
+            if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV"){
+                $state.go("worksheetDetail",{
+                    detailType: 'siteRepair'
+                });
+            }else if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCV"){
+                $state.go("worksheetDetail",{
+                    detailType: 'newCar'
+                });
+            }else if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLO " || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLV"){
+                $state.go("worksheetDetail",{
+                    detailType: 'batchUpdate'
+                });
+            }
 
-            $state.go("worksheetDetail");
         }
         $scope.upDown = true;
         $scope.showDetail = function(items) {
+            console.log(items);
             for(var i=0;i<$scope.spareDetail.length;i++){
                 $scope.spareDetail[i].scrollStyle = "height:"+0+"px";
             }
@@ -176,122 +193,6 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         }
 
         $scope.showDetailInfos = false;
-        $scope.spareDetail = [{
-            STORAGE_DESC : "客服/售后服务仓-备件中心-北京",
-            flag : true,scrollStyle : "",
-            detail : [{
-                PROD_DESC : "MSD上盖（CATL）",
-                PROD : "13132-3132",
-                APPLY_NUM : 30,
-                SEND_NUM : 20,
-                RETURN_NUM : 10,
-                OLDNUM : 20,
-                NOTE : "由于库存不足，暂时发20个",
-            },
-            {
-                PROD_DESC : "MSD上盖（CATL）",
-                PROD : "13132-3132",
-                APPLY_NUM : 30,
-                SEND_NUM : 20,
-                RETURN_NUM : 10,
-                OLDNUM : 20,
-                NOTE : "由于库存不足，暂时发20个",
-            },            {
-                    PROD_DESC : "MSD上盖（CATL）",
-                    PROD : "13132-3132",
-                    APPLY_NUM : 30,
-                    SEND_NUM : 20,
-                    RETURN_NUM : 10,
-                    OLDNUM : 20,
-                    NOTE : "由于库存不足，暂时发20个",
-                },            {
-                    PROD_DESC : "MSD上盖（CATL）",
-                    PROD : "13132-3132",
-                    APPLY_NUM : 30,
-                    SEND_NUM : 20,
-                    RETURN_NUM : 10,
-                    OLDNUM : 20,
-                    NOTE : "由于库存不足，暂时发20个",
-                },            {
-                    PROD_DESC : "MSD上盖（CATL）",
-                    PROD : "13132-3132",
-                    APPLY_NUM : 30,
-                    SEND_NUM : 20,
-                    RETURN_NUM : 10,
-                    OLDNUM : 20,
-                    NOTE : "由于库存不足，暂时发20个",
-                }]
-        },{
-            STORAGE_DESC : "客服/售后服务仓-备件中心-上海",
-            flag : true,scrollStyle : "",
-            detail : [{
-                PROD_DESC : "MSD上盖（CATL）",
-                PROD : "13132-3132",
-                APPLY_NUM : 30,
-                SEND_NUM : 20,
-                RETURN_NUM : 10,
-                OLDNUM : 20,
-                NOTE : "由于库存不足，暂时发20个",
-            },
-                {
-                    PROD_DESC : "MSD上盖（CATL）",
-                    PROD : "13132-3132",
-                    APPLY_NUM : 30,
-                    SEND_NUM : 20,
-                    RETURN_NUM : 10,
-                    OLDNUM : 20,
-                    NOTE : "由于库存不足，暂时发20个",
-                }]
-        },{
-            STORAGE_DESC : "客服/售后服务仓-备件中心-北京",
-            flag : true,scrollStyle : "",
-            detail : [{
-                PROD_DESC : "MSD上盖（CATL）",
-                PROD : "13132-3132",
-                APPLY_NUM : 30,
-                SEND_NUM : 20,
-                RETURN_NUM : 10,
-                OLDNUM : 20,
-                NOTE : "由于库存不足，暂时发20个",
-            },
-                {
-                    PROD_DESC : "MSD上盖（CATL）",
-                    PROD : "13132-3132",
-                    APPLY_NUM : 30,
-                    SEND_NUM : 20,
-                    RETURN_NUM : 10,
-                    OLDNUM : 20,
-                    NOTE : "由于库存不足，暂时发20个",
-                },            {
-                    PROD_DESC : "MSD上盖（CATL）",
-                    PROD : "13132-3132",
-                    APPLY_NUM : 30,
-                    SEND_NUM : 20,
-                    RETURN_NUM : 10,
-                    OLDNUM : 20,
-                    NOTE : "由于库存不足，暂时发20个",
-                },            {
-                    PROD_DESC : "MSD上盖（CATL）",
-                    PROD : "13132-3132",
-                    APPLY_NUM : 30,
-                    SEND_NUM : 20,
-                    RETURN_NUM : 10,
-                    OLDNUM : 20,
-                    NOTE : "由于库存不足，暂时发20个",
-                },            {
-                    PROD_DESC : "MSD上盖（CATL）",
-                    PROD : "13132-3132",
-                    APPLY_NUM : 30,
-                    SEND_NUM : 20,
-                    RETURN_NUM : 10,
-                    OLDNUM : 20,
-                    NOTE : "由于库存不足，暂时发20个",
-                }]
-        }];
-        //var info = worksheetHttpService.getSparePart();
-        //console.log(angular.toJson(info));
-        //$scope.spareDetail.push(info);
-        console.log(angular.toJson($scope.spareDetail));
         var a=document.getElementById("content").offsetHeight-44;
         console.log(a + "内容高度");//48  116
         var h = $scope.spareDetail.length;

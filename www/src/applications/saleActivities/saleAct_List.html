@@ -5,7 +5,7 @@
                 <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
 
                 <div class="col col-60 text-center">{{saleTitleText}}</div>
-                <div class="col col-20 add" ng-click="openCreatePop()"><img src="img/saleList/add.png"></div>
+                <div class="col col-20 add button-clear button preVentScrollTop" ng-click="openCreatePop($event)"><img src="img/saleList/add.png"></div>
             </div>
         </ion-header-bar>
         <div class="pub-subhead bar bar-subheader">
@@ -28,7 +28,7 @@
     </ion-header-bar>
 
     <ion-content class="has-subheader content" ng-hide="searchFlag">
-        <ion-refresher pulling-text="下拉刷新..." on-refresh="getList('refresh')"></ion-refresher>
+        <ion-refresher pulling-text="下拉刷新..." ng-show="isloading" on-refresh="getList('refresh')"></ion-refresher>
         <div class="list">
             <a ng-click="goDetail(x,$event)" class="item animated flipInX" ng-repeat="x in saleListArr">
                 <div class="row row-center">

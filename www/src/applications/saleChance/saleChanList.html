@@ -5,7 +5,7 @@
                 <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
 
                 <div class="col col-60 text-center">{{saleTitleText}}</div>
-                <div class="col col-20 add" ng-click="openCreatePop()"><img src="img/saleList/add.png"></div>
+                <div class="col col-20 add button-clear button preVentScrollTop" ng-click="openCreatePop()"><img src="img/saleList/add.png"></div>
             </div>
         </ion-header-bar>
         <div class="pub-subhead bar bar-subheader">
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="referModal" ng-if="searchFlag">
-        <ion-header-bar class="head" no-tap-scroll="true" ng-class="{'animated fadeIn':searchFlag}">
+        <ion-header-bar class="head" no-tap-scroll="true">
             <div class="row row-center">
                 <div class="text-center selections" ng-click="changeFilterFlag($event)">
                     筛选<img class="chanceImg" src="img/saleList/oval.png">
@@ -23,7 +23,7 @@
                 <div class="col input">
                     <div class="row row-center no-padding">
                         <i class="ion-ios-search"></i>
-                        <input id="saleChanListSearchId" type="search" ng-change="getCustomerArr(input.list)"
+                        <input id="saleChanListSearchId" focus-me type="search" ng-change="getCustomerArr(input.list)"
                                ng-model="input.customer" placeholder="请输入关键字">
                         <i class="ion-ios-close" ng-if="input.list" ng-click="initCustomerSearch()"></i>
                     </div>
@@ -60,18 +60,18 @@
              ng-show="filterFlag" ng-click="filterPrevent($event)">
             <div class="type">类型</div>
             <div class="row typeRow row-wrap">
-                <div class="typeSelections" ng-class="{'selected':x.flag}" ng-click="filterSelect(x,$event)"
+                <div class="typeSelections" ng-class="{'selected':x.flag}" ng-if="sysName==x.sysName" ng-click="filterSelect(x,'type')"
                      ng-repeat="x in filters.types">{{x.text}}
                 </div>
             </div>
             <div class="status">状态</div>
             <div class="row statusRow row-wrap">
-                <div class="typeSelections" ng-class="{'selected':x.flag}" ng-click="filterSelect(x,$event)"
+                <div class="typeSelections" ng-class="{'selected':x.flag}" ng-click="filterSelect(x,'status')"
                      ng-repeat="x in filters.statusFirst">{{x.text}}
                 </div>
             </div>
             <div class="row row-wrap statusSecond">
-                <div class="typeSelections" ng-class="{'selected':x.flag}" ng-click="filterSelect(x,$event)"
+                <div class="typeSelections" ng-class="{'selected':x.flag}" ng-click="filterSelect(x,'status')"
                      ng-repeat="x in filters.statusSecond">{{x.text}}
                 </div>
             </div>

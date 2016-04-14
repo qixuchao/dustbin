@@ -7552,7 +7552,6 @@ ionic.views.Slider = ionic.views.View.inherit({
     options.continuous = options.continuous !== undefined ? options.continuous : true;
 
     function setup() {
-      console.log('setup')
       if (!container.offsetWidth) {
         return;
       }

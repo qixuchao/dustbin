@@ -70,8 +70,10 @@ utilsModule.service('HttpAppService', ['$log','$http', '$rootScope', '$state', '
     }
     return request;
 }]);
-utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$cordovaDialogs','$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker',
-    function ($ionicLoading,$rootScope,$ionicPopup,$cordovaDialogs, $ionicActionSheet, $window, $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker) {
+utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$cordovaDialogs',
+    '$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker','$cordovaToast',
+    function ($ionicLoading,$rootScope,$ionicPopup,$cordovaDialogs, $ionicActionSheet, $window,
+              $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker,$cordovaToast) {
         var getFormatTime = function (date) {
             var dateTemp, minutes, hour, time;
             dateTemp = date.format("yyyy-MM-dd");
@@ -104,11 +106,20 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
             }
         };
         return {
+            showShortToastBotton: function (text) {
+              $cordovaToast.showShortBottom(text);
+            },
+            alert: function (text) {
+                $cordovaDialogs.alert(text);
+            },
             selectTime: function (scope, name, date, mode, title) {
                 var options = getOptions(date, mode, title);
                 document.addEventListener("deviceready", function () {
                     $cordovaDatePicker.show(options).then(function (returnDate) {
                         var time = getFormatTime(returnDate);
+                        if(mode=='date'){
+                            time=returnDate.format('yyyy-MM-dd');
+                        }
                         switch (name) {
                             case 'actDetailStart':
                                 scope.details.de_startTime = time;
@@ -121,6 +132,12 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
                                 break;
                             case 'actCreateEnd':
                                 scope.create.de_endTime = time;
+                                break;
+                            case 'chanDetailStart':
+                                scope.chanceDetails.STARTDATE = time;
+                                break;
+                            case 'chanDetailEnd':
+                                scope.chanceDetails.EXPECT_END = time;
                                 break;
                         }
                     });
@@ -236,6 +253,16 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
             //客户和联系人创建和编辑界面点击取消公共函数
             ContactCreateCancelvalue: function () {
                 return $cordovaDialogs.confirm('是否退出编辑界面', '提示', ['确定', '取消'])
+                    .then(function (buttonIndex) {
+                        // no button = 0, 'OK' = 1, 'Cancel' = 2
+                        var btnIndex = buttonIndex;
+                        if (btnIndex == 1) {
+                            $rootScope.goBack();
+                        }
+                    });
+            },
+            deleteInfosPoint: function (text) {
+                return $cordovaDialogs.confirm(text, '提示', ['确定'])
                     .then(function (buttonIndex) {
                         // no button = 0, 'OK' = 1, 'Cancel' = 2
                         var btnIndex = buttonIndex;

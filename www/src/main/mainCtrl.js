@@ -149,7 +149,7 @@ mainModule
                     }
                     daysChangedInit(select_day);
                 }
-            }
+            };
 
             var daysChangedInit = function (day) {
                 $timeout(function () {
@@ -330,13 +330,13 @@ mainModule
                 //nextDays(-7);
                 alert('月份右滑动')
             };
-            var lastSelectedDate = selectDate;
+            var lastSelectedDate = angular.copy(selectDate);
             $scope.selectDay = function (x, y) {
-                selectDate = new Date($scope.year + '-' + $scope.month + '-' + y.value).format('yyyy-MM-dd');
+                selectDate = new Date($scope.year + '/' + $scope.month + '/' + y.value).format('yyyy-MM-dd');
                 if (selectDate === lastSelectedDate) {
                     return
                 }
-                lastSelectedDate = selectDate;
+                lastSelectedDate = angular.copy(selectDate);
                 var monthHeightNow = document.getElementById('mainTopId').clientHeight;
                 if (monthHeightNow > 316) {
                     $scope.monthHeight = {
@@ -373,7 +373,7 @@ mainModule
                 $timeout(function () {
                     $scope.loadMoreFlag = true;
                     $scope.contentArr = [];
-                    $scope.getList('init');
+                    //$scope.getList('init');
                 },10);
 
                 /*刷新content end*/
@@ -603,7 +603,7 @@ mainModule
             var salePageNum = 1;
             var getSalesArr = function (type) {
                 var data = {
-                    "I_SYSTEM": { "SysName": "CATL" },
+                    "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                     "IS_ACTIVITY": {
                     "OBJECT_ID": "",
                         "DESCSEARCH": "",

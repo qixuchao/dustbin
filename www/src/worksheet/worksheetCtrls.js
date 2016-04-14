@@ -45,7 +45,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		sorteGoneByModelClick: false,
 		//排序 规则
 		sortedTypeNone: true,    //不排序
-		sortedTypeTimeDesc: true,  //时间 降序（默认）
+		sortedTypeTimeDesc: false,  //时间 降序（默认）
 		sortedTypeTimeAes: false,	//时间 升序
 		sortedTypeCompactDesc: false,
 		//筛选 规则 ----> 工单类型

@@ -6,33 +6,24 @@
             <div class="col col-70 text-center">客户车辆信息</div>
         </div>
     </ion-header-bar>
-    <!--<form ng-submit="employeecustomerQuery()">-->
-        <!--<div class="pub-subhead bar bar-subheader">-->
-            <!--<div class="employeequery_headquery">-->
-                <!--<i class="ion-ios-search employeequery_headqueryimg"></i>-->
-                <!--<input type="search" class="employeequery_headqueryinput" placeholder="请输入车辆描述(车牌号+车工号/电池系统Barcode)"/>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</form>-->
 </div>
     <ion-content>
-        <div class="customerVehicle_query_list" ng-repeat="lists in customerVehiclelists track by $index">
-            <div class="row" style="padding:5px 5px">
+        <div class="customerVehicle_query_list" ng-repeat="lists in customerVehiclelists track by $index" ng-click="customerVehicleGoDetail(lists)">
+            <div class="row row-center" style="padding:5px 5px">
                 <div class="col col-6" style="margin-left:5px">
                     <div class="customerVehicle_query_listcicle"></div>
                 </div>
-                <div class="col col-94" style="text-align: left">
-                    <span style="vertical-align: middle">贵GU-1233I3MSKJJEJEJJ*JDJJDJDJD12344DDD</span>
+                <div class="col col-80">
+                    <span>贵GU-1D12344DDD2-1D12344DDD22-1D1234</span>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col col-100" style="text-align: right">
+                <div class="col col-14" style="text-align: center">
                     <img class="customerVehicle_query_listfor" src="img/employee/Shape@2x.png"></img>
                 </div>
             </div>
             <div class="employee_query_listline">
             </div>
         </div>
+        <ion-infinite-scroll on-infinite="customerVhicleLoadmore()" ng-if="customerVehicleisshow"></ion-infinite-scroll>
     </ion-content>
 </ion-view>
 
