@@ -436,7 +436,6 @@ salesModule
                 return 0;
             };
             var actTypes = saleActService.createPopTypes;
-            console.log(actTypes);
             var getActType = function (typeCode) {
                 for (var i = 0; i < actTypes.length; i++) {
                     if(actTypes[i].value==typeCode){

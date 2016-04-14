@@ -37,7 +37,7 @@
                 </div>
                 <div class="row row-center">
                     <div class="chanSubTitle">潜在客户:</div>
-                    <div class="editText" ng-if="isEdit">{{chanceDetails.PARTNER_TXT}}<i class="ion-arrow-right-c right-arrow"></i></div>
+                    <div class="editText" ng-if="isEdit" ng-click="openSelectCustomer()">{{chanceDetails.PARTNER_TXT}}<i class="ion-arrow-right-c right-arrow"></i></div>
                     <input type="text" ng-model="chanceDetails.PARTNER_TXT" ng-if="!isEdit" readonly>
                     <div class="feel">{{chanceDetails.PROBABILITY+'%'}}</div>
                 </div>

@@ -201,6 +201,7 @@ salesModule
             $scope.showCreateModal = function () {
                 console.log($scope.pop);
                 $scope.createPop.hide();
+                $scope.CustomerLoadMoreFlag = true;
                 $scope.createModal.show();
                 var tempArr = document.getElementsByClassName('modal-wrapper');
                 for (var i = 0; i < tempArr.length; i++) {
@@ -424,9 +425,10 @@ salesModule
         'saleChanService',
         'Prompter',
         'HttpAppService',
+        'saleActService',
         function ($scope, $rootScope, $state, ionicMaterialInk, ionicMaterialMotion, $timeout, $ionicScrollDelegate,
                   $ionicPopover, $ionicModal, $cordovaDialogs, $cordovaToast, $cordovaDatePicker, saleChanService,
-                  Prompter, HttpAppService) {
+                  Prompter, HttpAppService,saleActService) {
             console.log('chanceDetail');
             ionicMaterialInk.displayEffect();
             $scope.statusArr = saleChanService.listStatusArr;
@@ -476,7 +478,6 @@ salesModule
                     });
             };
             getDetails();
-
             $scope.isEdit = false;
             $scope.editText = "编辑";
             $scope.edit = function () {
@@ -715,9 +716,97 @@ salesModule
                 $scope.moneyTypesModal.hide();
             };
             /*-------------------------------币种 end-----------------------------------*/
+            //选择客户
+            var customerPage = 1;
+            $scope.customerArr = [];
+            $scope.customerSearch = false;
+            $scope.getCustomerArr = function (search) {
+                $scope.CustomerLoadMoreFlag = false;
+                if (search) {
+                    $scope.customerSearch = false;
+                    customerPage = 1;
+                } else {
+                    $scope.spinnerFlag = true;
+                }
+                var data = {
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_PAGE": {
+                        "CURRPAGE": customerPage++,
+                        "ITEMS": "10"
+                    },
+                    "IS_SEARCH": {"SEARCH": search},
+                    "IT_IN_ROLE": {}
+                };
+                console.log(data);
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
+                    .success(function (response) {
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.CustomerLoadMoreFlag = false;
+                            }
+                            if (search) {
+                                $scope.customerArr = response.ET_OUT_LIST.item;
+                            } else {
+                                $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                            }
+                            $scope.spinnerFlag = false;
+                            $scope.customerSearch = true;
+                            $scope.CustomerLoadMoreFlag = true;
+                            $ionicScrollDelegate.resize();
+                            //saleActService.customerArr = $scope.customerArr;
+                            $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                        }
+                    });
+            };
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up',
+                focusFirstInput: true
+            }).then(function (modal) {
+                $scope.selectCustomerModal = modal;
+            });
+            $scope.customerModalArr = saleActService.getCustomerTypes();
+            $scope.selectCustomerText = '竞争对手';
+            $scope.openSelectCustomer = function () {
+                if(!$scope.isEdit){
+                    return;
+                }
+                $scope.getCustomerArr();
+                $scope.isDropShow = true;
+                $scope.customerSearch = true;
+                $scope.selectCustomerModal.show();
+            };
+            $scope.closeSelectCustomer = function () {
+                $scope.selectCustomerModal.hide();
+            };
+            $scope.selectPop = function (x) {
+                $scope.selectCustomerText = x.text;
+                $scope.referMoreflag = !$scope.referMoreflag;
+            };
+            $scope.changeReferMoreflag = function () {
+                $scope.referMoreflag = !$scope.referMoreflag;
+            };
+            $scope.showChancePop = function () {
+                $scope.referMoreflag = true;
+                $scope.isDropShow = true;
+            };
+            $scope.initCustomerSearch = function () {
+                $scope.input.customer = '';
+                //$scope.getCustomerArr();
+                $timeout(function () {
+                    document.getElementById('selectCustomerId').focus();
+                }, 1)
+            };
+            $scope.selectCustomer = function (x) {
+                $scope.create.customer = x;
+                $scope.create.contact = '';
+                //$scope.getContacts();
+                $scope.selectCustomerModal.hide();
+            };
             $scope.$on('$destroy', function () {
                 $scope.popover.remove();
                 $scope.followUpModal.remove();
                 $scope.moneyTypesModal.remove();
+                $scope.selectCustomerModal.remove();
             });
         }]);
