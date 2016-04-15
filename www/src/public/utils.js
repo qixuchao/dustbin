@@ -111,6 +111,7 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
         return {
             showShortToastBotton: function (text) {
                 if (ionic.Platform.isAndroid() || ionic.Platform.isIOS()) {
+                    console.log(ionic.Platform.platform());
                     $cordovaToast.showShortBottom(text);
                 }
             },
@@ -118,14 +119,13 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
                 $cordovaDialogs.alert(text);
             },
             selectTime: function (scope, name, date, mode, title) {
-                if (isNaN(date)) {
+                if (!date||isNaN(date.split('/')[0])) {
                     if (mode == 'date') {
                         date = new Date().format('yyyy/MM/dd');
                     } else if (mode == 'datetime') {
                         date = new Date().format('yyyy/MM/dd hh:mm');
                     }
                 }
-                alert(date);
                 var options = getOptions(date, mode, title);
                 document.addEventListener("deviceready", function () {
                     $cordovaDatePicker.show(options).then(function (returnDate) {

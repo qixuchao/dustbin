@@ -621,6 +621,10 @@
   .own-backDrop-on {
     background-color: rgba(125, 124, 124, 0.4) !important;
   }
+  .spinner svg {
+    width: 26px;
+    height: 26px;
+  }
   .content {
     .row {
       padding: 8px 10px;

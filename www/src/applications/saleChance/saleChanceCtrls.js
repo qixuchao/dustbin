@@ -31,13 +31,31 @@ salesModule
             $scope.searchFlag = false;
             $scope.input = {search: ''};
             $scope.filters = saleChanService.filters;
-            //$scope.saleListArr = saleActService.getSaleListArr();
-            var pageNum = saleChanService.listPage;
+            var pageNum = 1;
             $scope.loadMoreFlag = true;
-            $scope.saleListArr = saleChanService.chanListArr;
+            $scope.saleListArr = [];
             $scope.getList = function (type) {
-                if (type === 'refresh') {
-                    pageNum = 1;
+                switch (type) {
+                    case 'searchPage':
+                        if (!$scope.input.list) {
+                            return
+                        }
+                        angular.element(document.querySelector('#saleActListSearchPageId')).addClass('active');
+                        break;
+                    case 'refresh':
+                        pageNum = 1;
+                        break;
+                    case 'search':
+                        console.log($scope.input.list)
+                        $scope.loadMoreFlag = true;
+                        angular.element(document.querySelector('#saleActListSearchPageId')).addClass('active');
+                        pageNum = 1;
+                        var arr = document.getElementsByClassName('flipInX');
+                        for (var i = 0; i < arr.length; i++) {
+                            angular.element(arr[i]).removeClass('animated');
+                        }
+                        $scope.saleListArr = [];
+                        break
                 }
                 var data = {
                     "IS_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
@@ -47,18 +65,16 @@ salesModule
                         "ITEMS": "10"
                     },
                     "IS_SEARCH": {
-                        "ZSRTING": "",
+                        "ZSRTING": $scope.input.list,
                         "PARTNER_NO": "",
                         "OBJECT_ID": "",
                         "PHASE": "",
                         "STARTDATE": "",
-                        "STATUS": ""
+                        "STATUS": getFilterStatus(),
+                        "PROCESS_TYPE": getFilerType()
                     }
                 };
-                saleChanService.listPage = pageNum;
-                //if (pageNum == 1) {
-                //    return
-                //}
+
                 $scope.statusArr = saleChanService.listStatusArr;
                 var getStatusObj = function (status) {
                     for (var i = 0; i < $scope.statusArr.length; i++) {
@@ -71,12 +87,16 @@ salesModule
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_LIST', data)
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
+                            saleChanService.listPage = pageNum;
                             if (type === 'refresh') {
+                                var arr = document.getElementsByClassName('flipInX');
+                                for (var i = 0; i < arr.length; i++) {
+                                    angular.element(arr[i]).removeClass('animated');
+                                }
                                 $scope.saleListArr = response.ET_OPPORT.item;
                                 angular.forEach($scope.saleListArr, function (data) {
                                     data.status = getStatusObj(data.STATUS);
                                 });
-                                saleChanService.chanListArr = $scope.saleListArr;
                                 $ionicScrollDelegate.resize();
                                 return
                             }
@@ -86,15 +106,23 @@ salesModule
                             angular.forEach(response.ET_OPPORT.item, function (data) {
                                 data.status = getStatusObj(data.STATUS);
                             });
-                            $scope.saleListArr = $scope.saleListArr.concat(response.ET_OPPORT.item);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
+                            $scope.saleListArr = $scope.saleListArr.concat(response.ET_OPPORT.item);
                             $ionicScrollDelegate.resize();
-                            saleChanService.chanListArr = $scope.saleListArr;
+                        }else{
+                            $scope.loadMoreFlag = false;
                         }
                     }).finally(function () {
                     // 停止广播ion-refresher
                     $scope.$broadcast('scroll.refreshComplete');
                 });
+            };
+            //列表搜索
+            $scope.initListSearch = function () {
+                $scope.input.list = '';
+                $timeout(function () {
+                    document.getElementById('saleChanListSearchId').focus();
+                }, 1)
             };
             $scope.hisArr = [
                 '福州', '清明', '活动'
@@ -106,6 +134,7 @@ salesModule
                     tempFilterArr = angular.copy($scope.filters);
                     onceCilck = false;
                 }
+                var flag = x.flag;
                 if (type == 'type') {
                     angular.forEach($scope.filters.types, function (data) {
                         data.flag = false;
@@ -118,7 +147,7 @@ salesModule
                         data.flag = false;
                     })
                 }
-                x.flag = !x.flag;
+                x.flag = !flag;
             };
             $scope.filterReset = function () {
                 $.each($scope.filters, function (i, arr) {
@@ -127,8 +156,36 @@ salesModule
                     })
                 });
             };
+            var getFilerType = function () {
+                for (var i = 0; i < $scope.filters.types.length; i++) {
+                    if ($scope.filters.types[i].flag) {
+                        return $scope.filters.types[i].value;
+                    }
+                }
+            };
+            var getFilterStatus = function () {
+                for (var i = 0; i < $scope.filters.statusFirst.length; i++) {
+                    if ($scope.filters.statusFirst[i].flag) {
+                        return $scope.filters.statusFirst[i].value;
+                    }
+                }
+                for (var j = 0; j < $scope.filters.statusSecond.length; j++) {
+                    if ($scope.filters.statusSecond[j].flag) {
+                        return $scope.filters.statusSecond[j].value;
+                    }
+                }
+            };
             $scope.filterSure = function () {
-
+                var arr = document.getElementsByClassName('flipInX');
+                for (var i = 0; i < arr.length; i++) {
+                    angular.element(arr[i]).removeClass('animated');
+                }
+                $scope.saleListArr = [];
+                pageNum = 1;
+                $scope.loadMoreFlag = true;
+                $scope.getList();
+                angular.element(document.querySelector('#saleActListSpinnerId')).addClass('active');
+                $scope.searchFlag = false;
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
             };
@@ -165,7 +222,6 @@ salesModule
             $scope.filterFlag = false;
             //$scope.isDropShow = true;
             $scope.changeFilterFlag = function (e) {
-                console.log('ss')
                 if (tempFilterArr) {
                     $scope.filters = tempFilterArr;
 
@@ -178,6 +234,9 @@ salesModule
                 e.stopPropagation();
             };
             $scope.goDetail = function (x, e) {
+                if(localStorage.saleActListHisArr){
+
+                }
                 saleChanService.obj_id = x.OBJECT_ID;
                 $state.go('saleChanDetail');
                 e.stopPropagation();
@@ -203,6 +262,7 @@ salesModule
                 $scope.createPop.hide();
                 $scope.CustomerLoadMoreFlag = true;
                 $scope.createModal.show();
+                $scope.getCustomerArr();
                 var tempArr = document.getElementsByClassName('modal-wrapper');
                 for (var i = 0; i < tempArr.length; i++) {
                     tempArr[i].style.pointerEvents = 'auto';
@@ -211,10 +271,6 @@ salesModule
             };
             /*-------------------------------Pop 新建 end-------------------------------------*/
             /*-------------------------------Modal 新建-------------------------------------*/
-            var getDefultStartTime = function () {
-                var dateArr = new Date().format('hh:mm').split(':');
-                return new Date().format('yyyy-MM-dd') + ' ' + (Number(dateArr[0]) + 2) + ':' + dateArr[1];
-            };
             $scope.saleStages = saleChanService.saleStages;
             $scope.create = {
                 description: '',
@@ -222,8 +278,8 @@ salesModule
                 customer: '',
                 contact: '',
                 stage: $scope.saleStages[0],
-                de_startTime: new Date().format('yyyy-MM-dd hh:mm'),
-                de_endTime: getDefultStartTime(),
+                de_startTime: new Date().format('yyyy-MM-dd'),
+                de_endTime: '',
                 annotate: '测试'
             };
             $scope.selectPersonflag = false;
@@ -231,9 +287,9 @@ salesModule
             $scope.selectCreateTime = function (type) {
                 if (type == 'start') {
                     Prompter.selectTime($scope, 'actCreateStart',
-                        new Date($scope.create.de_startTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm'), 'datetime', '开始时间');
+                        $scope.create.de_startTime.replace(/-/g, "/"), 'date', '开始时间');
                 } else {
-                    Prompter.selectTime($scope, 'actCreateEnd', new Date($scope.create.de_endTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm'), 'datetime', '结束时间');
+                    Prompter.selectTime($scope, 'actCreateEnd', $scope.create.de_endTime.replace(/-/g, "/"), 'date', '结束时间');
                 }
             };
             $ionicModal.fromTemplateUrl('src/applications/saleChance/modal/create_Modal.html', {
@@ -259,7 +315,7 @@ salesModule
             addContactsModal();
             //$scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
-                if (isNoContacts) {
+                if (isNoContacts||!$scope.create.customer) {
                     Prompter.alert('当前客户无联系人');
                     return
                 }
@@ -346,13 +402,15 @@ salesModule
                             if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
+                            $scope.contactSpinnerFLag = false;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         } else {
                             if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
+                            $scope.contactSpinnerFLag = false;
                             $scope.contactsLoadMoreFlag = false;
-                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                            Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
                     });
             };
@@ -397,6 +455,7 @@ salesModule
                 $scope.create.contact = '';
                 contactPage = 1;
                 $scope.contacts = [];
+                $scope.contactSpinnerFLag = true;
                 $scope.contactsLoadMoreFlag = true;
                 //$scope.getContacts();
                 $scope.selectCustomerModal.hide();
@@ -428,7 +487,7 @@ salesModule
         'saleActService',
         function ($scope, $rootScope, $state, ionicMaterialInk, ionicMaterialMotion, $timeout, $ionicScrollDelegate,
                   $ionicPopover, $ionicModal, $cordovaDialogs, $cordovaToast, $cordovaDatePicker, saleChanService,
-                  Prompter, HttpAppService,saleActService) {
+                  Prompter, HttpAppService, saleActService) {
             console.log('chanceDetail');
             ionicMaterialInk.displayEffect();
             $scope.statusArr = saleChanService.listStatusArr;
@@ -492,7 +551,7 @@ salesModule
                     //执行保存操作
                     Prompter.showLoading('正在保存');
                     var data = {
-                        "I_SYSNAME": { "SysName": "CATL" },
+                        "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                         "IS_OPPORT_H": {
                             "OBJECT_ID": "0040000134",
                             "DESCRIPTION": "测试报价单商机123",
@@ -510,7 +569,7 @@ salesModule
                             "ZZFLD00002E": "",
                             "ZTEXT": ""
                         },
-                        "IS_USER": { "BNAME": "HANDBLH" },
+                        "IS_USER": {"BNAME": "HANDBLH"},
                         "IT_COMPETITOR": {
                             "item": {
                                 "PARTNER_NO": "",
@@ -768,7 +827,7 @@ salesModule
             $scope.customerModalArr = saleActService.getCustomerTypes();
             $scope.selectCustomerText = '竞争对手';
             $scope.openSelectCustomer = function () {
-                if(!$scope.isEdit){
+                if (!$scope.isEdit) {
                     return;
                 }
                 $scope.getCustomerArr();

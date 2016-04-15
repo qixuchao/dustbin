@@ -27,7 +27,7 @@
             <div class="row row-center title">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">机会详情</div>
-                <div class="col col-15 text-right">后续</div>
+                <div class="col col-15 text-right"></div>
             </div>
             <div class="mainInfo">
                 <div class="row row-center">
@@ -64,7 +64,7 @@
 
         <div class="content" id="saleContentId">
             <!--详细信息-->
-            <div ng-show="select">
+            <div ng-if="select">
                 <div class="row">
                     <div class="col-15">注释:</div>
                     <textarea rows="3" ng-readonly="!isEdit" ng-model="chanceDetails.CRM_ORDERH_T"></textarea>
@@ -115,7 +115,7 @@
                 </div>
             </div>
             <!--相关方-->
-            <div id="relativeId" class="relative" ng-show="!select">
+            <div id="relativeId" class="relative" ng-if="!select">
                 <div class="row" ng-repeat="x in relationArr">
                     <!--<div class="col">王紫薇&nbsp;&nbsp;女士</div>-->
                     <div class="col col-60">{{x.NAME}}</div>

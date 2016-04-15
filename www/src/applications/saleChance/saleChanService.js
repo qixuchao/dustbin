@@ -117,7 +117,8 @@ salesModule.factory('saleChanService', function () {
         },{
             text:'处理中',
             value:'E0001',
-            color:'#9ec92a'
+            color:'#9ec92a',
+            flag:true
         }],
         statusSecond:[{
             text:'被客户终止',
@@ -205,7 +206,10 @@ salesModule.factory('saleChanService', function () {
         text:'CATL销售2',
         code:'Z0000004'
     }];
-    var chanListArr=[],listPage=1,obj_id;
+    var chanListArr=[],
+        listPage=1,
+        obj_id,
+        loadMoreFlag=true;
     return{
         getStatusArr: function () {
             return statusArr;
@@ -224,6 +228,7 @@ salesModule.factory('saleChanService', function () {
         saleStages,
         saleUnits,
         listStatusArr,
-        relationsTypes
+        relationsTypes,
+        loadMoreFlag
     };
 });

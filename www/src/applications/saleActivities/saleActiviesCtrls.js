@@ -85,6 +85,9 @@ salesModule
                     $scope.$broadcast('scroll.refreshComplete');
                 });
             };
+            $scope.searchList = function () {
+
+            };
             //getList();
             $scope.hisArr = [
                 '福州', '清明', '活动'
@@ -219,11 +222,13 @@ salesModule
                             if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
+                            $scope.contactSpinnerFLag = false;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         } else {
                             if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
+                            $scope.contactSpinnerFLag = false;
                             $scope.contactsLoadMoreFlag = false;
                             $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         }
@@ -300,14 +305,14 @@ salesModule
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             $scope.createModal.hide();
-                            //Prompter.showShortToastBotton('创建成功');
+                            Prompter.showShortToastBotton('创建成功');
                             saleActService.actDetail = {
                                 OBJECT_ID: response.EV_OBJECT_ID
                             };
                             $state.go('saleActDetail');
                             Prompter.hideLoading();
                         } else {
-                            //Prompter.showShortToastBotton('创建失败');
+                            Prompter.showShortToastBotton('创建失败');
                             Prompter.hideLoading();
                             $scope.createModal.hide();
                         }
@@ -333,7 +338,7 @@ salesModule
             addContactsModal();
             //$scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
-                if (isNoContacts) {
+                if (isNoContacts||!$scope.create.customer) {
                     Prompter.alert('当前客户无联系人');
                     return
                 }
@@ -389,6 +394,7 @@ salesModule
                 $scope.create.contact = '';
                 contactPage = 1;
                 $scope.contacts = [];
+                $scope.contactSpinnerFLag = true;
                 $scope.contactsLoadMoreFlag = true;
                 //$scope.getContacts();
                 $scope.selectCustomerModal.hide();
@@ -793,6 +799,7 @@ salesModule
             if (!search) {
                 return $sce.trustAsHtml(text);
             }
+            text=text.toString();
             if (text.indexOf(search) == -1) {
                 return text;
             }
