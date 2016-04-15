@@ -1,21 +1,24 @@
 /*
 	TODO: 
 		筛选：不点击“确定”按钮的时候，如果处理、		时间筛选、	工单类型筛选接口有问题
-
+	
 */
 worksheetModule.controller("WorksheetListCtrl",[
-	"$scope", 
+	"$scope",
+	"$ionicScrollDelegate",
 	"ionicMaterialInk", 
 	"ionicMaterialMotion",
 	"$ionicPopup", "$timeout", 
 	"$ionicPosition","$state",
+	"$cordovaDatePicker",
 	"HttpAppService",
 	"worksheetHttpService",
 	"worksheetDataService",
 	"customeService",
-	function($scope, 
+	function($scope, $ionicScrollDelegate,
 		ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,
 		$ionicPosition, $state, 
+		$cordovaDatePicker,
 		HttpAppService, worksheetHttpService, worksheetDataService, customeService){
 	
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
@@ -24,6 +27,15 @@ worksheetModule.controller("WorksheetListCtrl",[
             selector: '.animate-fade-slide-in .item'
         });*/
     }, 550);
+
+    $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+        if(fromState && toState && fromState.name == 'worksheetDetail' && toState.name == 'worksheetList'){
+            if(worksheetDataService.wsDetailToList.needReload){
+            	worksheetDataService.wsDetailToList.needReload = false;
+            	$scope.reloadData();
+            }            
+        }
+    });
  
 
     
@@ -77,8 +89,8 @@ worksheetModule.controller("WorksheetListCtrl",[
 		filterStatusReturned: false, 		//已打回
 		filterStatusCancled: false, // 已经取消
 
-		timeStart: '20150101',
-		timeEnd: '20150609',
+		timeStart: '2015-01-01',
+		timeEnd: '2015-06-09',
 
 
 		searchPlaceholder: '请输入服务工单描述or车辆描述or服务工单编号',
@@ -740,6 +752,8 @@ worksheetModule.controller("WorksheetListCtrl",[
 	};
 
 	$scope.reloadData = function(){
+		$ionicScrollDelegate.$getByHandle().scrollTop(true);
+		delete $scope.datas.serviceListDatas;
 		$scope.datas.serviceListDatas = [];
 		if(!$scope.$$phase) {
         	$scope.$apply();
@@ -860,6 +874,62 @@ worksheetModule.controller("WorksheetListCtrl",[
         	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
         });
 	}
+
+
+	//选择时间		timeType: datetime  、date
+    $scope.selectCreateTime = function (type, title, timeType) { // type: start、end
+        var date;	
+        if(type == 'start'){
+            date = new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd');
+        }else if(type=='end'){
+            date = new Date($scope.config.timeEnd.replace(/-/g, "/")).format('yyyy/MM/dd');
+        }
+        //alert(date);
+        $cordovaDatePicker.show({
+                date: date,
+                mode: timeType,
+                titleText: title,
+                okText: '确定',
+                cancelText: '取消',
+                doneButtonLabel: '确认',
+                cancelButtonLabel: '取消',
+                locale: 'zh_cn'
+            }).then(function (returnDate) {
+                var time = returnDate.format("yyyy-MM-dd");
+                //alert(time);
+                switch (type) {
+                    case 'start':
+                        $scope.config.timeStart = time;
+                        break;
+                    case 'end':
+                        $scope.config.timeEnd = time;
+                        break;
+                }
+                if(!$scope.$scope.$$phase){
+                	$scope.$apply();
+                }
+            });
+    };
+
+    function __getFormatTime(date) {
+        var dateTemp, minutes, hour, time;
+        dateTemp = date.format("yyyy-MM-dd");
+        /*//分钟
+        if (date.getMinutes().toString().length < 2) {
+            minutes = "0" + date.getMinutes();
+        } else {
+            minutes = date.getMinutes();
+        };
+        //小时
+        if (date.getHours().toString().length < 2) {
+            hour = "0" + date.getHours();
+            time = hour + ":" + minutes;
+        } else {
+            hour = date.getHours();
+            time = hour + ":" + minutes;
+        };*/
+        return dateTemp;
+    };
 
 
 

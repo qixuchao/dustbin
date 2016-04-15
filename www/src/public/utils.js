@@ -69,11 +69,14 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
             }
         }
         return request;
-    }]);
-utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '$cordovaDialogs',
-    '$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker', '$cordovaToast',
-    function ($ionicLoading, $rootScope, $ionicPopup, $cordovaDialogs, $ionicActionSheet, $window,
-              $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker, $cordovaToast) {
+    }
+]);
+utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$cordovaDialogs',
+    '$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker','$cordovaToast',
+    '$timeout',
+    function ($ionicLoading,$rootScope,$ionicPopup,$cordovaDialogs, $ionicActionSheet, $window,
+              $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker,$cordovaToast, $timeout) {
+
         var getFormatTime = function (date) {
             var dateTemp, minutes, hour, time;
             dateTemp = date.format("yyyy-MM-dd");
@@ -158,7 +161,27 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
             },
             showLoading: function (content) {
                 $ionicLoading.show({
-                    template: ('<ion-spinner icon="ios"></ion-spinner><p ng-if=content>' + content + '</p>'),
+                    template: ('<ion-spinner icon="ios"></ion-spinner><p >' + content + '</p>'),
+                    animation: 'fade-in',
+                    showBackdrop: true,
+                });
+            },
+            showLoadingAutoHidden: function(content, isLoading ,dissmiss){
+                var dissmissS = dissmiss && dissmiss > 0 ? dissmiss : 1000;
+                var contentStr = content && content != "" ? "<p >" + content + "</p>" : "" ;
+                var template = isLoading ? '<ion-spinner icon="ios"></ion-spinner>' + contentStr : contentStr;
+                $ionicLoading.show({
+                    template: template,
+                    animation: 'fade-in',
+                    showBackdrop: true,
+                });
+                $timeout(function(){
+                    $ionicLoading.hide();
+                }, dissmissS);
+            },
+            showText: function (content){
+                $ionicLoading.show({
+                    template: ('<p>' + content + '</p>'),
                     animation: 'fade-in',
                     showBackdrop: true,
                 });

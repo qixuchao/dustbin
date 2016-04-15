@@ -11,53 +11,53 @@
         <!--<div ng-class="{true:'search2',false:'search1'}[searchFlag]">-->
             <!--<i class="icon ion-ios-search placeholder-icon"></i>-->
             <!--<i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>-->
-            <!--<input type="text" placeholder="请输入维修信息" ng-model="maintenanceInfo" ng-click="changePage()" ng-change="initLoad()">-->
+            <!--<input type="text" placeholder="请输入维修信息" ng-model="maintenanceName" ng-click="changePage()" ng-change="initLoad()">-->
             <!--<i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>-->
         <!--</div>-->
     <!--</ion-header-bar>-->
-    <ion-content ng-show="searchFlag">
-        <div class="divLine" ng-repeat="record in maintenanceInfo" >
-            <div class="row row-center rowContent">
-                <div class="col col-center col-5">
-                    <img ng-src="img/car/Oval.png" class="pointImg">
-                </div>
-                <div class="col col-95 col-center colType1">
-                    <div class="row row-center">
-                        <div class="col col-center col-28">
-                            <span>工单类型</span>
-                        </div>
-                        <div class="col col-center col-72">
-                            <span>{{record.PROCESS_TYPE_T}}</span>
-                        </div>
-                    </div>
-                    <div class="row row-center">
-                        <span>{{record.CHANGED_AT | date:'yyyy-MM-dd HH:mm:ss'}}</span>
-                    </div>
-                    <div class="row row-center">
-                        <div class="col col-center col-28">
-                            <span>工单描述</span>
-                        </div>
-                        <div class="col col-center col-72">
-                            <span>{{record.DESCRIPTION}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row row-center">
-            <div class="col col-25"></div>
-            <div class="col col-center">
-                <a class="button button-clear buttonText" ng-show="showButton" ng-click="maintenanceLoad()">
-                    <span>点击加载更多</span>
-                </a>
-                <a class="button button-clear buttonText" ng-show="!showButton" >
-                    <span>无数据显示</span>
-                </a>
-            </div>
+    <!--<ion-content ng-show="searchFlag">-->
+        <!--<div class="divLine" ng-repeat="record in maintenanceInfo1" ng-click="goDetailState(record,$index)" >-->
+            <!--<div class="row row-center rowContent">-->
+                <!--<div class="col col-center col-5">-->
+                    <!--<img ng-src="img/car/Oval.png" class="pointImg">-->
+                <!--</div>-->
+                <!--<div class="col col-95 col-center colType1">-->
+                    <!--<div class="row row-center">-->
+                        <!--<div class="col col-center col-28">-->
+                            <!--<span>工单类型</span>-->
+                        <!--</div>-->
+                        <!--<div class="col col-center col-72">-->
+                            <!--<span>{{record.PROCESS_TYPE_T}}</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="row row-center">-->
+                        <!--<span>{{record.CHANGED_AT | date:'yyyy-MM-dd HH:mm:ss'}}</span>-->
+                    <!--</div>-->
+                    <!--<div class="row row-center">-->
+                        <!--<div class="col col-center col-28">-->
+                            <!--<span>工单描述</span>-->
+                        <!--</div>-->
+                        <!--<div class="col col-center col-72">-->
+                            <!--<span>{{record.DESCRIPTION}}</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row row-center">-->
+            <!--<div class="col col-25"></div>-->
+            <!--<div class="col col-center">-->
+                <!--<a class="button button-clear buttonText" ng-show="showButton1" ng-click="maintenanceLoad1()">-->
+                    <!--<span>点击加载更多</span>-->
+                <!--</a>-->
+                <!--<a class="button button-clear buttonText" ng-show="!showButton1" >-->
+                    <!--<span>无数据显示</span>-->
+                <!--</a>-->
+            <!--</div>-->
 
-        </div>
-    </ion-content>
-    <ion-content  class="" style="" scroll="false" has-bouncing="false">
+        <!--</div>-->
+    <!--</ion-content>-->
+    <ion-content  class="" style="" scroll="false" has-bouncing="false" ng-show="!searchFlag">
         <div class="tab-buttons-line">
             <div class="tab-button-block" ng-class="{'selected':config.isSorteMode}" ng-click="enterSorteMode();">
                 <span>排 序</span>
@@ -141,7 +141,7 @@
                     <!--</div>-->
                     <div canNotClickEnterListMode class="filter-action-buttons">
                         <div class="filter-action-button reset" ng-click="resetFilters();">重置</div>
-                        <div canClickEnterListMode class="filter-action-button confirm">确认</div>
+                        <div canClickEnterListMode class="filter-action-button confirm" ng-click="confirm()">确认</div>
                     </div>
                 </ion-scroll>
             </div>
@@ -156,22 +156,28 @@
                             <div class="col col-95 col-center colType1">
                                 <div class="row row-center">
                                     <div class="col col-center col-28">
-                                        <span>工单类型</span>
-                                    </div>
-                                    <div class="col col-center col-72">
-                                        <span>{{record.PROCESS_TYPE_T}}</span>
-                                    </div>
-                                </div>
-                                <div class="row row-center">
-                                    <span>{{record.CHANGED_AT | date:'yyyy-MM-dd HH:mm:ss'}}</span>
-                                </div>
-                                <div class="row row-center">
-                                    <div class="col col-center col-28">
                                         <span>工单描述</span>
                                     </div>
                                     <div class="col col-center col-72">
                                         <span>{{record.DESCRIPTION}}</span>
                                     </div>
+                                </div>
+                                <div class="row row-center">
+                                    <div class="col col-center col-28">
+                                        <span>客户名称</span>
+                                    </div>
+                                    <div class="col col-center col-72">
+                                        <span>{{record.NAME1}}</span>
+                                    </div>
+                                </div>
+                                <div class="row row-center">
+                                    <div class="col col-center col-30">
+                                        <span>最近更新时间</span>
+                                    </div>
+                                    <div class="col col-center col-70">
+                                        <span>{{record.CHANGED_AT}}</span>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -182,7 +188,7 @@
                             <a class="button button-clear buttonText" ng-show="showButton" ng-click="maintenanceLoad()">
                                <span>点击加载更多</span>
                             </a>
-                            <a class="button button-clear buttonText" ng-show="!showButton" >
+                            <a class="button button-clear buttonText" ng-show="showButton1" >
                                 <span>无数据显示</span>
                             </a>
                         </div>

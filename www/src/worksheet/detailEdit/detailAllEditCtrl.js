@@ -16,11 +16,16 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         'worksheetHttpService',
         "worksheetDataService",
         "$cordovaDatePicker",
+        "worksheetHttpService",
+        "Prompter",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker) {
+                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter) {
 
         var pleaseChoose = '-- 请选择 --';
+        var pleaseChooseId = null;
+        var noneValue = '空';
+        var noneValueId = null;
 
         $scope.config = {
             typeStr: '',
@@ -39,20 +44,66 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
             isLoading_BujianReason: false,
             isLoading_scenario: false,
-            isLoading_response: false,
+            isLoading_response: false
         };
+
+        $scope.saveEdited = function(){
+            var impact = $scope.config.currentImpact.IMPACT;
+            var scenario = $scope.config.currentGuZhangChangJing.SCENARIO;
+            var response = $scope.config.currentZeRenFang.RESPONSE;
+            var defect = $scope.config.currentGuZhangFeiLen.DEFECT;
+            var katalogart = $scope.config.currentChanPinLeiXing.KATALOGART;
+            var codegrupper = $scope.config.currentGuZhangBuJian.CODEGRUPPE;
+            var code = $scope.config.currentGuZhangMingCheng.CODE;
+
+            var header = {
+                IMPACT: (!impact) ? "" : impact,
+                SCENARIO: (!scenario) ? "" : scenario,
+                RESPONSE: (!response) ? "" : response,
+                DEFECT: (!defect) ? "" : defect,
+                KATALOGART: (!katalogart) ? "" : katalogart,
+                CODEGRUPPE: (!codegrupper) ? "" : codegrupper
+            };
+            __requestUpdateWorksheet(header);
+        };
+
+        function __requestUpdateWorksheet(headerData){
+            var url = worksheetHttpService.serviceDetailChange.url;
+            var defaults = worksheetHttpService.serviceDetailChange.defaults;
+            var postData = angular.extend(defaults, {
+                ES_OUT_LIST: headerData
+            });
+            var promise = HttpAppService.post(worksheetHttpService.serviceList.url,postData);
+            Prompter.showLoading("正在保存修改");
+            promise.success(function(response){                
+                if(response && response.ES_RESULT && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG == "S"){
+                    Prompter.showLoadingAutoHidden("保存成功!", false, 1000);
+                }else if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG == "E" && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!=""){
+                    Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
+                }else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!="" ){
+                    Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
+                }else if(response && response.ES_RESULT){
+                    Prompter.showLoadingAutoHidden(JSON.stringify(response), false, 2000);
+                }else{
+                    Prompter.showLoadingAutoHidden(response, false, 2000);
+                }
+            })
+            .error(function(errorResponse){
+                Prompter.showLoadingAutoHidden("保存失败,请检查网络状况!", false, 2000);
+            });
+        }
 
         $scope.buJianFeiLenChanged = function(){
             //console.log("guZhangFeiLenChanged");
             //console.log($scope.config.currentChanPinLeiXing.guZhangBuJianS);
             $scope.datas.guZhangBuJianS = $scope.config.currentChanPinLeiXing.guZhangBuJianS;
+            $scope.datas.guZhangMingChengS = $scope.datas.guZhangBuJianS.guZhangMingChengS;
+            $scope.config.currentGuZhangBuJian = $scope.datas.guZhangBuJianS[0];
+            $scope.config.currentGuZhangMingCheng = $scope.config.currentGuZhangBuJian[0];
         };
         $scope.buJianChanged = function(){
             $scope.datas.guZhangMingChengS = $scope.config.currentGuZhangBuJian.guZhangMingChengS;
             $scope.config.currentGuZhangMingCheng = $scope.datas.guZhangMingChengS[0];
-            if($scope.config.currentGuZhangBuJian = $scope.datas.currentGuZhangBuJian[0]){
-                //$scope.datas.guZhangMingChengS = [];
-            }
         };
 
         $scope.datas = {
@@ -185,11 +236,15 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                             $scope.config.currentGuZhangBuJian = $scope.datas.chanPinLeiXingS[i].guZhangBuJianS[j];
                             $scope.datas.guZhangMingChengS = $scope.datas.chanPinLeiXingS[i].guZhangBuJianS[j].guZhangMingChengS;
                             for(var x = 0; x < $scope.datas.chanPinLeiXingS[i].guZhangBuJianS[j].guZhangMingChengS.length; x++){
-                                $scope.config.currentGuZhangMingCheng = $scope.datas.chanPinLeiXingS[i].guZhangBuJianS[j].guZhangMingChengS[x];
-                                return;
+                                if($scope.datas.detail.ES_OUT_LIST.CODE == $scope.datas.chanPinLeiXingS[i].guZhangBuJianS[j].guZhangMingChengS[x].CODE){
+                                    $scope.config.currentGuZhangMingCheng = $scope.datas.chanPinLeiXingS[i].guZhangBuJianS[j].guZhangMingChengS[x];
+                                    return;
+                                }
                             }
-                            $scope.config.currentGuZhangMingCheng = $scope.datas.chanPinLeiXingS[i].guZhangBuJianS[j].guZhangMingChengS[0];
-                            return;
+                            if(!$scope.config.currentGuZhangMingCheng){
+                                $scope.config.currentGuZhangMingCheng = $scope.datas.chanPinLeiXingS[i].guZhangBuJianS[j].guZhangMingChengS[0];
+                                return;
+                            }                            
                         }
                     }
                     if($scope.config.currentGuZhangBuJian == null){
@@ -231,10 +286,8 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     cancelButtonLabel: '取消',
                     locale: 'zh_cn'
                 }).then(function (returnDate) {
-                    alert(returnDate);
                     var time = __getFormatTime(returnDate);
-                    alert(time);
-                    switch (name) {
+                    switch (type) {
                         case 'start':
                             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
                             break;
@@ -266,11 +319,6 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             return dateTemp + " " + time;
         };
 
-
-        $scope.saveEdited = function(){
-
-        };
-
         $scope.init = function(){
             $scope.config.typeStr = $stateParams.detailType;  // newCar  siteRepair  batchUpdate
             $scope.config.detailTypeNewCar =  $scope.config.typeStr == "newCar" ? true : false;
@@ -284,7 +332,23 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             __initScenario();
             __initResponse();
             __initGuZhangFeiLei();
+            __initImpact();
+
         };
+
+        function __initImpact(){
+            if($scope.datas.detail.ES_OUT_LIST.IMPACT && $scope.datas.detail.ES_OUT_LIST.IMPACT!= ""){
+                var impact = $scope.datas.detail.ES_OUT_LIST.IMPACT;
+                for(var i = 0; i < $scope.datas.impactS.length; i++){
+                    if($scope.datas.impactS[i].IMPACT == impact){
+                        $scope.config.currentImpact = $scope.datas.impactS[i];
+                    }
+                }
+            }
+            if(!$scope.config.currentImpact){
+                $scope.config.currentImpact = $scope.datas.impactS[0];
+            }
+        }
 
         var bujianFenLeiS = [];
         var responS = [];
@@ -300,7 +364,6 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                         $scope.datas.chanPinLeiXingS.addItem(items[i]);
                     }
                     __initCurrentChangPinLeiXing();
-
                     $scope.config.isLoading_BujianReason = false;
                 })
                 .error(function(errorRes){
@@ -573,5 +636,141 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
         $scope.init();
 
-
 }]);
+
+/*
+
+impactS: [
+    {
+        IMPACT_DESC: noneValue,
+        IMPACT: noneValueId
+    },
+    {
+        IMPACT_DESC: pleaseChoose,
+        IMPACT: pleaseChooseId
+    },                
+    {
+        IMPACT_DESC: '灾难',
+        IMPACT: '01'
+    },
+    {
+        IMPACT_DESC: '高',
+        IMPACT: '25'
+    },
+    {
+        IMPACT_DESC: '中',
+        IMPACT: '50'
+    },
+    {
+        IMPACT_DESC: '低',
+        IMPACT: '75'
+    },
+    {
+        IMPACT_DESC: '无',
+        IMPACT: '99'
+    }
+],
+guZhangChangJingS:[
+    {
+        SCENARIO_DESC: noneValue,
+        SCENARIO: noneValueId
+    },
+    {
+        SCENARIO_DESC: pleaseChoose,
+        SCENARIO: pleaseChooseId
+    }
+],
+zeRengFangS:[
+    {
+        RESPONSE_DESC: noneValue,
+        RESPONSE: noneValueId
+    },
+    {
+        RESPONSE_DESC: pleaseChoose,
+        RESPONSE: pleaseChooseId
+    }
+],
+guZhangFeiLenS: [
+    {
+        DEFECT_DESC: noneValue,
+        DEFECT: noneValueId
+    },
+    {
+        DEFECT_DESC: pleaseChoose,
+        DEFECT: pleaseChooseId
+    }
+],
+guZhangBuJianS: null,
+guZhangMingChengS: null,
+chanPinLeiXingS: [
+    {
+        COMP_TYPE: noneValue,
+        KATALOGART: noneValueId,
+        guZhangBuJianS:[
+            {
+                COMPONENT: noneValue,
+                CODEGRUPPE: noneValueId,
+                guZhangMingChengS: [
+                    {
+                        REASON: noneValue,
+                        CODE: noneValueId
+                    },
+                    {
+                        REASON: pleaseChoose,
+                        CODE: pleaseChooseId
+                    }
+                ]
+            },
+            {
+                COMPONENT: pleaseChoose,
+                CODEGRUPPE: pleaseChooseId,
+                guZhangMingChengS: [
+                    {
+                        REASON: noneValue,
+                        CODE: noneValueId
+                    },
+                    {
+                        REASON: pleaseChoose,
+                        CODE: pleaseChooseId
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        COMP_TYPE: pleaseChoose,
+        KATALOGART: pleaseChooseId,
+        guZhangBuJianS:[
+            {
+                COMPONENT: noneValue,
+                CODEGRUPPE: noneValueId,
+                guZhangMingChengS: [ 
+                    {
+                        REASON: noneValue,
+                        CODE: noneValueId
+                    },
+                    {
+                        REASON: pleaseChoose,
+                        CODE: pleaseChooseId
+                    }
+                ]
+            },
+            {
+                COMPONENT: pleaseChoose,
+                CODEGRUPPE: pleaseChooseId,
+                guZhangMingChengS: [ 
+                    {
+                        REASON: noneValue,
+                        CODE: noneValueId
+                    },
+                    {
+                        REASON: pleaseChoose,
+                        CODE: pleaseChooseId
+                    }
+                ]
+            }
+        ]
+    }
+]
+
+*/
