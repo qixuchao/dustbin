@@ -215,15 +215,6 @@ salesModule.factory('saleChanService', function () {
         },
         getMoneyTypesArr: function () {
             return moneyTypes;
-        },
-        chanListArr,
-        listPage,
-        obj_id,
-        filters,
-        createPop,
-        saleStages,
-        saleUnits,
-        listStatusArr,
-        relationsTypes
+        }
     };
 });

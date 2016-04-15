@@ -163,23 +163,21 @@
                                     </div>
                                 </div>
                                 <div class="row row-center">
-                                    <span></span>
-                                </div>
-                                <div class="row row-center">
                                     <div class="col col-center col-28">
-                                        <span>工单类型</span>
+                                        <span>客户名称</span>
                                     </div>
                                     <div class="col col-center col-72">
-                                        <span>{{record.PROCESS_TYPE_T}}</span>
+                                        <span>{{record.NAME1}}</span>
                                     </div>
                                 </div>
                                 <div class="row row-center">
-                                    <div class="col col-center col-28">
-                                        <span>更新时间</span>
+                                    <div class="col col-center col-30">
+                                        <span>最近更新时间</span>
                                     </div>
-                                    <div class="col col-center col-72">
-                                        <span>{{record.CHANGED_AT | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+                                    <div class="col col-center col-70">
+                                        <span>{{record.CHANGED_AT}}</span>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -190,7 +188,7 @@
                             <a class="button button-clear buttonText" ng-show="showButton" ng-click="maintenanceLoad()">
                                <span>点击加载更多</span>
                             </a>
-                            <a class="button button-clear buttonText" ng-show="!showButton" >
+                            <a class="button button-clear buttonText" ng-show="showButton1" >
                                 <span>无数据显示</span>
                             </a>
                         </div>

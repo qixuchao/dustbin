@@ -123,7 +123,6 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
                             }else{
                                 $scope.spareList.push(value);
                             }
-
                             //console.log("第5步");
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         });
@@ -141,7 +140,6 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
                         }
                     }
                     $scope.$broadcast('scroll.infiniteScrollComplete');
-
                 }
             }
         }).error(function (response, status) {
@@ -149,22 +147,45 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
             $scope.spareimisshow = false;
         });
     };
+    //初始化本地数据库
+    if (JSON.parse(localStorage.getItem("oftenSparedb")) != null || JSON.parse(localStorage.getItem("oftenSparedb")) != undefined) {
+        $scope.oftenSpareList = JSON.parse(localStorage.getItem("oftenSparedb"));
+    }else{
+        $scope.oftenSpareList=new Array;
+    }
     //进入详细界面传递标识
-    $scope.oftenSpareList=new Array;
     $scope.goDetail = function(value){
         //存储历史记录
-        if(storedb('sparedb').find($scope.spareInfo)) {
-            storedb('sparedb').remove($scope.spareInfo);
-        }
-        storedb('sparedb').insert({"name": $scope.spareInfo}, function (err) {
-            if (!err) {
-                console.log('历史记录保存成功')
-            } else {
-                $cordovaToast.showShortBottom('历史记录保存失败');
+        var spareIs=false;
+        if($scope.spareInfo!==""){
+            if(storedb('sparedb').find()!==null || storedb('sparedb').find()!==undefined){
+                var list=storedb('sparedb').find();
+                for(var i=0;i<list.length;i++){
+                    if(storedb('sparedb').find($scope.spareInfo)){
+                        storedb('sparedb').remove($scope.spareInfo);
+                        storedb('sparedb').insert({'name':$scope.spareInfo},function(err){
+                            if(!err){
+                                console.log('历史记录保存成功')
+                            }else {
+                                $cordovaToast.showShortBottom('历史记录保存失败');
+                            }
+                        });
+                        spareIs=true;
+                    }
+                }
+                if(spareIs===false){
+                    storedb('sparedb').insert({'name':$scope.spareInfo},function(err){
+                        if(!err){
+                            console.log('历史记录保存成功')
+                        }else {
+                            $cordovaToast.showShortBottom('历史记录保存失败');
+                        }
+                    });
+                }
             }
-        });
+        }
 
-        //存储常用
+        //存储常用产品
         if (JSON.parse(localStorage.getItem("oftenSparedb")) != null || JSON.parse(localStorage.getItem("oftenSparedb")) != undefined) {
             //判断是否有相同的值
             for (var i = 0; i < $scope.oftenSpareList.length; i++) {
@@ -184,7 +205,6 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
                 localStorage['oftenSparedb'] = JSON.stringify( $scope.oftenSpareList);
                 console.log("产品1保存成功");
             }
-
         }else{
             $scope.oftenSpareList.unshift(value);
             localStorage['oftenSparedb'] = JSON.stringify( $scope.oftenSpareList);

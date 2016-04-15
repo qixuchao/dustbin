@@ -481,6 +481,10 @@
   $worksheetlist-selected-color: rgb(50, 89, 164); //#236CE6;
   .Maintenance {
     background-color: $crm-header-bar-bgcolor;
+    .row + .row {
+      margin-top: -5px;
+      /* padding-top: 0; */
+    }
 
     ion-header-bar {
       background-color: $crm-header-bar-bgcolor;
@@ -635,6 +639,12 @@
         position: relative;
         padding-left: 0;
         left: 4%;
+        img{
+          position: absolute;
+          font-size: 25px;
+          top: 25px;
+          color: gray;
+        }
         .col {
           padding: 0;
         }
