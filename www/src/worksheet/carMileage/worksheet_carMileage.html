@@ -1,10 +1,10 @@
 <ion-view  id="worksheet_carMileage"  align-title="center">
     <ion-header-bar align-title="center" class="bar bar-positive bar-header disable-user-behavior" >
         <div class="row row-center title rowTitle">
-            <div class="col col-15 text-left" ng-click="$ionicGoBack();">取消</div>
-            <div class="col col-70 text-center">车辆里程
+            <div class="col col-15 text-left" ng-click="$ionicGoBack();"><i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px"></i></div>
+            <div class="col col-70 text-center">车辆里程显示
             </div>
-            <div class="col col-15 text-right" ng-click="edit()">编辑</div>
+            <div class="col col-15 text-right" ng-click="edit()">维护</div>
         </div>
     </ion-header-bar>
     <ion-content>
@@ -37,10 +37,10 @@
                 </div>
             </div>
 
-            <div class="row itemContent row-center">
+            <div class="row itemContentT row-center">
                 <div class="col-42 col-center">读取描述：</div>
                 <div class="col-58 col-center fontColor">
-                    {{carMile.MILEAGE_DESC}}
+                    <textarea type="text"placeholder=""  ng-model="carMile.MILEAGE_DESC" class="textareaCss" readonly style="background-color: white;color: #A0A09F"></textarea>
                 </div>
             </div>
         </div>
