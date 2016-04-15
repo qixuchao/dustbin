@@ -576,6 +576,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             if(item.length<1){
                 $cordovaToast.showShortBottom("暂无信息需要传输");
+                Prompter.hideLoading();
             }else{
                 HttpAppService.post(url, data).success(function(response){
                     Prompter.hideLoading();

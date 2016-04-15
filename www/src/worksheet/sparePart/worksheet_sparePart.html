@@ -20,21 +20,22 @@
             </div>
         </div>
     </ion-header-bar>
-    <ion-content class="" style="margin-top: 46px" scroll="false" has-bouncing="false" >
-        <div class="list" style="background-color: white;margin-bottom: 0px">
-            <div class="item" style="height: 65px">
-                <h2 style="color: #276DAC">请选择</h2>
-                <p>
-                    <select class="selectC"  ng-model="config.warehouse" ng-options="impact as impact.ZZSTORAGE_DESC for impact in wareHouse"  ng-change="change(config.warehouse)">
-                        <option selected value="">--仓库--</option>
-                    </select>
-                </p>
-            </div>
-            <div align="center"><hr color="#276DAC" class="line" size="2"></div>
-            </div>
-        <div class="is-loading"  style="text-align:center;margin-top:20px;" ng-if="goLoadUp">
-            <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+    <div class="list" style="background-color: white;margin-bottom: 0px;margin-top: 88px">
+        <div class="item" style="height: 65px">
+            <h2 style="color: #276DAC">请选择</h2>
+            <p>
+                <select class="selectC"  ng-model="config.warehouse" ng-options="impact as impact.ZZSTORAGE_DESC for impact in wareHouse"  ng-change="change(config.warehouse)">
+                    <option selected value="">--仓库--</option>
+                </select>
+            </p>
         </div>
+        <div align="center"><hr color="#276DAC" class="line" size="2"></div>
+    </div>
+    <div class="is-loading"  style="text-align:center;margin-top:20px;" ng-if="goLoadUp">
+        <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+    </div>
+    <ion-content class="" style="margin-top: 110px" scroll="true" has-bouncing="false" >
+
             <!--<div class="list" style="background-color: white;overflow-y:scroll">-->
                 <!--<div class="row" style="height: 65px;border-bottom: 1px solid #D6D3CE;margin-top: 0px;padding-bottom: 0px" ng-repeat="i in infos">-->
                     <!--<ion-checkbox  class="checkbox-balanced left" style="padding: 5px 0px 5px 0px;margin-left: -15px" >-->
@@ -53,7 +54,7 @@
                 <!--</div>-->
             <!--</div>-->
         </div>
-        <ul class="list" style="overflow-y:scroll;padding: 0;margin-top: 20px">
+        <ul class="list" style="overflow-y:scroll;padding: 0;">
             <div class="row row-center" style="border-bottom: 1px solid #D6D3CE;margin: 0;padding:0" ng-repeat="i in infos">
                 <div class="col col-center col-75" style="padding:5px 0 5px 0">
                 <li class="item item-checkbox" style="padding:0px 0px 0px 43px;" >
