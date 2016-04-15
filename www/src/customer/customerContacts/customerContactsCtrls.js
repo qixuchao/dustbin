@@ -24,7 +24,7 @@ customerContactsModule
         $scope.customerContacts_query_list = [];
         $scope.customercontactPage = 0;
         $scope.customercontactLoadmore = function(){
-            $scope.customercontactisshow = true;
+            //$scope.customercontactisshow = true;
             $scope.customercontactPage = $scope.customercontactPage + 1;
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST';
            var data = {

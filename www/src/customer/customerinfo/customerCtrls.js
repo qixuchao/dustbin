@@ -60,21 +60,27 @@ customerModule
         $scope.customerQuery_list = new Array;
         $scope.customerPage = 0;
         $scope.customerLoadmore = function() {
-            //$scope.contactisshow = true;
+            $scope.contactisshow = true;
             $scope.customerPage = $scope.customerPage + 1;
             var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST';
             var data = {
-                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_PAGE": {
                     "CURRPAGE": $scope.customerPage,
                     "ITEMS": "10"
                 },
-                "IS_SEARCH": { "SEARCH": $scope.customer.customerfiledvalue},
-                "IT_IN_ROLE": { "RLTYP":$scope.customerselecttyperole
-                }
-            };
+                "IS_SEARCH": {"SEARCH": $scope.customer.customerfiledvalue},
+                "IT_IN_ROLE": {
+                    "item":
+                            [
+                                {
+                                    "RLTYP": $scope.customerselecttyperole
+                                }
+                            ]
+                    }
+                };
             //var data = data2;
-            //console.log("data"+angular.toJson(data));
+            console.log("data"+angular.toJson(data));
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
             HttpAppService.post(url, data).success(function (response) {
@@ -138,14 +144,17 @@ customerModule
                             $scope.customerQuery_list = [];
                             $scope.customerQuery_list = new Array;
                             $scope.customerPage = 0;
+
+                            $scope.customer_queryflag = true;
+                            $ionicScrollDelegate.resize();
+                            $scope.customerisshow = true;
                         });
-                        $scope.customer_queryflag = true;
-                        $ionicScrollDelegate.resize();
-                        $scope.customerisshow = true;
+
                         //if(!$scope.$$phase) {
                         //    $scope.$apply();
                         //};
                     } else {
+                        $scope.customerselecttyperole = '';
                         //删除请求
                         $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
                         $scope.customer_queryflag = false;
@@ -339,12 +348,11 @@ customerModule
                         break;
                 }
             };
-
             //改变角色的参数
             //$scope.$apply(function(){
                 $scope.customerisshow = false;
                 //删除请求
-                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
+                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
                 $scope.customerQuery_list = [];
                 $scope.customerQuery_list = new Array;
                 $scope.customerPage = 0;
@@ -354,12 +362,6 @@ customerModule
                 $scope.customerisshow = true;
             $scope.customerPopoverhide();
         };
-
-        //跳转detail界面
-        //$scope.customergodeatil = function(cusvalue){
-        //    customeService.set_customerListvalue(cusvalue);
-        //    $state.go("customerDetail");
-        //}
     }])
     .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
 
@@ -376,6 +378,18 @@ customerModule
         $scope.customerDetailcheckdate = true;
         //预验收周期
         $scope.customerDetailwillcheckdate = true;
+        //竞争对手领域
+        $scope.customerDetailZzlyone = true;
+        //份额
+        $scope.customerDetailContains = true;
+        //价格
+        $scope.customerDetailPrice = true;
+        //助销伙伴领域
+        $scope.customerDetailZzlytwo = true;
+        //长项
+        $scope.customerDetailAdvatage = true;
+        //项目
+        $scope.customerDetailEvent = true;
         //移动电话
         $scope.customerDetailmobilenum = true;
         //国家
@@ -386,10 +400,47 @@ customerModule
         $scope.customerDetailstrret = true;
         //街道三
         $scope.customerDetailstrreth = true;
-        $scope.roletype='竞争对手';
-        if($scope.roletype == "潜在客户" || $scope.roletype == "正式客户"){
-            $scope.customerDetailmobilenum = false;
-        }else if($scope.roletype == "竞争对手" || $scope.roletype == "助销伙伴"){
+        //初始化角色判断
+        var customerDroletypeold = customeService.get_customerListvalue().PARTNER_ROLE;
+        if(ROOTCONFIG.hempConfig.baseEnvironment == 'CATL'){
+            if(customerDroletypeold.includes("Z00001") || customerDroletypeold.includes("Z00004")){
+                $scope.customerDroletype='潜在客户';
+            }else if(customerDroletypeold.includes("CRM000")){
+                $scope.customerDroletype='正式客户';
+            }
+            else if(customerDroletypeold.includes("CRM000") && customerDroletypeold.includes("BBP000")){
+                $scope.customerDroletype='正式客户';
+            }else if(customerDroletypeold.includes("Z00002")){
+                $scope.customerDroletype='竞争对手';
+            }else if(customerDroletypeold.includes("Z00003")){
+                $scope.customerDroletype='助销伙伴';
+            }else if(customerDroletypeold.includes("CRM000")== false && customerDroletypeold.includes("BBP000") == true){
+                $scope.customerDroletype='服务商';
+            };
+        }else{
+            if(customerDroletypeold.includes("ZATL") || customerDroletypeold.includes("CRM000")){
+                $scope.customerDroletype='潜在客户';
+            }else if(customerDroletypeold.includes("Z00002")){
+                $scope.customerDroletype='竞争对手';
+            }else if(customerDroletypeold.includes("Z00003")){
+                $scope.customerDroletype='助销伙伴';
+            }
+        }
+        if($scope.customerDroletype == "潜在客户" || $scope.customerDroletype == "正式客户" || $scope.customerDroletype == "终端客户"){
+            //竞争对手领域
+            $scope.customerDetailZzlyone = false;
+            //份额
+            $scope.customerDetailContains = false;
+            //价格
+            $scope.customerDetailPrice = false;
+            //助销伙伴领域
+            $scope.customerDetailZzlytwo = false;
+            //长项
+            $scope.customerDetailAdvatage = false;
+            //项目
+            $scope.customerDetailEvent = false;
+
+        }else if($scope.customerDroletype == "竞争对手"){
             //付款方式
             $scope.customerDetailplayway = false;
             //付款日历
@@ -398,9 +449,17 @@ customerModule
             $scope.customerDetailcheckdate = false;
             //预验收周期
             $scope.customerDetailwillcheckdate = false;
+            //竞争对手领域
+            $scope.customerDetailZzlyone = false;
+            //份额
+            $scope.customerDetailContains = false;
+            //价格
+            $scope.customerDetailPrice = false;
+
             //移动电话
             $scope.customerDetailmobilenum = false;
-        }else if($scope.roletype == "服务商"){
+
+        }else if($scope.customerDroletype == "助销伙伴"){
             //付款方式
             $scope.customerDetailplayway = false;
             //付款日历
@@ -409,6 +468,30 @@ customerModule
             $scope.customerDetailcheckdate = false;
             //预验收周期
             $scope.customerDetailwillcheckdate = false;
+            //助销伙伴领域
+            $scope.customerDetailZzlytwo = false;
+            //长项
+            $scope.customerDetailAdvatage = false;
+            //项目
+            $scope.customerDetailEvent = false;
+            //移动电话
+            $scope.customerDetailmobilenum = false;
+
+        }else if($scope.customerDroletype == "服务商"){
+            //付款方式
+            $scope.customerDetailplayway = false;
+            //付款日历
+            $scope.customerDetailplaydate = false;
+            //验收周期
+            $scope.customerDetailcheckdate = false;
+            //预验收周期
+            $scope.customerDetailwillcheckdate = false;
+            //代收人
+            $scope.customerDetailnameco = false;
+            //街道二
+            $scope.customerDetailstrret = false;
+            //街道三
+            $scope.customerDetailstrreth = false;
         }
 
 
@@ -476,25 +559,29 @@ customerModule
         $scope.gocustomerLists = function(cusvalue){
             if(cusvalue.url){
 
-                //从客户详情-工单进入服务工单界面
-                if(cusvalue.url == 'worksheetList'){
-                    var customerWorkorderdata = {
-                        "PARTNER": "0000101186",
-                        "STATE":'customerDetail'
-                    };
-                    customeService.set_customerWorkordervalue(customerWorkorderdata);
-                }
-                /*//从客户详情-进入各个详情界面
+                ////从客户详情-工单进入服务工单界面
+                //if(cusvalue.url == 'worksheetList'){
+                //    var customerWorkorderdata = {
+                //        "PARTNER": "0000101186",
+                //        "STATE":'customerDetail'
+                //    };
+                //    customeService.set_customerWorkordervalue(customerWorkorderdata);
+                //}
+                //从客户详情-进入各个详情界面
                 var customerWorkorderdata = {
                     "PARTNER": $scope.customerdetails.PARTNER,
                 };
-                customeService.set_customerWorkordervalue(customerWorkorderdata);*/
+                customeService.set_customerWorkordervalue(customerWorkorderdata);
                 $state.go(cusvalue.url);
             };
         };
         //电话
         $scope.customershowphone =function(types){
-            Prompter.showphone(types)
+            if(types == ''|| types == undefined) {
+                $cordovaToast.showShortBottom('没有数据');
+            }else{
+                Prompter.showphone(types);
+            }
         };
 
         //拨打电话手机
@@ -521,29 +608,36 @@ customerModule
                     }
                 })
             }
-        }
-
-
-
+        };
         //邮箱
         $scope.customermailcopyvalue = function(valuecopy){
-            Prompter.showpcopy(valuecopy)
+            if(valuecopy == '' || valuecopy == undefined) {
+                $cordovaToast.showShortBottom('没有数据');
+            }else{
+                Prompter.showpcopy(valuecopy)
+            }
+
         };
         //打开浏览器
         $scope.customeropenbrser = function(Url){
-            Prompter.openbrserinfo(Url)
+            if(Url == '' || Url == undefined) {
+                $cordovaToast.showShortBottom('没有数据');
+            }else{
+                Prompter.openbrserinfo(Url)
+            }
         };
         //编辑
         $scope.CustomerDeatilEditvalue = function(){
+            customeService.set_customerEditServevalue( $scope.customerdetails)
             $state.go('customerEdit')
         };
         //广播编辑
         $rootScope.$on('customerEditvalue', function(event, data) {
-            $scope.customerdetails = customeService.get_customerListvalue();
+            $scope.customerdetails = customeService.get_customerEditServevalue();
         });
 
     }])
-    .controller('customerEditlCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+    .controller('customerEditlCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','customeService','Prompter','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,customeService,Prompter,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
         //位置级联
         $scope.customereditcontry = [
             {
@@ -556,43 +650,50 @@ customerModule
         ];
         //初始化数据
         $scope.customeredit = {
-
             //从新来
             //不允许修改
-            NAME_ORG1:customeService.get_customerListvalue().NAME_ORG1,
-            NAME_ORG2:customeService.get_customerListvalue().NAME_ORG2,
-            NAME_ORG3:customeService.get_customerListvalue().NAME_ORG3,
-            NAME_ORG4:customeService.get_customerListvalue().NAME_ORG4,
+            NAME_ORG2:customeService.get_customerEditServevalue().NAME_ORG2,
+            NAME_ORG3:customeService.get_customerEditServevalue().NAME_ORG3,
+            NAME_ORG4:customeService.get_customerEditServevalue().NAME_ORG4,
+            ZZZLSCH:customeService.get_customerEditServevalue().ZZZLSCH,
+            ZZPAY_CLD:customeService.get_customerEditServevalue().ZZPAY_CLD,
+            ZZACCEPTPERIOD:customeService.get_customerEditServevalue().ZZACCEPTPERIOD,
+            URI_SRCH:customeService.get_customerEditServevalue().URI_SRCH,
+            PARTNER_AUTO_COMPLETE:customeService.get_customerEditServevalue().PARTNER_AUTO_COMPLETE,
+            PARTNER_NO:customeService.get_customerEditServevalue().PARTNER_NO,
+            NAME_CO:customeService.get_customerEditServevalue().NAME_CO,
+            STR_SUPPL1:customeService.get_customerEditServevalue().STR_SUPPL1,
+            STR_SUPPL2:customeService.get_customerEditServevalue().STR_SUPPL2,
+            SPTXT:customeService.get_customerEditServevalue().SPTXT,
+            //可修改
+            NAME_ORG1:customeService.get_customerEditServevalue().NAME_ORG1,
+            TEL_NUMBER:customeService.get_customerEditServevalue().TEL_NUMBER,
+            TEL_EXTENS:customeService.get_customerEditServevalue().TEL_EXTENS,
+            MOB_NUMBER:customeService.get_customerEditServevalue().MOB_NUMBER,
+            FAX_NUMBER:customeService.get_customerEditServevalue().FAX_NUMBER,
+            FAX_EXTENS:customeService.get_customerEditServevalue().FAX_EXTENS,
+            SMTP_ADDR:customeService.get_customerEditServevalue().SMTP_ADDR,
+            LANDX:customeService.get_customerEditServevalue().LANDX,
+            REGION:customeService.get_customerEditServevalue().REGION,
+            CITY1:customeService.get_customerEditServevalue().CITY1,
+            STREET:customeService.get_customerEditServevalue().STREET,
+            HOUSE_NUM1:customeService.get_customerEditServevalue().HOUSE_NUM1,
+            POST_CODE1:customeService.get_customerEditServevalue().POST_CODE1,
+            BEZEI:customeService.get_customerEditServevalue().BEZEI,
 
-
-            customerposition:customeService.get_customerListvalue().customerposition,
-            customerpayway:customeService.get_customerListvalue().customerpayway,
-            customerpaydate:customeService.get_customerListvalue().customerpaydate,
-            customercheckperiod:customeService.get_customerListvalue().customercheckperiod,
-            customerwillcheckperiod:customeService.get_customerListvalue().customerwillcheckperiod,
-            customerfax:customeService.get_customerListvalue().customerfax,
-            customermail:customeService.get_customerListvalue().customermail,
-            customerwebsite:customeService.get_customerListvalue().customerwebsite,
-            customercontrary:customeService.get_customerListvalue().customercontrary,
-            customerregion:customeService.get_customerListvalue().customerregion,
-            customercity:customeService.get_customerListvalue().customercity,
-            customerstreet:customeService.get_customerListvalue().customerstreet,
-            customerborad:customeService.get_customerListvalue().customerborad,
-            customerpostal:customeService.get_customerListvalue().customerpostal,
-            customerzhushi:customeService.get_customerListvalue().customerzhushi,
-
-            customername:customeService.get_customerListvalue().customername,
-            customeraddress:customeService.get_customerListvalue().customeraddress,
-            customerphonenumber:customeService.get_customerListvalue().customerphonenumber,
 
         };
         $scope.customerKeepEditvalue = function(){
-            customeService.set_customerListvalue($scope.customeredit);
+            customeService.set_customerEditServevalue($scope.customeredit);
             //广播修改详细信息界面的数据
             $rootScope.$broadcast('customerEditvalue');
             $state.go('customerDetail');
 
         };
+        ////点击取消事件
+        $scope.customerEditCancel = function(){
+            Prompter.ContactCreateCancelvalue();
+        }
         $scope.customerDeleteListener = function(cusid,cusimgid){
             setTimeout(function(){
                 document.getElementById(cusid).addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
@@ -608,61 +709,59 @@ customerModule
         $scope.customerDeleteListener('customerpayway','compaywayimg');
         $scope.customerDeleteListener('cuspaydate','cuspaydateimg');
         $scope.customerDeleteListener('cuscheckpreid','cuscheckpreidimg');
-        $scope.customerDeleteListener('cuswillcheckpreid','cuswillcheckpreidimg');
         $scope.customerDeleteListener('cusfax','cusfaximg');
-        $scope.customerDeleteListener('cusmailval','cusmailvalimg');
-        $scope.customerDeleteListener('cuswebsite','cuswebsiteimg');
-
-        $scope.customerDeleteListener('cuspostall','cuspostallimg');
+        $scope.customerDeleteListener('cusfaxext','cusfaxextimg');
+        $scope.customerDeleteListener('cusstreetedit','cusstreeteditimg');
         $scope.customerDeleteListener('cusboraod','cusboraodimg');
+        $scope.customerDeleteListener('cuspostall','cuspostallimg');
         $scope.customerDeleteListener('cuszhishiv','cuszhishivimg');
 
 
         //delete
         $scope.customerDeletevalue = function(type){
             switch (type) {
-                case 'customerposition':
-                    $scope.customeredit.customerposition = '';
+                case 'NAME_ORG1':
+                    $scope.customeredit.NAME_ORG1 = '';
                     document.getElementById('comroleimg').style.display = "none";
                     break;
-                case 'customerpayway':
-                    $scope.customeredit.customerpayway = '';
+                case 'TEL_NUMBER':
+                    $scope.customeredit.TEL_NUMBER = '';
                     document.getElementById('compaywayimg').style.display = "none";
                     break;
-                case 'customerpaydate':
-                    $scope.customeredit.customerpaydate = '';
+                case 'TEL_EXTENS':
+                    $scope.customeredit.TEL_EXTENS = '';
                     document.getElementById('cuspaydateimg').style.display = "none";
                     break;
-                case 'customercheckperiod':
-                    $scope.customeredit.customercheckperiod = '';
+                case 'MOB_NUMBER':
+                    $scope.customeredit.MOB_NUMBER = '';
                     document.getElementById('cuscheckpreidimg').style.display = "none";
                     break;
-                case 'customerwillcheckperiod':
-                    $scope.customeredit.customerwillcheckperiod = '';
-                    document.getElementById('cuswillcheckpreidimg').style.display = "none";
-                    break;
-                case 'customerfax':
-                    $scope.customeredit.customerfax = '';
+                case 'FAX_NUMBER':
+                    $scope.customeredit.FAX_NUMBER = '';
                     document.getElementById('cusfaximg').style.display = "none";
                     break;
-                case 'customermail':
-                    $scope.customeredit.customermail = '';
+                case 'FAX_EXTENS':
+                    $scope.customeredit.FAX_EXTENS = '';
+                    document.getElementById('cusfaxextimg').style.display = "none";
+                    break;
+                case 'SMTP_ADDR':
+                    $scope.customeredit.SMTP_ADDR = '';
                     document.getElementById('cusmailvalimg').style.display = "none";
                     break;
-                case 'customerwebsite':
-                    $scope.customeredit.customerwebsite = '';
-                    document.getElementById('cuswebsiteimg').style.display = "none";
+                case 'STREET':
+                    $scope.customeredit.STREET = '';
+                    document.getElementById('cusstreeteditimg').style.display = "none";
                     break;
-                case 'customerborad':
-                    $scope.customeredit.customerborad = '';
+                case 'HOUSE_NUM1':
+                    $scope.customeredit.HOUSE_NUM1 = '';
                     document.getElementById('cusboraodimg').style.display = "none";
                     break;
-                case 'customerpostal':
-                    $scope.customeredit.customerpostal = '';
+                case 'POST_CODE1':
+                    $scope.customeredit.POST_CODE1 = '';
                     document.getElementById('cuspostallimg').style.display = "none";
                     break;
-                case 'customerzhushi':
-                    $scope.customeredit.customerzhushi = '';
+                case 'BEZEI':
+                    $scope.customeredit.BEZEI = '';
                     document.getElementById('cuszhishivimg').style.display = "none";
                     break;
             }
