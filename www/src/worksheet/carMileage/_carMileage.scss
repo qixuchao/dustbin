@@ -16,6 +16,16 @@
     position: relative;
     top: 4em;
   }
+  .itemContentT{
+    background-color: white;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding: 6px 10px 4px 10px;
+    height: 100px;
+    line-height: 30px;
+    font-size: 1.0rem;
+    border-bottom: 1px solid #D6D3CE;
+  }
   .itemContent{
     background-color: white;
     margin-top: 1px;
@@ -26,6 +36,11 @@
     line-height: 30px;
     font-size: 17px;
 
+  }
+
+  .textareaCss{
+    width: 100%;
+    height: 90px;
   }
   .labelInput{
     padding: 0 0 0 0;
