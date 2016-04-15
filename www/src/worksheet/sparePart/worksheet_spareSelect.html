@@ -13,7 +13,7 @@
             <div class="row row-center" style="width: 70%" ng-click="changeSearch()">
                 <i class="ion-ios-search"></i>请输入备件描述
             </div>
-            <div class="textInfo text-right row-center" style="width: 30%">传输至SAP</div>
+            <div class="textInfo text-right row-center" style="width: 30%" ng-click="goUpdateSAP()">传输至SAP</div>
         </div>
         <!--<div class="pub-subhead bar bar-subheader">-->
             <!--<div class="row row-center" style="width: 75%;border-radius: 6px;background-color: white;padding: 5px;" ng-click="changeSearch()">-->
@@ -52,7 +52,7 @@
                                         </p>
                                     </div>
                                     <div class="col-25 col-center">
-                                        <img ng-src="img/worksheet/transfer@3x.png" style="height: 50px;width: 50px;float :right;margin-right: 15px">
+                                        <img ng-src="img/worksheet/transfer@3x.png" style="height: 50px;width: 50px;float :right;margin-right: 15px" ng-show="item.showPic">
                                     </div>
                                 </div>
                                 <div class="row" style="padding: 0">

@@ -3,7 +3,7 @@
         <div class="saleList">
             <ion-header-bar align-title="center" class="head pub-head">
                 <div class="row row-center">
-                    <a class="col col-15 text-left goBack" ng-click="goUpdate()"><i class="ion-chevron-left"></i></a>
+                    <a class="col col-15 text-left goBack" ng-click="cancleInfos()"><i class="ion-chevron-left"></i></a>
                     <div class="col col-70 text-center">备件申请选择
                     </div>
                     <div class="col col-15 text-right" ng-click="goDetailList()">暂存</div>
@@ -13,7 +13,7 @@
                 <div class="row row-center" style="width: 70%" ng-click="changeSearch()">
                     <i class="ion-ios-search"></i>请输入备件描述
                 </div>
-                <div class="textInfo text-right row-center" style="width: 30%" ng-click="selectInfos()">传输至SAP</div>
+                <div class="textInfo text-right row-center" style="width: 30%" ng-click="">传输至SAP</div>
             </div>
         </div>
     </ion-header-bar>
@@ -22,8 +22,8 @@
             <div class="item" style="height: 65px">
                 <h2 style="color: #276DAC">请选择</h2>
                 <p>
-                    <select class="selectC" ng-click="selectDetail(info)" ng-model="selectWarehouse">
-                        <option selected value="" ng-repeat="wareHouseitem in wareHouse">{{wareHouseitem.ZZSTORAGE_DESC}}</option>
+                    <select class="selectC"  ng-model="config.warehouse" ng-options="impact as impact.ZZSTORAGE_DESC for impact in wareHouse" ng-blur="warehouseBlur()" ng-focus="warehouseFocus()" ng-change="change(config.warehouse)">
+                        <option selected value="">--仓库--</option>
                     </select>
                 </p>
             </div>
@@ -51,8 +51,8 @@
             <div class="row row-center" style="border-bottom: 1px solid #D6D3CE;margin: 0;padding:0" ng-repeat="i in infos">
                 <div class="col col-center col-75" style="padding:5px 0 5px 0">
                 <li class="item item-checkbox" style="padding:0px 0px 0px 43px;" >
-                    <label class="checkbox checkbox-diy" style="padding:7px 0 7px 0">
-                        <input type="checkbox" name="selectSparePart" value="{{i}}">
+                    <label class="checkbox checkbox-diy" style="padding:7px 0 7px 0" ng-click="goSelectWareHouse(i)">
+                        <input type="checkbox" name="selectSparePart" value="{{i.PRODUCT_ID}}">
                     </label>
 
                             <div class="list">
@@ -65,18 +65,18 @@
                 </li>
                 <div class="col-25 col-center" style="margin:auto;">
                     <i class="ion-ios-minus-outline iStyle" ng-click="reduce(i)"></i>
-                    <input type="text" class="inputSmall"  ng-model="i.APPLY_NUM" ng-blur="ngBlur()">
+                    <input type="text" class="inputSmall"  ng-model="i.APPLY_NUM" ng-blur="ngBlur(i)">
                     <i class="ion-ios-plus-outline iStyle" ng-click="add(i)"></i>
                 </div>
             </div>
             <div class="row row-center" style="height: 48px;font-size: 16px;text-align: center;" ng-if="goMore" ng-click="goLoadMore()">
                 <div class="col col-center">点击加载更多...</div>
             </div>
-            <div class="is-loading"  style="text-align:center;margin-top:1rem;" ng-if="goLoad">
+            <div class="is-loading"  style="text-align:center;margin-top:0;" ng-if="goLoad">
                 <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
             </div>
             <div class="row row-center" style="height: 48px;font-size: 16px;text-align: center;" ng-if="goNo">
-                <div class="col col-center">没有更多内容...</div>
+                <div class="col col-center">没有更多内容</div>
             </div>
         </ul>
     </ion-content>
