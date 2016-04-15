@@ -476,19 +476,19 @@ customerModule
         $scope.gocustomerLists = function(cusvalue){
             if(cusvalue.url){
 
-                //从客户详情-工单进入服务工单界面
-                if(cusvalue.url == 'worksheetList'){
-                    var customerWorkorderdata = {
-                        "PARTNER": "0000101186",
-                        "STATE":'customerDetail'
-                    };
-                    customeService.set_customerWorkordervalue(customerWorkorderdata);
-                }
-                /*//从客户详情-进入各个详情界面
+                ////从客户详情-工单进入服务工单界面
+                //if(cusvalue.url == 'worksheetList'){
+                //    var customerWorkorderdata = {
+                //        "PARTNER": "0000101186",
+                //        "STATE":'customerDetail'
+                //    };
+                //    customeService.set_customerWorkordervalue(customerWorkorderdata);
+                //}
+                //从客户详情-进入各个详情界面
                 var customerWorkorderdata = {
                     "PARTNER": $scope.customerdetails.PARTNER,
                 };
-                customeService.set_customerWorkordervalue(customerWorkorderdata);*/
+                customeService.set_customerWorkordervalue(customerWorkorderdata);
                 $state.go(cusvalue.url);
             };
         };
