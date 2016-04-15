@@ -3,7 +3,6 @@
  */
 carModule.factory('CarService',function(){
    var data;
-   var num;
    var car=[{
            describe:'贵GU1230*15H647-0002*112016013002',
            carNumber:'1234',
@@ -134,12 +133,14 @@ carModule.factory('CarService',function(){
         },
         setData:function(data1){
             data=data1;
+            return data;
         },
         getData:function(){
             return data;
         },
         setSpare:function(data1){
-            name=data1;
+            data=data1;
+            return data;
         },
         getSpare:function(){
             return data;
