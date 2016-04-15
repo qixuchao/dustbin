@@ -3,7 +3,7 @@
  */
 'use strict';
 salesModule
-    .controller('saleActListCtrl', ['$scope','$rootScope',
+    .controller('saleActListCtrl', ['$scope', '$rootScope',
         '$state',
         '$timeout',
         '$ionicLoading',
@@ -16,7 +16,7 @@ salesModule
         'saleActService',
         'Prompter',
         'HttpAppService',
-        function ($scope,$rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
+        function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService) {
             console.log('销售活动列表');
             $scope.saleTitleText = '销售活动';
@@ -32,7 +32,7 @@ salesModule
             $scope.loadMoreFlag = true;
             $scope.saleListArr = saleActService.saleListArr;
             $scope.getList = function (type) {
-                if(!$scope.saleListArr.length){
+                if (!$scope.saleListArr.length) {
                     $scope.isloading = false;
                 }
                 if (type === 'refresh') {
@@ -199,14 +199,14 @@ salesModule
                 isNoContacts = false;
                 $scope.contactsLoadMoreFlag = false;
                 var data = {
-                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                    "IS_AUTHORITY": { "BNAME": "HANDLCX02" },
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_AUTHORITY": {"BNAME": "HANDLCX02"},
                     "IS_PAGE": {
-                    "CURRPAGE": contactPage++,
+                        "CURRPAGE": contactPage++,
                         "ITEMS": "10"
-                },
-                    "IS_PARTNER": { "PARTNER": $scope.create.customer.PARTNER },
-                    "IS_SEARCH": { "SEARCH": "" }
+                    },
+                    "IS_PARTNER": {"PARTNER": $scope.create.customer.PARTNER},
+                    "IS_SEARCH": {"SEARCH": ""}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
                     .success(function (response) {
@@ -216,12 +216,12 @@ salesModule
                                 $scope.contactsLoadMoreFlag = false;
                             }
                             $scope.contacts = $scope.contacts.concat(response.ET_OUT_LIST.item);
-                            if($scope.contacts.length==0){
+                            if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                        }else{
-                            if($scope.contacts.length==0){
+                        } else {
+                            if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
                             $scope.contactsLoadMoreFlag = false;
@@ -254,12 +254,12 @@ salesModule
             $scope.saveCreateModal = function () {
                 Prompter.showLoading('正在保存');
                 var data = {
-                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_DATE": {
                         "DATE_FROM": $scope.create.de_startTime.split(' ')[0],
-                        "TIME_FROM": $scope.create.de_startTime.split(' ')[1]+':00',
+                        "TIME_FROM": $scope.create.de_startTime.split(' ')[1] + ':00',
                         "DATE_TO": $scope.create.de_endTime.split(' ')[0],
-                        "TIME_TO": $scope.create.de_endTime.split(' ')[1]+':00'
+                        "TIME_TO": $scope.create.de_endTime.split(' ')[1] + ':00'
                     },
                     "IS_HEAD": {
                         "PROCESS_TYPE": $scope.pop.type.value,
@@ -278,7 +278,7 @@ salesModule
                         "SALES_GROUP": "",
                         "SALES_ORG_RESP": ""
                     },
-                    "IS_USER": { "BNAME": "HANDBLH" },
+                    "IS_USER": {"BNAME": "HANDBLH"},
                     "IT_LINES": {
                         "item": {
                             "TDFORMAT": "*",
@@ -289,7 +289,7 @@ salesModule
                         "item": [{
                             "PARTNER_FCT": "00000009",//客户
                             "PARTNER": $scope.create.customer.PARTNER
-                        },{
+                        }, {
                             "PARTNER_FCT": "00000015",//联系人
                             "PARTNER": $scope.create.contact.PARTNER
                         }]
@@ -301,12 +301,12 @@ salesModule
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             $scope.createModal.hide();
                             //Prompter.showShortToastBotton('创建成功');
-                            saleActService.actDetail={
-                                OBJECT_ID:response.EV_OBJECT_ID
+                            saleActService.actDetail = {
+                                OBJECT_ID: response.EV_OBJECT_ID
                             };
                             $state.go('saleActDetail');
                             Prompter.hideLoading();
-                        }else{
+                        } else {
                             //Prompter.showShortToastBotton('创建失败');
                             Prompter.hideLoading();
                             $scope.createModal.hide();
@@ -333,7 +333,7 @@ salesModule
             addContactsModal();
             //$scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
-                if(isNoContacts){
+                if (isNoContacts) {
                     Prompter.alert('当前客户无联系人');
                     return
                 }
@@ -386,7 +386,7 @@ salesModule
             };
             $scope.selectCustomer = function (x) {
                 $scope.create.customer = x;
-                $scope.create.contact='';
+                $scope.create.contact = '';
                 contactPage = 1;
                 $scope.contacts = [];
                 $scope.contactsLoadMoreFlag = true;
@@ -435,6 +435,15 @@ salesModule
                 }
                 return 0;
             };
+            var actTypes = saleActService.createPopTypes;
+            var getActType = function (typeCode) {
+                for (var i = 0; i < actTypes.length; i++) {
+                    if(actTypes[i].value==typeCode){
+                        return actTypes[i].text;
+                    }
+                }
+                return '';
+            };
             $scope.listInfo = saleActService.actDetail;
             var getDetails = function () {
                 Prompter.showLoading('正在查询');
@@ -454,6 +463,7 @@ salesModule
                             $scope.mySelect = {
                                 status: $scope.statusArr[getStatusIndex($scope.details.STATUS_TXT)]
                             };
+                            $scope.details.actType = getActType($scope.details.PROCESS_TYPE);
                             $scope.details.relations = response.ET_PARTNERS.item;
                             Prompter.hideLoading();
                         }
@@ -794,18 +804,18 @@ salesModule
         return fn;
     })
     .directive('focusMe', function ($timeout) {
-    return {
-        link: function (scope, element, attrs) {
-            if (attrs.focusMeDisable === "true") {
-                return;
-            }
-            $timeout(function () {
-                element[0].focus();
-                if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-                    cordova.plugins.Keyboard.show(); //open keyboard manually
+        return {
+            link: function (scope, element, attrs) {
+                if (attrs.focusMeDisable === "true") {
+                    return;
                 }
-            }, 350);
-        }
-    };
-});
+                $timeout(function () {
+                    element[0].focus();
+                    if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+                        cordova.plugins.Keyboard.show(); //open keyboard manually
+                    }
+                }, 350);
+            }
+        };
+    });
 ;

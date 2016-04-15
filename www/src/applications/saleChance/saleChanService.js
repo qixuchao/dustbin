@@ -67,6 +67,27 @@ salesModule.factory('saleChanService', function () {
         value: '合同签订',
         code: ''
     }];
+    var listStatusArr = [{
+        text:'赢得',
+        value:'E0002',
+        color:'#FF8C2D'
+    },{
+        text:'失去',
+        value:'E0003',
+        color:'#e24976'
+    },{
+        text:'处理中',
+        value:'E0001',
+        color:'#9ec92a'
+    },{
+        text:'被客户终止',
+        value:'E0004',
+        color:'#e24976'
+    },{
+        text:'被我们终止',
+        value:'E0005',
+        color:'#e24976'
+    }];
     var filters = {
         types:[{
             text:'EBUS销售机会',
@@ -87,20 +108,25 @@ salesModule.factory('saleChanService', function () {
         }],
         statusFirst:[{
             text:'赢得',
-            value:'E0002'
+            value:'E0002',
+            color:'#FF8C2D'
         },{
             text:'失去',
-            value:'E0003'
+            value:'E0003',
+            color:'#e24976'
         },{
             text:'处理中',
-            value:'E0001'
+            value:'E0001',
+            color:'#9ec92a'
         }],
         statusSecond:[{
             text:'被客户终止',
-            value:'E0004'
+            value:'E0004',
+            color:'#e24976'
         },{
             text:'被我们终止',
-            value:'E0005'
+            value:'E0005',
+            color:'#e24976'
         }]
     };
     var createPop = {
@@ -163,6 +189,22 @@ salesModule.factory('saleChanService', function () {
         value:'SET',
         text:'套、台'
     }];
+    var relationsTypes = [{
+        text:'竞争对手',
+        code:'00000023'
+    },{
+        text:'客户',
+        code:'00000021'
+    },{
+        text:'联系人',
+        code:'00000015'
+    },{
+        text:'CATL销售',
+        code:'Z0000003'
+    },{
+        text:'CATL销售2',
+        code:'Z0000004'
+    }];
     var chanListArr=[],listPage=1,obj_id;
     return{
         getStatusArr: function () {
@@ -174,6 +216,14 @@ salesModule.factory('saleChanService', function () {
         getMoneyTypesArr: function () {
             return moneyTypes;
         },
-        chanListArr,listPage,obj_id,filters,createPop,saleStages,saleUnits
+        chanListArr,
+        listPage,
+        obj_id,
+        filters,
+        createPop,
+        saleStages,
+        saleUnits,
+        listStatusArr,
+        relationsTypes
     };
 });

@@ -25,8 +25,6 @@ ContactsModule
             };
         };
         $scope.ContactListHistoryval();
-
-
         //广播修改界面显示flag
         $rootScope.$on('contactdeatillist', function(event, data) {
             //数据初始化

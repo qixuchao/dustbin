@@ -45,7 +45,8 @@
                 </div>
                 <div class="row row-center sub-title" style="padding-top: 2px">
                     <div class="col col-50 no-padding">销售阶段:&nbsp;&nbsp;{{x.PHASE}}</div>
-                    <div class="col col-50 chanStatus">状态:&nbsp;&nbsp;{{x.STATUS}}</div>
+                    <div class="col col-50 chanStatus">状态:&nbsp;&nbsp;
+                        <span style="color:{{x.status.color}}">{{x.status.text}}</span></div>
                 </div>
             </a>
         </div>
@@ -102,7 +103,7 @@
                     </div>
                     <div class="row row-center sub-title" style="padding-top: 2px">
                         <div class="col col-50 no-padding">销售阶段:&nbsp;&nbsp;{{x.PHASE}}</div>
-                        <div class="col col-50 chanStatus">状态:&nbsp;&nbsp;{{x.STATUS}}</div>
+                        <div class="col col-50 chanStatus">状态:&nbsp;&nbsp;<span style="color:{{x.status.color}}">{{x.status.text}}</div>
                     </div>
                 </a>
             </div>

@@ -3,8 +3,8 @@
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">工单详细信息</div>
-                <div class="col-15 show-more-modal-content-source3" ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
-                    <span><i class="ion-ios-more"></i></span>
+                <div class="col-15 show-more-modal-content-source3 "  ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
+                    <span class="detail-all-more-button {{config.statusStr}} {{config.typeStr}}"><i class="ion-ios-more"></i></span>
                 </div>
             </div>
             <div class="mainInfo">
@@ -39,31 +39,33 @@
                 </div>
             </div>
     </div>
+
+    <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false" style="height: 55px;padding-top: .1rem;height: 40px;background: white;z-index: 1;">
+        <div class="fill-height line-inner">
+            <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
+                <i class="ion-ios-more"></i>                             
+                <span>相关方</span>
+            </div>
+            <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
+                <i class="ion-ios-more"></i>                               
+                <span>交易历史</span>
+            </div>
+            <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
+                <i class="ion-ios-more"></i>
+                <span>费用结算</span>
+            </div>
+        </div>
+    </ion-scroll>
     
-    <div class="fixed-buttons buttons" ng-if="canShowEditBtn();">
-        <div class="button button-crm-edit button-crm-edit-public">
+    <div class="fixed-buttons buttons" ng-if="canShowEditBtn();" style="z-index:1;">
+        <div class="button button-crm-edit button-crm-edit-public" ng-click="editDetail();">
             编辑
         </div>
     </div>
     
-    <ion-content class="has-header" style="top:170px;" has-bouncing="false" delegate-handle="xbrDelegateContent"  scrollbar-y="false" ng-class="{'can-not-editor-detail':!canShowEditBtn()}">
+    <ion-content class="has-header {{config.typeStr}}" style="top: 210px;" has-bouncing="false" delegate-handle="xbrDelegateContent"  scrollbar-y="false" ng-class="{'can-not-editor-detail':!canShowEditBtn()}">
         
-        <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
-            <div class="fill-height line-inner">
-                <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
-                    <i class="ion-ios-more"></i>                             
-                    <span>相关方</span>
-                </div>
-                <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
-                    <i class="ion-ios-more"></i>                               
-                    <span>交易历史</span>
-                </div>
-                <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
-                    <i class="ion-ios-more"></i>
-                    <span>费用结算</span>
-                </div>
-            </div>
-        </ion-scroll>
+        
         
         <div ng-if="config.detailTypeNewCar">
             <div class="basic-info first-line commment-info-lines">
@@ -116,11 +118,23 @@
                     <div class="col-40">货币&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.CURRENCY"></div>
                 </div>
-                <div class="row">
-                    <div class="col-40">需要回访:</div>
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
+                <div class="row has-toggle ZPLO-hide ZPRV-hide ZPLV-hide ZNCV-hide">
+                    <div class="col-40">
+                        <input type="checkbox" disabled ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" ng-true-value="'X'" ng-false-value="''">
+                    </div>
+                    <div class="col-60">
+                        需要回访
+                        <!--ion-toggle ng-true-value="'X'" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm"></ion-toggle-->
+                    </div>
                 </div>
-                
+                <div class="row" ng-if="config.detailTypeSiteRepair">
+                    <div class="col-40">报修人&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZBXR"></div>
+                </div>
+                <div class="row" ng-if="config.detailTypeSiteRepair">
+                    <div class="col-40">报修电话&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZBXDH"></div>
+                </div>
             </div>
             <div class="time-info commment-info-lines">
                 <div class="crm-line-title word-2">
@@ -196,9 +210,22 @@
                     <div class="col-40">货币&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.CURRENCY"></div>
                 </div>
-                <div class="row">
-                    <div class="col-40">需要回访:</div>
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
+                <div class="row has-toggle ZPLO-hide ZPRV-hide ZPLV-hide ZNCV-hide">
+                    <div class="col-40">
+                        <input type="checkbox" disabled ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" ng-true-value="'X'" ng-false-value="''">
+                    </div>
+                    <div class="col-60">
+                        需要回访
+                        <!--ion-toggle ng-true-value="'X'" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm"></ion-toggle-->
+                    </div>
+                </div>
+                <div class="row" ng-if="config.detailTypeSiteRepair">
+                    <div class="col-40">报修人&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZBXR"></div>
+                </div>
+                <div class="row" ng-if="config.detailTypeSiteRepair">
+                    <div class="col-40">报修电话&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZBXDH"></div>
                 </div>
                 <!--div class="row">
                     <div class="col-40">外服人员&nbsp;:</div>
@@ -228,13 +255,13 @@
                     <div class="col-40">车辆编号&nbsp;:</div>
                     <!--div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO"></div-->
                     <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
-                        <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO"></div>
+                        <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO | xbrParseInt"></div>
                     </ion-scroll>
                 </div>
-                <div class="row">
+                <div class="row cheliang-desc">
                     <div class="col-40">车辆描述&nbsp;:</div>
                     <!--div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div-->
-                    <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                    <ion-scroll class="col-55 xbr-scroll-x" direction="y" scrollbar-y="false" has-bouncing="false">
                         <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
                     </ion-scroll>
                 </div>
@@ -308,13 +335,28 @@
                     <div class="col-40">故障名称&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.REASON"></div>
                 </div>
-                <div class="text-row">
-                    <div class="">注释&nbsp;:</div>
-                    <div class="" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
+                <div class="row text-row" style="height:5rem;margin-right:0px;margin-top:.2rem;">
+                    <div class="col-40" style="margin-right:0px;">注释&nbsp;:</div>
+                    <ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
+                            <span ng-bind="item.finalStr"></span>
+                        </div>
+                    </ion-scroll>
                 </div>
-                <div class="text-row">
-                    <div class="">处理结果&nbsp;:</div>
-                    <div class="" ng-bind="datas.detail.ES_OUT_LIST.TODO"></div>
+                <style>
+                    .text-row-ion-scroll .scroll{
+                        padding-left: 0px;
+                        width: 100%;
+                        font-size: .8rem;
+                    }
+                </style>
+                <div class="row text-row" style="height:5rem;margin-right:0px;margin-top:.2rem;">
+                    <div class="col-40" style="margin-right:0px;">处理结果&nbsp;:</div>
+                    <ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div ng-repeat="item in datas.detail.XBRCHULIJIEGUOS">
+                            <span ng-bind="item.finalStr"></span>
+                        </div>
+                    </ion-scroll>
                 </div>
             </div>
         </div>

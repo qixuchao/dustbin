@@ -1,0 +1,271 @@
+<ion-view class="saleActDetail worksheet-detail-view-public">
+    
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <span class="col col-20 text-left goBack" ng-click="goBack()">取消</span>
+                <div class="col col-60 text-center">编辑工单</div>
+                <div class="col col-20 add" ng-click="saveEdited();">保存</div>
+            </div>
+        </ion-header-bar>
+    </div>    
+    
+    <ion-content id="worksheet-detail-edit-content" has-bouncing="false" scrollbar-y="false">
+
+        <div ng-if="config.detailTypeNewCar">
+            <div class="basic-info first-line commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.DESCRIPTION">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">上线项目&nbsp;:</div>                    
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.SHORT_TEXT">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">报修人&nbsp;:</div>                    
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.ZZBXR">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">报修电话&nbsp;:</div>                    
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.ZZBXDH">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">需要回访:</div>
+                    <div class="col-60">
+                        <ion-toggle ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm"></ion-toggle>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">注释:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">处理结果:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO">
+                    </div>
+                </div>
+            </div>
+            <div class="time-info commment-info-lines">
+                <div class="crm-line-title word-2">
+                    <div class="title-top">
+                        <span >日期</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">上线开始时间:</div>
+                    <div class="col-50" ng-click="selectCreateTime('start', '上线开始时间');">
+                        <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
+                        <span ng-bind="datas.detail.ES_OUT_LIST.START_TIME_STR"></span>
+                        <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.START_TIME_STR333"-->
+                    </div>
+                    <div class="col-10" ng-click="selectCreateTime('start', '上线开始时间');">
+                        <i class="ion-clock" style="font-size: 1.2rem;"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">上线结束时间:</div>
+                    <div class="col-50" ng-click="selectCreateTime('end', '上线结束时间');">
+                        <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
+                        <span ng-bind="datas.detail.ES_OUT_LIST.END_TIME_STR"></span>
+                        <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.END_TIME_STR333"-->
+                    </div>
+                    <div class="col-10" ng-click="selectCreateTime('end', '上线结束时间');">
+                        <i class="ion-clock" style="font-size: 1.2rem;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div ng-if="config.detailTypeSiteRepair || config.detailTypeBatchUpdate">
+            <div class="basic-info first-line commment-info-lines" ng-if="config.detailTypeSiteRepair">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.DESCRIPTION">
+                    </div>               
+                </div>
+                <div class="row">
+                    <div class="col-40">报修人&nbsp;:</div>                    
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.ZZBXR">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">报修电话&nbsp;:</div>             
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.ZZBXDH">
+                    </div>
+                </div>
+                <div class="row" ng-if="config.detailTypeSiteRepair">
+                    <div class="col-40">影响&nbsp;:</div>
+                    <div class="col-60">
+                         <select ng-model="config.currentImpact" ng-options="impact as impact.IMPACT_DESC for impact in datas.impactS">
+                         </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">需要回访:</div>
+                    <div class="col-60">
+                        <ion-toggle ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm"></ion-toggle>
+                    </div>
+                </div>
+            </div>
+
+            <div class="basic-info first-line commment-info-lines" ng-if="config.detailTypeBatchUpdate">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.DESCRIPTION">
+                    </div>                
+                </div>
+            </div>
+            
+            <div class="fuwuduixiang-info commment-info-lines"> 
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >服务对象</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">车辆&nbsp;:</div>
+                    <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
+                </div>
+            </div>
+            
+            <div class="time-info commment-info-lines" ng-if="config.detailTypeSiteRepair">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >日期</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40" ng-if="config.detailTypeSiteRepair">维修开始时间&nbsp;:</div>
+                    <div class="col-40" ng-if="config.detailTypeBatchUpdate">改进开始时间&nbsp;:</div>
+                    <div class="col-50" ng-click="selectCreateTime('start', '上线开始时间');">
+                        <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
+                        <span ng-bind="datas.detail.ES_OUT_LIST.START_TIME_STR"></span>
+                        <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.START_TIME_STR333"-->
+                    </div>
+                    <div class="col-10" ng-click="selectCreateTime('start', '上线开始时间');">
+                        <i class="ion-clock" style="font-size: 1.2rem;"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40" ng-if="config.detailTypeSiteRepair">维修结束时间&nbsp;:</div>
+                    <div class="col-40" ng-if="config.detailTypeBatchUpdate">改进结束时间&nbsp;:</div>
+                    <div class="col-50" ng-click="selectCreateTime('end', '上线结束时间');">
+                        <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
+                        <span ng-bind="datas.detail.ES_OUT_LIST.END_TIME_STR"></span>
+                        <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.END_TIME_STR333"-->
+                    </div>
+                    <div class="col-10" ng-click="selectCreateTime('end', '上线结束时间');">
+                        <i class="ion-clock" style="font-size: 1.2rem;"></i>
+                    </div>
+                </div>
+            </div>
+
+                
+            <div class="guzhang-info commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >故障信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障发生场景&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentGuZhangChangJing" ng-options="gzch as gzch.SCENARIO_DESC for gzch in datas.guZhangChangJingS">
+                         </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">责任方&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentZeRenFang" ng-options="zrf as zrf.RESPONSE_DESC for zrf in datas.zeRengFangS">
+                         </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障分类&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentGuZhangFeiLen" ng-options="gzfl as gzfl.DEFECT_DESC for gzfl in datas.guZhangFeiLenS">
+                         </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">部件分类&nbsp;:</div> <!-- 部件分类 -->
+                    <div class="col-60">
+                        <select ng-change="buJianFeiLenChanged();" ng-model="config.currentChanPinLeiXing" ng-options="cplx as cplx.COMP_TYPE for cplx in datas.chanPinLeiXingS">
+                         </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障部件&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-change="buJianChanged();" ng-model="config.currentGuZhangBuJian" ng-options="gzbj as gzbj.COMPONENT for gzbj in datas.guZhangBuJianS">
+                         </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障名称&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentGuZhangMingCheng" ng-options="gzmc as gzmc.REASON for gzmc in datas.guZhangMingChengS">
+                         </select>
+                    </div>
+                </div>
+                <div class="text-row">
+                    <div class="">注释&nbsp;:</div>
+                    <div class="" ng-bind="datas.detail.ES_OUT_LIST.TODO">
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="text-row">
+                    <div class="">处理结果&nbsp;:</div>
+                    <div class="" ng-bind="datas.detail.ES_OUT_LIST.TODO">
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </ion-content>
+</ion-view>

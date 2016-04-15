@@ -21,6 +21,14 @@ worksheetModule.directive('crmToast', function() {
     };
 });
 
+worksheetModule.filter('xbrParseInt', function($sce){
+  var fn = function (str) {
+      return window.parseInt(str);
+  };
+  return fn;
+});
+
+
 worksheetModule.service('worksheetDataService', [function(){
   return {
     worksheetList:{
@@ -147,6 +155,36 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
                   }
                 }*/
             }
+        },
+        xialazhi: {
+          service_order_reason:{
+            url: ROOTCONFIG.hempConfig.basePath + "SERVICE_ORDER_REASON",
+            defaults: {
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "HANDLCX02" }
+            }
+          },
+          list_scenario:{
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_SCENARIO",
+            defaults: {
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "HANDLCX02" }
+            }
+          },
+          list_response: {
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_RESPONSE",
+            defaults: {
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "HANDLCX02" }
+            }
+          },
+          list_defect:{
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_DEFECT",
+            defaults: {
+              "I_SYSTEM": { "SysName": "CATL" },
+              "IS_USER": { "BNAME": "HANDLCX02" }
+            }
+          }
         }
     };
 }]);
