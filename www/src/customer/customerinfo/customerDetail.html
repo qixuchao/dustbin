@@ -35,13 +35,13 @@
                     <span class="customerdeatil_headtitlespan">客户详细信息</span>
                 </div>
                 <div class="customer_detailcontent">
-                    <div class="customer_detailcontentname" style="top:0">
+                    <div class="customer_detailcontentname">
                         名称2:<span ng-bind="customerdetails.NAME_ORG2"></span>
                     </div>
-                    <div class="customer_detailcontentaddress" style="top:18px">
+                    <div class="customer_detailcontentaddress">
                         名称3:<span ng-bind="customerdetails.NAME_ORG3"></span>
                     </div>
-                    <div class="customer_detailcontentphone" style="top:36px">
+                    <div class="customer_detailcontentphone">
                         名称4:<span ng-bind="customerdetails.NAME_ORG4"></span>
                     </div>
                     <!--<div class="customer_detailcontentphone" style="top:54px" ng-if="customerDetailsearcho">-->
@@ -111,6 +111,69 @@
             </div>
             <div class="employee_query_listline" ng-if="customerDetailwillcheckdate">
             </div>
+
+            <div class="row" style="padding:5px 5px" ng-if="customerDetailZzlyone">
+                <div class="col col-40" style="margin-left: 7px;">
+                    领域
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    <span ng-bind="customerdetails.ZZLY"></span>
+                </div>
+            </div>
+            <div class="employee_query_listline" ng-if="customerDetailZzlyone">
+            </div>
+            <div class="row" style="padding:5px 5px" ng-if="customerDetailContains">
+                <div class="col col-40" style="margin-left: 7px;">
+                    份额
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    <span ng-bind="customerdetails.ZZKHMXFE"></span>
+                </div>
+            </div>
+            <div class="employee_query_listline" ng-if="customerDetailContains">
+            </div>
+            <div class="row" style="padding:5px 5px" ng-if="customerDetailPrice">
+                <div class="col col-40" style="margin-left: 7px;">
+                    价格
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    <span ng-bind="customerdetails.ZZKHMXJG"></span>
+                </div>
+            </div>
+            <div class="employee_query_listline" ng-if="customerDetailPrice">
+            </div>
+
+            <div class="row" style="padding:5px 5px" ng-if="customerDetailZzlytwo">
+                <div class="col col-40" style="margin-left: 7px;">
+                    领域
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    <span ng-bind="customerdetails.ZZLY02"></span>
+                </div>
+            </div>
+            <div class="employee_query_listline" ng-if="customerDetailZzlytwo">
+            </div>
+            <div class="row" style="padding:5px 5px" ng-if="customerDetailAdvatage">
+                <div class="col col-40" style="margin-left: 7px;">
+                    长项
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    <span ng-bind="customerdetails.ZZKHMXCX"></span>
+                </div>
+            </div>
+            <div class="employee_query_listline" ng-if="customerDetailAdvatage">
+            </div>
+            <div class="row" style="padding:5px 5px" ng-if="customerDetailEvent">
+                <div class="col col-40" style="margin-left: 7px;">
+                    项目
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    <span ng-bind="customerdetails.ZZKHMXXM"></span>
+                </div>
+            </div>
+            <div class="employee_query_listline" ng-if="customerDetailEvent">
+            </div>
+
             <div class="row" style="padding:5px 5px" ng-click="customerdeatil_querynumber(customerdetails)">
                 <div class="col col-40">
                     <img src="img/employee/ephone@2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
@@ -143,7 +206,7 @@
             </div>
             <div class="employee_query_listline">
             </div>
-            <div class="row" style="padding:5px 5px" ng-click="customermailcopyvalue(userdetailval.email)">
+            <div class="row" style="padding:5px 5px" ng-click="customermailcopyvalue(customerdetails.SMTP_ADDR)">
                 <div class="col col-40">
                     <img src="img/customer/mailimg@2x.png" class="customer_detail_countentlistimg"/>
                     电子邮件
@@ -154,7 +217,7 @@
             </div>
             <div class="employee_query_listline">
             </div>
-            <div class="row" style="padding:5px 5px" ng-click="customeropenbrser(userdetailval.email)">
+            <div class="row" style="padding:5px 5px" ng-click="customeropenbrser(customerdetails.URI_SRCH)">
                 <div class="col col-40">
                     <img src="img/customer/customerwangz@2x.png" class="customer_detail_countentlistimg"/>
                     网站
@@ -208,7 +271,7 @@
             </div>
             <div class="row" style="padding:5px 5px">
                 <div class="col col-40" style="margin-left: 7px;">
-                    地区
+                    省份
                 </div>
                 <div class="col col-60" style="color:#AEA3A3">
                     <span ng-bind="customerdetails.REGION"></span>
@@ -221,7 +284,7 @@
                     城市
                 </div>
                 <div class="col col-60" style="color:#AEA3A3">
-                    <span ng-bind="customerdetails.BEZEI"></span>
+                    <span ng-bind="customerdetails.CITY1"></span>
                 </div>
             </div>
             <div class="employee_query_listline">
@@ -257,6 +320,7 @@
             </div>
             <div class="employee_query_listline">
             </div>
+
             <div class="row" style="padding:5px 5px">
                 <div class="col col-40" style="margin-left: 7px;">
                     语音

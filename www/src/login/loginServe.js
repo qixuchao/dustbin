@@ -3,6 +3,7 @@
  */
 loginModule.factory('LoginService',function(){
     var data;
+    var data3;
     var menuList=[];
     var author={};
     return{
@@ -15,12 +16,12 @@ loginModule.factory('LoginService',function(){
             return data;
         },
         setProfile:function(data1){
-            data=data1;
-            return data;
+            data3=data1;
+            //return data;
         },
         //½ÇÉ«
         getProfile:function(){
-            return data;
+            return data3;
         },
         setMenulist:function(data2){
             menuList=data2;

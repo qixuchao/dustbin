@@ -343,7 +343,7 @@ ContactsModule
         var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
         var data = {
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            "IS_AUTHORITY": { "BNAME": "handlcx02" },
+            "IS_AUTHORITY": { "BNAME": "60000051" },
             "IS_PARTNER": { "PARTNER": contactService.get_ContactsListvalue().PARTNER}
             //"IS_PARTNER": { "PARTNER":'6000000385'}
         };
@@ -841,8 +841,6 @@ ContactsModule
         };
         //国家的选择
 
-
-
         $scope.contactKeepEditvalue = function(){
             contactService.set_Contactsdetailvalue($scope.contactedit);
             //提交修改数据
@@ -904,7 +902,7 @@ ContactsModule
             data.IS_CUSTOMER.MODE = "U";
             //if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined || data.IS_CUSTOMER.PARTNER == ''|| data.IS_CUSTOMER.PARTNER == undefined){
             if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined
-                || data.IS_CUSTOMER.COUNTRY == ''|| data.IS_CUSTOMER.COUNTRY == ''){
+                || data.IS_CUSTOMER.COUNTRY == ''|| data.IS_CUSTOMER.COUNTRY == undefined){
                 $cordovaToast.showShortCenter('请输入客户姓名或国家');
                 //console.log("请输入客户姓名或标识");
                 Prompter.hideLoading();
