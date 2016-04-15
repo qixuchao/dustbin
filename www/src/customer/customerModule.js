@@ -4,6 +4,7 @@ customerModuleServive
         var customerContactsvalues;
         var customerWorkordervalue;
         var customerContactvalue;
+        var customerDetailEditvalue;
         return {
             //客户数据
             set_customerListvalue:function(cusvalue){
@@ -26,5 +27,13 @@ customerModuleServive
             get_customerWorkordervalue:function(){
                 return customerWorkordervalue;
             },
+            //存储从详情界面数据到修改界面
+            set_customerEditServevalue:function(value){
+                customerDetailEditvalue = value;
+            },
+            get_customerEditServevalue:function(){
+                return customerDetailEditvalue;
+            },
+
         }
     }])

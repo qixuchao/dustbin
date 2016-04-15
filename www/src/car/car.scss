@@ -82,7 +82,7 @@
         color: #aaa;
       }
       .button-clear {
-        position: relative;
+        position: fixed;
         left: 86%;
         font-size: 16px;
         top: -2px;
@@ -481,6 +481,10 @@
   $worksheetlist-selected-color: rgb(50, 89, 164); //#236CE6;
   .Maintenance {
     background-color: $crm-header-bar-bgcolor;
+    .row + .row {
+      margin-top: -5px;
+      /* padding-top: 0; */
+    }
 
     ion-header-bar {
       background-color: $crm-header-bar-bgcolor;
@@ -591,7 +595,7 @@
           color: #aaa;
           position: absolute;
           z-index: 2;
-          top: .8em;
+          top: .5em;
           left: 1em;
         }
         input {
@@ -613,10 +617,10 @@
           color: #aaa;
         }
         .button-clear {
-          position: relative;
+          position: fixed;
           left: 86%;
           font-size: 16px;
-          top: -2px;
+          top: 1px;
           min-height: 30px;
           max-height: 30px;
         }
@@ -635,6 +639,12 @@
         position: relative;
         padding-left: 0;
         left: 4%;
+        img{
+          position: absolute;
+          font-size: 25px;
+          top: 25px;
+          color: gray;
+        }
         .col {
           padding: 0;
         }
@@ -1266,15 +1276,15 @@
       box-shadow: none;
     }
     .bar-subheader {
-      height: 43px;
+      height: 40px;
       display: block;
-      padding: 8px;
+      padding: 4px 2% 8px 2%;
       .search1 {
         .placeholder-icon {
           color: #aaa;
           position: absolute;
           z-index: 2;
-          top: .8em;
+          top: .5em;
           left: 1em;
         }
         input {
@@ -1284,7 +1294,7 @@
           vertical-align: middle;
           font-size: 14px;
           height: 28px;
-          width: 95%;
+          width: 96%;
           position: fixed;
           border-radius: 5px;
         }
@@ -1294,7 +1304,7 @@
           color: #aaa;
           position: absolute;
           z-index: 2;
-          top: .8em;
+          top: .5em;
           left: 1em;
         }
         input {
@@ -1310,16 +1320,16 @@
         }
         .ion-ios-close {
           position: absolute;
-          top: 13px;
+          top: 8px;
           right: 5em;
           z-index: 2;
           color: #aaa;
         }
         .button-clear {
-          position: relative;
+          position: fixed;
           left: 86%;
           font-size: 16px;
-          top: -2px;
+          top: 1px;
           min-height: 30px;
           max-height: 30px;
         }

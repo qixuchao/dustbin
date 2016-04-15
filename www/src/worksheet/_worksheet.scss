@@ -1108,14 +1108,13 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		&.E0006, &.E0010, &.E0007, &.E0008{ //已完工  //回访  // 审核
 			display: none !important;
 		}
-	}
+	}	
 	&.ZPRV, &.ZPLV, &.ZNCV{
 		&.E0001, &.E0002, &.E0003, &.E0004, &.E0005, &.E0007, &.E0008, &.E0009, &.E0010{
 			display: none !important;
 		}
 	}
 }
-
 /*
 .paigong{
 	display: none;

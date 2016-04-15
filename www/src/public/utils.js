@@ -2,79 +2,81 @@
  * Created by Gusenlin on 2015/10/16.
  */
 'use strict';
-utilsModule.service('HttpAppService', ['$log','$http', '$rootScope', '$state', 'Prompter', '$ionicLoading','$timeout' ,'$cordovaToast',
-    function ($log, $http, $rootScope, $state, Prompter, $ionicLoading,$timeout,$cordovaToast) {
-    var debug = function (text) {
-        $log.debug(procedure + " success");
-    };
+utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 'Prompter', '$ionicLoading', '$timeout', '$cordovaToast',
+    function ($log, $http, $rootScope, $state, Prompter, $ionicLoading, $timeout, $cordovaToast) {
+        var debug = function (text) {
+            $log.debug(procedure + " success");
+        };
 
-    var request = {
-        isSuccessfull: function (status) {
-            if (status == "S" || status == "SW") {
-                return true;
-            }
-            else {
-                return false;
-            }
-        },
-        noAuthorPost: function (url, paramter) {
-            var noAuthorPost = $http.post(url, paramter).success(function (response) {
-            }).error(function (response, status) {
-            });
-            return noAuthorPost;
-        },
-        noAuthorGet: function (url) {
-            var get = $http.get(url).success(function (response) {
-            }).error(function (response, status) {
-            });
-            return get;
-        },
-        post: function (url, paramter) {
-            var flag = false;
-            $timeout(function () {
-                $ionicLoading.hide();
-            },30000);
-            var post = $http.post(url, paramter, {
-                headers: {
-                    'Content-Type': 'application/json;charset=UTF-8'
+        var request = {
+            isSuccessfull: function (status) {
+                if (status == "S" || status == "SW") {
+                    return true;
                 }
-            }).success(function (response) {
-                flag=true;
-                try {
-                    if (response.status === 'ETOKEN') {
-                        $ionicLoading.hide();
+                else {
+                    return false;
+                }
+            },
+            noAuthorPost: function (url, paramter) {
+                var noAuthorPost = $http.post(url, paramter).success(function (response) {
+                }).error(function (response, status) {
+                });
+                return noAuthorPost;
+            },
+            noAuthorGet: function (url) {
+                var get = $http.get(url).success(function (response) {
+                }).error(function (response, status) {
+                });
+                return get;
+            },
+            post: function (url, paramter) {
+                var flag = false;
+                $timeout(function () {
+                    $ionicLoading.hide();
+                }, 30000);
+                var post = $http.post(url, paramter, {
+                    headers: {
+                        'Content-Type': 'application/json;charset=UTF-8'
                     }
-                    if(response.ES_RESULT.ZFLAG==='E'){
-                        $ionicLoading.hide();
-                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                }).success(function (response) {
+                    flag = true;
+                    try {
+                        if (response.status === 'ETOKEN') {
+                            $ionicLoading.hide();
+                        }
+                        if (response.ES_RESULT.ZFLAG === 'E') {
+                            $ionicLoading.hide();
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                        }
+                    } catch (e) {
+
                     }
-                } catch (e) {
+                }).error(function (response, status) {
+                });
+                return post;
+            },
+            get: function (url) {
+                var get = $http.get(url, {
+                    headers: {
+                        'Authorization': basicAuthHeaderValue, 'login_name': basicLoginId,
+                        'timestamp': timestamp, 'token': hashLogin, 'Content-Type': 'application/json;charset=UTF-8'
+                    }
+                }).success(function (response) {
 
-                }
-            }).error(function (response, status) {
-            });
-            return post;
-        },
-        get: function (url) {
-            var get = $http.get(url, {
-                headers: {
-                    'Authorization': basicAuthHeaderValue, 'login_name': basicLoginId,
-                    'timestamp': timestamp, 'token': hashLogin, 'Content-Type': 'application/json;charset=UTF-8'
-                }
-            }).success(function (response) {
-
-            }).error(function (response, status) {
-            });
-            return get;
+                }).error(function (response, status) {
+                });
+                return get;
+            }
         }
+        return request;
     }
-    return request;
-}]);
+]);
 utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$cordovaDialogs',
     '$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker','$cordovaToast',
     '$timeout',
     function ($ionicLoading,$rootScope,$ionicPopup,$cordovaDialogs, $ionicActionSheet, $window,
               $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker,$cordovaToast, $timeout) {
+
         var getFormatTime = function (date) {
             var dateTemp, minutes, hour, time;
             dateTemp = date.format("yyyy-MM-dd");
@@ -83,7 +85,8 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
                 minutes = "0" + date.getMinutes();
             } else {
                 minutes = date.getMinutes();
-            };
+            }
+            ;
             //小时
             if (date.getHours().toString().length < 2) {
                 hour = "0" + date.getHours();
@@ -91,7 +94,8 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
             } else {
                 hour = date.getHours();
                 time = hour + ":" + minutes;
-            };
+            }
+            ;
             return dateTemp + " " + time;
         };
         var getOptions = function (date, mode, title) {
@@ -103,23 +107,34 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
                 cancelText: '取消',
                 doneButtonLabel: '确认',
                 cancelButtonLabel: '取消',
-                locale: 'zh_cn'
+                locale: 'zh_cn',
+                androidTheme: window.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT
             }
         };
         return {
             showShortToastBotton: function (text) {
-              $cordovaToast.showShortBottom(text);
+                if (ionic.Platform.isAndroid() || ionic.Platform.isIOS()) {
+                    $cordovaToast.showShortBottom(text);
+                }
             },
             alert: function (text) {
                 $cordovaDialogs.alert(text);
             },
             selectTime: function (scope, name, date, mode, title) {
+                if (isNaN(date)) {
+                    if (mode == 'date') {
+                        date = new Date().format('yyyy/MM/dd');
+                    } else if (mode == 'datetime') {
+                        date = new Date().format('yyyy/MM/dd hh:mm');
+                    }
+                }
+                alert(date);
                 var options = getOptions(date, mode, title);
                 document.addEventListener("deviceready", function () {
                     $cordovaDatePicker.show(options).then(function (returnDate) {
                         var time = getFormatTime(returnDate);
-                        if(mode=='date'){
-                            time=returnDate.format('yyyy-MM-dd');
+                        if (mode == 'date') {
+                            time = returnDate.format('yyyy-MM-dd');
                         }
                         switch (name) {
                             case 'actDetailStart':
@@ -269,7 +284,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
                     }
                 });
             },
-              //点击取消事件
+            //点击取消事件
 
             //客户和联系人创建和编辑界面点击取消公共函数
             ContactCreateCancelvalue: function () {
