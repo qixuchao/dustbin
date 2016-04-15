@@ -27,7 +27,7 @@ customerVehicleModule
             HttpAppService.post(url, data).success(function (response) {
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.customerVehicleisshow = false;
-                    $cordovaToast.showShortCenter('无符合条件数据');
+                    $cordovaToast.showShortCenter(response.ES_RESULT.ZRESULT);
                 } else {
                     if (response.ES_RESULT.ZFLAG == 'S') {
                         if(response.ET_VEHICL_OUTPUT != ''){

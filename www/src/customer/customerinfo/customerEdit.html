@@ -40,7 +40,7 @@
                 <img id="cusmailvalimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('SMTP_ADDR')"/>
             </span>
             <span class="item item-input">注释：
-                <input type="text" id="cuszhishiv" placeholder="请输入注释" class="contact_editinputsty" ng-model="customeredit.BEZEI" ng-click="setva_datetime()">
+                <input type="text" id="cuszhishiv" placeholder="请输入注释" class="contact_editinputsty" ng-model="customeredit.BEZEI">
                 <img id="cuszhishivimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('BEZEI')"/>
             </span>
             <div class="row">
@@ -58,10 +58,9 @@
             </div>
             <div class="row" style="border-bottom: 1px solid #ddd;">
                 <div class="col col-20">
-
                 </div>
                 <div class="col col-80">
-                    <select style="border: none;color:#9B9B9B;"  ng-model="customeredit.BEZEI" ng-options="a.name as a.name for a in customereditcontry" ng-change="">
+                    <select style="border: none;color:#9B9B9B;"  ng-model="customeredit.CITY1" ng-options="a.name as a.name for a in customereditcontry" ng-change="">
                         <option value="">城市</option>
                     </select>
                 </div>

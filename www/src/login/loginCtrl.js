@@ -5,14 +5,13 @@
 loginModule
     .controller('LoginCtrl',['LoginService','Prompter','$cordovaToast','HttpAppService','$scope','$state','ionicMaterialInk','$ionicLoading','$timeout',
         function(LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading, $timeout){
-        
         //$scope.goMain = function(){
         //    $state.go('main')
         //};
         ionicMaterialInk.displayEffect();
         $scope.loginData = {
-            username:'',
-            password:''
+            username:'60000051',
+            password:'123456'
         };
         $scope.loginradioimgflag = true;
         $scope.loginradioSele = function(){
@@ -72,7 +71,7 @@ loginModule
                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                    $scope.$broadcast('scroll.infiniteScrollComplete');
                } else if (response.ES_RESULT.ZFLAG == 'S') {
-                         LoginService.setProfile(response.PROFILE);
+                         LoginService.setProfile(response);
                          LoginService.setMenulist(response.MENULIST);
                          LoginService.setAuth(response.AUTH);
                          LoginService.setUserName(userName);

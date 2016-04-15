@@ -363,7 +363,7 @@ customerModule
             $scope.customerPopoverhide();
         };
     }])
-    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
+    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
 
         //根据角色检查字段初始化
         ////搜索项
@@ -402,29 +402,41 @@ customerModule
         $scope.customerDetailstrreth = true;
         //初始化角色判断
         var customerDroletypeold = customeService.get_customerListvalue().PARTNER_ROLE;
+
+        //唯一确定传入是否可以编辑的角色
+        var customerDroletypenewvalue = '';
+
         if(ROOTCONFIG.hempConfig.baseEnvironment == 'CATL'){
-            if(customerDroletypeold.includes("Z00001") || customerDroletypeold.includes("Z00004")){
+            if(customerDroletypeold.includes("Z00001")){
                 $scope.customerDroletype='潜在客户';
+                customerDroletypenewvalue = 'Z00001';
+            }else if(customerDroletypeold.includes("Z00004")){
+                $scope.customerDroletype='终端客户';
+                customerDroletypenewvalue = 'Z00004';
             }else if(customerDroletypeold.includes("CRM000")){
                 $scope.customerDroletype='正式客户';
-            }
-            else if(customerDroletypeold.includes("CRM000") && customerDroletypeold.includes("BBP000")){
-                $scope.customerDroletype='正式客户';
+                customerDroletypenewvalue = 'CRM000';
             }else if(customerDroletypeold.includes("Z00002")){
                 $scope.customerDroletype='竞争对手';
+                customerDroletypenewvalue = 'Z00002';
             }else if(customerDroletypeold.includes("Z00003")){
                 $scope.customerDroletype='助销伙伴';
+                customerDroletypenewvalue = 'Z00003';
             }else if(customerDroletypeold.includes("CRM000")== false && customerDroletypeold.includes("BBP000") == true){
                 $scope.customerDroletype='服务商';
+                customerDroletypenewvalue = 'BBP000';
             };
         }else{
-            if(customerDroletypeold.includes("ZATL") || customerDroletypeold.includes("CRM000")){
-                $scope.customerDroletype='潜在客户';
-            }else if(customerDroletypeold.includes("Z00002")){
-                $scope.customerDroletype='竞争对手';
-            }else if(customerDroletypeold.includes("Z00003")){
-                $scope.customerDroletype='助销伙伴';
-            }
+            //if(customerDroletypeold.includes("ZATL") || customerDroletypeold.includes("CRM000")){
+            //    $scope.customerDroletype='潜在客户';
+            //    customerDroletypenewvalue = 'CRM000';
+            //}else if(customerDroletypeold.includes("Z00002")){
+            //    $scope.customerDroletype='竞争对手';
+            //    customerDroletypenewvalue = 'Z00002';
+            //}else if(customerDroletypeold.includes("Z00003")){
+            //    $scope.customerDroletype='助销伙伴';
+            //    customerDroletypenewvalue = 'Z00003';
+            //}
         }
         if($scope.customerDroletype == "潜在客户" || $scope.customerDroletype == "正式客户" || $scope.customerDroletype == "终端客户"){
             //竞争对手领域
@@ -492,21 +504,17 @@ customerModule
             $scope.customerDetailstrret = false;
             //街道三
             $scope.customerDetailstrreth = false;
-        }
-
-
+        };
 
         Prompter.showLoading("数据加载中...");
         var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
         var data = {
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
             "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER},
-            //"IS_PARTNER": { "PARTNER":'000008878A'},
             "IS_AUTHORITY": { "BNAME": "" }
         };
         HttpAppService.post(url, data).success(function (response) {
             Prompter.hideLoading();
-            console.log(response.ES_RESULT)
             if (response.ES_RESULT.ZFLAG == 'E') {
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
             } else {
@@ -558,15 +566,6 @@ customerModule
         ];
         $scope.gocustomerLists = function(cusvalue){
             if(cusvalue.url){
-
-                ////从客户详情-工单进入服务工单界面
-                //if(cusvalue.url == 'worksheetList'){
-                //    var customerWorkorderdata = {
-                //        "PARTNER": "0000101186",
-                //        "STATE":'customerDetail'
-                //    };
-                //    customeService.set_customerWorkordervalue(customerWorkorderdata);
-                //}
                 //从客户详情-进入各个详情界面
                 var customerWorkorderdata = {
                     "PARTNER": $scope.customerdetails.PARTNER,
@@ -607,7 +606,7 @@ customerModule
                         }
                     }
                 })
-            }
+            };
         };
         //邮箱
         $scope.customermailcopyvalue = function(valuecopy){
@@ -628,8 +627,16 @@ customerModule
         };
         //编辑
         $scope.CustomerDeatilEditvalue = function(){
-            customeService.set_customerEditServevalue( $scope.customerdetails)
-            $state.go('customerEdit')
+            for(var i=0;i<LoginService.getProfile().AUTH.length;i++){
+                if(LoginService.getProfile().AUTH[i].FUNCTION == customerDroletypenewvalue){
+                    if(LoginService.getProfile().AUTH[i].EDIT == 'TRUE'){
+                        customeService.set_customerEditServevalue( $scope.customerdetails)
+                        $state.go('customerEdit')
+                    }else{
+                        $cordovaToast.showShortBottom('没有权限编辑');
+                    }
+                };
+            }
         };
         //广播编辑
         $rootScope.$on('customerEditvalue', function(event, data) {
@@ -637,7 +644,7 @@ customerModule
         });
 
     }])
-    .controller('customerEditlCtrl',['$scope','$rootScope','$state','$http','$timeout','$ionicPopover','customeService','Prompter','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$ionicPopover,customeService,Prompter,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+    .controller('customerEditlCtrl',['$scope','$rootScope','$state','$http','$timeout','$cordovaToast','HttpAppService','$ionicPopover','customeService','Prompter','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$cordovaToast,HttpAppService,$ionicPopover,customeService,Prompter,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
         //位置级联
         $scope.customereditcontry = [
             {
@@ -680,15 +687,81 @@ customerModule
             HOUSE_NUM1:customeService.get_customerEditServevalue().HOUSE_NUM1,
             POST_CODE1:customeService.get_customerEditServevalue().POST_CODE1,
             BEZEI:customeService.get_customerEditServevalue().BEZEI,
-
-
         };
         $scope.customerKeepEditvalue = function(){
-            customeService.set_customerEditServevalue($scope.customeredit);
-            //广播修改详细信息界面的数据
-            $rootScope.$broadcast('customerEditvalue');
-            $state.go('customerDetail');
+            //提交数据
+            //提交修改数据
+            Prompter.showLoading("数据保存中...");
+            var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_EDIT';
+            var data = {
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "IS_ADDR": {
+                    "STREET": "",
+                    "HOUSE_NUM1": "",
+                    "POST_CODE1": "",
+                    "CITY1": "",
+                    "COUNTRY": "CN",
+                    "REGION": "",
+                    "TEL_NUMBER": "",
+                    "TEL_EXTENS": "",
+                    "MOB_NUMBER": "",
+                    "FAX_NUMBER": "",
+                    "FAX_EXTENS": "",
+                    "SMTP_ADDR": ""
+                },
+                "IS_CUSTOMER": {
+                    "NAME_ORG1": "",
+                    "NAME_ORG2": "",
+                    "NAME_ORG3": "",
+                    "NAME_ORG4": "",
+                    "BU_SORT1": "",
+                    "BU_SORT2": ""
+                },
+                "IS_PARTNER": { "PARTNER": customeService.get_customerEditServevalue().PARTNER }
+            };
+            data.IS_ADDR.STREET = $scope.customeredit.STREET;
+            data.IS_ADDR.HOUSE_NUM1 = $scope.customeredit.HOUSE_NUM1;
+            data.IS_ADDR.POST_CODE1 = $scope.customeredit.POST_CODE1;
+            data.IS_ADDR.CITY1 = $scope.customeredit.CITY1;
+            //data.IS_ADDR.COUNTRY = $scope.customeredit.COUNTRY;
+            data.IS_ADDR.REGION = $scope.customeredit.REGION;
+            data.IS_ADDR.TEL_NUMBER = $scope.customeredit.TEL_NUMBER;
+            data.IS_ADDR.TEL_EXTENS = $scope.customeredit.TEL_EXTENS;
+            data.IS_ADDR.MOB_NUMBER = $scope.customeredit.MOB_NUMBER;
 
+            data.IS_ADDR.FAX_NUMBER = $scope.customeredit.FAX_NUMBER;
+            data.IS_ADDR.FAX_EXTENS = $scope.customeredit.FAX_EXTENS;
+            data.IS_ADDR.SMTP_ADDR = $scope.customeredit.SMTP_ADDR;
+            data.IS_CUSTOMER.NAME_ORG1 = $scope.customeredit.NAME_ORG1;
+            data.IS_CUSTOMER.NAME_ORG2 = $scope.customeredit.NAME_ORG2;
+            data.IS_CUSTOMER.NAME_ORG3 = $scope.customeredit.NAME_ORG3;
+            data.IS_CUSTOMER.NAME_ORG4 = $scope.customeredit.NAME_ORG4;
+
+            //if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined || data.IS_CUSTOMER.PARTNER == ''|| data.IS_CUSTOMER.PARTNER == undefined){
+            if(data.IS_ADDR.COUNTRY == ''|| data.IS_ADDR.COUNTRY == undefined){
+                $cordovaToast.showShortCenter('请输入国家');
+                //console.log("请输入客户姓名或标识");
+                Prompter.hideLoading();
+            }else{
+                HttpAppService.post(url, data).success(function (response) {
+                    Prompter.hideLoading();
+                    if (response.ES_RESULT.ZFLAG == 'E') {
+                        console.log(response.ES_RESULT.ZRESULT);
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                        //$state.go('ContactDetail');
+                    } else {
+                        $cordovaToast.showShortCenter('保存数据成功');
+                        console.log("保存数据成功")
+                        //广播修改详细信息界面的数据
+                        customeService.set_customerEditServevalue($scope.customeredit);
+                        $rootScope.$broadcast('customerEditvalue');
+                        $state.go('customerDetail');
+                    }
+                }).error(function(){
+                    Prompter.hideLoading();
+                    $cordovaToast.showShortBottom('请检查你的网络设备');
+                });
+            }
         };
         ////点击取消事件
         $scope.customerEditCancel = function(){

@@ -343,7 +343,7 @@ ContactsModule
         var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
         var data = {
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            "IS_AUTHORITY": { "BNAME": "handlcx02" },
+            "IS_AUTHORITY": { "BNAME": "60000051" },
             "IS_PARTNER": { "PARTNER": contactService.get_ContactsListvalue().PARTNER}
             //"IS_PARTNER": { "PARTNER":'6000000385'}
         };
@@ -840,8 +840,6 @@ ContactsModule
             })
         };
         //国家的选择
-
-
 
         $scope.contactKeepEditvalue = function(){
             contactService.set_Contactsdetailvalue($scope.contactedit);
