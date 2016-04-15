@@ -15,9 +15,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         'HttpAppService',
         'worksheetHttpService',
         "worksheetDataService",
+        "Prompter",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService) {
+                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter) {
 
         	$scope.$on('$destroy', function() {
 				__destroyMoreModal();
@@ -52,11 +53,11 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			$scope.moreModalClickHandler = function(type){
 				$scope.config.moreModal.hide();		
 				if(type == 'paigong'){ 
-					requestChangeStatus("E0002", "派工");
+					requestChangeStatus("E0002", "已派工", "正在派工", "派工成功", "派工失败，请检查网络");
 				}else if(type == 'judan'){
-					requestChangeStatus("E0003", "拒绝");
+					requestChangeStatus("E0003", "已拒绝", "正在拒绝", "拒绝成功", "派工失败，请检查网络");
 				}else if(type == 'jiedan'){
-					requestChangeStatus("E0004", "接单");
+					requestChangeStatus("E0004", "已接单", "正在接单", "拒绝成功", "派工失败，请检查网络");
 				}else if(type == 'beijianshengqing'){
 					if(__hasBeijianInfo()){
 						$scope.goState("worksheetSelect");
@@ -72,11 +73,13 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}else if(type == 'baogong'){
 					$scope.goState("worksheetbaogonglist");
 				}else if(type == 'wangong'){
-					requestChangeStatus("E0006", "完工");
+					requestChangeStatus("E0006", "已完工", "正在完工", "完工成功", "完工失败，请检查网络");
 				}else if(type == 'yiquxiao'){
-					requestChangeStatus("E0009", "取消");
+					requestChangeStatus("E0009", "已取消", "正在取消", "取消成功", "取消失败，请检查网络");
 				}else if(type == 'yishenhe'){  // E0007 内部已审核
-					requestChangeStatus("E0010", "外服审核");
+					requestChangeStatus("E0010", "外服已审核", "外服审核中", "外服审核成功", "外服审核失败，请检查网络");
+				}else if(type == 'yidahui'){
+					requestChangeStatus("E0008", "已打回", "正在打回", "打回成功", "打回失败，请检查网络");
 				}
 			};
 
@@ -333,14 +336,14 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             $scope.showTitleStatus = false;
 
             $scope.progressArr = [{
-                content: '与客户进行了初次交涉,效果良好',
-                time: '2016-3-6  18:33'
-            }, {
-                content: '第二次交涉,效果一般,还需要继续跟进',
-                time: '2016-3-7  17:33'
-            }, {
-                content: '最后谈了一次,应该可以成交,主要联系客户李经理进行跟进',
-                time: '2016-3-8  12:11'
+	                content: '与客户进行了初次交涉,效果良好',
+	                time: '2016-3-6  18:33'
+	            }, {
+	                content: '第二次交涉,效果一般,还需要继续跟进',
+	                time: '2016-3-7  17:33'
+	            }, {
+	                content: '最后谈了一次,应该可以成交,主要联系客户李经理进行跟进',
+	                time: '2016-3-8  12:11'
             }];
 
 
@@ -371,7 +374,19 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
             $scope.init();
 
-            function __requestDetailDatas(){
+            function __changeStatus(newStatus, newStatusDesc){
+            	worksheetDataService.wsDetailToList.needReload = true;
+            	$scope.config.statusStr = $scope.config.ydStatusNum = worksheetDataService.worksheetList.toDetail.ydStatusNum = newStatus;
+            	$scope.datas.detail.ES_OUT_LIST.STATU_DESC = newStatusDesc;
+            	$scope.datas.detail.ES_OUT_LIST.STATU = newStatus;
+            	__destroyMoreModal();            	
+            	if(!$scope.$$phase){
+            		$scope.$apply();
+            	}
+            }
+
+            function __requestDetailDatas(loadStr){
+            	var loadingStr = loadStr ? loadStr : "正在加载" ;
 		        var params = $scope.config.requestParams;
 		        var queryParams = {
 				    "I_SYSNAME": { "SysName": "CATL" },
@@ -380,18 +395,18 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				    "IS_PROCESS_TYPE": params.IS_PROCESS_TYPE
 				}
 
+				Prompter.showLoading(loadingStr);
+
 		        var promise = HttpAppService.post(worksheetHttpService.serviceDetail.url,queryParams);
 		        $scope.config.isLoading = true;
 		        $scope.config.loadingErrorMsg = null;
 		        promise.success(function(response){
-		        	$scope.config.isLoading = false;
-		        	if($scope.config.isReloading){
-		        		$scope.config.isReloading = false;
-		        		$scope.$broadcast('scroll.refreshComplete');
-		        		$scope.datas.serviceListDatas = [];
-		        	}	
-		        	if(response.ES_RESULT.ZFLAG == "E"){ // 未加载到数据
+		        	if(response && !response.ES_RESULT){
+		        		Prompter.showLoadingAutoHidden(response, false, 2000);
+		        	}
+		        	if(response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG != "S"){ // 未加载到数据
 		        		$scope.config.hasMoreData = false;
+		        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 		        		return;
 		        	}
 		        	if(!$scope.datas.serviceListDatas){
@@ -446,45 +461,64 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
+		        	Prompter.hideLoading();
 		        	//debugger;
 		        	//console.log(tempResponse);
 		        })
 		        .error(function(errorResponse){
+		        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
+		        	Prompter.showLoadingAutoHidden($scope.config.loadingErrorMsg, false, 2000);
 		        	$scope.config.isLoading = false;
 		        	if($scope.config.isReloading){
 		        		$scope.config.isReloading = false;
 		        		$scope.$broadcast('scroll.refreshComplete');
 		        		$scope.datas.serviceListDatas = [];
 		        		$scope.config.hasMoreData = false;
-		        	}
-		        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
+		        	}		        	
 		        });
 			}
 			// 修改工单状态
-			function requestChangeStatus(statusId, statusStr){
+			//requestChangeStatus("E0008", "已打回", "正在打回", "打回成功", "打回失败，请检查网络");
+			function requestChangeStatus(statusId, statusStr, statucChangingStr, changeOkStr, requestErrorStr){
 				var params = $scope.config.requestParams;
 		        var queryParams = {
-				    "I_SYSNAME": { "SysName": "CATL" },
-				    "IS_AUTHORITY": { "BNAME": "" },
-				    "IS_OBJECT_ID": '"'+params.IS_OBJECT_ID+'"',
+				    "I_SYSTEM": { "SysName": "CATL" },
+				    "IS_AUTHORITY": { "BNAME": "HANDLCX" },
+				    "IS_OBJECT_ID": params.IS_OBJECT_ID+"",
 				    "IS_PROCESS_TYPE": params.IS_PROCESS_TYPE,
 				    "IS_HEAD_DATA": {
 				    	"STATUS": statusId
 				    }
 				}
-
+				//console.log(queryParams);
+				Prompter.showLoading(statucChangingStr);
 		        var promise = HttpAppService.post(worksheetHttpService.serviceDetailChange.url,queryParams);
 		        $scope.config.isLoading = true;
 		        $scope.config.loadingErrorMsg = null;
 		        promise.success(function(response){
 		        	$scope.config.isLoading = false;
+		        	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG=="S"){
+		        		Prompter.showLoadingAutoHidden(changeOkStr, false, 1000);
+		        		__changeStatus(statusId, statusStr);
+		        		//刷新数据
+		        		//__requestDetailDatas("刷新数据中!");
+		        	}else if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG == "E" && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!=""){
+		        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
+		        	}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!="" ){
+		        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
+		        	}else if(response && response.ES_RESULT){
+		        		Prompter.showLoadingAutoHidden(JSON.stringify(response), false, 2000);
+		        	}else{
+		        		Prompter.showLoadingAutoHidden(response, false, 2000);
+		        	}
 		        	if(!$scope.datas.serviceListDatas){
 		        		$scope.datas.serviceListDatas = [];
-		        	}		        	
+		        	}
 		        })
 		        .error(function(errorResponse){
 		        	$scope.config.isLoading = false;
-		        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
+		        	$scope.config.loadingErrorMsg = "状态修改失败,请检查网络!";
+		        	Prompter.showLoadingAutoHidden(requestErrorStr, false, 2000);
 		        });
 			}
 
