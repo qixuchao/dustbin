@@ -76,10 +76,10 @@
         color: #aaa;
       }
       .button-clear {
-        position: relative;
+        position: fixed;
         left: 86%;
         font-size: 16px;
-        top: -2px;
+        top: 1px;
         max-height: 30px;
         min-height: 30px;
       }
