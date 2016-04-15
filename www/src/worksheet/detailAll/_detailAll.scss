@@ -33,10 +33,24 @@
             ZPRV 现场维修工单(服务商)
             ZPLV 批量改进工单(服务商)
             ZNCV 新车上线工单(服务商)
-        */  
-        
-        .ZNCO-hide, .ZPRO-hide, .ZPLO-hide, .ZPRV-hide, .ZPLV-hide, .ZNCV-hide{
-            display: none;
+        */
+        &.ZPRO{
+            .ZPRO-hide{ display: none !important; }
+        }
+        &.ZNCO{
+            .ZNCO-hide{ display: none !important; }
+        }
+        &.ZPLO{
+            .ZPLO-hide{ display: none !important;}
+        }
+        &.ZPRV{
+            .ZPRV-hide{ display: none !important;}
+        }
+        &.ZNCV{
+            .ZNCV-hide{ display: none !important;  }
+        }
+        &.ZPLV{
+            .ZPLV-hide{ display: none !important;}
         }
     }
     .fixed-buttons{

@@ -35,7 +35,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     };
 
     $scope.init = function(){
-
+        //$scope.datas.baogongDatas = worksheetDataService.wsDetailData.
     };
     $scope.init();
 

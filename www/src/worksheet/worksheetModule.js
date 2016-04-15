@@ -39,7 +39,16 @@ worksheetModule.service('worksheetDataService', [function(){
         //  "ydStatusNum":
       }
     },
-    wsDetailData: null
+    toDetailPageTag: null, //"history",
+    worksheetHistoryList:{
+      toDetail: {
+
+      }
+    },
+    wsDetailData: null,
+    wsDetailToList: {
+      needReload: false
+    }
     /*{
       ydWorksheetNum: 
     }*/
@@ -101,7 +110,7 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE',   //工单详情修改接口
             defaults: {
                 "I_SYSTEM": { "SysName": "ATL" },
-                "IS_AUTHORITY": { "BNAME": "" }
+                "IS_AUTHORITY": { "BNAME": "HANDLCX" }
                 /*,
                 "IS_HEAD_DATA": {
                   "DESCRIPTION": "",

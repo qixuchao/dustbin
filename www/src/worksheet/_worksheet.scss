@@ -18,7 +18,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				transition: top 0.2s linear 0s;
 	}
 }
-	
+
 .platform-ios{
 	#xbr-worksheet-list-content{
 		.search-box-wrapper.isSearchingMode{
@@ -35,7 +35,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	width: 100%;
 }
 .row.has-toggle{
-	.margin-top: 0px;
+	margin-top: 0px;
 	.item-toggle{
 		padding: 0px;
 	    margin: 0px;
@@ -813,6 +813,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 					border-radius: 6px;
 					background-color: $filter-item-bg;
 					color: $filter-name-color;
+					width: 48%;
 					&.selected{
     					background-color: $filter-item-selected-bg;
     					color: white;
@@ -923,7 +924,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	        	//height: 5rem;
     			//line-height: 5rem;
 	            .filter-statu{
-	                width: 4rem;
+	                min-width: 4rem;
+	                width: 30%;
     				display: inline-block;
 					border: 1px solid #EFEFEF;
 					font-size: .9rem;
@@ -1025,62 +1027,24 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         // paigong   judan   jiedan    beijian    chelianglicheng  guzhangxinxi   fuwupaizhao   baogong   wangong   yiquxiao
         //工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
 		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
-        /*&.ZNCO{  // 新车档案收集工单  
-			.paigong{
-				display: block;
-			}
-			.judan{
-				display: block;
-			}
-			.jiedan{
-				display: block;
-			}
-			.fuwupaizhao{
-				display: block;
-			}
-			.baogong{
-				display: block;
-			}
-			.wangong{
-				display: block;
-			}
-			.yiquxiao{
-				display: block;
-			}
-			&.E0001{
-
-			}
-        }
-        &.ZPRO, &.ZPLO{
-        	.paigong, .judan, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong, .yiquxiao{
-				display: block;
-			}
-        }
-        &.ZNCV, &.ZPRV, &.ZPLV{
-			.yishenhe{
-				display: block;
-			}
-        }*/
-
-
         &.ZNCO, &.ZPLO, &.ZPRO{  //外服工单
         	&.E0001{  // 新建
         		.paigong, .yiquxiao{
         			display: block;
         		}
         	}  
-        	&.E0002{  // 派工
-				.jiedan, .judan, .baogong, .yiquxiao{
+        	&.E0002{  // 派工  .baogong
+				.jiedan, .judan, , .yiquxiao{
 					display: block;
 				}
 			}
-			&.E0003{ //拒绝
-				.paigong, .jiedan, .baogong, .yiquxiao{
+			&.E0003{ //拒绝  .baogong,
+				.paigong, .jiedan,  .yiquxiao{
 					display: block;
 				}
 			}
-			&.E0004{ //处理中
-				.paigong, .judan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .yiquxiao{
+			&.E0004{ //处理中  .baogong,
+				.paigong, .judan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao,  .yiquxiao{
 					display: block;
 				}
 			}
@@ -1099,10 +1063,10 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				
 			}
 			&.E0008{  //打回
-				.baogong{ display: block; }
+				//.baogong{ display: block; }
 			}
-			&.E0009{ //取消
-				.paigong, .jiedan, .judan, .baogong{
+			&.E0009{ //取消  .baogong
+				.paigong, .jiedan, .judan, {
 					display: block;
 				}
 			}
@@ -1110,29 +1074,14 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         }
         &.ZPRV, &.ZPLV, &.ZNCV{
         	&.E0001{  // 新建
-        		//.paigong{
-        		//	display: block;
-        		//}
         	}  
         	&.E0002{  // 派工
-				//.jiedan, .judan, .baogong, .yiquxiao{
-				//	display: block;
-				//}
 			}
 			&.E0003{ //拒绝
-				//.paigong, .jiedan, .baogong, .yiquxiao{
-				//	display: block;
-				//}
 			}
 			&.E0004{ //处理中
-				//.paigong, .jiedan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .yiquxiao{
-				//	display: block;
-				//}
 			}
 			&.E0005{ //报工
-				//.chelianglicheng, .guzhangxinxi, .fuwupaizhao, .baogong, .wangong{
-					//display: block;
-				//}
 			}
 			&.E0006{ //已完工
 				.yishenhe, .yidahui{
@@ -1156,7 +1105,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 }
 .worksheet-detail-view-public .detail-all-more-button{
 	&.ZNCO, &.ZPLO, &.ZPRO{
-		&.E0006, &.E0010, &.E0007{ //已完工  //回访  // 审核
+		&.E0006, &.E0010, &.E0007, &.E0008{ //已完工  //回访  // 审核
 			display: none !important;
 		}
 	}
