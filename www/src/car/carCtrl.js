@@ -432,7 +432,6 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
             var page=0;
             $scope.searchFlag=false;
             $scope.config = {
-                searchText: '',
                 //showXbrModel: false, //是否显示遮罩层
                 // page mode
                 isFilterMode: false,
@@ -470,7 +469,15 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                 filterImpactNone: false,
                 filterImpactNoSelected: true,
                 //筛选 规则 ----> 状态
-                ok: true
+                ok: true,
+
+                //请求参数相关
+                searchText: '',
+                IS_SORT: '',
+                T_IN_IMPACT: {item:[]},
+                T_IN_PARTNER: {},
+                T_IN_PROCESS_TYPE: {item:[]},
+                T_IN_STAT: {item: []},
             };
 
             //依据所选 筛选条件 进行筛选操作
@@ -497,6 +504,7 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                 //筛选 规则 ----> 状态
                 __resetStatus();
             };
+
 
             $scope.goDetailState = function(i){
                 console.log("goDetailState");
@@ -834,6 +842,8 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                     if ($scope.config.filterBatchUpdate1) {
                         $scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX": "ZPLV"});
                     }
+                $scope.maintenanceLoad();
+                $scope.init();
 
             };
             $scope.showButton=false;
@@ -850,6 +860,77 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                     },
                     IS_SEARCH: {
                         SEARCH: "",
+                        OBJECT_ID: "",
+                        DESCRIPTION: "",
+                        PARTNER: "",
+                        PRODUCT_ID:code,
+                        CAR_TEXT: "",
+                        CREATED_FROM: "",
+                        CREATED_TO: ""
+                    },
+                    IS_SORT: sortedInt,
+                    T_IN_IMPACT: {},
+                    T_IN_PARTNER: {},
+                    T_IN_PROCESS_TYPE: $scope.config.T_IN_PROCESS_TYPE,
+                    T_IN_STAT: {}
+                };
+                HttpAppService.post(url, data).success(function (response) {
+                    console.log(page);
+                    console.log(code);
+                    //console.log(response.T_OUT_LIST);
+                    if (response.ES_RESULT.ZFLAG == 'E') {
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                    } else {
+                        if (response.ES_RESULT.ZFLAG == 'S') {
+                            Prompter.hideLoading();
+                            if (response.T_OUT_LIST.item.length == 0) {
+                                if (page == 1) {
+                                } else {
+                                    $cordovaToast.showShortBottom('没有更多数据了');
+                                }
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
+                            } else {
+                                //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
+                                $.each(response.T_OUT_LIST.item, function (n, value) {
+                                    $scope.maintenanceInfo.push(value);
+                                    //console.log($scope.maintenanceInfo.CHANGED_AT);
+                                    //$scope.spareimisshow=false;
+                                    //$scope.$broadcast('scroll.infiniteScrollComplete');
+                                });
+                            }
+                            if (response.T_OUT_LIST.item.length < 10) {
+                                $scope.spareimisshow = false;
+                                if (page > 1) {
+                                    $cordovaToast.showShortBottom('没有更多数据了');
+                                }
+                            }else{
+                                $scope.showButton=true;
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
+                            }
+
+
+                        }
+                    }
+                }).error(function (response, status) {
+                    $cordovaToast.showShortBottom('请检查你的网络设备');
+                });
+            };
+            $scope.maintenanceInfo1=[];
+            $scope.maintenanceName="";
+            $scope.maintenanceLoad1 = function() {
+                //$scope.spareimisshow = true;
+                page+=1;
+                var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST';
+                var data = {
+                    I_SYSNAME: { SysName: "CATL" },
+                    IS_AUTHORITY: { BNAME: "" },
+                    IS_PAGE: {
+                        CURRPAGE: page,
+                        ITEMS: 10
+                    },
+                    IS_SEARCH: {
+                        SEARCH: $scope.maintenanceName,
                         OBJECT_ID: "",
                         DESCRIPTION: "",
                         PARTNER: "",
@@ -883,28 +964,47 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                             } else {
                                 //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
                                 $.each(response.T_OUT_LIST.item, function (n, value) {
-                                    $scope.maintenanceInfo.push(value);
-                                    $scope.showButton=true;
+                                    $scope.maintenanceInfo1.push(value);
                                     //console.log($scope.maintenanceInfo.CHANGED_AT);
                                     //$scope.spareimisshow=false;
                                     //$scope.$broadcast('scroll.infiniteScrollComplete');
                                 });
                             }
                             if (response.T_OUT_LIST.item.length < 10) {
-                                $scope.spareimisshow = false;
+                                $scope.spareimisshow1 = false;
                                 if (page > 1) {
                                     $cordovaToast.showShortBottom('没有更多数据了');
                                 }
+                            }else{
+                                $scope.showButton1=true;
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
                             }
-                            //$scope.$broadcast('scroll.infiniteScrollComplete');
-
                         }
                     }
                 }).error(function (response, status) {
                     $cordovaToast.showShortBottom('请检查你的网络设备');
                 });
             };
+
+
             $scope.maintenanceLoad();
+
+            $scope.changePage=function(){
+                $scope.searchFlag=true;
+            };
+            $scope.initSearch = function () {
+                $scope.maintenanceName = '';
+            };
+            $scope.cancelSearch=function(){
+                $scope.searchFlag=false;
+                $scope.maintenanceName = '';
+                $scope.maintenanceInfo1=new Array;
+            };
+            $scope.initLoad=function(){
+                page=0;
+                $scope.maintenanceInfo1 = new Array;
+                $scope.maintenanceLoad1();
+            };
 
             $scope.init = function(){
                 $scope.enterListMode();
@@ -993,7 +1093,7 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                 console.log(code+'spare');
                 console.log(response.ET_COMM_LIST);
                 if (response.ES_RESULT.ZFLAG == 'E') {
-                    Prompter.showPopupAlert("加载失败","没有更多数据");
+                    //Prompter.showPopupAlert("加载失败","没有更多数据");
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 } else {
@@ -1001,9 +1101,9 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                         Prompter.hideLoading();
                         if (response.ET_COMM_LIST.Item.length == 0) {
                             if (page == 1) {
-                                Prompter.showPopupAlert("加载失败","暂无数据")
+                                //Prompter.showPopupAlert("加载失败","暂无数据")
                             } else {
-                                Prompter.showPopupAlert("加载失败","没有更多数据");
+                                //Prompter.showPopupAlert("加载失败","没有更多数据");
                                 $cordovaToast.showShortBottom('没有更多数据了');
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -1056,13 +1156,13 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                     "ITEMS": "10"
                 },
                 "IS_VEHICLID": {
-                    "PRODUCT_ID": code,
+                    "PRODUCT_ID": "000000114442300070",
                     "PRODUCT_TEXT": $scope.spareDesc
                 }
             };
             HttpAppService.post(url,data).success(function(response) {
                 console.log(code+'spare');
-                console.log(response.ET_COMM_LIST.Item.length);
+                //console.log(response.ET_COMM_LIST.Item.length);
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -1071,9 +1171,9 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                         Prompter.hideLoading();
                         if (response.ET_COMM_LIST.Item.length == 0) {
                             if (page == 1) {
-                                Prompter.showPopupAlert("加载失败","暂无数据")
+                                //Prompter.showPopupAlert("加载失败","暂无数据")
                             } else {
-                                Prompter.showPopupAlert("加载失败","没有更多数据");
+                                //Prompter.showPopupAlert("加载失败","没有更多数据");
                                 $cordovaToast.showShortBottom('没有更多数据了');
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
@@ -1098,7 +1198,7 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                                          $scope.spareList1=new Array;
                                      }else{
                                          $scope.spareList1.push(spare);
-                                         $scope.buttonShow=true;
+
                                      }
                             });
                         }
@@ -1107,6 +1207,8 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                             if (page >= 1) {
                                 $scope.buttonShow=false;
                             }
+                        }else{
+                            $scope.buttonShow=true;
                         }
                     }
                 }
