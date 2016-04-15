@@ -219,7 +219,6 @@ salesModule.factory('saleChanService', function () {
         },
         getMoneyTypesArr: function () {
             return moneyTypes;
-<<<<<<< HEAD
         },
         chanListArr,
         listPage,
@@ -231,8 +230,5 @@ salesModule.factory('saleChanService', function () {
         listStatusArr,
         relationsTypes,
         loadMoreFlag
-=======
         }
->>>>>>> 7f03365d4d70099ff6dde858333845c3dc6696e3
-    };
 });
