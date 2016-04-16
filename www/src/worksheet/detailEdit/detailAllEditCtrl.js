@@ -152,6 +152,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     DEFECT: null
                 }
             ],
+
             guZhangBuJianS: null,
             guZhangMingChengS: null,
             chanPinLeiXingS: [ 
