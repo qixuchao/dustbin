@@ -73,14 +73,17 @@ CODEGRUPPE
 KATALOGART:"F0"
 CODEGRUPPE:"02"
 CODE:"03"
-*/          
+*/
             var startStr = $scope.datas.detail.ES_OUT_LIST.START_TIME_STR;
-            var startDate = new Date(startStr).format("yyyy-MM-dd");
-            var startTime = new Date(startStr).format("hh:mm:ss");
+            var startDateStr = new Date(startStr).format('yyyy-MM-dd hh:mm:ss');
+            startDate = startDateStr.split(" ")[0];
+            startTime = startDateStr.split(" ")[1];
 
-            var endStr = $scope.datas.detail.ES_OUT_LIST.END_TIME_STR;            
-            var endDate = new Date(endStr).format("yyyy-MM-dd");
+            var endStr = $scope.datas.detail.ES_OUT_LIST.END_TIME_STR;  
+            var endDateStr = new Date(startStr).format('yyyy-MM-dd hh:mm:ss');
+            var endDate = endDateStr.split(" ")[0];
             var endTime = new Date(endStr).format("hh:mm:ss");
+            console.log(startStr +"          "+endStr);
             console.log(startDate+"  "+startTime+"     "+endDate+" "+endTime);
             var header = {
                 IMPACT: (!impact) ? "" : impact,
@@ -100,7 +103,6 @@ CODE:"03"
                 ZZBXR: $scope.datas.detail.ES_OUT_LIST.ZZBXR,
                 ZZBXDH: $scope.datas.detail.ES_OUT_LIST.ZZBXDH,
                 ZZXYHF: $scope.datas.detail.ES_OUT_LIST.ZZXYHF
-
             };
             __requestUpdateWorksheet(header);
         };
@@ -241,10 +243,16 @@ CODE:"03"
                             {
                                 REASON: pleaseChoose,
                                 CODE: null
+                            },
+                            {
+                                CODE: item.CODE,
+                                REASON: item.KURZTEXT
                             }
                         ]
                     });
                     return;
+                }else{
+
                 }
             }
             this.push({
@@ -258,6 +266,24 @@ CODE:"03"
                             {
                                 REASON: pleaseChoose,
                                 CODE: null
+                            },
+                            {
+                                CODE: item.CODE,
+                                REASON: item.KURZTEXT
+                            }
+                        ]
+                    },
+                    {
+                        CODEGRUPPE: item.CODEGRUPPE,
+                        COMPONENT: item.GROUPTEXT,
+                        guZhangMingChengS: [
+                            {
+                                REASON: pleaseChoose,
+                                CODE: null
+                            },
+                            {
+                                CODE: item.CODE,
+                                REASON: item.KURZTEXT
                             }
                         ]
                     }
@@ -308,9 +334,9 @@ CODE:"03"
         $scope.selectCreateTime = function (type, title) { // type: start、end
             var date;
             if(type == 'start'){
-                date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm');
+                date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
             }else if(type=='end'){
-                date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm');
+                date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
             }
             $cordovaDatePicker.show({
                 date: date,
