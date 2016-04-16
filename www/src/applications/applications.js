@@ -6,7 +6,7 @@ appModule
     .controller('AppCtrl',['$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function($scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
         console.log('app')
         //ionicMaterialInk.displayEffect();
-
+        console.log(ionic.Platform.platform())
         $scope.imgs = [{
             url:'img/apps/partner.png',
             go:'customerQuery'
@@ -15,7 +15,7 @@ appModule
             go:"saleActList"
         },{
             url:'img/apps/acPlan.png',
-            go:'saleChanDetail'
+            go:''
         },{
             url:'img/apps/saleChance.png',
             go:'saleChanList'

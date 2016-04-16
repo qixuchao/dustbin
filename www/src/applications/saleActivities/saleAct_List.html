@@ -5,7 +5,10 @@
                 <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
 
                 <div class="col col-60 text-center">{{saleTitleText}}</div>
-                <div class="col col-20 add button-clear button preVentScrollTop" ng-click="openCreatePop($event)"><img src="img/saleList/add.png"></div>
+                <div class="col col-20 add button-clear button preVentScrollTop" ng-click="openCreatePop($event)">
+                    <img src="img/saleList/add.png" ng-if="!creaeSpinnerFlag">
+                    <ion-spinner class="mySpinner" icon="ios" ng-if="creaeSpinnerFlag"></ion-spinner>
+                </div>
             </div>
         </ion-header-bar>
         <div class="pub-subhead bar bar-subheader">

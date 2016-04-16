@@ -134,8 +134,12 @@ salesModule
                 $scope.createPop = popover;
             });
             $scope.openCreatePop = function (e) {
-                $scope.pop.type = $scope.createPopTypes[0];
-                $scope.createPop.show();
+                $scope.creaeSpinnerFlag = true;
+                $timeout(function () {
+                    $scope.creaeSpinnerFlag = false;
+                    $scope.pop.type = $scope.createPopTypes[0];
+                    $scope.createPop.show();
+                }, 1000);
                 //e.stopPropagation();
             };
 
@@ -338,7 +342,7 @@ salesModule
             addContactsModal();
             //$scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
-                if (isNoContacts||!$scope.create.customer) {
+                if (isNoContacts || !$scope.create.customer) {
                     Prompter.alert('当前客户无联系人');
                     return
                 }
@@ -432,7 +436,11 @@ salesModule
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $cordovaDatePicker, $ionicActionSheet, saleActService, saleChanService, Prompter
             , HttpAppService) {
+            $scope.formTest = function () {
+                alert('s')
+            }
             ionicMaterialInk.displayEffect();
+            $scope.urgentDegreeArr = saleActService.urgentDegreeArr;
             var getStatusIndex = function (data) {
                 for (var i = 0; i < $scope.statusArr.length; i++) {
                     if ($scope.statusArr[i].value == data) {
@@ -441,10 +449,18 @@ salesModule
                 }
                 return 0;
             };
+            var getUrgentIndex = function (data) {
+                for (var i = 0; i < $scope.urgentDegreeArr.length; i++) {
+                    if ($scope.urgentDegreeArr[i].text == data) {
+                        return i;
+                    }
+                }
+                return 0;
+            };
             var actTypes = saleActService.createPopTypes;
             var getActType = function (typeCode) {
                 for (var i = 0; i < actTypes.length; i++) {
-                    if(actTypes[i].value==typeCode){
+                    if (actTypes[i].value == typeCode) {
                         return actTypes[i].text;
                     }
                 }
@@ -458,7 +474,7 @@ salesModule
                     "IS_USER": {"BNAME": "HANDBLH"},
                     "I_OBJECT_ID": $scope.listInfo.OBJECT_ID
                 };
-                console.log(data)
+                console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_DETAIL', data)
                     .success(function (response) {
                         console.log(response);
@@ -469,6 +485,7 @@ salesModule
                             $scope.mySelect = {
                                 status: $scope.statusArr[getStatusIndex($scope.details.STATUS_TXT)]
                             };
+                            $scope.details.urgent = $scope.urgentDegreeArr[getUrgentIndex($scope.details.ZZHDJJD)];
                             $scope.details.actType = getActType($scope.details.PROCESS_TYPE);
                             $scope.details.relations = response.ET_PARTNERS.item;
                             Prompter.hideLoading();
@@ -652,6 +669,12 @@ salesModule
             }).then(function (modal) {
                 $scope.addReleModal = modal;
             });
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/process_Modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.processModal = modal;
+            });
             $scope.referArr = [{
                 text: '郑州金龙销售机会'
             }, {
@@ -712,6 +735,45 @@ salesModule
             $scope.moreflag = false;
             $scope.isDropShow = false;
             $scope.isReplace = false;
+            var relationPage = 1;
+            $scope.getRelations = function (search) {
+                $scope.CustomerLoadMoreFlag = false;
+                if (search) {
+                    $scope.customerSearch = false;
+                    relationPage = 1;
+                } else {
+                    $scope.spinnerFlag = true;
+                }
+                var data = {
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_PAGE": {
+                        "CURRPAGE": customerPage++,
+                        "ITEMS": "10"
+                    },
+                    "IS_SEARCH": {"SEARCH": search},
+                    "IT_IN_ROLE": {}
+                };
+                console.log(data);
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
+                    .success(function (response) {
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.CustomerLoadMoreFlag = false;
+                            }
+                            if (search) {
+                                $scope.customerArr = response.ET_OUT_LIST.item;
+                            } else {
+                                $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                            }
+                            $scope.spinnerFlag = false;
+                            $scope.customerSearch = true;
+                            $scope.CustomerLoadMoreFlag = true;
+                            $ionicScrollDelegate.resize();
+                            //saleActService.customerArr = $scope.customerArr;
+                            $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                        }
+                    });
+            };
             $scope.openRelations = function () {
                 if ($scope.isDropShow) {
                     $scope.hideSelections();
@@ -785,12 +847,40 @@ salesModule
                     }
                 });
             };
-
-
+            //发表进展
+            $scope.processArr = saleActService.processArr;
+            $scope.myProcess = $scope.processArr[1];
+            $scope.positonArr = saleActService.positonArr;
+            $scope.processTypesArr = saleActService.processTypesArr;
+            $scope.openProcessModal = function () {
+                $scope.processDropflag = true;
+                $scope.processModal.show();
+                angular.element('.modal-backdrop-bg').css('background-color', 'white');
+                $timeout(function () {
+                    angular.element('.modal-backdrop').removeClass('active').css('height', '0');
+                }, 50);
+            };
+            $scope.changeProcessDropFlag = function () {
+                $scope.processDropflag = false;
+                $scope.processModal.hide()
+            };
+            $scope.changeProcessSelectFlag = function (x, type) {
+                if (type == 'position') {
+                    angular.forEach($scope.positonArr, function (data) {
+                        data.flag = false;
+                    })
+                } else {
+                    angular.forEach($scope.processTypesArr, function (data) {
+                        data.flag = false;
+                    })
+                }
+                x.flag = !x.flag;
+            };
             $scope.$on('$destroy', function () {
                 $scope.referModal.remove();
                 $scope.followUpModal.remove();
                 $scope.addReleModal.remove();
+                $scope.processModal.remove();
             });
         }])
     .filter("highlight", function ($sce) {
@@ -799,7 +889,7 @@ salesModule
             if (!search) {
                 return $sce.trustAsHtml(text);
             }
-            text=text.toString();
+            text = text.toString();
             if (text.indexOf(search) == -1) {
                 return text;
             }

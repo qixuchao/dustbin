@@ -58,7 +58,7 @@ salesModule
                         break
                 }
                 var data = {
-                    "IS_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_SYSTEM": {"SysName": $scope.sysName},
                     "IS_USER": {"BNAME": "HANDBLH"},
                     "IS_PAGE": {
                         "CURRPAGE": pageNum++,
@@ -109,7 +109,7 @@ salesModule
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $scope.saleListArr = $scope.saleListArr.concat(response.ET_OPPORT.item);
                             $ionicScrollDelegate.resize();
-                        }else{
+                        } else {
                             $scope.loadMoreFlag = false;
                         }
                     }).finally(function () {
@@ -192,9 +192,14 @@ salesModule
             $scope.filterPrevent = function (e) {
                 e.stopPropagation();
             };
+            $scope.filterFlag = false
             $scope.changeSearch = function () {
+                if ($scope.filterFlag) {
+                    $scope.filterFlag = false;
+                }
                 $scope.searchFlag = !$scope.searchFlag;
-                $('#searchTitle').removeClass('animated');
+
+                //$('#searchTitle').removeClass('animated');
                 if ($scope.searchFlag) {
                     $timeout(function () {
                         //document.getElementById('saleListSearchId').focus();
@@ -206,7 +211,6 @@ salesModule
                 Prompter.showLoading('正在搜索');
                 $timeout(function () {
                     Prompter.hideLoading();
-
                     $scope.input.search = x;
                 }, 800);
 
@@ -218,23 +222,23 @@ salesModule
                     document.getElementById('saleListSearchId').focus();
                 }, 1)
             };
+
             //筛选
             $scope.filterFlag = false;
             //$scope.isDropShow = true;
             $scope.changeFilterFlag = function (e) {
-                if (tempFilterArr) {
-                    $scope.filters = tempFilterArr;
-
-                }
                 tempFilterArr = '';
                 $scope.filterFlag = !$scope.filterFlag;
                 if ($scope.filterFlag) {
                     onceCilck = true;
+                } else {
+                    angular.element('#saleActListFilterId').attr('ng-if', 'ng-show');
                 }
+
                 e.stopPropagation();
             };
             $scope.goDetail = function (x, e) {
-                if(localStorage.saleActListHisArr){
+                if (localStorage.saleActListHisArr) {
 
                 }
                 saleChanService.obj_id = x.OBJECT_ID;
@@ -252,10 +256,14 @@ salesModule
                 $scope.createPop = popover;
             });
             $scope.openCreatePop = function () {
-                console.log($scope.createPopData)
-                $scope.pop.type = $scope.createPopData.types[0];
-                $scope.pop.org = $scope.createPopData.channels[0];
-                $scope.createPop.show();
+                console.log($scope.createPopData);
+                $scope.creaeSpinnerFlag = true;
+                $timeout(function () {
+                    $scope.creaeSpinnerFlag = false;
+                    $scope.pop.type = $scope.createPopData.types[0];
+                    $scope.pop.org = $scope.createPopData.channels[0];
+                    $scope.createPop.show();
+                }, 1000);
             };
             $scope.showCreateModal = function () {
                 console.log($scope.pop);
@@ -299,8 +307,69 @@ salesModule
                 $scope.createModal = modal;
             });
             $scope.saveCreateModal = function () {
-                console.log($scope.create);
-                $scope.createModal.hide();
+                Prompter.showLoading('正在保存');
+                var data = {
+                    "I_SYSNAME": {
+                        "SysName": $scope.sysName
+                    },
+                    "IS_OPPORT_H": {
+                        "DESCRIPTION": $scope.create.title,
+                        "PROCESS_TYPE": "ZO01",
+                        "STARTDATE": $scope.create.de_startTime,
+                        "EXPECT_END": $scope.create.de_endTime,
+                        "PHASE": $scope.create.stage.value,
+                        "PROBABILITY": "",
+                        "STATUS": "E0001",
+                        "ZZXMBH": $scope.create.proNum,
+                        "EXP_REVENUE": "88888.00",
+                        "CURRENCY": "CNY",
+                        "ZZXSYXL": "88",
+                        "ZZYQXSLDW": "SET",
+                        "ZZMBCP": "123.000",
+                        "ZZFLD00002E": "SET"
+                    },
+                    "IS_ORGMAN": {
+                        "SALES_ORG": "O 50000002",
+                        "DIS_CHANNEL": 0,
+                        "DIVISION": "",
+                        "SALES_OFFICE": "AP1",
+                        "SALES_GROUP": "O 50000023",
+                        "SALES_ORG_RESP": "O 50000023"
+                    },
+                    "IS_USER": {
+                        "BNAME": "HANDBLH"
+                    },
+                    "IT_LINES": {
+                        "item": {
+                            "TDFORMAT": "*",
+                            "TDLINE": "我就是试一试"
+                        }
+                    },
+                    "IT_PARTNER": {
+                        "item": {
+                            "PARTNER_NO": 2296,
+                            "PARTNER_FCT": 21,
+                            "NAME": "",
+                            "MAINPARTNER": "X",
+                            "ZMODE": ""
+                        }
+                    }
+                };
+                console.log(data);
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_CREAT', data)
+                    .success(function (response) {
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            $scope.createModal.hide();
+                            Prompter.showShortToastBotton('创建成功');
+                            saleActService.obj_id = response.EV_OBJECT_ID;
+                            $state.go('saleChanDetail');
+                            Prompter.hideLoading();
+                        } else {
+                            Prompter.showShortToastBotton('创建失败');
+                            Prompter.hideLoading();
+                            $scope.createModal.hide();
+                        }
+                    });
             };
 
             //选择人
@@ -315,7 +384,7 @@ salesModule
             addContactsModal();
             //$scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
-                if (isNoContacts||!$scope.create.customer) {
+                if (isNoContacts || !$scope.create.customer) {
                     Prompter.alert('当前客户无联系人');
                     return
                 }
@@ -857,9 +926,8 @@ salesModule
                 }, 1)
             };
             $scope.selectCustomer = function (x) {
-                $scope.create.customer = x;
-                $scope.create.contact = '';
-                //$scope.getContacts();
+                $scope.chanceDetails.PARTNER_TXT = x.NAME_ORG1;
+                $scope.chanceDetails.PARTNER = x.PARTNER;
                 $scope.selectCustomerModal.hide();
             };
             $scope.$on('$destroy', function () {

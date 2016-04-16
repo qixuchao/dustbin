@@ -4,7 +4,7 @@
         <div class="row row-center title">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">活动详情
-                <div style="font-size: 10px">{{details.DESCRIPTION}}</div>
+                <div style="font-size: 10px">{{details.DESCRIPTION?details.DESCRIPTION:'&nbsp;'}}</div>
             </div>
             <div class="col col-15 text-right" ng-click="openFollow()"></div>
         </div>
@@ -13,7 +13,7 @@
         <div class="row row-center title" style="padding-bottom: 0">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">活动详情
-                <div style="font-size: 10px">{{details.DESCRIPTION}}</div>
+                <div style="font-size: 10px">{{details.DESCRIPTION?details.DESCRIPTION:'&nbsp;'}}</div>
             </div>
             <div class="col col-15 text-right" ng-click="openFollow()"></div>
         </div>
@@ -23,6 +23,10 @@
         </div>
     </div>
     <ion-content class="has-footer" has-bouncing="false" on-scroll="onScroll()" scrollbar-y="false">
+        <div class="addRelationsModal">
+            <div ng-class="processDropflag?'own-backDrop-on':'own-backDrop-off'"
+                 ng-click="changeProcessDropFlag()"></div>
+        </div>
         <div id="saleTopBackId" class="top-back">
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
@@ -34,14 +38,25 @@
                     <!--<i class="ion-android-radio-button-off"></i>-->
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
                     <!--<div>郑州金龙客车(福州)客户拜访</div>-->
-                    <input type="text" ng-model="details.DESCRIPTION"  ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
+                    <input type="text" ng-model="details.DESCRIPTION" ng-readonly="!isEdit"
+                           ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
-                    <div class="col col-16">客户:</div><input type="text" ng-model="listInfo.CUSTNAME" ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
+                    <div class="col col-16">客户:</div>
+                    <input type="text" ng-model="listInfo.CUSTNAME" ng-readonly="!isEdit"
+                           ng-class="{'border-bottom-white':isEdit}">
+
+                    <div class="urgentDegree">
+                        <select ng-model="details.urgent" ng-options="x as x.text for x in urgentDegreeArr"></select>
+
+                        <div ng-class="details.urgent.text.length==4?'textFour':'textFif'">{{details.urgent.text}}</div>
+                    </div>
                 </div>
+
                 <div class="row row-center" ng-class="placeFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="col col-16">地点:</div>
-                    <input type="text" ng-model="details.ACT_LOCATION" ng-readonly="!isEdit" ng-class="{'border-bottom-white':isEdit}">
+                    <input type="text" ng-model="details.ACT_LOCATION" ng-readonly="!isEdit"
+                           ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center" ng-class="{'animated fadeOut':typeFlag,'animated fadeIn':!typeFlag}">
                     <div class="col col-16">类型:</div>
@@ -51,8 +66,10 @@
                     <div>状态:</div>
                     <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
+
                     <div class="num">{{'NO.'+details.OBJECT_ID}}</div>
-                    <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}</div>
+                    <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}
+                    </div>
                 </div>
             </div>
             <div class="selector">
@@ -73,7 +90,8 @@
                         <div class="col">
                             <div class="row">
                                 <div class="col-30 text-left">开始时间:</div>
-                                <div class="text col-70 startTime" ng-click="selectTime('start')">{{details.de_startTime}}
+                                <div class="text col-70 startTime" ng-click="selectTime('start')">
+                                    {{details.de_startTime}}
                                     <i class="ion-arrow-down-b"></i></div>
                             </div>
                             <div class="row endTime">
@@ -89,7 +107,9 @@
                         <div class="col col-85 col-center">
                             <div class="row">
                                 <div class="col-30 text-left col-center">参考:</div>
-                                <div class="text col-70 underline">{{details.OPPORT_NO}}<span ng-if="details.OPPORT_NO&&details.OPPORT_DESC">—</span>{{details.OPPORT_DESC}}</div>
+                                <div class="text col-70 underline">{{details.OPPORT_NO}}<span
+                                        ng-if="details.OPPORT_NO&&details.OPPORT_DESC">—</span>{{details.OPPORT_DESC}}
+                                </div>
                             </div>
                         </div>
                         <div class="col col-15 text-right rewrite"><img src="img/saleDetail/Shape.png"></div>
@@ -97,16 +117,45 @@
                 </div>
                 <div class="progress">
                     <div class="row">进展:</div>
-                    <div class="obj own-animated zoomInRight" ng-repeat="x in details.progressArr">
+                    <div class="obj own-animated zoomInRight">
                         <div class="row row-center">
                             <img class="oval" src="img/saleDetail/oval.png">
 
-                            <div class="triAngle">
-                                <div class="text">{{x.content}}</div>
+                            <div class="triAngle row row-center no-padding">
+                                <div class="textType">跟进事项</div>
+                                <div class="text">啥啥啥啥啥啥</div>
                             </div>
                         </div>
                         <div class="row row-center timeRow">
-                            <div class="time">{{x.time}}</div>
+                            <div class="time">2016-09-32</div>
+                            <div class="hr-line"></div>
+                        </div>
+                    </div>
+                    <div class="obj own-animated zoomInRight">
+                        <div class="row row-center">
+                            <img class="oval" src="img/saleDetail/oval_green.png">
+
+                            <div class="triAngle row row-center no-padding">
+                                <div class="textType green">达成共识</div>
+                                <div class="text">啥啥啥啥啥啥</div>
+                            </div>
+                        </div>
+                        <div class="row row-center timeRow">
+                            <div class="time">2016-09-32</div>
+                            <div class="hr-line"></div>
+                        </div>
+                    </div>
+                    <div class="obj own-animated zoomInRight">
+                        <div class="row row-center">
+                            <img class="oval" src="img/saleDetail/oval_rose.png">
+
+                            <div class="triAngle row row-center no-padding">
+                                <div class="textType rose">政策解读</div>
+                                <div class="text">啥啥啥啥啥啥</div>
+                            </div>
+                        </div>
+                        <div class="row row-center timeRow">
+                            <div class="time">2016-09-32</div>
                             <div class="hr-line"></div>
                         </div>
                     </div>
@@ -119,20 +168,26 @@
                     <div class="col">{{x.NAME}}&nbsp;&nbsp;{{x.sex}}</div>
                     <!--<div class="col text-center position">{{x.position}}</div>-->
                 </div>
-                <div class="row row-center add" ng-if="isEdit"><div class="col" ng-click="openRelations()"><i class="ion-ios-plus-outline"></i>添加相关方</div></div>
+                <div class="row row-center add" ng-if="isEdit">
+                    <div class="col" ng-click="openRelations()"><i class="ion-ios-plus-outline"></i>添加相关方</div>
+                </div>
             </div>
         </div>
     </ion-content>
-    <div class="bar bar-footer content item-input-inset">
-        <div class="submit">
-            <div class="row row-center">
-                <div class="col col-82 no-padding">
-                    <div class="input"><input type="text" ng-model="input.progress"/></div>
-                </div>
-                <div class="col col-18 no-padding" ng-click="submit()">
-                    <button>提交</button>
+    <div class="bar bar-footer content item-input-inset" keyboard-attach style="z-index: 999">
+        <form ng-submit="formTest()" style="width: 100%">
+            <div class="submit">
+                <div class="row row-center">
+                    <div class="col no-padding">
+                        <div class="input"><input type="text" ng-focus="openProcessModal()" ng-model="input.progress"/>
+                        </div>
+                    </div>
+                    <div class="no-padding selections">
+                        <select ng-model="myProcess" ng-options="x as x.text for x in processArr"></select>
+                        <i class="ion-ios-arrow-down"></i>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </ion-view>

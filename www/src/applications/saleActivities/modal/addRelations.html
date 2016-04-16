@@ -21,7 +21,7 @@
         <div>
             <div ng-class="moreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="changeMoreFlag()"></div>
             <div class="selectionsDown pushDown-animated"
-                 ng-class="{'slideOutUp':!moreflag&&isDropShow,'fadeInDown':moreflag}" ng-show="moreflag">
+                 ng-class="{'slideOutUp':!moreflag&&isDropShow,'fadeInDown':moreflag}">
                 <ion-list>
                     <ion-item ng-repeat="x in relationsPopArr" ng-class="{'selected':x.text==selectPopText}" ng-click="selectPop_rel(x)">{{x.text}}</ion-item>
                 </ion-list>
@@ -33,7 +33,11 @@
                 <img ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">
             </ion-item>
         </ion-list>
+        <div class="loadMore" ng-click="getCustomerArr()" ng-if="customerSearch&&!spinnerFlag"><span>点击加载更多...</span></div>
+        <div class="loadMore" ng-click="getCustomerArr()" ng-if="spinnerFlag">
+            <ion-spinner icon="ios" ng-if="details.relations.length>0"></ion-spinner></div>
         <div class="submitButton" ng-click="!isReplace?addRelationModal():replaceRelation()">确定</div>
         <!--<div class="submitButton" ng-if="isReplace" ng-click="replaceRelation()">确定</div>-->
+
     </ion-content>
 </ion-modal-view>
