@@ -46,10 +46,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-40">需要回访:</div>
+                    <div class="col-40">
+                        <input type="checkbox" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" ng-true-value="'X'" ng-false-value="''">
+                    </div>
+                    <div class="col-60">
+                        需要回访
+                        <!--ion-toggle ng-true-value="'X'" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm"></ion-toggle-->
+                    </div>
+                    <!--div class="col-40">需要回访:</div>
                     <div class="col-60">
                         <ion-toggle ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm"></ion-toggle>
-                    </div>
+                    </div-->
                 </div>
                 <div class="row">
                     <div class="col-40">注释:</div>
@@ -70,25 +77,25 @@
                     </div>
                     <span class="title-bottom"></span>
                 </div>
-                <div class="row">
+                <div class="row" ng-click="selectCreateTime('start', '上线开始时间');">
                     <div class="col-40">上线开始时间:</div>
-                    <div class="col-50" ng-click="selectCreateTime('start', '上线开始时间');">
+                    <div class="col-50" >
                         <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
                         <span ng-bind="datas.detail.ES_OUT_LIST.START_TIME_STR"></span>
                         <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.START_TIME_STR333"-->
                     </div>
-                    <div class="col-10" ng-click="selectCreateTime('start', '上线开始时间');">
+                    <div class="col-10">
                         <i class="ion-clock" style="font-size: 1.2rem;"></i>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" ng-click="selectCreateTime('end', '上线结束时间');">
                     <div class="col-40">上线结束时间:</div>
-                    <div class="col-50" ng-click="selectCreateTime('end', '上线结束时间');">
+                    <div class="col-50" >
                         <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
                         <span ng-bind="datas.detail.ES_OUT_LIST.END_TIME_STR"></span>
                         <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.END_TIME_STR333"-->
                     </div>
-                    <div class="col-10" ng-click="selectCreateTime('end', '上线结束时间');">
+                    <div class="col-10" >
                         <i class="ion-clock" style="font-size: 1.2rem;"></i>
                     </div>
                 </div>
@@ -130,9 +137,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-40">需要回访:</div>
+                    <div class="col-40">
+                        <input type="checkbox" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" ng-true-value="'X'" ng-false-value="''">
+                    </div>
                     <div class="col-60">
-                        <ion-toggle ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm"></ion-toggle>
+                        需要回访
+                        <!--ion-toggle ng-true-value="'X'" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm"></ion-toggle-->
                     </div>
                 </div>
             </div>
@@ -175,27 +185,27 @@
                     </div>
                     <span class="title-bottom"></span>
                 </div>
-                <div class="row">
+                <div class="row" ng-click="selectCreateTime('start', '维修开始时间');">
                     <div class="col-40" ng-if="config.detailTypeSiteRepair">维修开始时间&nbsp;:</div>
                     <div class="col-40" ng-if="config.detailTypeBatchUpdate">改进开始时间&nbsp;:</div>
-                    <div class="col-50" ng-click="selectCreateTime('start', '上线开始时间');">
+                    <div class="col-50" >
                         <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
                         <span ng-bind="datas.detail.ES_OUT_LIST.START_TIME_STR"></span>
                         <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.START_TIME_STR333"-->
                     </div>
-                    <div class="col-10" ng-click="selectCreateTime('start', '上线开始时间');">
+                    <div class="col-10">
                         <i class="ion-clock" style="font-size: 1.2rem;"></i>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row" ng-click="selectCreateTime('end', '上线结束时间');">
                     <div class="col-40" ng-if="config.detailTypeSiteRepair">维修结束时间&nbsp;:</div>
                     <div class="col-40" ng-if="config.detailTypeBatchUpdate">改进结束时间&nbsp;:</div>
-                    <div class="col-50" ng-click="selectCreateTime('end', '上线结束时间');">
+                    <div class="col-50" >
                         <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
                         <span ng-bind="datas.detail.ES_OUT_LIST.END_TIME_STR"></span>
                         <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.END_TIME_STR333"-->
                     </div>
-                    <div class="col-10" ng-click="selectCreateTime('end', '上线结束时间');">
+                    <div class="col-10">
                         <i class="ion-clock" style="font-size: 1.2rem;"></i>
                     </div>
                 </div>
