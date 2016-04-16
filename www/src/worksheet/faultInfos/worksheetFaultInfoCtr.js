@@ -33,7 +33,7 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
 worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
     "ionicMaterialInk",
     "ionicMaterialMotion",
-    "$ionicPopup", "$timeout","$state","worksheetDataService","HttpAppService",'Prompter', function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state,worksheetDataService,HttpAppService,Prompter){
+    "$ionicPopup", "$timeout","$state","worksheetDataService","HttpAppService",'Prompter','$cordovaToast', function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state,worksheetDataService,HttpAppService,Prompter,$cordovaToast){
         ionicMaterialInk.displayEffect();
         $scope.keep = function(){
             Prompter.showLoading("正在提交");
@@ -67,8 +67,16 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             HttpAppService.post(url, data).success(function(response){
                 Prompter.hideLoading();
-                $state.go("worksheetFaultInfos");
+
                 console.log(angular.toJson(response));
+                Prompter.hideLoading();
+                console.log(angular.toJson(response));
+                if (response.ES_RESULT.ZFLAG === 'S') {
+                    $cordovaToast.showShortBottom("车辆里程维护成功");
+                    $state.go("worksheetFaultInfos");
+                } else {
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                }
             }).error(function(err){
                 console.log(angular.toJson(err));
             });

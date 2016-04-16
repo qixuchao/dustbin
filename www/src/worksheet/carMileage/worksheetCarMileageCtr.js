@@ -68,7 +68,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                         worksheetDataService.wsDetailData.ET_MILEAGE.item[0].MILEAGE_VALUE = $scope.update.readValue;
                         worksheetDataService.wsDetailData.ET_MILEAGE.item[0].MILEAGE_DATE = $scope.update.readDate;
                         worksheetDataService.wsDetailData.ET_MILEAGE.item[0].MILEAGE_DESC = $scope.update.readDescription;
-                        $cordovaToast.showShortBottom("车辆里程维护成功");
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         $state.go("worksheetCarMileage");
                     } else {
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
