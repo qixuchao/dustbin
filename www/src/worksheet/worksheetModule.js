@@ -49,13 +49,10 @@ worksheetModule.service('worksheetDataService', [function(){
     wsDetailToList: {
       needReload: false
     },
-<<<<<<< HEAD
-      selectedCheLiang: null
-=======
+    selectedCheLiang: null,
     wsEditToDetail: {
       needReload: false
     }
->>>>>>> 655ec3cd125aeed3d04b538bbc790214d7408be7
     /*{
       ydWorksheetNum: 
     }*/

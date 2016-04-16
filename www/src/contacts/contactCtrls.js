@@ -268,7 +268,7 @@ ContactsModule
 
 
             //存储常用联系人
-            if (JSON.parse(localStorage.getItem("usuacontactdb")) != null || JSON.parse(localStorage.getItem("usuacontactdb")) != undefined) {
+            if (JSON.parse(localStorage.getItem("usuacontactdb")) !== null || JSON.parse(localStorage.getItem("usuacontactdb")) !== undefined) {
                 //判断是否有相同的值
                 var usuacontacthislistflag = true;
                 for(var i=0;i<$scope.contacthislistvalue.length;i++){
