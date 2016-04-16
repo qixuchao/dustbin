@@ -109,7 +109,7 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
         serviceDetailChange: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE',   //工单详情修改接口
             defaults: {
-                "I_SYSTEM": { "SysName": "ATL" },
+                "I_SYSTEM": { "SysName": "CATL" },
                 "IS_AUTHORITY": { "BNAME": "HANDLCX" }
                 /*,
                 "IS_HEAD_DATA": {

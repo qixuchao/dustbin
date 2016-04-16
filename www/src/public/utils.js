@@ -85,8 +85,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
                 minutes = "0" + date.getMinutes();
             } else {
                 minutes = date.getMinutes();
-            }
-            ;
+            };
             //小时
             if (date.getHours().toString().length < 2) {
                 hour = "0" + date.getHours();
