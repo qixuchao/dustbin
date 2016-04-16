@@ -688,6 +688,96 @@ customerModule
             POST_CODE1:customeService.get_customerEditServevalue().POST_CODE1,
             BEZEI:customeService.get_customerEditServevalue().BEZEI,
         };
+        $scope.country=[];
+        $scope.provence=[];
+        $scope.city=[];
+        $scope.countryCode="";
+        $scope.Ctype="A";
+        $scope.provenceCode="";
+
+        $scope.config = {
+            currentCountry: {},
+            currentProvence:{},
+            currentCity:{}
+        };
+
+        $scope.cascade=function(){
+            //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
+            var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
+            var data={
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "HANDLCX02" },
+                "I_COUNTRY": "",
+                "I_MODE": "A",
+                "I_REGION": ""
+            };
+            HttpAppService.post(url,data).success(function(response){
+                $.each(response.ET_CITY.item, function (n, value) {
+                    $scope.country.push(value);
+                });
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+            });
+        };
+        $scope.cascade1=function(){
+            //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
+            var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
+            var data={
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "HANDLCX02" },
+                "I_COUNTRY": $scope.countryCode,
+                "I_MODE": "B",
+                "I_REGION": ""
+            };
+            HttpAppService.post(url,data).success(function(response){
+                $.each(response.ET_CITY.item, function (n, value) {
+                    $scope.provence.push(value);
+                })
+
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+            });
+        };
+        $scope.cascade2=function(){
+            //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
+            var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
+            var data={
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "HANDLCX02" },
+                "I_COUNTRY": $scope.countryCode,
+                "I_MODE": "C",
+                "I_REGION": $scope.provenceCode
+            };
+            HttpAppService.post(url,data).success(function(response){
+                if(response.ET_CITY.item.length===undefined){
+                    $scope.city=new Array;
+                }else{
+                    $.each(response.ET_CITY.item, function (n, value) {
+                        $scope.city.push(value);
+                    })
+                }
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+            });
+        };
+        $scope.cascade();
+        $scope.changCountry=function(){
+            $scope.provence=new Array;
+            $scope.city=new Array;
+            $scope.countryCode= $scope.config.currentCountry.COUNTRY;
+            //console.log($scope.country.COUNTRY);
+            $scope.cascade1();
+        };
+        $scope.changProvence=function(){
+            $scope.city=new Array;
+            $scope.provenceCode=$scope.config.currentProvence.REGION;
+            $scope.cascade2();
+        };
+        $scope.init=function(){
+            $scope.country=new Array;
+            $scope.provence=new Array;
+            $scope.city=new Array;
+        };
         $scope.customerKeepEditvalue = function(){
             //提交数据
             //提交修改数据

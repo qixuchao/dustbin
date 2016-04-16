@@ -49,6 +49,7 @@ worksheetModule.service('worksheetDataService', [function(){
     wsDetailToList: {
       needReload: false
     },
+    selectedCheLiang: null,
     wsEditToDetail: {
       needReload: false
     }

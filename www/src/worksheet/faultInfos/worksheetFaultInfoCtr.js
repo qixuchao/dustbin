@@ -43,12 +43,12 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 "IS_OBJECT_ID": worksheetDetail.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDetail.IS_PROCESS_TYPE,
                     "IS_HEAD_DATA": {
-                    "SCENARIO": $scope.config.scenarioItem,
-                        "RESPONSE": $scope.config.responseItem,
-                        "DEFECT": $scope.config.defectItem,
-                        "COMP_TYPE": "F0",
-                        "COMPONENT": "08",
-                        "REASON": "06"
+                    "SCENARIO": $scope.config.scenarioItem.SCENARIO,
+                        "RESPONSE": $scope.config.responseItem.RESPONSE,
+                        "DEFECT": $scope.config.defectItem.DEFECT,
+                        "COMP_TYPE": $scope.config.currentChanPinLeiXing.KATALOGART,
+                        "COMPONENT": $scope.config.currentGuZhangBuJian.CODEGRUPPE,
+                        "REASON": $scope.config.currentGuZhangMingCheng.CODE
                 },
                     "IT_TEXT": {
                     "item": [
@@ -72,7 +72,8 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 Prompter.hideLoading();
                 console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
-                    $cordovaToast.showShortBottom("车辆里程维护成功");
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    worksheetDataService.wsDetailToList.needReload = true;
                     $state.go("worksheetFaultInfos");
                 } else {
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -107,9 +108,9 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         }
 
         $scope.config = {
-            scenarioItem : $scope.faulInfos.SCENARIO,
-            responseItem : $scope.faulInfos.RESPONSE,
-            defectItem : $scope.faulInfos.DEFECT,
+            scenarioItem : null,
+            responseItem : null,
+            defectItem : null,
             currentChanPinLeiXing: null,  //{"KATALOGART": "F0", "COMP_TYPE": "eBus",}
             currentGuZhangBuJian: null,      //{ "CODEGRUPPE": "04", "COMPONENT": "电芯" }
             currentGuZhangMingCheng: null,   //{CODE: '', REASON: ''}
@@ -155,6 +156,12 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         var urlChang = ROOTCONFIG.hempConfig.basePath + 'LIST_SCENARIO';
         HttpAppService.post(urlChang, data).success(function(response){
             $scope.scenario = response.MT_ListScenario_Res.ET_SCENARIO.item;
+            for(var i=0;i<$scope.scenario.length;i++){
+                if($scope.scenario[i].SCENARIO === $scope.faulInfos.SCENARIO){
+                    console.log("===");
+                    $scope.config.scenarioItem = $scope.scenario[i];
+                }
+            }
             console.log(angular.toJson(response)+"场景");
         }).error(function(err){
             console.log(angular.toJson(err));
@@ -163,6 +170,12 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         var urlReaponse = ROOTCONFIG.hempConfig.basePath + 'LIST_RESPONSE';
         HttpAppService.post(urlReaponse, data).success(function(response){
             $scope.response = response.ET_RESPONSE.item;
+            for(var i=0;i<$scope.response.length;i++){
+                if($scope.response[i].RESPONSE === $scope.faulInfos.RESPONSE){
+                    console.log("===");
+                    $scope.config.responseItem = $scope.response[i];
+                }
+            }
             console.log(angular.toJson(response)+"zeren");
         }).error(function(err){
             console.log(angular.toJson(err));
@@ -171,6 +184,12 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         var urlDefect = ROOTCONFIG.hempConfig.basePath + 'LIST_DEFECT';
         HttpAppService.post(urlDefect, data).success(function(response){
             $scope.defect = response.ET_DEFECT.item;
+            for(var i=0;i<$scope.defect.length;i++){
+                if($scope.defect[i].DEFECT === $scope.faulInfos.DEFECT){
+                    console.log("===");
+                    $scope.config.defectItem = $scope.defect[i];
+                }
+            }
             console.log(angular.toJson(response)+"故障");
         }).error(function(err){
             console.log(angular.toJson(err));

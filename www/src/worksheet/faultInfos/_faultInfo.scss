@@ -11,7 +11,12 @@
     //background-color: $crm-content-bgcolor;
     @include display-flex;
     @include flex-direction(column);
+    .active{
 
+    }
+    .inactive{
+
+    }
   }
   .contentAll{
     position: relative;
