@@ -193,6 +193,7 @@ CODE:"03"
                     DEFECT: null
                 }
             ],
+
             guZhangBuJianS: null,
             guZhangMingChengS: null,
             chanPinLeiXingS: [ 
