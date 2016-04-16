@@ -1,5 +1,5 @@
 
-worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService){
+worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast){
     $ionicPopover.fromTemplateUrl('src/worksheet/relatedPart/worksheetRelate_select.html', {
             scope: $scope
         }).then(function(popover) {
@@ -20,9 +20,11 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         $scope.relatedqueryType = function(types){
             console.log(types);
             if(types === "联系人"){
-                $state.go("worksheetRelatedPartContact");
+                //$state.go("worksheetRelatedPartContact");
+                $scope.openSelectCon();
             }else if(types === "服务商"){
-                $state.go("worksheetRelatedPartCust");
+                //$state.go("worksheetRelatedPartCust");
+                $scope.openSelectCustomer();
             }
 
             $scope.relatedPopoverhide();
@@ -45,7 +47,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             if(item.PARTNER_FCT !== "ZCUSTCTT" ){
                 Prompter.deleteInfosPoint(item.FCT_DESCRIPTION + "不允许删除");
             }else{
-                Prompter.showLoading();
+                Prompter.showLoading("正在删除");
                 var data={
                     "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                     "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
@@ -63,14 +65,19 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                 console.log(angular.toJson(data));
                 var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
                 HttpAppService.post(url, data).success(function(response){
-                    Prompter.hideLoading();
-                    Prompter.deleteInfosPoint(response.ZRESULT);
-                    for(var k=0;k<$scope.infos.length;k++){
-                        if(item.PARTNER_NO === $scope.infos[k].PARTNER_NO){
-                            console.log(angular.toJson($scope.infos[k]));
-                            $scope.infos.splice(k,1);
+                    if (response.ES_RESULT.ZFLAG === 'S') {
+                        for(var k=0;k<$scope.infos.length;k++){
+                            if(item.PARTNER_NO === $scope.infos[k].PARTNER_NO){
+                                console.log(angular.toJson($scope.infos[k]));
+                                $scope.infos.splice(k,1);
+                            }
                         }
+                        worksheetDataService.wsDetailToList.needReload = true;
+                    }else{
+
                     }
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    Prompter.hideLoading();
                     console.log(angular.toJson(response));
                 }).error(function(err){
                     console.log(angular.toJson(err));
@@ -80,45 +87,233 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
     $scope.phone = function(num){
         Prompter.showphone(num);
     }
-}]);
-
-
-worksheetModule.controller("WorksheetRelatedDeleteCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
-    $scope.infos = [{
-        id : 1,
-        name : "往事",
-        position : "服务代理商联系人",
-        phone : "18298182058"
-    },{
-        id : 2,
-        name : "往事如风",
-        position : "服务代理商",
-        phone : "18298182053"
-    },{
-        id : 3,
-        name : "走走走",
-        position : "负责员工",
-        phone : "18298182052"
-    }]
-    $scope.deleteInfos = function(){
-        var str=document.getElementsByName("deleteBox");
-        var chestr = new Array();
-        for (i=0;i<str.length;i++) {
-            if(str[i].checked == true)
-            {
-                chestr.push(JSON.parse(str[i].value));
-            }
+    //选择客户
+    var customerPage = 1;
+    $scope.customerArr = [];
+    $scope.customerSearch = false;
+    $scope.getCustomerArr = function (search) {
+        $scope.CustomerLoadMoreFlag = false;
+        if (search) {
+            $scope.customerSearch = false;
+            customerPage = 1;
+        } else {
+            $scope.spinnerFlag = true;
         }
-        for(var j=0;j<chestr.length;j++){
-            for(var k=0;k<$scope.infos.length;k++){
-                if(chestr[j].id === $scope.infos[k].id){
-                    console.log(angular.toJson($scope.infos[k]));
-                    $scope.infos.splice(k,1);
+        var data = {
+            "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_PAGE": {
+                "CURRPAGE": customerPage++,
+                "ITEMS": "10"
+            },
+            "IS_SEARCH": {"SEARCH": search},
+            "IT_IN_ROLE": {}
+        };
+        console.log(data);
+        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
+            .success(function (response) {
+                if (response.ES_RESULT.ZFLAG === 'S') {
+                    if (response.ET_OUT_LIST.item.length < 10) {
+                        $scope.CustomerLoadMoreFlag = false;
+                    }
+                    if (search) {
+                        $scope.customerArr = response.ET_OUT_LIST.item;
+                    } else {
+                        $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                    }
+                    $scope.spinnerFlag = false;
+                    $scope.customerSearch = true;
+                    $scope.CustomerLoadMoreFlag = true;
+                    $ionicScrollDelegate.resize();
+                    //saleActService.customerArr = $scope.customerArr;
+                    $rootScope.$broadcast('scroll.infiniteScrollComplete');
                 }
+            });
+    };
+    //选择客户
+    $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up',
+        focusFirstInput: true
+    }).then(function (modal) {
+        $scope.selectCustomerModal = modal;
+    });
+    $scope.selectCustomerText = '服务商';
+    $scope.openSelectCustomer = function () {
+        $scope.isDropShow = true;
+        $scope.customerSearch = true;
+        $scope.selectCustomerModal.show();
+    };
+    $scope.closeSelectCustomer = function () {
+        $scope.selectCustomerModal.hide();
+    };
+    $scope.selectPop = function (x) {
+        $scope.selectCustomerText = x.text;
+        $scope.referMoreflag = !$scope.referMoreflag;
+    };
+
+    $scope.showChancePop = function () {
+        $scope.referMoreflag = true;
+        $scope.isDropShow = true;
+    };
+    $scope.initCustomerSearch = function () {
+        $scope.input.customer = '';
+        //$scope.getCustomerArr();
+        $timeout(function () {
+            document.getElementById('selectCustomerId').focus();
+        }, 1)
+    };
+    $scope.selectCustomer = function (x) {
+        //$scope.create.customer = x;
+        //$scope.create.contact = '';
+        console.log(angular.toJson(x));
+        console.log(angular.toJson($scope.infos));
+        Prompter.showLoading("正在添加");
+        var data={
+            "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
+            "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
+            "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
+            "IT_PARTNER": {
+                "item": [
+                    {
+                        "PARTNER_FCT": "ZCUSTOME",
+                        "PARTNER_NO": x.PARTNER,
+                        "ZMODE" : "I"
+                    }
+                ]
+            }};
+        console.log(angular.toJson(data));
+        var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
+        HttpAppService.post(url, data).success(function(response){
+            Prompter.hideLoading();
+            if (response.ES_RESULT.ZFLAG === 'S') {
+                worksheetDataService.wsDetailToList.needReload = true;
+               $scope.infos.push({"PARTNER_FCT":"ZCUSTOME","FCT_DESCRIPTION":"服务商","PARTNER_NO":x.PARTNER,"NAME1":""});
+            }else{
+
             }
+            console.log(angular.toJson(response));
+            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+        }).error(function(err){
+            console.log(angular.toJson(err));
+        });
+        $scope.contactSpinnerFLag = true;
+        $scope.contactsLoadMoreFlag = true;
+        //$scope.getContacts();
+        $scope.selectCustomerModal.hide();
+    };
+    //选择联系人
+
+    var conPage = 1;
+    $scope.conArr = [];
+    $scope.conSearch = false;
+    $scope.getConArr = function (search) {
+        $scope.ConLoadMoreFlag = false;
+        if (search) {
+            $scope.conSearch = false;
+            conPage = 1;
+        } else {
+            $scope.spinnerFlag = true;
         }
-    }
+        var data = {
+            "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_PAGE": {
+                "CURRPAGE": conPage++,
+                "ITEMS": "10"
+            },
+            "IS_PARTNER": { "PARTNER": "" },
+            "IS_SEARCH": { "SEARCH": search }
+        };
+        console.log(data);
+        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
+            .success(function (response) {
+                console.log(angular.toJson(response));
+                if (response.ES_RESULT.ZFLAG === 'S') {
+                    if (response.ET_OUT_LIST.item.length < 10) {
+                        $scope.ConLoadMoreFlag = false;
+                    }
+                    if (search) {
+                        $scope.conArr = response.ET_OUT_LIST.item;
+                    } else {
+                        $scope.conArr = $scope.conArr.concat(response.ET_OUT_LIST.item);
+                    }
+                    $scope.spinnerFlag = false;
+                    $scope.conSearch = true;
+                    $scope.ConLoadMoreFlag = true;
+                    $ionicScrollDelegate.resize();
+                    $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                }
+            });
+    };
+
+    $ionicModal.fromTemplateUrl('src/worksheet/relatedPart/selectContact_Modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up',
+        focusFirstInput: true
+    }).then(function (modal) {
+        $scope.selectContactModal = modal;
+    });
+    $scope.selectContactText = '联系人';
+    $scope.openSelectCon = function () {
+        $scope.isDropShow = true;
+        $scope.conSearch = true;
+        $scope.selectContactModal.show();
+    };
+    $scope.closeSelectCon = function () {
+        $scope.selectContactModal.hide();
+    };
+    $scope.selectPop = function (x) {
+        $scope.selectContactText = x.text;
+        $scope.referMoreflag = !$scope.referMoreflag;
+    };
+    $scope.showChancePop = function () {
+        $scope.referMoreflag = true;
+        $scope.isDropShow = true;
+    };
+    $scope.initConSearch = function () {
+        $scope.input.con = '';
+        $timeout(function () {
+            document.getElementById('selectConId').focus();
+        }, 1)
+    };
+    $scope.selectCon = function (x) {
+        console.log(angular.toJson(x));
+        console.log(angular.toJson($scope.infos));
+        Prompter.showLoading("正在添加");
+        var data={
+            "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
+            "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
+            "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
+            "IT_PARTNER": {
+                "item": [
+                    {
+                        "PARTNER_FCT": "ZCUSTOME",
+                        "PARTNER_NO": x.PARTNER,
+                        "ZMODE" : "I"
+                    }
+                ]
+            }};
+        console.log(angular.toJson(data));
+        var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
+        HttpAppService.post(url, data).success(function(response){
+            Prompter.hideLoading();
+            if (response.ES_RESULT.ZFLAG === 'S') {
+                worksheetDataService.wsDetailToList.needReload = true;
+                $scope.infos.push({"PARTNER_FCT":"ZCUSTOME","FCT_DESCRIPTION":"联系人","PARTNER_NO":x.PARTNER,"NAME1":""});
+            }else{
+
+            }
+            console.log(angular.toJson(response));
+            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+        }).error(function(err){
+            console.log(angular.toJson(err));
+        });
+        $scope.selectContactModal.hide();
+    };
 }]);
+
+
 
 worksheetModule.controller("WorksheetRelatedContactCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','worksheetHttpService','$rootScope',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,worksheetHttpService,$rootScope){
     //CONTACT_LIST接口
@@ -151,22 +346,3 @@ worksheetModule.controller("WorksheetRelatedContactCtrl",['$scope','$state','$ht
 }]);
 
 
-
-worksheetModule.controller("WorksheetRelatedCustCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','worksheetHttpService','$rootScope',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,worksheetHttpService,$rootScope){
-    $scope.contact_query_list = [{
-        id : 6,
-        position : 'haohao上学',
-        NAME_LAST : "asdads",
-        TEL_NUMBER : "18298182051"
-    },{
-        id : 7,
-        position : 'haohao上学',
-        NAME_LAST : "asdads",
-        TEL_NUMBER : "18298182052"
-    }]
-
-    $scope.gorelatePart = function(item){
-        $rootScope.$broadcast("worksheetRelatePartItem", item);
-        $state.go("worksheetRelatedPart");
-    }
-}]);
