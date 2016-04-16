@@ -17,7 +17,11 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
         console.log(angular.toJson(worksheetDetail));
         $scope.carMile = worksheetDetail.ET_MILEAGE.item[0];
         console.log(angular.toJson($scope.carMile));
-        
+        if($scope.carMile.MILEAGE_DATE === "" && $scope.carMile.MILEAGE_VALUE === "" && $scope.carMile.MILEAGE_DESC === ""){
+            $scope.carEdit = true;
+        }else{
+            $scope.carEdit = false;
+        }
 }]);
 
 worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",

@@ -18,8 +18,8 @@
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">故障发生场景：</div>
                 <div class="col-62 col-center">
-                    <select class="selectC">
-                         <option ng-repeat="scenarioitem in scenario">{{scenarioitem.DESCRIPTION}}</option>
+                    <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in scenario">
+                        <option selected value="">--请选择--</option>
                     </select>
                 </div>
             </div>
@@ -27,8 +27,8 @@
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">责任方：</div>
                 <div class="col-62 col-center">
-                    <select class="selectC">
-                        <option ng-repeat="responseitem in response">{{responseitem.DESCRIPTION}}</option>
+                    <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in response">
+                        <option selected value="">--请选择--</option>
                     </select>
                 </div>
             </div>
@@ -36,8 +36,8 @@
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">故障分类：</div>
             <div class="col-62 col-center">
-                <select class="selectC">
-                    <option ng-repeat="defectitem in defect">{{defectitem.DESCRIPTION}}</option>
+                <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in defect">
+                    <option selected value="">--请选择--</option>
                 </select>
             </div>
             </div>
@@ -45,37 +45,41 @@
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">部件分类：</div>
                 <div class="col-62 col-center">
-                    <select class="selectC">
-                         <option ng-repeat="scenarioitem in scenario"></option>
+                    <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in scenario">
+                        <option selected value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">部件：</div>
                 <div class="col-62 col-center">
-                    <select class="selectC">
-                        <option ng-repeat="scenarioitem in scenario"></option>
+                    <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in scenario">
+                        <option selected value="">--请选择--</option>
                     </select>
                 </div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">故障原因：</div>
                 <div class="col-62 col-center">
-                    <select class="selectC">
-                        <option ng-repeat="scenarioitem in scenario"></option>
+                    <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in scenario">
+                        <option selected value="">--请选择--</option>
                     </select>
                 </div>
             </div>
-            <div class="row itemContentT ">
+            <div class="row itemContentS row-center">
                 <div class="col-38 ">注释：</div>
-                <div class="col-62 col-center">
+            </div>
+            <div class="row itemContentT ">
+                <div class="col col-center">
                     <textarea type="text"placeholder="请输入值" class="textareaCss" ng-model="otherInfos.remark" style="background-color: white;color: #A0A09F"></textarea>
                 </div>
             </div>
-            <div class="row itemContentT ">
+            <div class="row itemContentS row-center">
                 <div class="col-38 ">处理结果：</div>
-                <div class="col-62 col-center">
-                    <textarea type="text"placeholder="请输入读取描述" class="textareaCss" ng-model="otherInfos.result" style="background-color: white;color: #A0A09F"></textarea>
+            </div>
+            <div class="row itemContentT ">
+                <div class="col col-center">
+                    <textarea type="text"placeholder="请输入读取描述" class="textareaCss" ng-model="otherInfos.result" style="background-color: white;color: #A0A09F;width: 100%"></textarea>
                 </div>
             </div>
             </div>
