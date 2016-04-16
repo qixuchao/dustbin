@@ -1,0 +1,35 @@
+.customerFuze{
+
+  .customerContacts_querytitleimg{
+    margin-right: 10px;
+    float: right;
+    font-size: 30px;
+    color: white;
+  }
+    .customerContacts_query_listcicle{
+      width:14px;
+      height:14px;
+      vertical-align: middle;
+      display: inline-block;
+      border-radius:50%;
+      border: 2px solid #9EC92A;
+    }
+    .item-content{
+      padding: 0;
+    }
+    .item-options .button{
+      padding:10px 10px 10px 16px;
+      margin-top:1px;
+      //height:52px;
+    }
+    .button .icon:before{
+      font-size:35px;
+    }
+  .item-content{
+    background-color: white;
+    height:48px;
+  }
+  .item-options{
+    height:46px;
+  }
+}
