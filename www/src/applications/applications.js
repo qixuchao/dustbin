@@ -3,38 +3,58 @@
  */
 'use strict';
 appModule
-    .controller('AppCtrl',['$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function($scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
+    .controller('AppCtrl',['LoginService','$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function(LoginService,$scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
         console.log('app')
         //ionicMaterialInk.displayEffect();
-
+        var menuList=LoginService.getMenulist();
+        //console.log(menuList);
         $scope.imgs = [{
+            name:'CUSTOMER',
             url:'img/apps/partner.png',
             go:'customerQuery'
         },{
+            name:'ACTIVITY',
             url:'img/apps/saleAct.png',
             go:"saleActList"
         },{
+            name:'',
             url:'img/apps/acPlan.png',
             go:'saleChanDetail'
         },{
+            name:'OPPORT',
             url:'img/apps/saleChance.png',
             go:'saleChanList'
         },{
+            name:'',
             url:'img/apps/saleClue.png',
             go:'worksheetReportedList'
         },{
+            name:'SERVICE',
             url:'img/apps/saleQuote.png',
             go:'worksheetList'
         },{
+            name:'PRODUCT',
             url:'img/apps/proInfo.png',
             go:'spareList'
         },{
+            name:'EMPLOYEE',
             url:'img/apps/empInfo.png',
             go:'userQuery'
         },{
+            name:'CAR',
             url:'img/apps/searchCar.png',
             go:'car'
         }];
+        var num=menuList.length;
+        $scope.imgs1= new Array();
+
+        for(var i=0;i<num+2;i++){
+            for(var j=0;j<$scope.imgs.length;j++){
+                if($scope.imgs[i].name===menuList[j]){
+                    $scope.imgs1.push($scope.imgs[i]);
+                }
+            }
+        }
         $timeout(function(){
             ionicMaterialMotion.fadeSlideInRight({
                 selector: '.animate-fade-slide-in .col-33'

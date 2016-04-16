@@ -126,9 +126,13 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
         if($scope.carInfo!==""){
             if(storedb('cardb').find()!==null || storedb('cardb').find()!==undefined){
                 var list=storedb('cardb').find();
-                for(var i=0;i<list.length;i++){
-                    if(storedb('cardb').find($scope.carInfo)){
-                        storedb('cardb').remove($scope.carInfo);
+                for(var j=0;j<list.length;j++){
+                    if(list[j].name==$scope.carInfo){
+                        storedb('cardb').remove({'name':list[j].name},function (err) {
+                            if (!err) {
+                            } else {
+                            }
+                            });
                         storedb('cardb').insert({'name':$scope.carInfo},function(err){
                             if(!err){
                                 console.log('历史记录保存成功')
@@ -166,7 +170,7 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                     carIsIn=false;
                 }
             }
-            if(carIsIn===true){
+            if(carIsIn){
                 $scope.oftenCarList.unshift(value);
                 localStorage['oftenCardb'] = JSON.stringify($scope.oftenCarList);
             }

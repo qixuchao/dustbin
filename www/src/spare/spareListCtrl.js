@@ -197,10 +197,10 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
                     $scope.oftenSpareList.unshift(value);
                     localStorage['oftenSparedb'] = JSON.stringify($scope.oftenSpareList);
                     console.log("产品保存成功");
-                    spareIsIn=true;
+                    spareIsIn=false;
                 }
             }
-            if(spareIsIn == true){
+            if(spareIsIn){
                 $scope.oftenSpareList.unshift(value);
                 localStorage['oftenSparedb'] = JSON.stringify( $scope.oftenSpareList);
                 console.log("产品1保存成功");

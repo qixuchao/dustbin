@@ -11,7 +11,7 @@
             <div class="pub-subhead bar bar-subheader">
                 <div class="employeequery_headquery">
                     <i class="ion-ios-search employeequery_headqueryimg"></i>
-                    <input id="customerinputvalueid" class="employeequery_headqueryinput" type="text" ng-model="customer.customerfiledvalue" placeholder="请输入客户关键字">
+                    <input id="customerinputvalueid" class="employeequery_headqueryinput" type="text" ng-model="customer.customerfiledvalue" ng-change="customerLoadmore()" placeholder="请输入客户关键字">
                     <i id="customerqueryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="customeriputDeletevalue()"></i>
                 </div>
             </div>
