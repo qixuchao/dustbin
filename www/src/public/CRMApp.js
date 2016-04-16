@@ -157,7 +157,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/contacts/contactCreate.html',
                 controller: 'contactCreateCtrl'
             })
-
+            
             .state('ContactsEdit', {
                 url: '/contactEdit',
                 templateUrl: 'src/contacts/contactEdit.html',
@@ -176,7 +176,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/customer/customerinfo/customerQuery.html',
                 controller: 'customerQueryCtrl'
             })
-            .state('customerDetail', {
+            .state('customerDetail', { 
                 url: '/customerDetail',
                 templateUrl: 'src/customer/customerinfo/customerDetail.html',
                 controller: 'customerDetailCtrl'

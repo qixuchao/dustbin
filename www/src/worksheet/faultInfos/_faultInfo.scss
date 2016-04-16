@@ -61,11 +61,12 @@
 
   .selectC {
     border: solid 0px white;
-    width: 80%;
+    width: 100%;
     appearance:none;
     -moz-appearance:none;
     -webkit-appearance:none;
-    background: url("../../img/worksheetReported/sanjiao.png") no-repeat scroll right center transparent;
+    background-color: white;
+    //background: url("../../img/worksheetReported/sanjiao.png") no-repeat scroll right center transparent;
     position:relative;left:0px;top:-2px;font-size:15px;line-height:24px;border:0px;color:#909993;
     padding-right: 14px;
   }
