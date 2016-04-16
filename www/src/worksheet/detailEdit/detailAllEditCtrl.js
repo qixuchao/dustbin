@@ -55,27 +55,68 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var katalogart = $scope.config.currentChanPinLeiXing.KATALOGART;
             var codegrupper = $scope.config.currentGuZhangBuJian.CODEGRUPPE;
             var code = $scope.config.currentGuZhangMingCheng.CODE;
+/*"CAR_NO": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
 
+"": "",
+"": "14:20:00.0Z",
+"": "",
+"END_TIME": "14:20:00.0Z",
+
+"COMP_TYPE": "aa",
+
+"COMPONENT": "aaaaaaaa",
+CODEGRUPPE
+
+4-29 1008
+
+
+KATALOGART:"F0"
+CODEGRUPPE:"02"
+CODE:"03"
+*/
+            var startStr = $scope.datas.detail.ES_OUT_LIST.START_TIME_STR;
+            var startDateStr = new Date(startStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
+            startDate = startDateStr.split(" ")[0];
+            startTime = startDateStr.split(" ")[1];
+
+            var endStr = $scope.datas.detail.ES_OUT_LIST.END_TIME_STR;  
+            var endDateStr = new Date(endStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
+            var endDate = endDateStr.split(" ")[0];
+            var endTime = endDateStr.split(" ")[1];
+            //console.log(startStr +"          "+endStr);
+            console.log(startDate+"  "+startTime+"     "+endDate+" "+endTime);
             var header = {
                 IMPACT: (!impact) ? "" : impact,
                 SCENARIO: (!scenario) ? "" : scenario,
                 RESPONSE: (!response) ? "" : response,
                 DEFECT: (!defect) ? "" : defect,
                 KATALOGART: (!katalogart) ? "" : katalogart,
-                CODEGRUPPE: (!codegrupper) ? "" : codegrupper
+                CODEGRUPPE: (!codegrupper) ? "" : codegrupper,
+                CODE: (!code) ? "" : code,
+                
+                DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION,
+                START_DATE: startDate,
+                START_TIME: startTime,
+                END_DATE: endDate,
+                END_TIME: endTime,
+                
+                ZZBXR: $scope.datas.detail.ES_OUT_LIST.ZZBXR,
+                ZZBXDH: $scope.datas.detail.ES_OUT_LIST.ZZBXDH,
+                ZZXYHF: $scope.datas.detail.ES_OUT_LIST.ZZXYHF
             };
             __requestUpdateWorksheet(header);
         };
-
+        
         function __requestUpdateWorksheet(headerData){
             var url = worksheetHttpService.serviceDetailChange.url;
             var defaults = worksheetHttpService.serviceDetailChange.defaults;
             var postData = angular.extend(defaults, {
                 IS_HEAD_DATA: headerData,
                 IS_OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
-                IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE
+                IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE,
+
             });
-            var promise = HttpAppService.post(worksheetHttpService.serviceList.url,postData);
+            var promise = HttpAppService.post(url,postData);
             Prompter.showLoading("正在保存修改");
             promise.success(function(response){                
                 if(response && response.ES_RESULT && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG == "S"){
@@ -154,6 +195,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     DEFECT: null
                 }
             ],
+
             guZhangBuJianS: null,
             guZhangMingChengS: null,
             chanPinLeiXingS: [ 
@@ -201,10 +243,16 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                             {
                                 REASON: pleaseChoose,
                                 CODE: null
+                            },
+                            {
+                                CODE: item.CODE,
+                                REASON: item.KURZTEXT
                             }
                         ]
                     });
                     return;
+                }else{
+
                 }
             }
             this.push({
@@ -218,6 +266,24 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                             {
                                 REASON: pleaseChoose,
                                 CODE: null
+                            },
+                            {
+                                CODE: item.CODE,
+                                REASON: item.KURZTEXT
+                            }
+                        ]
+                    },
+                    {
+                        CODEGRUPPE: item.CODEGRUPPE,
+                        COMPONENT: item.GROUPTEXT,
+                        guZhangMingChengS: [
+                            {
+                                REASON: pleaseChoose,
+                                CODE: null
+                            },
+                            {
+                                CODE: item.CODE,
+                                REASON: item.KURZTEXT
                             }
                         ]
                     }
@@ -268,37 +334,36 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         $scope.selectCreateTime = function (type, title) { // type: start、end
             var date;
             if(type == 'start'){
-                date = new Date($scope.datas.detail.ES_OUT_LIST.STAET_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm');
+                date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
             }else if(type=='end'){
-                date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm');
+                date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
             }
-            
-            document.addEventListener("deviceready", function () {
-                //alert("deviceready");
-                //alert($cordovaDatePicker);
-                //alert($cordovaDatePicker.show);
-
-                $cordovaDatePicker.show({
-                    date: date,
-                    mode: 'datetime',
-                    titleText: title,
-                    okText: '确定',
-                    cancelText: '取消',
-                    doneButtonLabel: '确认',
-                    cancelButtonLabel: '取消',
-                    locale: 'zh_cn'
-                }).then(function (returnDate) {
-                    var time = __getFormatTime(returnDate);
-                    switch (type) {
-                        case 'start':
-                            $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
-                            break;
-                        case 'end':
-                            $scope.datas.detail.datas.detail.ES_OUT_LIST.END_DATE = time;
-                            break;
-                    }
-                });
-            }, false);
+            $cordovaDatePicker.show({
+                date: date,
+                mode: 'datetime',
+                titleText: title,
+                okText: '确定',
+                cancelText: '取消',
+                doneButtonLabel: '确认',
+                cancelButtonLabel: '取消',
+                locale: 'zh_cn'
+            }).then(function (returnDate) {
+                var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
+                alert(time);
+                switch (type) {
+                    case 'start':
+                        $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
+                        console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
+                        break;
+                    case 'end':
+                        $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = time;
+                        console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);                    
+                        break;
+                }
+                if(!$scope.$$phrese){
+                    $scope.$apply();
+                }
+            });
         };
 
         function __getFormatTime(date) {
@@ -328,14 +393,16 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             $scope.config.detailTypeBatchUpdate =  $scope.config.typeStr == "batchUpdate" ? true : false;
 
             $scope.datas.detail = worksheetDataService.wsDetailData;
-
+            $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
+            $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
+            console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
+            console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);
             //__initSelectDatas();
             __initBuJianReason();
             __initScenario();
             __initResponse();
             __initGuZhangFeiLei();
             __initImpact();
-
         };
 
         function __initImpact(){

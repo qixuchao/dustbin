@@ -11,7 +11,7 @@ loginModule.factory('LoginService',function(){
             data=data4;
             return data;
         },
-        //¹ıÈ¥µÇÂ¼µÄÓÃ»§Ãû
+        //è¿‡å»ç™»å½•çš„ç”¨æˆ·å
         getUserName:function(){
             return data;
         },
@@ -19,7 +19,7 @@ loginModule.factory('LoginService',function(){
             data3=data1;
             //return data;
         },
-        //½ÇÉ«
+        //è§’è‰²
         getProfile:function(){
             return data3;
         },
@@ -27,7 +27,7 @@ loginModule.factory('LoginService',function(){
             menuList=data2;
             return menuList;
         },
-        // Ó¦ÓÃÒ³ÁĞ±í
+        // åº”ç”¨é¡µåˆ—è¡¨
         getMenulist:function(){
             return menuList;
         },
@@ -35,7 +35,7 @@ loginModule.factory('LoginService',function(){
             author=data3;
             return author;
         },
-        //ÓÃ»§µÄÈ¨ÏŞ
+        //ç”¨æˆ·çš„æƒé™
         getAuth:function(){
             return author;
         }

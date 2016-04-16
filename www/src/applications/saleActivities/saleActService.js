@@ -133,6 +133,8 @@ salesModule.factory('saleActService', function () {
         text: '竞争对手'
     }, {
         text: '合作伙伴'
+    }, {
+        text: '公司员工'
     }];
     var customer = [{
         text: '郑州金龙客车(福州)分公司'

@@ -156,7 +156,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/contacts/contactCreate.html',
                 controller: 'contactCreateCtrl'
             })
-
+            
             .state('ContactsEdit', {
                 url: '/contactEdit',
                 templateUrl: 'src/contacts/contactEdit.html',
@@ -175,7 +175,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/customer/customerinfo/customerQuery.html',
                 controller: 'customerQueryCtrl'
             })
-            .state('customerDetail', {
+            .state('customerDetail', { 
                 url: '/customerDetail',
                 templateUrl: 'src/customer/customerinfo/customerDetail.html',
                 controller: 'customerDetailCtrl'
@@ -188,7 +188,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             //客户-联系人
             .state('customerContactQuery', {
                 url: '/customerContactQuery',
-                templateUrl: 'src/customer/customerContacts/customerContactsQuery.html',
+                templateUrl: 'src/customer/customerContacts/customerFuze.html',
                 controller: 'customerContactQueryCtrl'
             })
             .state('customerContactDetail', {
@@ -226,6 +226,12 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/customer/customerWorkorder/customerWorkorderQuery.html',
                 controller: 'customerWorkorderQueryCtrl'
             })
+            //客户-负责人
+            //.state('customerFuze',{
+            //    url:'/customerFuze',
+            //    templateUrl: 'src/customer/customerFuze/customerFuze.html',
+            //    controller:'customerFuzeCtrl'
+            //})
             //车辆查询
             .state('car',{
                 url:'apps/car',

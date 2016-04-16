@@ -32,6 +32,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			}, 400);
 			$timeout(function (){
 				backdropEleJQ[0].style="";
+				$scope.closeImageModal();
 			}, 600);
 		});
 		$scope.$on('modal.removed', function() {

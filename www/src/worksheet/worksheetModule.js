@@ -48,6 +48,10 @@ worksheetModule.service('worksheetDataService', [function(){
     wsDetailData: null,
     wsDetailToList: {
       needReload: false
+    },
+    selectedCheLiang: null,
+    wsEditToDetail: {
+      needReload: false
     }
     /*{
       ydWorksheetNum: 
@@ -86,6 +90,17 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
                 T_IN_PROCESS_TYPE: {},
                 T_IN_STAT: {}
             }
+        },
+        empsList: {
+          url: "STAFF_LIST",
+          defaults: {
+              I_SYSNAME: { SysName: "CATL" },
+              IS_PAGE: {
+                CURRPAGE: "1",
+                ITEMS: "10"
+              },
+              IS_EMPLOYEE: { "NAME": "" }
+          }
         },
         //备件
         setSparePart:function(data){

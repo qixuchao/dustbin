@@ -18,7 +18,7 @@
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">故障发生场景：</div>
                 <div class="col-62 col-center">
-                    <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in scenario">
+                    <select class="selectC" ng-model="config.scenarioItem" ng-options="impact as impact.DESCRIPTION for impact in scenario">
                         <option selected value="">--请选择--</option>
                     </select>
                 </div>
@@ -27,7 +27,7 @@
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">责任方：</div>
                 <div class="col-62 col-center">
-                    <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in response">
+                    <select class="selectC" ng-model="config.responseItem" ng-options="impact as impact.DESCRIPTION for impact in response">
                         <option selected value="">--请选择--</option>
                     </select>
                 </div>
@@ -36,7 +36,7 @@
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">故障分类：</div>
             <div class="col-62 col-center">
-                <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in defect">
+                <select class="selectC" ng-model="config.defectItem" ng-options="impact as impact.DESCRIPTION for impact in defect">
                     <option selected value="">--请选择--</option>
                 </select>
             </div>
@@ -45,24 +45,21 @@
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">部件分类：</div>
                 <div class="col-62 col-center">
-                    <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in scenario">
-                        <option selected value="">--请选择--</option>
+                    <select ng-change="buJianFeiLenChanged();" class="selectC" ng-model="config.currentChanPinLeiXing" ng-options="cplx as cplx.COMP_TYPE for cplx in datas.chanPinLeiXingS">
                     </select>
                 </div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">部件：</div>
                 <div class="col-62 col-center">
-                    <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in scenario">
-                        <option selected value="">--请选择--</option>
+                    <select ng-change="buJianChanged();" class="selectC" ng-model="config.currentGuZhangBuJian" ng-options="gzbj as gzbj.COMPONENT for gzbj in datas.guZhangBuJianS">
                     </select>
                 </div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-38 col-center">故障原因：</div>
                 <div class="col-62 col-center">
-                    <select class="selectC" ng-model="config.warehouse" ng-options="impact as impact.DESCRIPTION for impact in scenario">
-                        <option selected value="">--请选择--</option>
+                    <select ng-model="config.currentGuZhangMingCheng" class="selectC" ng-options="gzmc as gzmc.REASON for gzmc in datas.guZhangMingChengS">
                     </select>
                 </div>
             </div>

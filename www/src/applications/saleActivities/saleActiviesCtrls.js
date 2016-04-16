@@ -4,7 +4,7 @@
 'use strict';
 salesModule
     .controller('saleActListCtrl', ['$scope', '$rootScope',
-        '$state',
+        '$state',   
         '$timeout',
         '$ionicLoading',
         '$ionicPopover',
