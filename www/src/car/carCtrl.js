@@ -1051,7 +1051,7 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                 }
             };
             HttpAppService.post(url,data).success(function(response) {
-                console.log(code+'spare');
+                console.log(code+'spare1');
                 //console.log(response.ET_COMM_LIST.Item.length);
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);

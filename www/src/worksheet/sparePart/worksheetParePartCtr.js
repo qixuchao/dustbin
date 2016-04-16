@@ -271,7 +271,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                             "addNum" : true});
                 }
             }
-            worksheetHttpService.setSparePart($scope.goSAPInfos);
             console.log(angular.toJson($scope.goSAPInfos));
         }
         //传输至sap
@@ -287,11 +286,11 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         "APPLY_NUM": $scope.goSAPInfos[i].APPLY_NUM,
                         "ZMODE": "I"
                     });
-                }else if(worksheetDetail[i].addNum === false){
+                }else if($scope.goSAPInfos[i].addNum === false){
                     item.push({
-                        "STORAGE": worksheetDetail[i].STORAGE,
-                        "PROD": worksheetDetail[i].PROD,
-                        "APPLY_NUM": worksheetDetail[i].APPLY_NUM,
+                        "STORAGE": $scope.goSAPInfos[i].STORAGE,
+                        "PROD": $scope.goSAPInfos[i].PROD,
+                        "APPLY_NUM": $scope.goSAPInfos[i].APPLY_NUM,
                         "ZMODE": "U"
                     });
                 }
@@ -307,15 +306,15 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             console.log(angular.toJson(data));
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             HttpAppService.post(url, data).success(function(response){
-                console.log(angular.toJson($scope.response));
+                console.log(angular.toJson(response));
                 Prompter.hideLoading();
                 if(response.ES_RESULT.ZFLAG === 'S'){
-                    for(var i=0;i<$scope.spareDetail.length;i++){
-                        $scope.spareDetail[i].flag == true;
+                    for(var i=0;i<$scope.goSAPInfos.length;i++){
+                        $scope.goSAPInfos[i].showPic = true;
+                        $scope.goSAPInfos[i].addNum = true;
                     }
-                    for(var i=0;i<worksheetDetail.length;i++){
-                        worksheetDetail[i].addNum === true;
-                    }
+                    worksheetHttpService.setSparePart($scope.goSAPInfos);
+                    console.log(angular.toJson($scope.goSAPInfos));
                     $cordovaToast.showShortBottom("数据已传输至SAP");
                 }else{
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -326,6 +325,8 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         }
         //暂存
         $scope.goDetailList = function(){
+            worksheetHttpService.setSparePart($scope.goSAPInfos);
+            console.log(angular.toJson($scope.goSAPInfos));
             $state.go("worksheetSelect");
         }
         //增加数量
@@ -580,13 +581,17 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
             }else{
                 HttpAppService.post(url, data).success(function(response){
                     Prompter.hideLoading();
+                    console.log(angular.toJson(response));
                     if(response.ES_RESULT.ZFLAG === 'S'){
                         for(var i=0;i<$scope.spareDetail.length;i++){
-                            $scope.spareDetail[i].flag == true;
+                            $scope.spareDetail[i].detail.showPic = true;
+                            $scope.spareDetail[i].detail.addNum = true;
                         }
                         for(var i=0;i<worksheetDetail.length;i++){
-                            worksheetDetail[i].addNum === true;
+                            worksheetDetail[i].addNum = true;
+                            worksheetDetail[i].showPic = true;
                         }
+                        console.log(angular.toJson($scope.spareDetail));
                         $cordovaToast.showShortBottom("数据已传输至SAP");
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);

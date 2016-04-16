@@ -21,7 +21,7 @@
         <div>
             <div ng-class="moreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="changeMoreFlag()"></div>
             <div class="selectionsDown pushDown-animated"
-                 ng-class="{'slideOutUp':!moreflag&&isDropShow,'slideInDown':moreflag}" ng-show="moreflag">
+                 ng-class="{'slideOutUp':!moreflag&&isDropShow,'fadeInDown':moreflag}" ng-show="moreflag">
                 <ion-list>
                     <ion-item ng-repeat="x in relationsPopArr" ng-class="{'selected':x.text==selectPopText}" ng-click="selectPop_rel(x)">{{x.text}}</ion-item>
                 </ion-list>

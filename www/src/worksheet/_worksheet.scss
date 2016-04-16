@@ -31,19 +31,19 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 }
 
 .text-row-ion-scroll .scroll{
-	padding-left: 0px;
+	padding-left: 0;
 	width: 100%;
 }
 .row.has-toggle{
-	margin-top: 0px;
+	margin-top: 0;
 	.item-toggle{
-		padding: 0px;
-	    margin: 0px;
-	    border: 0px;
+		padding: 0;
+	    margin: 0;
+	    border: 0;
 	    height: 3.2rem;
 	    label{
 	    	position: inherit;
-	    	right: 0px;
+	    	right: 0;
 	    }
 	    input:checked + .track{
 	    	border-color: #2B60AB;
@@ -1034,7 +1034,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         		}
         	}  
         	&.E0002{  // 派工  .baogong
-				.jiedan, .judan, , .yiquxiao{
+				.jiedan, .judan, .yiquxiao{
 					display: block;
 				}
 			}
@@ -1066,7 +1066,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				//.baogong{ display: block; }
 			}
 			&.E0009{ //取消  .baogong
-				.paigong, .jiedan, .judan, {
+				.paigong, .jiedan, .judan{
 					display: block;
 				}
 			}
