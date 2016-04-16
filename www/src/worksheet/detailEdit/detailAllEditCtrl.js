@@ -71,7 +71,9 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var url = worksheetHttpService.serviceDetailChange.url;
             var defaults = worksheetHttpService.serviceDetailChange.defaults;
             var postData = angular.extend(defaults, {
-                ES_OUT_LIST: headerData
+                IS_HEAD_DATA: headerData,
+                IS_OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
+                IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE
             });
             var promise = HttpAppService.post(worksheetHttpService.serviceList.url,postData);
             Prompter.showLoading("正在保存修改");
@@ -97,9 +99,9 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             //console.log("guZhangFeiLenChanged");
             //console.log($scope.config.currentChanPinLeiXing.guZhangBuJianS);
             $scope.datas.guZhangBuJianS = $scope.config.currentChanPinLeiXing.guZhangBuJianS;
-            $scope.datas.guZhangMingChengS = $scope.datas.guZhangBuJianS.guZhangMingChengS;
+            $scope.datas.guZhangMingChengS = $scope.datas.guZhangBuJianS[0].guZhangMingChengS;
             $scope.config.currentGuZhangBuJian = $scope.datas.guZhangBuJianS[0];
-            $scope.config.currentGuZhangMingCheng = $scope.config.currentGuZhangBuJian[0];
+            $scope.config.currentGuZhangMingCheng = $scope.config.currentGuZhangBuJian.guZhangMingChengS[0];
         };
         $scope.buJianChanged = function(){
             $scope.datas.guZhangMingChengS = $scope.config.currentGuZhangBuJian.guZhangMingChengS;

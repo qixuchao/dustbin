@@ -55,9 +55,9 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				if(type == 'paigong'){ 
 					requestChangeStatus("E0002", "已派工", "正在派工", "派工成功", "派工失败，请检查网络");
 				}else if(type == 'judan'){
-					requestChangeStatus("E0003", "已拒绝", "正在拒绝", "拒绝成功", "派工失败，请检查网络");
+					requestChangeStatus("E0003", "已拒绝", "正在拒绝", "拒绝成功", "拒绝失败，请检查网络");
 				}else if(type == 'jiedan'){
-					requestChangeStatus("E0004", "已接单", "正在接单", "拒绝成功", "派工失败，请检查网络");
+					requestChangeStatus("E0004", "已接单", "正在接单", "接单成功", "接单失败，请检查网络");
 				}else if(type == 'beijianshengqing'){
 					if(__hasBeijianInfo()){
 						$scope.goState("worksheetSelect");
