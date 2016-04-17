@@ -30,28 +30,34 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                 return get;
             },
             post: function (url, paramter) {
-                var flag = false;
-                $timeout(function () {
-                    $ionicLoading.hide();
-                }, 30000);
-                var post = $http.post(url, paramter, {
+                var config = {
                     headers: {
                         'Content-Type': 'application/json;charset=UTF-8'
-                    }
-                }).success(function (response) {
-                    flag = true;
+                    },
+                    timeout: 300000
+                };
+                var startTime = new Date().getTime();
+                var post = $http.post(url,paramter,config).success(function (response) {
+                    //flag = true;
+                    console.log(response)
                     try {
                         if (response.status === 'ETOKEN') {
                             $ionicLoading.hide();
                         }
                         if (response.ES_RESULT.ZFLAG === 'E') {
                             $ionicLoading.hide();
-                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                            //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         }
                     } catch (e) {
 
                     }
-                }).error(function (response, status) {
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if(respTime >= config.timeout){
+                        console.log('HTTP timeout')
+                    }
+                    $ionicLoading.hide();
                 });
                 return post;
             },
@@ -71,11 +77,11 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
         return request;
     }
 ]);
-utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$cordovaDialogs',
-    '$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker','$cordovaToast',
+utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '$cordovaDialogs',
+    '$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker', '$cordovaToast',
     '$timeout',
-    function ($ionicLoading,$rootScope,$ionicPopup,$cordovaDialogs, $ionicActionSheet, $window,
-              $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker,$cordovaToast, $timeout) {
+    function ($ionicLoading, $rootScope, $ionicPopup, $cordovaDialogs, $ionicActionSheet, $window,
+              $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker, $cordovaToast, $timeout) {
 
         var getFormatTime = function (date) {
             var dateTemp, minutes, hour, time;
@@ -85,7 +91,8 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
                 minutes = "0" + date.getMinutes();
             } else {
                 minutes = date.getMinutes();
-            };
+            }
+            ;
             //小时
             if (date.getHours().toString().length < 2) {
                 hour = "0" + date.getHours();
@@ -121,7 +128,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
                 $cordovaDialogs.alert(text);
             },
             selectTime: function (scope, name, date, mode, title) {
-                if (!date||isNaN(date.split('/')[0])) {
+                if (!date || isNaN(date.split('/')[0])) {
                     if (mode == 'date') {
                         date = new Date().format('yyyy/MM/dd');
                     } else if (mode == 'datetime') {
@@ -165,20 +172,20 @@ utilsModule.service('Prompter', ['$ionicLoading','$rootScope','$ionicPopup', '$c
                     showBackdrop: true,
                 });
             },
-            showLoadingAutoHidden: function(content, isLoading ,dissmiss){
+            showLoadingAutoHidden: function (content, isLoading, dissmiss) {
                 var dissmissS = dissmiss && dissmiss > 0 ? dissmiss : 1000;
-                var contentStr = content && content != "" ? "<p >" + content + "</p>" : "" ;
+                var contentStr = content && content != "" ? "<p >" + content + "</p>" : "";
                 var template = isLoading ? '<ion-spinner icon="ios"></ion-spinner>' + contentStr : contentStr;
                 $ionicLoading.show({
                     template: template,
                     animation: 'fade-in',
                     showBackdrop: true,
                 });
-                $timeout(function(){
+                $timeout(function () {
                     $ionicLoading.hide();
                 }, dissmissS);
             },
-            showText: function (content){
+            showText: function (content) {
                 $ionicLoading.show({
                     template: ('<p>' + content + '</p>'),
                     animation: 'fade-in',

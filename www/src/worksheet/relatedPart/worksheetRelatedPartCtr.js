@@ -66,18 +66,10 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                 var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
                 HttpAppService.post(url, data).success(function(response){
                     if (response.ES_RESULT.ZFLAG === 'S') {
-                        for(var k=0;k<$scope.infos.length;k++){
-                            if(item.PARTNER_NO === $scope.infos[k].PARTNER_NO){
-                                console.log(angular.toJson($scope.infos[k]));
-                                $scope.infos.splice(k,1);
-                            }
-                        }
-                        worksheetDataService.wsDetailToList.needReload = true;
+                        $scope.updateInfos();
                     }else{
-
                     }
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                    Prompter.hideLoading();
                     console.log(angular.toJson(response));
                 }).error(function(err){
                     console.log(angular.toJson(err));
@@ -137,7 +129,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
     }).then(function (modal) {
         $scope.selectCustomerModal = modal;
     });
-    $scope.selectCustomerText = '服务商';
+    $scope.selectCustomerText = '客户列表';
     $scope.openSelectCustomer = function () {
         $scope.isDropShow = true;
         $scope.customerSearch = true;
@@ -176,7 +168,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             "IT_PARTNER": {
                 "item": [
                     {
-                        "PARTNER_FCT": "ZCUSTOME",
+                        "PARTNER_FCT": "ZSRVPROV",
                         "PARTNER_NO": x.PARTNER,
                         "ZMODE" : "I"
                     }
@@ -185,16 +177,11 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
         HttpAppService.post(url, data).success(function(response){
-            Prompter.hideLoading();
-            if (response.ES_RESULT.ZFLAG === 'S') {
-                worksheetDataService.wsDetailToList.needReload = true;
-               $scope.infos.push({"PARTNER_FCT":"ZCUSTOME","FCT_DESCRIPTION":"服务商","PARTNER_NO":x.PARTNER,"NAME1":""});
-            }else{
-
-            }
+            $scope.updateInfos();
             console.log(angular.toJson(response));
             $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
         }).error(function(err){
+            Prompter.hideLoading();
             console.log(angular.toJson(err));
         });
         $scope.contactSpinnerFLag = true;
@@ -297,20 +284,50 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
         HttpAppService.post(url, data).success(function(response){
-            Prompter.hideLoading();
             if (response.ES_RESULT.ZFLAG === 'S') {
-                worksheetDataService.wsDetailToList.needReload = true;
-                $scope.infos.push({"PARTNER_FCT":"ZCUSTOME","FCT_DESCRIPTION":"联系人","PARTNER_NO":x.PARTNER,"NAME1":""});
+                $scope.updateInfos();
             }else{
-
+                Prompter.hideLoading();
             }
             console.log(angular.toJson(response));
             $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
         }).error(function(err){
+            Prompter.hideLoading();
             console.log(angular.toJson(err));
         });
         $scope.selectContactModal.hide();
     };
+
+    //数据刷新
+    $scope.updateInfos = function(){
+       var data = {
+            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
+            "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
+            "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
+        }
+        console.log(angular.toJson(data));
+        var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL';
+        var id = worksheetDataService.wsDetailData.ydWorksheetNum;
+        var wf = worksheetDataService.wsDetailData.waifuRenyuan;
+        var name = worksheetDataService.wsDetailData.IS_PROCESS_TYPE;
+        HttpAppService.post(url, data).success(function(response){
+            //console.log(angular.toJson(response));
+            if (response.ES_RESULT.ZFLAG === 'S') {
+                worksheetDataService.wsDetailData = response;
+                worksheetDataService.wsDetailData.ydWorksheetNum = id;
+                worksheetDataService.wsDetailData.waifuRenyuan = wf;
+                worksheetDataService.wsDetailData.IS_PROCESS_TYPE = name;
+                //console.log(angular.toJson(response));
+                $scope.infos = worksheetDataService.wsDetailData.ET_PARTNER.item;
+                Prompter.hideLoading();
+            }else{
+                Prompter.hideLoading();
+            }
+        }).error(function(err){
+            console.log(angular.toJson(err));
+        });
+    }
 }]);
 
 

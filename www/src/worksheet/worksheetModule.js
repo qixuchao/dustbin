@@ -51,6 +51,7 @@ worksheetModule.service('worksheetDataService', [function(){
     },
     selectedCheLiang: null,
     backObject:null,
+
     wsEditToDetail: {
       needReload: false
     }
@@ -91,6 +92,17 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
                 T_IN_PROCESS_TYPE: {},
                 T_IN_STAT: {}
             }
+        },
+        empsList: {
+          url: "STAFF_LIST",
+          defaults: {
+              I_SYSNAME: { SysName: "CATL" },
+              IS_PAGE: {
+                CURRPAGE: "1",
+                ITEMS: "10"
+              },
+              IS_EMPLOYEE: { "NAME": "" }
+          }
         },
         //备件
         setSparePart:function(data){

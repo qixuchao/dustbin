@@ -16,9 +16,12 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         'worksheetHttpService',
         "worksheetDataService",
         "Prompter",
+        "saleActService",
+        "$rootScope",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter) {
+                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter
+                  , saleActService, $rootScope) {
 
         	$scope.$on('$destroy', function() {
 				__destroyMoreModal();
@@ -28,6 +31,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				if($scope.config.moreModal != null){			
 					$scope.config.moreModal.remove();
 					$scope.config.moreModal = null;
+				}
+				if($scope.selectCustomerModal != null){
+					$scope.selectCustomerModal.remove();
+					$scope.selectCustomerModal = null;
 				}
 			}
 
@@ -53,7 +60,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			$scope.moreModalClickHandler = function(type){
 				$scope.config.moreModal.hide();		
 				if(type == 'paigong'){ 
-					requestChangeStatus("E0002", "已派工", "正在派工", "派工成功", "派工失败，请检查网络");
+					//先选择处理员工
+					//__selectChuLiYuanGong();
+					$scope.openSelectCustomer();
+					//requestChangeStatus("E0002", "已派工", "正在派工", "派工成功", "派工失败，请检查网络");
 				}else if(type == 'judan'){
 					requestChangeStatus("E0003", "已拒绝", "正在拒绝", "拒绝成功", "拒绝失败，请检查网络");
 				}else if(type == 'jiedan'){
@@ -189,10 +199,16 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				
 				moreModal: null,
 				requestModal: null,
-				requestModalStr: '正在加载'
+				requestModalStr: '正在加载',
+
+				selectYuanGongModal: null,
+				selectedEmp: null,
+				empSearchStr: '',
+				empPage: 0
 			};
 			$scope.datas = {
 				detail: null,
+				empDatas: [],
 				/*
 					{
 						kyhuMingCheng: 客户名称
@@ -348,7 +364,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 
             $scope.init = function(){
-            	console.log($stateParams.detailType);
+            	//console.log($stateParams.detailType);
             	// newCar、siteRepair、batchUpdate
             	var type = $stateParams.detailType;
             	$scope.config.detailType = type;
@@ -490,6 +506,18 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				    	"STATUS": statusId
 				    }
 				}
+				if(statusId = "E0002"){ //派工
+					if($scope.config.selectedEmp==null){
+						return;
+					}
+					queryParams.IT_PARTNER = {
+						item: {
+							"PARTNER_FCT": "ZSRVEMPL",
+        					"PARTNER_NO": $scope.config.selectedEmp.PARTNER,
+        					"ZMODE": ""
+						}
+					}
+				}
 				//console.log(queryParams);
 				Prompter.showLoading(statucChangingStr);
 		        var promise = HttpAppService.post(worksheetHttpService.serviceDetailChange.url,queryParams);
@@ -521,6 +549,158 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	Prompter.showLoadingAutoHidden(requestErrorStr, false, 2000);
 		        });
 			}
+
+			//选择员工相关 $scope.config.selectedEmp
+			function __selectChuLiYuanGong(){
+				if($scope.config.selectYuanGongModal == null){
+					$ionicModal.fromTemplateUrl('src/worksheet/modals/select_emp_modal_tpl.html', {
+			            scope: $scope,
+			            animation: 'slide-in-up',
+			            focusFirstInput: true
+			        }).then(function (modal) {
+			            $scope.config.selectYuanGongModal = modal;
+			            $scope.config.selectYuanGongModal.show();
+			        });
+				}else{
+					$scope.config.selectYuanGongModal.show();				
+				}
+			}
+
+			$scope.changeEmpSearchStr = function(){
+				//$scope.config.empSearchStr = 
+			};
+			// selectYuanGongModal: null,  empSearchStr
+			//	selectedEmp: null     empPage
+			$scope.cancelSelectEmp = function(){
+				if($scope.config.selectYuanGongModal != null && $scope.config.selectYuanGongModal.isShown()){
+					$scope.config.selectYuanGongModal.hide();
+					$scope.config.selectYuanGongModal.remove();
+					$scope.config.selectYuanGongModal = null;
+				}
+			};
+
+			function __requestEmpDatas(){
+				//Prompter.showLoading("");
+				var options = worksheetHttpService.empsList.defaults;
+				options.IS_EMPLOYEE.NAME = $scope.config.empSearchStr;
+				options.IS_PAGE.CURRPAGE = $scope.config.empPage;
+		        var promise = HttpAppService.post(worksheetHttpService.empsList.url,options);
+		        $scope.config.isLoading = true;
+		        $scope.config.loadingErrorMsg = null;
+		        promise.success(function(response){
+		        	$scope.config.isLoading = false;
+		        	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG=="S"){
+		        		$scope.config.loadingErrorMsg = null;
+		        		$scope.datas.empDatas.concat(response.ET_EMPLOYEE.item);
+		        	}else if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG == "E" && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!=""){
+		        		$scope.config.loadingErrorMsg = response.ES_RESULT.ZRESULT;
+		        	}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!="" ){
+		        		$scope.config.loadingErrorMsg = response.ES_RESULT.ZRESULT;
+		        	}else if(response && response.ES_RESULT){
+		        		$scope.config.loadingErrorMsg = angular.toJson(response);
+		        	}else{
+		        		$scope.config.loadingErrorMsg  = response;
+		        	}
+		        })
+		        .error(function(errorResponse){
+		        	$scope.config.isLoading = false;
+		        	$scope.config.loadingErrorMsg = "员工查询失败,请检查网络!";
+		        });
+			}
+
+			//选择员工:
+			var customerPage = 1;
+            $scope.customerArr = [];
+            $scope.customerSearch = false;
+            $scope.input = {	customer: '' };
+            $scope.getCustomerArr = function (search) {
+                $scope.CustomerLoadMoreFlag = false;
+                if (search) {
+                    $scope.customerSearch = false;
+                    customerPage = 1;
+                } else {
+                    $scope.spinnerFlag = true;
+                }
+                var data = {
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_PAGE": {
+                        "CURRPAGE": customerPage++,
+                        "ITEMS": "10"
+                    },
+                    "IS_EMPLOYEE": { "NAME": $scope.input.customer }
+                };
+                console.log(data);
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST', data)
+                    .success(function (response) {
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            if (response.ET_EMPLOYEE.item.length < 10) {
+                                $scope.CustomerLoadMoreFlag = false;
+                            }
+                            if (search) {
+                                $scope.customerArr = response.ET_EMPLOYEE.item;
+                            } else {
+                                $scope.customerArr = $scope.customerArr.concat(response.ET_EMPLOYEE.item);
+                            }
+                            $scope.spinnerFlag = false;
+                            $scope.customerSearch = true;
+                            $scope.CustomerLoadMoreFlag = true;
+                            $ionicScrollDelegate.resize();
+                            //saleActService.customerArr = $scope.customerArr;
+                            $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                        }
+                    });
+            };
+            // src/applications/saleActivities/modal/selectCustomer_Modal.html
+            $ionicModal.fromTemplateUrl('src/worksheet/modals/select_emp_modal_tpl.html',{
+                scope: $scope,
+                animation: 'slide-in-up',
+                focusFirstInput: true
+            }).then(function (modal){
+                $scope.selectCustomerModal = modal;
+            });
+            $scope.customerModalArr = [{text: "公司员工"}]; //saleActService.getCustomerTypes();
+            $scope.selectCustomerText = '公司员工';
+            $scope.openSelectCustomer = function(){
+                $scope.isDropShow = true;
+                $scope.customerSearch = true;
+                $scope.selectCustomerModal.show();
+            };
+            $scope.closeSelectCustomer = function () {
+                $scope.selectCustomerModal.hide();
+            };
+            $scope.selectPop = function (x) {
+                $scope.selectCustomerText = x.text;
+                $scope.referMoreflag = !$scope.referMoreflag;
+            };
+            $scope.changeReferMoreflag = function () {
+                $scope.referMoreflag = !$scope.referMoreflag;
+            };
+            $scope.showChancePop = function () {
+                $scope.referMoreflag = true;
+                $scope.isDropShow = true;
+            };
+            $scope.initCustomerSearch = function () {
+                $scope.input.customer = '';
+                //$scope.getCustomerArr();
+                $timeout(function () {
+                    document.getElementById('selectCustomerId').focus();
+                }, 1)
+            };
+            $scope.create = {};
+            $scope.selectCustomer = function(x){
+                $scope.create.customer = x;
+                $scope.create.contact = '';
+                contactPage = 1;
+                $scope.contacts = [];
+                $scope.contactSpinnerFLag = true;
+                $scope.contactsLoadMoreFlag = true;
+                //$scope.getContacts();
+                $scope.selectCustomerModal.hide();
+
+                $scope.config.selectedEmp = x;
+                requestChangeStatus("E0002", "已派工", "正在派工", "派工成功", "派工失败，请检查网络");
+            };
+
 
             
         }]);

@@ -1,0 +1,27 @@
+<div class="saleDetailProcessModal">
+    <div class="modal transparent content">
+        <div class="type">事项推进</div>
+        <div class="selections">
+            <div class="row row-center position">
+                <div class="col myButton" ng-class="{'selected':x.flag}" ng-repeat="x in positonArr" ng-click="changeProcessSelectFlag(x,'position')">{{x.text}}</div>
+            </div>
+            <div class="row row-center process">
+                <div class="col myButton" ng-class="{'selected':x.flag}" ng-repeat="x in processTypesArr" ng-click="changeProcessSelectFlag(x,'type')">{{x.text}}</div>
+            </div>
+        </div>
+        <div class="input">
+            <div class="row row-center">
+                <div class="col col-35">部门</div>
+                <div class="col col-65"><input type="text" placeholder="请输入"></div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-35">负责人</div>
+                <div class="col col-65"><input type="text" placeholder="请输入"></div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-35">更新时间</div>
+                <div class="col col-65"><input type="text" placeholder="请输入"></div>
+            </div>
+        </div>
+    </div>
+</div>

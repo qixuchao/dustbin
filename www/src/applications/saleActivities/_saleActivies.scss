@@ -9,18 +9,18 @@
     .goBack {
       padding-left: 10px;
     }
-    .preVentScrollTop{
+    .preVentScrollTop {
       max-width: 100px;
       min-height: 0;
-      .ink-ripple{
+      .ink-ripple {
         background-color: $crm-subject-blue;
-        opacity: 1!important;
+        opacity: 1 !important;
         -webkit-transition-duration: 0ms;
-        transition-duration: 0ms!important;
+        transition-duration: 0ms !important;
         transition: none;
         -webkit-transition: none;
-        transform: none!important;
-        -webkit-transform: none!important;
+        transform: none !important;
+        -webkit-transform: none !important;
         color: white;
         z-index: -1;
       }
@@ -28,6 +28,16 @@
     .add {
       text-align: right;
       padding-right: 10px;
+      .spinner {
+        stroke: white;
+        fill: white;
+        svg {
+          width: 20px;
+          height: 20px;
+          margin-top: 8px;
+        }
+      }
+
       img {
         width: 25px;
         padding-top: 4px;
@@ -157,6 +167,9 @@
 }
 
 .saleActDetail {
+  .own-backDrop-on{
+    background: rgba(0,0,0,.38)!important;
+  }
   .scroll {
     //height:200%;
   }
@@ -190,6 +203,50 @@
     }
     .mainInfo {
       padding-left: 26px;
+      .urgentDegree {
+        background: url("../../img/saleDetail/star.png") no-repeat;
+        background-size: contain;
+        width: 55px;
+        height: 55px;
+        font-size: 12px;
+        position: absolute;
+        right: 20px;
+        select {
+          position: relative;
+          top: 22px;
+          text-align: center;
+          width: 61px;
+          white-space: normal;
+          font-size: 12px;
+          left: 2px;
+          background: none;
+          border: none;
+          -webkit-appearance: none;
+          opacity: 0;
+        }
+        .textFif {
+          position: relative;
+          top: -7px;
+          text-align: center;
+          width: 36px;
+          white-space: normal;
+          font-size: 12px;
+          left: 9px;
+          line-height: 13px;
+          pointer-events: none;
+        }
+        .textFour {
+          position: relative;
+          top: -7px;
+          text-align: center;
+          pointer-events: none;
+          width: 34px;
+          white-space: normal;
+          font-size: 12px;
+          left: 10px;
+          line-height: 13px;
+        }
+      }
       .row {
         padding-bottom: 6px;
         padding-right: 10%;
@@ -239,7 +296,7 @@
         position: relative;
         padding: 0;
         //border-bottom: 1px solid white;
-        width: 100%;
+        width: 70%;
       }
       .border-bottom-white {
         border-bottom: 1px solid white;
@@ -289,6 +346,7 @@
   }
   .content {
     font-size: 16px;
+    pointer-events: all;
     .row {
       padding: 3% 5%;
       margin: 0;
@@ -365,8 +423,25 @@
         background: url('../../img/saleDetail/Triangle.png') no-repeat;
         background-size: 100% 100%;
         width: 95%;
+        .textType{
+          position: relative;
+          font-size: 14px;
+          min-width: 39px;
+          line-height: 16px;
+          width: 39px;
+          left: 23px;
+          color: #BAD3EE;
+          border-right: 1px solid #ECECEC;
+        }
+        .rose{
+          color:#e24976;
+        }
+        .green{
+          color:#9ec92a;
+        }
         .text {
-          padding: 6% 4% 6% 8%;
+          padding: 6% 4% 6% 11%;
+          width: 85%;
         }
       }
       .timeRow {
@@ -394,16 +469,23 @@
       .row {
         padding: 5px 3% !important;
         border: none;
-        .col-18 {
-          margin-left: 2.5%;
-          button {
-            height: 29px;
-            min-width: 90%;
-            border-radius: 10px;
-            background: #9ec92a;
-            color: white;
-            font-size: 14px;
+        .selections {
+          margin-left: 8px;
+          height: 30px;
+          line-height: 26px;
+          border: 1px solid #BBB7B4;
+          border-radius: 8px;
+          select{
+            background: none;
             border: none;
+            font-size: 13px;
+            color: #84807D;
+          }
+          i{
+            position: relative;
+            left: -6px;
+            top: 2px;
+            color: #84807D;
           }
         }
         .input {
@@ -599,7 +681,7 @@
 .createSaleActPop {
   height: 208px !important;
   width: 208px !important;
-  margin-left: -104px!important;
+  margin-left: -104px !important;
   .row {
     padding: 0 5px 5px 5px !important;
     margin: 8px 0 4px 0 !important;
@@ -638,10 +720,10 @@
         padding: 0;
         color: $saleActModalColor;
       }
-      select{
-        background: none!important;
-        border: none!important;
-        -webkit-appearance: none;
+      select {
+        background: none !important;
+        border: none !important;
+        -webkit-appearance:  none;
         color: $saleActModalColor;
         position: relative;
         left: -8px;
@@ -650,7 +732,7 @@
         font-size: 14px;
         color: $saleActModalColor;
       }
-      .col-59{
+      .col-59 {
         font-size: 14px;
         color: $saleActModalColor;
       }
@@ -680,12 +762,6 @@
 }
 
 .selectPersonModal {
-  //width: 220px;
-  //min-height: 400px;
-  //background: darkblue;
-  //left: 50%;
-  //margin-left: -110px;
-  //top: 10%;
   .selected {
     color: $crm-subject-blue;
   }
@@ -730,6 +806,76 @@
     padding: 15px;
     .cancelImg {
       width: 40px;
+    }
+  }
+}
+.saleDetailProcessModal {
+  .transparent {
+    background-color: transparent;
+  }
+  .content {
+    padding: 10px;
+    margin-top: 10%;
+    width: 245px;
+    left: 50%;
+    position: relative;
+    margin-left: -122px;
+    background: white;
+    border-radius: 5px;
+    .type{
+      text-align: center;
+      margin: 0 20%;
+      padding-bottom: 6px;
+      color: #656261;
+      font-size: 15px;
+      border-bottom: 1px dashed #A09F9E;
+    }
+    .selections{
+      padding-top: 5px;
+      .position{
+        padding: 5px 22%;
+        font-size: 13px;
+        .myButton{
+          text-align: center;
+          padding: 4px;
+          margin: 0 5px;
+          color: #969695;
+          background: #EAEAEA;
+          border-radius: 5px;
+        }
+      }
+      .process{
+        padding: 5px 16% 12px 16%;
+        width: 120%;
+        margin: 0 -20px;
+        font-size: 13px;
+        border-bottom: 1px solid #EAEAE9;
+        .myButton{
+          margin: 0 5px;
+          color: #969695;
+          background: #EAEAEA;
+          border-radius: 5px;
+          text-align: center;
+        }
+      }
+      .selected{
+        color: white!important;
+        background: $crm-subject-blue!important;
+      }
+    }
+    .input{
+      .row + .row{
+        margin:0;
+      }
+      .row{
+        padding: 0;
+        border-bottom: 1px solid #E6E5E4;
+        input{
+          height:auto;
+          background: none;
+          border:none;
+        }
+      }
     }
   }
 }

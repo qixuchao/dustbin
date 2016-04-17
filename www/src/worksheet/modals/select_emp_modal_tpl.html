@@ -24,26 +24,25 @@
                 <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"
                      ng-click="changeReferMoreflag()"></div>
                 <div class="selectionsDown pushDown-animated refer-selectionsDown"
-                     ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}">
+                     ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}"
+                     ng-show="referMoreflag">
                     <ion-list>
-                        <ion-item ng-repeat="x in customerModalArr" ng-class="{'selected':selectCustomerText==x.text}"
-                                  ng-click="selectPop(x)">{{x.text}}
+                        <ion-item ng-repeat="x in customerModalArr" ng-class="{'selected':selectCustomerText==x.text}" ng-click="selectPop(x)">{{x.text}}
                         </ion-item>
                     </ion-list>
                 </div>
                 <ion-list>
                     <ion-item class="selectItem" ng-repeat="x in customerArr"
                               ng-click="selectCustomer(x)">
-                        <span ng-bind-html="x.NAME_ORG1"></span> <img
+                        <span ng-bind-template="{{x.NAME_LAST}} {{x.NAME_FIRST}}"></span> <img
                             ng-if="x!=create.customer" class="selectImg" src="img/saleList/blank.png">
                         <img ng-if="x==create.customer" class="selectImg" src="img/saleList/selected.png">
                     </ion-item>
                 </ion-list>
             </div>
             <!--<ion-infinite-scroll on-infinite="getCustomerArr()" distance="1%" ng-if="CustomerLoadMoreFlag"></ion-infinite-scroll>-->
-            <div class="loadMore" ng-click="getCustomerArr()" ng-if="customerSearch&&!spinnerFlag"><span>点击加载更多...</span></div>
-            <div class="loadMore" ng-click="getCustomerArr()" ng-if="spinnerFlag">
-                <ion-spinner icon="ios" ng-if="customerArr.length>0"></ion-spinner></div>
+            <div class="loadMore" style="margin-top:1rem;" ng-click="getCustomerArr()" ng-if="customerSearch&&!spinnerFlag"><span>点击加载更多...</span></div>
+            <div class="loadMore" style="margin-top:1rem;" ng-click="getCustomerArr()" ng-if="spinnerFlag"><ion-spinner icon="ios" ng-if="customerArr.length>0"></ion-spinner></div>
         </ion-content>
     </div>
 </ion-modal-view>
