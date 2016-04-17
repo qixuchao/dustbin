@@ -47,12 +47,10 @@
                            ng-class="{'border-bottom-white':isEdit}">
 
                     <div class="urgentDegree">
-                        <select ng-model="details.urgent" ng-options="x as x.text for x in urgentDegreeArr"></select>
-
+                        <select ng-model="details.urgent" ng-disabled="!isEdit" ng-options="x as x.text for x in urgentDegreeArr"></select>
                         <div ng-class="details.urgent.text.length==4?'textFour':'textFif'">{{details.urgent.text}}</div>
                     </div>
                 </div>
-
                 <div class="row row-center" ng-class="placeFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="col col-16">地点:</div>
                     <input type="text" ng-model="details.ACT_LOCATION" ng-readonly="!isEdit"
@@ -66,7 +64,6 @@
                     <div>状态:</div>
                     <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
-
                     <div class="num">{{'NO.'+details.OBJECT_ID}}</div>
                     <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}
                     </div>

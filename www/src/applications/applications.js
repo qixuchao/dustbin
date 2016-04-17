@@ -20,7 +20,7 @@ appModule
         },{
             name:'',
             url:'img/apps/acPlan.png',
-            go:''
+            go:'saleActDetail'
         },{
             name:'OPPORT',
             url:'img/apps/saleChance.png',
