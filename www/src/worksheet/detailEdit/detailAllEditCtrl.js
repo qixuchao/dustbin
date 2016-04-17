@@ -79,7 +79,7 @@ CODE:"03"
             startDate = startDateStr.split(" ")[0];
             startTime = startDateStr.split(" ")[1];
 
-            var endStr = $scope.datas.detail.ES_OUT_LIST.END_TIME_STR;  
+            var endStr = $scope.datas.detail.ES_OUT_LIST.END_TIME_STR;
             var endDateStr = new Date(endStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
             var endDate = endDateStr.split(" ")[0];
             var endTime = endDateStr.split(" ")[1];
@@ -93,20 +93,21 @@ CODE:"03"
                 KATALOGART: (!katalogart) ? "" : katalogart,
                 CODEGRUPPE: (!codegrupper) ? "" : codegrupper,
                 CODE: (!code) ? "" : code,
-                
+
                 DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION,
+                CAR_NO: $scope.datas.detail.ES_OUT_LIST.CAR_NO,
                 START_DATE: startDate,
                 START_TIME: startTime,
                 END_DATE: endDate,
                 END_TIME: endTime,
-                
+
                 ZZBXR: $scope.datas.detail.ES_OUT_LIST.ZZBXR,
                 ZZBXDH: $scope.datas.detail.ES_OUT_LIST.ZZBXDH,
                 ZZXYHF: $scope.datas.detail.ES_OUT_LIST.ZZXYHF
             };
             __requestUpdateWorksheet(header);
         };
-        
+
         function __requestUpdateWorksheet(headerData){
             var url = worksheetHttpService.serviceDetailChange.url;
             var defaults = worksheetHttpService.serviceDetailChange.defaults;
@@ -349,15 +350,15 @@ CODE:"03"
                 locale: 'zh_cn'
             }).then(function (returnDate) {
                 var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
-                alert(time);
+                //alert(time);
                 switch (type) {
                     case 'start':
                         $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
-                        console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
+                        //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
                         break;
                     case 'end':
                         $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = time;
-                        console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);                    
+                        //console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);                    
                         break;
                 }
                 if(!$scope.$$phrese){
@@ -395,8 +396,8 @@ CODE:"03"
             $scope.datas.detail = worksheetDataService.wsDetailData;
             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
-            console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
-            console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);
+            //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
+            //console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);
             //__initSelectDatas();
             __initBuJianReason();
             __initScenario();
@@ -702,8 +703,24 @@ CODE:"03"
             
 
         }
-
+        
         $scope.init();
+
+        $scope.selectCar = function(){
+            //worksheetDataService.selectedCheLiang  backObject;
+            worksheetDataService.selectedCheLiang = true;
+            $state.go("car");
+        };
+
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
+                if(worksheetDataService.backObject != null){
+                    $scope.datas.detail.ES_OUT_LIST.CAR_DESC = worksheetDataService.backObject.SHORT_TEXT;
+                    $scope.datas.detail.ES_OUT_LIST.CAR_NO = worksheetDataService.backObject.ZBAR_CODE;
+                    console.log($scope.datas.detail.ES_OUT_LIST);
+                }     
+            }
+        });
 
 }]);
 

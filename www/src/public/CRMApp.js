@@ -61,6 +61,16 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 // org.apache.cordova.statusbar required
                 window.StatusBar.overlaysWebView(true);
             }
+            window.plugins.jPushPlugin.init(); 
+            window.plugins.jPushPlugin.setDebugMode(true);
+            window.plugins.jPushPlugin.getRegistrationID(function(id){
+                //将获取到的id存入服务端
+                alert(id);
+            });
+            //点击通知栏的回调，在这里编写特定逻辑
+            window.plugins.jPushPlugin.openNotificationInAndroidCallback= function(data){  
+                alert(JSON.stringify(data));
+            }
         });
         $rootScope.goState = function(state){
             $state.go(state);
@@ -78,6 +88,8 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
          // Turn off back button text
          $ionicConfigProvider.backButton.previousTitleText(false);
          */
+
+
 
         $stateProvider
             .state('login', {

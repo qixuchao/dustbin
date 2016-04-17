@@ -7,7 +7,7 @@ customerModule
             scope: $scope
         }).then(function(popover) {
             $scope.customerpopover = popover;
-        });
+        }); 
         $scope.customerPopover = function() {
             $scope.customerpopover.show();
         };
@@ -219,7 +219,7 @@ customerModule
         $scope.customergodeatil = function(x){
             $scope.customerisshow = false;
             $scope.usuallycustomerlist = x;
-            console.log(x)
+            console.log(x) 
             //存储历史记录
             if($scope.customer.customerfiledvalue != ''){
                 if(storedb('customerdb').find() != undefined || storedb('contactdb').find() != null){
@@ -363,13 +363,97 @@ customerModule
             $scope.customerPopoverhide();
         };
     }])
-    .controller('customerDetailCtrl',['LoginService','$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',
-        function(LoginService,$scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
-            //根据角色检查字段初始化
-            ////搜索项
-            //$scope.customerDetailsearcho = true;
-            ////搜索项2
-            //$scope.customerDetailsearcht = true;
+    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
+
+        //根据角色检查字段初始化
+        ////搜索项
+        //$scope.customerDetailsearcho = true;
+        ////搜索项2
+        //$scope.customerDetailsearcht = true;
+        //付款方式
+        $scope.customerDetailplayway = true;
+        //付款日历
+        $scope.customerDetailplaydate = true;
+        //验收周期
+        $scope.customerDetailcheckdate = true;
+        //预验收周期
+        $scope.customerDetailwillcheckdate = true;
+        //竞争对手领域
+        $scope.customerDetailZzlyone = true;
+        //份额
+        $scope.customerDetailContains = true;
+        //价格
+        $scope.customerDetailPrice = true;
+        //助销伙伴领域
+        $scope.customerDetailZzlytwo = true;
+        //长项
+        $scope.customerDetailAdvatage = true;
+        //项目
+        $scope.customerDetailEvent = true;
+        //移动电话
+        $scope.customerDetailmobilenum = true;
+        //国家
+        $scope.customerDetailcontrary = true;
+        //代收人
+        $scope.customerDetailnameco = true;
+        //街道二
+        $scope.customerDetailstrret = true;
+        //街道三
+        $scope.customerDetailstrreth = true;
+        //初始化角色判断
+        var customerDroletypeold = customeService.get_customerListvalue().PARTNER_ROLE;
+
+        //唯一确定传入是否可以编辑的角色
+        var customerDroletypenewvalue = '';
+
+        if(ROOTCONFIG.hempConfig.baseEnvironment == 'CATL'){
+            if(customerDroletypeold.includes("Z00001")){
+                $scope.customerDroletype='潜在客户';
+                customerDroletypenewvalue = 'Z00001';
+            }else if(customerDroletypeold.includes("Z00004")){
+                $scope.customerDroletype='终端客户';
+                customerDroletypenewvalue = 'Z00004';
+            }else if(customerDroletypeold.includes("CRM000")){
+                $scope.customerDroletype='正式客户';
+                customerDroletypenewvalue = 'CRM000';
+            }else if(customerDroletypeold.includes("Z00002")){
+                $scope.customerDroletype='竞争对手';
+                customerDroletypenewvalue = 'Z00002';
+            }else if(customerDroletypeold.includes("Z00003")){
+                $scope.customerDroletype='助销伙伴';
+                customerDroletypenewvalue = 'Z00003';
+            }else if(customerDroletypeold.includes("CRM000")== false && customerDroletypeold.includes("BBP000") == true){
+                $scope.customerDroletype='服务商';
+                customerDroletypenewvalue = 'BBP000';
+            };
+            $scope.authInfo = LoginService.getAuthInfoByFunction(customerDroletypenewvalue);
+        }else{
+            //if(customerDroletypeold.includes("ZATL") || customerDroletypeold.includes("CRM000")){
+            //    $scope.customerDroletype='潜在客户';
+            //    customerDroletypenewvalue = 'CRM000';
+            //}else if(customerDroletypeold.includes("Z00002")){
+            //    $scope.customerDroletype='竞争对手';
+            //    customerDroletypenewvalue = 'Z00002';
+            //}else if(customerDroletypeold.includes("Z00003")){
+            //    $scope.customerDroletype='助销伙伴';
+            //    customerDroletypenewvalue = 'Z00003';
+            //}
+        }
+        if($scope.customerDroletype == "潜在客户" || $scope.customerDroletype == "正式客户" || $scope.customerDroletype == "终端客户"){
+            //竞争对手领域
+            $scope.customerDetailZzlyone = false;
+            //份额
+            $scope.customerDetailContains = false;
+            //价格
+            $scope.customerDetailPrice = false;
+            //助销伙伴领域
+            $scope.customerDetailZzlytwo = false;
+            //长项
+            $scope.customerDetailAdvatage = false;
+            //项目
+            $scope.customerDetailEvent = false;
+
+        }else if($scope.customerDroletype == "竞争对手"){
             //付款方式
             $scope.customerDetailplayway = true;
             //付款日历
@@ -585,7 +669,6 @@ customerModule
                 ];
             }
 
-
             $scope.gocustomerLists = function(cusvalue){
                 if(cusvalue.url){
                     //从客户详情-进入各个详情界面
@@ -604,6 +687,22 @@ customerModule
                     Prompter.showphone(types);
                 }
             };
+        };
+        //编辑  CustomerDeatilEditvalue()
+        $scope.CustomerDeatilEditvalue = function(){
+            var authInfo = LoginService.getAuthInfoByFunction(customerDroletypenewvalue);
+            if(authInfo && authInfo.EDIT){
+                customeService.set_customerEditServevalue( $scope.customerdetails);
+                $state.go('customerEdit');
+            }else{
+                $cordovaToast.showShortBottom('没有权限编辑');
+            }
+        };
+
+        //广播编辑
+        $rootScope.$on('customerEditvalue', function(event, data) {
+            $scope.customerdetails = customeService.get_customerEditServevalue();
+        });
 
             //拨打电话手机
             $scope.customerdeatil_querynumber = function(data){
