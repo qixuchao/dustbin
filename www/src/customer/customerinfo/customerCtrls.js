@@ -7,7 +7,7 @@ customerModule
             scope: $scope
         }).then(function(popover) {
             $scope.customerpopover = popover;
-        });
+        }); 
         $scope.customerPopover = function() {
             $scope.customerpopover.show();
         };
@@ -219,7 +219,7 @@ customerModule
         $scope.customergodeatil = function(x){
             $scope.customerisshow = false;
             $scope.usuallycustomerlist = x;
-            console.log(x)
+            console.log(x) 
             //存储历史记录
             if($scope.customer.customerfiledvalue != ''){
                 if(storedb('customerdb').find() != undefined || storedb('contactdb').find() != null){
@@ -426,6 +426,7 @@ customerModule
                 $scope.customerDroletype='服务商';
                 customerDroletypenewvalue = 'BBP000';
             };
+            $scope.authInfo = LoginService.getAuthInfoByFunction(customerDroletypenewvalue);
         }else{
             //if(customerDroletypeold.includes("ZATL") || customerDroletypeold.includes("CRM000")){
             //    $scope.customerDroletype='潜在客户';
@@ -625,19 +626,17 @@ customerModule
                 Prompter.openbrserinfo(Url)
             }
         };
-        //编辑
+        //编辑  CustomerDeatilEditvalue()
         $scope.CustomerDeatilEditvalue = function(){
-            for(var i=0;i<LoginService.getProfile().AUTH.length;i++){
-                if(LoginService.getProfile().AUTH[i].FUNCTION == customerDroletypenewvalue){
-                    if(LoginService.getProfile().AUTH[i].EDIT == 'TRUE'){
-                        customeService.set_customerEditServevalue( $scope.customerdetails)
-                        $state.go('customerEdit')
-                    }else{
-                        $cordovaToast.showShortBottom('没有权限编辑');
-                    }
-                };
+            var authInfo = LoginService.getAuthInfoByFunction(customerDroletypenewvalue);
+            if(authInfo && authInfo.EDIT){
+                customeService.set_customerEditServevalue( $scope.customerdetails);
+                $state.go('customerEdit');
+            }else{
+                $cordovaToast.showShortBottom('没有权限编辑');
             }
         };
+
         //广播编辑
         $rootScope.$on('customerEditvalue', function(event, data) {
             $scope.customerdetails = customeService.get_customerEditServevalue();

@@ -95,6 +95,7 @@ CODE:"03"
                 CODE: (!code) ? "" : code,
 
                 DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION,
+                CAR_NO: $scope.datas.detail.ES_OUT_LIST.CAR_NO,
                 START_DATE: startDate,
                 START_TIME: startTime,
                 END_DATE: endDate,
@@ -353,11 +354,11 @@ CODE:"03"
                 switch (type) {
                     case 'start':
                         $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
-                        console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
+                        //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
                         break;
                     case 'end':
                         $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = time;
-                        console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);                    
+                        //console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);                    
                         break;
                 }
                 if(!$scope.$$phrese){
@@ -395,8 +396,8 @@ CODE:"03"
             $scope.datas.detail = worksheetDataService.wsDetailData;
             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
-            console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
-            console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);
+            //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
+            //console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);
             //__initSelectDatas();
             __initBuJianReason();
             __initScenario();
@@ -702,8 +703,24 @@ CODE:"03"
             
 
         }
-
+        
         $scope.init();
+
+        $scope.selectCar = function(){
+            //worksheetDataService.selectedCheLiang  backObject;
+            worksheetDataService.selectedCheLiang = true;
+            $state.go("car");
+        };
+
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
+                if(worksheetDataService.backObject != null){
+                    $scope.datas.detail.ES_OUT_LIST.CAR_DESC = worksheetDataService.backObject.SHORT_TEXT;
+                    $scope.datas.detail.ES_OUT_LIST.CAR_NO = worksheetDataService.backObject.ZBAR_CODE;
+                    console.log($scope.datas.detail.ES_OUT_LIST);
+                }     
+            }
+        });
 
 }]);
 
