@@ -265,8 +265,33 @@
                          </select>
                     </div>
                 </div>
-                <div class="text-row">
+
+                <div class="row text-row" style="height:5rem;margin-right:0px;margin-top:.2rem;">
+                    <div class="col-40" style="margin-right:0px;">注释&nbsp;:</div>
+                    <ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
+                            <span ng-bind="item.finalStr"></span>
+                        </div>
+                    </ion-scroll>
+                </div>
+                <style>
+                    .text-row-ion-scroll .scroll{
+                        padding-left: 0px;
+                        width: 100%;
+                        font-size: .8rem;
+                    }
+                </style>
+                <div class="row text-row" style="height:5rem;margin-right:0px;margin-top:.2rem;">
+                    <div class="col-40" style="margin-right:0px;">处理结果&nbsp;:</div>
+                    <ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div ng-repeat="item in datas.detail.XBRCHULIJIEGUOS">
+                            <span ng-bind="item.finalStr"></span>
+                        </div>
+                    </ion-scroll>
+                </div>
+                <!--div class="text-row">
                     <div class="">注释&nbsp;:</div>
+
                     <div class="" ng-bind="datas.detail.ES_OUT_LIST.TODO">
                         <textarea name="" id="" cols="30" rows="10"></textarea>
                     </div>
@@ -276,7 +301,7 @@
                     <div class="" ng-bind="datas.detail.ES_OUT_LIST.TODO">
                         <textarea name="" id="" cols="30" rows="10"></textarea>
                     </div>
-                </div>
+                </div-->
             </div>
         </div>
         

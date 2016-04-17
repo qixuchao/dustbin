@@ -79,7 +79,7 @@ CODE:"03"
             startDate = startDateStr.split(" ")[0];
             startTime = startDateStr.split(" ")[1];
 
-            var endStr = $scope.datas.detail.ES_OUT_LIST.END_TIME_STR;  
+            var endStr = $scope.datas.detail.ES_OUT_LIST.END_TIME_STR;
             var endDateStr = new Date(endStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
             var endDate = endDateStr.split(" ")[0];
             var endTime = endDateStr.split(" ")[1];
@@ -93,20 +93,20 @@ CODE:"03"
                 KATALOGART: (!katalogart) ? "" : katalogart,
                 CODEGRUPPE: (!codegrupper) ? "" : codegrupper,
                 CODE: (!code) ? "" : code,
-                
+
                 DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION,
                 START_DATE: startDate,
                 START_TIME: startTime,
                 END_DATE: endDate,
                 END_TIME: endTime,
-                
+
                 ZZBXR: $scope.datas.detail.ES_OUT_LIST.ZZBXR,
                 ZZBXDH: $scope.datas.detail.ES_OUT_LIST.ZZBXDH,
                 ZZXYHF: $scope.datas.detail.ES_OUT_LIST.ZZXYHF
             };
             __requestUpdateWorksheet(header);
         };
-        
+
         function __requestUpdateWorksheet(headerData){
             var url = worksheetHttpService.serviceDetailChange.url;
             var defaults = worksheetHttpService.serviceDetailChange.defaults;
@@ -349,7 +349,7 @@ CODE:"03"
                 locale: 'zh_cn'
             }).then(function (returnDate) {
                 var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
-                alert(time);
+                //alert(time);
                 switch (type) {
                     case 'start':
                         $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;

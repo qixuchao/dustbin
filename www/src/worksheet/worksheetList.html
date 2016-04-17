@@ -177,7 +177,8 @@
                                     </div>
                                     <div class="row item-line" >
                                         <div class="col-40 name">最后更新时间:</div>
-                                        <div class="col-60 value" ng-bind="item.CHANGED_AT | date:'yyyy-MM-dd HH:mm:ss'"></div>
+                                        <div class="col-60 value" ng-bind="item.CHANGED_AT | xbrWorksheetTime:'yyyy-MM-dd HH:mm:ss'"></div>
+                                        <!--div class="col-60 value" ng-bind="item.CHANGED_AT | date:'yyyy-MM-dd HH:mm:ss'"></div-->
                                     </div>
                                 </div>
                                 <div class="right" >

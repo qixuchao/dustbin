@@ -18,10 +18,11 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         "Prompter",
         "saleActService",
         "$rootScope",
+        "$filter",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter
-                  , saleActService, $rootScope) {
+                  , saleActService, $rootScope, $filter) {
 
         	$scope.$on('$destroy', function() {
 				__destroyMoreModal();
@@ -514,7 +515,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 						item: {
 							"PARTNER_FCT": "ZSRVEMPL",
         					"PARTNER_NO": $scope.config.selectedEmp.PARTNER,
-        					"ZMODE": ""
+        					"ZMODE": "U"
 						}
 					}
 				}
@@ -651,19 +652,25 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                     });
             };
             // src/applications/saleActivities/modal/selectCustomer_Modal.html
-            $ionicModal.fromTemplateUrl('src/worksheet/modals/select_emp_modal_tpl.html',{
-                scope: $scope,
-                animation: 'slide-in-up',
-                focusFirstInput: true
-            }).then(function (modal){
-                $scope.selectCustomerModal = modal;
-            });
+            
             $scope.customerModalArr = [{text: "公司员工"}]; //saleActService.getCustomerTypes();
             $scope.selectCustomerText = '公司员工';
             $scope.openSelectCustomer = function(){
                 $scope.isDropShow = true;
                 $scope.customerSearch = true;
-                $scope.selectCustomerModal.show();
+                if($scope.selectCustomerModal == null){
+                	$ionicModal.fromTemplateUrl('src/worksheet/modals/select_emp_modal_tpl.html',{
+		                scope: $scope,
+		                animation: 'slide-in-up',
+		                focusFirstInput: true
+		            }).then(function (modal){
+		                $scope.selectCustomerModal = modal;
+		                $scope.selectCustomerModal.show();
+		            });
+                }else{
+                	$scope.selectCustomerModal.show();
+                }
+                
             };
             $scope.closeSelectCustomer = function () {
                 $scope.selectCustomerModal.hide();
