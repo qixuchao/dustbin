@@ -189,7 +189,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             //客户-联系人
             .state('customerContactQuery', {
                 url: '/customerContactQuery',
-                templateUrl: 'src/customer/customerContacts/customerFuze.html',
+                templateUrl: 'src/customer/customerContacts/customerContactQuery.html',
                 controller: 'customerContactQueryCtrl'
             })
             .state('customerContactDetail', {

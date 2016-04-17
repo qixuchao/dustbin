@@ -10,8 +10,8 @@ loginModule
         //};
         ionicMaterialInk.displayEffect();
         $scope.loginData = {
-            username:'60000051',
-            password:'123456'
+            username:'',
+            password:''
         };
         $scope.loginradioimgflag = true;
         $scope.loginradioSele = function(){
