@@ -43,7 +43,16 @@
     <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false" style="height: 55px;padding-top: .1rem;height: 40px;background: white;z-index: 1;">
         <div class="fill-height line-inner">
             <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
-                <i class="ion-ios-more"></i>                             
+                <i class="ion-link" style="font-size:2.1rem;"></i>                             
+                <style>
+                    .history-info-relation-line .ion-link:before{
+                        transform: rotate(140deg);
+                        -webkit-transform: rotate(140deg);
+                        font-size: 2rem;
+                        line-height: 2.2rem;
+                        text-align: center;
+                    }
+                </style>
                 <span>相关方</span>
             </div>
             <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">

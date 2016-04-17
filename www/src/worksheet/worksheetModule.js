@@ -21,11 +21,34 @@ worksheetModule.directive('crmToast', function() {
     };
 });
 
-worksheetModule.filter('xbrParseInt', function($sce){
+worksheetModule.filter('xbrParseInt', function(){
   var fn = function (str) {
       return window.parseInt(str);
   };
   return fn;
+});
+
+// $filter('date')(date, format, timezone)
+// 用来处理 20160101055050 类似的日期字符串
+worksheetModule.filter('xbrWorksheetTime', function($filter){
+  return function(timeStr, formatStr){
+    var returnStr = (!formatStr || formatStr=="") ? "yyyy-MM-dd HH:mm:ss" : formatStr;
+    
+    var str = timeStr.toString();
+    var year = str.substr(0,4);
+    var month = str.substr(4,2);
+    var day = str.substr(6,2);
+    var hh = str.substr(8,2);
+    var mm = str.substr(10,2);
+    var ss = str.substr(12,2);
+    returnStr = returnStr.replace("yyyy", year);
+    returnStr = returnStr.replace("MM", month);
+    returnStr = returnStr.replace("dd", day);
+    returnStr = returnStr.replace("HH", hh);
+    returnStr = returnStr.replace("mm", mm);
+    returnStr = returnStr.replace("ss", ss);
+    return returnStr;
+  };
 });
 
 
@@ -50,6 +73,8 @@ worksheetModule.service('worksheetDataService', [function(){
       needReload: false
     },
     selectedCheLiang: null,
+    backObject:null,
+
     wsEditToDetail: {
       needReload: false
     }

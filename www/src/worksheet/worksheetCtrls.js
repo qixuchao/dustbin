@@ -283,44 +283,83 @@ worksheetModule.controller("WorksheetListCtrl",[
 		//			filterStatusReported:E0005 已报工;	 filterStatusFinished:E0006 已完工
 		//			filterStatusRevisited: E0010 已回访;   filterStatusAudited:E0007 已审核
 		//			filterStatusReturned:E0008 已打回;		filterStatusCancled:E0009 已取消
-
+		
 		$scope.config.T_IN_STAT.item = [];
-		if($scope.config.filterStatusNew){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0001"});
+		if($scope.config.filterStatusNew){ // E0001
+			$scope.config.T_IN_STAT.item.push({"STAT": "NEW"});
 		}
-		if($scope.config.filterStatusSendedWorker){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0002"});
+		if($scope.config.filterStatusSendedWorker){ // E0002 
+			$scope.config.T_IN_STAT.item.push({"STAT":"DIST"});
 		}
-		if($scope.config.filterStatusRefused){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0003"});
+		if($scope.config.filterStatusRefused){  // E0003
+			$scope.config.T_IN_STAT.item.push({"STAT":"REJC"});
 		}
-		if($scope.config.filterStatusHandling){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0004"});
+		if($scope.config.filterStatusHandling){  // E0004 
+			$scope.config.T_IN_STAT.item.push({"STAT":"INPR"});
 		}
-		if($scope.config.filterStatusReported){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0005"});
+		if($scope.config.filterStatusReported){ //报工 E0005
+			$scope.config.T_IN_STAT.item.push({"STAT":"COMP"});
 		}
-		if($scope.config.filterStatusFinished){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0006"});
+		if($scope.config.filterStatusFinished){//E0006
+			$scope.config.T_IN_STAT.item.push({"STAT":"FINI"});
 		}
-		if($scope.config.filterStatusRevisited){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0010"});
+		if($scope.config.filterStatusRevisited){ //E0010 回访     E0011 外服已经审核
+			$scope.config.T_IN_STAT.item.push({"STAT":"SUVY"});
 		}
-		if($scope.config.filterStatusAudited){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0007"});
+		if($scope.config.filterStatusAudited){ //E0007  内部已审核
+			$scope.config.T_IN_STAT.item.push({"STAT":"CHEC"});
 		}
-		if($scope.config.filterStatusAuditedOut){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0011"}); ///////外部已审核
+		if($scope.config.filterStatusAuditedOut){ //E0010
+			$scope.config.T_IN_STAT.item.push({"STAT":"ECHK"}); ///////外部已审核
 		}
-		if($scope.config.filterStatusReturned){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0008"});
+		if($scope.config.filterStatusReturned){  //E0008 已打回
+			$scope.config.T_IN_STAT.item.push({"STAT":"REJT"});
 		}
-		if($scope.config.filterStatusCancled){
-			$scope.config.T_IN_STAT.item.push({"STAT":"E0009"});
+		if($scope.config.filterStatusCancled){ //E0009
+			$scope.config.T_IN_STAT.item.push({"STAT":"CANC"});
 		}
 		$scope.enterListMode();
 		$scope.reloadData();		
 	};
+	function __getStatusNewIdForQuery(statusId){
+		var newStatusId = "";
+		switch(statusId){
+			case "E0001": 	 //NEW
+				newStatusId = "NEW";
+				break;
+			case "E0002":
+				newStatusId = "DIST";
+				break;
+			case "E0003":
+				newStatusId = "REJC";
+				break;
+			case "E0004": 	 //INPR
+				newStatusId = "INPR";  
+				break;
+			case "E0005":
+				newStatusId = "COMP";
+				break;
+			case "E0006":    //FINI
+				newStatusId = "FINI";
+				break;
+			case "E0007":    //CHEC
+				newStatusId = "CHEC";
+				break; 
+			case "E0008":    //REJT
+ 				newStatusId = "REJT";
+				break;
+			case "E0009":    //CANC
+				newStatusId = "CANC";
+				break;
+			case "E0010":    //ECHK *************
+				newStatusId = "SUVY";
+				break;
+			case "E0011":     //已回访，仅服务商
+				newStatusId = "SUVY";
+				break;
+		}
+		return newStatusId;
+	}
 	//重置筛选条件
 	$scope.resetFilters = function(){
 		//筛选 规则 ----> 工单类型
@@ -795,6 +834,8 @@ worksheetModule.controller("WorksheetListCtrl",[
 		}
 	};
 
+	
+
 	$scope.init = function(){
 		$timeout(function () {
                 ionicMaterialInk.displayEffect();
@@ -837,10 +878,10 @@ worksheetModule.controller("WorksheetListCtrl",[
 	
 	
 	// {"ES_RESULT":{"ZFLAG":"E","ZRESULT":"无符合条件数据"},"T_OUT_LIST":""}
-
 	function __requestServiceList(options){
         var postData = angular.copy(worksheetHttpService.serviceList.defaults);
         angular.extend(postData, options);
+        //console.log(JSON.stringify(postData));
         var promise = HttpAppService.post(worksheetHttpService.serviceList.url,postData);
         $scope.config.isLoading = true;
         $scope.config.loadingErrorMsg = null;

@@ -60,8 +60,8 @@
                 <input type="text" id="contcreapostm" placeholder="请输入部门邮编" class="contact_editinputsty"  ng-model="contactcreat.POST_CODE1">
                 <img id="contcreapostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('POST_CODE1')"/>
             </span>
-            <span class="item item-input">生日：
-                <input type="text" placeholder="请输入生日" class="contact_editinputsty"  readonly ng-model="contactcreat.BIRTHDT" ng-click="conatactCavebr()" style="background-color:white">
+            <span class="item item-input">出生日期：
+                <input type="date" placeholder="请输入生日" class="contact_editinputsty"  readonly ng-model="contactcreat.BIRTHDT" ng-click="conatactCavebr()" style="background-color:white">
             </span>
              <span class="item item-input">语言：
                 <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="contactcreat.LANGU" ng-options="a.name as a.name for a in contactlistvaluesel">

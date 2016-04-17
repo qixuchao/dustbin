@@ -334,10 +334,19 @@ ContactsModule
     .controller('contactDetailCtrl',['$scope','$rootScope','$state','$ionicHistory','Prompter','HttpAppService','$cordovaToast','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$state,$ionicHistory,Prompter,HttpAppService,$cordovaToast,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
         ////定制从联系人详细界面进入列表界面改变界面flag
         ////返回回退
+        $scope.peopleCode="";
         $scope.ContactgoBack = function() {
             $rootScope.$broadcast('contactdeatillist');
             $ionicHistory.goBack();
-        }
+        };
+        var numDo=function(num){
+            for(var i=0;i<num.length;i++){
+                if(num[i]!='0'){
+                    num=num.substr(i,num.length-i)
+                    return num;
+                }
+            }
+        };
        //获取数据
         Prompter.showLoading("数据加载中...");
         var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
@@ -354,6 +363,7 @@ ContactsModule
             } else {
                 if(response.ET_OUT_CONTACT != ''){
                     $scope.contactdetails = response.ET_OUT_CONTACT.item[0];
+                    $scope.peopleCode=numDo($scope.contactdetails.PARTNER)
                 }
                 //注释字段获取
                 if(response.ET_LINES != ''){
@@ -856,7 +866,7 @@ ContactsModule
 
         ////点击取消事件
         $scope.Createancel = function(){
-            Prompter.ContactCreateCancelvalue();
+            Prompter.ContactCreateCancelvalue();4
         }
         //$scope.contactKeepCreatevalue = function(){
         //    contactService.set_ContactCreatevalue($scope.contactcreat);
@@ -872,12 +882,28 @@ ContactsModule
         //    $ionicHistory.goBack(-2);
         //}
     }])
-    .controller('contactEditCtrl',['$scope','$rootScope','$timeout','$state','Prompter','$http','HttpAppService','$cordovaToast','$ionicLoading','$ionicScrollDelegate','$ionicPopup','$cordovaDatePicker','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$timeout,$state,Prompter,$http,HttpAppService,$cordovaToast,$ionicLoading,$ionicScrollDelegate,$ionicPopup,$cordovaDatePicker,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+    .controller('contactEditCtrl',['$scope','$rootScope','$timeout','$state','Prompter','$http','HttpAppService','$cordovaToast','$ionicLoading','$ionicScrollDelegate','$ionicPopup','$cordovaDatePicker','ionicMaterialInk','contactService','$window','$ionicActionSheet',
+        function($scope,$rootScope,$timeout,$state,Prompter,$http,HttpAppService,$cordovaToast,$ionicLoading,$ionicScrollDelegate,$ionicPopup,$cordovaDatePicker,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+
+            //默认的称谓
+
         $scope.contactlistvaluesel = [{
-            name:'先生',
-        },{
-            name:'小姐'
-        }];
+                    typId:'CN',
+                    name:'中文'
+                },{
+                    typeId:'EN',
+                    name:'英语'
+                }];
+        $scope.contactlistTitle = [{
+               codeId:'0002',
+               name:'先生'
+            },{
+                codeId:'0001',
+                name:'女士'
+            }];
+
+            $scope.defaultTitle=$scope.contactlistvaluesel[0].typeId;
+            $scope.defaultLangu=$scope.contactlistTitle[0].codeId;
         $scope.contactedit = {
             conatctdeatilnote:contactService.get_Contactsdetailvalue().conatctdeatilnote,
             TITLE:contactService.get_Contactsdetailvalue().TITLE,
@@ -901,7 +927,7 @@ ContactsModule
             NAME_ORG1:contactService.get_Contactsdetailvalue().NAME_ORG1,
             relationsalsname:contactService.get_Contactsdetailvalue().relationsalsname,
             PARTNER:contactService.get_Contactsdetailvalue().PARTNER,
-            PARTNER2:contactService.get_Contactsdetailvalue().PARTNER2,
+            PARTNER2:contactService.get_Contactsdetailvalue().PARTNER2
         };
 
         ////点击取消事件
@@ -975,15 +1001,16 @@ ContactsModule
             data.IS_CUSTOMER.PARTNER = $scope.contactedit.PARTNER;
             data.IS_CUSTOMER.PARTNER2 = contactService.get_Contactsdetailvalue().PARTNER2;
             //data.IS_CUSTOMER.PARTNER = '2284';
-            data.IS_CUSTOMER.TITLE = $scope.contactedit.TITLE;
+            data.IS_CUSTOMER.TITLE = $scope.config.currentTitile.codeId;
             data.IS_CUSTOMER.NAME_LAST = $scope.contactedit.NAME_LAST;
             data.IS_CUSTOMER.BIRTHDT = $scope.contactedit.BIRTHDT;
-            data.IS_CUSTOMER.LANGU = $scope.contactedit.LANGU;
+            data.IS_CUSTOMER.LANGU2 = $scope.config.currentLanguage.typeId;
+            data.IS_CUSTOMER.LANGU = $scope.config.currentLanguage;
             data.IS_CUSTOMER.FNCTN = $scope.contactedit.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactedit.DPRTMNT;
-            data.IS_CUSTOMER.COUNTRY = $scope.contactedit.COUNTRY;
-            data.IS_CUSTOMER.REGION = $scope.contactedit.REGION;
-            data.IS_CUSTOMER.CITY1 = $scope.contactedit.CITY1;
+            data.IS_CUSTOMER.COUNTRY = $scope.config.currentCountry.COUNTRY;
+            data.IS_CUSTOMER.REGION = $scope.config.currentProvence.REGION;
+            data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactedit.POST_CODE1;
             data.IS_CUSTOMER.STREET = $scope.contactedit.STREET;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactedit.TEL_NUMBER;
@@ -1005,8 +1032,9 @@ ContactsModule
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         //$state.go('ContactDetail');
                     } else {
-                        $cordovaToast.showShortCenter('保存数据成功');
-                        console.log("保存数据成功")
+                        //$cordovaToast.showShortCenter('保存数据成功');
+                        console.log("保存数据成功");
+
                         //广播修改详细信息界面的数据
                         $rootScope.$broadcast('contactEditvalue');
                         $state.go('ContactDetail');
@@ -1082,5 +1110,103 @@ ContactsModule
                     break;
             }
         }
-    }])
+        //国家。省，市级联下拉框
+        $scope.country=[];
+        $scope.provence=[];
+        $scope.city=[];
+        $scope.countryCode="";
+        $scope.Ctype="A";
+        $scope.provenceCode="";
+
+        $scope.config = {
+            currentCountry: {},
+            currentProvence:{},
+            currentCity:{},
+            currentLanguage:{},
+            currentTitile:{}
+        };
+
+        $scope.cascade=function(){
+            //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
+            var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
+            var data={
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "HANDLCX02" },
+                "I_COUNTRY": "",
+                "I_MODE": "A",
+                "I_REGION": ""
+            };
+            HttpAppService.post(url,data).success(function(response){
+                $.each(response.ET_CITY.item, function (n, value) {
+                    $scope.country.push(value);
+                });
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+            });
+        };
+        $scope.cascade1=function(){
+            //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
+            var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
+            var data={
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "HANDLCX02" },
+                "I_COUNTRY": $scope.countryCode,
+                "I_MODE": "B",
+                "I_REGION": ""
+            };
+            HttpAppService.post(url,data).success(function(response){
+                $.each(response.ET_CITY.item, function (n, value) {
+                    $scope.provence.push(value);
+                })
+
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+            });
+        };
+        $scope.cascade2=function(){
+            //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
+            var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
+            var data={
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": "HANDLCX02" },
+                "I_COUNTRY": $scope.countryCode,
+                "I_MODE": "C",
+                "I_REGION": $scope.provenceCode
+            };
+            HttpAppService.post(url,data).success(function(response){
+                if(response.ET_CITY.item.length===undefined){
+                    $scope.city=new Array;
+                }else{
+                    $.each(response.ET_CITY.item, function (n, value) {
+                        $scope.city.push(value);
+                    })
+                }
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+            });
+        };
+        $scope.cascade();
+            $scope.chang1=function(){
+                console.log($scope.config.currentTitile.codeId+'称谓');
+                console.log($scope.config.currentLanguage.typeId+'语言');
+            };
+        $scope.changCountry=function(){
+            $scope.provence=new Array;
+            $scope.city=new Array;
+            $scope.countryCode= $scope.config.currentCountry.COUNTRY;
+            //console.log($scope.country.COUNTRY);
+            $scope.cascade1();
+        };
+        $scope.changProvence=function(){
+            $scope.city=new Array;
+            $scope.provenceCode=$scope.config.currentProvence.REGION;
+            $scope.cascade2();
+        };
+        $scope.init=function(){
+            $scope.country=new Array;
+            $scope.provence=new Array;
+            $scope.city=new Array;
+        };
+
+    }]);
 

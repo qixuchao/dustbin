@@ -4,6 +4,7 @@
 loginModule.factory('LoginService',function(){
     var data;
     var data3;
+    var type;
     var menuList=[];
     var author={};
     return{
@@ -23,6 +24,13 @@ loginModule.factory('LoginService',function(){
         getProfile:function(){
             return data3;
         },
+        //角色类型
+        setProfileType:function(data){
+            type=data;
+        },
+        getProfileType:function(){
+            return type;
+        },
         setMenulist:function(data2){
             menuList=data2;
             return menuList;
@@ -36,8 +44,45 @@ loginModule.factory('LoginService',function(){
             return author;
         },
         //用户的权限
-        getAuth:function(){
+        getFunctionAuth:function(){
             return author;
+        },
+        /*
+            获取功能的权限信息
+            @params:
+                funcitonName: 功能名
+            @return: 若返回为null,则说明获取不到权限信息  或 function不存在
+                    {
+                        VIEW: false,
+                        EDIT: false,
+                        CREATE: false
+                    }
+        */
+        getAuthInfoByFunction: function(functionName){
+            var obj = data3;
+            if(!obj){return null;}
+            var auth = obj.AUTH;
+            if(!auth){return null;}
+            var returnObj = {
+                VIEW: false,
+                EDIT: false,
+                CREATE: false
+            };
+            for(var i=0;i<auth.length;i++){
+                if(auth[i].FUNCTION == functionName){
+                    if(auth[i].EDIT == 'TRUE'){
+                        returnObj.EDIT = true;
+                    }
+                    if(auth[i].VIEW == 'TRUE'){
+                        returnObj.VIEW = true;
+                    }
+                    if(auth[i].CRTEAT == 'TRUE'){
+                        returnObj.CREATE = true;
+                    }
+                    return returnObj;
+                };
+            }
+            return null;
         }
     }
 });
