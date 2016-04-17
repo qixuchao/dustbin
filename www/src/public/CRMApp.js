@@ -186,12 +186,12 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/customer/customerinfo/customerEdit.html',
                 controller: 'customerEditlCtrl'
             })
-            //客户-联系人
-            .state('customerContactQuery', {
-                url: '/customerContactQuery',
-                templateUrl: 'src/customer/customerContacts/customerFuze.html',
-                controller: 'customerContactQueryCtrl'
-            })
+            ////客户-联系人
+            //.state('customerContactQuery', {
+            //    url: '/customerContactQuery',
+            //    templateUrl: 'src/customer/customerContacts/customerFuze.html',
+            //    controller: 'customerContactQueryCtrl'
+            //})
             .state('customerContactDetail', {
                 url: '/customerContactDetail',
                 templateUrl: 'src/customer/customerContacts/customerContactsDetail.html',
