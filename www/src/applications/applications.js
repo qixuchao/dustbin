@@ -6,6 +6,7 @@ appModule
     .controller('AppCtrl',['LoginService','$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function(LoginService,$scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
         console.log('app')
         //ionicMaterialInk.displayEffect();
+        console.log(ionic.Platform.platform())
         var menuList=LoginService.getMenulist();
         //console.log(menuList);
         $scope.imgs = [{
@@ -19,7 +20,7 @@ appModule
         },{
             name:'',
             url:'img/apps/acPlan.png',
-            go:'saleChanDetail'
+            go:'saleActDetail'
         },{
             name:'OPPORT',
             url:'img/apps/saleChance.png',

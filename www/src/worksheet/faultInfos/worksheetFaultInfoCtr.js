@@ -4,29 +4,35 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
     "ionicMaterialMotion",
     "$ionicPopup", "$timeout","$state","worksheetDataService", function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state,worksheetDataService){
     ionicMaterialInk.displayEffect();
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            var worksheetDetail = worksheetDataService.wsDetailData;
+            console.log(angular.toJson(worksheetDetail));
+            $scope.faulInfos = worksheetDetail.ES_OUT_LIST;
+            console.log(angular.toJson($scope.faulInfos));
+
+            var arrInfos = worksheetDetail.ET_TEXT.item;
+            console.log(angular.toJson(arrInfos));
+            var remark = ""; var result = "";
+            for(var i=0;i<arrInfos.length;i++){
+                if(arrInfos[i].TDID === 'Z001'){
+                    remark = remark + arrInfos[i].TDLINE;
+                }else if(arrInfos[i].TDID === 'Z005'){
+                    result = result + arrInfos[i].TDLINE;
+                }
+                //console.log(angular.toJson(remark+"=="+result));
+            }
+            $scope.otherInfos = {
+                remark : remark,
+                result : result
+            };
+            console.log(angular.toJson($scope.otherInfos));
+
+        });
         $scope.edit = function(){
             $state.go("worksheetFaultInfosEdit");
         }
-        var worksheetDetail = worksheetDataService.wsDetailData;
-        console.log(angular.toJson(worksheetDetail));
-        $scope.faulInfos = worksheetDetail.ES_OUT_LIST;
-        console.log(angular.toJson($scope.faulInfos));
-        var arrInfos = worksheetDetail.ET_TEXT.item;
-        console.log(angular.toJson(arrInfos));
-        var remark = ""; var result = "";
-        for(var i=0;i<arrInfos.length;i++){
-            if(arrInfos[i].TDID === 'Z001'){
-                remark = remark + arrInfos[i].TDLINE;
-            }else if(arrInfos[i].TDID === 'Z005'){
-                result = result + arrInfos[i].TDLINE;
-            }
-            console.log(angular.toJson(remark+"=="+result));
-        }
-        $scope.otherInfos = {
-            remark : remark,
-            result : result
-        };
-        console.log(angular.toJson($scope.otherInfos));
+
+
 }]);
 
 
@@ -63,22 +69,21 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                     ]
                 }
             }
-            console.log(angular.toJson(data));
+            console.log(angular.toJson(updateEdit));
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
-            HttpAppService.post(url, data).success(function(response){
-                Prompter.hideLoading();
-
+            HttpAppService.post(url, updateEdit).success(function(response){
                 console.log(angular.toJson(response));
-                Prompter.hideLoading();
                 console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
-                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                    worksheetDataService.wsDetailToList.needReload = true;
+                    $scope.updateInfos();
+                    $cordovaToast.showShortBottom("故障信息维护成功");
                     $state.go("worksheetFaultInfos");
                 } else {
+                    Prompter.hideLoading();
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }
             }).error(function(err){
+                Prompter.hideLoading();
                 console.log(angular.toJson(err));
             });
         }
@@ -231,10 +236,16 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                             {
                                 REASON: pleaseChoose,
                                 CODE: null
+                            },
+                            {
+                                CODE: item.CODE,
+                                REASON: item.KURZTEXT
                             }
                         ]
                     });
                     return;
+                }else{
+
                 }
             }
             this.push({
@@ -248,6 +259,24 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                             {
                                 REASON: pleaseChoose,
                                 CODE: null
+                            },
+                            {
+                                CODE: item.CODE,
+                                REASON: item.KURZTEXT
+                            }
+                        ]
+                    },
+                    {
+                        CODEGRUPPE: item.CODEGRUPPE,
+                        COMPONENT: item.GROUPTEXT,
+                        guZhangMingChengS: [
+                            {
+                                REASON: pleaseChoose,
+                                CODE: null
+                            },
+                            {
+                                CODE: item.CODE,
+                                REASON: item.KURZTEXT
                             }
                         ]
                     }
@@ -294,4 +323,34 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             }
         };
 
+        //数据刷新
+        $scope.updateInfos = function(){
+            var data = {
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_AUTHORITY": { "BNAME": worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_BY },
+                "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
+                "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
+            }
+            console.log(angular.toJson(data));
+            var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL';
+            var id = worksheetDataService.wsDetailData.ydWorksheetNum;
+            var wf = worksheetDataService.wsDetailData.waifuRenyuan;
+            var name = worksheetDataService.wsDetailData.IS_PROCESS_TYPE;
+            HttpAppService.post(url, data).success(function(response){
+                //console.log(angular.toJson(response));
+                if (response.ES_RESULT.ZFLAG === 'S') {
+                    worksheetDataService.wsDetailData = response;
+                    worksheetDataService.wsDetailData.ydWorksheetNum = id;
+                    worksheetDataService.wsDetailData.waifuRenyuan = wf;
+                    worksheetDataService.wsDetailData.IS_PROCESS_TYPE = name;
+                    console.log(angular.toJson(response));
+                }else{
+
+                }
+                Prompter.hideLoading();
+            }).error(function(err){
+                Prompter.hideLoading();
+                console.log(angular.toJson(err));
+            });
+        }
     }]);

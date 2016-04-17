@@ -20,8 +20,7 @@
         <ion-content class="content has-header">
             <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="changeReferMoreflag()"></div>
             <div class="selectionsDown pushDown-animated refer-selectionsDown"
-                 ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}"
-                 ng-show="referMoreflag">
+                 ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}">
                 <ion-list>
                     <ion-item ng-repeat="x in chancePopArr" ng-class="{'selected':selectPopText==x.text}" ng-click="selectPop(x)">{{x.text}}</ion-item>
                 </ion-list>

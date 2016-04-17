@@ -5,8 +5,10 @@
                 <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
 
                 <div class="col col-60 text-center">{{saleTitleText}}</div>
-                <div class="col col-20 add button-clear button preVentScrollTop" ng-click="openCreatePop()"><img
-                        src="img/saleList/add.png"></div>
+                <div class="col col-20 add button-clear button preVentScrollTop" ng-click="openCreatePop()">
+                    <img src="img/saleList/add.png" ng-if="!creaeSpinnerFlag">
+                    <ion-spinner class="mySpinner" icon="ios" ng-if="creaeSpinnerFlag"></ion-spinner>
+                </div>
             </div>
         </ion-header-bar>
         <div class="pub-subhead bar bar-subheader">
@@ -61,7 +63,7 @@
                  ng-click="changeSearch($event)">
         <div ng-class="filterFlag?'own-backDrop-on':'own-backDrop-off'"
              ng-click="changeFilterFlag($event)"></div>
-        <div class="listFilter selectionsDown pushDown-animated refer-selectionsDown"
+        <div id="saleActListFilterId" class="listFilter selectionsDown pushDown-animated refer-selectionsDown"
              ng-class="{'slideOutUp':!filterFlag,'fadeInDown':filterFlag}"
              ng-show="filterFlag" ng-click="filterPrevent($event)">
             <div class="type">类型</div>

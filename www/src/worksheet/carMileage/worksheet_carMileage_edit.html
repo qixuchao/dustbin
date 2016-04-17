@@ -27,7 +27,7 @@
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">读取日期：</div>
                 <div class="col-58 col-center">
-                    <input type="text" placeholder="日期" ng-model="update.readDate"  style="font-size: 16px" class="fontColor" >
+                    <input type="text" placeholder="日期" ng-model="update.readDate"  readonly style="font-size: 16px" class="fontColor" ng-click="selectCreateTime('读取日期')" >
                 </div>
             </div>
             <div class="row itemContent row-center">
@@ -40,7 +40,7 @@
             <div class="row itemContentT row-center">
                 <div class="col-42 col-center">读取描述：</div>
                 <div class="col-58 col-center">
-                    <textarea type="text"placeholder=""  ng-model="update.readDescription" class="textareaCss" readonly style="background-color: white;color: #A0A09F"></textarea>
+                    <textarea type="text"placeholder=""  ng-model="update.readDescription" class="textareaCss"  style="background-color: white;color: #A0A09F"></textarea>
                 </div>
             </div>
 

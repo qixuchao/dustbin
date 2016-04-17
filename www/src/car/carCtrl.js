@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2016/3/14 0014.
  */
-carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',
-    function($rootScope,$ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
+carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootScope','$ionicScrollDelegate','$http','$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',
+    function($ionicHistory,worksheetDataService,$rootScope,$ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
     $scope.cars=[];
     $scope.searchFlag=false;
     $scope.isSearch=false;
@@ -10,6 +10,10 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
     $scope.carInfo="";
     $scope.data=[];
     var page=0;
+        $scope.config={
+            changeData:false,
+            backParameter:worksheetDataService.selectedCheLiang
+        };
     $scope.search = function (x, e){
         Prompter.showLoading('正在搜索');
         $scope.searchFlag=true;
@@ -23,6 +27,12 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
         $scope.cancelSearch();
 
     });
+    $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+        if(fromState && toState && fromState.name == 'worksheetDetail'){
+            worksheetDataService.selectedCheLiang="";
+        }
+    });
+
     $scope.carListHistoryval = function(){
         if(storedb('cardb').find().arrUniq() != undefined || storedb('cardb').find().arrUniq() != null){
             $scope.data = (storedb('cardb').find().arrUniq());
@@ -89,7 +99,6 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                                 }else{
                                     $scope.cars.push(value);
                                 }
-
                                 //console.log("第5步");
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                             });
@@ -155,7 +164,6 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
                 }
             }
         }
-
         //存储常用车辆
         if (JSON.parse(localStorage.getItem("oftenCardb")) != null || JSON.parse(localStorage.getItem("oftenCardb")) != undefined) {
             //判断是否有相同的值
@@ -181,7 +189,13 @@ carModule.controller('CarCtrl',['$rootScope','$ionicScrollDelegate','$http','$co
             localStorage['oftenCardb'] = JSON.stringify($scope.oftenCarList);
         }
         CarService.setData(value);
-        $state.go('carDetail');
+        if($scope.config.backParameter==true){
+            worksheetDataService.backObject=value;
+            $ionicHistory.goBack();
+        }else{
+            $state.go('carDetail');
+        }
+
     };
     //取消按钮
     $scope.cancelSearch=function(){

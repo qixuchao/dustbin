@@ -134,8 +134,12 @@ salesModule
                 $scope.createPop = popover;
             });
             $scope.openCreatePop = function (e) {
-                $scope.pop.type = $scope.createPopTypes[0];
-                $scope.createPop.show();
+                $scope.creaeSpinnerFlag = true;
+                $timeout(function () {
+                    $scope.creaeSpinnerFlag = false;
+                    $scope.pop.type = $scope.createPopTypes[0];
+                    $scope.createPop.show();
+                }, 1000);
                 //e.stopPropagation();
             };
 
@@ -338,7 +342,7 @@ salesModule
             addContactsModal();
             //$scope.contacts = saleActService.getContact();
             $scope.openSelectPerson = function () {
-                if (isNoContacts||!$scope.create.customer) {
+                if (isNoContacts || !$scope.create.customer) {
                     Prompter.alert('当前客户无联系人');
                     return
                 }
@@ -432,7 +436,11 @@ salesModule
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $cordovaDatePicker, $ionicActionSheet, saleActService, saleChanService, Prompter
             , HttpAppService) {
+            $scope.formTest = function () {
+                alert('s')
+            }
             ionicMaterialInk.displayEffect();
+            $scope.urgentDegreeArr = saleActService.urgentDegreeArr;
             var getStatusIndex = function (data) {
                 for (var i = 0; i < $scope.statusArr.length; i++) {
                     if ($scope.statusArr[i].value == data) {
@@ -441,10 +449,18 @@ salesModule
                 }
                 return 0;
             };
+            var getUrgentIndex = function (data) {
+                for (var i = 0; i < $scope.urgentDegreeArr.length; i++) {
+                    if ($scope.urgentDegreeArr[i].text == data) {
+                        return i;
+                    }
+                }
+                return 0;
+            };
             var actTypes = saleActService.createPopTypes;
             var getActType = function (typeCode) {
                 for (var i = 0; i < actTypes.length; i++) {
-                    if(actTypes[i].value==typeCode){
+                    if (actTypes[i].value == typeCode) {
                         return actTypes[i].text;
                     }
                 }
@@ -458,7 +474,7 @@ salesModule
                     "IS_USER": {"BNAME": "HANDBLH"},
                     "I_OBJECT_ID": $scope.listInfo.OBJECT_ID
                 };
-                console.log(data)
+                console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_DETAIL', data)
                     .success(function (response) {
                         console.log(response);
@@ -469,6 +485,7 @@ salesModule
                             $scope.mySelect = {
                                 status: $scope.statusArr[getStatusIndex($scope.details.STATUS_TXT)]
                             };
+                            $scope.details.urgent = $scope.urgentDegreeArr[getUrgentIndex($scope.details.ZZHDJJD)];
                             $scope.details.actType = getActType($scope.details.PROCESS_TYPE);
                             $scope.details.relations = response.ET_PARTNERS.item;
                             Prompter.hideLoading();
@@ -646,11 +663,12 @@ salesModule
             }).then(function (modal) {
                 $scope.followUpModal = modal;
             });
-            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/addRelations.html', {
+
+            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/process_Modal.html', {
                 scope: $scope,
                 animation: 'slide-in-up'
             }).then(function (modal) {
-                $scope.addReleModal = modal;
+                $scope.processModal = modal;
             });
             $scope.referArr = [{
                 text: '郑州金龙销售机会'
@@ -708,89 +726,52 @@ salesModule
             $scope.openFollow = function () {
                 $scope.followUpModal.show();
             };
-            //添加相关方
-            $scope.moreflag = false;
-            $scope.isDropShow = false;
-            $scope.isReplace = false;
+            //相关方
             $scope.openRelations = function () {
-                if ($scope.isDropShow) {
-                    $scope.hideSelections();
-                    return
-                }
-                $scope.isReplace = false;
-                $scope.isDropShow = true;
-                $scope.selectPopText = '正式客户';
+                $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/addRelations.html', {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then(function (modal) {
+                    $scope.addReleModal = modal;
+                });
+
                 $scope.addReleModal.show();
             };
-            $scope.hideRelations = function () {
-                $scope.hideSelections();
-                $scope.addReleModal.hide();
+            //发表进展
+            $scope.processArr = saleActService.processArr;
+            $scope.myProcess = $scope.processArr[1];
+            $scope.positonArr = saleActService.positonArr;
+            $scope.processTypesArr = saleActService.processTypesArr;
+            $scope.openProcessModal = function () {
+                $scope.processDropflag = true;
+                $scope.processModal.show();
+                angular.element('.modal-backdrop-bg').css('background-color', 'white');
+                $timeout(function () {
+                    angular.element('.modal-backdrop').removeClass('active').css('height', '0');
+                }, 50);
             };
-            $scope.selectPop_rel = function (x) {
-                $scope.selectPopText = x.text;
-                $scope.changeMoreFlag();
+            $scope.changeProcessDropFlag = function () {
+                $scope.processDropflag = false;
+                $scope.processModal.hide()
             };
-            $scope.addRelationModal = function () {
-                angular.forEach($scope.relationSelections, function (data) {
-                    if (data.flag && $scope.details.relations.indexOf(data) == -1) {
-                        $scope.details.relations.push(data);
-                    }
-                });
-                $scope.hideRelations();
-            };
-            $scope.replaceRelation = function (x) {
-                angular.forEach($scope.relationSelections, function (data) {
-                    data.flag = false;
-                });
-                x.flag = true;
-                $scope.details.relations[repTempIndex] = x;
-                $scope.hideRelations();
-            };
-            $scope.changeMoreFlag = function () {
-                $scope.moreflag = !$scope.moreflag;
-            };
-            $scope.hideSelections = function () {
-                $scope.moreflag = false;
-                $scope.isDropShow = false;
-            };
-            var repTempIndex;
-            $scope.showActionSheet = function (x) {
-                if (!$scope.isEdit) {
-                    return
+            $scope.changeProcessSelectFlag = function (x, type) {
+                var flag = x.flag;
+                if (type == 'position') {
+                    angular.forEach($scope.positonArr, function (data) {
+                        data.flag = false;
+                    })
+                } else {
+                    angular.forEach($scope.processTypesArr, function (data) {
+                        data.flag = false;
+                    })
                 }
-                repTempIndex = $scope.details.relations.indexOf(x);
-                $ionicActionSheet.show({
-                    buttons: [
-                        {text: '删除'},
-                        {text: '替换'}
-                    ],
-                    titleText: '请选择操作',
-                    cancelText: '取消',
-                    buttonClicked: function (index) {
-                        console.log(index);
-                        switch (index) {
-                            case 0:
-                                console.log('删除');
-                                $scope.details.relations.splice(repTempIndex, 1);
-                                break;
-                            case 1:
-                                console.log('替换');
-                                $scope.isReplace = true;
-                                $scope.isDropShow = true;
-                                $scope.selectPopText = '正式客户';
-                                $scope.addReleModal.show();
-                                break;
-                        }
-                        return true;
-                    }
-                });
+                x.flag = !flag;
             };
-
-
             $scope.$on('$destroy', function () {
                 $scope.referModal.remove();
                 $scope.followUpModal.remove();
                 $scope.addReleModal.remove();
+                $scope.processModal.remove();
             });
         }])
     .filter("highlight", function ($sce) {
@@ -799,7 +780,7 @@ salesModule
             if (!search) {
                 return $sce.trustAsHtml(text);
             }
-            text=text.toString();
+            text = text.toString();
             if (text.indexOf(search) == -1) {
                 return text;
             }

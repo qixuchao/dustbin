@@ -101,22 +101,22 @@ salesModule.factory('saleActService', function () {
     var saleListArr2 = [];
     var createPopTypes = [{
         text: '商务洽谈',
-        value:'ZA01'
+        value: 'ZA01'
     }, {
         text: '客情交流',
-        value:'ZA02'
+        value: 'ZA02'
     }, {
         text: '项目推进',
-        value:'ZA03'
+        value: 'ZA03'
     }, {
         text: '内部事务',
-        value:'ZA04'
+        value: 'ZA04'
     }, {
         text: '来访接待',
-        value:'ZA05'
+        value: 'ZA05'
     }, {
         text: '市场营销',
-        value:'ZA06'
+        value: 'ZA06'
     }];
     var createPopOrgs = [{
         text: '公司间'
@@ -189,15 +189,58 @@ salesModule.factory('saleActService', function () {
         sex: '女士',
         position: '保安'
     }];
+    var urgentDegreeArr = [{
+        text: '需上司支持',
+        value: '01'
+    }, {
+        text: '重要紧急',
+        value: '02'
+    }, {
+        text: '重要不紧急',
+        value: '03'
+    }, {
+        text: '紧急不重要',
+        value: '04'
+    }, {
+        text: '普通事项',
+        value: '05'
+    }];
+    var processArr = [{
+        text: '达成共识',
+        code: 'IT_SA0021'
+    }, {
+        text: '跟进事项',
+        code: 'IT_SA0022'
+    }, {
+        text: '政策解读',
+        code: 'IT_SA0023'
+    }];
+    var positonArr = [{
+        text: '我司',
+        code: '01'
+    }, {
+        text: '客户',
+        code: '01'
+    }];
+    var processTypesArr = [{
+        text:'处理中',
+        code:'E0002'
+    },{
+        text:'已完成',
+        code:'E0003'
+    },{
+        text:'已取消',
+        code:'E0004'
+    }];
     var customerArr = [];
     var listPage = 1;
-    var saleListArr= [];
+    var saleListArr = [];
     return {
         getSaleListArr: function () {
             return saleListArr2;
         },
         getCreatePopTypes: function () {
-          return   createPopTypes;
+            return createPopTypes;
         },
         getCreatePopOrgs: function () {
             return createPopOrgs;
@@ -221,6 +264,10 @@ salesModule.factory('saleActService', function () {
         listPage,
         saleListArr,
         actDetail,
-        createPopTypes
+        createPopTypes,
+        urgentDegreeArr,
+        processArr,
+        positonArr,
+        processTypesArr
     };
 });

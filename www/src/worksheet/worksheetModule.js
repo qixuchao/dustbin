@@ -73,6 +73,8 @@ worksheetModule.service('worksheetDataService', [function(){
       needReload: false
     },
     selectedCheLiang: null,
+    backObject:null,
+
     wsEditToDetail: {
       needReload: false
     }

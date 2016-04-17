@@ -300,7 +300,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 "IS_AUTHORITY": { "BNAME": worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_BY },
                 "IS_OBJECT_ID": worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE,
-                "IT_MILEAGE": {
+                "IT_MAT_LIST": {
                     "item": item
                 }};
             console.log(angular.toJson(data));
@@ -315,6 +315,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     }
                     worksheetHttpService.setSparePart($scope.goSAPInfos);
                     console.log(angular.toJson($scope.goSAPInfos));
+                    worksheetDataService.wsDetailToList.needReload = true;
                     $cordovaToast.showShortBottom("数据已传输至SAP");
                 }else{
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -570,7 +571,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 "IS_AUTHORITY": { "BNAME": worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_BY },
                 "IS_OBJECT_ID": worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE,
-                "IT_MILEAGE": {
+                "IT_MAT_LIST": {
                     "item": item
                 }};
             console.log(angular.toJson(data));
@@ -592,6 +593,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                             worksheetDetail[i].showPic = true;
                         }
                         console.log(angular.toJson($scope.spareDetail));
+                        worksheetDataService.wsDetailToList.needReload = true;
                         $cordovaToast.showShortBottom("数据已传输至SAP");
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -602,5 +604,35 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 });
             }
 
+        }
+        //数据刷新
+        $scope.updateInfos = function(){
+            var data = {
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_AUTHORITY": { "BNAME": worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_BY },
+                "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
+                "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
+            }
+            console.log(angular.toJson(data));
+            var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL';
+            var id = worksheetDataService.wsDetailData.ydWorksheetNum;
+            var wf = worksheetDataService.wsDetailData.waifuRenyuan;
+            var name = worksheetDataService.wsDetailData.IS_PROCESS_TYPE;
+            HttpAppService.post(url, data).success(function(response){
+                //console.log(angular.toJson(response));
+                if (response.ES_RESULT.ZFLAG === 'S') {
+                    worksheetDataService.wsDetailData = response;
+                    worksheetDataService.wsDetailData.ydWorksheetNum = id;
+                    worksheetDataService.wsDetailData.waifuRenyuan = wf;
+                    worksheetDataService.wsDetailData.IS_PROCESS_TYPE = name;
+                    console.log(angular.toJson(response));
+                }else{
+
+                }
+                Prompter.hideLoading();
+            }).error(function(err){
+                Prompter.hideLoading();
+                console.log(angular.toJson(err));
+            });
         }
     }]);
