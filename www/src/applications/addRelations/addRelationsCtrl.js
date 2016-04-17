@@ -18,23 +18,12 @@ salesModule
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService) {
             console.log('添加相关方');
-            var init = function () {
-                if ($scope.isDropShow) {
-                    $scope.hideSelections();
-                    return
-                }
-                $scope.isReplace = false;
-                $scope.isDropShow = true;
-                $scope.selectPopText = '正式客户';
-            };
-            $scope.hideRelations = function () {
-                $scope.hideSelections();
-                $scope.addReleModal.hide();
-            };
-            //添加相关方
-            $scope.moreflag = false;
-            $scope.isDropShow = false;
             $scope.isReplace = false;
+            $scope.isDropShow = true;
+            $scope.selectPopText = '正式客户';
+            $scope.moreflag = false;
+            $scope.relationsPopArr = saleActService.getRelationsPopArr();
+            $scope.relationSelections = saleActService.getRelationSelections();
             var relationPage = 1;
             $scope.getRelations = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
@@ -74,12 +63,18 @@ salesModule
                         }
                     });
             };
-
+            $scope.hideRelations = function () {
+                $scope.addReleModal.remove();
+                $timeout(function () {
+                    $scope.hideSelections();
+                },300)
+            };
             $scope.selectPop_rel = function (x) {
                 $scope.selectPopText = x.text;
                 $scope.changeMoreFlag();
             };
             $scope.addRelationModal = function () {
+
                 angular.forEach($scope.relationSelections, function (data) {
                     if (data.flag && $scope.details.relations.indexOf(data) == -1) {
                         $scope.details.relations.push(data);

@@ -176,6 +176,9 @@ salesModule
                 }
             };
             $scope.filterSure = function () {
+                if (!$scope.$$phase) {
+                    $ionicScrollDelegate.scrollTop();
+                }
                 var arr = document.getElementsByClassName('flipInX');
                 for (var i = 0; i < arr.length; i++) {
                     angular.element(arr[i]).removeClass('animated');
@@ -585,6 +588,14 @@ salesModule
                 }
                 return "";
             };
+            var getSaleStageIndex = function (data) {
+                for (var i = 0; i < $scope.saleStages.length; i++) {
+                    if ($scope.saleStages[i].text == data) {
+                        return i;
+                    }
+                }
+            };
+            var detailResponse;
             var getDetails = function () {
                 Prompter.showLoading();
                 var data = {
@@ -595,11 +606,15 @@ salesModule
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_DETAIL', data)
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
+                            detailResponse = response;
                             $scope.chanceDetails = response.ES_OPPORT_H;
                             $scope.relationArr = response.ET_RELEATION.item;
                             angular.forEach($scope.relationArr, function (x) {
                                 x.typeText = getRelationsType(x.PARTNER_FCT);
                             });
+                            $scope.chanceDetails.PHASE = {
+                                text: $scope.chanceDetails.PHASE
+                            }
                             Prompter.hideLoading();
                             getInitStatus();
                         }
@@ -622,21 +637,21 @@ salesModule
                     var data = {
                         "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                         "IS_OPPORT_H": {
-                            "OBJECT_ID": "0040000134",
-                            "DESCRIPTION": "测试报价单商机123",
-                            "STARTDATE": "",
-                            "EXPECT_END": "",
-                            "PHASE": "",
-                            "PROBABILITY": "",
-                            "STATUS": "",
-                            "ZZXMBH": "",
-                            "EXP_REVENUE": "",
-                            "CURRENCY": "",
-                            "ZZXSYXL": "",
-                            "ZZYQXSLDW": "",
+                            "OBJECT_ID": $scope.chanceDetails.OBJECT_ID,
+                            "DESCRIPTION": $scope.chanceDetails.DESCRIPTION,
+                            "STARTDATE": $scope.chanceDetails.STARTDATE,
+                            "EXPECT_END": $scope.chanceDetails.EXPECT_END,
+                            "PHASE": $scope.chanceDetails.PHASE.value,
+                            "PROBABILITY": $scope.chanceDetails.PROBABILITY,
+                            "STATUS": $scope.mySelect.status.value,
+                            "ZZXMBH": $scope.chanceDetails.ZZXMBH,
+                            "EXP_REVENUE": $scope.chanceDetails.EXP_REVENUE,
+                            "CURRENCY": $scope.chanceDetails.CURRENCY,
+                            "ZZXSYXL": $scope.chanceDetails.ZZXSYXL,
+                            "ZZYQXSLDW": $scope.chanceDetails.ZZYQXSLDW,
                             "ZZMBCP": "",
                             "ZZFLD00002E": "",
-                            "ZTEXT": ""
+                            "ZTEXT": $scope.chanceDetails.CRM_ORDERH_T
                         },
                         "IS_USER": {"BNAME": "HANDBLH"},
                         "IT_COMPETITOR": {
@@ -666,13 +681,18 @@ salesModule
                             }
                         }
                     };
-
-                    $timeout(function () {
-                        Prompter.hideLoading();
-                        $cordovaToast.showShortBottom('保存成功');
-                        $scope.isEdit = false;
-                        $scope.editText = "编辑";
-                    }, 500);
+                    console.log(data);
+                    HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_CHANGE', data)
+                        .success(function (response) {
+                            if (response.ES_RESULT.ZFLAG === 'S') {
+                                Prompter.showShortToastBotton('修改成功');
+                                $scope.isEdit = false;
+                                $scope.editText = "编辑";
+                                Prompter.hideLoading();
+                            } else {
+                                Prompter.hideLoading();
+                            }
+                        });
                 }
             };
             $scope.goBack = function () {
@@ -765,7 +785,7 @@ salesModule
 
             };
             /*---------------------------------选择弹窗-------------------------------------*/
-            $scope.saleStages = saleChanService.getStagesArr();
+            $scope.saleStages = saleChanService.saleStages;
             $scope.pop = {
                 stage: '',
                 feel: '',
@@ -773,8 +793,8 @@ salesModule
             };
             var getInitStage = function () {
                 for (var i = 0; i < $scope.saleStages.length; i++) {
-                    if ($scope.saleStages[i].value == $scope.chanceDetails.PHASE) {
-                        $scope.pop.stage = $scope.saleStages[i]
+                    if ($scope.saleStages[i].text == $scope.chanceDetails.PHASE.text) {
+                        $scope.pop.stage = $scope.saleStages[i];
                         return
                     }
                 }
@@ -791,8 +811,7 @@ salesModule
                 $scope.popover.show($event);
             };
             $scope.savePop = function () {
-                console.log($scope.pop.stage.value)
-                $scope.chanceDetails.PHASE = $scope.pop.stage.value;
+                $scope.chanceDetails.PHASE = $scope.pop.stage;
                 //getInitStatus();
                 $scope.chanceDetails.PROBABILITY = $scope.pop.feel;
                 $scope.chanceDetails.ZZXMBH = $scope.pop.proNum;
@@ -838,7 +857,7 @@ salesModule
                 if ($scope.unitTitle == '币种') {
                     $scope.chanceDetails.CURRENCY = x.value;
                 } else {
-                    $scope.chanceDetails.preMoneyType = x.value;
+                    $scope.chanceDetails.ZZYQXSLDW = x.value;
                 }
 
                 $scope.moneyTypesModal.hide();
@@ -926,6 +945,9 @@ salesModule
                 }, 1)
             };
             $scope.selectCustomer = function (x) {
+                $scope.create = {
+                    customer: x
+                };
                 $scope.chanceDetails.PARTNER_TXT = x.NAME_ORG1;
                 $scope.chanceDetails.PARTNER = x.PARTNER;
                 $scope.selectCustomerModal.hide();

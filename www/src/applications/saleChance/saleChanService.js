@@ -156,8 +156,23 @@ salesModule.factory('saleChanService', function () {
         text:'关系建立阶段',
         value:'Z01'
     },{
+        text:'技术交流及式样阶段',
+        value:'Z02'
+    },{
         text:'方案沟通确认',
         value:'Z03'
+    },{
+        text:'样品合同签订',
+        value:'Z04'
+    },{
+        text:'样品设计',
+        value:'Z05'
+    },{
+        text:'样品试制',
+        value:'Z06'
+    },{
+        text:'样品测试',
+        value:'Z07'
     },{
         text:'A样',
         value:'Z08'
