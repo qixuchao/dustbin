@@ -5,35 +5,34 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
     "$ionicPopup", "$timeout","$state","worksheetDataService", function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state,worksheetDataService){
     ionicMaterialInk.displayEffect();
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-            //if(fromState.name == 'worksheetCarMileageEdit' && toState.name == 'worksheetFaultInfos'){
-                var worksheetDetail = worksheetDataService.wsDetailData;
-                console.log(angular.toJson(worksheetDetail));
-                $scope.faulInfos = worksheetDetail.ES_OUT_LIST;
-            //}
+            var worksheetDetail = worksheetDataService.wsDetailData;
+            console.log(angular.toJson(worksheetDetail));
+            $scope.faulInfos = worksheetDetail.ES_OUT_LIST;
+            console.log(angular.toJson($scope.faulInfos));
+
+            var arrInfos = worksheetDetail.ET_TEXT.item;
+            console.log(angular.toJson(arrInfos));
+            var remark = ""; var result = "";
+            for(var i=0;i<arrInfos.length;i++){
+                if(arrInfos[i].TDID === 'Z001'){
+                    remark = remark + arrInfos[i].TDLINE;
+                }else if(arrInfos[i].TDID === 'Z005'){
+                    result = result + arrInfos[i].TDLINE;
+                }
+                //console.log(angular.toJson(remark+"=="+result));
+            }
+            $scope.otherInfos = {
+                remark : remark,
+                result : result
+            };
+            console.log(angular.toJson($scope.otherInfos));
+
         });
         $scope.edit = function(){
             $state.go("worksheetFaultInfosEdit");
         }
-        var worksheetDetail = worksheetDataService.wsDetailData;
-        console.log(angular.toJson(worksheetDetail));
-        $scope.faulInfos = worksheetDetail.ES_OUT_LIST;
-        console.log(angular.toJson($scope.faulInfos));
-        var arrInfos = worksheetDetail.ET_TEXT.item;
-        console.log(angular.toJson(arrInfos));
-        var remark = ""; var result = "";
-        for(var i=0;i<arrInfos.length;i++){
-            if(arrInfos[i].TDID === 'Z001'){
-                remark = remark + arrInfos[i].TDLINE;
-            }else if(arrInfos[i].TDID === 'Z005'){
-                result = result + arrInfos[i].TDLINE;
-            }
-            console.log(angular.toJson(remark+"=="+result));
-        }
-        $scope.otherInfos = {
-            remark : remark,
-            result : result
-        };
-        console.log(angular.toJson($scope.otherInfos));
+
+
 }]);
 
 
