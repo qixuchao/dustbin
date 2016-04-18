@@ -1,5 +1,5 @@
 <ion-view class="saleActDetail worksheet-detail-view-public">
-    <div id="saleTopBackId" class="top-back">
+    <div id="saleTopBackId" class="top-back bar">
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">工单详细信息</div>
@@ -7,7 +7,7 @@
                     <span class="detail-all-more-button {{config.statusStr}} {{config.typeStr}}"><i class="ion-ios-more"></i></span>
                 </div>
             </div>
-            <div class="mainInfo">
+            <div class="mainInfo" style="width:100%;top:55px;position:relative;height:125px;">
                 <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                     <i class="ion-android-radio-button-off"></i>
                     <div class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
@@ -40,7 +40,7 @@
             </div>
     </div>
 
-    <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false" style="height: 55px;padding-top: .1rem;height: 40px;background: white;z-index: 1;">
+    <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false" style="padding-top:.4rem;height: 40px;background:white;z-index: 1;top: 170px;margin-top: 0px;">
         <div class="fill-height line-inner">
             <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
                 <i class="ion-link" style="font-size:2.1rem;"></i>                             
@@ -72,10 +72,7 @@
         </div>
     </div>
     
-    <ion-content class="has-header {{config.typeStr}}" style="top: 210px;" has-bouncing="false" delegate-handle="xbrDelegateContent"  scrollbar-y="false" ng-class="{'can-not-editor-detail':!canShowEditBtn()}">
-        
-        
-        
+    <ion-content class="has-header {{config.typeStr}}" has-bouncing="false" delegate-handle="xbrDelegateContent"  scrollbar-y="false" ng-class="{'can-not-editor-detail':!canShowEditBtn()}">
         <div ng-if="config.detailTypeNewCar">
             <div class="basic-info first-line commment-info-lines">
                 <div class="crm-line-title">
