@@ -6,9 +6,9 @@ appModule
     .controller('AppCtrl',['LoginService','$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function(LoginService,$scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
         console.log('app')
         //ionicMaterialInk.displayEffect();
-        console.log(ionic.Platform.platform())
+        //console.log(ionic.Platform.platform())
         var menuList=LoginService.getMenulist();
-        //console.log(menuList);
+        console.log(menuList);
         $scope.imgs = [{
             name:'CUSTOMER',
             url:'img/apps/partner.png',
@@ -47,10 +47,10 @@ appModule
             go:'car'
         }];
         var num=menuList.length;
-        $scope.imgs1= new Array();
 
-        for(var i=0;i<num+2;i++){
-            for(var j=0;j<$scope.imgs.length;j++){
+        $scope.imgs1= new Array();
+        for(var i=0;i<$scope.imgs.length;i++){
+            for(var j=0;j<num;j++){
                 if($scope.imgs[i].name===menuList[j]){
                     $scope.imgs1.push($scope.imgs[i]);
                 }

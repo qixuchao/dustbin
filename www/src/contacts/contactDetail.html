@@ -15,11 +15,11 @@
             </div>
 
             <div class="Contacts_detailcontentphone" ng-click="contactshowphone(customerdetails.phonenumber)">
-                <img src="img/contact/phone@2x.png" style="width:15px;height:15px" class="customerContacts_detailcontentphonei"></img>
+                <img src="img/contact/phone@2x.png" style="width:15px;height:15px" class="customerContacts_detailcontentphonei">
                 <span style="margin-left: 4px;" ng-bind="contactdetails.TEL_NUMBER"></span>
             </div>
             <div class="Contacts_detailcontentmobile" ng-click="contactshowphone(customerdetails.mobilenumber)">
-                <img src="img/contact/tel@2x.png" style="width:15px;height:15px" class="Contacts_detailcontentmobilei"></img>
+                <img src="img/contact/tel@2x.png" style="width:15px;height:15px" class="Contacts_detailcontentmobilei">
                 <span style="margin-left: 4px;" ng-bind="contactdetails.MOB_NUMBER"></span>
             </div>
             <div class="Contacts_detailcontentaddress">
@@ -49,13 +49,13 @@
         <div class="Contacts_detail_countentbasicclok"></div>
     </div>
     <ion-content style="margin-top:300px">
-        <div class="row" style="padding:5px 5px">
-            <div class="col col-15" style="margin-left: 7px;">
+        <div class="row row-center" style="padding:5px 5px">
+            <div class="col col-15" col-center style="margin-left: 7px;">
                 注释
             </div>
             <div class="col col-25"></div>
             <div class="col col-60" style="color:#AEA3A3">
-                <textarea  rows="3" readonly ng-bind="contactdetails.conatctdeatilnote"></textarea>
+                <textarea  rows="3" readonly ng-bind="contactdetails.conatctdeatilnote" style="width: 100%;background-color:white"></textarea>
             </div>
         </div>
         <div class="employee_query_listline">
@@ -65,7 +65,7 @@
                 称谓
             </div>
             <div class="col col-60" style="color:#AEA3A3">
-                <span ng-bind="contactdetails.TITLE"></span>
+                <span ng-bind="contactdetails.TITLE_MEDI"></span>
             </div>
         </div>
         <div class="employee_query_listline">
@@ -73,23 +73,24 @@
         <div class="row" style="padding:5px 5px" ng-click="employeeshowphone(userdetailval.phoneNumber)">
             <div class="col col-40">
                 <img src="img/customer/customerchuanz2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
-                传真
+                传真/分机
             </div>
             <div class="col col-60" style="color:#AEA3A3;margin-left: 7px;">
-                <span ng-bind="contactdetails.FAX_NUMBER"></span>
-            </div>
-        </div>
-        <div class="employee_query_listline">
-        </div>
-        <div class="row" style="padding:5px 5px" ng-click="employeeshowphone(userdetailval.phoneNumber)">
-            <div class="col col-40">
-                <img src="img/customer/customerchuanz2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
-                传真分机
-            </div>
-            <div class="col col-60" style="color:#AEA3A3;margin-left: 7px;">
+                <span ng-bind="contactdetails.FAX_NUMBER"></span>/
                 <span ng-bind="contactdetails.FAX_EXTENS"></span>
             </div>
         </div>
+        <div class="employee_query_listline">
+        </div>
+        <!--<div class="row" style="padding:5px 5px" ng-click="employeeshowphone(userdetailval.phoneNumber)">-->
+            <!--<div class="col col-40">-->
+                <!--<img src="img/customer/customerchuanz2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>-->
+                <!--传真分机-->
+            <!--</div>-->
+            <!--<div class="col col-60" style="color:#AEA3A3;margin-left: 7px;">-->
+                <!--<span ng-bind="contactdetails.FAX_EXTENS"></span>-->
+            <!--</div>-->
+        <!--</div>-->
         <div class="employee_query_listline">
         </div>
         <div class="row" style="padding:5px 5px">
@@ -178,7 +179,7 @@
                 语言
             </div>
             <div class="col col-60" style="color:#AEA3A3">
-                <span ng-bind="contactdetails.LANGU"></span>
+                <span ng-bind="contactdetails.LANGU.name"></span>
             </div>
         </div>
         <div class="employee_query_listline">
