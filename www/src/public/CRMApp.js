@@ -61,7 +61,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 // org.apache.cordova.statusbar required
                 window.StatusBar.overlaysWebView(true);
             }
-            window.plugins.jPushPlugin.init(); 
+            window.plugins.jPushPlugin.init();
             window.plugins.jPushPlugin.setDebugMode(true);
             window.plugins.jPushPlugin.getRegistrationID(function(id){
                 //将获取到的id存入服务端
@@ -200,7 +200,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             //客户-联系人
             .state('customerContactQuery', {
                 url: '/customerContactQuery',
-                templateUrl: 'src/customer/customerContacts/customerContactQuery.html',
+                templateUrl: 'src/customer/customerContacts/customerContactsQuery.html',
                 controller: 'customerContactQueryCtrl'
             })
             .state('customerContactDetail', {

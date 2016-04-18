@@ -364,7 +364,7 @@ customerModule
         };
     }])
     .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
-
+console.log("====");
         //根据角色检查字段初始化
         ////搜索项
         //$scope.customerDetailsearcho = true;
@@ -439,6 +439,7 @@ customerModule
             //    customerDroletypenewvalue = 'Z00003';
             //}
         }
+        console.log("====" +$scope.customerDroletype);
         if($scope.customerDroletype == "潜在客户" || $scope.customerDroletype == "正式客户" || $scope.customerDroletype == "终端客户"){
             //竞争对手领域
             $scope.customerDetailZzlyone = false;
@@ -453,7 +454,7 @@ customerModule
             //项目
             $scope.customerDetailEvent = false;
 
-        }else if($scope.customerDroletype == "竞争对手"){
+        }else if($scope.customerDroletype == "竞争对手" ){
             //付款方式
             $scope.customerDetailplayway = true;
             //付款日历
@@ -484,6 +485,7 @@ customerModule
             $scope.customerDetailstrret = true;
             //街道三
             $scope.customerDetailstrreth = true;
+        };
             //初始化角色判断
             var customerDroletypeold = customeService.get_customerListvalue().PARTNER_ROLE;
 
@@ -598,6 +600,7 @@ customerModule
                 "IS_AUTHORITY": { "BNAME": "" }
             };
             HttpAppService.post(url, data).success(function (response) {
+                console.log(response);
                 Prompter.hideLoading();
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -651,18 +654,22 @@ customerModule
                     typemane:'工单',
                     imgurl:'img/customer/customergongd@2x.png',
                     url:'worksheetList'
-                },{
-                    typemane:'线索',
-                    imgurl:'img/customer/customerxians@2x.png',
-                    url:'customerKeyQuery'
-                },{
+                }
+                //    , {
+                //    typemane:'线索',
+                //    imgurl:'img/customer/customerxians@2x.png',
+                //    url:'customerKeyQuery'
+                //}
+                    ,{
                     typemane:'车辆',
                     imgurl:'img/customer/customerchel@2x.png',
                     url:'customerVehicleQuery'
-                },{
-                    typemane:'报价',
-                    imgurl:'img/customer/customerbaoj@2x.png',
-                },{
+                }
+                //    ,{
+                //    typemane:'报价',
+                //    imgurl:'img/customer/customerbaoj@2x.png',
+                //}
+                    ,{
                     typemane:'负责人',
                     imgurl:'img/customer/customerfuz@2x.png',
                 }
@@ -687,7 +694,7 @@ customerModule
                     Prompter.showphone(types);
                 }
             };
-        };
+
         //编辑  CustomerDeatilEditvalue()
         $scope.CustomerDeatilEditvalue = function(){
             var authInfo = LoginService.getAuthInfoByFunction(customerDroletypenewvalue);
