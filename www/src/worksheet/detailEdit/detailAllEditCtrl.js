@@ -419,7 +419,6 @@ CODE:"03"
                 $scope.config.currentImpact = $scope.datas.impactS[0];
             }
         }
-
         var bujianFenLeiS = [];
         var responS = [];
         var bujianS = [];
