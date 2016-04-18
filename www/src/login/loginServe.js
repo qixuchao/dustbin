@@ -4,6 +4,7 @@
 loginModule.factory('LoginService',function(){
     var data;
     var data3;
+    var type;
     var menuList=[];
     var author={};
     return{
@@ -22,6 +23,13 @@ loginModule.factory('LoginService',function(){
         //角色
         getProfile:function(){
             return data3;
+        },
+        //角色类型
+        setProfileType:function(data){
+            type=data;
+        },
+        getProfileType:function(){
+            return type;
         },
         setMenulist:function(data2){
             menuList=data2;

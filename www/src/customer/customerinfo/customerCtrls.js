@@ -13,7 +13,7 @@ customerModule
         };
         $scope.customerPopoverhide = function() {
             $scope.customerpopover.hide();
-        }; 
+        };
 
         //历史记录显示customer_usuaflag
         $scope.CustomerHisGetvaluehis = function(){
@@ -72,13 +72,13 @@ customerModule
                 "IS_SEARCH": {"SEARCH": $scope.customer.customerfiledvalue},
                 "IT_IN_ROLE": {
                     "item":
-                            [
-                                {
-                                    "RLTYP": $scope.customerselecttyperole
-                                }
-                            ]
-                    }
-                };
+                        [
+                            {
+                                "RLTYP": $scope.customerselecttyperole
+                            }
+                        ]
+                }
+            };
             //var data = data2;
             console.log("data"+angular.toJson(data));
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
@@ -350,16 +350,16 @@ customerModule
             };
             //改变角色的参数
             //$scope.$apply(function(){
-                $scope.customerisshow = false;
-                //删除请求
-                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
-                $scope.customerQuery_list = [];
-                $scope.customerQuery_list = new Array;
-                $scope.customerPage = 0;
-                $scope.customer_queryflag = true;
-                $ionicScrollDelegate.resize();
-                $scope.customerLoadmore()
-                $scope.customerisshow = true;
+            $scope.customerisshow = false;
+            //删除请求
+            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
+            $scope.customerQuery_list = [];
+            $scope.customerQuery_list = new Array;
+            $scope.customerPage = 0;
+            $scope.customer_queryflag = true;
+            $ionicScrollDelegate.resize();
+            $scope.customerLoadmore()
+            $scope.customerisshow = true;
             $scope.customerPopoverhide();
         };
     }])
@@ -531,40 +531,60 @@ customerModule
         $scope.CustomergoBack = function() {
             $rootScope.$broadcast('customerdeatillist');
             $ionicHistory.goBack();
-        }
+        };
+           if(LoginService.getProfileType()=="APP_SALE"){
+                   $scope.customer_detailstypes = [
+                       {
+                           typemane:'联系人',
+                           imgurl:'img/customer/customerlianxir@2x.png',
+                           url:'customerContactQuery'
+                       },{
+                           typemane:'工单',
+                           imgurl:'img/customer/customergongd@2x.png',
+                           url:'worksheetList'
+                       },{
+                           typemane:'车辆',
+                           imgurl:'img/customer/customerchel@2x.png',
+                           url:'customerVehicleQuery'
+                       },{
+                           typemane:'负责人',
+                           imgurl:'img/customer/customerfuz@2x.png',
+                       }
+                   ]
+           }else{
+               $scope.customer_detailstypes = [{
+                   typemane:'联系人',
+                   imgurl:'img/customer/customerlianxir@2x.png',
+                   url:'customerContactQuery'
+               },{
+                   typemane:'机会',
+                   imgurl:'img/customer/customerjihui@2x.png',
+                   url:'customerChanceQuery'
+               },{
+                   typemane:'活动',
+                   imgurl:'img/customer/customerhuod.png',
+                   url:'customerActivityQuery'
+               },{
+                   typemane:'工单',
+                   imgurl:'img/customer/customergongd@2x.png',
+                   url:'worksheetList'
+               },{
+                   typemane:'线索',
+                   imgurl:'img/customer/customerxians@2x.png',
+                   url:'customerKeyQuery'
+               },{
+                   typemane:'车辆',
+                   imgurl:'img/customer/customerchel@2x.png',
+                   url:'customerVehicleQuery'
+               },{
+                   typemane:'报价',
+                   imgurl:'img/customer/customerbaoj@2x.png',
+               },{
+                   typemane:'负责人',
+                   imgurl:'img/customer/customerfuz@2x.png',
+               }];
+           }
 
-        $scope.customer_detailstypes = [{
-            typemane:'联系人',
-            imgurl:'img/customer/customerlianxir@2x.png',
-            url:'customerContactQuery'
-        },{
-            typemane:'机会',
-            imgurl:'img/customer/customerjihui@2x.png',
-            url:'customerChanceQuery'
-        },{
-            typemane:'活动',
-            imgurl:'img/customer/customerhuod.png',
-            url:'customerActivityQuery'
-        },{
-            typemane:'工单',
-            imgurl:'img/customer/customergongd@2x.png',
-            url:'worksheetList'
-        },{
-            typemane:'线索',
-            imgurl:'img/customer/customerxians@2x.png',
-            url:'customerKeyQuery'
-        },{
-            typemane:'车辆',
-            imgurl:'img/customer/customerchel@2x.png',
-            url:'customerVehicleQuery'
-        },{
-            typemane:'报价',
-            imgurl:'img/customer/customerbaoj@2x.png',
-        },{
-            typemane:'负责人',
-            imgurl:'img/customer/customerfuz@2x.png',
-        }
-        ];
         $scope.gocustomerLists = function(cusvalue){
             if(cusvalue.url){
                 //从客户详情-进入各个详情界面

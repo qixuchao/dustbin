@@ -3,42 +3,57 @@
     <div class="saleList">
         <ion-header-bar no-tap-scroll="true" align-title="center" class="head pub-head no-padding">
             <div class="row row-center">
-                <a class="col col-20 text-left goBack" ng-click="createModal.hide()"><i class="ion-chevron-left"></i></a>
+                <a class="col col-20 text-left goBack" ng-click="createModal.hide()"><i
+                        class="ion-chevron-left"></i></a>
+
                 <div class="col col-60 text-center">新建销售活动</div>
                 <div class="col col-20 add" ng-click="saveCreateModal()">保存</div>
             </div>
         </ion-header-bar>
     </div>
     <ion-content class="content">
-        <div class="row row-center">
-            <div class="col col-35">描述:</div>
-            <div class="col col-65"><input type="text" ng-model="create.title" placeholder="请输入描述"></div>
-        </div>
-        <div class="row row-center">
-            <div class="col col-35">地点:</div>
-            <div class="col col-65"><input type="text" ng-model="create.place" placeholder="请输入地点"></div>
-        </div>
-        <div class="row row-center">
-            <div class="col col-35">客户:</div>
-            <div class="col col-65" ng-click="openSelectCustomer()" ng-class="{'selectPlease':!create.customer}">{{create.customer?create.customer.NAME_ORG1:'-请选择-'}}</div>
-        </div>
-        <div class="row row-center">
-            <div class="col col-35">联系人:</div>
-            <div class="col col-65" ng-if="!contactSpinnerFLag" ng-click="openSelectPerson()" ng-class="{'selectPlease':!create.contact&&contacts.length}">
-                {{create.contact?create.contact.NAME_LAST:contacts.length==0?'当前客户无联系人':'-请选择-'}}</div>
-            <ion-spinner ng-if="contactSpinnerFLag" style="padding-left: 40px;" class="mySpinner" icon="ios"></ion-spinner>
-        </div>
-        <div class="row row-center">
-            <div class="col col-35">开始时间</div>
-            <div class="col col-65" ng-click="selectCreateTime('start')">{{create.de_startTime}}</div>
-        </div>
-        <div class="row row-center">
-            <div class="col col-35">结束时间</div>
-            <div class="col col-65" ng-click="selectCreateTime('end')">{{create.de_endTime}}</div>
-        </div>
-        <div class="annotate">
-            <div class="text">注释:</div>
-            <textarea rows="6" ng-model="create.annotation"></textarea>
-        </div>
+            <div class="row row-center">
+                <div class="col col-35">描述:</div>
+                <div class="col col-65"><input type="text" ng-model="create.title" required placeholder="请输入描述"></div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-35">地点:</div>
+                <div class="col col-65"><input type="text" ng-model="create.place" placeholder="请输入地点"></div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-35">紧急程度:</div>
+                <div class="col col-65 col-center"><select ng-model="create.urgent" required
+                                                           ng-options="x as x.text for x in urgentDegreeArr">{{create.urgent.text}}</select>
+                    <i class="ion-ios-arrow-down" style="color:#AFAFB5"></i></div>
+                <!--<div class="col col-10 col-center"></div>-->
+            </div>
+            <div class="row row-center">
+                <div class="col col-35">客户:</div>
+                <div class="col col-65" ng-click="openSelectCustomer()" ng-class="{'selectPlease':!create.customer}">
+                    {{create.customer?create.customer.NAME_ORG1:'-请选择-'}}
+                </div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-35">联系人:</div>
+                <div class="col col-65" ng-if="!contactSpinnerFLag" ng-click="openSelectPerson()"
+                     ng-class="{'selectPlease':!create.contact&&contacts.length}">
+                    {{create.contact?create.contact.NAME_LAST:contacts.length==0?'当前客户无联系人':'-请选择-'}}
+                </div>
+                <ion-spinner ng-if="contactSpinnerFLag" style="padding-left: 40px;" class="mySpinner"
+                             icon="ios"></ion-spinner>
+            </div>
+            <div class="row row-center">
+                <div class="col col-35">开始时间</div>
+                <div class="col col-65" ng-click="selectCreateTime('start')" required="true">{{create.de_startTime}}
+                </div>
+            </div>
+            <div class="row row-center">
+                <div class="col col-35">结束时间</div>
+                <div class="col col-65" ng-click="selectCreateTime('end')">{{create.de_endTime}}</div>
+            </div>
+            <div class="annotate">
+                <div class="text">注释:</div>
+                <textarea rows="6" ng-model="create.annotation"></textarea>
+            </div>
     </ion-content>
 </ion-modal-view>

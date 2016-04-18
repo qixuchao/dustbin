@@ -43,9 +43,9 @@
                 </div>
                 <div class="row row-center">
                     <div class="chanSubTitle">销售阶段:</div>
-                    <div class="editText" ng-click="openPopover()" ng-if="isEdit">{{chanceDetails.PHASE}}<i
+                    <div class="editText" ng-click="openPopover()" ng-if="isEdit">{{chanceDetails.PHASE.text}}<i
                             class="ion-arrow-right-c right-arrow"></i></div>
-                    <input type="text" ng-model="chanceDetails.PHASE" ng-if="!isEdit" readonly>
+                    <input type="text" ng-model="chanceDetails.PHASE.text" ng-if="!isEdit" readonly>
                 </div>
                 <div class="row row-center">
                     <div style="min-width: 37px;">状态:</div>
@@ -100,7 +100,7 @@
                         <div class="text"><input type="text" ng-blur="returnScroll()" class="saleChanPreInput"
                                                  ng-readonly="!isEdit" ng-model="chanceDetails.ZZXSYXL"></div>
                         <div class="col col-30 text-left money" ng-click="openMoneyModal('money')">
-                            {{'-'+chanceDetails.CURRENCY+'-'}}
+                            -{{chanceDetails.CURRENCY?chanceDetails.CURRENCY:'币种'}}-
                         </div>
                     </div>
                 </div>
@@ -110,13 +110,13 @@
                         <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
                                                  ng-model="chanceDetails.EXP_REVENUE"></div>
                         <div class="col col-30 text-left money" ng-click="openMoneyModal('unit')">
-                            {{'-'+chanceDetails.ZZYQXSLDW+'-'}}</div>
+                            -{{chanceDetails.ZZYQXSLDW?chanceDetails.ZZYQXSLDW:'单位'}}-</div>
                     </div>
                 </div>
             </div>
             <!--相关方-->
             <div id="relativeId" class="relative" ng-if="!select">
-                <div class="row" ng-repeat="x in relationArr">
+                <div class="row" ng-repeat="x in relationArr" ng-if="x.typeText">
                     <!--<div class="col">王紫薇&nbsp;&nbsp;女士</div>-->
                     <div class="col col-60">{{x.NAME}}</div>
                     <div class="col col-40 text-center position">{{x.typeText}}</div>

@@ -16,6 +16,9 @@ loginModule
         $scope.loginradioimgflag = true;
         $scope.loginradioSele = function(){
             $scope.loginradioimgflag = !$scope.loginradioimgflag;
+            if($scope.loginradioimgflag){
+
+            }
         };
 
         //监听用户名，去掉空格、
@@ -71,10 +74,11 @@ loginModule
                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                    $scope.$broadcast('scroll.infiniteScrollComplete');
                } else if (response.ES_RESULT.ZFLAG == 'S') {
-                         LoginService.setProfile(response);
+                         LoginService.setProfile(response.PROFILE);
+                         LoginService.setProfileType(response.PROFILE_TYPE);
                          LoginService.setMenulist(response.MENULIST);
                          LoginService.setAuth(response.AUTH);
-                         LoginService.setUserName(userName);
+                         LoginService.setUserName($scope.loginData.username);
 
                    $state.go('tabs');
                    }
