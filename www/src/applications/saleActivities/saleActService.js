@@ -232,6 +232,16 @@ salesModule.factory('saleActService', function () {
         text:'已取消',
         code:'E0004'
     }];
+    var relationPositionArr = [{
+        text:'联系人',
+        code:'00000015'
+    },{
+        text:'客户',
+        code:'00000009'
+    },{
+        text:'CATL销售',
+        code:'Z0000003'
+    }];
     var customerArr = [];
     var listPage = 1;
     var saleListArr = [];
@@ -268,6 +278,7 @@ salesModule.factory('saleActService', function () {
         urgentDegreeArr,
         processArr,
         positonArr,
-        processTypesArr
+        processTypesArr,
+        relationPositionArr
     };
 });

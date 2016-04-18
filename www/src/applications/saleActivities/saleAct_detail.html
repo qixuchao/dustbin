@@ -22,7 +22,7 @@
             <div class="relative" ng-class="{checked:!select}" ng-click="changeStatus(false)">相关方</div>
         </div>
     </div>
-    <ion-content class="has-footer" has-bouncing="false" on-scroll="onScroll()" scrollbar-y="false">
+    <ion-content class="has-footer" has-bouncing="true" on-scroll="onScroll()" scrollbar-y="false">
         <div class="addRelationsModal">
             <div ng-class="processDropflag?'own-backDrop-on':'own-backDrop-off'"
                  ng-click="changeProcessDropFlag()"></div>
@@ -162,8 +162,8 @@
             <!--相关方-->
             <div id="relativeId" class="relative" ng-if="!select">
                 <div class="row" ng-repeat="x in details.relations" on-hold="showActionSheet(x)">
-                    <div class="col">{{x.NAME}}&nbsp;&nbsp;{{x.sex}}</div>
-                    <!--<div class="col text-center position">{{x.position}}</div>-->
+                    <div class="col col-60 col-center">{{x.NAME}}</div>
+                    <div class="col position col-center text-center">{{x.position}}</div>
                 </div>
                 <div class="row row-center add" ng-if="isEdit">
                     <div class="col" ng-click="openRelations()"><i class="ion-ios-plus-outline"></i>添加相关方</div>

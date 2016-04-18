@@ -49,7 +49,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                             //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         }
                     } catch (e) {
-
+                        $ionicLoading.hide();
                     }
                 }).error(function (response, status, header, config) {
                     var respTime = new Date().getTime() - startTime;
@@ -167,9 +167,9 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
             },
             showLoading: function (content) {
                 $ionicLoading.show({
-                    template: ('<ion-spinner icon="ios"></ion-spinner><p >' + content + '</p>'),
+                    template: ('<ion-spinner icon="ios"></ion-spinner><p ng-if=content>' + content + '</p>'),
                     animation: 'fade-in',
-                    showBackdrop: true,
+                    showBackdrop: true
                 });
             },
             showLoadingAutoHidden: function (content, isLoading, dissmiss) {
@@ -179,7 +179,7 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
                 $ionicLoading.show({
                     template: template,
                     animation: 'fade-in',
-                    showBackdrop: true,
+                    showBackdrop: true
                 });
                 $timeout(function () {
                     $ionicLoading.hide();

@@ -31,6 +31,7 @@ salesModule
             var pageNum = saleActService.listPage;
             $scope.loadMoreFlag = true;
             $scope.saleListArr = saleActService.saleListArr;
+            $scope.urgentDegreeArr = saleActService.urgentDegreeArr;
             $scope.getList = function (type) {
                 if (!$scope.saleListArr.length) {
                     $scope.isloading = false;
@@ -261,6 +262,16 @@ salesModule
                 $scope.createModal = modal;
             });
             $scope.saveCreateModal = function () {
+                if(!$scope.create.title){
+                    Prompter.alert('请填写描述');
+                    return
+                }else if(!$scope.create.urgent){
+                    Prompter.alert('请选择紧急程度');
+                    return
+                }else if(!$scope.create.de_startTime){
+                    Prompter.alert('请选择开始时间');
+                    return
+                }
                 Prompter.showLoading('正在保存');
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
@@ -273,7 +284,7 @@ salesModule
                     "IS_HEAD": {
                         "PROCESS_TYPE": $scope.pop.type.value,
                         "DESCRIPTION": $scope.create.title,
-                        "ZZHDJJD": "01",
+                        "ZZHDJJD": $scope.create.urgent.value,
                         "ZZHDZLXSM": "",
                         "ACT_LOCATION": $scope.create.place,
                         "ESTAT": "E0001",
@@ -437,10 +448,20 @@ salesModule
                   $cordovaToast, $cordovaDatePicker, $ionicActionSheet, saleActService, saleChanService, Prompter
             , HttpAppService) {
             $scope.formTest = function () {
-                alert('s')
-            }
+                Prompter.alert('提交');
+            };
+            //相关方类型值列表
+            $scope.relationPositionArr = saleActService.relationPositionArr;
             ionicMaterialInk.displayEffect();
             $scope.urgentDegreeArr = saleActService.urgentDegreeArr;
+            var getRelationPosition = function (data) {
+              for(var i = 0;i<$scope.relationPositionArr.length;i++){
+                  if($scope.relationPositionArr[i].code == data){
+                      return $scope.relationPositionArr[i].text;
+                  }
+              }
+                return '';
+            };
             var getStatusIndex = function (data) {
                 for (var i = 0; i < $scope.statusArr.length; i++) {
                     if ($scope.statusArr[i].value == data) {
@@ -488,6 +509,12 @@ salesModule
                             $scope.details.urgent = $scope.urgentDegreeArr[getUrgentIndex($scope.details.ZZHDJJD)];
                             $scope.details.actType = getActType($scope.details.PROCESS_TYPE);
                             $scope.details.relations = response.ET_PARTNERS.item;
+                            angular.forEach($scope.details.relations, function (data) {
+                                data.position = getRelationPosition(data.PARTNER_FCT);
+                                if(!data.position){
+                                    $scope.details.relations.splice($scope.details.relations.indexOf(data),1);
+                                }
+                            });
                             Prompter.hideLoading();
                         }
                     });
@@ -721,21 +748,19 @@ salesModule
                 }, 1)
             };
             /*-------------------------------Modal end-------------------------------------*/
-            $scope.relationsPopArr = saleActService.getRelationsPopArr();
-            $scope.relationSelections = saleActService.getRelationSelections();
+
             $scope.openFollow = function () {
                 $scope.followUpModal.show();
             };
             //相关方
             $scope.openRelations = function () {
-                $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/addRelations.html', {
+                $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {
                     scope: $scope,
                     animation: 'slide-in-up'
                 }).then(function (modal) {
                     $scope.addReleModal = modal;
+                    modal.show();
                 });
-
-                $scope.addReleModal.show();
             };
             //发表进展
             $scope.processArr = saleActService.processArr;
@@ -770,7 +795,6 @@ salesModule
             $scope.$on('$destroy', function () {
                 $scope.referModal.remove();
                 $scope.followUpModal.remove();
-                $scope.addReleModal.remove();
                 $scope.processModal.remove();
             });
         }])
