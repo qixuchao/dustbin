@@ -10,19 +10,31 @@
 	
 }
 
+.worksheet-detail-view-public{
+    ion-content{
+        .scroll{
 
+        }
+    }
+}
 // 详情界面公共 styles
 
 .platform-ios.platform-cordova:not(.fullscreen){
   //height: 64px; 
 }
-.worksheet-detail-view-public{
+
 //#worksheetdetail-newcar-view, #worksheetdetail-siterepair-view{
+.worksheet-detail-view-public{
+    @include display-flex;
+    @include flex-direction(column);
 	ion-content>div.scroll{
         @include display-flex;
         @include flex-direction(column);
+        height: 250px;
     }
     ion-content{
+        @include flex(1);
+        margin-top:160px;
         margin-bottom: 3.8rem;
         &.can-not-editor-detail{
             margin-bottom: 0px;
@@ -65,8 +77,7 @@
             margin: .4rem;
         }
     }
-
-
+    
     .detail-header{
         background: #eee url("../../img/saleDetail/BG1.png") no-repeat;
         background-position: 0px 0px;

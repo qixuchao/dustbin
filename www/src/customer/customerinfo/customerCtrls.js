@@ -14,7 +14,7 @@ customerModule
         $scope.customerPopoverhide = function() {
             $scope.customerpopover.hide();
         };
-
+        
         //历史记录显示customer_usuaflag
         $scope.CustomerHisGetvaluehis = function(){
             $scope.customer_queryflag = false;
