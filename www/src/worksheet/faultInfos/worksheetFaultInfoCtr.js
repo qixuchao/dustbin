@@ -13,13 +13,17 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
             var arrInfos = worksheetDetail.ET_TEXT.item;
             console.log(angular.toJson(arrInfos));
             var remark = ""; var result = "";
-            for(var i=0;i<arrInfos.length;i++){
-                if(arrInfos[i].TDID === 'Z001'){
-                    remark = remark + arrInfos[i].TDLINE;
-                }else if(arrInfos[i].TDID === 'Z005'){
-                    result = result + arrInfos[i].TDLINE;
+            if(arrInfos === undefined){
+
+            }else{
+                for(var i=0;i<arrInfos.length;i++){
+                    if(arrInfos[i].TDID === 'Z001'){
+                        remark = remark + arrInfos[i].TDLINE+'\<br>';
+                    }else if(arrInfos[i].TDID === 'Z005'){
+                        result = result + arrInfos[i].TDLINE;
+                    }
+                    //console.log(angular.toJson(remark+"=="+result));
                 }
-                //console.log(angular.toJson(remark+"=="+result));
             }
             $scope.otherInfos = {
                 remark : remark,

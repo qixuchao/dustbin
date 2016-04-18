@@ -55,22 +55,22 @@
             <!--</div>-->
         </div>
         <ul class="list" style="padding: 0;overflow-y: scroll;margin-top:10px">
-            <div class="row row-center" style="border-bottom: 1px solid #D6D3CE;margin: 0;padding:0" ng-repeat="i in infos">
-                <div class="col col-center col-75" style="padding:5px 0 5px 0">
+            <div class="row row-center" style="border-bottom: 1px solid #D6D3CE;margin: 0;padding:0" ng-repeat="i in infos" ng-if="i.ishave">
+                <div class="col col-center col-73" style="padding:5px 0 5px 0">
                 <li class="item item-checkbox" style="padding:0px 0px 0px 43px;" >
                     <label class="checkbox checkbox-diy" style="padding:7px 0 7px 0" ng-click="goSelectWareHouse(i)">
-                        <input type="checkbox" name="selectSparePart" value="{{i.PRODUCT_ID}}">
+                        <input type="checkbox" name="selectSparePart" value="{{i.PRODUCT_ID}}" ng-true-value="'YES'" ng-false-value="'NO'" ng-model="i.checked">
                     </label>
 
                             <div class="list">
-                            <h2>{{i.SHORT_TEXT}}</h2>
+                            <h2 style="font-size: 16px">{{i.SHORT_TEXT}}</h2>
                             <p style="font-size: 10px;margin-top: 5px">
-                                备件编码：{{i.PRODUCT_ID}}   标准使用数量：{{i.AMOUNT}}
+                                备件编码：{{i.PRODUCT_ID}}  <br> 标准使用数量：{{i.AMOUNT}}
                             </p>
                             </div>
                         </div>
                 </li>
-                <div class="col-25 col-center" style="margin:auto;">
+                <div class="col-27 col-center" style="margin:auto;">
                     <i class="ion-ios-minus-outline iStyle" ng-click="reduce(i)"></i>
                     <input type="number" class="inputSmall"  ng-model="i.APPLY_NUM" ng-change="inputChange(i)">
                     <i class="ion-ios-plus-outline iStyle" ng-click="add(i)"></i>

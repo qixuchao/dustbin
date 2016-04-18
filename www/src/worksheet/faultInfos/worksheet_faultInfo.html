@@ -37,13 +37,13 @@
             </div>
 
             <div class="row itemContent row-center">
-                <div class="col-38 col-center">部件分类：</div>
+                <div class="col-38 col-center">产品类型：</div>
                 <div class="col-62 col-center fontColor">
                     {{faulInfos.COMP_TYPE}}
                 </div>
             </div>
             <div class="row itemContent row-center">
-                <div class="col-38 col-center">部件：</div>
+                <div class="col-38 col-center">故障部件：</div>
                 <div class="col-62 col-center fontColor">
                     {{faulInfos.COMPONENT}}
                 </div>
@@ -55,21 +55,23 @@
                 </div>
             </div>
             <div class="row itemContentS row-center">
-                <div class="col-38 ">注释：</div>
+                <div class="col-38 ">备注：</div>
             </div>
-            <div class="row itemContentT ">
-                <div class="col col-center fontColor">
-                    <textarea type="text"placeholder=""  ng-model="otherInfos.remark" class="textareaCss" readonly style="background-color: white;color: #A0A09F"></textarea>
-                </div>
-            </div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{otherInfos.remark}}<br/></div>
+            <!--<div class="row itemContentT ">-->
+                <!--<div class="col col-center fontColor">-->
+                    <!--<textarea type="text"placeholder=""  ng-model="otherInfos.remark" class="textareaCss" readonly style="background-color: white;color: #A0A09F"></textarea>-->
+                <!--</div>-->
+            <!--</div>-->
             <div class="row itemContentS row-center">
                 <div class="col-38 ">处理结果：</div>
             </div>
-            <div class="row itemContentT ">
-                <div class="col col-center fontColor">
-                    <textarea type="text" placeholder="" ng-model="otherInfos.result" class="textareaCss" readonly style="background-color: white;color: #A0A09F"></textarea>
-                </div>
-            </div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{otherInfos.result}}<br/></div>
+            <!--<div class="row itemContentT ">-->
+                <!--<div class="col col-center fontColor">-->
+                    <!--<textarea type="text" placeholder="" ng-model="otherInfos.result" class="textareaCss" readonly style="background-color: white;color: #A0A09F"></textarea>-->
+                <!--</div>-->
+            <!--</div>-->
             </div>
     </ion-content>
 </ion-view>
