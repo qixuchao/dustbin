@@ -61,7 +61,9 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 // org.apache.cordova.statusbar required
                 window.StatusBar.overlaysWebView(true);
             }
-            /*window.plugins.jPushPlugin.init(); 
+
+            /*window.plugins.jPushPlugin.init();
+            window.plugins.jPushPlugin.init();
             window.plugins.jPushPlugin.setDebugMode(true);
             window.plugins.jPushPlugin.getRegistrationID(function(id){
                 //将获取到的id存入服务端

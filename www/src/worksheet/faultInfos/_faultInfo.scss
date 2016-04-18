@@ -86,7 +86,22 @@
     clip:rect(0px,179px,16px,0px);
     overflow:hidden;}
 
-
+  .textarea{
+    width: 100%;
+    min-height: 80px;
+    max-height: 300px;
+    _height: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3px;
+    outline: 0;
+    font-size: 12px;
+    line-height: 24px;
+    padding: 2px;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 
   .Car_countentbasic{
     position: relative;
