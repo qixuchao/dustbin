@@ -59,6 +59,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}
 			};
 			$scope.moreModalClickHandler = function(type){
+				console.log(type);
 				$scope.config.moreModal.hide();		
 				if(type == 'paigong'){ 
 					//先选择处理员工
@@ -148,7 +149,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					var arrowPos = $ionicPosition.position(arrowJQ);// || $ionicPosition.offset(modalJQ);
 
 					var modalFinalLeft = left-arrowPos.left;//left - arrowPos.left;
-					var modalFinalTop = top;//-(elePos.top+elePos.height/4);
+					var modalFinalTop = top+10;//-(elePos.top+elePos.height/4);
 
 					var minModalLeft = $ionicPosition.offset( angular.element('body')).width - 5 - modalPos.width;
 					modalFinalLeft = Math.min(modalFinalLeft, minModalLeft);
@@ -507,7 +508,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				    	"STATUS": statusId
 				    }
 				}
-				if(statusId = "E0002"){ //派工
+				if(statusId == "E0002"){ //派工
 					if($scope.config.selectedEmp==null){
 						return;
 					}

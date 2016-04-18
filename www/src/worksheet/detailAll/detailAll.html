@@ -1,13 +1,13 @@
 <ion-view class="saleActDetail worksheet-detail-view-public">
     <div id="saleTopBackId" class="top-back bar">
-            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
-                <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
-                <div class="col col-70 text-center">工单详细信息</div>
+            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'" style="margin-left:0px;padding-left:0px;padding-top:20px;margin-top:15px;">
+                <div class="col col-10" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+                <div class="col col-75 text-center">工单详细信息</div>
                 <div class="col-15 show-more-modal-content-source3 "  ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
                     <span class="detail-all-more-button {{config.statusStr}} {{config.typeStr}}"><i class="ion-ios-more"></i></span>
                 </div>
             </div>
-            <div class="mainInfo" style="width:100%;top:55px;position:relative;height:125px;">
+            <div class="mainInfo" style="width:100%;top:60px;position:relative;height:125px;padding-left: 1rem;">
                 <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                     <i class="ion-android-radio-button-off"></i>
                     <div class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
