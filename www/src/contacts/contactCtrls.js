@@ -331,7 +331,8 @@ ContactsModule
         }
 
     }])
-    .controller('contactDetailCtrl',['$scope','$rootScope','$state','$ionicHistory','Prompter','HttpAppService','$cordovaToast','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$state,$ionicHistory,Prompter,HttpAppService,$cordovaToast,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+    .controller('contactDetailCtrl',['LoginService','$scope','$rootScope','$state','$ionicHistory','Prompter','HttpAppService','$cordovaToast','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',
+        function(LoginService,$scope,$rootScope,$state,$ionicHistory,Prompter,HttpAppService,$cordovaToast,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
         ////定制从联系人详细界面进入列表界面改变界面flag
         ////返回回退
         $scope.peopleCode="";
@@ -396,23 +397,27 @@ ContactsModule
         });
 
 
-
-        $scope.customer_detailstypes = [{
-            typemane:'活动',
-            imgurl:'img/customer/customerhuod.png',
-        },{
-            typemane:'机会',
-            imgurl:'img/customer/customerjihui@2x.png',
-        },{
-            typemane:'关系',
-            imgurl:'img/contact/relationship@2x.png',
-            url:'ContactsRelationship',
-        }];
-        $scope.GocontactLists = function(convalue){
-            if(convalue.url){
-                $state.go(convalue.url);
-            }
+        if(LoginService.getProfileType()=="APP_SERVICE"){
+            $scope.customer_detailstypes=new Array;
+        }else{
+            $scope.customer_detailstypes = [{
+                typemane:'活动',
+                imgurl:'img/customer/customerhuod.png',
+            },{
+                typemane:'机会',
+                imgurl:'img/customer/customerjihui@2x.png',
+            },{
+                typemane:'关系',
+                imgurl:'img/contact/relationship@2x.png',
+                url:'ContactsRelationship'
+            }];
         }
+
+            $scope.GocontactLists = function(convalue){
+                if(convalue.url){
+                    $state.go(convalue.url);
+                }
+            };
 
         //电话
         $scope.contactshowphone =function(types){
@@ -421,7 +426,7 @@ ContactsModule
             }else{
                 Prompter.showphone(types)
             }
-        }
+        };
         //邮箱
         $scope.contactmailcopyvalue = function(valuecopy){
             if(valuecopy == undefined || valuecopy == ""){
