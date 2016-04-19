@@ -397,7 +397,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			////@include flex-direction(column); 
             .left{ 
             	//@include flex(75); 
-            	@include flex(85); 
+            	@include flex(80); 
             	&.single-line-ellipsis{
             		@include single-line-ellipsis;
             	}
@@ -419,7 +419,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
             }
             .right{
             	//@include flex(25);
-            	@include flex(15);
+            	@include flex(20);
             	@include display-flex;
             	@include flex-direction(column);
             	@include justify-content(flex-end);
@@ -525,7 +525,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			//transform: translate(100%,0);
 		}
 	}
-	.tab-buttons-line-border2{	
+	.tab-buttons-line-border2{
 		height: 1px;
 		width: 100%;
 		display: inline-block;
@@ -814,6 +814,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 					background-color: $filter-item-bg;
 					color: $filter-name-color;
 					width: 48%;
+					@include single-line-ellipsis;
 					&.selected{
     					background-color: $filter-item-selected-bg;
     					color: white;

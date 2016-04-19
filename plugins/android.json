@@ -22,6 +22,12 @@
         "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
+        "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
         "cordova-plugin-dialogs": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
@@ -40,16 +46,13 @@
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
-        "cordova-plugin-datepicker": {
-            "PACKAGE_NAME": "com.crmEnergy.hrms"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.crmEnergy.hrms"
-        },
-        "cn.jpush.phonegap.JPushPlugin": {
-            "API_KEY": "d5c769ed7f3b74b31933aafd",
+        "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        }
+    }
 }
