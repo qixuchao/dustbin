@@ -1,4 +1,4 @@
-//open -a "Google Chrome" --args --disable-web-security
+//open -a "Google Chrome" --args --disable-web-security --user-data-dir
 worksheetReportModule.controller("WorksheetListReportedCtrl",[
 	"$scope", 
 	"ionicMaterialInk", 

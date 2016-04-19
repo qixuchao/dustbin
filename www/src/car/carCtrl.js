@@ -195,6 +195,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             $ionicHistory.goBack();
 
         }else{
+
             $state.go('carDetail');
         }
 
@@ -384,7 +385,6 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
 
                 $scope.carInfo1=carInfo;
                 //console.log($scope.carInfo1.describe);
-
             });
         };
         Prompter.showLoading('正在加载');
@@ -399,7 +399,8 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         };
         $scope.goDetail=function(data){
             CarService.setSpare(data);
-            $state.go("maintenance");
+            //$state.go("maintenance");
+            $state.go("worksheetList");
         };
         //电话
         $scope.carshowphone =function(types){
@@ -1125,8 +1126,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             }).error(function (response, status) {
                 $cordovaToast.showShortBottom('请检查你的网络设备');
             });
-        };
-        Prompter.showLoading("正在加载");
+        };        Prompter.showLoading("正在加载");
         $scope.spare();
         $scope.initLoad=function(){
             page=0;

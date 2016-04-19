@@ -1,0 +1,18 @@
+<ion-view canClickEnterListMode id="my-settings-view" align-title="center">
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <div class="col col-100 text-center">个人中心</div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <ion-content id="my-settings-content" scroll="false" has-bouncing="false">
+    	<div class="list">
+            <div class="item item-version-info">
+                <span>当前版本:</span>
+                <span ng-bind="config.currentVersion"></span>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+

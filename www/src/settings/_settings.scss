@@ -1,0 +1,13 @@
+#my-settings-content{
+    .item-version-info{
+        @include display-flex;
+        border-bottom: 1px solid #E6E3E3;
+        span{
+            @include flex(1);
+        }
+        span:nth-child(2){
+            text-align:right;
+            color: #B5B5B5;
+        }
+    }
+}

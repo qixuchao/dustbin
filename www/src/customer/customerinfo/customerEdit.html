@@ -11,6 +11,14 @@
     </div>
     <ion-content>
         <div class="list" style="font-size: 16px;margin-bottom:0">
+            <!--<span class="item item-input">注释：
+                <textarea type="text" id="cuszhishiv" placeholder="请输入注释" class="contact_edittextareasty" ng-model="customeredit.BEZEI"></textarea>
+                <img id="cuszhishivimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('BEZEI')"/>
+            </span>-->
+            <span class="item item-input">注释：
+                <input type="text" id="cuszhishiv" placeholder="请输入注释" class="contact_edittextareasty" ng-model="customeredit.BEZEI"/>
+                <img id="cuszhishivimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('BEZEI')"/>
+            </span>
             <span class="item item-input">名称：
                 <input type="text" id="comrole" class="customeredittwo" placeholder="请输入名称" ng-model="customeredit.NAME_ORG1">
                  <img id="comroleimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('NAME_ORG1')"/>
@@ -24,7 +32,7 @@
                 <img id="cuspaydateimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('TEL_EXTENS')"/>
             </span>
             <span class="item item-input">移动电话：
-                <input type="text" id="cuscheckpreid" placeholder="请输入验收周期" class="contact_editinputsty" ng-model="customeredit.MOB_NUMBER">
+                <input type="text" id="cuscheckpreid" placeholder="请输入移动电话" class="contact_editinputsty" ng-model="customeredit.MOB_NUMBER">
                 <img id="cuscheckpreidimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('MOB_NUMBER')"/>
             </span>
             <span class="item item-input">传真：
@@ -32,16 +40,12 @@
                 <img id="cusfaximg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('FAX_NUMBER')"/>
             </span>
              <span class="item item-input">传真分机
-                <input type="text" id="cusfaxext" placeholder="请输入预验收周期" class="contact_editinputsty" ng-model="customeredit.FAX_EXTENS">
+                <input type="text" id="cusfaxext" placeholder="请输入传真分机" class="contact_editinputsty" ng-model="customeredit.FAX_EXTENS">
                  <img id="cusfaxextimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('FAX_EXTENS')"/>
             </span>
             <span class="item item-input">电子邮件：
                 <input type="text" id="cusmailval" placeholder="请输入邮箱" class="contact_editinputsty"  ng-model="customeredit.SMTP_ADDR">
                 <img id="cusmailvalimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('SMTP_ADDR')"/>
-            </span>
-            <span class="item item-input">注释：
-                <input type="text" id="cuszhishiv" placeholder="请输入注释" class="contact_editinputsty" ng-model="customeredit.BEZEI">
-                <img id="cuszhishivimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('BEZEI')"/>
             </span>
             <div class="row">
                 <div class="col col-20" style="font-size: 14px;padding-left: 9px;">
@@ -81,6 +85,6 @@
             </span>
         </div>
     </ion-content>
-</ion-nav-view>rt
+</ion-nav-view>
 
 

@@ -76,7 +76,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
         }
         return request;
     }
-]);
+]); 
 utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '$cordovaDialogs',
     '$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker', '$cordovaToast',
     '$timeout',
@@ -310,6 +310,17 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
                         var btnIndex = buttonIndex;
                         if (btnIndex == 1) {
                             //$rootScope.goBack();
+                        }
+                    });
+            },
+            //工单模块使用的confirm风格
+            wsConfirm: function (title, text, okText, cancelText) {
+                return $cordovaDialogs.confirm(text, title, [okText, cancelText])
+                    .then(function (buttonIndex) {
+                        // no button = 0, 'OK' = 1, 'Cancel' = 2
+                        var btnIndex = buttonIndex;
+                        if (btnIndex == 1) {
+                            $rootScope.goBack();
                         }
                     });
             }

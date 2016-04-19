@@ -15,11 +15,12 @@ worksheetModule.controller("WorksheetListCtrl",[
 	"worksheetHttpService",
 	"worksheetDataService",
 	"customeService",
+	"CarService",
 	function($scope, $ionicScrollDelegate,
 		ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,
 		$ionicPosition, $state, 
 		$cordovaDatePicker,
-		HttpAppService, worksheetHttpService, worksheetDataService, customeService){
+		HttpAppService, worksheetHttpService, worksheetDataService, customeService, CarService){
 	
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
@@ -137,7 +138,10 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 
 	    //从其他界面跳转到该界面的一些参数信息
-	    PARTNER: null
+	    isFromCustomer: false,
+	    PARTNER: null,	   
+	    isFromCarDetail: false,
+	    carCodeFromCarDetail: null
 	};
 	$scope.oldFilters = null;
 	function __remeberCurrentFilters(){ //打开筛选界面的时候执行
@@ -828,6 +832,10 @@ worksheetModule.controller("WorksheetListCtrl",[
 		if($scope.config.PARTNER){
 			queryParams.IS_SEARCH.PARTNER = $scope.config.PARTNER;
 		}
+		if($scope.config.isFromCarDetail){
+			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail;
+		}
+
 		//console.log(queryParams);
 		if($scope.config.hasMoreData){
 			__requestServiceList(queryParams);
@@ -852,8 +860,17 @@ worksheetModule.controller("WorksheetListCtrl",[
 		var temp = customeService.get_customerWorkordervalue();
 		if(temp && temp.PARTNER && temp.PARTNER.trim && temp.PARTNER.trim()!= ""){
 			$scope.config.PARTNER = temp.PARTNER;
+			$scope.config.isFromCustomer = true;
 		}
 		customeService.set_customerWorkordervalue(null);
+		// 从车辆详情界面进入
+		var code = CarService.getData();
+		if(code != null && code != ""){
+			$scope.config.carCodeFromCarDetail = code;
+			$scope.config.isFromCarDetail = true;
+		}
+		CarService.setData(null);
+
 
 		$scope.reloadData();
 		/*$ionicPopup.alert({

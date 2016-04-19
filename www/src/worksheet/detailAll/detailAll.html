@@ -43,7 +43,7 @@
     <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false" style="padding-top:.4rem;height: 40px;background:white;z-index: 1;top: 170px;margin-top: 0px;">
         <div class="fill-height line-inner">
             <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
-                <i class="ion-link" style="font-size:2.1rem;"></i>                             
+                <i class="ion-link" style="font-size:2.1rem;line-height:2.4rem;"></i>                             
                 <style>
                     .history-info-relation-line .ion-link:before{
                         transform: rotate(140deg);
@@ -56,11 +56,16 @@
                 <span>相关方</span>
             </div>
             <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
-                <i class="ion-ios-more"></i>                               
+                <i class="ion-ios-clock-outline" style="font-size:1.8rem;font-weight: bold;line-height: 2.2rem;text-align: center;"></i>                               
                 <span>交易历史</span>
+                <style>
+                    .history-box .ion-ios-clock-outline:before{
+                        font-weight: bolder;
+                    }
+                </style>
             </div>
             <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
-                <i class="ion-ios-more"></i>
+                <i class="ion-document-text" style="font-size: 1.8rem;line-height: 2.3rem;text-align: center;transform:rotate(180deg);-webkit-transform:rotate(180deg);"></i>
                 <span>费用结算</span>
             </div>
         </div>
@@ -282,11 +287,13 @@
                     <span class="title-bottom"></span>
                 </div>
                 <div class="row">
-                    <div class="col-40">维修开始时间&nbsp;:</div>
+                    <div class="col-40" ng-if="config.detailTypeSiteRepair">维修开始时间&nbsp;:</div>
+                    <div class="col-40" ng-if="config.detailTypeBatchUpdate">改进开始时间&nbsp;:</div>
                     <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></div>
                 </div>
                 <div class="row">
-                    <div class="col-40">维修结束时间&nbsp;:</div>
+                    <div class="col-40" ng-if="config.detailTypeSiteRepair">维修结束时间&nbsp;:</div>
+                    <div class="col-40" ng-if="config.detailTypeBatchUpdate">改进结束时间&nbsp;:</div>
                     <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.END_DATE}} {{datas.detail.ES_OUT_LIST.END_TIME}}"></div>
                 </div>
             </div>
