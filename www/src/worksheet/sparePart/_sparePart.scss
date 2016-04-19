@@ -1,6 +1,6 @@
 #worksheet_sparePart{
   .backColor{
-   background-color: white
+      background-color: white
   }
   .backHead{
     //$crm-subject-blue;
@@ -17,7 +17,6 @@
     //background-color: $crm-content-bgcolor;
     @include display-flex;
     @include flex-direction(column);
-
   }
   $diy:#92CB3A !default;
   //$diyS:white !default;
@@ -26,7 +25,7 @@
   .checkbox-diy{
     @include checkbox-style($checkbox-off-border-diy, $checkbox-on-border-diy, $checkbox-off-border-diy);
   }
-
+  
   .left{
     //@include display-flex;
     //@include align-items(center);

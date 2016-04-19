@@ -195,6 +195,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             $ionicHistory.goBack();
 
         }else{
+
             $state.go('carDetail');
         }
 
@@ -392,14 +393,15 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         $scope.carDetailval = employeeService.get_employeeListvalue();
         //console.log($scope.cars.describe)
         $scope.projectName="CATL项目名称:";
-
+        
         $scope.goPage=function(data){
             CarService.setSpare(data);
             $state.go("spare");
         };
         $scope.goDetail=function(data){
             CarService.setSpare(data);
-            $state.go("maintenance");
+            //$state.go("maintenance");
+            $state.go("worksheetList");
         };
         //电话
         $scope.carshowphone =function(types){
@@ -1125,8 +1127,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             }).error(function (response, status) {
                 $cordovaToast.showShortBottom('请检查你的网络设备');
             });
-        };
-        Prompter.showLoading("正在加载");
+        };        Prompter.showLoading("正在加载");
         $scope.spare();
         $scope.initLoad=function(){
             page=0;
