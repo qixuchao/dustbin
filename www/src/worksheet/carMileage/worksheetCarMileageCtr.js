@@ -31,6 +31,9 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
     "ionicMaterialMotion",
     "$ionicPopup", "$timeout","$state","worksheetDataService",'HttpAppService','Prompter','$cordovaToast','$cordovaDatePicker', function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state,worksheetDataService,HttpAppService,Prompter,$cordovaToast,$cordovaDatePicker){
         ionicMaterialInk.displayEffect();
+        $scope.goAlert = function(){
+            Prompter.ContactCreateCancelvalue();
+        }
         var worksheetDetail = worksheetDataService.wsDetailData;
         $scope.carMile = worksheetDetail.ET_MILEAGE.item[0];
         console.log(angular.toJson($scope.carMile));

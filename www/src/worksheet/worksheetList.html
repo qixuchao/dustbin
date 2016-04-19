@@ -1,4 +1,4 @@
-<ion-view canClickEnterListMode id="worksheetlist-view" class="worksheet-view-public"  align-title="center">
+<ion-view canClickEnterListMode id="worksheetlist-view" class="worksheet-view-public" ng-class="{'is-from-customer':(config.isFromCustomer),'is-from-cardetail':(config.isFromCarDetail)}"  align-title="center">
 	<!--ion-header-bar id="xbr-test-header" align-title="center" class="bar-positive" ng-class="{'query-mode':config.isQueryMode}">
 		<div class="left-back" ng-click="goBack();">
 			<i class="ion-ios-arrow-back"></i>
@@ -48,7 +48,7 @@
             </div>
             <div class="list">
                 <div class="item" ng-click="selectOldSearch(item.text)" ng-repeat="item in config.historyStrs"><span ng-bind="item.text"></span></div>
-            </div>            
+            </div>
         </div>
         
     	<div ng-if="!config.queryModeNew" class="tab-buttons-line">

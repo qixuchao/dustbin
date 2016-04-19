@@ -577,6 +577,7 @@ ContactsModule
             data.IS_CUSTOMER.FAX_NUMBER = $scope.contactcreat.FAX_NUMBER;
             data.IS_CUSTOMER.FAX_EXTENS = $scope.contactcreat.FAX_EXTENS;
             data.IT_LINES.item.TDLINE=$scope.contactcreat.conatctdeatilnote;
+            data.IS_CUSTOMER.PARTNERROLE="";
             //根据登陆接口来判断 角色字段的类型
             var rolevalue = '';
             if(rolevalue == '销售'){
@@ -938,6 +939,57 @@ ContactsModule
         };
 
         ////点击取消事件
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $scope.Createancel = function(){
             Prompter.ContactCreateCancelvalue();4
         }
@@ -1063,7 +1115,7 @@ ContactsModule
                 "IS_CUSTOMER": {
                     "PARTNER": "",
                     "PARTNERROLE": "",
-                    "TITLE": "",
+                    "TITLE": "0002",
                     "NAME_LAST": "",
                     "BIRTHDT": "",
                     "LANGU": "",
@@ -1121,6 +1173,8 @@ ContactsModule
                 Prompter.hideLoading();
             }else{
                 HttpAppService.post(url, data).success(function (response) {
+                    console.log($scope.contactedit.BIRTHDT+'sheng ri');
+
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG == 'E') {
                         console.log(response.ES_RESULT.ZRESULT);

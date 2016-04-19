@@ -77,7 +77,9 @@ worksheetModule.service('worksheetDataService', [function(){
 
     wsEditToDetail: {
       needReload: false
-    }
+    },
+    wsDetailToPaiZHao: null,
+
     /*{
       ydWorksheetNum: 
     }*/
@@ -236,6 +238,14 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
               "IS_USER": { "BNAME": "HANDLCX02" }
             }
           }
+        },
+        imageInfos: {  // 图片展示界面
+           listUrl: "http://117.28.248.23:9388/test/api/CRMAPP/URL_LIST",
+           listDefaults: null,
+           deleteUrl: "http://117.28.248.23:9388/test/api/CRMAPP/URL_DELETE",
+           deleteDefaults: null,
+           uploadUrl: "http://117.28.248.23:9388/test/api/CRMAPP/URL_CREATE",
+           uploadDefaults: null
         }
     };
 }]);

@@ -59,7 +59,6 @@ loginModule
         var userName = "HANDLCX02";
         var userPassword = $scope.loginData.password;
        $scope.login = function(){
-           console.log($scope.loginData.password);
            //http://117.28.248.23:9388/test/api/bty/login
            var url="http://117.28.248.23:9388/test/api/bty/login";
            var data={
@@ -67,8 +66,9 @@ loginModule
                "password": $scope.loginData.password,
                "system": "CATL"
            };
+           //alert(JSON.stringify(data));
            HttpAppService.post(url,data).success(function(response){
-
+               //alert("请求成功："+JSON.stringify(response));
                if (response.ES_RESULT.ZFLAG == 'E') {
                    Prompter.showPopupAlert("登录失败","用户名或密码错误");
                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);

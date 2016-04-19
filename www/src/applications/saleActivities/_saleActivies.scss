@@ -8,6 +8,24 @@
     }
     .goBack {
       padding-left: 10px;
+      padding-right: 5px;
+      width: auto;
+      max-width: 0;
+      min-width: 20%;
+      line-height: 42px;
+      text-align: left;
+      .ink-ripple {
+        background-color: $crm-subject-blue;
+        opacity: 1 !important;
+        -webkit-transition-duration: 0ms;
+        transition-duration: 0ms !important;
+        transition: none;
+        -webkit-transition: none;
+        transform: none !important;
+        -webkit-transform: none !important;
+        color: white;
+        z-index: -1;
+      }
     }
     .preVentScrollTop {
       max-width: 100px;

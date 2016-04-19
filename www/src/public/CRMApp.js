@@ -21,7 +21,7 @@ var customerModuleServive = angular.module('customerModuleServive', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', []); // 工单模块
 var worksheetReportModule = angular.module('worksheetReportModule', []);
-
+ 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ngCordova',
     'ionic-material',
     'utilsModule',
