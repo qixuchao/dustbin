@@ -4,7 +4,7 @@
             <div class="row row-center">
                 <a class="col col-20 text-left goBack" ng-click="Createancel()">取消</a>
                 <div class="col col-65 text-center">创建联系人</div>
-                <div class="col col-20 add" ng-click="contactCreatevalue()" style="text-align: left">创建</div>
+                <div class="col col-20 add" ng-click="contactCreatevalue()" style="text-align: left">保存</div>
             </div>
         </ion-header-bar>
     </div>
@@ -19,7 +19,7 @@
                 <div class="row" ng-click="openSelectCustomer()">
                     <div class="col col-74 col-center" style="color:#9B9B9B" ng-bind="contactcreat.PARTNER2VALUE"></div>
                     <div class="col col-26 col-center" style="text-align: right;padding-right:12px;">
-                        <img class="contact_edit_listfor" src="img/employee/Shape@2x.png"></img>
+                        <img class="contact_edit_listfor" src="img/employee/Shape@2x.png">
                     </div>
                 </div>
             </span>
@@ -65,7 +65,7 @@
                 <img id="contcreapostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('POST_CODE1')"/>
             </span>
             <span class="item item-input">出生日期：
-                <input type="date" placeholder="请输入生日" class="contact_editinputsty"  readonly ng-model="contactcreat.BIRTHDT" ng-click="selectCreateTime1()" style="background-color:white">
+                <input type="date" placeholder="请输入生日" class="contact_editinputsty"  ng-model="contactcreat.BIRTHDT" ng-click="selectCreateTime1()" style="background-color:white">
             </span>
              <span class="item item-input">语言：
                 <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="config.currentLangu" ng-options="a.name as a.name for a in contactlistvaluesel">

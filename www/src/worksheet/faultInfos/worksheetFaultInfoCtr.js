@@ -18,7 +18,7 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
             }else{
                 for(var i=0;i<arrInfos.length;i++){
                     if(arrInfos[i].TDID === 'Z001'){
-                        remark = remark + arrInfos[i].TDLINE+'\<br>';
+                        remark = remark + arrInfos[i].TDLINE;
                     }else if(arrInfos[i].TDID === 'Z005'){
                         result = result + arrInfos[i].TDLINE;
                     }
@@ -43,8 +43,11 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
 worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
     "ionicMaterialInk",
     "ionicMaterialMotion",
-    "$ionicPopup", "$timeout","$state","worksheetDataService","HttpAppService",'Prompter','$cordovaToast', function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state,worksheetDataService,HttpAppService,Prompter,$cordovaToast){
+    "$ionicPopup", "$timeout","$state","worksheetDataService","HttpAppService",'Prompter','$cordovaToast','$rootScope','$cordovaDialogs', function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state,worksheetDataService,HttpAppService,Prompter,$cordovaToast,$rootScope,$cordovaDialogs){
         ionicMaterialInk.displayEffect();
+        $scope.goAlert = function(){
+            Prompter.ContactCreateCancelvalue();
+        }
         $scope.keep = function(){
             Prompter.showLoading("正在提交");
             var updateEdit = {
@@ -81,7 +84,6 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     $scope.updateInfos();
                     $cordovaToast.showShortBottom("故障信息维护成功");
-                    $state.go("worksheetFaultInfos");
                 } else {
                     Prompter.hideLoading();
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -98,14 +100,18 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         var arrInfos = worksheetDetail.ET_TEXT.item;
         console.log(angular.toJson(arrInfos));
         var remark = ""; var result = "";
-        for(var i=0;i<arrInfos.length;i++){
-            if(arrInfos[i].TDID === 'Z001'){
-            }else if(arrInfos[i].TDID === 'Z005'){
-                result = result + arrInfos[i].TDLINE;
-            }
-            console.log(angular.toJson(remark+"=="+result));
-        }
+        if(arrInfos === undefined){
 
+        }else{
+            for(var i=0;i<arrInfos.length;i++){
+                if(arrInfos[i].TDID === 'Z001'){
+                    remark = remark + arrInfos[i].TDLINE;
+                }else if(arrInfos[i].TDID === 'Z005'){
+                    result = result + arrInfos[i].TDLINE;
+                }
+                //console.log(angular.toJson(remark+"=="+result));
+            }
+        }
         $scope.otherInfos = {
             remark : remark,
             result : result
@@ -351,6 +357,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 }else{
 
                 }
+                $rootScope.goBack();
                 Prompter.hideLoading();
             }).error(function(err){
                 Prompter.hideLoading();

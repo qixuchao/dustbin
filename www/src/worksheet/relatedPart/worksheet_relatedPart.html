@@ -7,7 +7,7 @@
             </div>
             <div class="col col-70 text-center">{{title}}
             </div>
-            <div class="col col-15 col-center" ng-click="relatedPopoverShow()">
+            <div class="col col-15 col-center" ng-click="relatedPopoverShow()" ng-show="add">
                 <div>
                     <i class="ion-ios-plus-outline" style="font-size:1.8rem;margin-left: 10px;position: relative;top:5px"  ></i>
                 </div>
@@ -52,7 +52,7 @@
                         <img class="relatedPart_listfor" src="img/employee/Shape@2x.png">
                     </div>
                 </div>
-                <ion-option-button style="width:30px;text-align: center" class="button-assertive" ng-click="deleteInfos(i)">
+                <ion-option-button style="width:30px;text-align: center" class="button-assertive" ng-click="deleteInfos(i)" ng-show="deleteButton">
                     <i class="icon ion-ios-trash-outline" style="font-size: 50px;"></i>
                 </ion-option-button>
             </ion-item>

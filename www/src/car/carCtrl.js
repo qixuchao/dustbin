@@ -984,14 +984,14 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         };
         var page=0;
         $scope.spare=function(){
-            console.log(page);
+
             page+=1;
             var url=ROOTCONFIG.hempConfig.basePath+'ATTACHMENT_LIST';
             var data = {
                 "I_SYSTEM": { "SysName": "CATL" },
                 "IS_USER": { "BNAME": "" },
                 "IS_PAGE": {
-                    "CURRPAGE": "1",
+                    "CURRPAGE": page,
                     "ITEMS": "10"
                 },
                 "IS_VEHICLID": {
@@ -1001,6 +1001,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             };
             HttpAppService.post(url,data).success(function(response) {
                 console.log(code+'spare');
+                console.log(page+"spare");
                 console.log(response.ET_COMM_LIST);
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     //Prompter.showPopupAlert("加载失败","没有更多数据");
@@ -1021,7 +1022,6 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
                             //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
                             $.each(response.ET_COMM_LIST.Item, function (n, value) {
 
-                                sparelist.push(value);
                                 console.log(sparelist.length);
                                     var spare = {
                                         spareName: "",
@@ -1030,13 +1030,13 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
                                         qualityTime: "",
                                         qualityDate: ""
                                     };
-                                    spare.spareName = sparelist[n].SHORT_TEXT;
-                                    spare.spareNum = sparelist[n].PRODUCT_ID;
-                                    spare.count = sparelist[n].AMOUNT;
-                                    spare.qualityTime = sparelist[n].Z_SHORT_TEXT;
-                                    spare.qualityDate =(sparelist[n].START_DATE[0]!=='0'&& sparelist[n].END_DATE[0]!=='0')? Date1(sparelist[n].START_DATE) + "-" + Date1(sparelist[n].END_DATE):"";
+                                    spare.spareName = value.SHORT_TEXT;
+                                    spare.spareNum = value.PRODUCT_ID;
+                                    spare.count = value.AMOUNT;
+                                    spare.qualityTime =value.Z_SHORT_TEXT;
+                                    spare.qualityDate =(value.START_DATE!=='0'&& value.END_DATE!=='0')? Date1(value.START_DATE) + "-" + Date1(value.END_DATE):"";
 
-                                    $scope.spareList.push(spare);
+                                $scope.spareList.push(spare);
 
                             });
                         }
@@ -1093,19 +1093,18 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
                             //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
                             $.each(response.ET_COMM_LIST.Item, function (n, value) {
 
-                                sparelist.push(value);
-                                    var spare = {
-                                        spareName: "",
-                                        spareNum: "",
-                                        count: "",
-                                        qualityTime: "",
-                                        qualityDate: ""
-                                    };
-                                    spare.spareName = sparelist[n].SHORT_TEXT;
-                                    spare.spareNum = sparelist[n].PRODUCT_ID;
-                                    spare.count = sparelist[n].AMOUNT;
-                                    spare.qualityTime = sparelist[n].Z_SHORT_TEXT;
-                                    spare.qualityDate =(sparelist[n].START_DATE[0]!=='0'&& sparelist[n].END_DATE[0]!=='0')? Date1(sparelist[n].START_DATE) + "-" + Date1(sparelist[n].END_DATE):"";
+                                var spare = {
+                                    spareName: "",
+                                    spareNum: "",
+                                    count: "",
+                                    qualityTime: "",
+                                    qualityDate: ""
+                                };
+                                spare.spareName = value.SHORT_TEXT;
+                                spare.spareNum = value.PRODUCT_ID;
+                                spare.count = value.AMOUNT;
+                                spare.qualityTime =value.Z_SHORT_TEXT;
+                                spare.qualityDate =(value.START_DATE!=='0'&& value.END_DATE!=='0')? Date1(value.START_DATE) + "-" + Date1(value.END_DATE):"";
                                      if($scope.spareDesc===''){
                                          $scope.spareList1=new Array;
                                      }else{
