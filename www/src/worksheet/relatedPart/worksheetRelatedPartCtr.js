@@ -8,6 +8,17 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         var  worksheetDetailData = worksheetDataService.wsDetailData;
         $scope.infos = worksheetDataService.wsDetailData.ET_PARTNER.item;
         console.log(angular.toJson(worksheetDataService.wsDetailData));
+    //ZPRV ZPLV  ZNCV
+        if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCV"){
+            $scope.add = false;
+            $scope.deleteButton = false;
+
+        }
+    //ZPRO ZPLO ZNCO
+        if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCO" ){
+            $scope.add = true;
+            $scope.deleteButton = true;
+        }
         $scope.relatedPopoverShow = function() {
             $scope.relatedpopover.show();
             //document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
@@ -16,7 +27,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             $scope.relatedpopover.hide();
             //document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";
         };
-        $scope.related_types = ['联系人','服务商'];
+        $scope.related_types = ['联系人'];
         $scope.relatedqueryType = function(types){
             console.log(types);
             if(types === "联系人"){
@@ -65,11 +76,13 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                 console.log(angular.toJson(data));
                 var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
                 HttpAppService.post(url, data).success(function(response){
+                    Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG === 'S') {
+                        $cordovaToast.showShortBottom('删除成功 ');
                         $scope.updateInfos();
                     }else{
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
-                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     console.log(angular.toJson(response));
                 }).error(function(err){
                     console.log(angular.toJson(err));
@@ -177,9 +190,13 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
         HttpAppService.post(url, data).success(function(response){
-            $scope.updateInfos();
-            console.log(angular.toJson(response));
-            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+            if (response.ES_RESULT.ZFLAG === 'S') {
+                $scope.updateInfos();
+                $cordovaToast.showShortBottom('添加成功');
+            }else{
+                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                Prompter.hideLoading();
+            }
         }).error(function(err){
             Prompter.hideLoading();
             console.log(angular.toJson(err));
@@ -275,9 +292,9 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             "IT_PARTNER": {
                 "item": [
                     {
-                        "PARTNER_FCT": "ZCUSTOME",
+                        "PARTNER_FCT": "ZCUSTCTT",
                         "PARTNER_NO": x.PARTNER,
-                        "ZMODE" : "I"
+                        "ZMODE" : "U"
                     }
                 ]
             }};
@@ -286,11 +303,13 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         HttpAppService.post(url, data).success(function(response){
             if (response.ES_RESULT.ZFLAG === 'S') {
                 $scope.updateInfos();
+                $cordovaToast.showShortBottom('添加成功');
             }else{
+                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 Prompter.hideLoading();
             }
             console.log(angular.toJson(response));
-            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+
         }).error(function(err){
             Prompter.hideLoading();
             console.log(angular.toJson(err));
