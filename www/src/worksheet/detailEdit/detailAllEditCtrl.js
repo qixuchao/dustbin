@@ -22,6 +22,17 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter) {
 
+        //选择车辆返回的时候，获取车辆信息
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
+                if(worksheetDataService.backObject != null){
+                    $scope.datas.detail.ES_OUT_LIST.CAR_DESC = worksheetDataService.backObject.SHORT_TEXT;
+                    $scope.datas.detail.ES_OUT_LIST.CAR_NO = worksheetDataService.backObject.ZBAR_CODE;
+                    console.log($scope.datas.detail.ES_OUT_LIST);
+                }     
+            }
+        });
+        
         var pleaseChoose = '-- 请选择 --';
         var pleaseChooseId = null;
         var noneValue = '空';
@@ -43,8 +54,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             currentGuZhangMingCheng: null,   //{CODE: '', REASON: ''}
 
             isLoading_BujianReason: false,
-            isLoading_scenario: false,
             isLoading_response: false
+        };
+
+        $scope.goBack = function(){
+            Prompter.wsConfirm("提示","放弃本次编辑?", "取消","放弃");
         };
 
         $scope.saveEdited = function(){
@@ -55,25 +69,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var katalogart = $scope.config.currentChanPinLeiXing.KATALOGART;
             var codegrupper = $scope.config.currentGuZhangBuJian.CODEGRUPPE;
             var code = $scope.config.currentGuZhangMingCheng.CODE;
-/*"CAR_NO": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-
-"": "",
-"": "14:20:00.0Z",
-"": "",
-"END_TIME": "14:20:00.0Z",
-
-"COMP_TYPE": "aa",
-
-"COMPONENT": "aaaaaaaa",
-CODEGRUPPE
-
-4-29 1008
-
-
-KATALOGART:"F0"
-CODEGRUPPE:"02"
-CODE:"03"
-*/
+        
             var startStr = $scope.datas.detail.ES_OUT_LIST.START_TIME_STR;
             var startDateStr = new Date(startStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
             startDate = startDateStr.split(" ")[0];
@@ -90,9 +86,10 @@ CODE:"03"
                 SCENARIO: (!scenario) ? "" : scenario,
                 RESPONSE: (!response) ? "" : response,
                 DEFECT: (!defect) ? "" : defect,
-                KATALOGART: (!katalogart) ? "" : katalogart,
-                CODEGRUPPE: (!codegrupper) ? "" : codegrupper,
-                CODE: (!code) ? "" : code,
+                
+                COMP_TYPE: (!katalogart) ? "" : katalogart,
+                COMPONENT: (!codegrupper) ? "" : codegrupper,
+                REASON: (!code) ? "" : code,
 
                 DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION,
                 CAR_NO: $scope.datas.detail.ES_OUT_LIST.CAR_NO,
@@ -114,14 +111,17 @@ CODE:"03"
             var postData = angular.extend(defaults, {
                 IS_HEAD_DATA: headerData,
                 IS_OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
-                IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE,
-
+                IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE
             });
             var promise = HttpAppService.post(url,postData);
             Prompter.showLoading("正在保存修改");
-            promise.success(function(response){                
+            promise.success(function(response){ 
                 if(response && response.ES_RESULT && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG == "S"){
                     Prompter.showLoadingAutoHidden("保存成功!", false, 1000);
+                    worksheetDataService.wsEditToDetail.needReload = true;
+                    $timeout(function(){                        
+                        $scope.$ionicGoBack();
+                    },1200);
                 }else if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG == "E" && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!=""){
                     Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
                 }else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!="" ){
@@ -393,7 +393,7 @@ CODE:"03"
             $scope.config.detailTypeSiteRepair =  $scope.config.typeStr == "siteRepair" ? true : false;
             $scope.config.detailTypeBatchUpdate =  $scope.config.typeStr == "batchUpdate" ? true : false;
 
-            $scope.datas.detail = worksheetDataService.wsDetailData;
+            $scope.datas.detail = angular.copy(worksheetDataService.wsDetailData);
             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
             //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
@@ -697,10 +697,6 @@ CODE:"03"
             }else{
                 $scope.config.currentGuZhangMingCheng = $scope.datas.guZhangMingChengS[0];
             }
-
-
-            
-
         }
         
         $scope.init();
@@ -711,15 +707,7 @@ CODE:"03"
             $state.go("car");
         };
 
-        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-            if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
-                if(worksheetDataService.backObject != null){
-                    $scope.datas.detail.ES_OUT_LIST.CAR_DESC = worksheetDataService.backObject.SHORT_TEXT;
-                    $scope.datas.detail.ES_OUT_LIST.CAR_NO = worksheetDataService.backObject.ZBAR_CODE;
-                    console.log($scope.datas.detail.ES_OUT_LIST);
-                }     
-            }
-        });
+        
 
 }]);
 

@@ -24,6 +24,15 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter
                   , saleActService, $rootScope, $filter) {
 
+        	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+		        if(fromState && toState && fromState.name == 'worksheetEdit' && toState.name == 'worksheetDetail'){
+		            if(worksheetDataService.wsEditToDetail.needReload){
+		            	worksheetDataService.wsEditToDetail.needReload = false;
+		            	__requestDetailDatas();
+		            }
+		        }
+		    });
+
         	$scope.$on('$destroy', function() {
 				__destroyMoreModal();
 			});
@@ -81,6 +90,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}else if(type == 'guzhangxinxi'){
 					$scope.goState("worksheetFaultInfos");
 				}else if(type == 'fuwupaizhao'){
+					worksheetDataService.wsDetailToPaiZHao = {
+						OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
+      					PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE
+					}; 
 					$scope.goState("worksheetTakePicture");
 				}else if(type == 'baogong'){
 					$scope.goState("worksheetbaogonglist");
@@ -143,7 +156,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					var modalJQ = angular.element('.show-more-modal-content');
 					var modalPos = $ionicPosition.position(modalJQ) || $ionicPosition.offset(modalJQ);
 					var modal = modalJQ[0];
-					
 
 					var arrowJQ = modalJQ.find('.top-line');
 					var arrowPos = $ionicPosition.position(arrowJQ);// || $ionicPosition.offset(modalJQ);
@@ -178,7 +190,11 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 			$scope.canShowEditBtn = function(){
 				var type = $scope.config.typeStr;
+				var status = $scope.config.statusStr;
 				if(type == 'ZPRO' || type =='ZPLO' || type == 'ZNCO'){
+					if(status == "E0006" || status == "E0010" || status == "E0007"){ //已完工、已回访、已审核
+						return false;
+					}
 					return true;
 				}
 				return false;
@@ -373,7 +389,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	if(type == "newCar"){
             		$scope.config.detailTypeNewCar = true;
             		$scope.datas.header = $scope.datas.headerNewCar;
-            	}else if(type == "siteRepair" || type == "batchUpdate"){
+            	}else if(type == "siteRepair"){
             		$scope.config.detailTypeSiteRepair = true;
             		$scope.datas.header = $scope.datas.headerSiteRepair;
             	}else if(type == "batchUpdate"){
@@ -480,6 +496,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
 		        	Prompter.hideLoading();
+
+
 		        	//debugger;
 		        	//console.log(tempResponse);
 		        })
@@ -693,7 +711,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                 $timeout(function () {
                     document.getElementById('selectCustomerId').focus();
                 }, 1)
-            };
+            }; 
             $scope.create = {};
             $scope.selectCustomer = function(x){
                 $scope.create.customer = x;

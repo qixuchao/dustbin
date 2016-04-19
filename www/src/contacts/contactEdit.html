@@ -25,7 +25,7 @@
                 <img id="contatendimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('FNCTN')"/>
             </span>
               <span class="item item-input">称谓：
-                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="config.currentTitile" ng-options="a as a.name for a in contactlistTitle" ng-change="chang1()">
+                <select style="width: 40%;margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="config.currentTitile" ng-options="a as a.name for a in contactlistTitle" ng-change="chang1()">
                     <option value="">请选择称谓</option>
                 </select>
             </span>
@@ -41,6 +41,10 @@
                 <input type="text" id="contphonenumber" class="contact_editinputsty" placeholder="请输入电话号码" ng-model="contactedit.TEL_NUMBER">
                 <img id="contphonenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('TEL_NUMBER')"/>
             </span>
+             <span class="item item-input">电话分机：
+                <input type="text" id="contphonenumber1" class="contact_editinputsty" placeholder="请输入电话分机" ng-model="contactedit.TEL_EXTENS">
+                <img id="contphonenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('TEL_EXTENS')"/>
+            </span>
             <span class="item item-input">传真：
                 <input type="text" id="contfax" placeholder="请输入传真" class="contact_editinputsty" ng-model="contactedit.FAX_NUMBER">
                 <img id="contfaximg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('FAX_NUMBER')"/>
@@ -54,11 +58,11 @@
                 <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('POST_CODE1')"/>
             </span>
             <span class="item item-input">出生日期：
-                <input type="text" placeholder="请输入生日" class="contact_editinputsty"   ng-bind="contactedit.BIRTHDT" ng-click="selectCreateTime()" style="background-color:white">
+                <input type="date" class="contact_editinputsty"   ng-model="contactedit.BIRTHDT" ng-click="selectCreateTime()" style="background-color:white">
             </span>
              <span class="item item-input">语言：
-                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B"  ng-model="config.currentLanguage" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="chang1()">
-                    <option >语言</option>
+                <select style="width: 40%;margin-left:33px;border: none;padding-right:4px;color:#9B9B9B"  ng-model="config.currentLanguage" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="chang1()">
+                    <option value="">语言</option>
                 </select>
             </span>
              <span class="item item-input">地址：
@@ -71,16 +75,18 @@
                 </div>
                 <div class="col col-80">
                     <div class="row" style="padding: 5px;">
-                        <select style="border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white" ng-selected="country.COUNTRY_NAME" ng-model="config.currentCountry" ng-options="a as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
-                           <option ng-bind="country.COUNTRY_NAME"></option>
+                        <select style="border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white;width: 40%;" ng-selected="country.COUNTRY_NAME" ng-model="config.currentCountry" ng-options="a as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
+                           <option value="">国家</option>
                         </select>
                     </div>
                     <div class="row" style="padding: 5px;">
-                        <select style="border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white" ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
+                        <select style="border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white;width: 40%" ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
+                           <option value="">省份</option>
                         </select>
                     </div>
                     <div class="row" style="padding: 5px;">
-                        <select style="border:none;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white"   ng-model="config.currentCity" ng-options="c as c.CITY_NAME for c in city">
+                        <select style="border:none;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white;width: 40%"   ng-model="config.currentCity" ng-options="c as c.CITY_NAME for c in city">
+                           <option value="">城市</option>
                         </select>
                     </div>
                 </div>

@@ -15,6 +15,9 @@
         </div>
         <div class="contentAll">
             <div class="row row-center itemContent">
+                <div class="col  col-center" style="font-size: 20px">{{carMile.MILEAGE_COUNTER}}</div>
+            </div>
+            <div class="row row-center itemContent">
                 <div class="col-42 col-center">上次记录日期：</div>
                 <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LDATE}}</div>
             </div>
@@ -45,4 +48,11 @@
             <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{carMile.MILEAGE_DESC}}<br/></div>
         </div>
     </ion-content>
+    </div><div class="bar bar-footer" style="background-color: white">
+    <div class="row row-center" style="text-align: center">
+        <div class="col col-30 col-center" ng-click="upPage()">上一页</div>
+        <div class="col col-40 col-center">当前页{{config.nowPage}}</div>
+        <div class="col col-30 col-center" ng-click="downPage()">下一页</div>
+    </div>
+    </div>
 </ion-view>

@@ -77,7 +77,9 @@ worksheetModule.service('worksheetDataService', [function(){
 
     wsEditToDetail: {
       needReload: false
-    }
+    },
+    wsDetailToPaiZHao: null,
+
     /*{
       ydWorksheetNum: 
     }*/
@@ -87,7 +89,7 @@ worksheetModule.service('worksheetDataService', [function(){
 worksheetModule.service('worksheetHttpService', ['HttpAppService', function(HttpAppService){
     //配件的选择数据
     var sparePart;
-    var sparePartPro;
+    var carMileage;
     //相关方数据
     return {
         serviceList: {
@@ -135,13 +137,13 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
         getSparePart:function(){
             return sparePart;
         },
-        //相关方
-        setWorksheetRelatePart:function(data){
-            worksheetRelatePart=data;
-            return worksheetRelatePart;
+        //车辆里程
+        setWSCarMileage:function(data){
+            carMileage=data;
+            return carMileage;
         },
-        getWorksheetRelatePart:function(){
-            return worksheetRelatePart;
+        getWSCarMileage:function(){
+            return carMileage;
         },
         //产品
 
@@ -236,6 +238,14 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
               "IS_USER": { "BNAME": "HANDLCX02" }
             }
           }
+        },
+        imageInfos: {  // 图片展示界面
+           listUrl: "http://117.28.248.23:9388/test/api/CRMAPP/URL_LIST",
+           listDefaults: null,
+           deleteUrl: "http://117.28.248.23:9388/test/api/CRMAPP/URL_DELETE",
+           deleteDefaults: null,
+           uploadUrl: "http://117.28.248.23:9388/test/api/CRMAPP/URL_CREATE",
+           uploadDefaults: null
         }
     };
 }]);

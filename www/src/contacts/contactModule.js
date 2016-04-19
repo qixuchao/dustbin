@@ -12,6 +12,7 @@ contactModuleServive
         var contactdeatrelationlist;
         var countryObj;
         var BNAme;
+        var data;
         return {
             //为联系人-关系界面保存数据(联系人详情界面的item)
             set_ContactsdeaRelationval:function(rvalue){
@@ -63,6 +64,12 @@ contactModuleServive
             },
             getBName:function(){
                 return BName;
+            },
+            setObject:function(object){
+                data=object;
+            },
+            getObject:function(){
+                return data;
             }
         }
     }]);
