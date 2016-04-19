@@ -191,7 +191,9 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         CarService.setData(value);
         if($scope.config.backParameter==true){
             worksheetDataService.backObject=value;
+            worksheetDataService.selectedCheLiang=false;
             $ionicHistory.goBack();
+
         }else{
             $state.go('carDetail');
         }

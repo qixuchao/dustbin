@@ -62,6 +62,17 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 window.StatusBar.overlaysWebView(true);
             }
 
+            /*window.plugins.jPushPlugin.init();
+            window.plugins.jPushPlugin.init();
+            window.plugins.jPushPlugin.setDebugMode(true);
+            window.plugins.jPushPlugin.getRegistrationID(function(id){
+                //将获取到的id存入服务端
+                alert(id);
+            });
+            //点击通知栏的回调，在这里编写特定逻辑
+            window.plugins.jPushPlugin.openNotificationInAndroidCallback= function(data){  
+                alert(JSON.stringify(data));
+            }*/
         });
         $rootScope.goState = function(state){
             $state.go(state);

@@ -14,36 +14,36 @@
             <div class="Car_countentbasicclok"></div>
         </div>
         <div class="contentAll">
-            <div class="row itemContent row-center">
-                <div class="col-42 col-center">上一值：</div>
-                <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LAST}}</div>
-            </div>
-
             <div class="row row-center itemContent">
-                <div class="col-42 col-center">最后读取日期：</div>
+                <div class="col-42 col-center">上次记录日期：</div>
                 <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LDATE}}</div>
             </div>
 
             <div class="row itemContent row-center">
-                <div class="col-42 col-center">读取日期：</div>
+                <div class="col-42 col-center">上次记录里程：</div>
+                <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LAST}}</div>
+            </div>
+
+            <div class="row itemContent row-center">
+                <div class="col-42 col-center">本次记录日期：</div>
                 <div class="col-58 col-center">
                     <input type="text" placeholder="日期" ng-model="update.readDate"  readonly style="font-size: 16px" class="fontColor" ng-click="selectCreateTime('读取日期')" >
                 </div>
             </div>
             <div class="row itemContent row-center">
-                <div class="col-42 col-center">值：</div>
+                <div class="col-42 col-center">本次记录里程：</div>
                 <div class="col-58 col-center">
                     <input type="text" placeholder="请输入值" ng-model="update.readValue" value="" style="font-size: 16px" class="fontColor" >
                 </div>
             </div>
 
-            <div class="row itemContentT row-center">
-                <div class="col-42 col-center">读取描述：</div>
-                <div class="col-58 col-center">
-                    <textarea type="text"placeholder=""  ng-model="update.readDescription" class="textareaCss"  style="background-color: white;color: #A0A09F"></textarea>
-                </div>
+            <div class="row itemContentS row-center">
+                <div class="col-42 col-center">备注：</div>
+                <!--<div class="col-58 col-center">-->
+                    <!--<textarea type="text"placeholder=""  ng-model="update.readDescription" class="textareaCss"  style="background-color: white;color: #A0A09F"></textarea>-->
+                <!--</div>-->
             </div>
-
+            <div class="textarea" contenteditable="true" style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;word-spacing:8px; letter-spacing: 1px;color: #A0A09F">{{update.readDescription}}<br/></div>
         </div>
     </ion-content>
 </ion-view>

@@ -39,6 +39,9 @@
   -webkit-transition: background-color 0.2s linear 0s;
   transition: background-color 0.2s linear 0s;
 }
+.platform-android .popover {
+  border-radius:10px;
+}
 .bar{
   font-size: 16px;
 }

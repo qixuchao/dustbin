@@ -75,7 +75,6 @@ ContactsModule
         };
         //查询
         $scope.contact_query_list = [];
-        $scope.contact_query_list = new Array;
         $scope.conitemImPage = 0;
         $scope.contactLoadmore = function() {
             //$scope.contactisshow = true;
@@ -133,6 +132,11 @@ ContactsModule
                 $cordovaToast.showShortBottom('请检查你的网络设备');
                 $scope.contactisshow = false;
             });
+        }
+        $scope.initLoad=function(){
+            $scope.conitemImPage = 0;
+            $scope.contact_query_list=new Array;
+            $scope.contactLoadmore();
         }
         //实时搜索
         //实时搜索变量初始化一次flag
@@ -350,39 +354,42 @@ ContactsModule
         };
        //获取数据
         Prompter.showLoading("数据加载中...");
-        var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
-        var data = {
-            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            "IS_AUTHORITY": { "BNAME": "60000051" },
-            "IS_PARTNER": { "PARTNER": contactService.get_ContactsListvalue().PARTNER}
-            //"IS_PARTNER": { "PARTNER":'6000000385'}
-        };
-        HttpAppService.post(url, data).success(function (response) {
-            Prompter.hideLoading();
-            if (response.ES_RESULT.ZFLAG == 'E') {
-                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-            } else {
-                if(response.ET_OUT_CONTACT != ''){
-                    $scope.contactdetails = response.ET_OUT_CONTACT.item[0];
-                    $scope.peopleCode=numDo($scope.contactdetails.PARTNER)
-                }
-                //注释字段获取
-                if(response.ET_LINES != ''){
-                    $scope.conatctdeatilnotelist = response.ET_LINES.item;
-                    $scope.conatctdeatilnote = '';
-                    $scope.conatctdeatilnotelenght = $scope.conatctdeatilnotelist.length;
-                    for(var i=0;i<$scope.conatctdeatilnotelenght;i++){
-                        $scope.conatctdeatilnote += $scope.conatctdeatilnotelist[i].TDLINE;
-                    };
-                    $scope.contactdetails.conatctdeatilnote =$scope.conatctdeatilnote;
-                }
-                //销售员工字段获取
-                if(response.ET_OUT_RELATION != ''){
-                    //处理返回数据item是一条的时候
+        var loadData=function() {
+            var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
+            var data = {
+                "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "IS_AUTHORITY": {"BNAME": "60000051"},
+                "IS_PARTNER": {"PARTNER": contactService.get_ContactsListvalue().PARTNER}
+                //"IS_PARTNER": { "PARTNER":'6000000385'}
+            };
+            HttpAppService.post(url, data).success(function (response) {
+                Prompter.hideLoading();
+                if (response.ES_RESULT.ZFLAG == 'E') {
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                } else {
+                    if (response.ET_OUT_CONTACT != '') {
+                        $scope.contactdetails = response.ET_OUT_CONTACT.item[0];
+                        console.log($scope.contactdetails.PARTNER);
+                        $scope.contactdetails.PARTNER = numDo($scope.contactdetails.PARTNER)
+                    }
+                    //注释字段获取
+                    if (response.ET_LINES != '') {
+                        $scope.conatctdeatilnotelist = response.ET_LINES.item;
+                        $scope.conatctdeatilnote = '';
+                        $scope.conatctdeatilnotelenght = $scope.conatctdeatilnotelist.length;
+                        for (var i = 0; i < $scope.conatctdeatilnotelenght; i++) {
+                            $scope.conatctdeatilnote += $scope.conatctdeatilnotelist[i].TDLINE;
+                        }
+                        ;
+                        $scope.contactdetails.conatctdeatilnote = $scope.conatctdeatilnote;
+                    }
+                    //销售员工字段获取
+                    if (response.ET_OUT_RELATION != '') {
+                        //处理返回数据item是一条的时候
                         $scope.conatctdeatilsaleslist = response.ET_OUT_RELATION.item;
                         $scope.conatctdeatilsalslenght = $scope.conatctdeatilsaleslist.length;
-                        for(var i=0;i<$scope.conatctdeatilsalslenght;i++){
-                            if( $scope.conatctdeatilsaleslist[i].BEZ50 == '负责员工是'){
+                        for (var i = 0; i < $scope.conatctdeatilsalslenght; i++) {
+                            if ($scope.conatctdeatilsaleslist[i].BEZ50 == '负责员工是') {
                                 $scope.contactdetails.relationsalsname = $scope.conatctdeatilsaleslist[i].NAME_LAST;
                             }
                         }
@@ -391,12 +398,12 @@ ContactsModule
                     }
                 }
 
-        }).error(function(){
-            Prompter.hideLoading();
-            $cordovaToast.showShortBottom('请检查你的网络设备');
-        });
-
-
+            }).error(function () {
+                Prompter.hideLoading();
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+            });
+        };
+            loadData();
         if(LoginService.getProfileType()=="APP_SERVICE"){
             $scope.customer_detailstypes=new Array;
         }else{
@@ -424,7 +431,24 @@ ContactsModule
             if(types == undefined || types == ""){
                 $cordovaToast.showShortBottom('没有数据');
             }else{
-                Prompter.showphone(types)
+                $ionicActionSheet.show({
+                    buttons: [
+                        {text: data.TEL_NUMBER},
+                        {text: data.MOB_NUMBER},
+                    ],
+                    titleText: '拨打电话',
+                    cancelText: '取消',
+                    buttonClicked: function (index) {
+                        if (index == 0) {
+                            $window.location.href = "tel:" + data.TEL_NUMBER;
+                            return true;
+                        };
+                        if (index == 1) {
+                            $window.location.href = "tel:" + data.MOB_NUMBER;
+                            return true;
+                        }
+                    }
+                })
             }
         };
         //邮箱
@@ -438,12 +462,14 @@ ContactsModule
         //广播修改数据
         $rootScope.$on('contactEditvalue', function(event, data) {
             $scope.contactdetails = contactService.get_Contactsdetailvalue();
+            loadData();
         });
 
         $scope.contact_deatilgoedit = function(){
             //判断数据是否获取成功
             if($scope.contactdetails !=undefined ||  $scope.contactdetails != ""){
                 contactService.set_Contactsdetailvalue($scope.contactdetails);
+                //contactService.setBname("60000051");
                 $state.go("ContactsEdit");
             }else{
                 $cordovaToast.showShortBottom("数据获取失败,不能编辑");
@@ -454,10 +480,20 @@ ContactsModule
         //初始化数据
 
         $scope.contactlistvaluesel = [{
-            name:'先生',
+            typId:'1',
+            name:'中文'
         },{
-            name:'小姐'
+            typeId:'E',
+            name:'英语'
         }];
+        $scope.contactlistTitle = [{
+            codeId:'0002',
+            name:'先生'
+        },{
+            codeId:'0001',
+            name:'女士'
+        }];
+
         $scope.contactcreat = {
             //客户编号
             PARTNER2VALUE:'',
@@ -465,16 +501,16 @@ ContactsModule
             TITLE:"",
             FAX_NUMBER:"",
             FAX_EXTENS:"",
-            DPRTMNT:"",
+            DPRTMNT:"ssss",
             FNCTN:"",
-            COUNTRY:"",
+            COUNTRY:"CN",
             BEZEI:"",
             CITY1:"",
             REGION:"",
             POST_CODE1:"",
             BIRTHDT:"",
             LANGU:"",
-            NAME_LAST:"",
+            NAME_LAST:"ssss",
             TEL_NUMBER:"",
             MOB_NUMBER:"",
             STREET:"",
@@ -536,10 +572,11 @@ ContactsModule
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.POST_CODE1;
             data.IS_CUSTOMER.STREET = $scope.contactcreat.STREET;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactcreat.TEL_NUMBER;
+            data.IS_CUSTOMER.TEL_EXTENS = $scope.contactcreat.TEL_EXTENS;
             data.IS_CUSTOMER.MOB_NUMBER = $scope.contactcreat.MOB_NUMBER;
             data.IS_CUSTOMER.FAX_NUMBER = $scope.contactcreat.FAX_NUMBER;
             data.IS_CUSTOMER.FAX_EXTENS = $scope.contactcreat.FAX_EXTENS;
-
+            data.IT_LINES.item.TDLINE=$scope.contactcreat.conatctdeatilnote;
             //根据登陆接口来判断 角色字段的类型
             var rolevalue = '';
             if(rolevalue == '销售'){
@@ -551,9 +588,9 @@ ContactsModule
                 || data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined
                 || data.IS_CUSTOMER.COUNTRY == '' || data.IS_CUSTOMER.COUNTRY == undefined){
 
-                console.log("data.IS_CUSTOMER.PARTNER2"+data.IS_CUSTOMER.PARTNER2)
-                console.log("data.IS_CUSTOMER.NAME_LAST"+data.IS_CUSTOMER.NAME_LAST)
-                console.log("data.IS_CUSTOMER.COUNTRY"+data.IS_CUSTOMER.COUNTRY)
+                console.log("data.IS_CUSTOMER.PARTNER2"+data.IS_CUSTOMER.PARTNER2);
+                console.log("data.IS_CUSTOMER.NAME_LAST"+data.IS_CUSTOMER.NAME_LAST);
+                console.log("data.IS_CUSTOMER.COUNTRY"+data.IS_CUSTOMER.COUNTRY);
                 $cordovaToast.showShortCenter('请输入客户姓名,标识或国家');
                 //console.log("请输入客户姓名,标识或国家");
                 Prompter.hideLoading();
@@ -567,18 +604,22 @@ ContactsModule
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         //$state.go('ContactDetail');
                     } else {
-                        $cordovaToast.showShortCenter('保存数据成功');
+                        //$cordovaToast.showShortCenter('保存数据成功');
+                        console.log('保存数据成功');
                         //console.log("保存创建成功")
                         //$scope.contactKeepCreatevalue = function(){
                             //contactService.set_ContactCreatevalue($scope.contactcreat);
                             //广播修改详细信息界面的数据
+                        contactService.set_ContactsListvalue(response.ES_RESULT.ET_REAULT);
                             if(contactService.get_ContactCreateflag() == true){
                                 contactService.set_ContactCreateflagfalse();
                                 //$rootScope.$broadcast('contactCreatevalue');
+                                console.log('跳转成功');
                                 $state.go('ContactQuery');
                             }else{
                                 //$rootScope.$broadcast('customercontactCreatevalue');
-                                $state.go('customerContactQuery');
+                                console.log('跳转成功');
+                                $state.go('customerDetail');
                             }
                             //$ionicHistory.goBack(-2);
                         //}
@@ -588,7 +629,7 @@ ContactsModule
                     $cordovaToast.showShortBottom('请检查你的网络设备');
                 });
             }
-        }
+        };
         $scope.contactCreateDeleteListener = function(crid,crimgid){
             setTimeout(function(){
                 document.getElementById(crid).addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
@@ -671,10 +712,35 @@ ContactsModule
             }
             document.addEventListener("deviceready", function () {
                 $cordovaDatePicker.show(Creoptionsdatedate).then(function (date) {
-                    alert(date)
+                    alert(date);
                     $scope.contactcreat.BIRTHDT = date.Format('yyyy-MM-dd');
                     alert($scope.contactcreat.BIRTHDT)
                 })
+            })
+        };
+        //选择日期
+        $scope.selectCreateTime = function () { // type: start、end
+            var date;
+
+            date = new Date($scope.contactedit.BIRTHDT.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+
+            $cordovaDatePicker.show({
+                date: date,
+                mode: 'datetime',
+                titleText: title,
+                okText: '确定',
+                cancelText: '取消',
+                doneButtonLabel: '确认',
+                cancelButtonLabel: '取消',
+                locale: 'zh_cn'
+            }).then(function (returnDate) {
+                var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
+                //alert(time);
+                $scope.contactedit.BIRTHDT = time;
+                //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
+                if(!$scope.$$phrese){
+                    $scope.$apply();
+                }
             })
         };
         //选择客户
@@ -788,7 +854,9 @@ ContactsModule
         $scope.config = {
             currentCountry: {},
             currentProvence:{},
-            currentCity:{}
+            currentCity:{},
+            currentTitle:{},
+            currentLangu:{}
         };
 
         $scope.cascade=function(){
@@ -893,10 +961,10 @@ ContactsModule
             //默认的称谓
 
         $scope.contactlistvaluesel = [{
-                    typId:'CN',
+                    typId:'１',
                     name:'中文'
                 },{
-                    typeId:'EN',
+                    typeId:'E',
                     name:'英语'
                 }];
         $scope.contactlistTitle = [{
@@ -907,8 +975,6 @@ ContactsModule
                 name:'女士'
             }];
 
-            $scope.defaultTitle=$scope.contactlistvaluesel[0].typeId;
-            $scope.defaultLangu=$scope.contactlistTitle[0].codeId;
         $scope.contactedit = {
             conatctdeatilnote:contactService.get_Contactsdetailvalue().conatctdeatilnote,
             TITLE:contactService.get_Contactsdetailvalue().TITLE,
@@ -961,8 +1027,31 @@ ContactsModule
                 })
             })
         };
-        //国家的选择
+        //选择日期
+            $scope.selectCreateTime1 = function () { // type: start、end
+                var date;
 
+                date = new Date($scope.contactedit.BIRTHDT.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+
+                $cordovaDatePicker.show({
+                    date: date,
+                    mode: 'datetime',
+                    titleText: title,
+                    okText: '确定',
+                    cancelText: '取消',
+                    doneButtonLabel: '确认',
+                    cancelButtonLabel: '取消',
+                    locale: 'zh_cn'
+                }).then(function (returnDate) {
+                    var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
+                    //alert(time);
+                    $scope.contactedit.BIRTHDT = time;
+                            //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
+                    if(!$scope.$$phrese){
+                        $scope.$apply();
+                    }
+                })
+            };
         $scope.contactKeepEditvalue = function(){
             contactService.set_Contactsdetailvalue($scope.contactedit);
             //提交修改数据
@@ -970,7 +1059,7 @@ ContactsModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_CHANGE';
             var data = {
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": "" },
+                "IS_AUTHORITY": { "BNAME": "60000051" },
                 "IS_CUSTOMER": {
                     "PARTNER": "",
                     "PARTNERROLE": "",
@@ -1009,8 +1098,8 @@ ContactsModule
             data.IS_CUSTOMER.TITLE = $scope.config.currentTitile.codeId;
             data.IS_CUSTOMER.NAME_LAST = $scope.contactedit.NAME_LAST;
             data.IS_CUSTOMER.BIRTHDT = $scope.contactedit.BIRTHDT;
-            data.IS_CUSTOMER.LANGU2 = $scope.config.currentLanguage.typeId;
-            data.IS_CUSTOMER.LANGU = $scope.config.currentLanguage;
+            data.IS_CUSTOMER.LANGU2 = $scope.config.currentLanguage.name;
+            data.IS_CUSTOMER.LANGU = $scope.config.currentLanguage.typeId;
             data.IS_CUSTOMER.FNCTN = $scope.contactedit.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactedit.DPRTMNT;
             data.IS_CUSTOMER.COUNTRY = $scope.config.currentCountry.COUNTRY;
@@ -1023,6 +1112,7 @@ ContactsModule
             data.IS_CUSTOMER.FAX_NUMBER = $scope.contactedit.FAX_NUMBER;
             data.IS_CUSTOMER.FAX_EXTENS = $scope.contactedit.FAX_EXTENS;
             data.IS_CUSTOMER.MODE = "U";
+            data.IT_LINES.item.TDLINE=$scope.contactedit.conatctdeatilnote;
             //if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined || data.IS_CUSTOMER.PARTNER == ''|| data.IS_CUSTOMER.PARTNER == undefined){
             if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined
                 || data.IS_CUSTOMER.COUNTRY == ''|| data.IS_CUSTOMER.COUNTRY == undefined){
@@ -1120,17 +1210,15 @@ ContactsModule
         $scope.provence=[];
         $scope.city=[];
         $scope.countryCode="";
-        $scope.Ctype="A";
         $scope.provenceCode="";
-
         $scope.config = {
-            currentCountry: {},
-            currentProvence:{},
-            currentCity:{},
+            currentCountry:{} ,
+            currentProvence:$scope.contactedit.REGION,
+            currentCity:$scope.contactedit.CITY1,
             currentLanguage:{},
             currentTitile:{}
         };
-
+            console.log($scope.contactedit.COUNTRY+"sdsdsd");
         $scope.cascade=function(){
             //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
             var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
@@ -1144,6 +1232,7 @@ ContactsModule
             HttpAppService.post(url,data).success(function(response){
                 $.each(response.ET_CITY.item, function (n, value) {
                     $scope.country.push(value);
+                     contactService.set_country(value);
                 });
             }).error(function (response, status) {
                 $cordovaToast.showShortBottom('请检查你的网络设备');

@@ -405,7 +405,6 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 $scope.config.currentImpact = $scope.datas.impactS[0];
             }
         }
-
         var bujianFenLeiS = [];
         var responS = [];
         var bujianS = [];
