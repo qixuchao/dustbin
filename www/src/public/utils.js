@@ -39,7 +39,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                 var startTime = new Date().getTime();
                 var post = $http.post(url,paramter,config).success(function (response) {
                     //flag = true;
-                    console.log(response)
+                    $ionicLoading.hide();
                     try {
                         if (response.status === 'ETOKEN') {
                             $ionicLoading.hide();
@@ -125,7 +125,7 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
                 }
             },
             alert: function (text) {
-                $cordovaDialogs.alert(text);
+                $cordovaDialogs.alert(text,'提示','确定');
             },
             selectTime: function (scope, name, date, mode, title) {
                 if (!date || isNaN(date.split('/')[0])) {

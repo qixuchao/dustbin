@@ -3,7 +3,7 @@
         <div class="login_bg">
             <img src="img/login/bg_logo.png" style=" width:240px;height:55px;">
         </div>
-        <form  ng-submit="login()" style="position: relative">
+        <form style="position: relative">
             <img class="login_contentimg login_contentuserimg" src="img/login/user@2x.png" alt=""/>
             <input class="login_content login_contentuser" id="username" type="text" placeholder="请输入用户名" ng-model="loginData.username">
 
@@ -18,7 +18,8 @@
             <span class="login_radioselerem">记住密码</span>
         </div>
         <div>
-            <button class="login_button">登陆</button>
+            <button class="login_button" ng-click="login();">登陆</button>
+
         </div>
         </form>
     </ion-content>

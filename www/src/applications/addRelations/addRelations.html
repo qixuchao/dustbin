@@ -8,8 +8,9 @@
                 <div class="col input">
                     <div class="row row-center no-padding">
                         <i class="ion-ios-search"></i>
-                        <input id="referSearchId" type="search" ng-model="input.search" placeholder="请输入关键字">
-                        <i class="ion-ios-close" ng-if="input.search" ng-click="initSearch()"></i>
+                        <input id="relationSearchId" type="search" ng-change="getRelationsArr(input.relation)"
+                               ng-model="input.relation" placeholder="请输入关键字">
+                        <i class="ion-ios-close" ng-if="input.relation" ng-click="initRelationSearch()"></i>
                     </div>
                 </div>
                 <div class="col col-15 text-center cancel" ng-click="hideRelations()">取消</div>
@@ -18,26 +19,32 @@
     </div>
 
     <ion-content class="content has-header">
+        <ion-spinner class="mySpinner" icon="ios" ng-if="!relationSearch"></ion-spinner>
         <div>
             <div ng-class="moreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="changeMoreFlag()"></div>
             <div class="selectionsDown pushDown-animated"
                  ng-class="{'slideOutUp':!moreflag&&isDropShow,'fadeInDown':moreflag}">
                 <ion-list>
-                    <ion-item ng-repeat="x in relationsPopArr" ng-class="{'selected':x.text==selectPopText}" ng-click="selectPop_rel(x)">{{x.text}}</ion-item>
+                    <ion-item ng-repeat="x in relationsPopArr" ng-class="{'selected':x.text==selectPopText}"
+                              ng-click="selectPop_rel(x)">{{x.text}}
+                    </ion-item>
                 </ion-list>
             </div>
         </div>
         <ion-list>
-            <ion-item class="selectItem" ng-repeat="x in relationSelections | filter:input.search" ng-click="isReplace?replaceRelation(x):(x.flag=!x.flag)">
-                <span ng-bind-html="x.name | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg" src="img/saleList/blank.png">
+            <ion-item class="selectItem" ng-repeat="x in relationArr | filter:input.relation"
+                      ng-click="isReplace?replaceRelation(x):addRelationModal(x)">
+                <span ng-bind-html="x.NAME | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg"
+                                                                                       src="img/saleList/blank.png">
                 <img ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">
             </ion-item>
         </ion-list>
-        <div class="loadMore" ng-click="getCustomerArr()" ng-if="customerSearch&&!spinnerFlag"><span>点击加载更多...</span></div>
-        <div class="loadMore" ng-click="getCustomerArr()" ng-if="spinnerFlag">
-            <ion-spinner icon="ios" ng-if="details.relations.length>0"></ion-spinner></div>
-        <div class="submitButton" ng-click="!isReplace?addRelationModal():replaceRelation()">确定</div>
-        <!--<div class="submitButton" ng-if="isReplace" ng-click="replaceRelation()">确定</div>-->
+        <div class="loadMore" ng-click="getRelationsArr()" ng-if="relationSearch&&!relationSpinnerFlag">
+            <span>点击加载更多...</span></div>
+        <div class="loadMore" ng-click="getRelationsArr()" ng-if="relationSpinnerFlag">
+            <ion-spinner icon="ios" ng-if="relationArr.length>0"></ion-spinner>
+        </div>
+        <!--<div class="submitButton" ng-click="!isReplace?addRelationModal():replaceRelation()">确定</div>-->
 
     </ion-content>
 </ion-modal-view>

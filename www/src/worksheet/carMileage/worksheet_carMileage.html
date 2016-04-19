@@ -14,35 +14,42 @@
             <div class="Car_countentbasicclok"></div>
         </div>
         <div class="contentAll">
+            <div class="row row-center itemContent">
+                <div class="col-42 col-center">上次记录日期：</div>
+                <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LDATE}}</div>
+            </div>
             <div class="row itemContent row-center">
-                <div class="col-42 col-center">上一值：</div>
+                <div class="col-42 col-center">上次记录里程：</div>
                 <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LAST}}</div>
             </div>
 
-            <div class="row row-center itemContent">
-                <div class="col-42 col-center">最后读取日期：</div>
-                <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LDATE}}</div>
-            </div>
-
             <div class="row itemContent row-center">
-                <div class="col-42 col-center">读取日期：</div>
+                <div class="col-42 col-center">本次记录日期：</div>
                 <div class="col-58 col-center fontColor">
                     {{carMile.MILEAGE_DATE}}
                 </div>
             </div>
             <div class="row itemContent row-center">
-                <div class="col-42 col-center">值：</div>
+                <div class="col-42 col-center">本次记录里程：</div>
                 <div class="col-58 col-center fontColor">
                     {{carMile.MILEAGE_VALUE}}
                 </div>
             </div>
 
-            <div class="row itemContentT row-center">
-                <div class="col-42 col-center">读取描述：</div>
-                <div class="col-58 col-center fontColor">
-                    <textarea type="text"placeholder=""  ng-model="carMile.MILEAGE_DESC" class="textareaCss" readonly style="background-color: white;color: #A0A09F"></textarea>
-                </div>
+            <div class="row itemContentS row-center">
+                <div class="col-42 col-center">备注：</div>
+                <!--<div class="col-58 col-center fontColor">-->
+                    <!--<textarea type="text"placeholder=""  ng-model="carMile.MILEAGE_DESC" class="textareaCss" readonly style="background-color: white;color: #A0A09F"></textarea>-->
+                <!--</div>-->
             </div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{carMile.MILEAGE_DESC}}<br/></div>
         </div>
     </ion-content>
+    <!--</div><div class="bar bar-footer" style="background-color: white">-->
+    <!--<div class="row row-center" style="text-align: center">-->
+        <!--<div class="col col-30 col-center">上一页</div>-->
+        <!--<div class="col col-40 col-center">当前页{{1}}</div>-->
+        <!--<div class="col col-30 col-center">下一页</div>-->
+    <!--</div>-->
+    <!--</div>-->
 </ion-view>

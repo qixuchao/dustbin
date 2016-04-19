@@ -2,12 +2,16 @@
   .backColor{
    background-color: white
   }
+  .backHead{
+    $crm-subject-blue
+  }
   .textInfo{
     width: 25%;
     font-size: 16px;
     color: white;
     height: 27px;
     line-height: 27px;
+    white-space:nowrap;
   }
   ion-content{
     //background-color: $crm-content-bgcolor;
