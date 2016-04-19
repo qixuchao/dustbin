@@ -55,25 +55,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var katalogart = $scope.config.currentChanPinLeiXing.KATALOGART;
             var codegrupper = $scope.config.currentGuZhangBuJian.CODEGRUPPE;
             var code = $scope.config.currentGuZhangMingCheng.CODE;
-/*"CAR_NO": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-
-"": "",
-"": "14:20:00.0Z",
-"": "",
-"END_TIME": "14:20:00.0Z",
-
-"COMP_TYPE": "aa",
-
-"COMPONENT": "aaaaaaaa",
-CODEGRUPPE
-
-4-29 1008
-
-
-KATALOGART:"F0"
-CODEGRUPPE:"02"
-CODE:"03"
-*/
+        
             var startStr = $scope.datas.detail.ES_OUT_LIST.START_TIME_STR;
             var startDateStr = new Date(startStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
             startDate = startDateStr.split(" ")[0];
@@ -90,9 +72,10 @@ CODE:"03"
                 SCENARIO: (!scenario) ? "" : scenario,
                 RESPONSE: (!response) ? "" : response,
                 DEFECT: (!defect) ? "" : defect,
-                KATALOGART: (!katalogart) ? "" : katalogart,
-                CODEGRUPPE: (!codegrupper) ? "" : codegrupper,
-                CODE: (!code) ? "" : code,
+                
+                COMP_TYPE: (!katalogart) ? "" : katalogart,
+                COMPONENT: (!codegrupper) ? "" : codegrupper,
+                REASON: (!code) ? "" : code,
 
                 DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION,
                 CAR_NO: $scope.datas.detail.ES_OUT_LIST.CAR_NO,
@@ -114,14 +97,17 @@ CODE:"03"
             var postData = angular.extend(defaults, {
                 IS_HEAD_DATA: headerData,
                 IS_OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
-                IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE,
-
+                IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE
             });
             var promise = HttpAppService.post(url,postData);
             Prompter.showLoading("正在保存修改");
-            promise.success(function(response){                
+            promise.success(function(response){ 
                 if(response && response.ES_RESULT && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG == "S"){
                     Prompter.showLoadingAutoHidden("保存成功!", false, 1000);
+                    worksheetDataService.wsEditToDetail.needReload = true;
+                    $timeout(function(){                        
+                        $scope.$ionicGoBack();
+                    },1200);
                 }else if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG == "E" && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!=""){
                     Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
                 }else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!="" ){
@@ -698,10 +684,6 @@ CODE:"03"
             }else{
                 $scope.config.currentGuZhangMingCheng = $scope.datas.guZhangMingChengS[0];
             }
-
-
-            
-
         }
         
         $scope.init();
@@ -712,6 +694,7 @@ CODE:"03"
             $state.go("car");
         };
 
+        //选择车辆返回的时候，获取车辆信息
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
                 if(worksheetDataService.backObject != null){

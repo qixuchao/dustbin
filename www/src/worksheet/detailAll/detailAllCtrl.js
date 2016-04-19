@@ -24,6 +24,15 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter
                   , saleActService, $rootScope, $filter) {
 
+        	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+		        if(fromState && toState && fromState.name == 'worksheetEdit' && toState.name == 'worksheetDetail'){
+		            if(worksheetDataService.wsEditToDetail.needReload){
+		            	worksheetDataService.wsEditToDetail.needReload = false;
+		            	__requestDetailDatas();
+		            }
+		        }
+		    });
+
         	$scope.$on('$destroy', function() {
 				__destroyMoreModal();
 			});
@@ -81,6 +90,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}else if(type == 'guzhangxinxi'){
 					$scope.goState("worksheetFaultInfos");
 				}else if(type == 'fuwupaizhao'){
+					worksheetDataService.wsDetailToPaiZHao = {
+						OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
+      					PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE
+					}; 
 					$scope.goState("worksheetTakePicture");
 				}else if(type == 'baogong'){
 					$scope.goState("worksheetbaogonglist");
@@ -94,7 +107,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					requestChangeStatus("E0008", "已打回", "正在打回", "打回成功", "打回失败，请检查网络");
 				}
 			};
-
+			
 			$scope.showRequestModel = function(){
 				if($scope.cofnig.requestModal == null){
 					$scope.config.requestModal = $ionicModal.fromTemplate("<div class='show-request-modal-content worksheet-detail'>"+
@@ -143,7 +156,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					var modalJQ = angular.element('.show-more-modal-content');
 					var modalPos = $ionicPosition.position(modalJQ) || $ionicPosition.offset(modalJQ);
 					var modal = modalJQ[0];
-					
 
 					var arrowJQ = modalJQ.find('.top-line');
 					var arrowPos = $ionicPosition.position(arrowJQ);// || $ionicPosition.offset(modalJQ);
@@ -480,6 +492,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
 		        	Prompter.hideLoading();
+
+
 		        	//debugger;
 		        	//console.log(tempResponse);
 		        })
@@ -693,7 +707,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                 $timeout(function () {
                     document.getElementById('selectCustomerId').focus();
                 }, 1)
-            };
+            }; 
             $scope.create = {};
             $scope.selectCustomer = function(x){
                 $scope.create.customer = x;

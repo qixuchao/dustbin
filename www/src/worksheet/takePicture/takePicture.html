@@ -6,10 +6,10 @@
 		<div class="title"></div>
         <div class="buttons right"></div>
 	</ion-header-bar-->
-    <div class="saleList">
+    <div class="saleList"> 
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
-                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <a class="col col-15 text-left goBack" ng-click="goBackForPicture()"><i class="ion-chevron-left"></i></a>
                 <div class="col col-70 text-center">服务拍照</div>
                 <!--div class="col col-15 add"><img src="img/saleList/add.png"></div-->
             </div>
@@ -20,26 +20,87 @@
             </div>
         </div-->
     </div>
-    <ion-content scroll="true" has-bouncing="false">
-        <div class="selected-images">
-            <div class="selected-image" ng-repeat="item in datas.selectedImages">
-                <img src="{{item.base64Str}}" ng-click="showImage($event,item);">
+    <ion-content id="takepicture-content" scroll="false" has-bouncing="false">
+
+        
+        <ion-scroll class="fill-parent" has-bouncing="false">
+            
+            <ion-refresher ng-if="canReLoadData()" pulling-text="下拉刷新" on-refresh="reloadData();"></ion-refresher>
+
+            <div class="is-loading xbr-tip-text-oneline" ng-if="config.isLoading && config.isReloading" style="margin-top:2rem;">
+                <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
             </div>
-            <div class="selected-btn selected-image" style="font-size:3.5rem; " ng-click="takePicture();">
-                <i class="ion-ios-plus-empty" style="border:1px dashed #2B60AB;width:6rem;height:6rem;text-align: center;line-height: 6rem;"></i>
-            </div> 
-        </div>
-        <div class="test">
-            <div class="div-1">  div-1fdsfafdfs</div>
-            <div class="div-2">  div-2fdsfkjdlfjlsjdf</div>
-            <div class="div-3">  div-3kjfdsjlfjladjfkajsdlf</div>
-        </div>
-        <style>
-            .test{
-                margin-top: 50px;
-                width: 100%;
-                display: none;
-            }
-        </style>
+            
+            <div class="selected-images">
+                <div class="selected-image" ng-repeat="item in datas.imageDatas">
+                    <div class="img-wrapper">
+                        <img ng-src="{{item.displaySrc}}"> <!-- ng-click="showImage($event,item);" -->
+                    </div>
+                    
+                    <div class="img-handler-wrapper" ng-if="item.isServerHolder && !item.isNetworking">
+                        <span ng-click="deleteImage(item, $index);">删除</span>  <span ng-click="saveImage(item);">保存到本地</span>
+                    </div>
+                    <div class="img-handler-wrapper" ng-if="!item.isServerHolder && !item.isNetworking">
+                        <span ng-click="deleteImage(item, $index);">删除</span>  <span ng-click="uploadImage(item);">上传</span>
+                    </div>
+                    <!-- 正在上传中...请稍候 ng-if="item.uploading" -->
+                    <!--div class="img-handler-wrapper" ng-if="item.isNetworking">
+                        <span ng-bind="item.networkTip"></span>
+                    </div-->
+                    
+                    <div class="img-handler-wrapper" ng-click="networkClickHandler();" ng-if="item.isNetworking"><!-- 正在删除中...请稍候 ng-if="item.isDeleting" -->
+                        <span ng-bind="item.networkTip"></span>
+                    </div>
+                    
+                </div>
+                <div class="selected-btn selected-image" style="font-size:3.5rem;border:0px;" ng-click="takePicture();" ng-if="!config.isLoading">
+                    <div class="img-wrapper">
+                        <i class="ion-ios-plus-empty" style="border:1px dashed #2B60AB;width:6rem;height:6rem;text-align: center;line-height: 6rem;"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <style>
+                #takepicture-content .scroll{
+                    display: flex;
+                    flex-direction: column;
+                }
+                #takepicture-content .selected-images{
+                    flex: 1;
+                    padding-bottom: 0px;
+                }
+                #takepicture-content .loaind-tip-wrapper{
+                    height: 2rem;
+                    margin-top: .5rem;
+                }
+                .xbr-tip-text-oneline{
+                    height: 2rem;
+                    width: 100%;
+                    text-align: center;
+                    line-height: 2rem;
+                    color: #9A9A9A;
+                }
+            </style>
+            <div class="loaind-tip-wrapper">
+                <div class="images-click-for-moredatas xbr-tip-text-oneline" ng-click="loadMoreData();" ng-if="!config.isLoading && config.hasMoreData && (config.loadingErrorMsg ==null || config.loadingErrorMsg=='')">
+                    点击加载更多
+                </div>
+                
+                <!--div class="images-is-loading xbr-tip-text-oneline" ng-if="config.isLoading">
+                    <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+                </div-->
+                <div class="is-loading xbr-tip-text-oneline" ng-if="config.isLoading && !config.isReloading" style="margin-top:2rem;">
+                    <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+                </div>
+                
+                <div class="images-no-more-datas xbr-tip-text-oneline" ng-if="!config.hasMoreData">
+                    暂无更多数据
+                </div>
+                
+                <!--div class="images-load-occur-error xbr-tip-text-oneline" ng-bind="config.loadingErrorMsg"></div-->
+            </div>
+            
+        </ion-scroll>
+
     </ion-content>
 </ion-view>
