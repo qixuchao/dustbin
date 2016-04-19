@@ -521,6 +521,7 @@ customerModule
             } else {
                 if(response.ET_OUT_DETAIL != ''){
                     $scope.customerdetails = response.ET_OUT_DETAIL.item[0];
+                    $scope.customerdetails.PARTNER = parseInt($scope.customerdetails.PARTNER);
                 }
             }
         }).error(function(){
@@ -532,7 +533,7 @@ customerModule
             $rootScope.$broadcast('customerdeatillist');
             $ionicHistory.goBack();
         };
-           if(LoginService.getProfileType()=="APP_SALE"){
+           if(LoginService.getProfileType()=="APP_SERVICE"){
                    $scope.customer_detailstypes = [
                        {
                            typemane:'联系人',
@@ -578,10 +579,10 @@ customerModule
                    url:'customerVehicleQuery'
                },{
                    typemane:'报价',
-                   imgurl:'img/customer/customerbaoj@2x.png',
+                   imgurl:'img/customer/customerbaoj@2x.png'
                },{
                    typemane:'负责人',
-                   imgurl:'img/customer/customerfuz@2x.png',
+                   imgurl:'img/customer/customerfuz@2x.png'
                }];
            }
 
@@ -589,7 +590,7 @@ customerModule
             if(cusvalue.url){
                 //从客户详情-进入各个详情界面
                 var customerWorkorderdata = {
-                    "PARTNER": $scope.customerdetails.PARTNER,
+                    "PARTNER": $scope.customerdetails.PARTNER
                 };
                 customeService.set_customerWorkordervalue(customerWorkorderdata);
                 $state.go(cusvalue.url);
@@ -649,12 +650,14 @@ customerModule
         //编辑  CustomerDeatilEditvalue()
         $scope.CustomerDeatilEditvalue = function(){
             var authInfo = LoginService.getAuthInfoByFunction(customerDroletypenewvalue);
-            if(authInfo && authInfo.EDIT){
+            /*if(authInfo && authInfo.EDIT){
                 customeService.set_customerEditServevalue( $scope.customerdetails);
                 $state.go('customerEdit');
             }else{
                 $cordovaToast.showShortBottom('没有权限编辑');
-            }
+            }*/
+            customeService.set_customerEditServevalue( $scope.customerdetails);
+            $state.go('customerEdit');
         };
 
         //广播编辑
@@ -705,7 +708,7 @@ customerModule
             STREET:customeService.get_customerEditServevalue().STREET,
             HOUSE_NUM1:customeService.get_customerEditServevalue().HOUSE_NUM1,
             POST_CODE1:customeService.get_customerEditServevalue().POST_CODE1,
-            BEZEI:customeService.get_customerEditServevalue().BEZEI,
+            BEZEI:customeService.get_customerEditServevalue().BEZEI
         };
         $scope.country=[];
         $scope.provence=[];
@@ -845,6 +848,7 @@ customerModule
             data.IS_CUSTOMER.NAME_ORG2 = $scope.customeredit.NAME_ORG2;
             data.IS_CUSTOMER.NAME_ORG3 = $scope.customeredit.NAME_ORG3;
             data.IS_CUSTOMER.NAME_ORG4 = $scope.customeredit.NAME_ORG4;
+            data.IS_CUSTOMER.BEZEI = $scope.customeredit.BEZEI;
 
             //if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined || data.IS_CUSTOMER.PARTNER == ''|| data.IS_CUSTOMER.PARTNER == undefined){
             if(data.IS_ADDR.COUNTRY == ''|| data.IS_ADDR.COUNTRY == undefined){

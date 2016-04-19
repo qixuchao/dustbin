@@ -33,7 +33,7 @@ customerModuleServive
             },
             get_customerEditServevalue:function(){
                 return customerDetailEditvalue;
-            },
+            }
 
         }
     }])

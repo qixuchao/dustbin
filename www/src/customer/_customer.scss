@@ -32,6 +32,11 @@
   .customer_Querylists{
     padding:10px 13px 10px 13px;
     border: none;
+    .customer_point{
+      height: 10px;
+      position: relative;
+      left: 30%;
+    }
     .customer_Querylistsimg{
       width: 16px;
       height: 16px;
