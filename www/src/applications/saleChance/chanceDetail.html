@@ -116,13 +116,12 @@
             </div>
             <!--相关方-->
             <div id="relativeId" class="relative" ng-if="!select">
-                <div class="row" ng-repeat="x in relationArr" ng-if="x.typeText">
-                    <!--<div class="col">王紫薇&nbsp;&nbsp;女士</div>-->
+                <div class="row" ng-repeat="x in relationArr" ng-if="x.position" ng-click="goRelationDetail(x)" on-hold="showActionSheet(x)">
                     <div class="col col-60">{{x.NAME}}</div>
-                    <div class="col col-40 text-center position">{{x.typeText}}</div>
+                    <div class="col col-40 text-center position col-center">{{x.position}}</div>
                 </div>
                 <div class="row row-center add" ng-if="isEdit">
-                    <div class="col"><i class="ion-ios-plus-outline"></i>添加相关方</div>
+                    <div class="col" ng-click="openRelations()"><i class="ion-ios-plus-outline"></i>添加相关方</div>
                 </div>
             </div>
         </div>

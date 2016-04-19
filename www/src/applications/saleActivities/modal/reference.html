@@ -8,7 +8,7 @@
                 <div class="col input">
                     <div class="row row-center no-padding">
                         <i class="ion-ios-search"></i>
-                        <input id="referSearchId" type="search" ng-model="input.search" placeholder="请输入活动关键字">
+                        <input id="referSearchId" type="search" ng-model="input.search" placeholder="请输入参考关键字">
                         <i class="ion-ios-close" ng-if="input.search" ng-click="initSearch()"></i>
                     </div>
                 </div>
@@ -17,21 +17,22 @@
         </ion-header-bar>
     </div>
     <div class="addRelationsModal">
-        <ion-content class="content has-header">
+        <ion-content class="content has-header" scroll="false">
             <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'" ng-click="changeReferMoreflag()"></div>
             <div class="selectionsDown pushDown-animated refer-selectionsDown"
-                 ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}"
-                 >
+                 ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}">
                 <ion-list>
                     <ion-item ng-repeat="x in chancePopArr" ng-class="{'selected':selectPopText==x.text}" ng-click="selectPop(x)">{{x.text}}</ion-item>
                 </ion-list>
             </div>
-            <ion-list>
-                <ion-item class="selectItem" ng-repeat="x in referArr | filter:input.search" ng-click="selectModal(x)">
-                    <span ng-bind-html="x.text | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg" src="img/saleList/blank.png">
-                    <img ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">
-                </ion-item>
-            </ion-list>
+            <ion-scroll class="fill-parent">
+                <ion-list>
+                    <ion-item class="selectItem" ng-repeat="x in referArr | filter:input.search" ng-click="selectModal(x)">
+                        <span ng-bind-html="x.text | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg" src="img/saleList/blank.png">
+                        <img ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">
+                    </ion-item>
+                </ion-list>
+            </ion-scroll>
         </ion-content>
     </div>
 </ion-modal-view>

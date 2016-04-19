@@ -221,6 +221,19 @@ salesModule.factory('saleChanService', function () {
         text:'CATL销售2',
         code:'Z0000004'
     }];
+    var relationsTypesForAdd = [{
+        text:'竞争对手',
+        code:'00000023'
+    },{
+        text:'客户',
+        code:'00000021'
+    },{
+        text:'联系人',
+        code:'00000015'
+    },{
+        text:'CATL销售2',
+        code:'Z0000004'
+    }];
     var chanListArr=[],
         listPage=1,
         obj_id,
@@ -244,6 +257,7 @@ salesModule.factory('saleChanService', function () {
         saleUnits,
         listStatusArr,
         relationsTypes,
-        loadMoreFlag
+        loadMoreFlag,
+        relationsTypesForAdd
         }
 });
