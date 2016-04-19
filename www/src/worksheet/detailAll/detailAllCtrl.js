@@ -107,7 +107,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					requestChangeStatus("E0008", "已打回", "正在打回", "打回成功", "打回失败，请检查网络");
 				}
 			};
-			
+
 			$scope.showRequestModel = function(){
 				if($scope.cofnig.requestModal == null){
 					$scope.config.requestModal = $ionicModal.fromTemplate("<div class='show-request-modal-content worksheet-detail'>"+
@@ -190,7 +190,11 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 			$scope.canShowEditBtn = function(){
 				var type = $scope.config.typeStr;
+				var status = $scope.config.statusStr;
 				if(type == 'ZPRO' || type =='ZPLO' || type == 'ZNCO'){
+					if(status == "E0006" || status == "E0010" || status == "E0007"){ //已完工、已回访、已审核
+						return false;
+					}
 					return true;
 				}
 				return false;
@@ -385,7 +389,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	if(type == "newCar"){
             		$scope.config.detailTypeNewCar = true;
             		$scope.datas.header = $scope.datas.headerNewCar;
-            	}else if(type == "siteRepair" || type == "batchUpdate"){
+            	}else if(type == "siteRepair"){
             		$scope.config.detailTypeSiteRepair = true;
             		$scope.datas.header = $scope.datas.headerSiteRepair;
             	}else if(type == "batchUpdate"){

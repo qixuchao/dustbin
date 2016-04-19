@@ -22,6 +22,17 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter) {
 
+        //选择车辆返回的时候，获取车辆信息
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
+                if(worksheetDataService.backObject != null){
+                    $scope.datas.detail.ES_OUT_LIST.CAR_DESC = worksheetDataService.backObject.SHORT_TEXT;
+                    $scope.datas.detail.ES_OUT_LIST.CAR_NO = worksheetDataService.backObject.ZBAR_CODE;
+                    console.log($scope.datas.detail.ES_OUT_LIST);
+                }     
+            }
+        });
+        
         var pleaseChoose = '-- 请选择 --';
         var pleaseChooseId = null;
         var noneValue = '空';
@@ -43,8 +54,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             currentGuZhangMingCheng: null,   //{CODE: '', REASON: ''}
 
             isLoading_BujianReason: false,
-            isLoading_scenario: false,
             isLoading_response: false
+        };
+
+        $scope.goBack = function(){
+            Prompter.wsConfirm("提示","放弃本次编辑?", "取消","放弃");
         };
 
         $scope.saveEdited = function(){
@@ -379,7 +393,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             $scope.config.detailTypeSiteRepair =  $scope.config.typeStr == "siteRepair" ? true : false;
             $scope.config.detailTypeBatchUpdate =  $scope.config.typeStr == "batchUpdate" ? true : false;
 
-            $scope.datas.detail = worksheetDataService.wsDetailData;
+            $scope.datas.detail = angular.copy(worksheetDataService.wsDetailData);
             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
             //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
@@ -693,16 +707,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             $state.go("car");
         };
 
-        //选择车辆返回的时候，获取车辆信息
-        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-            if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
-                if(worksheetDataService.backObject != null){
-                    $scope.datas.detail.ES_OUT_LIST.CAR_DESC = worksheetDataService.backObject.SHORT_TEXT;
-                    $scope.datas.detail.ES_OUT_LIST.CAR_NO = worksheetDataService.backObject.ZBAR_CODE;
-                    console.log($scope.datas.detail.ES_OUT_LIST);
-                }     
-            }
-        });
+        
 
 }]);
 

@@ -385,7 +385,6 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
 
                 $scope.carInfo1=carInfo;
                 //console.log($scope.carInfo1.describe);
-
             });
         };
         Prompter.showLoading('正在加载');
@@ -393,7 +392,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         $scope.carDetailval = employeeService.get_employeeListvalue();
         //console.log($scope.cars.describe)
         $scope.projectName="CATL项目名称:";
-        
+
         $scope.goPage=function(data){
             CarService.setSpare(data);
             $state.go("spare");
