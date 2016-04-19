@@ -24,19 +24,19 @@ salesModule.factory('saleChanService', function () {
     }];
     var statusArr = [{
         value: '未处理',
-        code: '',
+        code: 'E0001',
         color:'#e24976'
     }, {
         value: '处理中',
-        code: '',
+        code: 'E0002',
         color:'#a0cb00'
     }, {
         value: '已完成',
-        code: '',
+        code: 'E0003',
         color:'#a0cb00'
     }, {
         value: '已取消',
-        code: '',
+        code: 'E0004',
         color:'#e24976'
     }];
     var stagesArr = [{

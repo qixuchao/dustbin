@@ -9,6 +9,7 @@ loginModule.factory('LoginService',function(){
     var author={};
     return{
         setUserName:function(data4){
+            window.localStorage.crmUserName = data4;
             data=data4;
             return data;
         },

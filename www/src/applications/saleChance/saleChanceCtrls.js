@@ -176,26 +176,24 @@ salesModule
                 }
             };
             $scope.filterSure = function () {
-                if (!$scope.$$phase) {
-                    $ionicScrollDelegate.scrollTop();
-                }
-                var arr = document.getElementsByClassName('flipInX');
-                for (var i = 0; i < arr.length; i++) {
-                    angular.element(arr[i]).removeClass('animated');
-                }
-                $scope.saleListArr = [];
-                pageNum = 1;
-                $scope.loadMoreFlag = true;
-                $scope.getList();
-                angular.element(document.querySelector('#saleActListSpinnerId')).addClass('active');
-                $scope.searchFlag = false;
+                //$ionicScrollDelegate.scrollTop();
+                //var arr = document.getElementsByClassName('flipInX');
+                //for (var i = 0; i < arr.length; i++) {
+                //    angular.element(arr[i]).removeClass('animated');
+                //}
+                //$scope.saleListArr = [];
+                //pageNum = 1;
+                //$scope.loadMoreFlag = true;
+                //$scope.getList();
+                //angular.element(document.querySelector('#saleActListSpinnerId')).addClass('active');
+                //$scope.searchFlag = false;
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
             };
             $scope.filterPrevent = function (e) {
                 e.stopPropagation();
             };
-            $scope.filterFlag = false
+            $scope.filterFlag = false;
             $scope.changeSearch = function () {
                 if ($scope.filterFlag) {
                     $scope.filterFlag = false;
@@ -258,15 +256,35 @@ salesModule
             }).then(function (popover) {
                 $scope.createPop = popover;
             });
+            $scope.salesGroup = [];
             $scope.openCreatePop = function () {
-                console.log($scope.createPopData);
                 $scope.creaeSpinnerFlag = true;
-                $timeout(function () {
-                    $scope.creaeSpinnerFlag = false;
-                    $scope.pop.type = $scope.createPopData.types[0];
-                    $scope.pop.org = $scope.createPopData.channels[0];
-                    $scope.createPop.show();
-                }, 1000);
+                var data = {
+                    "I_SYSTEM": {"SysName": "CATL"},
+                    "IS_USER": {"BNAME": window.localStorage.crmUserName}
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
+                    .success(function (response) {
+                        $scope.creaeSpinnerFlag = false;
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
+                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_TXT.split(' ')[1];
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                    $scope.salesGroup.push(response.ET_ORGMAN.item[i]);
+                                }
+                            }
+                            if ($scope.salesGroup.length > 1) {
+                                $scope.creaeSpinnerFlag = false;
+                                $scope.pop.saleOffice = $scope.salesGroup[0];
+                                $scope.createPop.show();
+                            } else {
+                                $scope.pop.saleOffice = $scope.salesGroup[0];
+                                $scope.showCreateModal();
+                            }
+                        } else {
+                            Prompter.showShortToastBotton('无法创建');
+                        }
+                    });
             };
             $scope.showCreateModal = function () {
                 console.log($scope.pop);
@@ -278,7 +296,6 @@ salesModule
                 for (var i = 0; i < tempArr.length; i++) {
                     tempArr[i].style.pointerEvents = 'auto';
                 }
-                ;
             };
             /*-------------------------------Pop 新建 end-------------------------------------*/
             /*-------------------------------Modal 新建-------------------------------------*/
@@ -309,7 +326,21 @@ salesModule
             }).then(function (modal) {
                 $scope.createModal = modal;
             });
+            var getProcessType = function () {
+                for (var i = 0; i < $scope.filters.types.length; i++) {
+                    if ($scope.pop.saleOffice.text.substring(0, 2) == $scope.filters.types[i].text.substring(0, 2)) {
+                        return $scope.filters.types[i].value;
+                    }
+                }
+            };
             $scope.saveCreateModal = function () {
+                if(!$scope.create.title){
+                    Prompter.alert('请填写描述');
+                    return
+                }else if(!$scope.create.customer){
+                    Prompter.alert('请选择客户');
+                    return
+                }
                 Prompter.showLoading('正在保存');
                 var data = {
                     "I_SYSNAME": {
@@ -317,54 +348,59 @@ salesModule
                     },
                     "IS_OPPORT_H": {
                         "DESCRIPTION": $scope.create.title,
-                        "PROCESS_TYPE": "ZO01",
+                        "PROCESS_TYPE": getProcessType(),
                         "STARTDATE": $scope.create.de_startTime,
                         "EXPECT_END": $scope.create.de_endTime,
                         "PHASE": $scope.create.stage.value,
                         "PROBABILITY": "",
                         "STATUS": "E0001",
                         "ZZXMBH": $scope.create.proNum,
-                        "EXP_REVENUE": "88888.00",
-                        "CURRENCY": "CNY",
-                        "ZZXSYXL": "88",
-                        "ZZYQXSLDW": "SET",
-                        "ZZMBCP": "123.000",
-                        "ZZFLD00002E": "SET"
+                        "EXP_REVENUE": "",
+                        "CURRENCY": "",
+                        "ZZXSYXL": "",
+                        "ZZYQXSLDW": "",
+                        "ZZMBCP": "",
+                        "ZZFLD00002E": ""
                     },
                     "IS_ORGMAN": {
-                        "SALES_ORG": "O 50000002",
-                        "DIS_CHANNEL": 0,
+                        "SALES_ORG": $scope.pop.saleOffice.SALES_ORG,
+                        "DIS_CHANNEL": "",
                         "DIVISION": "",
-                        "SALES_OFFICE": "AP1",
-                        "SALES_GROUP": "O 50000023",
-                        "SALES_ORG_RESP": "O 50000023"
+                        "SALES_OFFICE": $scope.pop.saleOffice.SALES_OFFICE,
+                        "SALES_GROUP": $scope.pop.saleOffice.SALES_GROUP,
+                        "SALES_ORG_RESP": $scope.pop.saleOffice.SALES_GROUP
                     },
                     "IS_USER": {
-                        "BNAME": "HANDBLH"
+                        "BNAME": window.localStorage.crmUserName
                     },
                     "IT_LINES": {
                         "item": {
                             "TDFORMAT": "*",
-                            "TDLINE": "我就是试一试"
+                            "TDLINE": $scope.create.annotation
                         }
                     },
                     "IT_PARTNER": {
-                        "item": {
-                            "PARTNER_NO": 2296,
-                            "PARTNER_FCT": 21,
+                        "item": [{
+                            "PARTNER_NO": $scope.create.customer.PARTNER,
+                            "PARTNER_FCT": "00000021",//客户
                             "NAME": "",
-                            "MAINPARTNER": "X",
+                            "MAINPARTNER": "",
                             "ZMODE": ""
-                        }
+                        }, {
+                            "PARTNER_NO": $scope.create.contact.PARTNER,
+                            "PARTNER_FCT": "00000015",//联系人
+                            "NAME": "",
+                            "MAINPARTNER": "",
+                            "ZMODE": ""
+                        }]
                     }
                 };
-                console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_CREAT', data)
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             $scope.createModal.hide();
                             Prompter.showShortToastBotton('创建成功');
-                            saleActService.obj_id = response.EV_OBJECT_ID;
+                            saleChanService.obj_id = response.ES_RESULT.ZRESULT;
                             $state.go('saleChanDetail');
                             Prompter.hideLoading();
                         } else {
@@ -562,6 +598,8 @@ salesModule
                   Prompter, HttpAppService, saleActService) {
             console.log('chanceDetail');
             ionicMaterialInk.displayEffect();
+            //修改相关方
+            var modifyRelationsArr = [];
             $scope.statusArr = saleChanService.listStatusArr;
             $scope.relationsTypes = saleChanService.relationsTypes;
             $scope.chanceDetails = {
@@ -572,7 +610,7 @@ salesModule
             };
             var getInitStatus = function () {
                 for (var i = 0; i < $scope.statusArr.length; i++) {
-                    if ($scope.statusArr[i].text == $scope.chanceDetails.STATUS) {
+                    if ($scope.statusArr[i].value == $scope.chanceDetails.STATUS) {
                         $scope.mySelect = {
                             status: $scope.statusArr[i]
                         };
@@ -590,7 +628,7 @@ salesModule
             };
             var getSaleStageIndex = function (data) {
                 for (var i = 0; i < $scope.saleStages.length; i++) {
-                    if ($scope.saleStages[i].text == data) {
+                    if ($scope.saleStages[i].value == data) {
                         return i;
                     }
                 }
@@ -612,9 +650,8 @@ salesModule
                             angular.forEach($scope.relationArr, function (x) {
                                 x.typeText = getRelationsType(x.PARTNER_FCT);
                             });
-                            $scope.chanceDetails.PHASE = {
-                                text: $scope.chanceDetails.PHASE
-                            }
+                            $scope.chanceDetails.PHASE = $scope.saleStages[getSaleStageIndex($scope.chanceDetails.PHASE)];
+                            getOldCustomer();
                             Prompter.hideLoading();
                             getInitStatus();
                         }
@@ -670,15 +707,7 @@ salesModule
                             }
                         },
                         "IT_PARTNER": {
-                            "item": {
-                                "MODE": "",
-                                "PARTNER_FCT": "",
-                                "PARTNER": "",
-                                "MAINPARTNER": "",
-                                "OLD_FCT": "",
-                                "OLD_PARTNER": "",
-                                "RELATION_PARTNER": ""
-                            }
+                            "item": modifyRelationsArr
                         }
                     };
                     console.log(data);
@@ -811,6 +840,12 @@ salesModule
                 $scope.popover.show($event);
             };
             $scope.savePop = function () {
+                if($scope.saleStages.indexOf($scope.pop.stage)>=3){
+                    if(!$scope.pop.proNum){
+                        Prompter.alert('请输入项目编号');
+                        return
+                    }
+                }
                 $scope.chanceDetails.PHASE = $scope.pop.stage;
                 //getInitStatus();
                 $scope.chanceDetails.PROBABILITY = $scope.pop.feel;
@@ -944,12 +979,53 @@ salesModule
                     document.getElementById('selectCustomerId').focus();
                 }, 1)
             };
+            var oldCustomer;
+            var getOldCustomer = function () {
+                angular.forEach($scope.relationArr, function (data) {
+                    if (data.PARTNER_FCT == "00000021") {
+                        oldCustomer = data;
+                    }
+                });
+            };
             $scope.selectCustomer = function (x) {
+                console.log(oldCustomer);
+                console.log(x);
                 $scope.create = {
                     customer: x
                 };
                 $scope.chanceDetails.PARTNER_TXT = x.NAME_ORG1;
                 $scope.chanceDetails.PARTNER = x.PARTNER;
+                //判断修改相关方数组中是否已经有修改客户的数据,如果有,删除重新push
+                for(var i=0;i<modifyRelationsArr.length;i++){
+                    if(modifyRelationsArr[i].PARTNER_FCT=='00000021'){
+                        modifyRelationsArr.splice(i,1);
+                        break
+                    }
+                }
+                if(oldCustomer){
+                    if(oldCustomer.NAME!=x.NAME_ORG1){
+                        modifyRelationsArr.push({
+                            "MODE": "U",
+                            "PARTNER_FCT": "00000021",
+                            "PARTNER": x.PARTNER,
+                            "MAINPARTNER": "",
+                            "OLD_FCT": oldCustomer.PARTNER_FCT,
+                            "OLD_PARTNER": oldCustomer.PARTNER_NO,
+                            "RELATION_PARTNER": ""
+                        });
+                    }
+                }else{
+                    modifyRelationsArr.push({
+                        "MODE": "I",
+                        "PARTNER_FCT": "00000021",
+                        "PARTNER": x.PARTNER,
+                        "MAINPARTNER": "",
+                        "OLD_FCT": "",
+                        "OLD_PARTNER": "",
+                        "RELATION_PARTNER": ""
+                    });
+                }
+
                 $scope.selectCustomerModal.hide();
             };
             $scope.$on('$destroy', function () {

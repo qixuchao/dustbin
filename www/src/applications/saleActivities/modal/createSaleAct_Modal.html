@@ -22,10 +22,10 @@
             </div>
             <div class="row row-center">
                 <div class="col col-35">紧急程度:</div>
-                <div class="col col-65 col-center"><select ng-model="create.urgent" required
+                <div class="col col-65 col-center"><select style="width: 100%" ng-model="create.urgent" required
                                                            ng-options="x as x.text for x in urgentDegreeArr">{{create.urgent.text}}</select>
-                    <i class="ion-ios-arrow-down" style="color:#AFAFB5"></i></div>
-                <!--<div class="col col-10 col-center"></div>-->
+                    <!--<i class="ion-ios-arrow-down" style="color:#AFAFB5"></i>-->
+                </div>
             </div>
             <div class="row row-center">
                 <div class="col col-35">客户:</div>
@@ -53,7 +53,7 @@
             </div>
             <div class="annotate">
                 <div class="text">注释:</div>
-                <textarea rows="6" ng-model="create.annotation"></textarea>
+                <textarea rows="6" ng-model="create.annotation" placeholder="请输入注释"></textarea>
             </div>
     </ion-content>
 </ion-modal-view>

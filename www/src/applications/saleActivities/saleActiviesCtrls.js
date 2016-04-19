@@ -23,14 +23,14 @@ salesModule
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
             }, 100);
-            //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
             $scope.input = {search: '', customer: ''};
-            //$scope.saleListArr = saleActService.getSaleListArr();
             $scope.isloading = true;
             var pageNum = saleActService.listPage;
+            //var pageNum = 1;
             $scope.loadMoreFlag = true;
             $scope.saleListArr = saleActService.saleListArr;
+            //$scope.saleListArr = [];
             $scope.urgentDegreeArr = saleActService.urgentDegreeArr;
             $scope.getList = function (type) {
                 if (!$scope.saleListArr.length) {
@@ -208,7 +208,7 @@ salesModule
                 $scope.contactsLoadMoreFlag = false;
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                    "IS_AUTHORITY": {"BNAME": "HANDLCX02"},
+                    "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                     "IS_PAGE": {
                         "CURRPAGE": contactPage++,
                         "ITEMS": "10"
@@ -315,14 +315,14 @@ salesModule
                         }]
                     }
                 };
-                console.log(data)
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_CREATE', data)
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             $scope.createModal.hide();
                             Prompter.showShortToastBotton('创建成功');
                             saleActService.actDetail = {
-                                OBJECT_ID: response.EV_OBJECT_ID
+                                OBJECT_ID: response.EV_OBJECT_ID,
+                                CUSTNAME:$scope.create.customer.NAME_ORG1
                             };
                             $state.go('saleActDetail');
                             Prompter.hideLoading();
@@ -443,13 +443,17 @@ salesModule
         'saleChanService',
         'Prompter',
         'HttpAppService',
+        'relationService',
         function ($scope, $rootScope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $cordovaDatePicker, $ionicActionSheet, saleActService, saleChanService, Prompter
-            , HttpAppService) {
+            , HttpAppService,relationService) {
             $scope.formTest = function () {
                 Prompter.alert('提交');
             };
+            $scope.details = {relations:[]};
+            //修改相关方
+            var modifyRelationsArr = [];
             //相关方类型值列表
             $scope.relationPositionArr = saleActService.relationPositionArr;
             ionicMaterialInk.displayEffect();
@@ -464,7 +468,7 @@ salesModule
             };
             var getStatusIndex = function (data) {
                 for (var i = 0; i < $scope.statusArr.length; i++) {
-                    if ($scope.statusArr[i].value == data) {
+                    if ($scope.statusArr[i].code == data) {
                         return i;
                     }
                 }
@@ -472,7 +476,7 @@ salesModule
             };
             var getUrgentIndex = function (data) {
                 for (var i = 0; i < $scope.urgentDegreeArr.length; i++) {
-                    if ($scope.urgentDegreeArr[i].text == data) {
+                    if ($scope.urgentDegreeArr[i].value == data) {
                         return i;
                     }
                 }
@@ -487,6 +491,17 @@ salesModule
                 }
                 return '';
             };
+            var getCustomerName = function () {
+                var temp;
+                for(var i=0;i<$scope.details.relations.length;i++){
+                    //获取相关方对应的职能
+                    $scope.details.relations[i].position = getRelationPosition($scope.details.relations[i].PARTNER_FCT);
+                    if($scope.details.relations[i].PARTNER_FCT=='00000009'){
+                        temp =  $scope.details.relations[i].NAME
+                    }
+                }
+                return temp;
+            };
             $scope.listInfo = saleActService.actDetail;
             var getDetails = function () {
                 Prompter.showLoading('正在查询');
@@ -495,7 +510,6 @@ salesModule
                     "IS_USER": {"BNAME": "HANDBLH"},
                     "I_OBJECT_ID": $scope.listInfo.OBJECT_ID
                 };
-                console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_DETAIL', data)
                     .success(function (response) {
                         console.log(response);
@@ -509,12 +523,8 @@ salesModule
                             $scope.details.urgent = $scope.urgentDegreeArr[getUrgentIndex($scope.details.ZZHDJJD)];
                             $scope.details.actType = getActType($scope.details.PROCESS_TYPE);
                             $scope.details.relations = response.ET_PARTNERS.item;
-                            angular.forEach($scope.details.relations, function (data) {
-                                data.position = getRelationPosition(data.PARTNER_FCT);
-                                if(!data.position){
-                                    $scope.details.relations.splice($scope.details.relations.indexOf(data),1);
-                                }
-                            });
+                            $scope.details.customerName = getCustomerName();
+                            console.log($scope.details.relations);
                             Prompter.hideLoading();
                         }
                     });
@@ -522,9 +532,7 @@ salesModule
             if (saleActService.actDetail) {
                 getDetails();
             }
-            //$scope.details = saleActService.actDetail;
             $scope.statusArr = saleChanService.getStatusArr();
-
             $scope.isEdit = false;
             $scope.editText = "编辑";
             $scope.goBack = function () {
@@ -741,12 +749,6 @@ salesModule
                 $scope.referMoreflag = true;
                 $scope.isDropShow = true;
             };
-            $scope.initSearch = function () {
-                $scope.input.search = '';
-                $timeout(function () {
-                    document.getElementById('referSearchId').focus();
-                }, 1)
-            };
             /*-------------------------------Modal end-------------------------------------*/
 
             $scope.openFollow = function () {
@@ -754,12 +756,60 @@ salesModule
             };
             //相关方
             $scope.openRelations = function () {
+                //获取相关方列表中的客户
+                angular.forEach($scope.details.relations, function (data) {
+                    if(data.PARTNER_FCT == "00000009"){
+                        relationService.relationCustomer = data;
+                    }
+                });
+                relationService.isReplace = false;
+                relationService.myRelations = $scope.details.relations;
                 $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {
                     scope: $scope,
                     animation: 'slide-in-up'
                 }).then(function (modal) {
                     $scope.addReleModal = modal;
                     modal.show();
+                });
+            };
+            var repTempIndex;
+            $scope.showActionSheet = function (x) {
+                if (!$scope.isEdit) {
+                    return
+                }
+                repTempIndex = $scope.details.relations.indexOf(x);
+                $ionicActionSheet.show({
+                    buttons: [
+                        {text: '删除'},
+                        {text: '替换'}
+                    ],
+                    titleText: '请选择操作',
+                    cancelText: '取消',
+                    buttonClicked: function (index) {
+                        console.log(index);
+                        switch (index) {
+                            case 0:
+                                console.log('删除');
+                                $scope.details.relations.splice(repTempIndex, 1);
+                                break;
+                            case 1:
+                                console.log('替换');
+                                relationService.isReplace = true;
+                                relationService.myRelations = $scope.details.relations;
+                                relationService.replaceMan = $scope.details.relations[repTempIndex];
+                                relationService.repTempIndex = repTempIndex;
+                                relationService.position = x.position;
+                                $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {
+                                    scope: $scope,
+                                    animation: 'slide-in-up'
+                                }).then(function (modal) {
+                                    $scope.addReleModal = modal;
+                                    modal.show();
+                                });
+                                break;
+                        }
+                        return true;
+                    }
                 });
             };
             //发表进展
