@@ -30,7 +30,7 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
         if($scope.carMile.MILEAGE_DATE === "" && $scope.carMile.MILEAGE_VALUE === "" && $scope.carMile.MILEAGE_DESC === ""){
             $scope.carEdit = true;
         }else{
-            $scope.carEdit = true;
+            $scope.carEdit = false;
         }
         $scope.downPage = function(){
             if($scope.config.nowPage >= $scope.config.num){
@@ -83,7 +83,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                 "IS_PROCESS_TYPE": worksheetDetail.IS_PROCESS_TYPE,
                 "IT_MILEAGE": {
                     "item": [
-                        {
+                        {   "GUID"  : $scope.carMile.GUID,
                             "MILEAGE_VALUE": $scope.update.readValue,
                             "MILEAGE_DATE": $scope.update.readDate,
                             "MILEAGE_DESC": $scope.update.readDescription
@@ -115,7 +115,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
             console.log(date);
             $cordovaDatePicker.show({
                 date: date,
-                mode: 'datetime',
+                mode: 'date',
                 titleText: title,
                 okText: '确定',
                 cancelText: '取消',

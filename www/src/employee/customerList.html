@@ -2,22 +2,21 @@
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
-                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-70 text-center">客户列表</div>
-                <div class="col col-15 add" ng-click="employeeselectCustomer()"><img src="img/employee/increase@2x.png"></div>
+                <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-60 text-center">客户列表</div>
+                <div class="col col-20 add" ng-click="employeeselectCustomer()" style="text-align: right"><img src="img/employee/increase@2x.png"></div>
             </div>
         </ion-header-bar>
-
-        <form ng-submit="employeecustomerQuery()">
-            <div class="pub-subhead bar bar-subheader">
-                <div class="employeequery_headquery">
-                    <i class="ion-ios-search employeequery_headqueryimg"></i>
-                    <input type="search" class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入客户公司名称"/>
-                </div>
-            </div>
-        </form>
+        <!--<form ng-submit="employeecustomerQuery()">-->
+            <!--<div class="pub-subhead bar bar-subheader">-->
+                <!--<div class="employeequery_headquery">-->
+                    <!--<i class="ion-ios-search employeequery_headqueryimg"></i>-->
+                    <!--<input type="search" class="employeequery_headqueryinput" ng-model="employeefiledvalue" ng-change="changev()" placeholder="请输入客户公司名称"/>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</form>-->
     </div>
-    <ion-content style="margin-top:44px">
+    <ion-content>
        <ion-list>
         <ion-item class="employee_customerlist" style="border-bottom: 1px solid #ddd;margin-top:1px" ng-repeat="x in employcustomerlist track by $index">
             <div class="row">

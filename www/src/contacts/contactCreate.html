@@ -65,10 +65,10 @@
                 <img id="contcreapostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('POST_CODE1')"/>
             </span>
             <span class="item item-input">出生日期：
-                <input type="date" placeholder="请输入生日" class="contact_editinputsty"  ng-model="contactcreat.BIRTHDT" ng-click="selectCreateTime1()" style="background-color:white">
+                <input type="date" placeholder="请输入生日" class="contact_editinputsty"  ng-model="contactcreat.BIRTHDT"  style="background-color:white">
             </span>
              <span class="item item-input">语言：
-                <select style="width: 40%;margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="config.currentLangu" ng-options="a.name as a.name for a in contactlistvaluesel">
+                <select style="width: 40%;margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="config.currentLanguage" ng-options="a.name as a.name for a in contactlistvaluesel">
                     <option value="">语言</option>
                 </select>
             </span>

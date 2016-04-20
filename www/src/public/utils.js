@@ -136,6 +136,7 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
                     }
                 }
                 var options = getOptions(date, mode, title);
+                console.log("utils.js:   "+options);
                 document.addEventListener("deviceready", function () {
                     $cordovaDatePicker.show(options).then(function (returnDate) {
                         var time = getFormatTime(returnDate);

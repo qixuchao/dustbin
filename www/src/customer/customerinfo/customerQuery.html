@@ -11,19 +11,19 @@
         <div class="pub-subhead bar bar-subheader">
             <div class="employeequery_headquery">
                 <i class="ion-ios-search employeequery_headqueryimg"></i>
-                <input id="customerinputvalueid" class="employeequery_headqueryinput" type="text" ng-model="customer.customerfiledvalue" ng-change="customerLoadmore()" placeholder="请输入客户关键字">
+                <input id="customerinputvalueid" class="employeequery_headqueryinput" type="text" ng-model="customer.customerfiledvalue" ng-change="customerLoadmore()" ng-click="initSearch()" placeholder="请输入客户关键字">
                 <i id="customerqueryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="customeriputDeletevalue()"></i>
             </div>
         </div>
-        <div ng-if="customer_queryflag" class="employee_detail_countentbasic androidcustomertop iostop">
+        <div ng-if="!customer_queryflag || customerQuery_list.length>0 || customer.customerfiledvalue.length>0" class="employee_detail_countentbasic androidcustomertop iostop">
             <div class="employee_detail_countentbasicinfo">{{customerqueryTypeunit}}</div>
             <div class="employee_detail_countentbasicline" ng-class="employbasiclineflag?'employee_detail_countentbasiclinea':'employee_detail_countentbasiclineb'"></div>
             <div class="employee_detail_countentbasicclok" ng-class="employbasiclineflag?'employee_detail_countentbasiclocka':'employee_detail_countentbasiclockb'"></div>
         </div>
     </div>
-    <ion-content ng-class="customer_queryflag?'customercontenttopt':'customercontenttopf'">
+    <ion-content ng-show="!customer_queryflag" class="customercontenttopt">
         <!--显示常用联系人-->
-        <div ng-if="!customer_queryflag" ng-repeat="x in usuallycustomerQuery_list" ng-click="customergodeatil(x)">
+        <div ng-repeat="x in usuallycustomerQuery_list" ng-click="customergodeatil(x)">
             <div class="row row-center rowType1 item customer_Querylists">
                 <div class="col col-8 col-center">
                     <img ng-src="img/employee/Oval-G@2x.png" class="customer_point">
@@ -38,7 +38,9 @@
             <div class="employee_query_listline"></div>
         </div>
         <!--搜索历史-->
-        <div ng-if="!customer_queryflag" class="employee_query_historys">
+    </ion-content>
+    <ion-content ng-show="customer_queryflag" ng-class="(!customerQuery_list.length>0 && !customer.customerfiledvalue.length>0)?'customercontenttopf':'customercontenttopt'">
+        <div ng-if="!customerQuery_list.length>0 && !customer.customerfiledvalue.length>0" class="employee_query_historys">
             <div class="employee_query_historysspan">
                 搜索历史
             </div>
@@ -49,7 +51,7 @@
                 清楚历史记录
             </div>
         </div>
-        <div ng-if="customer_queryflag" ng-repeat="x in customerQuery_list" ng-click="customergodeatil(x)"  ng-class="{true:'fadeInLeftBig animated',false:'fadeInRightBig animated'}[$index%2 == 0]">
+        <div ng-repeat="x in customerQuery_list" ng-click="customergodeatil(x)"  ng-class="{true:'fadeInLeftBig animated',false:'fadeInRightBig animated'}[$index%2 == 0]">
             <div class="row row-center rowType1 item customer_Querylists">
                 <div class="col col-8 col-center">
                     <img ng-src="img/employee/Oval-G@2x.png" class="customer_point">

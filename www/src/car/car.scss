@@ -91,6 +91,9 @@
       }
     }
   }
+  .has-header {
+    top: 88px;
+  }
     .row + .row .row {
       padding-top: 0;
       height: 4em;
@@ -141,9 +144,7 @@
       top: 1em;
       border-bottom: 1px solid rgba(43, 43, 43, 0.17);
     }
-  //ion-infinite-scroll {
-  //  height: 90%;
-  //}
+
     .rowType {
       position: relative;
       left: 4%;

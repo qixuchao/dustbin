@@ -1,64 +1,64 @@
 
 <ion-view  id="worksheet_spareSelect"  align-title="center">
-    <div class="saleList">
-        <ion-header-bar align-title="center" class="head pub-head">
-            <div class="row row-center">
-                <a class="col col-15 text-left goBack" ng-click="goDetail()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-60 text-center">备件申请列表
-                </div>
-                <div class="col col-25 text-right" ui-sref="worksheetSparepart">重新选择</div>
-            </div>
-        </ion-header-bar>
-        <div class="pub-subhead bar bar-subheader">
-            <!--<div class="row row-center" style="width: 70%" ng-click="changeSearch()">-->
-                <!--<i class="ion-ios-search"></i>请输入备件描述-->
-            <!--</div>-->
-            <div class="textInfo text-right row-center" style="width: 70%" ng-click=""></div>
-            <div class="textInfo text-right row-center" style="width: 30%" ng-click="goUpdateSAP()">传输至SAP</div>
-        </div>
-
-    </div>
-    <!--<div class="row row-center backHead" style="">-->
-        <!--<div class="col col-15 text-left goBack" ng-click="goDetail()"><i class="ion-chevron-left"></i></div>-->
-        <!--<div class="col col-70 text-center">备件申请列表</div>-->
-        <!--<div class="col col-15 text-right">-->
+    <!--<div class="saleList">-->
+        <!--<ion-header-bar align-title="center" class="head pub-head">-->
             <!--<div class="row row-center">-->
-                <!--重新选择-->
+                <!--<a class="col col-15 text-left goBack" ng-click="goDetail()"><i class="ion-chevron-left"></i></a>-->
+                <!--<div class="col col-55 text-center">备件申请列表-->
+                <!--</div>-->
+                <!--<div class="col col-30 text-right" ui-sref="worksheetSparepart">重新选择</div>-->
             <!--</div>-->
-            <!--<div class="row row-center">-->
-                <!--传输至SAP-->
-            <!--</div>-->
+        <!--</ion-header-bar>-->
+        <!--<div class="pub-subhead bar bar-subheader">-->
+            <!--&lt;!&ndash;<div class="row row-center" style="width: 70%" ng-click="changeSearch()">&ndash;&gt;-->
+                <!--&lt;!&ndash;<i class="ion-ios-search"></i>请输入备件描述&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--<div class="textInfo text-right row-center" style="width: 70%" ng-click=""></div>-->
+            <!--<div class="textInfo text-right row-center" style="width: 30%" ng-click="goUpdateSAP()">传输至SAP</div>-->
         <!--</div>-->
+
     <!--</div>-->
-    <ion-content class="" overflow-scroll="true" scroll="false" has-bouncing="false" style="margin-top: 46px" id="content">
+    <div class="row row-center  paddingIOS" style="background-color: #2B60AB;height: 85px;padding:0px 15px 0px 15px">
+        <div class="col col-15 text-left " ng-click="goDetail()"><i class="ion-chevron-left goBack"></i></div>
+        <div class="col col-55 text-center fontHeadcol ">备件申请列表</div>
+        <div class="col col-30 ">
+            <div class="row row-center" ng-click="goUpdateSelect()" style="text-align: center;">
+                <div class="col text-right fontHeadcol" >&nbsp;&nbsp;&nbsp;重新选择</div>
+            </div>
+            <div class="row row-center" ng-click="goUpdateSAP()">
+                <div class="col text-right fontHeadcol">传输至SAP</div>
+            </div>
+        </div>
+    </div>
+    <ion-content class="" overflow-scroll="true" scroll="false" has-bouncing="false" style="margin-top: 85px" id="content">
 
         <div class="list" style="background-color: white" >
             <div class="item itemAdd" ng-repeat="items in spareDetail" >
-                <div class="row" ng-click="showDetail(items)" >
+                <div class="row" ng-click="showDetail(items)" style="padding-right: 15px">
                     <div class="col-95" ><h2 style="color: #276DAC">{{items.STORAGE_DESC}}</h2></div>
                     <div class="col-5"><i ng-class="{true:'ion-chevron-up',false:'ion-chevron-down'}[items.flag]" style="color: #3259A4"></i></div>
                 </div>
-                <div align="center"><hr color="#276DAC" class="line" size="2" ></div>
+                <div align="center" style="padding-right: 15px"><hr color="#276DAC" class="line" size="2" ></div>
                 <ion-scroll scrollbar-y="true" scroll="true" style="{{items.scrollStyle}}">
                     <div class="list" style="background-color: white" >
                         <!--<div class="item itemAdd"  >-->
                             <div class="item itemDetail" style=""  ng-repeat="item in items.detail" ng-hide="items.flag">
                                 <div class="row">
-                                    <div class="col-75">
+                                    <div class="col-85">
                                         <div class="row">
                                             <div class="col-13 col-center">
                                                 <div  class="pic"style=""></div>
                                             </div>
                                             <div class="col-80 col-center">
-                                                <h2 style="">{{item.PROD_DESC}}</h2>
+                                                <h2 style="font-size: 14px">{{item.PROD_DESC}}</h2>
                                             </div>
                                         </div>
-                                        <p>
+                                        <p style="font-size: 10px">
                                             备件编码：{{item.PROD}}
                                         </p>
                                     </div>
-                                    <div class="col-25 col-center">
-                                        <img ng-src="img/worksheet/transfer@3x.png" style="height: 50px;width: 50px;float :right;margin-right: 15px" ng-show="item.showPic">
+                                    <div class="col-15 col-center">
+                                        <img ng-src="img/worksheet/transfer@3x.png" style="height: 35px;width: 35px;float :right;margin-right: 15px" ng-show="item.showPic">
                                     </div>
                                 </div>
                                 <div class="row" style="padding: 0">

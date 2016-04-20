@@ -56,7 +56,7 @@ loginModule
                 })
             }
         });
-        var userName = "HANDLCX02";
+        //var userName = "HANDLCX02";
         var userPassword = $scope.loginData.password;
        $scope.login = function(){
            //http://117.28.248.23:9388/test/api/bty/login
@@ -70,7 +70,7 @@ loginModule
            HttpAppService.post(url,data).success(function(response){
                //alert("请求成功："+JSON.stringify(response));
                if (response.ES_RESULT.ZFLAG == 'E') {
-                   Prompter.showPopupAlert("登录失败","用户名或密码错误");
+                   //Prompter.showPopupAlert("登录失败","用户名或密码错误");
                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                    $scope.$broadcast('scroll.infiniteScrollComplete');
                } else if (response.ES_RESULT.ZFLAG == 'S') {
@@ -93,7 +93,7 @@ loginModule
            //    $scope.show()
            //};
            //$state.go('tabs')
-       }
+       };
 
         $scope.show = function() {
             $ionicLoading.show({
