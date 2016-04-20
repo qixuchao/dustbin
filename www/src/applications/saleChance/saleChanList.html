@@ -2,7 +2,7 @@
     <div ng-if="!searchFlag">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
-                <a class="col col-20 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
 
                 <div class="col col-60 text-center">{{saleTitleText}}</div>
                 <div class="col col-20 add button-clear button preVentScrollTop" ng-click="openCreatePop()">
@@ -60,7 +60,7 @@
                              ng-show="loadMoreFlag&&!searchFlag"></ion-infinite-scroll>
     </ion-content>
     <ion-content ng-cloak class="has-header search" ng-show="searchFlag"
-                 ng-click="changeSearch($event)">
+                 ng-click="changeSearch($event)" scroll="false">
         <div ng-class="filterFlag?'own-backDrop-on':'own-backDrop-off'"
              ng-click="changeFilterFlag($event)"></div>
         <div id="saleActListFilterId" class="listFilter selectionsDown pushDown-animated refer-selectionsDown"
@@ -89,38 +89,40 @@
                 <div class="sure" ng-click="filterSure()">确定</div>
             </div>
         </div>
-        <div class="row row-center his-title" ng-if="!input.list">
-            <i class="ion-android-time"></i>
+        <ion-scroll class="fill-parent">
+            <div class="row row-center his-title" ng-if="!input.list">
+                <i class="ion-android-time"></i>
 
-            <div class="hisText">历史记录</div>
-            <div class="horizon-line"></div>
-        </div>
-        <ion-list ng-if="!input.list">
-            <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x}}</ion-item>
-        </ion-list>
-        <div class="content">
-            <div class="list" ng-if="input.list">
-                <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr">
-                    <div class="row row-center">
-                        <img class="title_oval" src="img/saleDetail/title_oval.png">
-
-                        <div class="title" ng-bind-html="x.DESCRIPTION | highlight:input.list"></div>
-                    </div>
-                    <div class="row row-center sub-title">
-                        <div class="col no-padding">潜在客户:&nbsp;&nbsp;<span
-                                ng-bind-html="x.PARTNER_TXT | highlight:input.list"></span></div>
-                    </div>
-                    <div class="row row-center sub-title" style="padding-top: 2px">
-                        <div class="no-padding">销售阶段:&nbsp;&nbsp;<span
-                                ng-bind-html="x.PHASE | highlight:input.list"></span></div>
-                        <div class="col chanStatus">状态:&nbsp;&nbsp;<span style="color:{{x.status.color}}"
-                                                                         ng-bind-html="x.status.text | highlight:input.list"></span>
-                        </div>
-                    </div>
-                </a>
+                <div class="hisText">历史记录</div>
+                <div class="horizon-line"></div>
             </div>
-        </div>
-        <ion-infinite-scroll id="saleActListSearchPageId" on-infinite="getList('searchPage')" distance="1%"
-                             ng-show="loadMoreFlag&&input.list"></ion-infinite-scroll>
+            <ion-list ng-if="!input.list">
+                <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x}}</ion-item>
+            </ion-list>
+            <div class="content">
+                <div class="list" ng-if="input.list">
+                    <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr">
+                        <div class="row row-center">
+                            <img class="title_oval" src="img/saleDetail/title_oval.png">
+
+                            <div class="title" ng-bind-html="x.DESCRIPTION | highlight:input.list"></div>
+                        </div>
+                        <div class="row row-center sub-title">
+                            <div class="col no-padding">潜在客户:&nbsp;&nbsp;<span
+                                    ng-bind-html="x.PARTNER_TXT | highlight:input.list"></span></div>
+                        </div>
+                        <div class="row row-center sub-title" style="padding-top: 2px">
+                            <div class="no-padding">销售阶段:&nbsp;&nbsp;<span
+                                    ng-bind-html="x.PHASE | highlight:input.list"></span></div>
+                            <div class="col chanStatus">状态:&nbsp;&nbsp;<span style="color:{{x.status.color}}"
+                                                                             ng-bind-html="x.status.text | highlight:input.list"></span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <ion-infinite-scroll id="saleActListSearchPageId" on-infinite="getList('searchPage')" distance="1%"
+                                 ng-show="loadMoreFlag&&input.list"></ion-infinite-scroll>
+        </ion-scroll>
     </ion-content>
 </ion-view>

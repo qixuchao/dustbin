@@ -1035,8 +1035,8 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
                                     spare.spareNum = value.PRODUCT_ID;
                                     spare.count = value.AMOUNT;
                                     spare.qualityTime =value.Z_SHORT_TEXT;
-                                    spare.qualityDate =(value.START_DATE!=='0'&& value.END_DATE!=='0')? Date1(value.START_DATE) + "-" + Date1(value.END_DATE):"";
-
+                                    spare.qualityDate =(value.START_DATE[0]!=="0"||value.END_DATE[0]!=="0")? (Date1(value.START_DATE) + "-" + Date1(value.END_DATE)):"";
+                                    console.log(value.START_DATE[0]);
                                 $scope.spareList.push(spare);
 
                             });
@@ -1105,7 +1105,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
                                 spare.spareNum = value.PRODUCT_ID;
                                 spare.count = value.AMOUNT;
                                 spare.qualityTime =value.Z_SHORT_TEXT;
-                                spare.qualityDate =(value.START_DATE!=='0'&& value.END_DATE!=='0')? Date1(value.START_DATE) + "-" + Date1(value.END_DATE):"";
+                                spare.qualityDate =(value.START_DATE[1]!=='0'|| value.END_DATE[1]!=='0')? Date1(value.START_DATE) + "-" + Date1(value.END_DATE):"";
                                      if($scope.spareDesc===''){
                                          $scope.spareList1=new Array;
                                      }else{

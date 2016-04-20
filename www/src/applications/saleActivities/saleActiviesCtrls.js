@@ -80,14 +80,12 @@ salesModule
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $ionicScrollDelegate.resize();
                             saleActService.saleListArr = $scope.saleListArr;
+                        }else{
                         }
                     }).finally(function () {
                     // 停止广播ion-refresher
                     $scope.$broadcast('scroll.refreshComplete');
                 });
-            };
-            $scope.searchList = function () {
-
             };
             //getList();
             $scope.hisArr = [
@@ -764,6 +762,7 @@ salesModule
                 });
                 relationService.isReplace = false;
                 relationService.myRelations = $scope.details.relations;
+                relationService.saleActSelections = angular.copy(saleActService.relationPositionForAdd);
                 $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {
                     scope: $scope,
                     animation: 'slide-in-up'
@@ -795,6 +794,7 @@ salesModule
                             case 1:
                                 console.log('替换');
                                 relationService.isReplace = true;
+                                relationService.saleActSelections = angular.copy(saleActService.relationPositionForAdd);
                                 relationService.myRelations = $scope.details.relations;
                                 relationService.replaceMan = $scope.details.relations[repTempIndex];
                                 relationService.repTempIndex = repTempIndex;

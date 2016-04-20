@@ -3,16 +3,20 @@
  */
 'use strict';
 ContactsModule
-    .controller('contactQueryCtrl',['$scope','$rootScope','$state','$http','HttpAppService','$timeout','$ionicPopover','$ionicActionSheet','$window','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,HttpAppService,$timeout,$ionicPopover,$ionicActionSheet,$window,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
+    .controller('contactQueryCtrl',['Prompter','$scope','$rootScope','$state','$http','HttpAppService','$timeout','$ionicPopover','$ionicActionSheet','$window','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',
+        function(Prompter,$scope,$rootScope,$state,$http,HttpAppService,$timeout,$ionicPopover,$ionicActionSheet,$window,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
+        $scope.searchFlag=false;
+        $scope.config={
+            contactfiledvalue:""
+        };
         //历史记录显示
         $scope.ContactListHistoryval = function(){
-            $scope.contacts_userqueryflag = false;
+            //$scope.contacts_userqueryflag = false;
             if(storedb('contactdb').find() != undefined || storedb('contactdb').find() != null) {
                 $scope.contact_query_historylists = (storedb('contactdb').find());
                 if ($scope.contact_query_historylists.length > 5) {
                     $scope.contact_query_historylists = $scope.contact_query_historylists.slice(0, 5);
-                }
-                ;
+                };
             }
             //常用联系人显示
             if (JSON.parse(localStorage.getItem("usuacontactdb")) != null || JSON.parse(localStorage.getItem("usuacontactdb")) != undefined) {
@@ -30,16 +34,15 @@ ContactsModule
             //数据初始化
 
             //删除请求
-            $scope.contact_query_list = [];
-            $scope.contact_query_list = new Array;
-            $scope.conitemImPage = 0;
-            $scope.contacts_userqueryflag = false;
-            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
-            $scope.contactisshow = false;
-            $scope.contact.contactfiledvalue ='';
-            $scope.ContactListHistoryval();
+            //$scope.contact_query_list = [];
+            //$scope.contact_query_list = new Array;
+            //$scope.conitemImPage = 0;
+            //$scope.contacts_userqueryflag = false;
+            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST');
+            //$scope.contactisshow = false;
+            //$scope.contactfiledvalue ='';
+            //$scope.ContactListHistoryval();
         });
-
 
 
         $ionicPopover.fromTemplateUrl('src/contacts/model/contact_selec.html', {
@@ -78,30 +81,33 @@ ContactsModule
         $scope.conitemImPage = 0;
         $scope.contactLoadmore = function() {
             //$scope.contactisshow = true;
-            $scope.conitemImPage = $scope.conitemImPage + 1;
+            $scope.conitemImPage += 1;
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST';
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": "" },
+                "IS_AUTHORITY": { "BNAME":"" },
                 "IS_PAGE": {
                     "CURRPAGE": $scope.conitemImPage,
                     "ITEMS": "10"
                 },
                 "IS_PARTNER": { "PARTNER": "" },
-                "IS_SEARCH": { "SEARCH": $scope.contact.contactfiledvalue}
+                "IS_SEARCH": { "SEARCH": $scope.config.contactfiledvalue}
             }
-            console.log("data"+angular.toJson(data));
-            console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
-            console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
+            //console.log("data"+angular.toJson(data));
+            //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
+            //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
             HttpAppService.post(url, data).success(function (response) {
-                console.log(angular.toJson(response.ET_EMPLOYEE));
+                console.log($scope.config.contactfiledvalue);
+                //console.log(angular.toJson(response.ET_EMPLOYEE));
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.contactisshow = false;
+                    Prompter.hideLoading();
                     //$cordovaToast.showShortCenter(response.ES_RESULT.ZRESULT);
                     $cordovaToast.showShortCenter("没有符合搜索条件的数据")
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 } else {
                     if (response.ES_RESULT.ZFLAG == 'S') {
+                        Prompter.hideLoading();
                         if(response.ET_OUT_LIST != ''){
                             if (response.ET_OUT_LIST.item.length == 0) {
                                 $scope.contactisshow = false;
@@ -113,7 +119,11 @@ ContactsModule
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                             } else {
                                 $.each(response.ET_OUT_LIST.item, function (n, value) {
-                                    $scope.contact_query_list.push(value);
+                                    if($scope.config.contactfiledvalue===""){
+                                        $scope.contact_query_list=new Array;
+                                    }else{
+                                        $scope.contact_query_list.push(value);
+                                    }
                                 });
                             }
                             if (response.ET_OUT_LIST.item.length < 10) {
@@ -132,60 +142,96 @@ ContactsModule
                 $cordovaToast.showShortBottom('请检查你的网络设备');
                 $scope.contactisshow = false;
             });
-        }
+        };
+
         $scope.initLoad=function(){
+            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST');
             $scope.conitemImPage = 0;
             $scope.contact_query_list=new Array;
+            Prompter.showLoading("正在加载");
             $scope.contactLoadmore();
-        }
+        };
+            $scope.search = function (x, e){
+                Prompter.showLoading('正在搜索');
+                $scope.searchFlag=true;
+                $scope.config.contactfiledvalue = x;
+                $scope.initLoad();
+            };
+            $scope.cancelSearch=function(){
+                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+                $scope.searchFlag=false;
+                $scope.config.contactfiledvalue = '';
+                $scope.contact_query_list=new Array;
+                $scope.ContactListHistoryval();
+                //$scope.conitemImPage=0;
+            };
+            //显示搜索页面
+            $scope.changePage=function(){
+                $scope.searchFlag=true;
+            };
+            $rootScope.$on('contactBack',function(event, data) {
+                console.log("接收成功" + data);
+                $scope.searchFlag = data;
+                $scope.config.contactfiledvalue = "";
+                $scope.cancelSearch();
+            });
+            //清除输入框内的内容
+            $scope.initSearch = function () {
+                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+                $scope.config.contactfiledvalue = '';
+                $scope.conitemImPage=0;
+                $scope.contact_query_list=new Array;
+                Prompter.showLoading("正在加载")
+                $scope.contactLoadmore();
+            };
         //实时搜索
         //实时搜索变量初始化一次flag
-        $scope.contactinitflag = true;
-        $scope.contact ={contactfiledvalue :''};
-        var contatctimer;
-        setTimeout(function(){
-            document.getElementById('contactqueryinput').style.display = "none";
-            document.getElementById('contactinputvalueid').addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
-                //if(!$scope.$$phase) {
-                //    $scope.$apply();
-                //};
-                $scope.contactisshow = false;
-                clearTimeout(contatctimer);
-                contatctimer = setTimeout(function() {
-                    if (document.getElementById('contactinputvalueid').value.length > 0) {
-                        document.getElementById('contactqueryinput').style.display = "inline-block";
-                        $scope.$apply(function(){
-                            $scope.contactisshow = false;
-                            //删除请求
-                            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
-                            $scope.contact_query_list = [];
-                            $scope.contact_query_list = new Array;
-                            $scope.conitemImPage = 0;
-                        });
-                        $scope.contacts_userqueryflag = true;
-                        $ionicScrollDelegate.resize();
-                        $scope.contactisshow = true;
-                        if(!$scope.$$phase) {
-                            $scope.$apply();
-                        };
-                    } else {
-                        //删除请求
-                        $scope.contact_query_list = [];
-                        $scope.contact_query_list = new Array;
-                        $scope.conitemImPage = 0;
-                        $scope.contacts_userqueryflag = false;
-                        $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
-                        $scope.contactisshow = false;
-                        if(!$scope.$$phase) {
-                            $scope.$apply();
-                        };
-                        $ionicScrollDelegate.resize();
-                        document.getElementById('contactqueryinput').style.display = "none";
-                    }
-                }, 500);
-
-            });
-        },50);
+        //$scope.contactinitflag = true;
+        //$scope.contact ={contactfiledvalue :''};
+        //var contatctimer;
+        //setTimeout(function(){
+        //    document.getElementById('contactqueryinput').style.display = "none";
+        //    document.getElementById('contactinputvalueid').addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
+        //        //if(!$scope.$$phase) {
+        //        //    $scope.$apply();
+        //        //};
+        //        $scope.contactisshow = false;
+        //        clearTimeout(contatctimer);
+        //        contatctimer = setTimeout(function() {
+        //            if (document.getElementById('contactinputvalueid').value.length > 0) {
+        //                document.getElementById('contactqueryinput').style.display = "inline-block";
+        //                $scope.$apply(function(){
+        //                    $scope.contactisshow = false;
+        //                    //删除请求
+        //                    $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+        //                    $scope.contact_query_list = [];
+        //                    $scope.contact_query_list = new Array;
+        //                    $scope.conitemImPage = 0;
+        //                });
+        //                $scope.contacts_userqueryflag = true;
+        //                $ionicScrollDelegate.resize();
+        //                $scope.contactisshow = true;
+        //                if(!$scope.$$phase) {
+        //                    $scope.$apply();
+        //                };
+        //            } else {
+        //                //删除请求
+        //                $scope.contact_query_list = [];
+        //                $scope.contact_query_list = new Array;
+        //                $scope.conitemImPage = 0;
+        //                $scope.contacts_userqueryflag = false;
+        //                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+        //                $scope.contactisshow = false;
+        //                if(!$scope.$$phase) {
+        //                    $scope.$apply();
+        //                };
+        //                $ionicScrollDelegate.resize();
+        //                document.getElementById('contactqueryinput').style.display = "none";
+        //            }
+        //        }, 500);
+        //
+        //    });
+        //},50);
         $scope.contactiputDeletevalue = function(){
             //删除请求
             $scope.contact_query_list = [];
@@ -194,7 +240,7 @@ ContactsModule
             $scope.contacts_userqueryflag = false;
             $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
             $scope.contactisshow = false;
-            $scope.contact.contactfiledvalue ='';
+            $scope.config.contactfiledvalue ='';
         };
 
         //清除历史记录
@@ -204,7 +250,7 @@ ContactsModule
         };
         //点击历史记录开始请求
         $scope.ContactHisGetvalue = function(value){
-            $scope.contact.contactfiledvalue = value.name;
+            $scope.config.contactfiledvalue = value.name;
             $scope.contact_query_list = [];
             $scope.contact_query_list = new Array;
             $scope.conitemImPage = 0;
@@ -226,14 +272,14 @@ ContactsModule
             $scope.contactisshow = false;
             //存储历史记录
             $scope.usuallycontactlist = x;
-            if($scope.contact.contactfiledvalue != ''){
+            if($scope.config.contactfiledvalue != ''){
                 if(storedb('contactdb').find() != undefined || storedb('contactdb').find() != null){
                     var conatcthislistvalue = storedb('contactdb').find();
                     var contacthislistvaluelength = storedb('contactdb').find().length;
                     //判断是否有相同的值
                     var contacthislistflag = true;
                     for(var i=0;i<contacthislistvaluelength;i++){
-                        if(conatcthislistvalue[i].name ==  $scope.contact.contactfiledvalue){
+                        if(conatcthislistvalue[i].name ==  $scope.config.contactfiledvalue){
                             //删除原有的，重新插入
                             storedb('contactdb').remove({"name":conatcthislistvalue[i].name}, function (err) {
                                 if (!err) {
@@ -241,7 +287,7 @@ ContactsModule
                                 }
                             })
                             //storedb('customerdb').find().splice(i,1);
-                            storedb('contactdb').insert({"name": $scope.contact.contactfiledvalue}, function (err) {
+                            storedb('contactdb').insert({"name": $scope.config.contactfiledvalue}, function (err) {
                                 if (!err) {
                                 } else {
                                     $cordovaToast.showShortBottom('历史记录保存失败');
@@ -251,7 +297,7 @@ ContactsModule
                         }
                     };
                     if(contacthislistflag == true){
-                        storedb('contactdb').insert({"name": $scope.contact.contactfiledvalue}, function (err) {
+                        storedb('contactdb').insert({"name": $scope.config.contactfiledvalue}, function (err) {
                             if (!err) {
                                 //console.log('历史记录保存成功')
                             } else {
@@ -260,7 +306,7 @@ ContactsModule
                         });
                     }
                 }else{
-                    storedb('contactdb').insert({"name": $scope.contact.contactfiledvalue}, function (err) {
+                    storedb('contactdb').insert({"name": $scope.config.contactfiledvalue}, function (err) {
                         if (!err) {
                             //console.log('历史记录保存成功')
                         } else {
@@ -297,8 +343,8 @@ ContactsModule
             }
 
 
-
-            contactService.set_ContactsListvalue(x);
+            var x1= x.PARTNER;
+            contactService.set_ContactsListvalue(x1);
             $state.go('ContactDetail');
         };
         //广播添加联系人
@@ -341,8 +387,18 @@ ContactsModule
         ////返回回退
         $scope.peopleCode="";
         $scope.ContactgoBack = function() {
-            $rootScope.$broadcast('contactdeatillist');
+            $rootScope.$broadcast('contactBack','false');
+            $rootScope.$on('contactCreatevalue');
             $ionicHistory.goBack();
+            //$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            //    if(fromState && toState && fromState.name == 'ContactCreate'){
+            //       $ionicHistory.back();
+            //    }else{
+            //        $ionicHistory.goBack();
+            //    }
+            //});
+          //$state.go('ContactQuery');
+          //  });
         };
         var numDo=function(num){
             for(var i=0;i<num.length;i++){
@@ -358,18 +414,21 @@ ContactsModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
             var data = {
                 "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                "IS_AUTHORITY": {"BNAME": "60000051"},
-                "IS_PARTNER": {"PARTNER": contactService.get_ContactsListvalue().PARTNER}
+                "IS_AUTHORITY": {"BNAME": LoginService.getUserName()},
+                "IS_PARTNER": {"PARTNER": contactService.get_ContactsListvalue()}
                 //"IS_PARTNER": { "PARTNER":'6000000385'}
             };
+            console.log(contactService.get_ContactsListvalue());
             HttpAppService.post(url, data).success(function (response) {
                 Prompter.hideLoading();
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 } else {
                     if (response.ET_OUT_CONTACT != '') {
+
                         $scope.contactdetails = response.ET_OUT_CONTACT.item[0];
-                        console.log($scope.contactdetails.PARTNER);
+                        //$scope.contactdetails=contactService.getObject();
+                        //console.log($scope.contactdetails.PARTNER);
                         $scope.contactdetails.PARTNER = numDo($scope.contactdetails.PARTNER)
                     }
                     //注释字段获取
@@ -410,9 +469,11 @@ ContactsModule
             $scope.customer_detailstypes = [{
                 typemane:'活动',
                 imgurl:'img/customer/customerhuod.png',
+                url:'saleActList'
             },{
                 typemane:'机会',
                 imgurl:'img/customer/customerjihui@2x.png',
+                url:'saleChanList'
             },{
                 typemane:'关系',
                 imgurl:'img/contact/relationship@2x.png',
@@ -427,8 +488,8 @@ ContactsModule
             };
 
         //电话
-        $scope.contactshowphone =function(types){
-            if(types == undefined || types == ""){
+        $scope.contactshowphone =function(data){
+            if(data.TEL_NUMBER == undefined || data.TEL_NUMBER == ""||data.TEL_NUMBER == undefined || data.TEL_NUMBER == ""){
                 $cordovaToast.showShortBottom('没有数据');
             }else{
                 $ionicActionSheet.show({
@@ -476,9 +537,9 @@ ContactsModule
             }
         }
     }])
-    .controller('contactCreateCtrl',['$scope','$rootScope','$ionicHistory','$state','Prompter','$cordovaDatePicker','saleActService','HttpAppService','$cordovaToast','$ionicModal','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,Prompter,$cordovaDatePicker,saleActService,HttpAppService,$cordovaToast,$ionicModal,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+    .controller('contactCreateCtrl',['$scope','$rootScope','$ionicHistory','$state','Prompter','$cordovaDatePicker','customeService','LoginService','saleActService','HttpAppService','$cordovaToast','$ionicModal','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',
+        function($scope,$rootScope,$ionicHistory,$state,Prompter,$cordovaDatePicker,customeService,LoginService,saleActService,HttpAppService,$cordovaToast,$ionicModal,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
         //初始化数据
-
         $scope.contactlistvaluesel = [{
             typId:'1',
             name:'中文'
@@ -499,18 +560,19 @@ ContactsModule
             PARTNER2VALUE:'',
             conatctdeatilnote:"",
             TITLE:"",
+            TITLE_MEDI:"",
             FAX_NUMBER:"",
             FAX_EXTENS:"",
-            DPRTMNT:"ssss",
+            DPRTMNT:"",
             FNCTN:"",
-            COUNTRY:"CN",
+            COUNTRY:"",
             BEZEI:"",
             CITY1:"",
             REGION:"",
             POST_CODE1:"",
             BIRTHDT:"",
             LANGU:"",
-            NAME_LAST:"ssss",
+            NAME_LAST:"",
             TEL_NUMBER:"",
             MOB_NUMBER:"",
             STREET:"",
@@ -530,6 +592,7 @@ ContactsModule
                     "PARTNER": "",
                     "PARTNERROLE": "",
                     "TITLE": "",
+                    "TITLE_MEDI":"",
                     "NAME_LAST": "",
                     "BIRTHDT": "",
                     "LANGU": "",
@@ -558,17 +621,19 @@ ContactsModule
                     }
                 }
             };
-            data.IS_CUSTOMER.PARTNER2 = $scope.contactcreat.PARTNER2;
-            data.IS_CUSTOMER.TITLE = $scope.contactcreat.TITLE;
+            //data.IS_CUSTOMER.PARTNER = $scope.contactcreat.PARTNER;
+            data.IS_CUSTOMER.PARTNER2 = $scope.contactcreat.PARTNER;
+            data.IS_CUSTOMER.TITLE = $scope.config.currentTitle.codeId;
+            data.IS_CUSTOMER.TITLE_MEDI = $scope.config.currentTitle.name;
             data.IS_CUSTOMER.NAME_LAST = $scope.contactcreat.NAME_LAST;
             data.IS_CUSTOMER.BIRTHDT = $scope.contactcreat.BIRTHDT;
-            data.IS_CUSTOMER.LANGU = $scope.contactcreat.LANGU;
+            data.IS_CUSTOMER.LANGU = $scope.config.currentLanguage.typeId;
             data.IS_CUSTOMER.FNCTN = $scope.contactcreat.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactcreat.DPRTMNT;
             //data.IS_CUSTOMER.COUNTRY = $scope.contactcreat.COUNTRY;
-            data.IS_CUSTOMER.COUNTRY = "CN";
-            data.IS_CUSTOMER.REGION = $scope.contactcreat.REGION;
-            data.IS_CUSTOMER.CITY1 = $scope.contactcreat.CITY1;
+            data.IS_CUSTOMER.COUNTRY =$scope.config.currentCountry.COUNTRY;
+            data.IS_CUSTOMER.REGION = $scope.config.currentProvence.REGION;
+            data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY1;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.POST_CODE1;
             data.IS_CUSTOMER.STREET = $scope.contactcreat.STREET;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactcreat.TEL_NUMBER;
@@ -577,10 +642,10 @@ ContactsModule
             data.IS_CUSTOMER.FAX_NUMBER = $scope.contactcreat.FAX_NUMBER;
             data.IS_CUSTOMER.FAX_EXTENS = $scope.contactcreat.FAX_EXTENS;
             data.IT_LINES.item.TDLINE=$scope.contactcreat.conatctdeatilnote;
-            data.IS_CUSTOMER.PARTNERROLE="";
+
             //根据登陆接口来判断 角色字段的类型
-            var rolevalue = '';
-            if(rolevalue == '销售'){
+            var rolevalue = LoginService.getProfileType();
+            if(rolevalue == 'APP_SALE'){
                 data.IS_CUSTOMER.PARTNERROLE = 'BUP001';
             }else{
                 data.IS_CUSTOMER.PARTNERROLE = 'Z00005';
@@ -589,7 +654,7 @@ ContactsModule
                 || data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined
                 || data.IS_CUSTOMER.COUNTRY == '' || data.IS_CUSTOMER.COUNTRY == undefined){
 
-                console.log("data.IS_CUSTOMER.PARTNER2"+data.IS_CUSTOMER.PARTNER2);
+                console.log("data.IS_CUSTOMER.PARTNE2"+data.IS_CUSTOMER.PARTNER2);
                 console.log("data.IS_CUSTOMER.NAME_LAST"+data.IS_CUSTOMER.NAME_LAST);
                 console.log("data.IS_CUSTOMER.COUNTRY"+data.IS_CUSTOMER.COUNTRY);
                 $cordovaToast.showShortCenter('请输入客户姓名,标识或国家');
@@ -611,20 +676,27 @@ ContactsModule
                         //$scope.contactKeepCreatevalue = function(){
                             //contactService.set_ContactCreatevalue($scope.contactcreat);
                             //广播修改详细信息界面的数据
-                        contactService.set_ContactsListvalue(response.ES_RESULT.ET_REAULT);
+                        //contactService.set_ContactsListvalue(response.ES_RESULT.ET_REAULT);
                             if(contactService.get_ContactCreateflag() == true){
                                 contactService.set_ContactCreateflagfalse();
-                                //$rootScope.$broadcast('contactCreatevalue');
-                                console.log('跳转成功');
-                                $state.go('ContactQuery');
+                                $rootScope.$broadcast('contactCreatevalue');
+                                console.log(response.ES_RESULT.ZRESULT);
+                                contactService.set_ContactsListvalue(response.ES_RESULT.ZRESULT);
+                                console.log('跳转成功--xbr');
+                                $state.go('ContactDetail',{},{
+                                    location: "replace"
+                                });
+                                //$state.go('ContactDetail');
                             }else{
                                 //$rootScope.$broadcast('customercontactCreatevalue');
                                 console.log('跳转成功');
+                                contactService.setObject($scope.contactcreat);
                                 $state.go('customerDetail');
                             }
                             //$ionicHistory.goBack(-2);
                         //}
                     }
+
                 }).error(function(){
                     Prompter.hideLoading();
                     $cordovaToast.showShortBottom('请检查你的网络设备');
@@ -710,7 +782,7 @@ ContactsModule
                 cancelButtonLabel: '取消',
                 locale: 'zh_cn',
                 androidTheme: window.datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT
-            }
+            };
             document.addEventListener("deviceready", function () {
                 $cordovaDatePicker.show(Creoptionsdatedate).then(function (date) {
                     alert(date);
@@ -799,7 +871,7 @@ ContactsModule
         });
         $scope.customerModalArr = saleActService.getCustomerTypes();
         $scope.selectCustomerText = '竞争对手';
-        $scope.openSelectCustomer = function () {
+            $scope.openSelectCustomer = function () {
             $scope.isDropShow = true;
             $scope.customerSearch = true;
             $scope.selectCustomerModal.show();
@@ -826,9 +898,10 @@ ContactsModule
             }, 1)
         };
         $scope.selectCustomer = function (x) {
-
+           console.log(x);
             $scope.contactcreat.PARTNER2VALUE = x.NAME_ORG1;
-            $scope.contactcreat.PARTNER2 = x.PARTNER;
+            $scope.contactcreat.PARTNER = x.PARTNER;
+            customeService.set_customerListvalue(x);
             //$scope.create.contact='';
             //contactPage = 1;
             //$scope.contacts = [];
@@ -838,12 +911,15 @@ ContactsModule
         };
 
         $scope.$on('$destroy', function () {
-            $scope.createPop.remove();
+            /*if($scope.createPop){
+                $scope.createPop.remove();
+                $scope.createPop = null;
+            }
+
             $scope.createModal.remove();
             $scope.selectPersonModal.remove();
-            $scope.selectCustomerModal.remove();
+            $scope.selectCustomerModal.remove();*/
         });
-
         //国家。省，市级联下拉框
         $scope.country=[];
         $scope.provence=[];
@@ -857,7 +933,7 @@ ContactsModule
             currentProvence:{},
             currentCity:{},
             currentTitle:{},
-            currentLangu:{}
+            currentLanguage:{}
         };
 
         $scope.cascade=function(){
@@ -939,57 +1015,6 @@ ContactsModule
         };
 
         ////点击取消事件
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         $scope.Createancel = function(){
             Prompter.ContactCreateCancelvalue();4
         }
@@ -1027,31 +1052,7 @@ ContactsModule
                 name:'女士'
             }];
 
-        $scope.contactedit = {
-            conatctdeatilnote:contactService.get_Contactsdetailvalue().conatctdeatilnote,
-            TITLE:contactService.get_Contactsdetailvalue().TITLE,
-            FAX_NUMBER:contactService.get_Contactsdetailvalue().FAX_NUMBER,
-            FAX_EXTENS:contactService.get_Contactsdetailvalue().FAX_EXTENS,
-            DPRTMNT:contactService.get_Contactsdetailvalue().DPRTMNT,
-            FNCTN:contactService.get_Contactsdetailvalue().FNCTN,
-            COUNTRY:contactService.get_Contactsdetailvalue().COUNTRY,
-            BEZEI:contactService.get_Contactsdetailvalue().BEZEI,
-            CITY1:contactService.get_Contactsdetailvalue().CITY1,
-            REGION:contactService.get_Contactsdetailvalue().REGION,
-            POST_CODE1:contactService.get_Contactsdetailvalue().POST_CODE1,
-            BIRTHDT:contactService.get_Contactsdetailvalue().BIRTHDT,
-            LANGU:contactService.get_Contactsdetailvalue().LANGU,
-
-            NAME_LAST:contactService.get_Contactsdetailvalue().NAME_LAST,
-            TEL_NUMBER:contactService.get_Contactsdetailvalue().TEL_NUMBER,
-            MOB_NUMBER:contactService.get_Contactsdetailvalue().MOB_NUMBER,
-            STREET:contactService.get_Contactsdetailvalue().STREET,
-        //不需要改的
-            NAME_ORG1:contactService.get_Contactsdetailvalue().NAME_ORG1,
-            relationsalsname:contactService.get_Contactsdetailvalue().relationsalsname,
-            PARTNER:contactService.get_Contactsdetailvalue().PARTNER,
-            PARTNER2:contactService.get_Contactsdetailvalue().PARTNER2
-        };
+        $scope.contactedit = contactService.get_Contactsdetailvalue();
 
         ////点击取消事件
         $scope.EditCancel = function(){
@@ -1115,25 +1116,26 @@ ContactsModule
                 "IS_CUSTOMER": {
                     "PARTNER": "",
                     "PARTNERROLE": "",
-                    "TITLE": "0002",
+                    "TITLE": "",
                     "NAME_LAST": "",
                     "BIRTHDT": "",
                     "LANGU": "",
                     "PARTNER2": "",
                     "FNCTN": "",
                     "DPRTMNT": "",
-                    "COUNTRY": "CN",
+                    "COUNTRY": "",
                     "REGION": "",
                     "CITY1": "",
                     "POST_CODE1": "",
                     "LANGU2": "",
                     "STREET": "",
                     "TEL_NUMBER": "",
-                    "TEL_EXTENS": "88",
+                    "TEL_EXTENS": "",
                     "MOB_NUMBER": "",
                     "FAX_NUMBER": "",
                     "FAX_EXTENS": "",
                     "SMTP_ADDR": "",
+                    "TITLE_MEDI":"",
                     "BAPIBNAME": "HANDLCX02",
                     "MODE": "U"
                 },
@@ -1164,6 +1166,7 @@ ContactsModule
             data.IS_CUSTOMER.FAX_NUMBER = $scope.contactedit.FAX_NUMBER;
             data.IS_CUSTOMER.FAX_EXTENS = $scope.contactedit.FAX_EXTENS;
             data.IS_CUSTOMER.MODE = "U";
+            data.IS_CUSTOMER.TITLE_MEDI=$scope.config.currentTitile.name;
             data.IT_LINES.item.TDLINE=$scope.contactedit.conatctdeatilnote;
             //if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined || data.IS_CUSTOMER.PARTNER == ''|| data.IS_CUSTOMER.PARTNER == undefined){
             if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined

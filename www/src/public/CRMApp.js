@@ -93,8 +93,6 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
      $ionicConfigProvider.backButton.previousTitleText(false);
      */
 
-
-
     $stateProvider
         .state('login', {
             url: '/login',

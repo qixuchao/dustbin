@@ -185,8 +185,8 @@
 }
 
 .saleActDetail {
-  .own-backDrop-on{
-    background: rgba(0,0,0,.38)!important;
+  .own-backDrop-on {
+    background: rgba(0, 0, 0, .38) !important;
   }
   .scroll {
     min-height: 100%;
@@ -442,7 +442,7 @@
         background: url('../../img/saleDetail/Triangle.png') no-repeat;
         background-size: 100% 100%;
         width: 95%;
-        .textType{
+        .textType {
           position: relative;
           font-size: 14px;
           min-width: 39px;
@@ -452,11 +452,11 @@
           color: #BAD3EE;
           border-right: 1px solid #ECECEC;
         }
-        .rose{
-          color:#e24976;
+        .rose {
+          color: #e24976;
         }
-        .green{
-          color:#9ec92a;
+        .green {
+          color: #9ec92a;
         }
         .text {
           padding: 6% 4% 6% 11%;
@@ -494,13 +494,13 @@
           line-height: 26px;
           border: 1px solid #BBB7B4;
           border-radius: 8px;
-          select{
+          select {
             background: none;
             border: none;
             font-size: 13px;
             color: #84807D;
           }
-          i{
+          i {
             position: relative;
             left: -6px;
             top: 2px;
@@ -602,7 +602,7 @@
       color: $crm-subject-blue !important;
     }
     .refer-selectionsDown {
-      width: 100px;
+      //width: 100px;
       padding: 0 10px;
     }
     .item {
@@ -640,7 +640,10 @@
 
 .addRelationsModal {
   .scroll {
-    height: 100%;
+    min-height: 100%;
+  }
+  .fill-parent{
+    height:100%;
   }
   .mySpinner {
     position: absolute;
@@ -656,6 +659,7 @@
     text-align: center;
     color: #ADA9A9;
     font-size: 15px;
+    padding: 15px;
   }
   .own-backDrop-off {
     left: -20px;
@@ -828,6 +832,7 @@
     }
   }
 }
+
 .saleDetailProcessModal {
   .transparent {
     background-color: transparent;
@@ -841,7 +846,7 @@
     margin-left: -122px;
     background: white;
     border-radius: 5px;
-    .type{
+    .type {
       text-align: center;
       margin: 0 20%;
       padding-bottom: 6px;
@@ -849,12 +854,12 @@
       font-size: 15px;
       border-bottom: 1px dashed #A09F9E;
     }
-    .selections{
+    .selections {
       padding-top: 5px;
-      .position{
+      .position {
         padding: 5px 22%;
         font-size: 13px;
-        .myButton{
+        .myButton {
           text-align: center;
           padding: 4px;
           margin: 0 5px;
@@ -863,13 +868,13 @@
           border-radius: 5px;
         }
       }
-      .process{
+      .process {
         padding: 5px 16% 12px 16%;
         width: 120%;
         margin: 0 -20px;
         font-size: 13px;
         border-bottom: 1px solid #EAEAE9;
-        .myButton{
+        .myButton {
           margin: 0 5px;
           color: #969695;
           background: #EAEAEA;
@@ -877,22 +882,22 @@
           text-align: center;
         }
       }
-      .selected{
-        color: white!important;
-        background: $crm-subject-blue!important;
+      .selected {
+        color: white !important;
+        background: $crm-subject-blue !important;
       }
     }
-    .input{
-      .row + .row{
-        margin:0;
+    .input {
+      .row + .row {
+        margin: 0;
       }
-      .row{
+      .row {
         padding: 0;
         border-bottom: 1px solid #E6E5E4;
-        input{
-          height:auto;
+        input {
+          height: auto;
           background: none;
-          border:none;
+          border: none;
         }
       }
     }

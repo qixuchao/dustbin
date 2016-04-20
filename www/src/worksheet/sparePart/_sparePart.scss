@@ -1,10 +1,12 @@
+
+.platform-ios #worksheet_sparePart .iostop{
+  margin-top:108px !important
+}
 #worksheet_sparePart{
   .backColor{
       background-color: white
   }
-  .backHead{
-    //$crm-subject-blue;
-  }
+
   .textInfo{
     width: 25%;
     font-size: 16px;
@@ -88,46 +90,21 @@
   }
 }
 
+.platform-ios #worksheet_spareSelect .paddingIOS{
+  padding-top: 20px !important;
+}
 
 #worksheet_spareSelect{
-  .saleListNew {
-    .pub-head{
-      background: $crm-subject-blue;
-      color: white;
-      padding-top: 5px;
-      i{
-        font-size: 25px;
-      }
-      .goBack{
-        padding-left: 10px;
-      }
-      .add{
-        text-align: right;
-        padding-right: 10px;
-        img{
-          width: 25px;
-          padding-top: 4px;
-        }
-      }
-    }
-    .pub-subhead{
-      background: $crm-subject-blue;
-      box-shadow: none;
-      top:44px;
-      padding:8px;
-      display: flex;
-      .row{
-        background: white;
-        border-radius: 5px;
-        color: #A0A09F;
-        font-size: 14px;
-        i{
-          font-size: 18px;
-          padding: 0 10px;
-        }
-      }
-    }
+  .fontHeadcol{
+    color: white;
+    font-size: 16px;
+    white-space:nowrap;
   }
+  .goBack {
+    font-size: 026px;
+    color: white
+  }
+
 
   ion-header-bar{
     background-color: $crm-subject-blue;
@@ -157,7 +134,7 @@
 
   }
   .itemAdd{
-    padding: 5px 15px 1px 15px;
+    padding: 5px 0px 1px 15px;
   }
   .itemDetail{
     border-bottom: 1px solid #D6D3CE;padding: 5px 0px 5px 0px

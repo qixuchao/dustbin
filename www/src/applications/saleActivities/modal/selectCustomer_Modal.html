@@ -18,32 +18,36 @@
         </ion-header-bar>
     </div>
     <div class="addRelationsModal">
-        <ion-content class="content has-header">
-           <ion-spinner class="mySpinner" icon="ios" ng-if="!customerSearch"></ion-spinner>
-            <div ng-if="customerSearch">
-                <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"
-                     ng-click="changeReferMoreflag()"></div>
-                <div class="selectionsDown pushDown-animated refer-selectionsDown"
-                     ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}">
-                    <ion-list>
-                        <ion-item ng-repeat="x in customerModalArr" ng-class="{'selected':selectCustomerText==x.text}"
-                                  ng-click="selectPop(x)">{{x.text}}
-                        </ion-item>
-                    </ion-list>
-                </div>
+        <ion-content class="content has-header" scroll="false">
+            <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"
+                 ng-click="changeReferMoreflag()"></div>
+            <div class="selectionsDown pushDown-animated refer-selectionsDown"
+                 ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}">
                 <ion-list>
-                    <ion-item class="selectItem" ng-repeat="x in customerArr"
-                              ng-click="selectCustomer(x)">
-                        <span ng-bind-html="x.NAME_ORG1"></span> <img
-                            ng-if="x!=create.customer" class="selectImg" src="img/saleList/blank.png">
-                        <img ng-if="x==create.customer" class="selectImg" src="img/saleList/selected.png">
+                    <ion-item ng-repeat="x in customerModalArr"
+                              ng-class="{'selected':selectCustomerText==x.text}"
+                              ng-click="selectPop(x)">{{x.text}}
                     </ion-item>
                 </ion-list>
             </div>
-            <!--<ion-infinite-scroll on-infinite="getCustomerArr()" distance="1%" ng-if="CustomerLoadMoreFlag"></ion-infinite-scroll>-->
-            <div class="loadMore" ng-click="getCustomerArr()" ng-if="customerSearch&&!spinnerFlag"><span>点击加载更多...</span></div>
-            <div class="loadMore" ng-click="getCustomerArr()" ng-if="spinnerFlag">
-                <ion-spinner icon="ios" ng-if="customerArr.length>0"></ion-spinner></div>
+            <ion-scroll class="fill-parent">
+                <ion-spinner class="mySpinner" icon="ios" ng-if="!customerSearch"></ion-spinner>
+                <div ng-if="customerSearch">
+                    <ion-list>
+                        <ion-item class="selectItem" ng-repeat="x in customerArr"
+                                  ng-click="selectCustomer(x)">
+                            <span ng-bind-html="x.NAME_ORG1"></span> <img
+                                ng-if="x!=create.customer" class="selectImg" src="img/saleList/blank.png">
+                            <img ng-if="x==create.customer" class="selectImg" src="img/saleList/selected.png">
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="loadMore" ng-click="getCustomerArr()" ng-if="customerSearch&&!spinnerFlag">
+                    <span>点击加载更多...</span></div>
+                <div class="loadMore" ng-click="getCustomerArr()" ng-if="spinnerFlag">
+                    <ion-spinner icon="ios" ng-if="customerArr.length>0"></ion-spinner>
+                </div>
+            </ion-scroll>
         </ion-content>
     </div>
 </ion-modal-view>

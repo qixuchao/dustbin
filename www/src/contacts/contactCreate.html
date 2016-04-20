@@ -32,8 +32,8 @@
                 <img id="contcreaatendimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('FNCTN')"/>
             </span>
               <span class="item item-input">称谓：
-                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B; -webkit-appearance:none;background:white"  ng-model="config.currentTitle" ng-options="a as a.name for a in contactlistTitle">
-                    <option ng-bind="contactcreat.TITLE_MEDI"></option>
+                <select style="width: 40%;margin-left:33px;border: none;padding-right:4px;color:#9B9B9B; -webkit-appearance:none;background:white"  ng-model="config.currentTitle" ng-options="a as a.name for a in contactlistTitle">
+                    <option value="">称谓</option>
                 </select>
             </span>
                <span class="item item-input">姓名：
@@ -65,11 +65,11 @@
                 <img id="contcreapostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('POST_CODE1')"/>
             </span>
             <span class="item item-input">出生日期：
-                <input type="date" placeholder="请输入生日" class="contact_editinputsty"  ng-model="contactcreat.BIRTHDT" ng-click="selectCreateTime1()" style="background-color:white">
+                <input type="date" placeholder="请输入生日" class="contact_editinputsty"  ng-model="contactcreat.BIRTHDT"  style="background-color:white">
             </span>
              <span class="item item-input">语言：
-                <select style="margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="config.currentLangu" ng-options="a.name as a.name for a in contactlistvaluesel">
-                    <option value="" ng-bind="config.currentLangu.name"></option>
+                <select style="width: 40%;margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="config.currentLanguage" ng-options="a.name as a.name for a in contactlistvaluesel">
+                    <option value="">语言</option>
                 </select>
             </span>
              <span class="item item-input">地址：
@@ -82,17 +82,17 @@
                 </div>
                 <div class="col col-80">
                     <div class="row" style="padding: 5px;">
-                        <select style="color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white"  ng-model="config.currentCountry" ng-options="a as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
+                        <select style="width: 40%;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white"  ng-model="config.currentCountry" ng-options="a as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
                             <option value="" >国家</option>
                         </select>
                     </div>
                     <div class="row" style="padding: 5px;">
-                        <select style="color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white" ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
+                        <select style="width: 40%;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white" ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
                             <option value="">省份</option>
                         </select>
                     </div>
                     <div class="row" style="padding: 5px;">
-                        <select style="color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white"   ng-model="config.currentCity" ng-options="c as c.CITY_NAME for c in city">
+                        <select style="width: 40%;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white"   ng-model="config.currentCity" ng-options="c as c.CITY_NAME for c in city">
                             <option value="" >城市</option>
                         </select>
                     </div>
