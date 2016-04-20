@@ -549,10 +549,27 @@ customerModule
                            url:'customerVehicleQuery'
                        },{
                            typemane:'负责人',
-                           imgurl:'img/customer/customerfuz@2x.png',
+                           imgurl:'img/customer/customerfuz@2x.png'
                        }
                    ]
-           }else{
+           }else if (LoginService.getProfileType()=="APP_SALE"){
+               $scope.customer_detailstypes = [{
+                   typemane:'联系人',
+                   imgurl:'img/customer/customerlianxir@2x.png',
+                   url:'customerContactQuery'
+               },{
+                   typemane:'负责人',
+                   imgurl:'img/customer/customerfuz@2x.png'
+               },{
+                   typemane:'机会',
+                   imgurl:'img/customer/customerjihui@2x.png',
+                   url:'customerChanceQuery'
+               },{
+                   typemane:'活动',
+                   imgurl:'img/customer/customerhuod.png',
+                   url:'customerActivityQuery'
+               }];
+           } else{
                $scope.customer_detailstypes = [{
                    typemane:'联系人',
                    imgurl:'img/customer/customerlianxir@2x.png',
@@ -584,6 +601,7 @@ customerModule
                    typemane:'负责人',
                    imgurl:'img/customer/customerfuz@2x.png'
                }];
+
            }
 
         $scope.gocustomerLists = function(cusvalue){
