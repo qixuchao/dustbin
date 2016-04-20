@@ -5,6 +5,7 @@ customerModuleServive
         var customerWorkordervalue;
         var customerContactvalue;
         var customerDetailEditvalue;
+        var customerFuZe;
         return {
             //客户数据
             set_customerListvalue:function(cusvalue){
@@ -33,6 +34,13 @@ customerModuleServive
             },
             get_customerEditServevalue:function(){
                 return customerDetailEditvalue;
+            },
+            //存储从详情界面数据到联系人页面
+            set_customeFuZe:function(value){
+                customerFuZe = value;
+            },
+            get_customeFuZe:function(){
+                return customerFuZe;
             }
 
         }

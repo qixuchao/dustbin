@@ -104,12 +104,9 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
 
         }else{
             for(var i=0;i<arrInfos.length;i++){
-                if(arrInfos[i].TDID === 'Z001'){
-                    remark = remark + arrInfos[i].TDLINE;
-                }else if(arrInfos[i].TDID === 'Z005'){
+                if(arrInfos[i].TDID === 'Z005'){
                     result = result + arrInfos[i].TDLINE;
                 }
-                //console.log(angular.toJson(remark+"=="+result));
             }
         }
         $scope.otherInfos = {

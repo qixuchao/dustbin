@@ -2,14 +2,14 @@
     <ion-header-bar align-title="center" class="bar bar-positive bar-header disable-user-behavior" >
         <div class="row row-center title rowTitle">
             <div class="col col-15 text-left" ng-click="goAlert()">取消</div>
-            <div class="col col-70 text-center">车辆里程维护
+            <div class="col col-70 text-center">车辆读数维护
             </div>
             <div class="col col-15 text-right" ng-click="keep()">保存</div>
         </div>
     </ion-header-bar>
     <ion-content>
         <div class="Car_countentbasic">
-            <div class="Car_countentbasicinfo">车辆里程</div>
+            <div class="Car_countentbasicinfo">车辆读数</div>
             <div class="Car_countentbasicline"></div>
             <div class="Car_countentbasicclok"></div>
         </div>
@@ -23,21 +23,23 @@
             </div>
 
             <div class="row itemContent row-center">
-                <div class="col-42 col-center">上次记录里程：</div>
+                <div class="col-42 col-center">上次记录读数：</div>
                 <div class="col-58 fontColor col-center">{{carMile.MILEAGE_LAST}}</div>
             </div>
 
             <div class="row itemContent row-center">
                 <div class="col-42 col-center">本次记录日期：</div>
-                <div class="col-58 col-center">
+                <div class="col-55 col-center">
                     <input type="text" placeholder="日期" ng-model="update.readDate"  readonly style="font-size: 16px" class="fontColor" ng-click="selectCreateTime('读取日期')" >
                 </div>
+                <div class="col-3 col-center"><span style="color: red">*</span></div>
             </div>
             <div class="row itemContent row-center">
-                <div class="col-42 col-center">本次记录里程：</div>
-                <div class="col-58 col-center">
+                <div class="col-42 col-center">本次记录读数：</div>
+                <div class="col-55 col-center">
                     <input type="text" placeholder="请输入值" ng-model="update.readValue" value="" style="font-size: 16px" class="fontColor" >
                 </div>
+                <div class="col-3 col-center"><span style="color: red">*</span></div>
             </div>
 
             <div class="row itemContentS row-center">
