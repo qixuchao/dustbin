@@ -568,15 +568,16 @@ customerModule
                    url:'customerContactQuery'
                },{
                    typemane:'负责人',
-                   imgurl:'img/customer/customerfuz@2x.png'
+                   imgurl:'img/customer/customerfuz@2x.png',
+                   url:'customerFuZe'
                },{
                    typemane:'机会',
                    imgurl:'img/customer/customerjihui@2x.png',
-                   url:'customerChanceQuery'
+                   url:'saleChanList'
                },{
                    typemane:'活动',
                    imgurl:'img/customer/customerhuod.png',
-                   url:'customerActivityQuery'
+                   url:'saleActList'
                }];
            } else{
                $scope.customer_detailstypes = [{

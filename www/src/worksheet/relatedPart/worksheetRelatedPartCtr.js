@@ -28,7 +28,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                 $scope.add = false;
                 $scope.deleteButton = false;
             }
-        }else{}
+        }
         $scope.relatedPopoverShow = function() {
             $scope.relatedpopover.show();
             //document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
@@ -152,6 +152,9 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
     }).then(function (modal) {
         $scope.selectCustomerModal = modal;
     });
+    $scope.input = {
+        customer : ""
+    }
     $scope.selectCustomerText = '客户列表';
     $scope.openSelectCustomer = function () {
         $scope.isDropShow = true;
@@ -311,6 +314,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
         HttpAppService.post(url, data).success(function(response){
+            console.log(angular.toJson(response));
             if (response.ES_RESULT.ZFLAG === 'S') {
                 $scope.updateInfos();
                 $cordovaToast.showShortBottom('添加成功');
@@ -318,7 +322,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 Prompter.hideLoading();
             }
-            console.log(angular.toJson(response));
 
         }).error(function(err){
             Prompter.hideLoading();

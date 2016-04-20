@@ -32,27 +32,23 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
 
 
         $scope.deleteInfos = function(item){
-            if(item.PARTNER_FCT !== "ZCUSTCTT" ){
-                Prompter.deleteInfosPoint(item.FCT_DESCRIPTION + "不允许删除");
-            }else{
                 Prompter.showLoading("正在删除");
                 var data={
-                    "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                    "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
-                    "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
-                    "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
-                    "IT_PARTNER": {
-                        "item": [
-                            {
-                                "PARTNER_FCT":item.PARTNER_FCT,
-                                "PARTNER_NO":item.PARTNER_NO,
-                                "ZMODE" : "D"
-                            }
-                        ]
+                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_RELATIONSHIP": {
+                        "RELNR": "",
+                        "RELTYP": "BUR011",
+                        "PARTNER1": customeService.get_customerListvalue().PARTNER,
+                        "PARTNER2": item.PARTNER,
+                        "XDFREL": "X",
+                        "DATE_FROM": "0001-01-01",
+                        "DATE_TO": "9999-12-31",
+                        "MODE": "D"
                     }};
                 console.log(angular.toJson(data));
-                var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
+                var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
                 HttpAppService.post(url, data).success(function(response){
+                    console.log(response);
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG === 'S') {
                         $cordovaToast.showShortBottom('删除成功 ');
@@ -64,7 +60,6 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
                 }).error(function(err){
                     console.log(angular.toJson(err));
                 });
-            }
         }
     $scope.phone = function(num){
         Prompter.showphone(num);
@@ -91,7 +86,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             "IT_IN_ROLE": {}
         };
         console.log(data);
-        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
+        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST', data)
             .success(function (response) {
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     if (response.ET_OUT_LIST.item.length < 10) {
@@ -156,13 +151,17 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             });
     };
 
-    $ionicModal.fromTemplateUrl('src/customer/customerFuZe/selectContact_Modal.html', {
+    $ionicModal.fromTemplateUrl('src/customer/customerFuZe/selectCustomer_Modal.html', {
         scope: $scope,
         animation: 'slide-in-up',
         focusFirstInput: true
     }).then(function (modal) {
         $scope.selectContactModal = modal;
     });
+
+    $scope.input = {
+        customer : ""
+    }
     $scope.selectContactText = '负责人';
     $scope.openSelectCon = function () {
         $scope.isDropShow = true;
@@ -181,9 +180,9 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
         $scope.isDropShow = true;
     };
     $scope.initConSearch = function () {
-        $scope.input.con = '';
+        $scope.input.customer = '';
         $timeout(function () {
-            document.getElementById('selectConId').focus();
+            //document.getElementById('selectConId').focus();
         }, 1)
     };
     $scope.selectCon = function (x) {
@@ -191,22 +190,22 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
         console.log(angular.toJson($scope.infos));
         Prompter.showLoading("正在添加");
         var data={
-            "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
-            "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
-            "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
-            "IT_PARTNER": {
-                "item": [
-                    {
-                        "PARTNER_FCT": "ZCUSTCTT",
-                        "PARTNER_NO": x.PARTNER,
-                        "ZMODE" : "U"
-                    }
-                ]
+            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_RELATIONSHIP": {
+                "RELNR": "",
+                "RELTYP": "BUR011",
+                "PARTNER1": customeService.get_customerListvalue().PARTNER,
+                "PARTNER2": x.PARTNER,
+                "XDFREL": "X",
+                "DATE_FROM": "0001-01-01",
+                "DATE_TO": "9999-12-31",
+                "MODE": "A"
             }};
         console.log(angular.toJson(data));
-        var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
+        var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
+        console.log(angular.toJson(url));
         HttpAppService.post(url, data).success(function(response){
+            console.log(response);
             if (response.ES_RESULT.ZFLAG === 'S') {
                 $scope.updateInfos();
                 $cordovaToast.showShortBottom('添加成功');
@@ -227,24 +226,17 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
     $scope.updateInfos = function(){
        var data = {
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
-            "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
-            "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
+            "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER },
+            "IS_AUTHORITY": { "BNAME": "HANDLCX02" }
         }
         console.log(angular.toJson(data));
-        var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL';
-        var id = worksheetDataService.wsDetailData.ydWorksheetNum;
-        var wf = worksheetDataService.wsDetailData.waifuRenyuan;
-        var name = worksheetDataService.wsDetailData.IS_PROCESS_TYPE;
+        var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
         HttpAppService.post(url, data).success(function(response){
             //console.log(angular.toJson(response));
             if (response.ES_RESULT.ZFLAG === 'S') {
-                worksheetDataService.wsDetailData = response;
-                worksheetDataService.wsDetailData.ydWorksheetNum = id;
-                worksheetDataService.wsDetailData.waifuRenyuan = wf;
-                worksheetDataService.wsDetailData.IS_PROCESS_TYPE = name;
+                customeService.set_customeFuZe(response);
                 //console.log(angular.toJson(response));
-                $scope.infos = worksheetDataService.wsDetailData.ET_PARTNER.item;
+                $scope.infos = response.ET_OUT_RELATION.item;
                 Prompter.hideLoading();
             }else{
                 Prompter.hideLoading();
