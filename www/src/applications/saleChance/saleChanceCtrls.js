@@ -120,6 +120,7 @@ salesModule
             //列表搜索
             $scope.initListSearch = function () {
                 $scope.input.list = '';
+                $scope.getList();
                 $timeout(function () {
                     document.getElementById('saleChanListSearchId').focus();
                 }, 1)
@@ -334,10 +335,10 @@ salesModule
                 }
             };
             $scope.saveCreateModal = function () {
-                if(!$scope.create.title){
+                if (!$scope.create.title) {
                     Prompter.alert('请填写描述');
                     return
-                }else if(!$scope.create.customer){
+                } else if (!$scope.create.customer) {
                     Prompter.alert('请选择客户');
                     return
                 }
@@ -589,19 +590,25 @@ salesModule
         '$cordovaDialogs',
         '$cordovaToast',
         '$cordovaDatePicker',
+        '$ionicActionSheet',
         'saleChanService',
         'Prompter',
         'HttpAppService',
         'saleActService',
+        'relationService',
+        'customeService',
+        'contactService',
+        'employeeService',
         function ($scope, $rootScope, $state, ionicMaterialInk, ionicMaterialMotion, $timeout, $ionicScrollDelegate,
-                  $ionicPopover, $ionicModal, $cordovaDialogs, $cordovaToast, $cordovaDatePicker, saleChanService,
-                  Prompter, HttpAppService, saleActService) {
+                  $ionicPopover, $ionicModal, $cordovaDialogs, $cordovaToast, $cordovaDatePicker, $ionicActionSheet,
+                  saleChanService, Prompter, HttpAppService, saleActService, relationService, customeService, contactService,
+                  employeeService) {
             console.log('chanceDetail');
             ionicMaterialInk.displayEffect();
-            //修改相关方
-            var modifyRelationsArr = [];
+
             $scope.statusArr = saleChanService.listStatusArr;
             $scope.relationsTypes = saleChanService.relationsTypes;
+            console.log($scope.relationsTypes);
             $scope.chanceDetails = {
                 preMount: '0.00',
                 CURRENCY: 'CNY',
@@ -626,12 +633,13 @@ salesModule
                 }
                 return "";
             };
-            var getSaleStageIndex = function (data) {
+            var getSaleStage = function (data) {
                 for (var i = 0; i < $scope.saleStages.length; i++) {
                     if ($scope.saleStages[i].value == data) {
-                        return i;
+                        return $scope.saleStages[i];
                     }
                 }
+                return {};
             };
             var detailResponse;
             var getDetails = function () {
@@ -647,10 +655,12 @@ salesModule
                             detailResponse = response;
                             $scope.chanceDetails = response.ES_OPPORT_H;
                             $scope.relationArr = response.ET_RELEATION.item;
+                            relationService.chanceDetailPartner = $scope.chanceDetails;
                             angular.forEach($scope.relationArr, function (x) {
-                                x.typeText = getRelationsType(x.PARTNER_FCT);
+                                x.position = getRelationsType(x.PARTNER_FCT);
+                                x.PARTNER = x.PARTNER_NO;
                             });
-                            $scope.chanceDetails.PHASE = $scope.saleStages[getSaleStageIndex($scope.chanceDetails.PHASE)];
+                            $scope.chanceDetails.PHASE = getSaleStage($scope.chanceDetails.PHASE);
                             getOldCustomer();
                             Prompter.hideLoading();
                             getInitStatus();
@@ -707,7 +717,7 @@ salesModule
                             }
                         },
                         "IT_PARTNER": {
-                            "item": modifyRelationsArr
+                            "item": getModifyRelationsArr()
                         }
                     };
                     console.log(data);
@@ -840,8 +850,8 @@ salesModule
                 $scope.popover.show($event);
             };
             $scope.savePop = function () {
-                if($scope.saleStages.indexOf($scope.pop.stage)>=3){
-                    if(!$scope.pop.proNum){
+                if ($scope.saleStages.indexOf($scope.pop.stage) >= 3) {
+                    if (!$scope.pop.proNum) {
                         Prompter.alert('请输入项目编号');
                         return
                     }
@@ -988,46 +998,188 @@ salesModule
                 });
             };
             $scope.selectCustomer = function (x) {
-                console.log(oldCustomer);
-                console.log(x);
                 $scope.create = {
                     customer: x
                 };
+                x.NAME = x.NAME_ORG1;
+                x.position = '客户';
                 $scope.chanceDetails.PARTNER_TXT = x.NAME_ORG1;
                 $scope.chanceDetails.PARTNER = x.PARTNER;
+                var isAlreadyHaveCustomer = false;
                 //判断修改相关方数组中是否已经有修改客户的数据,如果有,删除重新push
-                for(var i=0;i<modifyRelationsArr.length;i++){
-                    if(modifyRelationsArr[i].PARTNER_FCT=='00000021'){
-                        modifyRelationsArr.splice(i,1);
-                        break
+                //for(var i=0;i<modifyRelationsArr.length;i++){
+                //    if(modifyRelationsArr[i].PARTNER_FCT=='00000021'){
+                //        modifyRelationsArr.splice(i,1);
+                //        break
+                //    }
+                //}
+                for (var j = 0; j < $scope.relationArr.length; j++) {
+                    if ($scope.relationArr[j].position == '客户') {
+                        isAlreadyHaveCustomer = true;
+                        $scope.relationArr[j] = x;
                     }
                 }
-                if(oldCustomer){
-                    if(oldCustomer.NAME!=x.NAME_ORG1){
-                        modifyRelationsArr.push({
-                            "MODE": "U",
-                            "PARTNER_FCT": "00000021",
-                            "PARTNER": x.PARTNER,
-                            "MAINPARTNER": "",
-                            "OLD_FCT": oldCustomer.PARTNER_FCT,
-                            "OLD_PARTNER": oldCustomer.PARTNER_NO,
-                            "RELATION_PARTNER": ""
-                        });
-                    }
-                }else{
-                    modifyRelationsArr.push({
-                        "MODE": "I",
-                        "PARTNER_FCT": "00000021",
-                        "PARTNER": x.PARTNER,
-                        "MAINPARTNER": "",
-                        "OLD_FCT": "",
-                        "OLD_PARTNER": "",
-                        "RELATION_PARTNER": ""
-                    });
+                if (isAlreadyHaveCustomer) {
+                    //if(oldCustomer.NAME!=x.NAME_ORG1){
+                    //    modifyRelationsArr.push({
+                    //        "MODE": "U",
+                    //        "PARTNER_FCT": "00000021",
+                    //        "PARTNER": x.PARTNER,
+                    //        "MAINPARTNER": "",
+                    //        "OLD_FCT": oldCustomer.PARTNER_FCT,
+                    //        "OLD_PARTNER": oldCustomer.PARTNER_NO,
+                    //        "RELATION_PARTNER": ""
+                    //    });
+                    //}
+                } else {
+                    $scope.relationArr.push(x);
+                    //modifyRelationsArr.push({
+                    //    "MODE": "I",
+                    //    "PARTNER_FCT": "00000021",
+                    //    "PARTNER": x.PARTNER,
+                    //    "MAINPARTNER": "",
+                    //    "OLD_FCT": "",
+                    //    "OLD_PARTNER": "",
+                    //    "RELATION_PARTNER": ""
+                    //});
                 }
-
+                console.log($scope.relationArr);
                 $scope.selectCustomerModal.hide();
             };
+            //相关方
+            var modifyRelationsArr = [];//修改相关方
+            var deleteArr = []; //存储被删除的相关方
+            var getModifyRelationsArr = function () {
+                angular.forEach($scope.relationArr, function (data) {
+                    switch (data.mode) {
+                        case "U":
+                            modifyRelationsArr.push({
+                                "MODE": "U",
+                                "PARTNER_FCT": data.PARTNER_FCT,
+                                "PARTNER": data.PARTNER,
+                                "MAINPARTNER": "",
+                                "OLD_FCT": data.old.PARTNER_FCT,
+                                "OLD_PARTNER": data.old.PARTNER_NO,
+                                "RELATION_PARTNER": ""
+                            });
+                            break;
+                        case "I":
+                            modifyRelationsArr.push({
+                                "MODE": "I",
+                                "PARTNER_FCT": data.PARTNER_FCT,
+                                "PARTNER": data.PARTNER,
+                                "MAINPARTNER": "",
+                                "OLD_FCT": "",
+                                "OLD_PARTNER": "",
+                                "RELATION_PARTNER": ""
+                            });
+                            break
+                    }
+                });
+                modifyRelationsArr = deleteArr.concat(modifyRelationsArr);
+                return modifyRelationsArr;
+            };
+            $scope.openRelations = function () {
+                //获取相关方列表中的客户
+                angular.forEach($scope.relationArr, function (data) {
+                    if (data.PARTNER_FCT == "00000021") {
+                        relationService.relationCustomer = data;
+                    }
+                });
+                relationService.isReplace = false;
+                relationService.myRelations = $scope.relationArr;
+                relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd);
+                $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then(function (modal) {
+                    $scope.addReleModal = modal;
+                    modal.show();
+                });
+            };
+            var repTempIndex;
+            $scope.showActionSheet = function (x) {
+                if (!$scope.isEdit) {
+                    return
+                }
+                repTempIndex = $scope.relationArr.indexOf(x);
+                $ionicActionSheet.show({
+                    buttons: [
+                        {text: '删除'},
+                        {text: '替换'}
+                    ],
+                    titleText: '请选择操作',
+                    cancelText: '取消',
+                    buttonClicked: function (index) {
+                        console.log(index);
+                        switch (index) {
+                            case 0:
+                                if (x.position == '客户') {
+                                    $scope.chanceDetails.PARTNER_TXT = '';
+                                    relationService.relationCustomer = {};
+                                    console.log(saleChanService.relationCustomer)
+                                }
+                                if (angular.isUndefined(x.mode)) {
+                                    deleteArr.push({
+                                        "MODE": "D",
+                                        "PARTNER_FCT": "",
+                                        "PARTNER": "",
+                                        "MAINPARTNER": "",
+                                        "OLD_FCT": x.PARTNER_FCT,
+                                        "OLD_PARTNER": x.PARTNER_NO,
+                                        "RELATION_PARTNER": ""
+                                    });
+                                }
+                                $scope.relationArr.splice(repTempIndex, 1);
+                                break;
+                            case 1:
+                                relationService.isReplace = true;
+                                relationService.myRelations = $scope.relationArr;
+                                relationService.replaceMan = x;
+                                relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd);
+                                relationService.repTempIndex = repTempIndex;
+                                relationService.position = x.position;
+                                $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {
+                                    scope: $scope,
+                                    animation: 'slide-in-up'
+                                }).then(function (modal) {
+                                    $scope.addReleModal = modal;
+                                    modal.show();
+                                });
+                                break;
+                        }
+                        return true;
+                    }
+                });
+            };
+
+            $scope.goRelationDetail = function (x) {
+                switch (x.position) {
+                    case '客户':
+                        x.PARTNER_ROLE = 'CRM000';
+                        customeService.set_customerListvalue(x);
+                        $state.go('customerDetail');
+                        break;
+                    case '竞争对手':
+                        x.PARTNER_ROLE = 'Z00002';
+                        customeService.set_customerListvalue(x);
+                        $state.go('customerDetail');
+                        break;
+                    case 'CATL销售':
+                        employeeService.set_employeeListvalue(x);
+                        $state.go('userDetail');
+                        break;
+                    case 'CATL销售2':
+                        employeeService.set_employeeListvalue(x);
+                        $state.go('userDetail');
+                        break;
+                    case '联系人':
+                        contactService.set_ContactsListvalue(x);
+                        $state.go('ContactDetail');
+                        break;
+                }
+            };
+
             $scope.$on('$destroy', function () {
                 $scope.popover.remove();
                 $scope.followUpModal.remove();

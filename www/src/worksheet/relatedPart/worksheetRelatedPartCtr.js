@@ -15,9 +15,19 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
 
         }
     //ZPRO ZPLO ZNCO
-        if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCO" ){
-            $scope.add = true;
-            $scope.deleteButton = true;
+        else if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCO" ){
+            if(worksheetDataService.wsDetailData.ES_OUT_LIST.EDIT_FLAG == "Y"){
+                if(worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0006" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0007" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0010"){
+                    $scope.add = false;
+                    $scope.deleteButton = false;
+                }else {
+                    $scope.add = true;
+                    $scope.deleteButton = true;
+                }
+            }else if(worksheetDataService.wsDetailData.ES_OUT_LIST.EDIT_FLAG == "N"){
+                $scope.add = false;
+                $scope.deleteButton = false;
+            }
         }
         $scope.relatedPopoverShow = function() {
             $scope.relatedpopover.show();
@@ -142,6 +152,9 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
     }).then(function (modal) {
         $scope.selectCustomerModal = modal;
     });
+    $scope.input = {
+        customer : ""
+    }
     $scope.selectCustomerText = '客户列表';
     $scope.openSelectCustomer = function () {
         $scope.isDropShow = true;
@@ -301,6 +314,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
         HttpAppService.post(url, data).success(function(response){
+            console.log(angular.toJson(response));
             if (response.ES_RESULT.ZFLAG === 'S') {
                 $scope.updateInfos();
                 $cordovaToast.showShortBottom('添加成功');
@@ -308,7 +322,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 Prompter.hideLoading();
             }
-            console.log(angular.toJson(response));
 
         }).error(function(err){
             Prompter.hideLoading();
