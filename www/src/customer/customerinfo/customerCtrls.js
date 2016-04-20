@@ -59,6 +59,10 @@ customerModule
         $scope.customerQuery_list = [];
         $scope.customerQuery_list = new Array;
         $scope.customerPage = 0;
+
+        $scope.initSearch = function(){
+            $scope.customer_queryflag = true;
+        };
         $scope.customerLoadmore = function() {
             $scope.contactisshow = true;
             $scope.customerPage = $scope.customerPage + 1;
@@ -84,6 +88,7 @@ customerModule
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
             HttpAppService.post(url, data).success(function (response) {
+                $scope.customer_queryflag = true;
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.customerisshow = false;
                     //$cordovaToast.showShortCenter(response.ES_RESULT.ZRESULT);
@@ -358,7 +363,7 @@ customerModule
             $scope.customerPage = 0;
             $scope.customer_queryflag = true;
             $ionicScrollDelegate.resize();
-            $scope.customerLoadmore()
+            $scope.customerLoadmore();
             $scope.customerisshow = true;
             $scope.customerPopoverhide();
         };
@@ -462,12 +467,12 @@ customerModule
             $scope.customerDetailcheckdate = false;
             //预验收周期
             $scope.customerDetailwillcheckdate = false;
-            //竞争对手领域
-            $scope.customerDetailZzlyone = false;
-            //份额
-            $scope.customerDetailContains = false;
-            //价格
-            $scope.customerDetailPrice = false;
+            //助销伙伴领域
+            $scope.customerDetailZzlytwo = false;
+            //长项
+            $scope.customerDetailAdvatage = false;
+            //项目
+            $scope.customerDetailEvent = false;
 
             //移动电话
             $scope.customerDetailmobilenum = false;
@@ -481,12 +486,12 @@ customerModule
             $scope.customerDetailcheckdate = false;
             //预验收周期
             $scope.customerDetailwillcheckdate = false;
-            //助销伙伴领域
-            $scope.customerDetailZzlytwo = false;
-            //长项
-            $scope.customerDetailAdvatage = false;
-            //项目
-            $scope.customerDetailEvent = false;
+            //竞争对手领域
+            $scope.customerDetailZzlyone = false;
+            //份额
+            $scope.customerDetailContains = false;
+            //价格
+            $scope.customerDetailPrice = false;
             //移动电话
             $scope.customerDetailmobilenum = false;
 
@@ -742,11 +747,10 @@ customerModule
         };
 
         $scope.cascade=function(){
-            //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
-            var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
+            var url=ROOTCONFIG.hempConfig.basePath + "LIST_CITY";
             var data={
-                "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" },
+                "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "I_COUNTRY": "",
                 "I_MODE": "A",
                 "I_REGION": ""
@@ -760,11 +764,10 @@ customerModule
             });
         };
         $scope.cascade1=function(){
-            //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
-            var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
+            var url=ROOTCONFIG.hempConfig.basePath + "LIST_CITY";
             var data={
-                "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" },
+                "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "I_COUNTRY": $scope.countryCode,
                 "I_MODE": "B",
                 "I_REGION": ""
@@ -779,11 +782,10 @@ customerModule
             });
         };
         $scope.cascade2=function(){
-            //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
-            var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
+            var url= ROOTCONFIG.hempConfig.basePath + "LIST_CITY";
             var data={
-                "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" },
+                "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "I_COUNTRY": $scope.countryCode,
                 "I_MODE": "C",
                 "I_REGION": $scope.provenceCode
