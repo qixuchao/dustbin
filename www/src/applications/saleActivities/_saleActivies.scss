@@ -1,4 +1,13 @@
 .saleList {
+  .scroll{
+    min-height:100%;
+  }
+  .myFilter{
+    .listFilter{
+      width: 85%!important;
+    }
+  }
+
   .pub-head {
     background: $crm-subject-blue;
     color: white;
@@ -433,6 +442,13 @@
       .obj {
         padding-top: 2%;
         padding-bottom: 4%;
+        .ion-ios-close{
+          position: absolute;
+          right: 2px;
+          top: 0;
+          color: #DAD8D8;
+          font-size: 18px;
+        }
       }
       .oval {
         width: 6%;
@@ -442,6 +458,7 @@
         background: url('../../img/saleDetail/Triangle.png') no-repeat;
         background-size: 100% 100%;
         width: 95%;
+        min-height: 57px;
         .textType {
           position: relative;
           font-size: 14px;
@@ -505,6 +522,18 @@
             left: -6px;
             top: 2px;
             color: #84807D;
+          }
+        }
+        .col-18 {
+          margin-left: 2.5%;
+          button {
+            height: 29px;
+            min-width: 90%;
+            border-radius: 10px;
+            background: #9ec92a;
+            color: white;
+            font-size: 14px;
+            border: none;
           }
         }
         .input {

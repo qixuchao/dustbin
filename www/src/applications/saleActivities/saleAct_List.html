@@ -2,7 +2,8 @@
     <div ng-if="!searchFlag">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
-                <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i
+                        class="ion-chevron-left"></i></a>
 
                 <div class="col col-60 text-center">{{saleTitleText}}</div>
                 <div class="col col-20 add button-clear button preVentScrollTop" ng-click="openCreatePop($event)">
@@ -13,23 +14,42 @@
         </ion-header-bar>
         <div class="pub-subhead bar bar-subheader">
             <div class="row row-center no-padding" ng-click="changeSearch()">
-                <i class="ion-ios-search"></i>请输入活动关键字
+                <i class="ion-ios-search"></i>{{input.list?input.list:'请输入活动关键字'}}
             </div>
         </div>
     </div>
-    <ion-header-bar align-title="center" class="head" ng-if="searchFlag">
-        <div id="searchTitle" class="row row-center" ng-class="{'own-animated fadeIn':searchFlag}" ng-if="searchFlag">
-            <div class="col col-80">
-                <div class="row row-center no-padding" style="height: 23px;">
-                    <i class="ion-ios-search"></i>
-                    <input id="saleListSearchId" type="search" focus-me ng-model="input.search" placeholder="请输入活动关键字">
-                    <i class="ion-ios-close" ng-if="input.search" ng-click="initSearch()"></i>
+    <!--<ion-header-bar align-title="center" class="head" ng-if="searchFlag">-->
+    <!--<div id="searchTitle" class="row row-center" ng-class="{'own-animated fadeIn':searchFlag}" ng-if="searchFlag">-->
+    <!--<div class="col col-80">-->
+    <!--<div class="row row-center no-padding" style="height: 23px;">-->
+    <!--<i class="ion-ios-search"></i>-->
+    <!--<input id="saleListSearchId" type="search" focus-me ng-model="input.list" placeholder="请输入活动关键字">-->
+    <!--<i class="ion-ios-close" ng-if="input.list" ng-click="initSearch()"></i>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col col-20 text-center cancel" ng-click="changeSearch()">取消</div>-->
+    <!--</div>-->
+    <!--</ion-header-bar>-->
+    <div class="referModal" ng-if="searchFlag">
+        <ion-header-bar class="head" no-tap-scroll="true">
+            <div class="row row-center">
+                <div class="text-center selections" ng-click="changeFilterFlag($event)">
+                    筛选<img class="chanceImg" src="img/saleList/oval.png">
                 </div>
+                <div class="col input">
+                    <form ng-submit="getList('search')">
+                        <div class="row row-center no-padding">
+                            <i class="ion-ios-search"></i>
+                            <input id="saleActListSearchId" focus-me type="search" ng-change="getList('search')"
+                                   ng-model="input.list" placeholder="请输入关键字">
+                            <i class="ion-ios-close" ng-if="input.list" ng-click="initSearch()"></i>
+                        </div>
+                    </form>
+                </div>
+                <div class="col col-15 text-center cancel" ng-click="changeSearch()">取消</div>
             </div>
-            <div class="col col-20 text-center cancel" ng-click="changeSearch()">取消</div>
-        </div>
-    </ion-header-bar>
-
+        </ion-header-bar>
+    </div>
     <ion-content class="has-subheader content" ng-hide="searchFlag">
         <ion-refresher pulling-text="下拉刷新..." ng-show="isloading" on-refresh="getList('refresh')"></ion-refresher>
         <div class="list">
@@ -49,36 +69,74 @@
                 </div>
             </a>
         </div>
-        <ion-infinite-scroll on-infinite="getList()" distance="1%" ng-show="loadMoreFlag"></ion-infinite-scroll>
+        <ion-infinite-scroll id="saleChanListSpinnerId" on-infinite="getList()" distance="1%"
+                             ng-if="loadMoreFlag&&!searchFlag"></ion-infinite-scroll>
     </ion-content>
     <ion-content class="has-header search" ng-show="searchFlag"
                  ng-click="changeSearch($event)">
-        <div class="row row-center his-title" ng-if="!input.search">
-            <i class="ion-android-time"></i>
-            <div class="hisText">历史记录</div>
-            <div class="horizon-line"></div>
-        </div>
-        <ion-list ng-if="!input.search">
-            <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x}}</ion-item>
-        </ion-list>
-        <div class="content">
-            <div class="list" ng-if="input.search">
-                <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr | filter:input.search">
-                    <div class="row row-center">
-                        <img class="title_oval" src="img/saleDetail/title_oval.png">
-                        <div class="title" ng-bind-html="x.DESCRIPTION | highlight:input.search"></div>
-                        <div class="col text-right"><img class="shape" src="img/saleDetail/Shape.png"></div>
+        <div class="saleChanList myFilter">
+            <div ng-class="filterFlag?'own-backDrop-on':'own-backDrop-off'"
+                 ng-click="changeFilterFlag($event)"></div>
+            <div id="saleChanListFilterId" class="listFilter selectionsDown pushDown-animated refer-selectionsDown"
+                 ng-class="{'slideOutUp':!filterFlag,'fadeInDown':filterFlag}"
+                 ng-show="filterFlag" ng-click="filterPrevent($event)">
+                <div class="type">类型</div>
+                <div class="row typeRow row-wrap">
+                    <div class="typeSelections" ng-class="{'selected':x.flag}"
+                         ng-click="filterSelect(x,filters.type)"
+                         ng-repeat="x in filters.type">{{x.text}}
                     </div>
-                    <div class="row row-center sub-title">
-                        <div class="startText">开始日期:&nbsp;&nbsp;</div>
-                        <div class="startDate" ng-bind-html="x.DATE_FROM | highlight:input.search"></div>
-                        <div class="type">类型:&nbsp;&nbsp;</div>
-                        <div class="typeValue" ng-bind-html="x.PROT_TXT | highlight:input.search"></div>
-                        <div class="col status" ng-class="{'waitStatus':x.STATUS_TXT=='未处理'}"
-                             ng-bind-html="x.STATUS_TXT | highlight:input.search"></div>
+                </div>
+                <div class="status">状态</div>
+                <div class="row row-wrap statusSecond">
+                    <div class="typeSelections" ng-class="{'selected':x.flag}" ng-click="filterSelect(x,filters.status)"
+                         ng-repeat="x in filters.status">{{x.text}}
                     </div>
-                </a>
+                </div>
+                <div class="status">紧急程度</div>
+                <div class="row row-wrap statusSecond">
+                    <div class="typeSelections" ng-class="{'selected':x.flag}" ng-click="filterSelect(x,filters.urgentDegree)"
+                         ng-repeat="x in filters.urgentDegree">{{x.text}}
+                    </div>
+                </div>
+                <div class="bottomButton row">
+                    <div class="reset" ng-click="filterReset()">重置</div>
+                    <div class="sure" ng-click="filterSure()">确定</div>
+                </div>
             </div>
         </div>
+        <ion-scroll class="fill-parent">
+            <div class="row row-center his-title" ng-if="!input.list">
+                <i class="ion-android-time"></i>
+
+                <div class="hisText">历史记录</div>
+                <div class="horizon-line"></div>
+            </div>
+            <ion-list ng-if="!input.list">
+                <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x.text}}</ion-item>
+            </ion-list>
+            <div class="content">
+                <div class="list" ng-if="input.list">
+                    <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr | filter:input.list">
+                        <div class="row row-center">
+                            <img class="title_oval" src="img/saleDetail/title_oval.png">
+
+                            <div class="title" ng-bind-html="x.DESCRIPTION | highlight:input.list"></div>
+                            <div class="col text-right"><img class="shape" src="img/saleDetail/Shape.png"></div>
+                        </div>
+                        <div class="row row-center sub-title">
+                            <div class="startText">开始日期:&nbsp;&nbsp;</div>
+                            <div class="startDate" ng-bind-html="x.DATE_FROM | highlight:input.list"></div>
+                            <div class="type">类型:&nbsp;&nbsp;</div>
+                            <div class="typeValue" ng-bind-html="x.PROT_TXT | highlight:input.list"></div>
+                            <div class="col status" ng-class="{'waitStatus':x.STATUS_TXT=='未处理'}"
+                                 ng-bind-html="x.STATUS_TXT | highlight:input.list"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <ion-infinite-scroll id="saleChanListSearchPageId" on-infinite="getList('searchPage')" distance="1%"
+                                 ng-if="loadMoreFlag&&input.list"></ion-infinite-scroll>
+        </ion-scroll>
     </ion-content>
 </ion-view>

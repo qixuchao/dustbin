@@ -2,12 +2,14 @@
   .scroll{
     min-height:100%;
   }
+  .fill-parent{
+    height:100%;
+  }
   .listFilter{
     position: absolute;
     background: white;
     z-index: 12;
     width: 75%;
-    height: 305px;
     padding: 10px;
     border-bottom-right-radius: 10px;
     .type{

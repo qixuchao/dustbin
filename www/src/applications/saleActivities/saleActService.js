@@ -162,7 +162,7 @@ salesModule.factory('saleActService', function () {
     }, {
         text: '联系人8'
     }];
-    var actDetail = {};
+    var actDetail;
     var relationsPopArr = [{
         text: 'CATL销售'
     }, {
@@ -224,13 +224,13 @@ salesModule.factory('saleActService', function () {
     }];
     var processTypesArr = [{
         text:'处理中',
-        code:'E0002'
+        code:'01'
     },{
         text:'已完成',
-        code:'E0003'
+        code:'02'
     },{
         text:'已取消',
-        code:'E0004'
+        code:'03'
     }];
     var relationPositionArr = [{
         text:'联系人',
@@ -249,6 +249,56 @@ salesModule.factory('saleActService', function () {
         text:'客户',
         code:'00000009'
     }];
+    var filters = {
+        status:[{
+            text:'未处理',
+            value:'E0001'
+        },{
+            text:'处理中',
+            value:'E0002'
+        },{
+            text:'已完成',
+            value:'E0003'
+        },{
+            text:'已取消',
+            value:'E0004'
+        }],
+        type:[{
+            text: '商务洽谈',
+            value: 'ZA01'
+        }, {
+            text: '客情交流',
+            value: 'ZA02'
+        }, {
+            text: '项目推进',
+            value: 'ZA03'
+        }, {
+            text: '内部事务',
+            value: 'ZA04'
+        }, {
+            text: '来访接待',
+            value: 'ZA05'
+        }, {
+            text: '市场营销',
+            value: 'ZA06'
+        }],
+        urgentDegree:[{
+            text: '需上司支持',
+            value: '01'
+        }, {
+            text: '重要紧急',
+            value: '02'
+        }, {
+            text: '重要不紧急',
+            value: '03'
+        }, {
+            text: '紧急不重要',
+            value: '04'
+        }, {
+            text: '普通事项',
+            value: '05'
+        }]
+    };
     var customerArr = [];
     var listPage = 1;
     var saleListArr = [];
@@ -287,6 +337,7 @@ salesModule.factory('saleActService', function () {
         positonArr,
         processTypesArr,
         relationPositionArr,
-        relationPositionForAdd
+        relationPositionForAdd,
+        filters
     };
 });

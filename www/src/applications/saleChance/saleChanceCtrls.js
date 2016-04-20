@@ -29,26 +29,31 @@ salesModule
             }, 100);
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
-            $scope.input = {search: ''};
+            $scope.input = {search: '',list:''};
             $scope.filters = saleChanService.filters;
             var pageNum = 1;
             $scope.loadMoreFlag = true;
             $scope.saleListArr = [];
+            var tempHisPostData;
             $scope.getList = function (type) {
                 switch (type) {
                     case 'searchPage':
                         if (!$scope.input.list) {
                             return
                         }
-                        angular.element(document.querySelector('#saleActListSearchPageId')).addClass('active');
+                        angular.element('#saleActListSearchPageId').addClass('active');
                         break;
                     case 'refresh':
                         pageNum = 1;
+                        var arr = document.getElementsByClassName('flipInX');
+                        for (var i = 0; i < arr.length; i++) {
+                            angular.element(arr[i]).removeClass('animated');
+                        }
+                        $scope.saleListArr = [];
                         break;
                     case 'search':
-                        console.log($scope.input.list)
                         $scope.loadMoreFlag = true;
-                        angular.element(document.querySelector('#saleActListSearchPageId')).addClass('active');
+                        angular.element('#saleActListSearchPageId').addClass('active');
                         pageNum = 1;
                         var arr = document.getElementsByClassName('flipInX');
                         for (var i = 0; i < arr.length; i++) {
@@ -59,7 +64,7 @@ salesModule
                 }
                 var data = {
                     "IS_SYSTEM": {"SysName": $scope.sysName},
-                    "IS_USER": {"BNAME": "HANDBLH"},
+                    "IS_USER": {"BNAME": window.localStorage.crmUserName},
                     "IS_PAGE": {
                         "CURRPAGE": pageNum++,
                         "ITEMS": "10"
@@ -74,7 +79,7 @@ salesModule
                         "PROCESS_TYPE": getFilerType()
                     }
                 };
-
+                tempHisPostData = data;
                 $scope.statusArr = saleChanService.listStatusArr;
                 var getStatusObj = function (status) {
                     for (var i = 0; i < $scope.statusArr.length; i++) {
@@ -83,9 +88,11 @@ salesModule
                         }
                     }
                 };
-                console.log('saleChanListPageNum---------' + pageNum);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_LIST', data)
-                    .success(function (response) {
+                    .success(function (response, status, headers, config) {
+                        if (config.data.IS_SEARCH.ZSRTING != $scope.input.list) {
+                            return;
+                        }
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             saleChanService.listPage = pageNum;
                             if (type === 'refresh') {
@@ -111,6 +118,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                         } else {
                             $scope.loadMoreFlag = false;
+                            Prompter.alert('没有更多数据了');
                         }
                     }).finally(function () {
                     // 停止广播ion-refresher
@@ -125,9 +133,9 @@ salesModule
                     document.getElementById('saleChanListSearchId').focus();
                 }, 1)
             };
-            $scope.hisArr = [
-                '福州', '清明', '活动'
-            ];
+            if (storedb('saleChanListHisArr').find().arrUniq() != undefined || storedb('saleChanListHisArr').find().arrUniq() != null) {
+                $scope.hisArr = (storedb('saleChanListHisArr').find().arrUniq());
+            }
             var tempFilterArr = angular.copy($scope.filters);
             var onceCilck = true;
             $scope.filterSelect = function (x, type) {
@@ -177,24 +185,12 @@ salesModule
                 }
             };
             $scope.filterSure = function () {
-                //$ionicScrollDelegate.scrollTop();
-                //var arr = document.getElementsByClassName('flipInX');
-                //for (var i = 0; i < arr.length; i++) {
-                //    angular.element(arr[i]).removeClass('animated');
-                //}
-                //$scope.saleListArr = [];
-                //pageNum = 1;
-                //$scope.loadMoreFlag = true;
-                //$scope.getList();
-                //angular.element(document.querySelector('#saleActListSpinnerId')).addClass('active');
-                //$scope.searchFlag = false;
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
             };
             $scope.filterPrevent = function (e) {
                 e.stopPropagation();
             };
-            $scope.filterFlag = false;
             $scope.changeSearch = function () {
                 if ($scope.filterFlag) {
                     $scope.filterFlag = false;
@@ -210,12 +206,8 @@ salesModule
                 }
             };
             $scope.search = function (x, e) {
-                Prompter.showLoading('正在搜索');
-                $timeout(function () {
-                    Prompter.hideLoading();
-                    $scope.input.search = x;
-                }, 800);
-
+                $scope.input.list = x.text;
+                $scope.getList('search');
                 e.stopPropagation();
             };
             $scope.initSearch = function () {
@@ -240,10 +232,26 @@ salesModule
                 e.stopPropagation();
             };
             $scope.goDetail = function (x, e) {
-                if (localStorage.saleActListHisArr) {
-
-                }
                 saleChanService.obj_id = x.OBJECT_ID;
+                var isStored = false;
+                angular.forEach($scope.hisArr, function (data) {
+                    if(data.text == $scope.input.list){
+                        isStored = true;
+                    }
+                });
+                if(!isStored){
+                    storedb('saleChanListHisArr').insert({
+                        text: $scope.input.list,
+                        data: tempHisPostData
+                    }, function (err) {
+                        if (!err) {
+                            console.log('历史记录保存成功')
+                        } else {
+                            Prompter.alert('历史记录保存失败');
+                        }
+                    });
+                    $scope.hisArr = (storedb('saleChanListHisArr').find().arrUniq());
+                }
                 $state.go('saleChanDetail');
                 e.stopPropagation();
             };
@@ -257,11 +265,11 @@ salesModule
             }).then(function (popover) {
                 $scope.createPop = popover;
             });
-            $scope.salesGroup = [];
             $scope.openCreatePop = function () {
+                $scope.salesGroup = [];
                 $scope.creaeSpinnerFlag = true;
                 var data = {
-                    "I_SYSTEM": {"SysName": "CATL"},
+                    "I_SYSTEM": {"SysName": $scope.sysName},
                     "IS_USER": {"BNAME": window.localStorage.crmUserName}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
@@ -444,6 +452,7 @@ salesModule
             var customerPage = 1;
             $scope.customerArr = [];
             $scope.customerSearch = false;
+            $scope.input = {customer:''};
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -458,12 +467,15 @@ salesModule
                         "CURRPAGE": customerPage++,
                         "ITEMS": "10"
                     },
-                    "IS_SEARCH": {"SEARCH": search},
+                    "IS_SEARCH": {"SEARCH": $scope.input.customer},
                     "IT_IN_ROLE": {}
                 };
                 console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
-                    .success(function (response) {
+                    .success(function (response, status, headers, config) {
+                        if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
+                            return;
+                        }
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             if (response.ET_OUT_LIST.item.length < 10) {
                                 $scope.CustomerLoadMoreFlag = false;
@@ -700,7 +712,7 @@ salesModule
                             "ZZFLD00002E": "",
                             "ZTEXT": $scope.chanceDetails.CRM_ORDERH_T
                         },
-                        "IS_USER": {"BNAME": "HANDBLH"},
+                        "IS_USER": {"BNAME": window.localStorage.crmUserName},
                         "IT_COMPETITOR": {
                             "item": {
                                 "PARTNER_NO": "",
@@ -720,7 +732,6 @@ salesModule
                             "item": getModifyRelationsArr()
                         }
                     };
-                    console.log(data);
                     HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_CHANGE', data)
                         .success(function (response) {
                             if (response.ES_RESULT.ZFLAG === 'S') {
@@ -912,6 +923,7 @@ salesModule
             var customerPage = 1;
             $scope.customerArr = [];
             $scope.customerSearch = false;
+            $scope.input={customer:''}
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -926,12 +938,15 @@ salesModule
                         "CURRPAGE": customerPage++,
                         "ITEMS": "10"
                     },
-                    "IS_SEARCH": {"SEARCH": search},
+                    "IS_SEARCH": {"SEARCH": $scope.input.customer},
                     "IT_IN_ROLE": {}
                 };
                 console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
-                    .success(function (response) {
+                    .success(function (response, status, headers, config) {
+                        if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
+                            return;
+                        }
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             if (response.ET_OUT_LIST.item.length < 10) {
                                 $scope.CustomerLoadMoreFlag = false;
@@ -1117,7 +1132,6 @@ salesModule
                                 if (x.position == '客户') {
                                     $scope.chanceDetails.PARTNER_TXT = '';
                                     relationService.relationCustomer = {};
-                                    console.log(saleChanService.relationCustomer)
                                 }
                                 if (angular.isUndefined(x.mode)) {
                                     deleteArr.push({
@@ -1174,7 +1188,7 @@ salesModule
                         $state.go('userDetail');
                         break;
                     case '联系人':
-                        contactService.set_ContactsListvalue(x);
+                        contactService.set_ContactsListvalue(x.PARTNER);
                         $state.go('ContactDetail');
                         break;
                 }

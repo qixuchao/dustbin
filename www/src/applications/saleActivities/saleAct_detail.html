@@ -35,9 +35,7 @@
             </div>
             <div class="mainInfo">
                 <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
-                    <!--<i class="ion-android-radio-button-off"></i>-->
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
-                    <!--<div>郑州金龙客车(福州)客户拜访</div>-->
                     <input type="text" ng-model="details.DESCRIPTION" ng-readonly="!isEdit"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
@@ -80,7 +78,7 @@
             <div ng-if="select">
                 <div class="row">
                     <div class="col-15">注释:</div>
-                    <textarea rows="3" ng-readonly="!isEdit">{{details.TEXT}}</textarea>
+                    <textarea rows="3" ng-readonly="!isEdit" ng-model="details.TEXT"></textarea>
                 </div>
                 <div class="row" style="padding-right: 0;">
                     <div class="row row-center">
@@ -114,46 +112,48 @@
                 </div>
                 <div class="progress">
                     <div class="row">进展:</div>
-                    <div class="obj own-animated zoomInRight">
-                        <div class="row row-center">
-                            <img class="oval" src="img/saleDetail/oval.png">
-
-                            <div class="triAngle row row-center no-padding">
-                                <div class="textType">跟进事项</div>
-                                <div class="text">啥啥啥啥啥啥</div>
-                            </div>
-                        </div>
-                        <div class="row row-center timeRow">
-                            <div class="time">2016-09-32</div>
-                            <div class="hr-line"></div>
-                        </div>
-                    </div>
-                    <div class="obj own-animated zoomInRight">
+                    <div class="obj own-animated {{x.class?x.class:'zoomInRight'}}" ng-repeat="x in makeConsensus.item">
+                        <i class="ion-ios-close" ng-click="deleteProcess(x,makeConsensus.item,$index)"></i>
                         <div class="row row-center">
                             <img class="oval" src="img/saleDetail/oval_green.png">
 
                             <div class="triAngle row row-center no-padding">
                                 <div class="textType green">达成共识</div>
-                                <div class="text">啥啥啥啥啥啥</div>
+                                <div class="text">{{x.ZZSXNR}}</div>
                             </div>
                         </div>
                         <div class="row row-center timeRow">
-                            <div class="time">2016-09-32</div>
-                            <div class="hr-line"></div>
+                            <div class="time"></div>
+                            <!--<div class="hr-line"></div>-->
                         </div>
                     </div>
-                    <div class="obj own-animated zoomInRight">
+                    <div class="obj own-animated {{x.class?x.class:'zoomInRight'}}" ng-repeat="x in followUpMatter.item">
+                        <i class="ion-ios-close" ng-click="deleteProcess(x,followUpMatter.item,$index)"></i>
+                        <div class="row row-center">
+                            <img class="oval" src="img/saleDetail/oval.png">
+                            <div class="triAngle row row-center no-padding">
+                                <div class="textType">跟进事项</div>
+                                <div class="text">{{x.ZZSXNR_1}}</div>
+                            </div>
+                        </div>
+                        <div class="row row-center timeRow">
+                            <div class="time"></div>
+                            <!--<div class="hr-line"></div>-->
+                        </div>
+                    </div>
+                    <div class="obj own-animated {{x.class?x.class:'zoomInRight'}}" ng-repeat="x in policyDecode.item">
+                        <i class="ion-ios-close" ng-click="deleteProcess(x,policyDecode.item,$index)"></i>
                         <div class="row row-center">
                             <img class="oval" src="img/saleDetail/oval_rose.png">
 
                             <div class="triAngle row row-center no-padding">
                                 <div class="textType rose">政策解读</div>
-                                <div class="text">啥啥啥啥啥啥</div>
+                                <div class="text">{{x.ZZSXNR_2}}</div>
                             </div>
                         </div>
                         <div class="row row-center timeRow">
-                            <div class="time">2016-09-32</div>
-                            <div class="hr-line"></div>
+                            <div class="time"></div>
+                            <!--<div class="hr-line"></div>-->
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
             </div>
             <!--相关方-->
             <div id="relativeId" class="relative" ng-if="!select">
-                <div class="row" ng-repeat="x in details.relations" on-hold="showActionSheet(x)">
+                <div class="row" ng-repeat="x in relationArr" ng-click="goRelationDetail(x)" on-hold="showActionSheet(x)">
                     <div class="col col-60 col-center">{{x.NAME}}</div>
                     <div class="col position col-center text-center">{{x.position}}</div>
                 </div>
@@ -171,17 +171,20 @@
             </div>
         </div>
     </ion-content>
-    <div class="bar bar-footer content item-input-inset" keyboard-attach style="z-index: 999">
+    <div class="bar bar-footer content item-input-inset" keyboard-attach>
         <form ng-submit="formTest()" style="width: 100%">
             <div class="submit">
                 <div class="row row-center">
                     <div class="col no-padding">
-                        <div class="input"><input type="text" ng-focus="openProcessModal()" ng-model="input.progress"/>
+                        <div class="input"><input type="text"  ng-click="openProcessModal()" ng-model="input.progress"/>
                         </div>
                     </div>
-                    <div class="no-padding selections">
-                        <select ng-model="myProcess" ng-options="x as x.text for x in processArr"></select>
+                    <div class="no-padding selections" ng-show="!processDropflag">
+                        <select ng-model="myProcess" ng-disabled="!isEdit" ng-options="x as x.text for x in processArr"></select>
                         <i class="ion-ios-arrow-down"></i>
+                    </div>
+                    <div class="col col-18 no-padding" ng-if="processDropflag" ng-click="submit()">
+                        <button>提交</button>
                     </div>
                 </div>
             </div>

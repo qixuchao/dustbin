@@ -57,7 +57,7 @@
             </a>
         </div>
         <ion-infinite-scroll id="saleActListSpinnerId" on-infinite="getList()" distance="1%"
-                             ng-show="loadMoreFlag&&!searchFlag"></ion-infinite-scroll>
+                             ng-if="loadMoreFlag&&!searchFlag"></ion-infinite-scroll>
     </ion-content>
     <ion-content ng-cloak class="has-header search" ng-show="searchFlag"
                  ng-click="changeSearch($event)" scroll="false">
@@ -97,7 +97,7 @@
                 <div class="horizon-line"></div>
             </div>
             <ion-list ng-if="!input.list">
-                <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x}}</ion-item>
+                <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x.text}}</ion-item>
             </ion-list>
             <div class="content">
                 <div class="list" ng-if="input.list">
@@ -122,7 +122,7 @@
                 </div>
             </div>
             <ion-infinite-scroll id="saleActListSearchPageId" on-infinite="getList('searchPage')" distance="1%"
-                                 ng-show="loadMoreFlag&&input.list"></ion-infinite-scroll>
+                                 ng-if="loadMoreFlag&&input.list"></ion-infinite-scroll>
         </ion-scroll>
     </ion-content>
 </ion-view>

@@ -33,7 +33,7 @@ salesModule
             $scope.moreflag = false;
             $scope.relationsPopArr = relationService.saleActSelections;
             $scope.relationArr = [];
-
+            $scope.input = {relation:''};
             //相关方里面的客户,用来查联系人
             var relationCustomer = relationService.relationCustomer;
             var relationPage = 1;
@@ -75,10 +75,13 @@ salesModule
                         "ITEMS": "10"
                     },
                     "IS_PARTNER": {"PARTNER": relationCustomer.PARTNER},
-                    "IS_SEARCH": {"SEARCH": search}
+                    "IS_SEARCH": {"SEARCH": $scope.input.relation}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
-                    .success(function (response) {
+                    .success(function (response, status, headers, config) {
+                        if (config.data.IS_SEARCH.SEARCH != $scope.input.relation) {
+                            return;
+                        }
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             angular.forEach(response.ET_OUT_LIST.item, function (data) {
                                 data.NAME = data.NAME_LAST + "";
@@ -120,7 +123,7 @@ salesModule
                             "CURRPAGE": relationPage++,
                             "ITEMS": "10"
                         },
-                        "IS_SEARCH": {"SEARCH": search},
+                        "IS_SEARCH": {"SEARCH": $scope.input.relation},
                         "IT_IN_ROLE": {
                             "item1": {"RLTYP": "Z00002"}
                         }
@@ -132,12 +135,15 @@ salesModule
                             "CURRPAGE": relationPage++,
                             "ITEMS": "10"
                         },
-                        "IS_SEARCH": {"SEARCH": search},
+                        "IS_SEARCH": {"SEARCH": $scope.input.relation},
                         "IT_IN_ROLE": {}
                     };
                 }
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
-                    .success(function (response) {
+                    .success(function (response, status, headers, config) {
+                        if (config.data.IS_SEARCH.SEARCH != $scope.input.relation) {
+                            return;
+                        }
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             angular.forEach(response.ET_OUT_LIST.item, function (data) {
                                 data.NAME = data.NAME_ORG1 + "";
@@ -178,10 +184,13 @@ salesModule
                         "CURRPAGE": relationPage++,
                         "ITEMS": "10"
                     },
-                    "IS_EMPLOYEE": {"NAME": search}
+                    "IS_EMPLOYEE": {"NAME": $scope.input.relation}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST', data)
-                    .success(function (response) {
+                    .success(function (response, status, headers, config) {
+                        if (config.data.IS_EMPLOYEE.NAME != $scope.input.relation) {
+                            return;
+                        }
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             angular.forEach(response.ET_EMPLOYEE.item, function (data) {
                                 data.NAME = data.NAME_LAST + "";
@@ -245,7 +254,7 @@ salesModule
             };
             var getRelationFCT = function () {
                 for (var i = 0; i < $scope.relationsPopArr.length; i++) {
-                    if ($scope.relationsPopArr[i].text = $scope.selectPopText) {
+                    if ($scope.relationsPopArr[i].text == $scope.selectPopText) {
                         return $scope.relationsPopArr[i].code;
                     }
                 }
@@ -253,7 +262,7 @@ salesModule
             $scope.addRelationModal = function (x) {
                 if ($scope.selectPopText == '客户' && !angular.isUndefined(relationService.relationCustomer.position)) {
                     Prompter.alert('已存在客户!');
-                    console.log(relationService.relationCustomer);
+                    console.log('已存在客户');
                     return
                 }
                 x.flag = true;
@@ -277,9 +286,11 @@ salesModule
                     }
                 });
                 if ($scope.selectPopText == '客户') {
-                    x.PARTNER_FCT = "00000021";
+                    x.PARTNER_FCT = getRelationFCT();
                     relationService.relationCustomer = x;
                     relationService.chanceDetailPartner.PARTNER_TXT = x.NAME;
+                    relationService.chanceDetailPartner.customerName = x.NAME;
+                    console.log(x);
                 }
                 $scope.hideRelations();
             };
@@ -300,8 +311,11 @@ salesModule
                 }
                 myRelations[repTempIndex] = x;
                 if ($scope.selectPopText == '客户') {
+                    x.PARTNER_FCT = getRelationFCT();
                     relationService.relationCustomer = x;
                     relationService.chanceDetailPartner.PARTNER_TXT = x.NAME;
+                    relationService.chanceDetailPartner.customerName = x.NAME;
+                    console.log(x);
                 }
                 $scope.hideRelations();
             };
