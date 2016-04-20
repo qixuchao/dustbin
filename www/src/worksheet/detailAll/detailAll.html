@@ -3,10 +3,10 @@
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'" style="margin-left:0px;padding-left:0px;padding-top:20px;margin-top:15px;">
                 <div class="col col-10" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-75 text-center">工单详细信息</div>
-                <div class="col-15 show-more-modal-content-source3 "  ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
+                <div class="col-15 show-more-modal-content-source3 " ng-if="canShowMoreBtn();"  ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
                     <span class="detail-all-more-button {{config.statusStr}} {{config.typeStr}}"><i class="ion-ios-more"></i></span>
                 </div>
-            </div>
+            </div> 
             <div class="mainInfo" style="width:100%;top:60px;position:relative;height:125px;padding-left: 1rem;">
                 <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                     <i class="ion-android-radio-button-off"></i>
@@ -14,13 +14,13 @@
                 </div>
                 <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
                     <span class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.kyhuMingCheng"></span>
-                </div>
+                </div> 
                 <div class="row row-center detail-last-line" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="detail-customer">
                         <div>外服人员:</div>
                         <span ng-bind="datas.detail.waifuRenyuan"></span>
                     </div>
-                    <!--select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select-->
+                    <!--select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select--> 
                     <div class="detail-status">
                         <div class="num" style="color:white;">状态:</div>
                         <div ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
@@ -34,12 +34,12 @@
                                             'stat-audited':(datas.detail.ES_OUT_LIST.STATU=='E0007'),
                                             'stat-returned':(datas.detail.ES_OUT_LIST.STATU=='E0008'),
                                             'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
-                                            'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
+                                            'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div> 
                     </div>                    
                 </div>
             </div>
     </div>
-
+    
     <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false" style="padding-top:.4rem;height: 40px;background:white;z-index: 1;top: 170px;margin-top: 0px;">
         <div class="fill-height line-inner">
             <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
@@ -223,13 +223,16 @@
                 </div>
                 <div class="row has-toggle ZPLO-hide ZPRV-hide ZPLV-hide ZNCV-hide">
                     <div class="col-40">
-                        <input type="checkbox" disabled ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" ng-true-value="'X'" ng-false-value="''">
+                        <!-- input type="checkbox" disabled ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" ng-true-value="'X'" ng-false-value="''"-->
+                        需要回访:
                     </div>
-                    <div class="col-60">
-                        需要回访
-                        <!--ion-toggle ng-true-value="'X'" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm"></ion-toggle-->
+                    <div class="col-60" style="padding-left: 0px;">
+                        <ion-toggle ng-disabled="true" class="xbr-my-ion-toggle" ng-true-value="'X'" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm" style="padding-left: 0px;"></ion-toggle>
                     </div>
                 </div>
+                <style>
+
+                </style>
                 <div class="row ZPLO-hide ZPLV-hide">
                     <div class="col-40">报修人&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZBXR"></div>

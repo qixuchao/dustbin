@@ -79,24 +79,32 @@ worksheetModule.service('worksheetDataService', [function(){
       needReload: false
     },
     wsDetailToPaiZHao: null,
-
+    getStoredByKey: function(key){
+      if(key == "userName"){
+        return window.localStorage.crmUserName;
+      }
+      if(key == "sysName"){
+        return "CATL";
+      }
+      
+    }
     /*{
       ydWorksheetNum: 
     }*/
   };
 }]);
 
-worksheetModule.service('worksheetHttpService', ['HttpAppService', function(HttpAppService){
+worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDataService', function(HttpAppService, worksheetDataService){
     //配件的选择数据
     var sparePart;
-    var carMileage;
+    var sparePartPro;
     //相关方数据
     return {
         serviceList: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST',   //工单列表接口
             defaults: {
-                I_SYSNAME: { SysName: "CATL" },
-                IS_AUTHORITY: { BNAME: "" },
+                I_SYSNAME: { SysName: worksheetDataService.getStoredByKey("sysName") },
+                IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") },
                 IS_PAGE: {
                   CURRPAGE: 1,
                   ITEMS: 10
@@ -121,7 +129,7 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
         empsList: {
           url: "STAFF_LIST",
           defaults: {
-              I_SYSNAME: { SysName: "CATL" },
+              I_SYSNAME: { SysName: worksheetDataService.getStoredByKey("sysName") },
               IS_PAGE: {
                 CURRPAGE: "1",
                 ITEMS: "10"
@@ -137,13 +145,13 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
         getSparePart:function(){
             return sparePart;
         },
-        //车辆里程
-        setWSCarMileage:function(data){
-            carMileage=data;
-            return carMileage;
+        //相关方
+        setWorksheetRelatePart:function(data){
+            worksheetRelatePart=data;
+            return worksheetRelatePart;
         },
-        getWSCarMileage:function(){
-            return carMileage;
+        getWorksheetRelatePart:function(){
+            return worksheetRelatePart;
         },
         //产品
 
@@ -153,8 +161,8 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
         serviceDetailChange: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE',   //工单详情修改接口
             defaults: {
-                "I_SYSTEM": { "SysName": "CATL" },
-                "IS_AUTHORITY": { "BNAME": "HANDLCX" }
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+                "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") }
                 /*,
                 "IS_HEAD_DATA": {
                   "DESCRIPTION": "",
@@ -213,29 +221,29 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', function(Http
           service_order_reason:{
             url: ROOTCONFIG.hempConfig.basePath + "SERVICE_ORDER_REASON",
             defaults: {
-                "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" }
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+                "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
             }
           },
           list_scenario:{
             url: ROOTCONFIG.hempConfig.basePath + "LIST_SCENARIO",
             defaults: {
-                "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" }
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+                "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
             }
           },
           list_response: {
             url: ROOTCONFIG.hempConfig.basePath + "LIST_RESPONSE",
             defaults: {
-                "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" }
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+                "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
             }
           },
           list_defect:{
             url: ROOTCONFIG.hempConfig.basePath + "LIST_DEFECT",
             defaults: {
-              "I_SYSTEM": { "SysName": "CATL" },
-              "IS_USER": { "BNAME": "HANDLCX02" }
+              "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
             }
           }
         },
