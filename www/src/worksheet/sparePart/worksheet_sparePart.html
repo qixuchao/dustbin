@@ -4,9 +4,9 @@
             <ion-header-bar align-title="center" class="head pub-head">
                 <div class="row row-center">
                     <a class="col col-15 text-left goBack" ng-click="cancleInfos()"><i class="ion-chevron-left"></i></a>
-                    <div class="col col-70 text-center">备件申请选择
+                    <div class="col col-65 text-center">备件申请选择
                     </div>
-                    <div class="col col-15 text-right" ng-click="goDetailList()">暂存</div>
+                    <div class="col col-20 col-center" ng-click="goDetailList()">暂存</div>
                 </div>
             </ion-header-bar>
             <div class="pub-subhead bar bar-subheader">
@@ -19,8 +19,7 @@
                 <div class="textInfo text-right row-center" ng-click="goUpdateSAP()">传输至SAP</div>
             </div>
         </div>
-    </ion-header-bar>
-    <div style="background-color: white;height: 65px;margin: 0px 15px 0px 15px;margin-top: 88px">
+    <div style="background-color: white;height: 65px;margin: 0px 15px 0px 15px;margin-top: 88px" class="iostop">
         <div style="color: #276DAC;height: 40px;font-size: 16px;" class="row">请选择</div>
         <div class ="row ">
             <select class="selectC"  ng-model="config.warehouse" ng-options="impact as impact.ZZSTORAGE_DESC for impact in wareHouse"  ng-change="change(config.warehouse)">
@@ -71,7 +70,7 @@
                 </li>
                 <div class="col-27 col-center" style="margin:auto;">
                     <i class="ion-ios-minus-outline iStyle" ng-click="reduce(i)"></i>
-                    <input type="number" class="inputSmall"  ng-model="i.APPLY_NUM" ng-change="inputChange(i)">
+                    <input type="number" class="inputSmall"  ng-model="i.APPLY_NUM"  ng-focus="focusnum(i)" ng-blur="blurnum(i)">
                     <i class="ion-ios-plus-outline iStyle" ng-click="add(i)"></i>
                 </div>
             </div>

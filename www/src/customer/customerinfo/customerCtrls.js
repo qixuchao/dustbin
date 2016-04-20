@@ -520,10 +520,12 @@ customerModule
             "IS_AUTHORITY": { "BNAME": "" }
         };
         HttpAppService.post(url, data).success(function (response) {
+            console.log(response);
             Prompter.hideLoading();
             if (response.ES_RESULT.ZFLAG == 'E') {
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
             } else {
+                customeService.set_customeFuZe(response);
                 if(response.ET_OUT_DETAIL != ''){
                     $scope.customerdetails = response.ET_OUT_DETAIL.item[0];
                     $scope.customerdetails.PARTNER = parseInt($scope.customerdetails.PARTNER);
@@ -554,7 +556,9 @@ customerModule
                            url:'customerVehicleQuery'
                        },{
                            typemane:'负责人',
-                           imgurl:'img/customer/customerfuz@2x.png'
+                           imgurl:'img/customer/customerfuz@2x.png',
+                           url:'customerFuZe'
+
                        }
                    ]
            }else if (LoginService.getProfileType()=="APP_SALE"){
@@ -582,29 +586,34 @@ customerModule
                },{
                    typemane:'机会',
                    imgurl:'img/customer/customerjihui@2x.png',
-                   url:'customerChanceQuery'
+                   url:'saleChanList'
                },{
                    typemane:'活动',
                    imgurl:'img/customer/customerhuod.png',
-                   url:'customerActivityQuery'
+                   url:'saleActList'
                },{
                    typemane:'工单',
                    imgurl:'img/customer/customergongd@2x.png',
                    url:'worksheetList'
-               },{
-                   typemane:'线索',
-                   imgurl:'img/customer/customerxians@2x.png',
-                   url:'customerKeyQuery'
-               },{
+               },
+               //    {
+               //    typemane:'线索',
+               //    imgurl:'img/customer/customerxians@2x.png',
+               //    url:'customerKeyQuery'
+               //},
+                   {
                    typemane:'车辆',
                    imgurl:'img/customer/customerchel@2x.png',
                    url:'customerVehicleQuery'
-               },{
-                   typemane:'报价',
-                   imgurl:'img/customer/customerbaoj@2x.png'
-               },{
+               },
+               //    {
+               //    typemane:'报价',
+               //    imgurl:'img/customer/customerbaoj@2x.png'
+               //},
+               {
                    typemane:'负责人',
-                   imgurl:'img/customer/customerfuz@2x.png'
+                   imgurl:'img/customer/customerfuz@2x.png',
+                   url:'customerFuZe'
                }];
 
            }

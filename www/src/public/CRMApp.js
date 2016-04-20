@@ -243,11 +243,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 controller: 'customerWorkorderQueryCtrl'
             })
             //客户-负责人
-            //.state('customerFuze',{
-            //    url:'/customerFuze',
-            //    templateUrl: 'src/customer/customerFuze/customerFuze.html',
-            //    controller:'customerFuzeCtrl'
-            //})
+            .state('customerFuZe',{
+                url:'/customerFuZe',
+                templateUrl: 'src/customer/customerFuZe/customer_fuze.html',
+                controller:'customerFuZeCtrl'
+            })
             //车辆查询
             .state('car',{
                 url:'apps/car',
