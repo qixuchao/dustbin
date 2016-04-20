@@ -155,7 +155,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             })
             //联系人
             .state('ContactQuery', {
-                //cache:false,
+                cache:false,
                 url: '/contactQuery',
                 templateUrl: 'src/contacts/contactQuery.html',
                 controller: 'contactQueryCtrl'

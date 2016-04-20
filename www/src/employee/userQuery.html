@@ -1,71 +1,146 @@
-<ion-nav-view class="employee_query">
+<ion-view class="employee_query">
     <div class="saleList">
-    <ion-header-bar align-title="center" class="head pub-head">
-        <div class="row row-center">
-            <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-            <div class="col col-70 text-center">员工列表</div>
+        <ion-header-bar align-title="center" class="head pub-head ">
+            <div class="row row-center">
+                <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-60 text-center">员工列表</div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <ion-header-bar class="bar bar-subheader ">
+        <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <i class="icon ion-ios-close" ng-show="carInfo.length>0" ng-click="initSearch()"></i>
+            <input type="text" placeholder="请输入员工描述" ng-model="employ.employeefiledvalue" ng-click="changePage()" ng-change="initLoad()">
+            <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
         </div>
+        <!--<div class="search2" ng-show="searchFlag" ng-class="{'searchFlag':'animated fadeOutLeft'}">-->
+        <!--<i class="icon ion-ios-search placeholder-icon"></i>-->
+        <!--<i class="icon ion-ios-close" ng-show="carInfo.length>0" ng-click="initSearch()"></i>-->
+        <!--<input id="searchId" type="text" placeholder="请输入车牌号or车工号or电池系统Barcode" ng-model="carInfo" ng-change="initLoad()">-->
+        <!--<i class="button button-clear" ng-click="cancelSearch()">取消</i>-->
+        <!--</div>-->
     </ion-header-bar>
-
-        <div class="pub-subhead bar bar-subheader">
-            <div class="employeequery_headquery">
-                <i class="ion-ios-search employeequery_headqueryimg"></i>
-                <input type="text" id="employeeinputvalueid" class="employeequery_headqueryinput" ng-model="employ.employeefiledvalue" ng-change="changev()" placeholder="请输入员工姓名"/>
-                <i id="employeequeryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="employeeiputDeletevalue()"></i>
-            </div>
+    <ion-content ng-show="!searchFlag" style="margin-bottom: 50px;">
+        <!--<img ng-src="img/car/oftenCar.png" class="textImg">-->
+        <div class="Car_countentbasic">
+            <div class="Car_countentbasicinfo">常用员工</div>
+            <div class="Car_countentbasicline"></div>
+            <div class="Car_countentbasicclok"></div>
         </div>
-</div>
-    <ion-content style="margin-top:44px">
-        <div ng-if="!employee_userqueryflag" class="employee_query_list" ng-repeat="lists in usuaemployee_query_list">
-            <div class="row row-center" style="padding:5px 5px">
-                <div class="col col-6" style="margin-left:5px" ng-click="employee_govalue(lists,$index)">
-                    <div class="employee_query_listcicle" ng-class="{employee_query_listcicleA: !$odd, employee_query_listcicleB: !$even}"></div>
+        <div class="contentType animated" ng-repeat="lists in usuaemployee_query_list track by $index">
+            <div class="row row-center rowType " >
+                <div class="col col-5 col-center">
+                    <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
-                <div class="col col-24" style="text-align: left" ng-click="employee_govalue(lists,$index)">
-                    <span style="vertical-align: middle">{{lists.NAME_LAST}}{{lists.NAME_FIRST}}</span>
+                <div class="col col-18" ng-click="employee_govalue(lists,$index)">{{lists.NAME_LAST}}</div>
+                <div class="col col-60 col-center colType" ng-click="employeequeryphone(lists.TEL_NUMBER)">
+                    <span>{{lists.TEL_NUMBER}}</span>
                 </div>
-                <div class="col col-60" style="text-align: center" ng-click="employeequeryphone(lists.TEL_NUMBER)">
-                    <span style="vertical-align: middle">{{lists.TEL_NUMBER}}</span>
+                <div class="col col-15 col-center" ng-click="employee_govalue(lists,$index)">
+                    <img ng-src="img/car/Shape.png" class="shapeImg" >
                 </div>
-                <div class="col col-10" ng-click="employee_govalue(lists,$index)">
-                    <img class="employee_query_listfor" src="img/employee/Shape@2x.png"></img>
-                </div>
-            </div>
-            <div class="employee_query_listline">
-            </div>
-        </div>
-
-        <div ng-if="!employee_userqueryflag" class="employee_query_historys">
-            <div class="employee_query_historysspan">
-                搜索历史
-            </div>
-            <div class="employee_query_historylist" ng-repeat="list in employee_query_historylists" ng-click="EmployHisGetvalue(list)">
-               {{list.name}}
-            </div>
-            <div class="employee_query_historyclear" ng-click="employee_userClearhis()">
-                清楚历史记录
-            </div>
-        </div>
-        <div ng-if="employee_userqueryflag" class="employee_query_list" ng-repeat="lists in employee_query_list">
-            <div class="row row-center" style="padding:5px 5px">
-                <div class="col col-6" style="margin-left:5px" ng-click="employee_govalue(lists,$index)">
-                    <div class="employee_query_listcicle" ng-class="{employee_query_listcicleA: !$odd, employee_query_listcicleB: !$even}"></div>
-                </div>
-                <div class="col col-24" style="text-align: left" ng-click="employee_govalue(lists,$index)">
-                   <span style="vertical-align: middle">{{lists.NAME_LAST}}{{lists.NAME_FIRST}}</span>
-                </div>
-                <div class="col col-60" style="text-align: center" ng-click="employeequeryphone(lists.TEL_NUMBER)">
-                    <span style="vertical-align: middle">{{lists.TEL_NUMBER}}</span>
-                </div>
-                <div class="col col-10" ng-click="employee_govalue(lists,$index)">
-                    <img class="employee_query_listfor" src="img/employee/Shape@2x.png"></img>
-                </div>
-            </div>
-            <div class="employee_query_listline">
+                <div class="col col-2"></div>
             </div>
         </div>
         <ion-infinite-scroll on-infinite="employLoadmore()" ng-if="employisshow"></ion-infinite-scroll>
     </ion-content>
-</ion-nav-view>
+    <ion-content class="has-header search " has-bouncing="true" ng-show="searchFlag">
+        <div ng-show="!employ.employeefiledvalue.length>0">
+            <div class="row row-center his-title" >
+                <i class="ion-android-time"></i>
+                <div class="hisText">历史记录</div>
+                <div class="horizon-line"></div>
+            </div>
+            <ion-list>
+                <ion-item ng-click="search(x.name,$event)" ng-repeat="x in employee_query_historylists">{{x.name}}</ion-item>
+            </ion-list>
+        </div>
+        <div class="contentType animated" ng-repeat="lists in employee_query_list"  ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
+            <div class="row row-center rowType " >
+                <div class="col col-5 col-center">
+                    <img ng-src="img/car/Oval.png" class="pointImg">
+                </div>
+                <div class="col col-18" ng-click="employee_govalue(lists,$index)">{{lists.NAME_LAST}}</div>
+                <div class="col col-60 col-center colType" ng-click="employeequeryphone(lists.TEL_NUMBER)">
+                    <span>{{lists.TEL_NUMBER}}</span>
+                </div>
+                <div class="col col-15 col-center" ng-click="employee_govalue(lists,$index)">
+                    <img ng-src="img/car/Shape.png" class="shapeImg" >
+                </div>
+                <div class="col col-2"></div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
+<!--<ion-nav-view class="employee_query">-->
+    <!--<div class="saleList">-->
+    <!--<ion-header-bar align-title="center" class="head pub-head">-->
+        <!--<div class="row row-center">-->
+            <!--<a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>-->
+            <!--<div class="col col-70 text-center">员工列表</div>-->
+        <!--</div>-->
+    <!--</ion-header-bar>-->
+
+        <!--<div class="pub-subhead bar bar-subheader">-->
+            <!--<div class="employeequery_headquery">-->
+                <!--<i class="ion-ios-search employeequery_headqueryimg"></i>-->
+                <!--<input type="text" id="employeeinputvalueid" class="employeequery_headqueryinput" ng-model="employ.employeefiledvalue" ng-change="changev()" placeholder="请输入员工姓名"/>-->
+                <!--<i id="employeequeryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="employeeiputDeletevalue()"></i>-->
+            <!--</div>-->
+        <!--</div>-->
+<!--</div>-->
+    <!--<ion-content style="margin-top:44px">-->
+        <!--<div ng-if="!employee_userqueryflag" class="employee_query_list" ng-repeat="lists in usuaemployee_query_list">-->
+            <!--<div class="row row-center" style="padding:5px 5px">-->
+                <!--<div class="col col-6" style="margin-left:5px" ng-click="employee_govalue(lists,$index)">-->
+                    <!--<div class="employee_query_listcicle" ng-class="{employee_query_listcicleA: !$odd, employee_query_listcicleB: !$even}"></div>-->
+                <!--</div>-->
+                <!--<div class="col col-24" style="text-align: left" ng-click="employee_govalue(lists,$index)">-->
+                    <!--<span style="vertical-align: middle">{{lists.NAME_LAST}}{{lists.NAME_FIRST}}</span>-->
+                <!--</div>-->
+                <!--<div class="col col-60" style="text-align: center" ng-click="employeequeryphone(lists.TEL_NUMBER)">-->
+                    <!--<span style="vertical-align: middle">{{lists.TEL_NUMBER}}</span>-->
+                <!--</div>-->
+                <!--<div class="col col-10" ng-click="employee_govalue(lists,$index)">-->
+                    <!--<img class="employee_query_listfor" src="img/employee/Shape@2x.png"></img>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="employee_query_listline">-->
+            <!--</div>-->
+        <!--</div>-->
+
+        <!--<div ng-if="!employee_userqueryflag" class="employee_query_historys">-->
+            <!--<div class="employee_query_historysspan">-->
+                <!--搜索历史-->
+            <!--</div>-->
+            <!--<div class="employee_query_historylist" ng-repeat="list in employee_query_historylists" ng-click="EmployHisGetvalue(list)">-->
+               <!--{{list.name}}-->
+            <!--</div>-->
+            <!--<div class="employee_query_historyclear" ng-click="employee_userClearhis()">-->
+                <!--清楚历史记录-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div ng-if="employee_userqueryflag" class="employee_query_list" ng-repeat="lists in employee_query_list">-->
+            <!--<div class="row row-center" style="padding:5px 5px">-->
+                <!--<div class="col col-6" style="margin-left:5px" ng-click="employee_govalue(lists,$index)">-->
+                    <!--<div class="employee_query_listcicle" ng-class="{employee_query_listcicleA: !$odd, employee_query_listcicleB: !$even}"></div>-->
+                <!--</div>-->
+                <!--<div class="col col-24" style="text-align: left" ng-click="employee_govalue(lists,$index)">-->
+                   <!--<span style="vertical-align: middle">{{lists.NAME_LAST}}{{lists.NAME_FIRST}}</span>-->
+                <!--</div>-->
+                <!--<div class="col col-60" style="text-align: center" ng-click="employeequeryphone(lists.TEL_NUMBER)">-->
+                    <!--<span style="vertical-align: middle">{{lists.TEL_NUMBER}}</span>-->
+                <!--</div>-->
+                <!--<div class="col col-10" ng-click="employee_govalue(lists,$index)">-->
+                    <!--<img class="employee_query_listfor" src="img/employee/Shape@2x.png"></img>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="employee_query_listline">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<ion-infinite-scroll on-infinite="employLoadmore()" ng-if="employisshow"></ion-infinite-scroll>-->
+    <!--</ion-content>-->
+<!--</ion-nav-view>-->
 
 
