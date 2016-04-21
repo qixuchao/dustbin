@@ -5,6 +5,7 @@
 mainModule
     .controller('MainCtrl', [
         '$scope',
+        '$state',
         '$ionicSlideBoxDelegate',
         '$ionicScrollDelegate',
         '$timeout',
@@ -16,23 +17,15 @@ mainModule
         'ionicMaterialMotion',
         'Prompter',
         'HttpAppService',
-        function ($scope, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
+        'LoginService',
+        'saleActService',
+        'worksheetDataService',
+        function ($scope, $state, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location,
-                  ionicMaterialInk,
-                  ionicMaterialMotion, Prompter, HttpAppService) {
-            //$location.path('/tab/main');
-            ionicMaterialMotion.fadeSlideInRight();
-            //$templateCache.get('src/main/main.html');
-            //$scope.$on("$stateChangeSuccess", function () {
-            //    $scope.test();
-            //});
+                  ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService, worksheetDataService) {
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
                 ionicMaterialInk.displayEffect();
-                ionicMaterialMotion.fadeSlideInRight({
-                    startVelocity: 3000,
-                    selector: '.animate-fade-slide-in-right .item'
-                });
             }, 100);
             //$scope.more={flag:false};
             /*--------------------------------------------日历--------------------------------------------*/
@@ -46,8 +39,13 @@ mainModule
             $scope.showPop = false;
             //当天周几
             var today = mydate.getDay();
+
+            if (LoginService.getProfileType() == 'APP_SALE') {
+                $scope.selectModeText = '销售活动';
+            } else {
+                $scope.selectModeText = '服务工单';
+            }
             //当天多少号
-            $scope.selectModeText = '销售活动';
             var day = mydate.getDate();
             $scope.year = mydate.getFullYear();
             $scope.month = mydate.getMonth() + 1;
@@ -276,20 +274,26 @@ mainModule
             $scope.returnToday = function () {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
-                console.log(page_index)
                 //当前在周视图
                 if (page_index != undefined) {
                     if (page_index == 0) {
+                        var temp = true;
                         for (var i = 0; i < 7; i++) {
                             if (($scope.year + '/' + $scope.month + '/' + $scope.days[0].arr[i].value) == todayDate) {
-                                return
+                                temp = false;
                             }
                         }
-                        dayViewHandle.previous(300);
-                        $timeout(function () {
-                            dayViewHandle.slide(0, 300);
-                            $scope.init();
-                        }, 100)
+                        if (selectDate == new Date().format('yyyy-MM-dd')) {
+                            return
+                        }
+                        selectDate = new Date().format('yyyy-MM-dd');
+                        if(temp){
+                            dayViewHandle.previous(300);
+                            $timeout(function () {
+                                dayViewHandle.slide(0, 300);
+                            }, 100)
+                        }
+                        $scope.init();
 
                     } else {
                         dayViewHandle.slide(0, 300);
@@ -299,8 +303,13 @@ mainModule
                     var monthViewHanle = $ionicSlideBoxDelegate.$getByHandle('monthView-handle');
                     page_index = monthViewHanle.currentIndex();
                     if (page_index == 0) {
+                        if (selectDate == new Date().format('yyyy-MM-dd')) {
+                            return
+                        }
                         if ($scope.month == (mydate.getMonth() + 1)) {
                             initFirstMonth(mydate.getDate());
+                            selectDate = new Date().format('yyyy-MM-dd');
+                            $scope.getList('init');
                             return
                         } else {
                             monthViewHanle.previous(300);
@@ -318,7 +327,7 @@ mainModule
                         monthInit(mydate.getFullYear(), mydate.getMonth() + 1, mydate.getDate());
                     }
                 }
-
+                $scope.getList('init');
             };
 
             $scope.onMonthSwipeLeft = function () {
@@ -364,16 +373,6 @@ mainModule
                 }
                 y.checked = true;
                 /*刷新content*/
-                salePageNum = 1;
-                var arr = document.getElementsByClassName('obj');
-                for (var i = 0; i < arr.length; i++) {
-                    arr[i].style.transitionDelay = '0s';
-                }
-                //$timeout(function () {
-                $scope.loadMoreFlag = true;
-                $scope.contentArr = [];
-                $ionicScrollDelegate.scrollTop(true);
-                angular.element('#mainInfiniteId').addClass('active');
                 $scope.getList('init');
             };
             $scope.topHeight = {
@@ -580,8 +579,16 @@ mainModule
             $scope.salesArr = [];
             var salePageNum = 1;
             var getSalesArr = function (type) {
-                if(type=='init'){
-                    $scope.loadMoreHasData=true;
+                if (type == 'init') {
+                    $scope.loadMoreHasData = true;
+                    salePageNum = 1;
+                    var arr = document.getElementsByClassName('obj');
+                    for (var i = 0; i < arr.length; i++) {
+                        arr[i].style.transitionDelay = '0s';
+                    }
+                    $scope.loadMoreFlag = true;
+                    $scope.contentArr = [];
+                    $ionicScrollDelegate.scrollTop(true);
                 }
                 var data = {
                     "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
@@ -605,9 +612,9 @@ mainModule
                     "IS_USER": {"BNAME": "HANDBLH"}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_LIST', data)
-                    .success(function (response,status,headers,config) {
-                        if(config.data.IS_ACTIVITY.DATE_FROM != selectDate||
-                            type=='init'&&$scope.contentArr.length!=0){
+                    .success(function (response, status, headers, config) {
+                        if (config.data.IS_ACTIVITY.DATE_FROM != selectDate ||
+                            type == 'init' && $scope.contentArr.length != 0) {
                             return
                         }
                         if (response.ES_RESULT.ZFLAG === 'S') {
@@ -621,8 +628,8 @@ mainModule
                             angular.forEach(tempArr, function (x) {
                                 x.title = x.DESCRIPTION;
                                 x.date = new Date(x.DATE_FROM);
-                                x.startTime = x.TIME_FROM.substring(0, 6);
-                                x.endTime = x.TIME_TO.substring(0, 6);
+                                x.startTime = x.TIME_FROM.substring(0, 5);
+                                x.endTime = x.TIME_TO.substring(0, 5);
                             });
                             if (type === 'init') {
                                 $scope.contentArr = tempArr;
@@ -636,7 +643,82 @@ mainModule
                                 });
                             }, 100);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                                $ionicScrollDelegate.resize();
+                            $ionicScrollDelegate.resize();
+                        } else {
+                            $scope.loadMoreHasData = false;
+                            $scope.loadMoreFlag = false;
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        }
+                    });
+            };
+            var getOrdersArr = function (type) {
+                if (type == 'init') {
+                    $scope.loadMoreHasData = true;
+                    salePageNum = 1;
+                    var arr = document.getElementsByClassName('obj');
+                    for (var i = 0; i < arr.length; i++) {
+                        arr[i].style.transitionDelay = '0s';
+                    }
+                    $scope.loadMoreFlag = true;
+                    $scope.contentArr = [];
+                    $ionicScrollDelegate.scrollTop(true);
+                }
+                var data = {
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_AUTHORITY": {"BNAME": "60000051"},
+                    "IS_PAGE": {
+                        "CURRPAGE": salePageNum++,
+                        "ITEMS": "10"
+                    },
+                    "IS_SEARCH": {
+                        "SEARCH": "",
+                        "OBJECT_ID": "",
+                        "DESCRIPTION": "",
+                        "PARTNER": "",
+                        "PRODUCT_ID": "",
+                        "CAR_TEXT": "",
+                        "CREATED_FROM": selectDate,
+                        "CREATED_TO": selectDate
+                    },
+                    "IV_SORT": "0",
+                    "IT_IMPACT": {},
+                    "IT_PARTNER": {},
+                    "IT_PROCESS_TYPE": {},
+                    "IT_STAT": {}
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST', data)
+                    .success(function (response, status, headers, config) {
+                        if (config.data.IS_SEARCH.CREATED_FROM != selectDate ||
+                            type == 'init' && $scope.contentArr.length != 0) {
+                            return
+                        }
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            Prompter.hideLoading();
+                            $scope.contenHideFlag = false;
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.loadMoreFlag = false;
+                            }
+                            ;
+                            var tempArr = response.ET_OUT_LIST.item;
+                            angular.forEach(tempArr, function (x) {
+                                x.CHANGED_AT = x.CHANGED_AT + "";
+                                x.title = x.DESCRIPTION;
+                                x.date = new Date(x.CHANGED_AT.substring(0, 4) + '-' + x.CHANGED_AT.substring(4, 6) + '-' + x.CHANGED_AT.substring(6, 8));
+                                x.startTime = x.CHANGED_AT.substring(8, 10) + ':' + x.CHANGED_AT.substring(10, 12);
+                            });
+                            if (type === 'init') {
+                                $scope.contentArr = tempArr;
+                            } else {
+                                $scope.contentArr = $scope.contentArr.concat(tempArr);
+                            }
+                            $timeout(function () {
+                                ionicMaterialMotion.fadeSlideInRight({
+                                    startVelocity: 3000,
+                                    selector: '.animate-fade-slide-in-right .item'
+                                });
+                            }, 100);
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                            $ionicScrollDelegate.resize();
                         } else {
                             $scope.loadMoreHasData = false;
                             $scope.loadMoreFlag = false;
@@ -647,6 +729,36 @@ mainModule
             $scope.getList = function (type) {
                 if ($scope.selectModeText == '销售活动') {
                     getSalesArr(type);
+                } else {
+                    getOrdersArr(type);
+                }
+            };
+            $scope.goDetail = function (x) {
+                if ($scope.selectModeText == '销售活动') {
+                    saleActService.actDetail = {
+                        OBJECT_ID: x.OBJECT_ID
+                    };
+                    $state.go('saleActDetail');
+                } else {
+                    worksheetDataService.worksheetList.toDetail = {
+                        "IS_OBJECT_ID": x.OBJECT_ID,
+                        "IS_PROCESS_TYPE": x.PROCESS_TYPE,
+                        "ydWorksheetNum": x.SOLDTO_NAME,
+                        'ydStatusNum': x.STAT
+                    };
+                    if (x.PROCESS_TYPE == "ZNCO" || x.PROCESS_TYPE == "ZNCV") {
+                        $state.go("worksheetDetail", {
+                            detailType: 'newCar'
+                        });
+                    } else if (x.PROCESS_TYPE == "ZPRO" || x.PROCESS_TYPE == "ZPRV") {
+                        $state.go("worksheetDetail", {
+                            detailType: 'siteRepair'
+                        });
+                    } else if (x.PROCESS_TYPE == "ZPLO" || x.PROCESS_TYPE == "ZPLV") {
+                        $state.go("worksheetDetail", {
+                            detailType: 'batchUpdate'
+                        });
+                    }
                 }
             };
             //初始化
@@ -658,6 +770,10 @@ mainModule
             $scope.chooseMark = function (x, color) {
                 x.showMarks = false;
                 x.mark = color;
+            };
+            $scope.showMarks = function (x,e) {
+                x.showMarks = !x.showMarks;
+                e.stopPropagation();
             };
             $scope.delete = function (x) {
                 x.class = 'own-animated zoomOutRight';
@@ -674,26 +790,8 @@ mainModule
             $scope.selectArr = [{text: '销售活动', flag: false}, {text: '服务工单', flag: true}];
             $scope.changePop = function (x) {
                 if ($scope.selectModeText != x.text) {
-                    var tempArr;
-                    if (x.text == '销售活动') {
-                        tempArr = $scope.salesArr;
-                    } else {
-                        tempArr = $scope.thingsToDo;
-                    }
-                    Prompter.showLoading('正在查询');
-                    $scope.contenHideFlag = true;
-                    $timeout(function () {
-                        $scope.contenHideFlag = false;
-                        $scope.contentArr = tempArr;
-                    }, 400);
-                    $timeout(function () {
-                        ionicMaterialMotion.fadeSlideInRight({
-                            startVelocity: 3000,
-                            selector: '.animate-fade-slide-in-right .item'
-                        });
-                        Prompter.hideLoading();
-                    }, 500);
                     $scope.selectModeText = x.text;
+                    $scope.getList('init');
                 }
                 $scope.modeFlag = x.flag;
                 $('#mainSelectionsId').removeClass('own-animated');

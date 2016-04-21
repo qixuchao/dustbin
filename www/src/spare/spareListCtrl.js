@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2016/3/22 0022.
  */
-spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$cordovaToast','HttpAppService','$http','SpareListService','$state','$scope','Prompter','$timeout',
-    function ($ionicScrollDelegate,$rootScope,$cordovaToast,HttpAppService,$http,SpareListService,$state,$scope,Prompter,$timeout){
+spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$cordovaToast','worksheetDataService','HttpAppService','$http','SpareListService','$state','$scope','Prompter','$timeout',
+    function ($ionicScrollDelegate,$rootScope,$cordovaToast,worksheetDataService,HttpAppService,$http,SpareListService,$state,$scope,Prompter,$timeout){
     var page=0;
     $scope.spareList=[];
     $scope.spareList1=[];
@@ -55,6 +55,11 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
         //    $scope.spareListHistoryval();
         //
         //});
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            if(fromState && toState && fromState.name == 'worksheetEdit'){
+                worksheetDataService.selectedProduct="";
+            }
+        });
     $scope.changePage=function(){
         $scope.searchFlag=true;
         //$timeout(function () {
@@ -210,7 +215,14 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
             localStorage['oftenSparedb'] = JSON.stringify( $scope.oftenSpareList);
         }
         SpareListService.set(value);
-        $state.go('spareDetail');
+        if(worksheetDataService.selectedProduct==true) {
+            worksheetDataService.backObjectProduct = value;
+            worksheetDataService.selectedProduct = false;
+            $ionicHistory.goBack();
+        }else{
+            $state.go('spareDetail');
+        }
+
     };
         $scope.initLoad=function(){
             page=0;

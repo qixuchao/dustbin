@@ -13,7 +13,7 @@
         <div class="list" style="font-size: 18px;margin-top:5px">
             <!--title-->
                <span class="item item-input">注释：
-                <textarea rows="1"  id="contnotename" class="contact_editinputsty" placeholder="请输入注释" ng-model="contactedit.conatctdeatilnote"></textarea>
+                <textarea type="text"  id="contnotename" class="contact_editinputsty" placeholder="请输入注释" ng-model="contactedit.conatctdeatilnote"></textarea>
                 <img id="contnotenameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('conatctdeatilnote')"/>
             </span>
               <span class="item item-input">部门：
@@ -58,30 +58,30 @@
                 <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('POST_CODE1')"/>
             </span>
             <span class="item item-input">出生日期：
-                <input type="date" class="contact_editinputsty"   ng-model="contactedit.BIRTHDT" ng-click="selectCreateTime()" style="background-color:white">
+                <input type="text" class="contact_editinputsty"   ng-model="contactedit.BIRTHDT" readonly ng-click="selectCreateTime1()" style="background-color:white">
             </span>
              <span class="item item-input">语言：
-                <select style="width: 25%;margin-left: 33px;border: none;padding-right: 4px;color: #9B9B9B;height: 40px;"  ng-model="config.currentLanguage" ng-options="a.typeId as a.name for a in contactlistvaluesel" ng-change="chang1()">
+                <select style="width: 25%;margin-left: 33px;border: none;padding-right: 4px;height: 40px;"  ng-model="config.currentLanguage" ng-options="a.typeId as a.name for a in contactlistvaluesel" ng-change="chang1()">
                     <option value="">语言</option>
                 </select>
             </span>
-            <div class="row">
+            <div class="row" style="border-bottom: 1px solid rgba(155, 155, 155, 0.36);">
                 <div class="col col-20" style="font-size: 14px;padding-left: 9px;color:#9B9B9B;">
                     位置:
                 </div>
                 <div class="col col-80">
                     <div class="row" style="padding: 5px;">
-                        <select style="border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white;width: 40%;" ng-model="config.currentCountry" ng-options="a.COUNTRY as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
+                        <select style="border:none;color:#9B9B9B;height: 40px;padding: 5px -webkit-appearance:none;background:white;width: 40%;" ng-model="config.currentCountry" ng-options="a.COUNTRY as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
                            <option value="">国家</option>
                         </select>
                     </div>
-                    <div class="row" style="padding: 5px;">
-                        <select style="border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white;width: 40%" ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
+                    <div class="row" style="padding: 5px;" ng-class="{true:'',false:'display:none'}[showFlag]">
+                        <select style="height: 40px;border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white;width: 40%" ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
                            <option value="">省份</option>
                         </select>
                     </div>
-                    <div class="row" style="padding: 5px;">
-                        <select style="border:none;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white;width: 40%"   ng-model="config.currentCity" ng-options="c.CITY as c.CITY_NAME for c in city">
+                    <div class="row" style="padding: 5px;"ng-class="{true:'',false:'display:none'}[showFlag]" >
+                        <select style="height: 40px;border:none;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white;width: 40%"   ng-model="config.currentCity" ng-options="c as c.CITY_NAME for c in city" ng-change="chang2()">
                            <option value="">城市</option>
                         </select>
                     </div>

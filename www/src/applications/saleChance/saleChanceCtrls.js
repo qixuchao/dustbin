@@ -189,11 +189,16 @@ salesModule
             $scope.filterSure = function () {
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
+                var ele = angular.element('#saleActListFilterId');
+                ele.css('display','block').removeClass('fadeInDown');
+                ele.css('display','block').addClass('slideOutUp');
+                $scope.getList('search');
             };
             $scope.filterPrevent = function (e) {
                 e.stopPropagation();
             };
             $scope.changeSearch = function () {
+                angular.element('#saleActListFilterId').css('display','none');
                 if ($scope.filterFlag) {
                     $scope.filterFlag = false;
                 }
@@ -214,6 +219,7 @@ salesModule
             };
             $scope.initSearch = function () {
                 $scope.input.search = '';
+                $scope.getList('search');
                 $timeout(function () {
                     document.getElementById('saleListSearchId').focus();
                 }, 1)
@@ -223,12 +229,16 @@ salesModule
             $scope.filterFlag = false;
             //$scope.isDropShow = true;
             $scope.changeFilterFlag = function (e) {
+                var ele = angular.element('#saleActListFilterId');
                 tempFilterArr = '';
                 $scope.filterFlag = !$scope.filterFlag;
                 if ($scope.filterFlag) {
                     onceCilck = true;
-                } else {
-                    angular.element('#saleActListFilterId').attr('ng-if', 'ng-show');
+                    ele.css('display','block').removeClass('slideOutUp');
+                    ele.css('display','block').addClass('fadeInDown');
+                }else {
+                    ele.css('display','block').removeClass('fadeInDown');
+                    ele.css('display','block').addClass('slideOutUp');
                 }
 
                 e.stopPropagation();

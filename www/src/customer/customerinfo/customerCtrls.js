@@ -2,7 +2,7 @@
  * Created by zhangren on 16/3/7.
  */
 customerModule
-    .controller('customerQueryCtrl',['$scope','$rootScope','$state','$http','HttpAppService','$timeout','$cordovaToast','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,HttpAppService,$timeout,$cordovaToast,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+    .controller('customerQueryCtrl',['$scope','$rootScope','$state','$http','HttpAppService','LoginService','$timeout','$cordovaToast','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,HttpAppService,LoginService,$timeout,$cordovaToast,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
         $ionicPopover.fromTemplateUrl('src/customer/model/customer_selec.html', {
             scope: $scope
         }).then(function(popover) {
@@ -45,7 +45,7 @@ customerModule
             //返回初始化
             $scope.customerisshow = false;
             //删除请求
-            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
+            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
             $scope.customerQuery_list = [];
             $scope.customerQuery_list = new Array;
             $scope.customerPage = 0;
@@ -63,7 +63,14 @@ customerModule
         $scope.initSearch = function(){
             $scope.customer_queryflag = true;
         };
-        $scope.customerLoadmore = function() {
+        $scope.customerFirstLoad = function() {
+            $scope.customerQuery_list = [];
+            $scope.customerQuery_list = new Array;
+            $scope.customerPage = 1;
+            $scope.customerLoadmore("first");
+        }
+        $scope.customerLoadmore = function(flag) {
+            console.log("flag: " + flag);
             $scope.contactisshow = true;
             $scope.customerPage = $scope.customerPage + 1;
             var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST';
@@ -74,15 +81,12 @@ customerModule
                     "ITEMS": "10"
                 },
                 "IS_SEARCH": {"SEARCH": $scope.customer.customerfiledvalue},
-                "IT_IN_ROLE": {
-                    "item":
-                        [
-                            {
-                                "RLTYP": $scope.customerselecttyperole
-                            }
-                        ]
-                }
+                "IT_IN_ROLE": {}
             };
+            if ($scope.customerselecttyperole){
+                data.IT_IN_ROLE = {"item1": [{"RLTYP": $scope.customerselecttyperole}]}
+            }
+
             //var data = data2;
             console.log("data"+angular.toJson(data));
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
@@ -145,9 +149,9 @@ customerModule
                         $scope.$apply(function(){
                             $scope.customerisshow = false;
                             //删除请求
-                            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
-                            $scope.customerQuery_list = [];
-                            $scope.customerQuery_list = new Array;
+                            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
+                            //$scope.customerQuery_list = [];
+                            //$scope.customerQuery_list = new Array;
                             $scope.customerPage = 0;
 
                             $scope.customer_queryflag = true;
@@ -161,10 +165,10 @@ customerModule
                     } else {
                         $scope.customerselecttyperole = '';
                         //删除请求
-                        $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
+                        //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
                         $scope.customer_queryflag = false;
                         $scope.customerisshow = false;
-                        $scope.customerQuery_list = [];
+                        //$scope.customerQuery_list = [];
                         $scope.customerPage = 0;
                         if(!$scope.$$phase) {
                             $scope.$apply();
@@ -179,7 +183,7 @@ customerModule
         },50);
         $scope.customeriputDeletevalue = function(){
             //删除请求
-            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
+            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
             $scope.customer_queryflag = false;
             $scope.customerisshow = false;
             $scope.customerQuery_list = [];
@@ -298,11 +302,17 @@ customerModule
             $state.go("customerDetail");
         };
 
-        //判断是ATL还是CATL
+        /*//判断是ATL还是CATL
         if(ROOTCONFIG.hempConfig.baseEnvironment == 'CATL'){
             $scope.customer_types = ['潜在客户','正式客户','竞争对手','助销伙伴','终端客户','服务供应商'];
         }else{
             $scope.customer_types = ['潜在客户','正式客户','竞争对手','服务供应商'];
+        }*/
+        //判断是APP_SERVICE还是APP_SALE
+        if(LoginService.getProfileType()=="APP_SERVICE"){
+            $scope.customer_types = ['正式客户','服务供应商','终端客户'];
+        }else if (LoginService.getProfileType()=="APP_SALE"){
+            $scope.customer_types = ['潜在客户','正式客户','竞争对手','助销伙伴','终端客户','服务供应商'];
         }
 
         $scope.customerqueryTypeunit = "常用客户";
@@ -357,14 +367,14 @@ customerModule
             //$scope.$apply(function(){
             $scope.customerisshow = false;
             //删除请求
-            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
+            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
             $scope.customerQuery_list = [];
             $scope.customerQuery_list = new Array;
             $scope.customerPage = 0;
             $scope.customer_queryflag = true;
             $ionicScrollDelegate.resize();
-            $scope.customerLoadmore();
-            $scope.customerisshow = true;
+            $scope.customerFirstLoad();
+            //$scope.customerisshow = true;
             $scope.customerPopoverhide();
         };
     }])
@@ -528,7 +538,10 @@ customerModule
                 customeService.set_customeFuZe(response);
                 if(response.ET_OUT_DETAIL != ''){
                     $scope.customerdetails = response.ET_OUT_DETAIL.item[0];
-                    $scope.customerdetails.PARTNER = parseInt($scope.customerdetails.PARTNER);
+                    $scope.customerdetails.PARTNER_ID = parseInt($scope.customerdetails.PARTNER);
+                }
+                if(response.ET_LINES != '' && response.ET_LINES.item){
+                    $scope.customerdetails.TDLINE = response.ET_LINES.item[0].TDLINE;
                 }
             }
         }).error(function(){
@@ -741,7 +754,7 @@ customerModule
             STREET:customeService.get_customerEditServevalue().STREET,
             HOUSE_NUM1:customeService.get_customerEditServevalue().HOUSE_NUM1,
             POST_CODE1:customeService.get_customerEditServevalue().POST_CODE1,
-            BEZEI:customeService.get_customerEditServevalue().BEZEI
+            TDLINE:customeService.get_customerEditServevalue().TDLINE
         };
         $scope.country=[];
         $scope.provence=[];
@@ -841,7 +854,7 @@ customerModule
                     "STREET": "",
                     "HOUSE_NUM1": "",
                     "POST_CODE1": "",
-                    "CITY1": "",
+                    "CITY1": "" ,
                     "COUNTRY": "CN",
                     "REGION": "",
                     "TEL_NUMBER": "",
