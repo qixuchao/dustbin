@@ -1033,6 +1033,7 @@ worksheetModule.controller("WorksheetListCtrl",[
         }
     };
     function __selectCreateTimeIOS(type, title){
+    	console.log("__selectCreateTimeIOS");
         var date;
         if(type == 'start'){
         	if(!$scope.config.timeStart || $scope.config.timeStart==""){
@@ -1049,6 +1050,7 @@ worksheetModule.controller("WorksheetListCtrl",[
         	}
         }
         __selectCreateTimeBasic(type, title, date);
+        console.log("__selectCreateTimeIOS : "+type+"    "+type+"    "+date);
     }
     function __selectCreateTimeAndroid(type, title){
     	var date;

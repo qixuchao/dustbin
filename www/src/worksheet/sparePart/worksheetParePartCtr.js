@@ -76,6 +76,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 $scope.infos[i].checked = "NO";//是否默认
             }
             console.log($scope.infos);
+            $scope.deletePro("");
         }).error(function(err){
 
         });
@@ -89,7 +90,16 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             console.log($scope.infos);
             console.log($scope.goSAPInfos);
             if(warehouse === ""){
+                for(var i=0;i<$scope.infos.length;i++){
+                    for(var j=0;j<$scope.goSAPInfos.length;j++){
+                        if( $scope.goSAPInfos[j].PROD === $scope.infos[i].PRODUCT_ID){
+                            $scope.infos[i].ishave = false;
+                        }else{
 
+                        }
+                    }
+                }
+                console.log($scope.infos);
             }else{
                 for(var i=0;i<$scope.infos.length;i++){
                     for(var j=0;j<$scope.goSAPInfos.length;j++){
@@ -381,7 +391,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         $scope.add = function(item){
             item.APPLY_NUM += 1;
             console.log((item));
-            //numChange(item);
+            numChange(item);
             console.log((item));
         }
         //减少数量
@@ -419,6 +429,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                             $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
                             $scope.goSAPInfos[n].addNum = false;
                         }else if(item.APPLY_NUM === $scope.goSAPInfos[n].APPLY_NUM){
+                            $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
                             $scope.goSAPInfos[n].addNum = true;
                             console.log("deng");
                         }else{

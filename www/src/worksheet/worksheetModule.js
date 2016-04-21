@@ -169,11 +169,11 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
             return sparePart;
         },
         //相关方
-        setWorksheetRelatePart:function(data){
+        setWSCarMileage:function(data){
             worksheetRelatePart=data;
             return worksheetRelatePart;
         },
-        getWorksheetRelatePart:function(){
+        getWSCarMileage:function(){
             return worksheetRelatePart;
         },
         //产品

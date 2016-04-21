@@ -13,7 +13,7 @@
         <div class="list" style="font-size: 18px;margin-top:5px">
             <!--title-->
                <span class="item item-input">注释：
-                <input type="text" id="contnotename" class="contact_editinputsty" placeholder="请输入注释" ng-model="contactedit.conatctdeatilnote">
+                <textarea rows="1"  id="contnotename" class="contact_editinputsty" placeholder="请输入注释" ng-model="contactedit.conatctdeatilnote"></textarea>
                 <img id="contnotenameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('conatctdeatilnote')"/>
             </span>
               <span class="item item-input">部门：
@@ -25,8 +25,8 @@
                 <img id="contatendimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('FNCTN')"/>
             </span>
               <span class="item item-input">称谓：
-                <select style="width: 40%;margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="config.currentTitile" ng-options="a as a.name for a in contactlistTitle" ng-change="chang1()">
-                    <option value="">请选择称谓</option>
+                <select style="width: 40%;margin-left:33px;border: none;padding-right:4px;color:#9B9B9B;-webkit-appearance:none;background:white"  ng-model="config.currentTitile" ng-options="a.codeId as a.name for a in contactlistTitle" ng-change="chang1()">
+                    <option value="">选择</option>
                 </select>
             </span>
                <span class="item item-input">姓名：
@@ -61,13 +61,9 @@
                 <input type="date" class="contact_editinputsty"   ng-model="contactedit.BIRTHDT" ng-click="selectCreateTime()" style="background-color:white">
             </span>
              <span class="item item-input">语言：
-                <select style="width: 40%;margin-left:33px;border: none;padding-right:4px;color:#9B9B9B"  ng-model="config.currentLanguage" ng-options="a.name as a.name for a in contactlistvaluesel" ng-change="chang1()">
+                <select style="width: 25%;margin-left: 33px;border: none;padding-right: 4px;color: #9B9B9B;height: 40px;"  ng-model="config.currentLanguage" ng-options="a.typeId as a.name for a in contactlistvaluesel" ng-change="chang1()">
                     <option value="">语言</option>
                 </select>
-            </span>
-             <span class="item item-input">地址：
-                <input type="text" id="contaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactedit.STREET">
-                <img id="contaddressnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('STREET')"/>
             </span>
             <div class="row">
                 <div class="col col-20" style="font-size: 14px;padding-left: 9px;color:#9B9B9B;">
@@ -75,7 +71,7 @@
                 </div>
                 <div class="col col-80">
                     <div class="row" style="padding: 5px;">
-                        <select style="border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white;width: 40%;" ng-model="config.currentCountry" ng-options="a as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
+                        <select style="border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white;width: 40%;" ng-model="config.currentCountry" ng-options="a.COUNTRY as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
                            <option value="">国家</option>
                         </select>
                     </div>
@@ -85,12 +81,20 @@
                         </select>
                     </div>
                     <div class="row" style="padding: 5px;">
-                        <select style="border:none;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white;width: 40%"   ng-model="config.currentCity" ng-options="c as c.CITY_NAME for c in city">
+                        <select style="border:none;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white;width: 40%"   ng-model="config.currentCity" ng-options="c.CITY as c.CITY_NAME for c in city">
                            <option value="">城市</option>
                         </select>
                     </div>
                 </div>
             </div>
+            <span class="item item-input">邮箱：
+                <input type="email" id="emailname" class="contact_editinputsty" placeholder="请输入邮箱" ng-model="contactedit.SMTP_ADDR">
+                <img id="emailnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('email')"/>
+            </span>
+             <span class="item item-input">地址：
+                <input type="text" id="contaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactedit.STREET">
+                <img id="contaddressnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('STREET')"/>
+            </span>
         </div>
     </ion-content>
 </ion-nav-view>
