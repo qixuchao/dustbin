@@ -102,6 +102,12 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 templateUrl: 'src/login/login.html',
                 controller: 'LoginCtrl'
             })
+            //.state('login', {
+            //    url: '/login',
+            //    //abstract: true,
+            //    templateUrl: 'src/loginSecond/loginSecond.html',
+            //    controller: 'LoginSecondCtrl'
+            //})
             .state('tabs', {
                 url: '/tabs',
                 templateUrl: 'src/tabs/tabs.html',
@@ -204,13 +210,8 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             //客户-联系人
             .state('customerContactQuery', {
                 url: '/customerContactQuery',
-                templateUrl: 'src/customer/customerContacts/customerContactsQuery.html',
-                controller: 'customerContactQueryCtrl'
-            })
-            .state('customerContactDetail', {
-                url: '/customerContactDetail',
-                templateUrl: 'src/customer/customerContacts/customerContactsDetail.html',
-                controller: 'customerContactDetailCtrl'
+                templateUrl: 'src/customer/customerContacts/customer_con.html',
+                controller: 'customerContactCtrl'
             })
             //客户-车辆
             .state('customerVehicleQuery', {
