@@ -1,188 +1,252 @@
-/**
- * Created by zhangren on 16/3/7.
- */
-'use strict';
-customerContactsModule
-    .controller('customerContactQueryCtrl',['$scope','$rootScope','$state','$http','HttpAppService','$cordovaToast','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','contactService','$ionicLoading',function($scope,$rootScope,$state,$http,HttpAppService,$cordovaToast,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,contactService,$ionicLoading){
 
-        $ionicPopover.fromTemplateUrl('src/customer/model/customercontact_selec.html', {
+worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast){
+    $ionicPopover.fromTemplateUrl('src/customer/customerFuZe/customer_selectbyD.html', {
             scope: $scope
         }).then(function(popover) {
-            $scope.customerContactspopover = popover;
+            $scope.relatedpopover = popover;
         });
-        $scope.customerContactsopenpopv = function() {
-            $scope.customerContactspopover.show();
-        };
-        $scope.customerContactsPopoverhide = function() {
-            $scope.customerContactspopover.hide();
-        };
-        //alert(1)
-        //调用接口数据
-        //获取数据列表函数
-        $scope.customercontactisshow = true;
-        $scope.customerContacts_query_list = new Array();
-        $scope.customerContacts_query_list = [];
-        $scope.customercontactPage = 0;
-        $scope.customercontactLoadmore = function(){
-            //$scope.customercontactisshow = true;
-            $scope.customercontactPage = $scope.customercontactPage + 1;
-            var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST';
-           var data = {
-               "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": "HANDLCX02" },
-                "IS_PAGE": {
-                "CURRPAGE": "1",
-                    "ITEMS": "100"
-            },
-                "IS_PARTNER": { "PARTNER": customeService.get_customerWorkordervalue().PARTNER},
-                "IS_SEARCH": { "SEARCH": "" }
-            };
-            HttpAppService.post(url, data).success(function (response) {
-                if (response.ES_RESULT.ZFLAG == 'E') {
-                    $scope.customercontactisshow = false;
-                    $cordovaToast.showShortCenter('无符合条件数据');
-                } else {
-                    if (response.ES_RESULT.ZFLAG == 'S') {
-                        if(response.ET_EMPLOYEE != ''){
-                            if (response.ET_OUT_LIST.item.length == 0) {
-                                $scope.customercontactisshow = false;
-                                Prompter.hideLoading();
-                                if ($scope.customercontactPage == 1) {
-                                    $cordovaToast.showShortBottom('数据为空');
-                                } else {
-                                    $cordovaToast.showShortBottom('没有更多数据');
-                                }
-                                $scope.$broadcast('scroll.infiniteScrollComplete');
-                            } else {
-                                $.each(response.ET_OUT_LIST.item, function (n, value) {
-                                    $scope.customerContacts_query_list.push(value);
-                                });
-                            }
-                            if (response.ET_OUT_LIST.item.length < 10) {
-                                $scope.customercontactisshow = false;
-                                if ($scope.customercontactPage > 1) {
-                                    //console.log("没有更多数据了");
-                                    $cordovaToast.showShortBottom('没有更多数据');
-                                }
-                            } else {
-                                $scope.customercontactisshow = true;
-                            }
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        }else{
-                            $cordovaToast.showShortBottom('查询数据为空');
-                        }
 
+        $scope.relatedPopoverShow = function() {
+            $scope.relatedpopover.show();
+            //document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
+        };
+        $scope.relatedPopoverhide = function() {
+            $scope.relatedpopover.hide();
+            //document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";.ET_OUT_RELATION.item
+        };
+        $scope.infos = customeService.get_customeFuZe().ET_OUT_RELATION.item;
+        console.log($scope.infos);
+        $scope.related_types = ['联系人'];
+        $scope.relatedqueryType = function(types){
+            console.log(types);
+            if(types === "联系人"){
+                //$state.go("worksheetRelatedPartContact");
+                $scope.openSelectCon();
+            }else if(types === ""){
+                //$state.go("worksheetRelatedPartCust");
+                $scope.openSelectCustomer();
+            }
+
+            $scope.relatedPopoverhide();
+        };
+
+
+        $scope.deleteInfos = function(item){
+                Prompter.showLoading("正在删除");
+                var data={
+                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_RELATIONSHIP": {
+                        "RELNR": "",
+                        "RELTYP": "BUR001",
+                        "PARTNER1": customeService.get_customerListvalue().PARTNER,
+                        "PARTNER2": item.PARTNER,
+                        "XDFREL": "X",
+                        "DATE_FROM": "0001-01-01",
+                        "DATE_TO": "9999-12-31",
+                        "MODE": "D"
+                    }};
+                console.log(angular.toJson(data));
+                var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
+                HttpAppService.post(url, data).success(function(response){
+                    console.log(response);
+                    Prompter.hideLoading();
+                    if (response.ES_RESULT.ZFLAG === 'S') {
+                        $cordovaToast.showShortBottom('删除成功 ');
+                        $scope.updateInfos();
+                    }else{
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
-                }
-            }).error(function (response, status) {
-                $cordovaToast.showShortBottom('请检查你的网络设备');
-                $scope.customercontactisshow = false;
-            });
+                    console.log(angular.toJson(response));
+                }).error(function(err){
+                    console.log(angular.toJson(err));
+                });
         }
-
-        $scope.customerContacts_godetails = function(x){
-            customeService.set_customerContactsListvalue(x);
-            $state.go('customerContactDetail');
-        };
-
-        //创建联系人
-        $scope.customercontact_types = [
-            {
-                type:"扫描名片创建联系人",
-                url:""
+    $scope.phone = function(num){
+        Prompter.showphone(num);
+    }
+    //选择客户
+    var customerPage = 1;
+    $scope.customerArr = [];
+    $scope.customerSearch = false;
+    $scope.getCustomerArr = function (search) {
+        $scope.CustomerLoadMoreFlag = false;
+        if (search) {
+            $scope.customerSearch = false;
+            customerPage = 1;
+        } else {
+            $scope.spinnerFlag = true;
+        }
+        var data = {
+            "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_PAGE": {
+                "CURRPAGE": customerPage++,
+                "ITEMS": "10"
             },
-            {
-                type:"手动创建新联系人",
-                url:'ContactCreate'
-            }
-        ];
-        $scope.customerContactsqueryType = function(types){
-            console.log(types)
-            if(types.url){
-                $state.go(types.url);
-                //从客户联系人进入创建联系人界面设置一个标记
-                if(types.type == "手动创建新联系人"){
-                    contactService.set_ContactCreateflagfalse();
-                }
-            }
-            $scope.customerContactsPopoverhide();
+            "IS_SEARCH": {"SEARCH": search},
+            "IT_IN_ROLE": {}
         };
-        //接收广播创建取数据contactService.get_ContactsListvalue()
-        //$rootScope.$on('customercontactCreatevalue', function(event, data) {
-        //    console.log(contactService.get_ContactCreatevalue())
-        //});
-        $scope.customercontactsgoDetail =function(cmvalue){
-            contactService.set_ContactsListvalue(cmvalue);
-            $state.go('ContactDetail')
+        console.log(data);
+        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST', data)
+            .success(function (response) {
+                if (response.ES_RESULT.ZFLAG === 'S') {
+                    if (response.ET_OUT_LIST.item.length < 10) {
+                        $scope.CustomerLoadMoreFlag = false;
+                    }
+                    if (search) {
+                        $scope.customerArr = response.ET_OUT_LIST.item;
+                    } else {
+                        $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                    }
+                    $scope.spinnerFlag = false;
+                    $scope.customerSearch = true;
+                    $scope.CustomerLoadMoreFlag = true;
+                    $ionicScrollDelegate.resize();
+                    //saleActService.customerArr = $scope.customerArr;
+                    $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                }
+            });
+    };
+
+    //选择联系人
+
+    var conPage = 1;
+    $scope.conArr = [];
+    $scope.conSearch = false;
+    $scope.getConArr = function (search) {
+        $scope.ConLoadMoreFlag = false;
+        if (search) {
+            $scope.conSearch = false;
+            conPage = 1;
+        } else {
+            $scope.spinnerFlag = true;
         }
-
-
-    }])
-    .controller('customerContactDetailCtrl',['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
-
-        $scope.customer_detailstypes = [{
-            typemane:'活动',
-            imgurl:'img/customer/customerhuod.png',
-        },{
-            typemane:'机会',
-            imgurl:'img/customer/customerjihui@2x.png',
-        },{
-            typemane:'角色',
-            imgurl:'img/customer/customergongd@2x.png',
-        },{
-            typemane:'关系',
-            imgurl:'img/customer/customerxians@2x.png',
-        }];
-
-        $scope.customerContacts_showTitle = false;
-        $scope.customerContacts_showTitleStatus = false;
-        $scope.customerContacts_TitleFlag=false;
-
-        var customerContacts_position;
-        $scope.customerContacts_onScroll = function () {
-            customerContacts_position = $ionicScrollDelegate.getScrollPosition().top;
-            console.log(customerContacts_position);
-            if (customerContacts_position > 16) {
-                $scope.customerContacts_TitleFlag = true;
-                $scope.customerContacts_showTitle = true;
-
-                if (customerContacts_position > 20) {
-                    $scope.customerContacts_customerFlag = true;
-                } else {
-                    $scope.customer_customerFlag = false;
+        var data = {
+            "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_PAGE": {
+                "CURRPAGE": conPage++,
+                "ITEMS": "10"
+            },
+            "IS_PARTNER": { "PARTNER": "" },
+            "IS_SEARCH": { "SEARCH": search }
+        };
+        console.log(data);
+        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST', data)
+            .success(function (response) {
+                console.log(angular.toJson(response));
+                if (response.ES_RESULT.ZFLAG === 'S') {
+                    if (response.ET_EMPLOYEE.item.length < 10) {
+                        $scope.ConLoadMoreFlag = false;
+                    }
+                    if (search) {
+                        $scope.conArr = response.ET_EMPLOYEE.item;
+                    } else {
+                        $scope.conArr = $scope.conArr.concat(response.ET_EMPLOYEE.item);
+                    }
+                    $scope.spinnerFlag = false;
+                    $scope.conSearch = true;
+                    $scope.ConLoadMoreFlag = true;
+                    $ionicScrollDelegate.resize();
+                    $rootScope.$broadcast('scroll.infiniteScrollComplete');
                 }
-                if (customerContacts_position > 28) {
-                    $scope.customerContacts_placeFlag = true;
-                } else {
-                    $scope.customerContacts_placeFlag = false;
-                }
-                if (customerContacts_position > 44) {
-                    $scope.customerContacts_addressFlag = true;
-                } else {
-                    $scope.customerContacts_addressFlag = false;
-                }
-                if (customerContacts_position > 68) {
-                    $scope.customerContacts_empolFlag = true;
-                } else {
-                    $scope.customerContacts_empolFlag = false;
-                }
-                if (customerContacts_position > 80) {
-                    $scope.customerContacts_typeFlag = true;
-                } else {
-                    $scope.customerContacts_typeFlag = false;
-                }
-            } else {
-                $scope.customerContacts_customerFlag = false;
-                $scope.customerContacts_placeFlag = false;
-                $scope.customerContacts_typeFlag = false;
-                $scope.customerContacts_addressFlag = false;
-                $scope.customerContacts_empolFlag = false;
-                $scope.customerContacts_TitleFlag = false;
+            });
+    };
+
+    $ionicModal.fromTemplateUrl('src/customer/customerFuZe/selectCustomer_Modal.html', {
+        scope: $scope,
+        animation: 'slide-in-up',
+        focusFirstInput: true
+    }).then(function (modal) {
+        $scope.selectContactModal = modal;
+    });
+
+    $scope.input = {
+        customer : ""
+    }
+    $scope.selectContactText = '负责人';
+    $scope.openSelectCon = function () {
+        $scope.isDropShow = true;
+        $scope.conSearch = true;
+        $scope.selectContactModal.show();
+    };
+    $scope.closeSelectCon = function () {
+        $scope.selectContactModal.hide();
+    };
+    $scope.selectPop = function (x) {
+        $scope.selectContactText = x.text;
+        $scope.referMoreflag = !$scope.referMoreflag;
+    };
+    $scope.showChancePop = function () {
+        $scope.referMoreflag = true;
+        $scope.isDropShow = true;
+    };
+    $scope.initConSearch = function () {
+        $scope.input.customer = '';
+        $timeout(function () {
+            //document.getElementById('selectConId').focus();
+        }, 1)
+    };
+    $scope.selectCon = function (x) {
+        console.log(angular.toJson(x));
+        console.log(angular.toJson($scope.infos));
+        Prompter.showLoading("正在添加");
+        var data={
+            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_RELATIONSHIP": {
+                "RELNR": "",
+                "RELTYP": "BUR001",
+                "PARTNER1": customeService.get_customerListvalue().PARTNER,
+                "PARTNER2": x.PARTNER,
+                "XDFREL": "X",
+                "DATE_FROM": "0001-01-01",
+                "DATE_TO": "9999-12-31",
+                "MODE": "A"
+            }};
+        console.log(angular.toJson(data));
+        var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
+        console.log(angular.toJson(url));
+        HttpAppService.post(url, data).success(function(response){
+            console.log(response);
+            if (response.ES_RESULT.ZFLAG === 'S') {
+                $scope.updateInfos();
+                $cordovaToast.showShortBottom('添加成功');
+            }else{
+                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                Prompter.hideLoading();
             }
-            $scope.$apply();
+            console.log(angular.toJson(response));
+
+        }).error(function(err){
+            Prompter.hideLoading();
+            console.log(angular.toJson(err));
+        });
+        $scope.selectContactModal.hide();
+    };
+
+    //数据刷新
+    $scope.updateInfos = function(){
+       var data = {
+            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER },
+            "IS_AUTHORITY": { "BNAME": "HANDLCX02" }
         }
+        console.log(angular.toJson(data));
+        var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
+        HttpAppService.post(url, data).success(function(response){
+            //console.log(angular.toJson(response));
+            if (response.ES_RESULT.ZFLAG === 'S') {
+                customeService.set_customeFuZe(response);
+                //console.log(angular.toJson(response));
+                $scope.infos = response.ET_OUT_RELATION.item;
+                Prompter.hideLoading();
+            }else{
+                Prompter.hideLoading();
+            }
+        }).error(function(err){
+            console.log(angular.toJson(err));
+        });
+    }
+}]);
 
-        $scope.customerdetails = customeService.get_customerContactsListvalue();
 
-    }])
+
 

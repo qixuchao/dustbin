@@ -3,7 +3,9 @@ settingsModule.controller("SettingCtrl", [
 	function($scope){
 
 		$scope.config = {
-			currentVersion: "V0.1.7"
+			currentVersion: ""
 		};
+
+		$scope.config.currentVersion = "v"+ROOTCONFIG.versionName;
 
 	}]);

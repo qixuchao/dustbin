@@ -2,26 +2,37 @@
     <div class="modal transparent content">
         <div class="type">{{myProcess.text}}</div>
         <div class="selections">
-            <div class="row row-center position">
-                <div class="col myButton" ng-class="{'selected':x.flag}" ng-repeat="x in positonArr" ng-click="changeProcessSelectFlag(x,'position')">{{x.text}}</div>
+            <div class="row row-center position" ng-if="myProcess.code != 'IT_SA0023'">
+                <div class="col myButton" ng-class="{'selected':x.flag}" ng-repeat="x in positonArr"
+                     ng-click="changeProcessSelectFlag(x,'position')">{{x.text}}
+                </div>
             </div>
-            <div class="row row-center process">
-                <div class="col myButton" ng-class="{'selected':x.flag}" ng-repeat="x in processTypesArr" ng-click="changeProcessSelectFlag(x,'type')">{{x.text}}</div>
+            <div class="row row-center process" ng-if="myProcess.code == 'IT_SA0022'">
+                <div class="col myButton" ng-class="{'selected':x.flag}" ng-repeat="x in processTypesArr"
+                     ng-click="changeProcessSelectFlag(x,'type')">{{x.text}}
+                </div>
             </div>
         </div>
         <div class="input">
-            <div class="row row-center">
-                <div class="col col-35">部门</div>
-                <div class="col col-65"><input type="text" placeholder="请输入"></div>
+            <div ng-if="myProcess.code != 'IT_SA0023'">
+                <div class="row row-center">
+                    <div class="col col-35">部门</div>
+                    <div class="col col-65"><input type="text" ng-model="process.department" placeholder="请输入"></div>
+                </div>
+                <div class="row row-center">
+                    <div class="col col-35">负责人</div>
+                    <div class="col col-65"><input type="text" ng-model="process.chargeMan" placeholder="请输入"></div>
+                </div>
+                <div class="row row-center">
+                    <div class="col col-35">{{myProcess.code == 'IT_SA0021'?'生效时间':'更新时间'}}</div>
+                    <div class="col col-65"><input type="text" ng-model="process.time" placeholder="请输入"></div>
+                </div>
             </div>
-            <div class="row row-center">
-                <div class="col col-35">负责人</div>
-                <div class="col col-65"><input type="text" placeholder="请输入"></div>
+            <div class="row row-center" ng-if="myProcess.code == 'IT_SA0023'">
+                <div class="col col-20 text-center">影响</div>
+                <div class="col col-80"><input type="text" ng-model="process.affect" placeholder="请输入"></div>
             </div>
-            <div class="row row-center">
-                <div class="col col-35">更新时间</div>
-                <div class="col col-65"><input type="text" placeholder="请输入"></div>
-            </div>
+
         </div>
     </div>
 </div>

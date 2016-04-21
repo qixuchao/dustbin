@@ -9,23 +9,23 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 #xbr-worksheet-list-content{
 	.search-box-wrapper{
 		//@mixin transition(padding-top .2s linear 0.0s);
-		-webkit-transition: padding-top 0.2s linear 0s;
-				transition: padding-top 0.2s linear 0s;
+	//	-webkit-transition: padding-top 0.2s linear 0s;
+	//			transition: padding-top 0.2s linear 0s;
 	}
 	.search-history{
 		//@mixin transition(top .2s linear 0.0s);
-		-webkit-transition: top 0.2s linear 0s;
-				transition: top 0.2s linear 0s;
+		//-webkit-transition: top 0.2s linear 0s;
+		//		transition: top 0.2s linear 0s;
 	}
 }
 
 .platform-ios{
 	#xbr-worksheet-list-content{
 		.search-box-wrapper.isSearchingMode{
-			padding-top: 20px;
+			//padding-top: 20px;
 		}
 		.search-history.isSearchingMode{
-			top: 67px;  // 正常情况下:47px
+			//top: 67px;  // 正常情况下:47px
 		}
 	}
 }
@@ -162,8 +162,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		@include display-flex;
 		@include flex-direction(column);
 	}
-
-
+	
+	
 	.search-history{
 		display: none;
 		padding-right: 1.2rem;
@@ -1046,7 +1046,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         		.paigong, .yiquxiao{
         			display: block;
         		}
-        	}  
+        	}
         	&.E0002{  // 派工  .baogong
 				.jiedan, .judan, .yiquxiao{
 					display: block;
@@ -1063,7 +1063,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				}
 			}
 			&.E0005{ //报工
-				.chelianglicheng, .guzhangxinxi, .fuwupaizhao, .wangong{
+				.chelianglicheng, .guzhangxinxi, .fuwupaizhao, .wangong, .yidahui{
 					display: block;
 				}
 			}
@@ -1129,35 +1129,29 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		}
 	}
 }
-/*
-.paigong{
-	display: none;
+
+
+.xbr-my-ion-toggle{
+    //padding-left: 0px;
+    //padding-left: 0px;
+    margin-top: -.4rem;
+    line-height: 1rem;
+    padding-left: 5px;
+    label{
+        height: 2rem;
+        input{
+            height: 2rem;
+        }
+        .track{
+            height: 1.5rem;
+            width: 2.5rem;
+            .handle{
+                height: 1.4rem;
+                top: 5px;
+                padding-left: 10px;
+                width: 1.4rem;
+                left: 3px;
+            }
+        }
+    }
 }
-.judan{
-	display: none;
-}
-.jiedan{
-	display: none;
-}
-.beijian{
-	display: none;
-}
-.chelianglicheng{
-	display: none;
-}
-.guzhangxinxi{
-	display: none;
-}
-.fuwupaizhao{
-	display: none;
-}
-.baogong{
-	display: none;
-}
-.wangong{
-	display: none;
-}
-.yiquxiao{
-	display: none;
-}
-*/

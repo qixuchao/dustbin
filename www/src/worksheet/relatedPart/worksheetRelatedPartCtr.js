@@ -227,9 +227,11 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
     $scope.getConArr = function (search) {
         $scope.ConLoadMoreFlag = false;
         if (search) {
+            console.log(search)
             $scope.conSearch = false;
             conPage = 1;
         } else {
+            console.log(search)
             $scope.spinnerFlag = true;
         }
         var data = {
