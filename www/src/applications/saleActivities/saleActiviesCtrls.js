@@ -168,6 +168,9 @@ salesModule
             $scope.filterSure = function () {
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
+                var ele = angular.element('#saleChanListFilterId');
+                ele.css('display','block').removeClass('fadeInDown');
+                ele.css('display','block').addClass('slideOutUp');
                 $scope.getList('search');
             };
             $scope.filterPrevent = function (e) {
@@ -175,6 +178,7 @@ salesModule
             };
             $scope.filterFlag = false;
             $scope.changeSearch = function () {
+                angular.element('#saleChanListFilterId').css('display','none');
                 if ($scope.filterFlag) {
                     $scope.filterFlag = false;
                 }
@@ -196,12 +200,17 @@ salesModule
             $scope.filterFlag = false;
             //$scope.isDropShow = true;
             $scope.changeFilterFlag = function (e) {
+                var ele = angular.element('#saleChanListFilterId');
+                //angular.element('#saleChanListFilterId').addClass('display','block');
                 tempFilterArr = '';
                 $scope.filterFlag = !$scope.filterFlag;
                 if ($scope.filterFlag) {
+                    ele.css('display','block').removeClass('slideOutUp');
+                    ele.css('display','block').addClass('fadeInDown');
                     onceCilck = true;
-                } else {
-                    angular.element('#saleChanListFilterId').attr('ng-if', 'ng-show');
+                }else{
+                    ele.css('display','block').removeClass('fadeInDown');
+                    ele.css('display','block').addClass('slideOutUp');
                 }
                 e.stopPropagation();
             };

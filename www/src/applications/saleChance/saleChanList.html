@@ -66,7 +66,7 @@
              ng-click="changeFilterFlag($event)"></div>
         <div id="saleActListFilterId" class="listFilter selectionsDown pushDown-animated refer-selectionsDown"
              ng-class="{'slideOutUp':!filterFlag,'fadeInDown':filterFlag}"
-             ng-show="filterFlag" ng-click="filterPrevent($event)">
+             ng-click="filterPrevent($event)">
             <div class="type">类型</div>
             <div class="row typeRow row-wrap">
                 <div class="typeSelections" ng-class="{'selected':x.flag}" ng-if="sysName==x.sysName"

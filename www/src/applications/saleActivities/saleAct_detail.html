@@ -175,7 +175,7 @@
             <div class="submit">
                 <div class="row row-center">
                     <div class="col no-padding">
-                        <div class="input"><input type="text"  ng-click="openProcessModal()" ng-model="process.content"/>
+                        <div class="input"><input type="text" ng-readonly="!isEdit" ng-click="openProcessModal()" ng-model="process.content"/>
                         </div>
                     </div>
                     <div class="no-padding selections" ng-show="!processDropflag">
