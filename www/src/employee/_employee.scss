@@ -286,6 +286,22 @@
     border-radius:15px;
     width:75px;
   }
+  .customer_query_historylist{
+    margin-top:10px;
+    height:35px;
+    line-height:35px;
+    color: white;
+    span{
+      padding: 5px 15px;
+      color: white;
+      text-align: center;
+      font-size: 15px;
+      height:25px;
+      line-height:25px;
+      background-color: #5E97F6;
+      border-radius:15px;
+    }
+  }
   .employee_query_historyclear{
     margin-top:15px;
     color:#3DAFFD;

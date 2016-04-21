@@ -60,8 +60,10 @@
             <div class="col-10">
                 <div class="dot"></div>
             </div>
-            <div class="col-25" ng-click="changeShowPop()">{{selectModeText}}<i
-                    ng-class="{'ion-ios-arrow-down-selected':showPop}" class="icon ion-ios-arrow-down"></i></div>
+            <div class="col-25">{{selectModeText}}
+            <!--<div class="col-25" ng-click="changeShowPop()">{{selectModeText}}-->
+                <!--<i ng-class="{'ion-ios-arrow-down-selected':showPop}" class="icon ion-ios-arrow-down"></i>-->
+            </div>
             <div class="col-20">
                 <div class="num">{{contentArr.length}}</div>
                 {{selectModeText.substring(0,2)}}
@@ -96,7 +98,7 @@
             <div class="main-content animate-fade-slide-in-right">
                 <div class="await-apl">待处理</div>
                 <div class="obj item {{x.class}}" ng-hide="contenHideFlag" ng-repeat="x in contentArr"
-                     ng-style="x.style">
+                     ng-style="x.style" ng-click="goDetail(x)">
                     <div class="circleNum" style="{{'border-color:'+x.mark}}">{{$index+1}}</div>
                     <div class="row row-center apl-content no-padding">
                         <div class="col col-80">
@@ -112,7 +114,7 @@
                         <div class="col col-10 text-center"><i class="ion-ios-arrow-right"
                                                                style="{{'color:'+ x.mark}}"></i>
                         </div>
-                        <div class="col col-10 text-center" ng-click="x.showMarks=!x.showMarks"><img
+                        <div class="col col-10 text-center" ng-click="showMarks(x,$event)"><img
                                 src="img/main/dash.png" class="more"></div>
                     </div>
                     <div class="border-bottom"></div>

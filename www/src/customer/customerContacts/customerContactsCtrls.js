@@ -14,8 +14,11 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             $scope.relatedpopover.hide();
             //document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";.ET_OUT_RELATION.item
         };
-        $scope.infos = customeService.get_customeFuZe().ET_OUT_RELATION.item;
-        console.log($scope.infos);
+    $scope.config = {
+        goMore : true,
+        goLoad : false,
+        goNo : false
+    }
         $scope.related_types = ['联系人'];
         $scope.relatedqueryType = function(types){
             console.log(types);
@@ -115,9 +118,11 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
     $scope.getConArr = function (search) {
         $scope.ConLoadMoreFlag = false;
         if (search) {
+            console.log(search)
             $scope.conSearch = false;
             conPage = 1;
         } else {
+            console.log(search)
             $scope.spinnerFlag = true;
         }
         var data = {
@@ -130,17 +135,17 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             "IS_SEARCH": { "SEARCH": search }
         };
         console.log(data);
-        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST', data)
+        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
             .success(function (response) {
                 console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
-                    if (response.ET_EMPLOYEE.item.length < 10) {
+                    if (response.ET_OUT_LIST.item.length < 10) {
                         $scope.ConLoadMoreFlag = false;
                     }
                     if (search) {
-                        $scope.conArr = response.ET_EMPLOYEE.item;
+                        $scope.conArr = response.ET_OUT_LIST.item;
                     } else {
-                        $scope.conArr = $scope.conArr.concat(response.ET_EMPLOYEE.item);
+                        $scope.conArr = $scope.conArr.concat(response.ET_OUT_LIST.item);
                     }
                     $scope.spinnerFlag = false;
                     $scope.conSearch = true;
@@ -151,18 +156,14 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             });
     };
 
-    $ionicModal.fromTemplateUrl('src/customer/customerFuZe/selectCustomer_Modal.html', {
+    $ionicModal.fromTemplateUrl('src/customer/customerContacts/selectCustomer_conmodal.html', {
         scope: $scope,
         animation: 'slide-in-up',
         focusFirstInput: true
     }).then(function (modal) {
         $scope.selectContactModal = modal;
     });
-
-    $scope.input = {
-        customer : ""
-    }
-    $scope.selectContactText = '负责人';
+    $scope.selectContactText = '联系人';
     $scope.openSelectCon = function () {
         $scope.isDropShow = true;
         $scope.conSearch = true;
@@ -180,9 +181,9 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
         $scope.isDropShow = true;
     };
     $scope.initConSearch = function () {
-        $scope.input.customer = '';
+        $scope.input.con = '';
         $timeout(function () {
-            //document.getElementById('selectConId').focus();
+            document.getElementById('selectConId').focus();
         }, 1)
     };
     $scope.selectCon = function (x) {
@@ -193,7 +194,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
             "IS_RELATIONSHIP": {
                 "RELNR": "",
-                "RELTYP": "BUR001",
+                "RELTYP": "BUR011",
                 "PARTNER1": customeService.get_customerListvalue().PARTNER,
                 "PARTNER2": x.PARTNER,
                 "XDFREL": "X",
@@ -223,28 +224,38 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
     };
 
     //数据刷新
+    var conpageNum = 1;
+    $scope.infos = [];
     $scope.updateInfos = function(){
-       var data = {
-            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+        $scope.config.goload = true;
+        $scope.config.goMore = false;
+        var data = {
+            "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_PAGE": {
+                "CURRPAGE": conpageNum++,
+                "ITEMS": "10"
+            },
             "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER },
-            "IS_AUTHORITY": { "BNAME": "HANDLCX02" }
-        }
-        console.log(angular.toJson(data));
-        var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
-        HttpAppService.post(url, data).success(function(response){
-            //console.log(angular.toJson(response));
-            if (response.ES_RESULT.ZFLAG === 'S') {
-                customeService.set_customeFuZe(response);
-                //console.log(angular.toJson(response));
-                $scope.infos = response.ET_OUT_RELATION.item;
-                Prompter.hideLoading();
-            }else{
-                Prompter.hideLoading();
-            }
-        }).error(function(err){
-            console.log(angular.toJson(err));
-        });
+            "IS_SEARCH": { "SEARCH": "" }
+        };
+        console.log(data);
+        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
+            .success(function (response) {
+                $scope.config.goload = false;
+                console.log(angular.toJson(response));
+                if (response.ES_RESULT.ZFLAG === 'S') {
+                    $scope.infos = $scope.infos.concat(response.ET_OUT_LIST.item);
+                    if (response.ET_OUT_LIST.item.length < 10) {
+                        $scope.config.goNo = true;
+                        $scope.config.goload = false;
+                    }
+                }else{
+                    $scope.config.goNo = true;
+                    $scope.config.goload = false;
+                }
+            });
     }
+    $scope.updateInfos();
 }]);
 
 
