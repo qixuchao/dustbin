@@ -18,13 +18,14 @@ customerVehicleModule
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_USER": { "BNAME": "HANDLCX02" },
                 "IS_PAGE": {
-                    "CURRPAGE": "1",
+                    "CURRPAGE": $scope.customerVehicletactPage,
                     "ITEMS": "10"
                 },
-                "IS_PARTNER_INPUT": { "PARTNER": customeService.get_customerWorkordervalue().PARTNER}
+                "IS_PARTNER_INPUT": { "PARTNER": customeService.get_customerListvalue().PARTNER}
             }
 
             HttpAppService.post(url, data).success(function (response) {
+                console.log(response);
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.customerVehicleisshow = false;
                     $cordovaToast.showShortCenter(response.ES_RESULT.ZRESULT);
@@ -41,9 +42,7 @@ customerVehicleModule
                                 }
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                             } else {
-                                $.each(response.ET_VEHICL_OUTPUT.item, function (n, value) {
-                                    $scope.customerVehiclelists.push(value);
-                                });
+                                    $scope.customerVehiclelists = response.ET_VEHICL_OUTPUT.item;
                             }
                             if (response.ET_VEHICL_OUTPUT.item.length < 10) {
                                 $scope.customerVehicleisshow = false;
