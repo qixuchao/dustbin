@@ -44,8 +44,8 @@
             <div class="employee_query_historysspan">
                 搜索历史
             </div>
-            <div class="employee_query_historylist" ng-repeat="list in customer_query_historylists" ng-click="CustomerHisGetvalue(list)">
-                {{list.name}}
+            <div class="customer_query_historylist" ng-repeat="list in customer_query_historylists" ng-click="CustomerHisGetvalue(list)">
+                <span>{{list.name}}</span>
             </div>
             <div class="employee_query_historyclear" ng-click="CustomerClearhis()">
                 清楚历史记录
