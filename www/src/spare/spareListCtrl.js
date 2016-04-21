@@ -2,7 +2,8 @@
  * Created by Administrator on 2016/3/22 0022.
  */
 spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$cordovaToast','worksheetDataService','HttpAppService','$http','SpareListService','$state','$scope','Prompter','$timeout',
-    function ($ionicScrollDelegate,$rootScope,$cordovaToast,worksheetDataService,HttpAppService,$http,SpareListService,$state,$scope,Prompter,$timeout){
+    "$ionicHistory",
+    function ($ionicScrollDelegate,$rootScope,$cordovaToast,worksheetDataService,HttpAppService,$http,SpareListService,$state,$scope,Prompter,$timeout, $ionicHistory){
     var page=0;
     $scope.spareList=[];
     $scope.spareList1=[];
@@ -11,6 +12,7 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
     $scope.spareimisshow=false;
     $scope.searchFlag=false;
     $scope.isSearch=false;
+    $scope.showFlag=worksheetDataService.selectedProduct;
 
 
     $scope.spareListHistoryval = function(){
@@ -57,12 +59,12 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
         //});
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState && toState && fromState.name == 'worksheetEdit'){
-                worksheetDataService.selectedProduct="";
+               // worksheetDataService.selectedProduct="";
             }
         });
     $scope.changePage=function(){
         $scope.searchFlag=true;
-        //$timeout(function () {
+        //$timeout(function () {z
         //    document.getElementById('spareId').focus();
         //}, 1)
     };
@@ -215,7 +217,7 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
             localStorage['oftenSparedb'] = JSON.stringify( $scope.oftenSpareList);
         }
         SpareListService.set(value);
-        if(worksheetDataService.selectedProduct==true) {
+        if($scope.showFlag) {
             worksheetDataService.backObjectProduct = value;
             worksheetDataService.selectedProduct = false;
             $ionicHistory.goBack();

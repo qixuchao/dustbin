@@ -34,7 +34,10 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             if(fromState && toState && fromState.name == 'spareList' && toState.name == 'worksheetEdit'){
                 if(worksheetDataService.backObjectProduct != null){
                     $scope.datas.detail.ES_OUT_LIST.SHORT_TEXT = worksheetDataService.backObjectProduct.SHORT_TEXT;
-                    $scope.datas.detail.ES_OUT_LIST.PRODUCT_ID = worksheetDataService.backObjectProduct.ZBAR_CODE;
+                    $scope.datas.detail.ES_OUT_LIST.PRODUCT_ID = worksheetDataService.backObjectProduct.PRODUCT_ID;
+                    if(!$scope.$$phase){
+                        $scope.$apply();
+                    }
                     console.log($scope.datas.detail.ES_OUT_LIST);
                 }     
             }
