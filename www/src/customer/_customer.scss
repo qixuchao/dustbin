@@ -1,3 +1,80 @@
+.customer_queryList {
+  .pub-head {
+    background: $crm-subject-blue;
+    color: white;
+    padding-top: 5px;
+    i {
+      font-size: 25px;
+    }
+    .goBack {
+      padding-left: 10px;
+      padding-right: 5px;
+      width: auto;
+      max-width: 0;
+      min-width: 20%;
+      line-height: 28px;
+      text-align: left;
+    }
+  }
+  .pub-subhead {
+    background: $crm-subject-blue;
+    box-shadow: none;
+    top: 43px;
+    padding: 8px;
+    display: flex;
+    .row {
+      background: white;
+      border-radius: 5px;
+      color: #A0A09F;
+      font-size: 14px;
+      i {
+        font-size: 18px;
+        padding: 0 10px;
+      }
+    }
+  }
+  .head {
+    background: $crm-subject-blue;
+    color: white;
+    .col-80 {
+      background: white;
+      height: 28px;
+      border-radius: 4px;
+      margin-left: 2px;
+      line-height: 28px;
+      vertical-align: middle;
+      .ion-ios-search {
+        font-size: 18px;
+        position: relative;
+        left: 2px;
+        top: -2px;
+        margin-right: 5px;
+        color: #9A9AA0;
+      }
+      input {
+        height: 22px;
+        min-height: 22px;
+        line-height: 22px;
+        vertical-align: middle;
+        width: 90%;
+        background: none;
+        border: none;
+        position: relative;
+        //top: -3px;
+      }
+      .ion-ios-close {
+        color: #CBCBCE;
+        position: relative;
+        width: 30px;
+        text-align: center;
+        top: -2px;
+      }
+    }
+    .cancel {
+      font-size: 16px;
+    }
+  }
+}
 .customer_Query{
   .customer_Query_headspan{
     color: white;
@@ -120,7 +197,7 @@
     color: white;
     .customer_detailcontentname {
       position: absolute;
-      top: 10px;
+      top: 5px;
       left: 25px;
       .customer_detailcontentcicle {
         width: 14px;
@@ -140,13 +217,13 @@
     }
     .customer_detailcontentphonespan {
       position: absolute;
-      top: 60px;
+      top: 65px;
       right: 0px;
       margin-right: 15px;
     }
     .customer_detailcontentphone{
       position: absolute;
-      top:60px;
+      top:65px;
       left:25px;
       .customer_detailcontentphonei{
         float: left;

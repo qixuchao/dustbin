@@ -1,21 +1,21 @@
 <ion-view class="customer_Query">
 
-    <div class="saleList">
+    <div class="customer_queryList">
         <ion-header-bar align-title="center" class="head pub-head" style="height:88px">
             <div class="row">
                 <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-70 text-center">客户</div>
+                <div class="col col-65 text-center">客户</div>
                 <div class="col col-20 add" ng-click="customerPopover($event)" style="text-align: left">筛选</div>
             </div>
         </ion-header-bar>
-        <div class="pub-subhead bar bar-subheader">
+        <div class="pub-subhead bar bar-subheader">s
             <div class="employeequery_headquery">
                 <i class="ion-ios-search employeequery_headqueryimg"></i>
-                <input id="customerinputvalueid" class="employeequery_headqueryinput" type="text" ng-model="customer.customerfiledvalue" ng-change="customerLoadmore()" ng-click="initSearch()" placeholder="请输入客户关键字">
+                <input id="customerinputvalueid" class="employeequery_headqueryinput" type="text" ng-model="customer.customerfiledvalue" ng-change="customerFirstLoad()" ng-focus="initSearch()" placeholder="请输入客户关键字">
                 <i id="customerqueryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="customeriputDeletevalue()"></i>
             </div>
         </div>
-        <div ng-if="!customer_queryflag || customerQuery_list.length>0 || customer.customerfiledvalue.length>0" class="employee_detail_countentbasic androidcustomertop iostop">
+        <div ng-if="!customer_queryflag || (customerselecttyperole && (customerQuery_list.length>0 || customer.customerfiledvalue.length>0))" class="employee_detail_countentbasic androidcustomertop iostop">
             <div class="employee_detail_countentbasicinfo">{{customerqueryTypeunit}}</div>
             <div class="employee_detail_countentbasicline" ng-class="employbasiclineflag?'employee_detail_countentbasiclinea':'employee_detail_countentbasiclineb'"></div>
             <div class="employee_detail_countentbasicclok" ng-class="employbasiclineflag?'employee_detail_countentbasiclocka':'employee_detail_countentbasiclockb'"></div>
@@ -39,7 +39,7 @@
         </div>
         <!--搜索历史-->
     </ion-content>
-    <ion-content ng-show="customer_queryflag" ng-class="(!customerQuery_list.length>0 && !customer.customerfiledvalue.length>0)?'customercontenttopf':'customercontenttopt'">
+    <ion-content ng-show="customer_queryflag" ng-class="customerselecttyperole && (customerQuery_list.length>0 || customer.customerfiledvalue.length>0)?'customercontenttopt':'customercontenttopf'">
         <div ng-if="!customerQuery_list.length>0 && !customer.customerfiledvalue.length>0" class="employee_query_historys">
             <div class="employee_query_historysspan">
                 搜索历史
