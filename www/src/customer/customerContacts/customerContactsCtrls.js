@@ -1,5 +1,5 @@
 
-worksheetModule.controller("customerContactQueryCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast){
+worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast){
     $ionicPopover.fromTemplateUrl('src/customer/customerFuZe/customer_selectbyD.html', {
             scope: $scope
         }).then(function(popover) {
@@ -14,10 +14,10 @@ worksheetModule.controller("customerContactQueryCtrl",['$scope','$state','$http'
             $scope.relatedpopover.hide();
             //document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";.ET_OUT_RELATION.item
         };
-    $scope.config= {
+    $scope.config = {
         goMore : true,
         goLoad : false,
-        goNo : false,
+        goNo : false
     }
         $scope.related_types = ['联系人'];
         $scope.relatedqueryType = function(types){
@@ -156,7 +156,7 @@ worksheetModule.controller("customerContactQueryCtrl",['$scope','$state','$http'
             });
     };
 
-    $ionicModal.fromTemplateUrl('src/worksheet/relatedPart/selectContact_Modal.html', {
+    $ionicModal.fromTemplateUrl('src/customer/customerContacts/selectCustomer_conmodal.html', {
         scope: $scope,
         animation: 'slide-in-up',
         focusFirstInput: true
@@ -190,19 +190,23 @@ worksheetModule.controller("customerContactQueryCtrl",['$scope','$state','$http'
         console.log(angular.toJson(x));
         console.log(angular.toJson($scope.infos));
         Prompter.showLoading("正在添加");
-        var data = {
-            "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-            "IS_PAGE": {
-                "CURRPAGE": conPage++,
-                "ITEMS": "10"
-            },
-            "IS_PARTNER": { "PARTNER": "" },
-            "IS_SEARCH": { "SEARCH": search }
-        };
+        var data={
+            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_RELATIONSHIP": {
+                "RELNR": "",
+                "RELTYP": "BUR011",
+                "PARTNER1": customeService.get_customerListvalue().PARTNER,
+                "PARTNER2": x.PARTNER,
+                "XDFREL": "X",
+                "DATE_FROM": "0001-01-01",
+                "DATE_TO": "9999-12-31",
+                "MODE": "A"
+            }};
         console.log(angular.toJson(data));
-        var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
+        var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
+        console.log(angular.toJson(url));
         HttpAppService.post(url, data).success(function(response){
-            console.log(angular.toJson(response));
+            console.log(response);
             if (response.ES_RESULT.ZFLAG === 'S') {
                 $scope.updateInfos();
                 $cordovaToast.showShortBottom('添加成功');
@@ -210,6 +214,7 @@ worksheetModule.controller("customerContactQueryCtrl",['$scope','$state','$http'
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 Prompter.hideLoading();
             }
+            console.log(angular.toJson(response));
 
         }).error(function(err){
             Prompter.hideLoading();
@@ -219,12 +224,15 @@ worksheetModule.controller("customerContactQueryCtrl",['$scope','$state','$http'
     };
 
     //数据刷新
+    var conpageNum = 1;
     $scope.infos = [];
     $scope.updateInfos = function(){
+        $scope.config.goload = true;
+        $scope.config.goMore = false;
         var data = {
             "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
             "IS_PAGE": {
-                "CURRPAGE": conPage++,
+                "CURRPAGE": conpageNum++,
                 "ITEMS": "10"
             },
             "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER },
@@ -233,14 +241,17 @@ worksheetModule.controller("customerContactQueryCtrl",['$scope','$state','$http'
         console.log(data);
         HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
             .success(function (response) {
+                $scope.config.goload = false;
                 console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
-                    $scope.infos.concat(response.ET_OUT_LIST.item);
+                    $scope.infos = $scope.infos.concat(response.ET_OUT_LIST.item);
                     if (response.ET_OUT_LIST.item.length < 10) {
-                        $scope.ConLoadMoreFlag = false;
+                        $scope.config.goNo = true;
+                        $scope.config.goload = false;
                     }
                 }else{
-
+                    $scope.config.goNo = true;
+                    $scope.config.goload = false;
                 }
             });
     }

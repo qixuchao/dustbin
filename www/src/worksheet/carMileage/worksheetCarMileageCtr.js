@@ -17,13 +17,18 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
        var init = function(info){
            var worksheetDetail = worksheetDataService.wsDetailData;
            console.log(angular.toJson(worksheetDetail));
-           $scope.config = {
-               num : worksheetDetail.ET_MILEAGE.item.length,//总页数
-               nowPage : info//当前页
+           if(worksheetDataService.wsDetailData.ET_PARTNER.item == undefined){
+               $cordovaToast.showShortBottom('暂无车辆读数信息');
+           }else{
+               $scope.config = {
+                   num : worksheetDetail.ET_MILEAGE.item.length,//总页数
+                   nowPage : info//当前页
+               }
+               $scope.carMile = worksheetDetail.ET_MILEAGE.item[info-1];
+               console.log($scope.carMile);
+               console.log($scope.config);
            }
-           $scope.carMile = worksheetDetail.ET_MILEAGE.item[info-1];
-           console.log($scope.carMile);
-           console.log($scope.config);
+
        }
         var no =1;
         init(no);

@@ -6,7 +6,12 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             $scope.relatedpopover = popover;
         });
         var  worksheetDetailData = worksheetDataService.wsDetailData;
-        $scope.infos = worksheetDataService.wsDetailData.ET_PARTNER.item;
+        if(worksheetDataService.wsDetailData.ET_PARTNER.item == undefined){
+            $scope.infos = [];
+            $cordovaToast.showShortBottom('暂无相关方');
+        }else{
+            $scope.infos = worksheetDataService.wsDetailData.ET_PARTNER.item;
+        }
         console.log(angular.toJson(worksheetDataService.wsDetailData));
     //ZPRV ZPLV  ZNCV
         if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCV"){
