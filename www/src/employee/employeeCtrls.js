@@ -319,7 +319,8 @@ employeeModule
             $state.go('userDetail');
         }
     }])
-    .controller('userDetailCtrl',['$scope','$state','$rootScope','$ionicHistory','Prompter','HttpAppService','$cordovaInAppBrowser','$ionicLoading','$cordovaToast','$cordovaClipboard','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','employeeService','$window','$ionicActionSheet',function($scope,$state,$rootScope,$ionicHistory,Prompter,HttpAppService,$cordovaInAppBrowser,$ionicLoading,$cordovaToast,$cordovaClipboard,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,employeeService,$window,$ionicActionSheet){
+    .controller('userDetailCtrl',['$scope','$state','$rootScope','$ionicHistory','Prompter','HttpAppService','$cordovaInAppBrowser','$ionicLoading','$cordovaToast','$cordovaClipboard','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','employeeService','$window','$ionicActionSheet',
+        function($scope,$state,$rootScope,$ionicHistory,Prompter,HttpAppService,$cordovaInAppBrowser,$ionicLoading,$cordovaToast,$cordovaClipboard,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,employeeService,$window,$ionicActionSheet){
         ////返回回退
         $scope.employgoBack = function() {
             console.log("返回成功")
@@ -471,23 +472,71 @@ employeeModule
         };
         $scope.selectCustomer = function (x) {
              console.log(x);
-            employeeService.set_employeecustomerlist().item.unshift(x);
-            console.log($scope.employcustomerlist[0]);
-            //$scope.contactcreat.PARTNER2VALUE = x.NAME_ORG1;
-            //$scope.contactcreat.PARTNER2 = x.PARTNER;
-            //$scope.create.contact='';
-            //contactPage = 1;
-            //$scope.contacts = [];
+            var url=ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
+            var data={
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_RELATIONSHIP": {
+                    "RELNR": "",
+                    "RELTYP": "BUR011",
+                    "PARTNER1": x.PARTNER,
+                    "PARTNER2": employeeService.get_employeeListvalue().PARTNER,
+                    "XDFREL": "",
+                    "DATE_FROM": "",
+                    "DATE_TO": "",
+                    "MODE": "A"
+                }
+            };
+            console.log(x.PARTNER);
+            console.log(employeeService.get_employeeListvalue().PARTNER);
+            HttpAppService.post(url,data).success(function(response){
+                if(response.ES_RESULT.ZFLAG=="E"){
+                    console.log(response.ES_RESULT.ZRESULT);
+                  $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                }else{
+                    var name={
+                        NAME:x.NAME_ORG1
+                    };
+                    $scope.employcustomerlist.unshift(name);
+                    console.log("添加成功");
+                }
+            });
             $scope.getCustomerArr();
             $scope.contactsLoadMoreFlag = true;
             //$scope.getContacts();
             $scope.selectCustomerModal.hide();
         };
-
+        $scope.deleteCustomer=function(i,customer){
+            console.log(customer);
+            var url=ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
+            var data={
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_RELATIONSHIP": {
+                    "RELNR": "",
+                    "RELTYP": "BUR011",
+                    "PARTNER1": customer.PARTNER,
+                    "PARTNER2": employeeService.get_employeeListvalue().PARTNER,
+                    "XDFREL": "",
+                    "DATE_FROM": "",
+                    "DATE_TO": "",
+                    "MODE": "D"
+                }
+            };
+            console.log(customer.PARTNER);
+            console.log(customer.PARTNER);
+            HttpAppService.post(url,data).success(function(response) {
+                if (response.ES_RESULT.ZFLAG == "E") {
+                    console.log(response.ES_RESULT.ZRESULT);
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                }else {
+                    $scope.employcustomerlist.splice(i,1);
+                    console.log("删除成功");
+                }
+            })
+        };
         $scope.$on('$destroy', function () {
             //$scope.createPop.remove();
             //$scope.createModal.remove();
             //$scope.selectPersonModal.remove();
             $scope.selectCustomerModal.remove();
         });
-    }])
+    }]);
