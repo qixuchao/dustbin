@@ -71,12 +71,12 @@
         </div>
         <ion-infinite-scroll id="saleChanListSpinnerId" on-infinite="getList()" distance="1%"
                              ng-if="loadMoreFlag&&!searchFlag"></ion-infinite-scroll>
+        <div class="noMoreInfo" ng-if="saleListNoMoreInfoFLag&&!(loadMoreFlag&&!searchFlag)&&saleListArr.length!=0">没有更多数据了</div>
     </ion-content>
-    <ion-content class="has-header search" ng-show="searchFlag"
-                 ng-click="changeSearch($event)">
+    <ion-content class="has-header search" ng-show="searchFlag" scroll="false" ng-click="changeSearch($event)">
+        <div ng-class="filterFlag?'own-backDrop-on':'own-backDrop-off'"
+             ng-click="changeFilterFlag($event)"></div>
         <div class="saleChanList myFilter">
-            <div ng-class="filterFlag?'own-backDrop-on':'own-backDrop-off'"
-                 ng-click="changeFilterFlag($event)"></div>
             <div id="saleChanListFilterId" class="listFilter selectionsDown pushDown-animated refer-selectionsDown"
                  ng-class="{'slideOutUp':!filterFlag,'fadeInDown':filterFlag}"
                  ng-show="filterFlag" ng-click="filterPrevent($event)">
@@ -117,7 +117,7 @@
             </ion-list>
             <div class="content">
                 <div class="list" ng-if="input.list">
-                    <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr | filter:input.list">
+                    <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr">
                         <div class="row row-center">
                             <img class="title_oval" src="img/saleDetail/title_oval.png">
 
@@ -137,6 +137,7 @@
             </div>
             <ion-infinite-scroll id="saleChanListSearchPageId" on-infinite="getList('searchPage')" distance="1%"
                                  ng-if="loadMoreFlag&&input.list"></ion-infinite-scroll>
+            <div class="noMoreInfo" ng-if="saleListNoMoreInfoFLag&&!(loadMoreFlag&&input.list)">没有更多数据了</div>
         </ion-scroll>
     </ion-content>
 </ion-view>

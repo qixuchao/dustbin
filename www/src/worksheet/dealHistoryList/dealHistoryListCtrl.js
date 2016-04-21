@@ -1,4 +1,4 @@
- worksheetModule.controller("dealHistoryListCtrl",[
+worksheetModule.controller("dealHistoryListCtrl",[
 	"$scope",
     "ionicMaterialInk",
     "ionicMaterialMotion",

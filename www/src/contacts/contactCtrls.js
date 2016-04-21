@@ -85,7 +85,7 @@ ContactsModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST';
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME":"" },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_PAGE": {
                     "CURRPAGE": $scope.conitemImPage,
                     "ITEMS": "10"
@@ -414,7 +414,7 @@ ContactsModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
             var data = {
                 "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                "IS_AUTHORITY": {"BNAME": LoginService.getUserName()},
+                "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                 "IS_PARTNER": {"PARTNER": contactService.get_ContactsListvalue()}
                 //"IS_PARTNER": { "PARTNER":'6000000385'}
             };
@@ -427,6 +427,9 @@ ContactsModule
                     if (response.ET_OUT_CONTACT != '') {
 
                         $scope.contactdetails = response.ET_OUT_CONTACT.item[0];
+                        console.log($scope.contactdetails.TEL_NUMBER);
+                        console.log($scope.contactdetails.TEL_EXTENS);
+                        console.log($scope.contactdetails.MOB_NUMBER);
                         //$scope.contactdetails=contactService.getObject();
                         //console.log($scope.contactdetails.PARTNER);
                         $scope.contactdetails.PARTNER = numDo($scope.contactdetails.PARTNER)
@@ -587,7 +590,7 @@ ContactsModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_CHANGE';
             var data = {
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": "" },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_CUSTOMER": {
                     "PARTNER": "",
                     "PARTNERROLE": "",
@@ -611,7 +614,7 @@ ContactsModule
                     "FAX_NUMBER": "",
                     "FAX_EXTENS": "",
                     "SMTP_ADDR": "888888@qq.com",
-                    "BAPIBNAME": "HANDLCX02",
+                    "BAPIBNAME":  window.localStorage.crmUserName,
                     "MODE": "I"
                 },
                 "IT_LINES": {
@@ -941,7 +944,7 @@ ContactsModule
             var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
             var data={
                 "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "I_COUNTRY": "",
                 "I_MODE": "A",
                 "I_REGION": ""
@@ -959,7 +962,7 @@ ContactsModule
             var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
             var data={
                 "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "I_COUNTRY": $scope.countryCode,
                 "I_MODE": "B",
                 "I_REGION": ""
@@ -978,7 +981,7 @@ ContactsModule
             var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
             var data={
                 "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" },
+                "IS_USER": { "BNAME":  window.localStorage.crmUserName },
                 "I_COUNTRY": $scope.countryCode,
                 "I_MODE": "C",
                 "I_REGION": $scope.provenceCode
@@ -1112,7 +1115,7 @@ ContactsModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_CHANGE';
             var data = {
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": "60000051" },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName},
                 "IS_CUSTOMER": {
                     "PARTNER": "",
                     "PARTNERROLE": "",
@@ -1136,7 +1139,7 @@ ContactsModule
                     "FAX_EXTENS": "",
                     "SMTP_ADDR": "",
                     "TITLE_MEDI":"",
-                    "BAPIBNAME": "HANDLCX02",
+                    "BAPIBNAME": "",
                     "MODE": "U"
                 },
                 "IT_LINES": {
@@ -1146,13 +1149,14 @@ ContactsModule
                     }
                 }
             };
+            console.log(window.localStorage.crmUserName);
             data.IS_CUSTOMER.PARTNER = $scope.contactedit.PARTNER;
             data.IS_CUSTOMER.PARTNER2 = contactService.get_Contactsdetailvalue().PARTNER2;
             //data.IS_CUSTOMER.PARTNER = '2284';
             data.IS_CUSTOMER.TITLE = $scope.config.currentTitile.codeId;
             data.IS_CUSTOMER.NAME_LAST = $scope.contactedit.NAME_LAST;
             data.IS_CUSTOMER.BIRTHDT = $scope.contactedit.BIRTHDT;
-            data.IS_CUSTOMER.LANGU2 = $scope.config.currentLanguage.name;
+            data.IS_CUSTOMER.LANGU2 = $scope.config.currentLanguage;
             data.IS_CUSTOMER.LANGU = $scope.config.currentLanguage.typeId;
             data.IS_CUSTOMER.FNCTN = $scope.contactedit.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactedit.DPRTMNT;
@@ -1162,15 +1166,17 @@ ContactsModule
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactedit.POST_CODE1;
             data.IS_CUSTOMER.STREET = $scope.contactedit.STREET;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactedit.TEL_NUMBER;
+            data.IS_CUSTOMER.TEL_EXTENS =$scope.contactedit.TEL_EXTENS;
             data.IS_CUSTOMER.MOB_NUMBER = $scope.contactedit.MOB_NUMBER;
             data.IS_CUSTOMER.FAX_NUMBER = $scope.contactedit.FAX_NUMBER;
             data.IS_CUSTOMER.FAX_EXTENS = $scope.contactedit.FAX_EXTENS;
+            data.IS_CUSTOMER.SMTP_ADDR = $scope.contactedit.SMTP_ADDR;
             data.IS_CUSTOMER.MODE = "U";
             data.IS_CUSTOMER.TITLE_MEDI=$scope.config.currentTitile.name;
             data.IT_LINES.item.TDLINE=$scope.contactedit.conatctdeatilnote;
             //if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined || data.IS_CUSTOMER.PARTNER == ''|| data.IS_CUSTOMER.PARTNER == undefined){
             if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined
-                || data.IS_CUSTOMER.COUNTRY == ''|| data.IS_CUSTOMER.COUNTRY == undefined){
+                || $scope.config.currentCountry == ''|| $scope.config.currentCountry == undefined){
                 $cordovaToast.showShortCenter('请输入客户姓名或国家');
                 //console.log("请输入客户姓名或标识");
                 Prompter.hideLoading();
@@ -1189,6 +1195,8 @@ ContactsModule
 
                         //广播修改详细信息界面的数据
                         $rootScope.$broadcast('contactEditvalue');
+                        contactService.set_Contactsdetailvalue();
+
                         $state.go('ContactDetail');
                     }
                 }).error(function(){
@@ -1269,19 +1277,19 @@ ContactsModule
         $scope.countryCode="";
         $scope.provenceCode="";
         $scope.config = {
-            currentCountry:{} ,
+            currentCountry:$scope.contactedit.COUNTRY ,
             currentProvence:$scope.contactedit.REGION,
             currentCity:$scope.contactedit.CITY1,
             currentLanguage:{},
-            currentTitile:{}
+            currentTitile:$scope.contactedit.TITLE
         };
-            console.log($scope.contactedit.COUNTRY+"sdsdsd");
+            console.log(angular.toJson($scope.config)+"sdsdsd");
         $scope.cascade=function(){
             //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
             var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
             var data={
                 "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "I_COUNTRY": "",
                 "I_MODE": "A",
                 "I_REGION": ""
@@ -1300,7 +1308,7 @@ ContactsModule
             var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
             var data={
                 "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" },
+                "IS_USER": { "BNAME":  window.localStorage.crmUserName },
                 "I_COUNTRY": $scope.countryCode,
                 "I_MODE": "B",
                 "I_REGION": ""
@@ -1319,7 +1327,7 @@ ContactsModule
             var url="http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY";
             var data={
                 "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "HANDLCX02" },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "I_COUNTRY": $scope.countryCode,
                 "I_MODE": "C",
                 "I_REGION": $scope.provenceCode
@@ -1341,11 +1349,17 @@ ContactsModule
                 console.log($scope.config.currentTitile.codeId+'称谓');
                 console.log($scope.config.currentLanguage.typeId+'语言');
             };
+            if($scope.config.currentCountry!=null||$scope.config.currentCountry!=undefined){
+                $scope.countryCode= "CN";
+                $scope.provence=new Array;
+                $scope.cascade1();
+            }
+
         $scope.changCountry=function(){
             $scope.provence=new Array;
             $scope.city=new Array;
+            console.log($scope.config.currentCountry.COUNTRY);
             $scope.countryCode= $scope.config.currentCountry.COUNTRY;
-            //console.log($scope.country.COUNTRY);
             $scope.cascade1();
         };
         $scope.changProvence=function(){

@@ -58,6 +58,7 @@
         </div>
         <ion-infinite-scroll id="saleActListSpinnerId" on-infinite="getList()" distance="1%"
                              ng-if="loadMoreFlag&&!searchFlag"></ion-infinite-scroll>
+        <div class="noMoreInfo" ng-if="saleListNoMoreInfoFLag&&!(loadMoreFlag&&!searchFlag&&saleListArr.length!=0)">没有更多数据了</div>
     </ion-content>
     <ion-content ng-cloak class="has-header search" ng-show="searchFlag"
                  ng-click="changeSearch($event)" scroll="false">
@@ -121,8 +122,9 @@
                     </a>
                 </div>
             </div>
-            <ion-infinite-scroll id="saleActListSearchPageId" on-infinite="getList('searchPage')" distance="1%"
-                                 ng-if="loadMoreFlag&&input.list"></ion-infinite-scroll>
         </ion-scroll>
+        <ion-infinite-scroll id="saleActListSearchPageId" on-infinite="getList('searchPage')" distance="1%"
+                             ng-if="loadMoreFlag&&input.list"></ion-infinite-scroll>
+        <div class="noMoreInfo" ng-if="saleListNoMoreInfoFLag&&!(loadMoreFlag&&input.list)">没有更多数据了</div>
     </ion-content>
 </ion-view>

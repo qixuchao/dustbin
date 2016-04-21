@@ -353,9 +353,9 @@ employeeModule
             $cordovaToast.showShortBottom('请检查你的网络设备');
         });
         $scope.gocustomerList = function(){
-            employeeService.set_employeecustomerlist($scope.userdetailcustomerlist)
+            employeeService.set_employeecustomerlist($scope.userdetailcustomerlist);
             $state.go('customerList');
-        }
+        };
         $scope.userdetailval = employeeService.get_employeeListvalue();
         //电话
         $scope.employeeshowphone =function(types){
@@ -471,11 +471,14 @@ employeeModule
         };
         $scope.selectCustomer = function (x) {
              console.log(x);
+            employeeService.set_employeecustomerlist().item.unshift(x);
+            console.log($scope.employcustomerlist[0]);
             //$scope.contactcreat.PARTNER2VALUE = x.NAME_ORG1;
             //$scope.contactcreat.PARTNER2 = x.PARTNER;
             //$scope.create.contact='';
             //contactPage = 1;
             //$scope.contacts = [];
+            $scope.getCustomerArr();
             $scope.contactsLoadMoreFlag = true;
             //$scope.getContacts();
             $scope.selectCustomerModal.hide();
@@ -487,7 +490,4 @@ employeeModule
             //$scope.selectPersonModal.remove();
             $scope.selectCustomerModal.remove();
         });
-
-
-
     }])

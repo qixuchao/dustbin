@@ -102,7 +102,7 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
     return {
         serviceList: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST',   //工单列表接口
-            defaults: {
+            /*defaults: {
                 I_SYSNAME: { SysName: worksheetDataService.getStoredByKey("sysName") },
                 IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") },
                 IS_PAGE: {
@@ -124,6 +124,29 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
                 T_IN_PARTNER: {},
                 T_IN_PROCESS_TYPE: {},
                 T_IN_STAT: {}
+            }*/
+            defaults: {
+                I_SYSNAME: { SysName: worksheetDataService.getStoredByKey("sysName") },
+                IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") },
+                IS_PAGE: {
+                  CURRPAGE: 1,
+                  ITEMS: 10
+                },
+                IS_SEARCH: {
+                  SEARCH: "",
+                  OBJECT_ID: "",
+                  DESCRIPTION: "",
+                  PARTNER: "",
+                  PRODUCT_ID: "",
+                  CAR_TEXT: "",
+                  CREATED_FROM: "",
+                  CREATED_TO: ""
+                },
+                IV_SORT: "1",
+                IT_IMPACT: {},
+                IT_PARTNER: {},
+                IT_PROCESS_TYPE: {},
+                IT_STAT: {}
             }
         },
         empsList: {
@@ -146,11 +169,11 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
             return sparePart;
         },
         //相关方
-        setWorksheetRelatePart:function(data){
+        setWSCarMileage:function(data){
             worksheetRelatePart=data;
             return worksheetRelatePart;
         },
-        getWorksheetRelatePart:function(){
+        getWSCarMileage:function(){
             return worksheetRelatePart;
         },
         //产品

@@ -209,9 +209,15 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
         //客户-联系人
         .state('customerContactQuery', {
             url: '/customerContactQuery',
+            //templateUrl: 'src/customer/customerContacts/customerContactsQuery.html',
             templateUrl: 'src/customer/customerContacts/customer_con.html',
-            controller: 'customerContactQueryCtrl'
+            controller: 'customerContactCtrl'
         })
+        /*.state('customerContactDetail', {
+            url: '/customerContactDetail',
+            templateUrl: 'src/customer/customerContacts/customerContactsDetail.html',
+            controller: 'customerContactDetailCtrl'
+        })*/
         //客户-车辆
         .state('customerVehicleQuery', {
             url: '/customerVehicleQuery',

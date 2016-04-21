@@ -35,6 +35,8 @@ salesModule
             $scope.loadMoreFlag = true;
             $scope.saleListArr = [];
             var tempHisPostData;
+            //没有 更多数据
+            $scope.saleListNoMoreInfoFLag = false;
             $scope.getList = function (type) {
                 switch (type) {
                     case 'searchPage':
@@ -118,7 +120,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                         } else {
                             $scope.loadMoreFlag = false;
-                            Prompter.alert('没有更多数据了');
+                            $scope.saleListNoMoreInfoFLag = true;
                         }
                     }).finally(function () {
                     // 停止广播ion-refresher

@@ -34,6 +34,8 @@ salesModule
             $scope.saleListArr = [];
             $scope.urgentDegreeArr = saleActService.urgentDegreeArr;
             var tempHisPostData = {};
+            //没有 更多数据
+            $scope.saleListNoMoreInfoFLag = false;
             $scope.getList = function (type) {
                 if (!$scope.saleListArr.length) {
                     $scope.isloading = false;
@@ -52,6 +54,7 @@ salesModule
                             angular.element(arr[i]).removeClass('animated');
                         }
                         $scope.saleListArr = [];
+                        $scope.isloading = true;
                         break;
                     case 'search':
                         $scope.loadMoreFlag = true;
@@ -90,11 +93,11 @@ salesModule
                         if (config.data.IS_ACTIVITY.DESCSEARCH != $scope.input.list) {
                             return;
                         }
-                        $scope.isloading = true;
+                        $scope.isloading = false;
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             if (type == 'refresh') {
                                 $scope.saleListArr = response.ET_LIST.item;
-                                saleActService.saleListArr = $scope.saleListArr;
+                                //saleActService.saleListArr = $scope.saleListArr;
                                 $ionicScrollDelegate.resize();
                                 return
                             }
@@ -104,10 +107,10 @@ salesModule
                             $scope.saleListArr = $scope.saleListArr.concat(response.ET_LIST.item);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $ionicScrollDelegate.resize();
-                            saleActService.saleListArr = $scope.saleListArr;
+                            //saleActService.saleListArr = $scope.saleListArr;
                         } else {
                             $scope.loadMoreFlag = false;
-                            Prompter.alert('没有更多数据了');
+                            $scope.saleListNoMoreInfoFLag = true;
                         }
                     }).finally(function () {
                     // 停止广播ion-refresher
@@ -206,11 +209,11 @@ salesModule
                 saleActService.actDetail = x;
                 var isStored = false;
                 angular.forEach($scope.hisArr, function (data) {
-                    if(data.text == $scope.input.list){
+                    if (data.text == $scope.input.list) {
                         isStored = true;
                     }
                 });
-                if(!isStored){
+                if (!isStored) {
                     storedb('saleActListHisArr').insert({
                         text: $scope.input.list,
                         data: tempHisPostData
@@ -684,8 +687,8 @@ salesModule
                     $rootScope.goBack();
                 }
             };
-            $scope.edit = function () {
-                if ($scope.editText == '编辑') {
+            $scope.edit = function (type) {
+                if ($scope.editText == '编辑' && angular.isUndefined(type)) {
                     $scope.isEdit = true;
                     $scope.editText = "保存";
                     $cordovaDialogs.alert('你已进入编辑模式', '提示', '确定')
@@ -694,7 +697,9 @@ salesModule
                         });
                 } else {
                     //执行保存操作
-                    Prompter.showLoading('正在保存');
+                    if (angular.isUndefined(type)) {
+                        Prompter.showLoading('正在保存');
+                    }
                     var startDateArr = $scope.details.de_startTime.split(' ');
                     var endDateArr = $scope.details.de_endTime.split(' ');
                     var data = {
@@ -738,9 +743,11 @@ salesModule
                     HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_CHANGE', data)
                         .success(function (response) {
                             if (response.ES_RESULT.ZFLAG === 'S') {
-                                Prompter.showShortToastBotton('修改成功');
-                                $scope.isEdit = false;
+                                if (angular.isUndefined(type)) {
+                                    Prompter.showShortToastBotton('修改成功');
+                                }
                                 $scope.editText = "编辑";
+                                $scope.isEdit = false;
                                 Prompter.hideLoading();
                             } else {
                                 Prompter.hideLoading();
@@ -1217,53 +1224,85 @@ salesModule
                 }
                 return ""
             };
+            //是否为修改状态
+            var isProcessModify = false;
             $scope.submit = function () {
+                //$scope.isEdit = true;
+                //$scope.editText = '保存';
+                var data;
+                var mode;
+                if (isProcessModify) {
+                    mode = "U";
+                    var arr = angular.element('.obj');
+                    for (var i = 0; i < arr.length; i++) {
+                        angular.element(arr[i]).removeClass('own-animated');
+                    }
+                } else {
+                    mode = "I"
+                }
                 switch ($scope.myProcess.code) {
                     //达成共识
                     case 'IT_SA0021':
-                        $scope.makeConsensus.item.push({
-                            "MODE": "I",
-                            "ZZSXNR": $scope.input.progress,  //事项内容
+                        data = {
+                            "MODE": mode,
+                            "ZZSXNR": $scope.process.content,  //事项内容
                             "ZZFLD0000BB": getProcessPosition(), //我司'客户
                             "ZZFZBM": $scope.process.department,  //部门
                             "ZZFZR": $scope.process.chargeMan,  //负责人
                             "ZZSXSJ": $scope.process.time,  //生效时间
                             "ZZNOTE_1": ""
-                        });
-                        console.log($scope.makeConsensus);
+                        };
+                        if (isProcessModify) {
+                            $scope.makeConsensus.item[processModifyIndex] = data;
+                        } else {
+                            $scope.makeConsensus.item.push(data);
+                        }
                         break;
                     //跟进事项
                     case 'IT_SA0022':
-                        $scope.followUpMatter.item.push({
-                            "MODE": "I",
-                            "ZZSXNR_1": $scope.input.progress,
+                        data = {
+                            "MODE": mode,
+                            "ZZSXNR_1": $scope.process.content,
                             "ZZWSKH_1": getProcessPosition(),
                             "ZZFZBM_1": $scope.process.department,
                             "ZZFZR_1": $scope.process.chargeMan,
                             "ZZGXSJ": $scope.process.time,
                             "ZZWCZK": getProcessType(),
                             "ZZNOTE_2": ""
-                        });
+                        };
+                        if (isProcessModify) {
+                            $scope.followUpMatter.item[processModifyIndex] = data;
+                        } else {
+                            $scope.followUpMatter.item.push(data);
+                        }
+                        console.log($scope.process.content);
                         console.log($scope.followUpMatter);
                         break;
                     //政策解读
                     case 'IT_SA0023':
-                        $scope.policyDecode.item.push({
-                            "MODE": "I",
-                            "ZZSXNR_2": $scope.input.progress,
+                        data = {
+                            "MODE": mode,
+                            "ZZSXNR_2": $scope.process.content,
                             "ZZZCYX": $scope.process.affect,
                             "ZZNOTE_3": ""
-                        });
-                        console.log($scope.policyDecode);
+                        };
+                        if (isProcessModify) {
+                            $scope.policyDecode.item[processModifyIndex] = data;
+                        } else {
+                            $scope.policyDecode.item.push(data);
+                        }
                         break;
                 }
-                $scope.input.progress = '';
                 $scope.process = {
+                    content: '',
+                    position: '',
+                    status: '',
                     department: '',
                     chargeMan: '',
                     time: '',
                     affect: ''
                 };
+                //$scope.edit('process');
                 $scope.changeProcessDropFlag();
                 $ionicScrollDelegate.resize();
                 $timeout(function () {
@@ -1272,47 +1311,94 @@ salesModule
                 }, 20)
             };
             //删除
-            $scope.deleteProcess = function (x, arr, index) {
-                if (!$scope.isEdit) {
+            $scope.deleteProcess = function (x, arr, index, e) {
+                if(!$scope.isEdit){
                     return;
                 }
+                //$scope.isEdit = true;
+                //$scope.editText = '保存';
                 x.class = 'zoomOutRight';
                 $timeout(function () {
                     arr.splice(index, 1);
+                    //$scope.edit('process');
                 }, 10);
+                e.stopPropagation();
             };
-            //替换
-            $scope.reWriteProcess = function (x, type) {
-                switch (type) {
-                    //跟进事项
-                    case 'followUpMatter':
-                        break;
-                    //达成共识
-                    case 'makeConsensus':
-                        break;
-                    //政策解读
-                    case 'policyDecode':
-                        break;
-                }
+            //
+            var initProcessStatus = function () {
+                angular.forEach($scope.processTypesArr, function (data) {
+                    if (!angular.isUndefined(data.code) && data.code == $scope.process.status) {
+                        data.flag = true;
+                    } else {
+                        data.flag = false;
+                    }
+                })
             };
-            //新建
-            $scope.createProcess = function (x, type) {
-                switch (type) {
-                    //跟进事项
-                    case 'followUpMatter':
-                        break;
-                    //达成共识
-                    case 'makeConsensus':
-                        break;
-                    //政策解读
-                    case 'policyDecode':
-                        break;
-                }
+            //我司 客户
+            var initProcessPosition = function () {
+                angular.forEach($scope.positonArr, function (data) {
+                    if (!angular.isUndefined(data.code) && data.code == $scope.process.position) {
+                        data.flag = true;
+                    } else {
+                        data.flag = false;
+                    }
+                })
             };
-            $scope.openProcessModal = function () {
-                if (!$scope.isEdit) {
+            //记录点击的index
+            var processModifyIndex;
+            $scope.openProcessModal = function (x, type, index) {
+                if(!$scope.isEdit){
                     return;
                 }
+                if ($scope.processDropflag) {
+                    $scope.processModal.show();
+                    return
+                }
+                processModifyIndex = index;
+                switch (type) {
+                    case 'makeConsensus':
+                        isProcessModify = true;
+                        $scope.process = {
+                            content: x.ZZSXNR,
+                            position: x.ZZFLD0000BB,
+                            status: '',
+                            department: x.ZZSXNR,
+                            chargeMan: x.ZZFZR,
+                            time: x.ZZSXSJ,
+                            affect: ''
+                        };
+                        break;
+                    case 'followUpMatter':
+                        $scope.process = {
+                            content: x.ZZSXNR_1,
+                            position: x.ZZWSKH_1,
+                            status: x.ZZWCZK,
+                            department: x.ZZSXNR_1,
+                            chargeMan: x.ZZFZR_1,
+                            time: x.ZZGXSJ,
+                            affect: ''
+                        };
+                        isProcessModify = true;
+                        break;
+                    case 'policyDecode':
+                        $scope.process = {
+                            content: x.ZZSXNR_2,
+                            position: '',
+                            status: '',
+                            department: x.ZZSXNR_2,
+                            chargeMan: "",
+                            time: "",
+                            affect: x.ZZZCYX
+                        };
+                        isProcessModify = true;
+                        break;
+                    default:
+                        isProcessModify = false;
+                        break;
+                }
+                console.log(isProcessModify);
+                initProcessPosition();
+                initProcessStatus();
                 $scope.processDropflag = true;
                 $scope.processModal.show();
                 angular.element('.modal-backdrop-bg').css('background-color', 'transparent');
