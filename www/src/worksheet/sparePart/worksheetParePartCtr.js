@@ -71,12 +71,12 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             console.log(infosItem);
             $scope.infos = infosItem;
             for(var i=0;i<$scope.infos.length;i++){
-                $scope.infos[i].APPLY_NUM = 0;
-                $scope.infos[i].trans = true;
-                $scope.infos[i].ishave = true;
-                $scope.infos[i].checked = "NO";
+                $scope.infos[i].APPLY_NUM = 0;//数量
+                $scope.infos[i].ishave = true;//是否已被选择 显示
+                $scope.infos[i].checked = "NO";//是否默认
             }
             console.log($scope.infos);
+            $scope.deletePro("");
         }).error(function(err){
 
         });
@@ -90,7 +90,16 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             console.log($scope.infos);
             console.log($scope.goSAPInfos);
             if(warehouse === ""){
+                for(var i=0;i<$scope.infos.length;i++){
+                    for(var j=0;j<$scope.goSAPInfos.length;j++){
+                        if( $scope.goSAPInfos[j].PROD === $scope.infos[i].PRODUCT_ID){
+                            $scope.infos[i].ishave = false;
+                        }else{
 
+                        }
+                    }
+                }
+                console.log($scope.infos);
             }else{
                 for(var i=0;i<$scope.infos.length;i++){
                     for(var j=0;j<$scope.goSAPInfos.length;j++){
@@ -148,7 +157,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         $scope.infos = $scope.infos.concat(infosItem);
                         for(var i=0;i<$scope.infos.length;i++){
                             $scope.infos[i].APPLY_NUM = 0;
-                            $scope.infos[i].trans = true;
                             $scope.infos[i].ishave = true;
                             $scope.infos[i].checked = "NO";
                         }
@@ -199,7 +207,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     //$scope.infos = $scope.infos.concat(infosItem);
                     for(var i=0;i<$scope.infos.length;i++){
                         $scope.infos[i].APPLY_NUM = 0;
-                        $scope.infos[i].trans = true;
                         $scope.infos[i].ishave = true;
                         $scope.infos[i].checked = "NO";
                     }
@@ -216,7 +223,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             console.log($scope.infos)
             for(var m=0;m<$scope.infos.length;m++){
                 $scope.infos[m].APPLY_NUM = 0;
-                item.trans = false;
+                //$scope.infos[m].ishave = true;
             }
             for(var m=0;m<$scope.infos.length;m++){
                 for(var j=0;j<$scope.goSAPInfos.length;j++){
@@ -267,8 +274,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         str[i].checked = false;
                 }
                 $cordovaToast.showShortBottom('请先选择仓库');
-            }else if(item.trans===false){
-
             }else if(length === 0){
                 $scope.goSAPInfos.push(
                     {"RECORD_ID":"",
@@ -290,6 +295,9 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 for(var i=0;i<length;i++){
                     if($scope.config.warehouse.ZZSTORAGE === $scope.goSAPInfos[i].STORAGE && item.PRODUCT_ID === $scope.goSAPInfos[i].PROD){
                         console.log((num)+"==");
+                        if($scope.goSAPInfos[i].showPic === true){
+                            return;
+                        }
                         $scope.goSAPInfos.splice(i,1);
                         num = 1;
                         return;
@@ -366,6 +374,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     $cordovaToast.showShortBottom("数据已传输至SAP");
                 }else{
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    $state.go("worksheetSelect");
                 }
             }).error(function(err){
                 console.log((err));
@@ -381,16 +390,20 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         //增加数量
         $scope.add = function(item){
             item.APPLY_NUM += 1;
+            console.log((item));
             numChange(item);
             console.log((item));
         }
         //减少数量
         $scope.reduce = function(item){
             if(item.APPLY_NUM > 0){
-                    item.APPLY_NUM -= 1;
-                }
-            numChange(item);
-            console.log((item));
+                item.APPLY_NUM = item.APPLY_NUM-1;
+                console.log(item);
+                numChange(item);
+                console.log((item));
+            }else{
+                $cordovaToast.showShortBottom("此备件数量已为0");
+            }
 
         }
         //input
@@ -398,20 +411,33 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             numChange(item);
             console.log((item));
         }
+        $scope.blurnum = function(item){
+            numChange(item);
+            console.log((item));
+        }
+        //$scope.focusnum = function(item){
+        //    console.log((item));
+        //    //numChange(item);
+        //}
         var numChange = function(item){
+            console.log(item);
             for(var n=0;n<$scope.goSAPInfos.length;n++){
                 if(item.PRODUCT_ID === $scope.goSAPInfos[n].PROD && $scope.config.warehouse.ZZSTORAGE === $scope.goSAPInfos[n].STORAGE){
                     if($scope.goSAPInfos[n].showPic === true){
                         if(item.APPLY_NUM > $scope.goSAPInfos[n].APPLY_NUM){
-                            item.trans = false;
+                            console.log("zeng");
                             $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
                             $scope.goSAPInfos[n].addNum = false;
-                        }else if(item.APPLY_NUM = $scope.goSAPInfos[n].APPLY_NUM){
+                        }else if(item.APPLY_NUM === $scope.goSAPInfos[n].APPLY_NUM){
+                            $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
                             $scope.goSAPInfos[n].addNum = true;
+                            console.log("deng");
                         }else{
-                            $cordovaToast.showShortBottom("此数量不允许减少");
+                            console.log("jian");
+                            item.APPLY_NUM = item.APPLY_NUM+1;
                             $scope.goSAPInfos[n].addNum = true;
-                            item.APPLY_NUM = $scope.goSAPInfos[n].APPLY_NUM
+                            $cordovaToast.showShortBottom("此数量不允许减少");
+                            //item.APPLY_NUM = $scope.goSAPInfos[n].APPLY_NUM
                         }
                     }else {
                         $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
@@ -483,8 +509,8 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
             worksheetDetail = [];
         }else{
             for(var k=0;k<worksheetDetail.length;k++){
-                worksheetDetail[k].showPic = true;
-                worksheetDetail[k].addNum = true;
+                worksheetDetail[k].showPic = true;//是否已存在，只是加数量
+                worksheetDetail[k].addNum = true;//新加的备件
             }
         }
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
@@ -551,6 +577,9 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 console.log("---");
                 $ionicHistory.goBack();
             }
+        }
+        $scope.goUpdateSelect = function(){
+            $state.go("worksheetSparepart");
         }
         var gobackDetail = function(){
             if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV"){

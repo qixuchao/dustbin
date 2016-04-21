@@ -31,9 +31,9 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     console.log($scope.datas.detail.ES_OUT_LIST);
                 }     
             }
-        });
+        }); 
         
-        var pleaseChoose = '-- 请选择 --';
+        var pleaseChoose = '-- 请选择 --                                                         ';
         var pleaseChooseId = null;
         var noneValue = '空';
         var noneValueId = null;
@@ -58,7 +58,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         };
 
         $scope.goBack = function(){
-            Prompter.wsConfirm("提示","放弃本次编辑?", "取消","放弃");
+            Prompter.wsConfirm("提示","放弃本次编辑?","确定", "取消");
         };
 
         $scope.saveEdited = function(){
@@ -333,39 +333,107 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
         //选择时间
         $scope.selectCreateTime = function (type, title) { // type: start、end
+            if(ionic.Platform.isAndroid()){
+                __selectCreateTimeAndroid(type, title);
+            }else{
+                __selectCreateTimeIOS(type,title);
+            }
+        };
+        function __selectCreateTimeIOS(type, title){
             var date;
             if(type == 'start'){
-                date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+                date =  new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
             }else if(type=='end'){
                 date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
             }
+            __selectCreateTimeBasic(type, title, date);
+        }
+        function __selectCreateTimeAndroid(type, title){
+            var date;
+            if(type == 'start'){
+                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR==""){
+                    date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                }else{
+                    date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+                }
+            }else if(type=='end'){
+                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR==""){
+                    date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                }else{
+                    date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+                }
+            }
+            __selectCreateTimeBasic(type, title, date);
+        }
+        function __selectCreateTimeBasic(type, title, date){
             $cordovaDatePicker.show({
                 date: date,
+                allowOldDates: true,
+                allowFutureDates: true,
                 mode: 'datetime',
                 titleText: title,
-                okText: '确定',
-                cancelText: '取消',
-                doneButtonLabel: '确认',
-                cancelButtonLabel: '取消',
+                okText: '确定',               //android
+                cancelText: '取消',           //android
+                doneButtonLabel: '确认',      // ios
+                cancelButtonLabel: '取消',    //ios
+                todayText: '今天',            //android
+                nowText: '现在',              //android
+                is24Hour: true,              //android
+                androidTheme: datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT, // android： 3
+                popoverArrowDirection: 'UP',
                 locale: 'zh_cn'
+                //locale: 'en_us'
             }).then(function (returnDate) {
                 var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
-                //alert(time);
                 switch (type) {
                     case 'start':
-                        $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
-                        //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
+                        if(__startTimeIsValid(time, $scope.datas.detail.ES_OUT_LIST.END_TIME_STR)){
+                            $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
+                        }else{
+                            $cordovaToast.showShortBottom("最小时间不能大于最大时间!");   
+                        }
                         break;
                     case 'end':
-                        $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = time;
-                        //console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);                    
+                        if(__endTimeIsValid($scope.datas.detail.ES_OUT_LIST.START_TIME_STR, time)){
+                            $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = time;
+                        }else{
+                            $cordovaToast.showShortBottom("最大时间不能小于最小时间!");
+                        }
+                        //$scope.datas.detail.ES_OUT_LIST.END_TIME_STR = time;
                         break;
                 }
                 if(!$scope.$$phrese){
                     $scope.$apply();
                 }
             });
-        };
+        }
+
+
+
+        function __startTimeIsValid(startTime, endTime){
+            if(!startTime || startTime==""){
+                return false;
+            }
+            if(!endTime || endTime==""){
+                return true;
+            }
+            var startTime = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+            var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+            return startTime <= endTime;
+        }
+        function __endTimeIsValid(startTime, endTime){ 
+            if(!endTime || endTime==""){
+                return false;
+            }
+            if(!startTime || startTime==""){
+                return true;
+            }
+            var startTime = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+            var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+            return startTime <= endTime;
+        }
+
+
 
         function __getFormatTime(date) {
             var dateTemp, minutes, hour, time;

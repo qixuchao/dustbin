@@ -1,0 +1,51 @@
+
+<ion-view  id="worksheet_relatedPart"  align-title="center">
+    <ion-header-bar align-title="center" class="bar-positive" >
+        <div class="row row-center title rowTitle">
+            <div class="col col-15 col-center text-left" ng-click="goBack()">
+                <i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px"></i>
+            </div>
+            <div class="col col-70 text-center">联系人
+            </div>
+            <div class="col col-15 col-center" ng-click="relatedPopoverShow()">
+                <div>
+                    <i class="ion-ios-plus-outline" style="font-size:1.8rem;margin-left: 10px;position: relative;top:5px"  ></i>
+                </div>
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+
+        <ion-list>
+            <ion-item class="relatedPart_list" style="border-bottom: 1px solid #ddd;margin-top:1px;padding:0" ng-repeat="i in infos" on-swipe-right="RelaotinHidd()">
+                <div class="row row-center" style="padding: 0">
+                    <div class="col col-6 col-center" style="margin-left:5px">
+                        <div class="relatedPart_listcicle" ng-class="{relatedPart_listcicleA: !$odd, relatedPart_listcicleB: !$even}"></div>
+                    </div>
+                    <div class="col col-38 col-center" style="text-align: left;padding-left:0px">
+                        <div class="row row-center"><span style="vertical-align: middle">{{i.NAME_LAST}}</span></div>
+                        <!--<div class="row row-center"><span style="vertical-align: middle;font-size: 13px;color:#D2D2D2">{{i.FCT_DESCRIPTION}}</span></div>-->
+                    </div>
+                    <div class="col col-47 col-center" style="text-align: left">
+
+                    </div>
+                    <div class="col col-10 col-center">
+                        <img class="relatedPart_listfor" src="img/employee/Shape@2x.png">
+                    </div>
+                </div>
+                <ion-option-button style="width:30px;text-align: center" class="button-assertive" ng-click="deleteInfos(i)">
+                    <i class="icon ion-ios-trash-outline" style="font-size: 50px;"></i>
+                </ion-option-button>
+            </ion-item>
+            <div class="row row-center" style="height: 48px;font-size: 16px;text-align: center;" ng-if="goMore" ng-click="goLoadMore()">
+            <div class="col col-center">点击加载更多...</div>
+        </div>
+            <div class="is-loading"  style="text-align:center;margin-top:0;" ng-if="goLoad">
+                <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+            </div>
+            <div class="row row-center" style="height: 48px;font-size: 16px;text-align: center;" ng-if="goNo">
+                <div class="col col-center">没有更多内容</div>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

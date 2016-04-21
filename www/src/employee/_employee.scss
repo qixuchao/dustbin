@@ -74,85 +74,192 @@
 
 //员工信息
 .employee_query{
-  .employeequery_head{
-    width:100%;
-    height:88px;
-    z-index:0;
-    background-color: #406FB3;
-      .employeequery_headtitle{
-        height:44px;
-        line-height:44px;
-        text-align: center;
-        .employeequery_headtitlei{
-          font-size: 35px;
-          color: #C4D2E7;
-          display: block;
-          float: left;
-          margin-top:-5px;
-          margin-left:10px;
-        }
-        .employeequery_headtitlespan{
-          font-size:18px;
-          color: white;
-        }
-     }
-  }
-  //.employee_query_historys{
-  //  margin-top:14px;
-  //  margin-left:12px;
-  //  font-size:16px;
-  //  text-align: left;
-  //  .employee_query_historysspan{
-  //    color:#A8A8A9;
-  //  }
-  //  .employee_query_historylist{
-  //    margin-top:10px;
-  //    height:35px;
-  //    line-height:35px;
-  //    text-align: center;
-  //    color: white;
-  //    background-color: #5E97F6;
-  //    border-radius:15px;
-  //    width:75px;
-  //  }
-  //  .employee_query_historyclear{
-  //    margin-top:15px;
-  //    color:#3DAFFD;
-  //  }
-  //
-  //}
-
-  .employee_query_list{
+  .bar .title {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    margin: 0 10px;
+    min-width: 30px;
+    height: 43px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 16px;
-    color: #4A4A4A;
-    .employee_query_listcicle{
-      width:14px;
-      height:14px;
-      vertical-align: middle;
-      display: inline-block;
-      border-radius:50%;
+    //font-weight: 100;
+    color: rgb(250, 250, 250);
+  }
+  .bar.bar-header .button + .title {
+    text-align: center;
+    line-height: 55px;
+  }
+  .bar {
+    border-bottom: none;
+    background-color: $crm-header-bar-bgcolor;
+    background-size: 0;
+    box-shadow: none;
+  }
+  .bar-subheader {
+    height: 37px;
+    display: block;
+    padding: 0 2% 8px 2%;
+    .search1 {
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .3em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: black;
+        vertical-align: middle;
+        font-size: 14px;
+        height: 28px;
+        width: 96%;
+        position: fixed;
+        border-radius: 5px;
+      }
     }
-    .employee_query_listcicleA{
-      border: 2px solid #9EC92A;
+    .search2 {
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .3em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: black;
+        vertical-align: middle;
+        font-size: 14px;
+        height: 28px;
+        width: 80%;
+        position: fixed;
+        border-radius: 5px;
+      }
+      .ion-ios-close {
+        position: absolute;
+        top: 5px;
+        right: 5em;
+        z-index: 2;
+        color: #aaa;
+      }
+      .button-clear {
+        position: fixed;
+        left: 86%;
+        font-size: 16px;
+        top: -2px;
+        min-height: 30px;
+        max-height: 30px;
+      }
     }
-    .employee_query_listcicleB{
-      border: 2px solid #008CCF;
+  }
+  .has-header {
+    top: 88px;
+  }
+  .row + .row .row {
+    padding-top: 0;
+    height: 4em;
+  }
+  .Car_countentbasic {
+    position: relative;
+    font-size: 15px;
+    color: $crm-header-bar-bgcolor;
+    padding-bottom:1.5em;
+    .Car_countentbasicinfo {
+      position: absolute;
+      top: 0px;
+      left: 20px;
     }
-    .employee_query_listimg{
-      vertical-align: baseline;
-      width:14px;
-      height:14px;
+    .Car_countentbasicline {
+      position: absolute;
+      top: 10px;
+      left: 85px;
+      width: 100%;
+      height: 1px;
+      background-color: $crm-header-bar-bgcolor;
     }
-    .employee_query_listfor{
-      width:16px;
-      height:16px;
-      vertical-align: middle;
+    .Car_countentbasicclok {
+      position: absolute;
+      top: 15px;
+      margin-top: 2px;
+      left: 0px;
+      width: 55px;
+      height: 15px;
+      border: 1px solid #406FB3;
+      border-top: none;
+      border-left: none;
     }
-    //.employee_query_listline{
-    //  width: 100%;
-    //  height: 1px;
-    //  background-color: #D2D2D2;
-    //}
+  }
+  .shapeImg {
+    position: relative;
+    height: 16px;
+    top: .2em;
+    left: 0.5em;
+  }
+  .contentType {
+    .row {
+      .col {
+        padding: 0;
+      }
+    }
+    position: relative;
+    top: 1em;
+    border-bottom: 1px solid rgba(43, 43, 43, 0.17);
+  }
+
+  .rowType {
+    position: relative;
+    left: 4%;
+    padding: 1.2em 0;
+    .pointImg {
+      height: 0.7em;
+    }
+    .colType {
+      padding-left: 0;
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+  .search {
+    .his-title {
+      color: #BFBFBF;
+    }
+    .ion-android-time {
+      margin-right: 5px;
+    }
+    .hisText {
+      white-space: nowrap;
+    }
+    .horizon-line {
+      background: #D8D8D8;
+      width: 100%;
+      height: 1px;
+      margin-left: 5px;
+    }
+    ion-item {
+      border-bottom: 1px solid #D8D8D8;
+      min-height: 0;
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  }
+  .content {
+    .item {
+      position: relative;
+      display: block;
+      margin: -1px;
+      font-size: 14px;
+      padding: 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+    }
   }
 };
 .employee_query_listline{
@@ -226,7 +333,7 @@
       color: white;
       .employee_detailcontentname{
           position: absolute;
-          top:5px;
+          top:10px;
           left:25px;
           .employee_detailcontentcicle{
             width:14px;
@@ -248,7 +355,7 @@
       //}
       .employee_detailcontentphone{
         position: absolute;
-        top:30px;
+        top:40px;
         left:25px;
         .employee_detailcontentphonei{
           float: left;

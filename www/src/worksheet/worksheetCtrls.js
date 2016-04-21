@@ -16,11 +16,12 @@ worksheetModule.controller("WorksheetListCtrl",[
 	"worksheetDataService",
 	"customeService",
 	"CarService",
+	"$cordovaToast",
 	function($scope, $ionicScrollDelegate,
 		ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,
 		$ionicPosition, $state, 
 		$cordovaDatePicker,
-		HttpAppService, worksheetHttpService, worksheetDataService, customeService, CarService){
+		HttpAppService, worksheetHttpService, worksheetDataService, customeService, CarService, $cordovaToast){
 	
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
@@ -37,10 +38,24 @@ worksheetModule.controller("WorksheetListCtrl",[
             }            
         }
     });
- 
+
+
+    $scope.currentDate = new Date();
+	$scope.minDate = new Date(2105, 6, 1);
+	$scope.maxDate = new Date(2015, 6, 31);
+
+	$scope.datePickerCallback = function (val) {
+	    if (!val) { 
+	        console.log('Date not selected');
+	    } else {
+	        console.log('Selected date is : ', val);
+	    }
+	};
+
 
     
 	$scope.config = {
+		titleText: "服务工单列表",
 		//showXbrModel: false, //是否显示遮罩层
 		// page mode
 		isFilterMode: false,
@@ -90,8 +105,10 @@ worksheetModule.controller("WorksheetListCtrl",[
 		filterStatusReturned: false, 		//已打回
 		filterStatusCancled: false, // 已经取消
 
-		timeStart: '2015-01-01',
-		timeEnd: '2015-06-09',
+		timeStart: '',
+		timeStartDefault: '',
+		timeEnd: '',
+		timeEndDefault: '',
 
 
 		searchPlaceholder: '请输入服务工单描述or车辆描述or服务工单编号',
@@ -124,6 +141,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	    T_IN_PARTNER: {},
 	    T_IN_PROCESS_TYPE: {item:[]},
 	    T_IN_STAT: {item: []},
+	    IS_SEARCH:{},
 	    //网络请求状态相关
 	    currentPage: 0,
 	    isLoading: false,
@@ -204,7 +222,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	};
 	$scope.clickSearchInput = function(){
 		var eleContent = angular.element("#xbr-worksheet-list-content");
-		eleContent.removeClass("has-header");
+		//eleContent.removeClass("has-header");
 		$scope.config.queryModeNew = true;
 		$scope.config.showHistoryLog = true;
 	};
@@ -245,42 +263,42 @@ worksheetModule.controller("WorksheetListCtrl",[
 		//工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
 		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
 		$scope.config.T_IN_PROCESS_TYPE.item = [];
-		if($scope.config.filterNewCarOnline){
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZNCO"});
-		}
-		if($scope.config.filterLocalService){
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPRO"});
-		}
-		if($scope.config.filterBatchUpdate){
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPLO"});
-		}
-		if($scope.config.filterNewCarOnlineFWS){     
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZNCV"});
-		}
-		if($scope.config.filterLocalServiceFWS){
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPRV"});
-		}
-		if($scope.config.filterBatchUpdateFWS){
-			$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPLV"});
-		}
+			if($scope.config.filterNewCarOnline){
+				$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZNCO"});
+			}
+			if($scope.config.filterLocalService){
+				$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPRO"});
+			}
+			if($scope.config.filterBatchUpdate){
+				$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPLO"});
+			}
+			if($scope.config.filterNewCarOnlineFWS){     
+				$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZNCV"});
+			}
+			if($scope.config.filterLocalServiceFWS){
+				$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPRV"});
+			}
+			if($scope.config.filterBatchUpdateFWS){
+				$scope.config.T_IN_PROCESS_TYPE.item.push({"PROCESS_TYPE_IX":"ZPLV"});
+			}
 		//影响  filterImpactDamage:01 灾难 ;    filterImpactHeight:25 高     filterImpactMiddle:50 中
 		//			filterImpactLow:75 低	filterImpactNone: 99 无
 		$scope.config.T_IN_IMPACT.item = [];
-		if($scope.config.filterImpactDamage){
-			$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"01"});
-		}
-		if($scope.config.filterImpactHeight){
-			$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"25"});
-		}
-		if($scope.config.filterImpactMiddle){
-			$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"50"});
-		}
-		if($scope.config.filterImpactLow){
-			$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"75"});
-		}
-		if($scope.config.filterImpactNone){
-			$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"99"});
-		}
+			if($scope.config.filterImpactDamage){
+				$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"01"});
+			}
+			if($scope.config.filterImpactHeight){
+				$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"25"});
+			}
+			if($scope.config.filterImpactMiddle){
+				$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"50"});
+			}
+			if($scope.config.filterImpactLow){
+				$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"75"});
+			}
+			if($scope.config.filterImpactNone){
+				$scope.config.T_IN_IMPACT.item.push({"ZZIMPACT":"99"});
+			}
 		//筛选 规则 ----> 状态: 
 		//			filterStatusNew: E0001 新建;    filterStatusSendedWorker:E0002 已派工;
 		//			filterStatusRefused: E0003 已拒绝;    filterStatusHandling:E0004 处理中
@@ -288,40 +306,48 @@ worksheetModule.controller("WorksheetListCtrl",[
 		//			filterStatusRevisited: E0010 已回访;   filterStatusAudited:E0007 已审核
 		//			filterStatusReturned:E0008 已打回;		filterStatusCancled:E0009 已取消
 		
+		if($scope.config.timeStart && $scope.config.timeStart!= ""){
+			$scope.config.IS_SEARCH.CREATED_FROM = $scope.config.timeStart;
+		}
+		if($scope.config.timeEnd && $scope.config.timeEnd!= ""){
+			$scope.config.IS_SEARCH.CREATED_TO = $scope.config.timeEnd;
+		}
+
 		$scope.config.T_IN_STAT.item = [];
-		if($scope.config.filterStatusNew){ // E0001
-			$scope.config.T_IN_STAT.item.push({"STAT": "NEW"});
-		}
-		if($scope.config.filterStatusSendedWorker){ // E0002 
-			$scope.config.T_IN_STAT.item.push({"STAT":"DIST"});
-		}
-		if($scope.config.filterStatusRefused){  // E0003
-			$scope.config.T_IN_STAT.item.push({"STAT":"REJC"});
-		}
-		if($scope.config.filterStatusHandling){  // E0004 
-			$scope.config.T_IN_STAT.item.push({"STAT":"INPR"});
-		}
-		if($scope.config.filterStatusReported){ //报工 E0005
-			$scope.config.T_IN_STAT.item.push({"STAT":"COMP"});
-		}
-		if($scope.config.filterStatusFinished){//E0006
-			$scope.config.T_IN_STAT.item.push({"STAT":"FINI"});
-		}
-		if($scope.config.filterStatusRevisited){ //E0010 回访     E0011 外服已经审核
-			$scope.config.T_IN_STAT.item.push({"STAT":"SUVY"});
-		}
-		if($scope.config.filterStatusAudited){ //E0007  内部已审核
-			$scope.config.T_IN_STAT.item.push({"STAT":"CHEC"});
-		}
-		if($scope.config.filterStatusAuditedOut){ //E0010
-			$scope.config.T_IN_STAT.item.push({"STAT":"ECHK"}); ///////外部已审核
-		}
-		if($scope.config.filterStatusReturned){  //E0008 已打回
-			$scope.config.T_IN_STAT.item.push({"STAT":"REJT"});
-		}
-		if($scope.config.filterStatusCancled){ //E0009
-			$scope.config.T_IN_STAT.item.push({"STAT":"CANC"});
-		}
+			if($scope.config.filterStatusNew){ // E0001
+				$scope.config.T_IN_STAT.item.push({"STAT": "NEW"});
+			}
+			if($scope.config.filterStatusSendedWorker){ // E0002 
+				$scope.config.T_IN_STAT.item.push({"STAT":"DIST"});
+			}
+			if($scope.config.filterStatusRefused){  // E0003
+				$scope.config.T_IN_STAT.item.push({"STAT":"REJC"});
+			}
+			if($scope.config.filterStatusHandling){  // E0004 
+				$scope.config.T_IN_STAT.item.push({"STAT":"INPR"});
+			}
+			if($scope.config.filterStatusReported){ //报工 E0005
+				$scope.config.T_IN_STAT.item.push({"STAT":"COMP"});
+			}
+			if($scope.config.filterStatusFinished){//E0006
+				$scope.config.T_IN_STAT.item.push({"STAT":"FINI"});
+			}
+			if($scope.config.filterStatusRevisited){ //E0010 回访     E0011 外服已经审核
+				$scope.config.T_IN_STAT.item.push({"STAT":"SUVY"});
+			}
+			if($scope.config.filterStatusAudited){ //E0007  内部已审核
+				$scope.config.T_IN_STAT.item.push({"STAT":"CHEC"});
+			}
+			if($scope.config.filterStatusAuditedOut){ //E0010
+				$scope.config.T_IN_STAT.item.push({"STAT":"ECHK"}); ///////外部已审核
+			}
+			if($scope.config.filterStatusReturned){  //E0008 已打回
+				$scope.config.T_IN_STAT.item.push({"STAT":"REJT"});
+			}
+			if($scope.config.filterStatusCancled){ //E0009
+				$scope.config.T_IN_STAT.item.push({"STAT":"CANC"});
+			}
+		
 		$scope.enterListMode();
 		$scope.reloadData();		
 	};
@@ -363,7 +389,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 				break;
 		}
 		return newStatusId;
-	}
+	};
 	//重置筛选条件
 	$scope.resetFilters = function(){
 		//筛选 规则 ----> 工单类型
@@ -383,6 +409,12 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.filterImpactNoSelected = true;
 		//筛选 规则 ----> 状态
 		__resetStatus();
+		//筛选 日期
+		$scope.config.timeStart = $scope.config.timeStartDefault;
+		$scope.config.timeEnd = $scope.config.timeEndDefault;
+		//
+		__remeberCurrentFilters();
+
 	};
 	
 	$scope.goDetailState = function(item, i){
@@ -818,17 +850,30 @@ worksheetModule.controller("WorksheetListCtrl",[
 						$scope.config.sortedTypeCompactDesc ? "3" : "1" 
 					)
 			);
-		var IS_Search = { };
-
+		
 
 		var queryParams = {
 			IS_PAGE: {CURRPAGE: ++$scope.config.currentPage, ITEMS: 10},
 			IS_SEARCH:{ SEARCH: $scope.config.searchText },
-			IS_SORT: sortedInt,
-			T_IN_IMPACT: $scope.config.T_IN_IMPACT,
-			T_IN_PROCESS_TYPE: $scope.config.T_IN_PROCESS_TYPE,
-			T_IN_STAT: $scope.config.T_IN_STAT
+			//IS_SORT: sortedInt,
+			IV_SORT: sortedInt,
+			//T_IN_IMPACT: $scope.config.T_IN_IMPACT,
+			IT_IMPACT: $scope.config.T_IN_IMPACT,
+			//T_IN_PROCESS_TYPE: $scope.config.T_IN_PROCESS_TYPE,
+			IT_PROCESS_TYPE: $scope.config.T_IN_PROCESS_TYPE,
+			//T_IN_STAT: $scope.config.T_IN_STAT
+			IT_STAT: $scope.config.T_IN_STAT
 		};
+		/*if($scope.config.IS_SEARCH.CREATED_FROM && $scope.config.IS_SEARCH.CREATED_FROM!=""){
+			queryParams.IS_SEARCH.CREATED_FROM = $scope.config.IS_SEARCH.CREATED_FROM;
+		}*/
+		if($scope.config.timeStart && $scope.config.timeStart!=""){
+			queryParams.IS_SEARCH.CREATED_FROM = $scope.config.timeStart;
+		}
+		if($scope.config.timeEnd && $scope.config.timeEnd!=""){
+			queryParams.IS_SEARCH.CREATED_TO = $scope.config.timeEnd;
+		}
+
 		if($scope.config.PARTNER){
 			queryParams.IS_SEARCH.PARTNER = $scope.config.PARTNER;
 		}
@@ -836,15 +881,20 @@ worksheetModule.controller("WorksheetListCtrl",[
 			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail;
 		}
 
+		
+
 		//console.log(queryParams);
 		if($scope.config.hasMoreData){
 			__requestServiceList(queryParams);
 		}
 	};
 
-	
-
 	$scope.init = function(){
+		
+		// = $scope.config.timeStart    = $scope.config.timeEnd
+		//$scope.config.timeStartDefault  = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000).format("yyyy-MM-dd");
+		//$scope.config.timeEndDefault  = new Date().format("yyyy-MM-dd");
+
 		$timeout(function () {
                 ionicMaterialInk.displayEffect();
             }, 100);
@@ -858,9 +908,10 @@ worksheetModule.controller("WorksheetListCtrl",[
 		
 		// 从客户界面进入
 		var temp = customeService.get_customerWorkordervalue();
-		if(temp && temp.PARTNER && temp.PARTNER.trim && temp.PARTNER.trim()!= ""){
+		if(temp && temp.PARTNER){
 			$scope.config.PARTNER = temp.PARTNER;
 			$scope.config.isFromCustomer = true;
+			$scope.config.titleText="客户历史工单列表";
 		}
 		customeService.set_customerWorkordervalue(null);
 		// 从车辆详情界面进入
@@ -868,6 +919,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		if(code != null && code != ""){
 			$scope.config.carCodeFromCarDetail = code;
 			$scope.config.isFromCarDetail = true;
+			$scope.config.titleText="维修记录";
 		}
 		CarService.setData(null);
 
@@ -891,8 +943,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 		alert(document.body.attributes['class'].value);
 		alert(JSON.stringify(obj1)+"     "+JSON.stringify(obj2)+"     "+v1);
 	}
-
-	
 	
 	// {"ES_RESULT":{"ZFLAG":"E","ZRESULT":"无符合条件数据"},"T_OUT_LIST":""}
 	function __requestServiceList(options){
@@ -911,15 +961,21 @@ worksheetModule.controller("WorksheetListCtrl",[
         	}
         	if(response.ES_RESULT.ZFLAG == "E"){ // 未加载到数据
         		$scope.config.hasMoreData = false;
+        		$cordovaToast.showShortBottom("无更多数据!");
         		return;
         	}
         	if(!$scope.datas.serviceListDatas){
         		$scope.datas.serviceListDatas = [];
         	}
-        	$scope.datas.serviceListDatas = $scope.datas.serviceListDatas.concat(response.T_OUT_LIST.item);
-        	if(response.T_OUT_LIST.item.length < 10){
-        		$scope.config.hasMoreData = false;
+        	if(response.ET_OUT_LIST){
+        		response.T_OUT_LIST = angular.copy(response.ET_OUT_LIST);
         	}
+        	if(response.T_OUT_LIST.item && response.T_OUT_LIST.item.length){
+        		$scope.datas.serviceListDatas = $scope.datas.serviceListDatas.concat(response.T_OUT_LIST.item);
+	        	if(response.T_OUT_LIST.item.length < 10){
+	        		$scope.config.hasMoreData = false;
+	        	}
+        	}        	
         })
         .error(function(errorResponse){
         	$scope.config.isLoading = false;
@@ -933,9 +989,9 @@ worksheetModule.controller("WorksheetListCtrl",[
         });
 	}
 
-
+	
 	//选择时间		timeType: datetime  、date
-    $scope.selectCreateTime = function (type, title, timeType) { // type: start、end
+    $scope.selectCreateTimeOld = function (type, title, timeType) { // type: start、end
         var date;	
         if(type == 'start'){
             date = new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd');
@@ -968,6 +1024,120 @@ worksheetModule.controller("WorksheetListCtrl",[
                 }
             });
     };
+    //选择时间
+    $scope.selectCreateTime = function (type, title) { // type: start、end
+        if(ionic.Platform.isAndroid()){
+            __selectCreateTimeAndroid(type, title);
+        }else{
+            __selectCreateTimeIOS(type,title);
+        }
+    };
+    function __selectCreateTimeIOS(type, title){
+    	console.log("__selectCreateTimeIOS");
+        var date;
+        if(type == 'start'){
+        	if(!$scope.config.timeStart || $scope.config.timeStart==""){
+        		date =  new Date().format('yyyy/MM/dd hh:mm:ss');
+        	}else{
+        		date =  new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+        	}
+            //date =  new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+        }else if(type=='end'){
+        	if(!$scope.config.timeEnd || $scope.config.timeEnd==""){
+        		date = new Date().format('yyyy/MM/dd hh:mm:ss');
+        	}else{
+        		date = new Date($scope.config.timeEnd.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+        	}
+        }
+        __selectCreateTimeBasic(type, title, date);
+        console.log("__selectCreateTimeIOS : "+type+"    "+type+"    "+date);
+    }
+    function __selectCreateTimeAndroid(type, title){
+    	var date;
+        if(type == 'start'){
+        	if(!$scope.config.timeStart || $scope.config.timeStart==""){
+        		date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+        	}else{
+        		date = new Date($scope.config.timeStart.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+        	}
+        }else if(type=='end'){
+        	if(!$scope.config.timeEnd || $scope.config.timeEnd==""){
+        		date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+        	}else{
+        		date = new Date($scope.config.timeEnd.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+        	}
+        }
+        __selectCreateTimeBasic(type, title, date);
+    }
+    function __selectCreateTimeBasic(type, title, date){
+        console.log("Android selectCreateTime:     "+date);
+        console.log("Android datePicker:     "+datePicker);
+        $cordovaDatePicker.show({
+            date: date,
+            allowOldDates: true,
+            allowFutureDates: true,
+            mode: 'date',
+            titleText: title,
+            okText: '确定',               //android
+            cancelText: '取消',           //android
+            doneButtonLabel: '确认',      // ios
+            cancelButtonLabel: '取消',    //ios
+            todayText: '今天',            //android
+            nowText: '现在',              //android
+            is24Hour: true,              //android
+            androidTheme: datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT, // android： 3
+            popoverArrowDirection: 'UP',
+            locale: 'zh_cn'
+            //locale: 'en_us'
+        }).then(function(returnDate){
+        	var time = returnDate.format("yyyy-MM-dd"); //__getFormatTime(returnDate);
+	        console.log("selectTimeCallback : "+time);
+	        switch (type) {
+	            case 'start':
+	            	if(__startTimeIsValid(time, $scope.config.timeEnd)){
+	            		$scope.config.timeStart = time;
+	            	}else{
+	            		$cordovaToast.showShortBottom("最小时间不能大于最大时间!");
+	            	}
+	                break;
+	            case 'end':
+	            	if(__endTimeIsValid($scope.config.timeStart, time)){
+	            		$scope.config.timeEnd = time;
+	            	}else{
+	            		$cordovaToast.showShortBottom("最大时间不能小于最小时间!");
+	            	}
+	                break;
+	        }
+	        if(!$scope.$$phrese){
+	            $scope.$apply();
+	        }
+        });
+    }
+
+    function __startTimeIsValid(startTime, endTime){
+    	if(!startTime || startTime==""){
+    		return false;
+    	}
+    	if(!endTime || endTime==""){
+    		return true;
+    	}
+    	var startTime2 = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+        var endTime2 = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+        return startTime2 <= endTime2;
+    }
+    function __endTimeIsValid(startTime, endTime){	
+    	if(!endTime || endTime==""){
+    		return false;
+    	}
+    	if(!startTime || startTime==""){
+    		return true;
+    	}
+    	var startTime = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+        var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+        return startTime <= endTime;
+    }
+
+
 
     function __getFormatTime(date) {
         var dateTemp, minutes, hour, time;

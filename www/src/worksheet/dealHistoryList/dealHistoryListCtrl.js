@@ -1,4 +1,4 @@
- worksheetModule.controller("dealHistoryListCtrl",[
+worksheetModule.controller("dealHistoryListCtrl",[
 	"$scope",
     "ionicMaterialInk",
     "ionicMaterialMotion",
@@ -88,7 +88,13 @@
             ionicMaterialInk.displayEffect();
         }, 100);
         if(worksheetDataService.wsDetailData.ET_HISTORY && worksheetDataService.wsDetailData.ET_HISTORY.item && worksheetDataService.wsDetailData.ET_HISTORY.item.length > 0){
-            $scope.datas.history = worksheetDataService.wsDetailData.ET_HISTORY.item;
+            var historys = worksheetDataService.wsDetailData.ET_HISTORY.item;
+            for(var i = 0; i < historys.length; i++){
+                if(historys[i].PROCESS_TYPE == "ZPLC" || historys[i].PROCESS_TYPE == "ZPRC" || historys[i].PROCESS_TYPE == "ZNCC"){
+                    $scope.datas.history.push(historys[i]);
+                }
+            }
+
         }
     };
     $scope.init();

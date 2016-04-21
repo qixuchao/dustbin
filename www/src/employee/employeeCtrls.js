@@ -4,7 +4,10 @@
 'use strict';
 employeeModule
     .controller('userQueryCtrl',['$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading',function($scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading){
-
+        $scope.searchFlag=false;
+        $scope.employ={
+            employeefiledvalue:''
+        };
         $scope.EmployeeListHistoryval = function(){
             $scope.employee_userqueryflag = false;
             if(storedb('employdb').find() != undefined || storedb('employdb').find() != null){
@@ -44,7 +47,7 @@ employeeModule
         //获取数据列表函数
         $scope.employLoadmore = function(){
             //$scope.employisshow = true;
-                $scope.empitemPage = $scope.empitemPage + 1;
+                $scope.empitemPage += 1;
                 var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST';
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
@@ -53,10 +56,10 @@ employeeModule
                         "ITEMS": "10"
                     },
                     "IS_EMPLOYEE": {"NAME":$scope.employ.employeefiledvalue}
-                }
-                console.log("data"+angular.toJson(data));
-                console.log("name"+angular.toJson(data.IS_EMPLOYEE.NAME));
-                console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
+                };
+                //console.log("data"+angular.toJson(data));
+                //console.log("name"+angular.toJson(data.IS_EMPLOYEE.NAME));
+                //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
                 HttpAppService.post(url, data).success(function (response) {
                     if (response.ES_RESULT.ZFLAG == 'E') {
                         $scope.employisshow = false;
@@ -78,7 +81,12 @@ employeeModule
                                 } else {
                                     console.log(angular.toJson((response.ET_EMPLOYEE.item)));
                                     $.each(response.ET_EMPLOYEE.item, function (n, value) {
-                                        $scope.employee_query_list.push(value);
+                                        if($scope.employ.employeefiledvalue===""){
+                                            $scope.employee_query_list=new Array;
+                                        }else{
+                                            $scope.employee_query_list.push(value);
+                                        }
+
                                     });
                                 }
                                 if (response.ET_EMPLOYEE.item.length < 10) {
@@ -104,49 +112,88 @@ employeeModule
             }
         //input输入框监听
         //实时搜索
-        $scope.employ ={employeefiledvalue :''}
-        var employeetimer;
-        setTimeout(function(){
-            document.getElementById('employeequeryinput').style.display = "none";
-            document.getElementById('employeeinputvalueid').addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
-                if(!$scope.$$phase) {
-                    $scope.$apply();
-                };
-                $scope.employisshow = false;
-                clearTimeout(employeetimer);
-                employeetimer = setTimeout(function() {
-                    if (document.getElementById('employeeinputvalueid').value.length > 0) {
-                        document.getElementById('employeequeryinput').style.display = "inline-block";
-                        $scope.$apply(function(){
-                            $scope.employisshow = false;
-                            //删除请求
-                            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST')
-                            $scope.employee_query_list = [];
-                            $scope.employee_query_list = new Array;
-                            $scope.empitemPage = 0;
-                        });
-                        $scope.employee_userqueryflag = true;
-                        $ionicScrollDelegate.resize();
-                        $scope.employisshow = true;
-                        if(!$scope.$$phase) {
-                            $scope.$apply();
-                        };
-                    } else {
-                        //删除请求
-                        $http['delete'](ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST');
-                        $scope.employee_userqueryflag = false;
-                        $scope.employisshow = false;
-                        $scope.employee_query_list = [];
-                        $scope.empitemPage = 0;
-                        if(!$scope.$$phase) {
-                            $scope.$apply();
-                        };
-                        $ionicScrollDelegate.resize();
-                        document.getElementById('employeequeryinput').style.display = "none";
-                    }
-                }, 500);
-            });
-        },50);
+        $scope.initLoad=function(){
+            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST');
+            $scope.empitemPage = 0;
+            $scope.employee_query_list=new Array;
+            Prompter.showLoading("正在加载");
+            $scope.employLoadmore();
+        };
+        $scope.search = function (x, e){
+            Prompter.showLoading('正在搜索');
+            $scope.searchFlag=true;
+            $scope.employ.employeefiledvalue = x;
+            $scope.initLoad();
+        };
+        $scope.cancelSearch=function(){
+            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+            $scope.searchFlag=false;
+            $scope.employ.employeefiledvalue = '';
+            $scope.employee_query_list=new Array;
+            $scope.EmployeeListHistoryval();
+            //$scope.conitemImPage=0;
+        };
+        //显示搜索页面
+        $scope.changePage=function(){
+            $scope.searchFlag=true;
+        };
+        $rootScope.$on('employeeBack',function(event, data) {
+            console.log("接收成功" + data);
+            $scope.searchFlag = data;
+            $scope.employ.employeefiledvalue = "";
+            $scope.cancelSearch();
+        });
+        //清除输入框内的内容
+        $scope.initSearch = function () {
+            $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+            $scope.employ.employeefiledvalue = '';
+            $scope.empitemPage=0;
+            $scope.employee_query_list=new Array;
+            Prompter.showLoading("正在加载")
+            $scope.employLoadmore();
+        };
+        //var employeetimer;
+        //setTimeout(function(){
+        //    document.getElementById('employeequeryinput').style.display = "none";
+        //    document.getElementById('employeeinputvalueid').addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
+        //        if(!$scope.$$phase) {
+        //            $scope.$apply();
+        //        };
+        //        $scope.employisshow = false;
+        //        clearTimeout(employeetimer);
+        //        employeetimer = setTimeout(function() {
+        //            if (document.getElementById('employeeinputvalueid').value.length > 0) {
+        //                document.getElementById('employeequeryinput').style.display = "inline-block";
+        //                $scope.$apply(function(){
+        //                    $scope.employisshow = false;
+        //                    //删除请求
+        //                    $http['delete'](ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST')
+        //                    $scope.employee_query_list = [];
+        //                    $scope.employee_query_list = new Array;
+        //                    $scope.empitemPage = 0;
+        //                });
+        //                $scope.employee_userqueryflag = true;
+        //                $ionicScrollDelegate.resize();
+        //                $scope.employisshow = true;
+        //                if(!$scope.$$phase) {
+        //                    $scope.$apply();
+        //                };
+        //            } else {
+        //                //删除请求
+        //                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST');
+        //                $scope.employee_userqueryflag = false;
+        //                $scope.employisshow = false;
+        //                $scope.employee_query_list = [];
+        //                $scope.empitemPage = 0;
+        //                if(!$scope.$$phase) {
+        //                    $scope.$apply();
+        //                };
+        //                $ionicScrollDelegate.resize();
+        //                document.getElementById('employeequeryinput').style.display = "none";
+        //            }
+        //        }, 500);
+        //    });
+        //},50);
 
         //清除历史记录
         $scope.employeeiputDeletevalue = function(){
@@ -276,6 +323,7 @@ employeeModule
         ////返回回退
         $scope.employgoBack = function() {
             console.log("返回成功")
+            $rootScope.$broadcast('employeeBack','false');
             $rootScope.$broadcast('employeedeatillist');
             $ionicHistory.goBack();
         }
@@ -305,9 +353,9 @@ employeeModule
             $cordovaToast.showShortBottom('请检查你的网络设备');
         });
         $scope.gocustomerList = function(){
-            employeeService.set_employeecustomerlist($scope.userdetailcustomerlist)
+            employeeService.set_employeecustomerlist($scope.userdetailcustomerlist);
             $state.go('customerList');
-        }
+        };
         $scope.userdetailval = employeeService.get_employeeListvalue();
         //电话
         $scope.employeeshowphone =function(types){
@@ -423,11 +471,14 @@ employeeModule
         };
         $scope.selectCustomer = function (x) {
              console.log(x);
+            employeeService.set_employeecustomerlist().item.unshift(x);
+            console.log($scope.employcustomerlist[0]);
             //$scope.contactcreat.PARTNER2VALUE = x.NAME_ORG1;
             //$scope.contactcreat.PARTNER2 = x.PARTNER;
             //$scope.create.contact='';
             //contactPage = 1;
             //$scope.contacts = [];
+            $scope.getCustomerArr();
             $scope.contactsLoadMoreFlag = true;
             //$scope.getContacts();
             $scope.selectCustomerModal.hide();
@@ -439,7 +490,4 @@ employeeModule
             //$scope.selectPersonModal.remove();
             $scope.selectCustomerModal.remove();
         });
-
-
-
     }])

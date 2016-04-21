@@ -21,8 +21,9 @@
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
                 <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-70 text-center">服务工单列表</div>
+                <div class="col col-70 text-center" ng-bind="config.titleText"></div>
                 <!--div class="col col-15 add"><img src="img/saleList/add.png"></div-->
+                <div class="col col-15"><span></span></div>
             </div>
         </ion-header-bar>
         <!--div class="pub-subhead bar bar-subheader">
@@ -31,9 +32,9 @@
             </div>
         </div-->
     </div>
-    <ion-content id="xbr-worksheet-list-content"  class="" style="" scroll="false" has-bouncing="false">
+    <ion-content id="xbr-worksheet-list-content"  class="has-header" style="" scroll="false" has-bouncing="false">
     	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);"  ng-class="{'isSearchingMode':(config.queryModeNew)}">
-    		<div class="search-box">
+    		<div class="search-box" style="margin-left: .4rem;">
 	            <i class="icon ion-ios-search-strong left"></i>
 	            <input type="search" ng-model="config.searchText" style="font-size: 12px;padding-top:0px; padding-bottom:0px;" ng-change="onSearchTextChange($event);" ng-click="clickSearchInput();" placeholder="{{config.searchPlaceholder}}">
                 <i ng-if="config.searchInputHasText" class="ion-ios-close right" ng-click="clearSearchText();"></i>
@@ -95,6 +96,9 @@
                         <!--div canNotClickEnterListMode class="none sort-type-item" ng-click="sorteNone();">
                             <span>取消</span>
                         </div-->
+                        <ionic-datepicker date="currentDate" min="minDate" max="maxDate" callback="datePickerCallback">
+    <button class="button button-block button-positive"> {{ currentDate | date:'MMMM/dd/yyyy' }} </button>
+</ionic-datepicker>
                 </div>
                 
                 <div canClickEnterListMode class="tab-filter-content" ng-click="clickEnterListMode($event);">
@@ -165,7 +169,8 @@
                             <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
                         </div>
                         <div class="list">
-                            <a class="item animated flipInX" ng-class="{'flipInX':(config.showListItemAnimate)}" ng-click="goDetailState(item, $index);" ng-repeat="item in datas.serviceListDatas">
+                            <!-- animated flipInX     ng-class="{'flipInX':(config.showListItemAnimate)}"-->
+                            <a class="item "  ng-click="goDetailState(item, $index);" ng-repeat="item in datas.serviceListDatas">
                                 <div class="left single-line-ellipsis">
                                     <div class="row item-line">
                                         <div class="col-28 name">工单描述:</div>
@@ -206,7 +211,7 @@
                             点击加载更多...
                         </div>
                         <div class="has-more-data-no" ng-if="!config.hasMoreData && !config.isLoading && (config.loadingErrorMsg == null || config.loadingErrorMsg=='')">
-                            暂无更多数据
+                            无更多数据
                         </div>
                         <div class="request-error-msg has-more-data-no" ng-if="config.loadingErrorMsg && config.loadingErrorMsg!=''">
                             <span ng-bind="config.loadingErrorMsg"></span>

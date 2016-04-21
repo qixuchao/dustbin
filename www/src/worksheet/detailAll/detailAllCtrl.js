@@ -52,7 +52,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				__destroyMoreModal();
 				$timeout(function (){
 					$state.go(stateName);
-				}, 100);		
+				}, 100);
 			};
 			$scope.dibButtonClickHandler = function(type){
 				switch(type){
@@ -69,8 +69,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			};
 			$scope.moreModalClickHandler = function(type){
 				console.log(type);
-				$scope.config.moreModal.hide();		
-				if(type == 'paigong'){ 
+				$scope.config.moreModal.hide();
+				if(type == 'paigong'){
 					//先选择处理员工
 					//__selectChuLiYuanGong();
 					$scope.openSelectCustomer();
@@ -78,7 +78,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}else if(type == 'judan'){
 					requestChangeStatus("E0003", "已拒绝", "正在拒绝", "拒绝成功", "拒绝失败，请检查网络");
 				}else if(type == 'jiedan'){
-					requestChangeStatus("E0004", "已接单", "正在接单", "接单成功", "接单失败，请检查网络");
+					requestChangeStatus("E0004", "正在处理", "正在接单", "接单成功", "接单失败，请检查网络");
 				}else if(type == 'beijianshengqing'){
 					if(__hasBeijianInfo()){
 						$scope.goState("worksheetSelect");
@@ -117,7 +117,12 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					});
 				}
 			};
-			
+			$scope.canShowMoreBtn = function(){
+				if($scope.config.canEdit){
+					return true;
+				}
+				return false;
+			};
 			$scope.showMoreModel = function($event, sourceClassName){
 			    if($scope.config.moreModal == null){
 			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content "+$scope.config.typeStr+" "+$scope.config.statusStr+"'>"+
@@ -127,14 +132,14 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		                    "<div class='content-line judan' ng-click='moreModalClickHandler(\"judan\");'>拒单</div>"+
 		                    "<div class='content-line jiedan' ng-click='moreModalClickHandler(\"jiedan\");'>接单</div>"+
 		                    "<div class='content-line beijian' ng-click='moreModalClickHandler(\"beijianshengqing\");'>备件申请</div>"+
-		                    "<div class='content-line chelianglicheng' ng-click='moreModalClickHandler(\"chelianglicheng\");'>车辆里程</div>"+
+		                    "<div class='content-line chelianglicheng' ng-click='moreModalClickHandler(\"chelianglicheng\");'>车辆读数</div>"+
 		                    "<div class='content-line guzhangxinxi' ng-click='moreModalClickHandler(\"guzhangxinxi\");'>故障信息</div>"+
 		                    "<div class='content-line fuwupaizhao' ng-click='moreModalClickHandler(\"fuwupaizhao\");'>服务拍照</div>"+
 		                    "<div class='content-line baogong' ng-click='moreModalClickHandler(\"baogong\");'>报工</div>"+
 		                    "<div class='content-line wangong' ng-click='moreModalClickHandler(\"wangong\");'>完工</div>"+
 		                    "<div class='content-line yiquxiao' ng-click='moreModalClickHandler(\"yiquxiao\");'>取消</div>"+
 		                    "<div class='content-line yishenhe' ng-click='moreModalClickHandler(\"yishenhe\");'>已审核</div>"+
-		                    "<div class='content-line yidahui' ng-click='moreModalClickHandler(\"yidahui\");'>已打回</div>"+
+		                    "<div class='content-line yidahui' ng-click='moreModalClickHandler(\"yidahui\");'>打回</div>"+
 		                "</div>"+
 		            "</div>", {
 		                scope: $scope
@@ -172,6 +177,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			};
 
 			$scope.editDetail = function(){
+				//$rootScope.$viewHistory.currentView = $rootScope.$viewHistory.backView;
 				var params = $scope.config.requestParams;
 				if(params.IS_PROCESS_TYPE == 'ZNCO'){	//ZNCO 新车档案收集工单 
 					$state.go("worksheetEdit", {
@@ -189,6 +195,9 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			};
 
 			$scope.canShowEditBtn = function(){
+				if(!$scope.config.canEdit){
+					return false;
+				}
 				var type = $scope.config.typeStr;
 				var status = $scope.config.statusStr;
 				if(type == 'ZPRO' || type =='ZPLO' || type == 'ZNCO'){
@@ -214,7 +223,9 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				detailTypeNewCarFWS: false,
 				detailTypeSiteRepairFWS: false,
 				detailTypeBatchUpdateFWS: false,
-				
+
+				canEdit: false,
+
 				moreModal: null,
 				requestModal: null,
 				requestModalStr: '正在加载',
@@ -380,7 +391,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 	                time: '2016-3-8  12:11'
             }];
 
-
             $scope.init = function(){
             	//console.log($stateParams.detailType);
             	// newCar、siteRepair、batchUpdate
@@ -413,18 +423,22 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	$scope.config.statusStr = $scope.config.ydStatusNum = worksheetDataService.worksheetList.toDetail.ydStatusNum = newStatus;
             	$scope.datas.detail.ES_OUT_LIST.STATU_DESC = newStatusDesc;
             	$scope.datas.detail.ES_OUT_LIST.STATU = newStatus;
+
+            	worksheetDataService.wsDetailData.ES_OUT_LIST.STATU = $scope.datas.detail.ES_OUT_LIST.STATU;
+            	worksheetDataService.wsDetailData.ES_OUT_LIST.STATU_DESC = $scope.datas.detail.ES_OUT_LIST.STATU_DESC;
+
             	__destroyMoreModal();            	
             	if(!$scope.$$phase){
             		$scope.$apply();
             	}
             }
-
+            
             function __requestDetailDatas(loadStr){
             	var loadingStr = loadStr ? loadStr : "正在加载" ;
 		        var params = $scope.config.requestParams;
 		        var queryParams = {
-				    "I_SYSNAME": { "SysName": "CATL" },
-				    "IS_AUTHORITY": { "BNAME": "" },
+				    "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+				    "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") },
 				    "IS_OBJECT_ID": params.IS_OBJECT_ID,
 				    "IS_PROCESS_TYPE": params.IS_PROCESS_TYPE
 				}
@@ -495,6 +509,13 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
+
+		        	if(tempResponse.ES_OUT_LIST.EDIT_FLAG == "Y"){
+		        		$scope.config.canEdit = true;
+		        	}else{
+		        		$scope.config.canEdit = false;
+		        	}
+
 		        	Prompter.hideLoading();
 
 
@@ -518,8 +539,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			function requestChangeStatus(statusId, statusStr, statucChangingStr, changeOkStr, requestErrorStr){
 				var params = $scope.config.requestParams;
 		        var queryParams = {
-				    "I_SYSTEM": { "SysName": "CATL" },
-				    "IS_AUTHORITY": { "BNAME": "HANDLCX" },
+				    "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+				    "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") },
 				    "IS_OBJECT_ID": params.IS_OBJECT_ID+"",
 				    "IS_PROCESS_TYPE": params.IS_PROCESS_TYPE,
 				    "IS_HEAD_DATA": {

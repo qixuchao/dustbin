@@ -119,7 +119,6 @@ var storedb = function(collectionName){
 
     };
 };
-
 Date.prototype.format = function(format){
     var o = {
         "M+" : this.getMonth()+1, //month
