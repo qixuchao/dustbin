@@ -100,6 +100,13 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             templateUrl: 'src/login/login.html',
             controller: 'LoginCtrl'
         })
+
+        //.state('login', {
+        //    url: '/login',
+        //    //abstract: true,
+        //    templateUrl: 'src/loginSecond/loginSecond.html',
+        //    controller: 'LoginSecondCtrl'
+        //})
         .state('tabs', {
             url: '/tabs',
             templateUrl: 'src/tabs/tabs.html',
@@ -318,6 +325,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo.html',
             controller: 'WorksheetFaultInfoCtrl'
         })
+
 
         .state('worksheetCarMileageEdit',{
             url: '/worksheetCarMileageEdit',
