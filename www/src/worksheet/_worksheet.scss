@@ -1090,6 +1090,11 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			}
 			
         }
+        &.ZNCO, &.ZNCV{
+        	.beijian, .guzhangxinxi{
+        		display: none !important;
+        	}
+        }
         &.ZPRV, &.ZPLV, &.ZNCV{
         	&.E0001{  // 新建
         	}  

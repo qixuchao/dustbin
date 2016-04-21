@@ -906,9 +906,11 @@ worksheetModule.controller("WorksheetListCtrl",[
 		}, 150);
 		//__requestServiceList({IS_PAGE:{CURRPAGE: ++$scope.config.currentPage, ITEMS: 10}});
 		
+		$scope.config.isFromCarDetail = false;
+		$scope.config.isFromCustomer = false;
 		// 从客户界面进入
 		var temp = customeService.get_customerWorkordervalue();
-		if(temp && temp.PARTNER){
+		if(temp!=null && temp.PARTNER){
 			$scope.config.PARTNER = temp.PARTNER;
 			$scope.config.isFromCustomer = true;
 			$scope.config.titleText="客户历史工单列表";
