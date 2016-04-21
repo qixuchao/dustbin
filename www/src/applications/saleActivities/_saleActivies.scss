@@ -7,7 +7,14 @@
       width: 85%!important;
     }
   }
-
+  .list{
+    margin-bottom: 0;
+  }
+  .noMoreInfo{
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+  }
   .pub-head {
     background: $crm-subject-blue;
     color: white;

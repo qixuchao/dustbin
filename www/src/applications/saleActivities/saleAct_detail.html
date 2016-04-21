@@ -113,8 +113,8 @@
                 <div class="progress">
                     <div class="row">进展:</div>
                     <div class="obj own-animated {{x.class?x.class:'zoomInRight'}}" ng-repeat="x in makeConsensus.item">
-                        <i class="ion-ios-close" ng-click="deleteProcess(x,makeConsensus.item,$index)"></i>
-                        <div class="row row-center">
+                        <i class="ion-ios-close" ng-click="deleteProcess(x,makeConsensus.item,$index,$event)"></i>
+                        <div class="row row-center" ng-click="openProcessModal(x,'makeConsensus',$index)">
                             <img class="oval" src="img/saleDetail/oval_green.png">
 
                             <div class="triAngle row row-center no-padding">
@@ -128,8 +128,8 @@
                         </div>
                     </div>
                     <div class="obj own-animated {{x.class?x.class:'zoomInRight'}}" ng-repeat="x in followUpMatter.item">
-                        <i class="ion-ios-close" ng-click="deleteProcess(x,followUpMatter.item,$index)"></i>
-                        <div class="row row-center">
+                        <i class="ion-ios-close" ng-click="deleteProcess(x,followUpMatter.item,$index,$event)"></i>
+                        <div class="row row-center" ng-click="openProcessModal(x,'followUpMatter',$index)">
                             <img class="oval" src="img/saleDetail/oval.png">
                             <div class="triAngle row row-center no-padding">
                                 <div class="textType">跟进事项</div>
@@ -142,10 +142,9 @@
                         </div>
                     </div>
                     <div class="obj own-animated {{x.class?x.class:'zoomInRight'}}" ng-repeat="x in policyDecode.item">
-                        <i class="ion-ios-close" ng-click="deleteProcess(x,policyDecode.item,$index)"></i>
-                        <div class="row row-center">
+                        <i class="ion-ios-close" ng-click="deleteProcess(x,policyDecode.item,$index,$event)"></i>
+                        <div class="row row-center" ng-click="openProcessModal(x,'policyDecode',$index)">
                             <img class="oval" src="img/saleDetail/oval_rose.png">
-
                             <div class="triAngle row row-center no-padding">
                                 <div class="textType rose">政策解读</div>
                                 <div class="text">{{x.ZZSXNR_2}}</div>
@@ -176,7 +175,7 @@
             <div class="submit">
                 <div class="row row-center">
                     <div class="col no-padding">
-                        <div class="input"><input type="text"  ng-click="openProcessModal()" ng-model="input.progress"/>
+                        <div class="input"><input type="text"  ng-click="openProcessModal()" ng-model="process.content"/>
                         </div>
                     </div>
                     <div class="no-padding selections" ng-show="!processDropflag">

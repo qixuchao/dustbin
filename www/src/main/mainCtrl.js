@@ -73,7 +73,7 @@ mainModule
                         $scope.weeks[i].flag = false;
                     }
                     //判断当天选择的天
-                    if(new Date(selectDate).format('yyyy/M/d')==$scope.year + '/' + $scope.month + '/' + days[i].value){
+                    if (new Date(selectDate).format('yyyy/M/d') == $scope.year + '/' + $scope.month + '/' + days[i].value) {
 
                     }
                 }
@@ -98,7 +98,7 @@ mainModule
                     document.getElementById('dayViewId').className = 'dayView';
                     $timeout(function () {
                         document.getElementById('monthViewId').className = 'monthView';
-                    },500);
+                    }, 500);
                     var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                     var page_index = dayViewHandle.currentIndex();
                     var arr = $scope.days[page_index].arr;
@@ -135,7 +135,7 @@ mainModule
                     document.getElementById('dayViewId').className = 'dayView own-animated fadeInDown';
                     $timeout(function () {
                         document.getElementById('dayViewId').className = 'dayView';
-                    },500);
+                    }, 500);
                     var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('monthView-handle');
                     var page_index = dayViewHandle.currentIndex();
                     var arr = $scope.monthView[page_index].arr;
@@ -319,13 +319,13 @@ mainModule
                     }
                 }
 
-            }
+            };
 
             $scope.onMonthSwipeLeft = function () {
                 //当前周一对应的日期
                 //nextDays(7);
                 alert('月份左滑')
-            }
+            };
             $scope.onMonthSwipeRight = function () {
                 //nextDays(-7);
                 alert('月份右滑动')
@@ -364,39 +364,17 @@ mainModule
                 }
                 y.checked = true;
                 /*刷新content*/
-                $scope.loadMoreFlag = false;
-                salePageNum = 0;
-                //var arr = document.getElementsByClassName('obj');
-                //for (var i = 0; i < arr.length; i++) {
-                //    arr[i].style.transitionDelay = '0s';
-                //}
-                $timeout(function () {
-                    $scope.loadMoreFlag = true;
-                    $scope.contentArr = [];
-                    //$scope.getList('init');
-                },10);
-
-                /*刷新content end*/
-
-                //var tempArr = $scope.salesArr;
-                //Prompter.showLoading('正在查询');
-                //$scope.contenHideFlag = true;
+                salePageNum = 1;
+                var arr = document.getElementsByClassName('obj');
+                for (var i = 0; i < arr.length; i++) {
+                    arr[i].style.transitionDelay = '0s';
+                }
                 //$timeout(function () {
-                //    $scope.contentArr = [];
-                //}, 200);
-                //$timeout(function () {
-                //    $scope.contenHideFlag = false;
-                //    $scope.contentArr = tempArr;
-                //}, 400);
-                //$timeout(function () {
-                //    ionicMaterialMotion.fadeSlideInRight({
-                //        startVelocity: 3000,
-                //        selector: '.animate-fade-slide-in-right .item'
-                //    });
-                //    Prompter.hideLoading();
-                //}, 500);
-                //$scope.selectModeText = '销售活动';
-
+                $scope.loadMoreFlag = true;
+                $scope.contentArr = [];
+                $ionicScrollDelegate.scrollTop(true);
+                angular.element('#mainInfiniteId').addClass('active');
+                $scope.getList('init');
             };
             $scope.topHeight = {
                 'margin-top': '198px'
@@ -602,34 +580,38 @@ mainModule
             $scope.salesArr = [];
             var salePageNum = 1;
             var getSalesArr = function (type) {
+                if(type=='init'){
+                    $scope.loadMoreHasData=true;
+                }
                 var data = {
-                    "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_ACTIVITY": {
-                    "OBJECT_ID": "",
+                        "OBJECT_ID": "",
                         "DESCSEARCH": "",
                         "PROCESS_TYPE": "",
                         "ZZHDJJD": "",
                         "CUSTOMER": "",
-                        //"DATE_FROM": selectDate,
-                        "DATE_FROM": '',
-                        "DATE_TO": "",
+                        "DATE_FROM": selectDate,
+                        "DATE_TO": selectDate,
                         "ESTAT": "",
-                        "SALESNO": ""
-                },
+                        "SALESNO": "",
+                        "SELF_ONLY": "X"
+                    },
                     "IS_PAGE": {
-                    "CURRPAGE": salePageNum++,
+                        "CURRPAGE": salePageNum++,
                         "ITEMS": "10"
-                },
-                    "IS_USER": { "BNAME": "HANDBLH" }
+                    },
+                    //"IS_USER": {"BNAME": window.localStorage.crmUserName}
+                    "IS_USER": {"BNAME": "HANDBLH"}
                 };
-                //if (salePageNum == 1) {
-                //    return
-                //}
-                console.log(data)
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_LIST', data)
-                    .success(function (response) {
-                        console.log(response)
+                    .success(function (response,status,headers,config) {
+                        if(config.data.IS_ACTIVITY.DATE_FROM != selectDate||
+                            type=='init'&&$scope.contentArr.length!=0){
+                            return
+                        }
                         if (response.ES_RESULT.ZFLAG === 'S') {
+                            Prompter.hideLoading();
                             $scope.contenHideFlag = false;
                             if (response.ET_LIST.item.length < 10) {
                                 $scope.loadMoreFlag = false;
@@ -639,12 +621,12 @@ mainModule
                             angular.forEach(tempArr, function (x) {
                                 x.title = x.DESCRIPTION;
                                 x.date = new Date(x.DATE_FROM);
-                                x.startTime = x.TIME_FROM.substring(0,6);
-                                x.endTime = x.TIME_TO.substring(0,6);
+                                x.startTime = x.TIME_FROM.substring(0, 6);
+                                x.endTime = x.TIME_TO.substring(0, 6);
                             });
-                            if(type==='init'){
+                            if (type === 'init') {
                                 $scope.contentArr = tempArr;
-                            }else{
+                            } else {
                                 $scope.contentArr = $scope.contentArr.concat(tempArr);
                             }
                             $timeout(function () {
@@ -654,8 +636,9 @@ mainModule
                                 });
                             }, 100);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                            $ionicScrollDelegate.resize();
+                                $ionicScrollDelegate.resize();
                         } else {
+                            $scope.loadMoreHasData = false;
                             $scope.loadMoreFlag = false;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
@@ -666,6 +649,8 @@ mainModule
                     getSalesArr(type);
                 }
             };
+            //初始化
+            $scope.getList('init');
             $scope.contentArr = $scope.thingsToDo;
             $scope.moreApps = function () {
                 //$ionicBackdrop.retain();

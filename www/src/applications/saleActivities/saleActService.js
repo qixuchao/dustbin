@@ -220,7 +220,7 @@ salesModule.factory('saleActService', function () {
         code: '01'
     }, {
         text: '客户',
-        code: '01'
+        code: '02'
     }];
     var processTypesArr = [{
         text:'处理中',
