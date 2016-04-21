@@ -66,21 +66,23 @@
             <div class="row itemContentS row-center">
                 <div class="col-38 ">备注：</div>
             </div>
-            <div class="row itemContentT ">
+            <!--<div class="row itemContentT ">-->
                 <!--<div class="textarea" contenteditable="true" style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;word-spacing:8px; letter-spacing: 1px;color: #A0A09F">{{otherInfos.remark}}<br/></div>-->
-                <div class="col col-center">
-                    <textarea type="text"placeholder="请输入值" class="textareaCss" ng-model="otherInfos.remark" style="background-color: white;color: #A0A09F"></textarea>
-                </div>
-            </div>
+                <!--<div class="col col-center">-->
+                    <!--<textarea type="text"placeholder="请输入值" class="textareaCss" ng-model="otherInfos.remark" style="background-color: white;color: #A0A09F"></textarea>-->
+                <!--</div>-->
+                <textarea id="textarea" placeholder="回复内容" style="width: 100%;padding: 15px;border-bottom: 1px solid #D6D3CE;color:#A0A09F" ng-model="otherInfos.remark"></textarea>
+            <!--</div>-->
             <div class="row itemContentS row-center">
                 <div class="col-38 ">处理结果：</div>
             </div>
-            <div class="row itemContentT ">
-                <div class="col col-center">
+            <!--<div class="row itemContentT ">-->
+                <!--<div class="col col-center">-->
                     <!--<div class="textarea" contenteditable="true" style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;word-spacing:8px; letter-spacing: 1px;color: #A0A09F">{{otherInfos.result}}<br/></div>-->
-                    <textarea type="text"placeholder="请输入读取描述" class="textareaCss" ng-model="otherInfos.result" style="background-color: white;color: #A0A09F;width: 100%"></textarea>
-                </div>
-            </div>
+                    <!--<textarea type="text"placeholder="请输入读取描述" class="textareaCss" ng-model="otherInfos.result" style="background-color: white;color: #A0A09F;width: 100%"></textarea>-->
+                <!--</div>-->
+            <!--</div>-->
+            <textarea id="textareare" placeholder="请输入读取描述"style="width: 100%;padding: 15px;border-bottom: 1px solid #D6D3CE;color:#A0A09F " ></textarea>
         </div>
     </ion-content>
 </ion-view>
