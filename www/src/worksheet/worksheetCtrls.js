@@ -17,7 +17,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	"customeService",
 	"CarService",
 	"$cordovaToast",
-	function($scope, $ionicScrollDelegate, 
+	function($scope, $ionicScrollDelegate,
 		ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,
 		$ionicPosition, $state, 
 		$cordovaDatePicker,
@@ -38,6 +38,21 @@ worksheetModule.controller("WorksheetListCtrl",[
             }            
         }
     });
+
+
+    $scope.currentDate = new Date();
+	$scope.minDate = new Date(2105, 6, 1);
+	$scope.maxDate = new Date(2015, 6, 31);
+
+	$scope.datePickerCallback = function (val) {
+	    if (!val) { 
+	        console.log('Date not selected');
+	    } else {
+	        console.log('Selected date is : ', val);
+	    }
+	};
+
+
     
 	$scope.config = {
 		titleText: "服务工单列表",
@@ -91,7 +106,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 		filterStatusCancled: false, // 已经取消
 
 		timeStart: '',
+		timeStartDefault: '',
 		timeEnd: '',
+		timeEndDefault: '',
 
 
 		searchPlaceholder: '请输入服务工单描述or车辆描述or服务工单编号',
@@ -372,7 +389,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 				break;
 		}
 		return newStatusId;
-	}
+	};
 	//重置筛选条件
 	$scope.resetFilters = function(){
 		//筛选 规则 ----> 工单类型
@@ -392,6 +409,12 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.filterImpactNoSelected = true;
 		//筛选 规则 ----> 状态
 		__resetStatus();
+		//筛选 日期
+		$scope.config.timeStart = $scope.config.timeStartDefault;
+		$scope.config.timeEnd = $scope.config.timeEndDefault;
+		//
+		__remeberCurrentFilters();
+
 	};
 	
 	$scope.goDetailState = function(item, i){
@@ -832,10 +855,14 @@ worksheetModule.controller("WorksheetListCtrl",[
 		var queryParams = {
 			IS_PAGE: {CURRPAGE: ++$scope.config.currentPage, ITEMS: 10},
 			IS_SEARCH:{ SEARCH: $scope.config.searchText },
-			IS_SORT: sortedInt,
-			T_IN_IMPACT: $scope.config.T_IN_IMPACT,
-			T_IN_PROCESS_TYPE: $scope.config.T_IN_PROCESS_TYPE,
-			T_IN_STAT: $scope.config.T_IN_STAT
+			//IS_SORT: sortedInt,
+			IV_SORT: sortedInt,
+			//T_IN_IMPACT: $scope.config.T_IN_IMPACT,
+			IT_IMPACT: $scope.config.T_IN_IMPACT,
+			//T_IN_PROCESS_TYPE: $scope.config.T_IN_PROCESS_TYPE,
+			IT_PROCESS_TYPE: $scope.config.T_IN_PROCESS_TYPE,
+			//T_IN_STAT: $scope.config.T_IN_STAT
+			IT_STAT: $scope.config.T_IN_STAT
 		};
 		/*if($scope.config.IS_SEARCH.CREATED_FROM && $scope.config.IS_SEARCH.CREATED_FROM!=""){
 			queryParams.IS_SEARCH.CREATED_FROM = $scope.config.IS_SEARCH.CREATED_FROM;
@@ -864,8 +891,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 	$scope.init = function(){
 		
-		$scope.config.timeStart = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000).format("yyyy-MM-dd");
-		$scope.config.timeEnd = new Date().format("yyyy-MM-dd");
+		// = $scope.config.timeStart    = $scope.config.timeEnd
+		//$scope.config.timeStartDefault  = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000).format("yyyy-MM-dd");
+		//$scope.config.timeEndDefault  = new Date().format("yyyy-MM-dd");
 
 		$timeout(function () {
                 ionicMaterialInk.displayEffect();
@@ -939,10 +967,15 @@ worksheetModule.controller("WorksheetListCtrl",[
         	if(!$scope.datas.serviceListDatas){
         		$scope.datas.serviceListDatas = [];
         	}
-        	$scope.datas.serviceListDatas = $scope.datas.serviceListDatas.concat(response.T_OUT_LIST.item);
-        	if(response.T_OUT_LIST.item.length < 10){
-        		$scope.config.hasMoreData = false;
+        	if(response.ET_OUT_LIST){
+        		response.T_OUT_LIST = angular.copy(response.ET_OUT_LIST);
         	}
+        	if(response.T_OUT_LIST.item && response.T_OUT_LIST.item.length){
+        		$scope.datas.serviceListDatas = $scope.datas.serviceListDatas.concat(response.T_OUT_LIST.item);
+	        	if(response.T_OUT_LIST.item.length < 10){
+	        		$scope.config.hasMoreData = false;
+	        	}
+        	}        	
         })
         .error(function(errorResponse){
         	$scope.config.isLoading = false;
@@ -1002,18 +1035,35 @@ worksheetModule.controller("WorksheetListCtrl",[
     function __selectCreateTimeIOS(type, title){
         var date;
         if(type == 'start'){
-            date =  new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+        	if(!$scope.config.timeStart || $scope.config.timeStart==""){
+        		date =  new Date().format('yyyy/MM/dd hh:mm:ss');
+        	}else{
+        		date =  new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+        	}
+            //date =  new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
         }else if(type=='end'){
-            date = new Date($scope.config.timeEnd.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+        	if(!$scope.config.timeEnd || $scope.config.timeEnd==""){
+        		date = new Date().format('yyyy/MM/dd hh:mm:ss');
+        	}else{
+        		date = new Date($scope.config.timeEnd.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+        	}
         }
         __selectCreateTimeBasic(type, title, date);
     }
     function __selectCreateTimeAndroid(type, title){
     	var date;
         if(type == 'start'){
-            date = new Date($scope.config.timeStart.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+        	if(!$scope.config.timeStart || $scope.config.timeStart==""){
+        		date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+        	}else{
+        		date = new Date($scope.config.timeStart.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+        	}
         }else if(type=='end'){
-            date = new Date($scope.config.timeEnd.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+        	if(!$scope.config.timeEnd || $scope.config.timeEnd==""){
+        		date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+        	}else{
+        		date = new Date($scope.config.timeEnd.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+        	}
         }
         __selectCreateTimeBasic(type, title, date);
     }
@@ -1069,58 +1119,20 @@ worksheetModule.controller("WorksheetListCtrl",[
     	if(!endTime || endTime==""){
     		return true;
     	}
-    	var startTime = new Date(startTime.replace("-","/")).getTime();
-        var endTime = new Date(endTime.replace("-","/")).getTime();
-        return startTime < endTime;
-    	/*var endYear = endTime.split("-")[0];
-    	var endMonth = endTime.split("-")[1];
-    	var endDay = endTime.split("-")[2];
-
-    	var startYear = startTime.split("-")[0];
-    	var startMonth = startTime.split("-")[1];
-    	var startDay = startTime.split("-")[2];
-    	if(startYear > endYear){
-    		return false;
-    	}
-    	if(startYear == endYear){
-    		if(startMonth > endMonth){
-    			return false;
-    		}
-    		if(startMonth == endMonth){
-    			if(startDay > endDay){ return false; }
-    		}
-    	}
-    	return true;*/
+    	var startTime2 = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+        var endTime2 = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+        return startTime2 <= endTime2;
     }
-    function __endTimeIsValid(startTime, endTime){    	
+    function __endTimeIsValid(startTime, endTime){	
     	if(!endTime || endTime==""){
     		return false;
     	}
     	if(!startTime || startTime==""){
     		return true;
     	}
-    	var startTime = new Date(startTime.replace("-","/")).getTime();
-        var endTime = new Date(endTime.replace("-","/")).getTime();
-        return startTime < endTime;
-    	/*var endYear = endTime.split("-")[0];
-    	var endMonth = endTime.split("-")[1];
-    	var endDay = endTime.split("-")[2];
-
-    	var startYear = startTime.split("-")[0];
-    	var startMonth = startTime.split("-")[1];
-    	var startDay = startTime.split("-")[2];
-    	if(startYear > endYear){
-    		return false;
-    	}
-    	if(startYear == endYear){
-    		if(startMonth > endMonth){
-    			return false;
-    		}
-    		if(startMonth == endMonth){
-    			if(startDay > endDay){ return false; }
-    		}
-    	}
-    	return true;*/
+    	var startTime = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+        var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+        return startTime <= endTime;
     }
 
 

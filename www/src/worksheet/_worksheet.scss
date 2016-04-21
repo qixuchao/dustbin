@@ -748,6 +748,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				height:  $filter-time-line-height;	
 				line-height:  $filter-time-line-height;	
 				@include flex(7.5);
+				@include display-flex;
+				@include align-items(center);
 				.filter-time-center-line{
 					display: inline-block;
 				}
@@ -1076,8 +1078,10 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			&.E0007{ // 审核
 				
 			}
-			&.E0008{  //打回
-				//.baogong{ display: block; }
+			&.E0008{  //打回   .baogong：一期先不展示
+				 .guzhangxinxi, .chelianglicheng, .fuwupaizhao, .beijian{ 
+					display: block; 
+				}
 			}
 			&.E0009{ //取消  .baogong
 				.paigong, .jiedan, .judan{
@@ -1117,9 +1121,10 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         }
     }
 }
+
 .worksheet-detail-view-public .detail-all-more-button{
 	&.ZNCO, &.ZPLO, &.ZPRO{
-		&.E0006, &.E0010, &.E0007, &.E0008{ //已完工  //回访  // 审核
+		&.E0006, &.E0010, &.E0007{ //已完工  //回访  // 审核      //&.E0008:已打回
 			display: none !important;
 		}
 	}	
@@ -1136,7 +1141,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
     //padding-left: 0px;
     margin-top: -.4rem;
     line-height: 1rem;
-    padding-left: 5px;
+    padding-left: 6px;
     label{
         height: 2rem;
         input{

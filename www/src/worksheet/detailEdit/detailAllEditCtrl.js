@@ -351,20 +351,18 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         function __selectCreateTimeAndroid(type, title){
             var date;
             if(type == 'start'){
-                date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
-                /*date =  new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
-                if(ionic.Platform.isAndroid()){
+                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR==""){
+                    date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                }else{
                     date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
-                }*/
+                }
             }else if(type=='end'){
-                date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
-                /*date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
-                if(ionic.Platform.isAndroid()){
-                    date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
-                }*/
+                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR==""){
+                    date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                }else{
+                    date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+                }
             }
-            //console.log("Android selectCreateTime:     "+date);
-            //console.log("Android datePicker:     "+datePicker);
             __selectCreateTimeBasic(type, title, date);
         }
         function __selectCreateTimeBasic(type, title, date){
@@ -411,6 +409,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         }
 
 
+
         function __startTimeIsValid(startTime, endTime){
             if(!startTime || startTime==""){
                 return false;
@@ -418,9 +417,9 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             if(!endTime || endTime==""){
                 return true;
             }
-            var startTime = new Date(startTime.replace("-","/")).getTime();
-            var endTime = new Date(endTime.replace("-","/")).getTime();
-            return startTime < endTime;
+            var startTime = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+            var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+            return startTime <= endTime;
         }
         function __endTimeIsValid(startTime, endTime){ 
             if(!endTime || endTime==""){
@@ -429,9 +428,9 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             if(!startTime || startTime==""){
                 return true;
             }
-            var startTime = new Date(startTime.replace("-","/")).getTime();
-            var endTime = new Date(endTime.replace("-","/")).getTime();
-            return startTime < endTime;
+            var startTime = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+            var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+            return startTime <= endTime;
         }
 
 

@@ -139,7 +139,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		                    "<div class='content-line wangong' ng-click='moreModalClickHandler(\"wangong\");'>完工</div>"+
 		                    "<div class='content-line yiquxiao' ng-click='moreModalClickHandler(\"yiquxiao\");'>取消</div>"+
 		                    "<div class='content-line yishenhe' ng-click='moreModalClickHandler(\"yishenhe\");'>已审核</div>"+
-		                    "<div class='content-line yidahui' ng-click='moreModalClickHandler(\"yidahui\");'>已打回</div>"+
+		                    "<div class='content-line yidahui' ng-click='moreModalClickHandler(\"yidahui\");'>打回</div>"+
 		                "</div>"+
 		            "</div>", {
 		                scope: $scope
