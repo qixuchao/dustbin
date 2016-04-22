@@ -2,59 +2,73 @@
   width: 100%;
   height: 100%;
 }
+
 .fill-width {
   width: 100%;
 }
+
 .fill-height {
   height: 100%;
 }
-.max-fill-parent{
-	max-height: 100%;
-	max-width: 100%;
+
+.max-fill-parent {
+  max-height: 100%;
+  max-width: 100%;
 }
-.own-animated{
+
+.own-animated {
   -webkit-animation-duration: .5s;
   animation-duration: .5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
+
 .own-animated.once {
   -webkit-animation-iteration-count: 1;
   animation-iteration-count: 1;
 }
-.scroll-content{
+
+.scroll-content {
   margin-top: 0;
   padding-top: 0;
   margin-bottom: 0;
 }
+
 //overWrite
 .spinner.spinner-balanced {
   stroke: #2B60AB;
   fill: #2B60AB;
 }
-.head{
+
+.head {
   box-shadow: none;
 }
-.popover-backdrop.active{
+
+.popover-backdrop.active {
   -webkit-transition: background-color 0.2s linear 0s;
   transition: background-color 0.2s linear 0s;
 }
+
 .platform-android .popover {
-  border-radius:10px;
+  border-radius: 10px;
 }
-.bar{
+
+.bar {
   font-size: 16px;
 }
-.action-sheet-group{
-  .button{
+
+.action-sheet-group {
+  .button {
     box-shadow: none;
     border-top: 1px solid #B7B7B7;
   }
 }
-input[readonly]:not(.cloned-text-input){
-  background: none!important;
-  border:none!important;
+
+input[readonly]:not(.cloned-text-input) {
+  background: none !important;
+  border: none !important;
 }
+
 //.modal-wrapper {
 //  pointer-events: auto!important;
 //}
@@ -70,85 +84,107 @@ input[readonly]:not(.cloned-text-input){
     opacity: 0;
   }
 }
+
 /**
  * 公共的 变量
  */
 $crm-header-bar-bgcolor: #2B60AB;
 $crm-content-bgcolor: #F5F5F5;
 
-$crm-subject-green:#9ec92a;
-$crm-subject-blue:#2B60AB;
-$lineColor:#d2d2d2;
+$crm-subject-green: #9ec92a;
+$crm-subject-blue: #2B60AB;
+$lineColor: #d2d2d2;
 /**
  * 公共的 mixin  
- */ 
+ */
+.main-unPunish {
+  color: #e24976;
+}
+
+.main-accomplish {
+  color: $crm-subject-green;
+}
 
 // 文本单行省略号
-@mixin single-line-ellipsis{
-  overflow: hidden; 
-  white-space: nowrap;  
+@mixin single-line-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
-.crm-line-text{
+
+.crm-line-text {
   @include single-line-ellipsis;
 }
-@mixin crm-circle-div($width:12px, $border-width:2px, $border-color:rgb(142,193,33)){ // 圆环
+
+@mixin crm-circle-div($width:12px, $border-width:2px, $border-color:rgb(142,193,33)) { // 圆环
   width: $width;
-  height:$width;
-  border-radius: $width;   
+  height: $width;
+  border-radius: $width;
   display: inline-block;
   border: $border-width solid $border-color;
 }
+
 // 工单状态的文字颜色：
-.stat-new{
+.stat-new {
   //color: #2B60AB !important;
   color: #F35907 !important;
 }
-.stat-sendedworker{
+
+.stat-sendedworker {
   color: #48C3BB !important;
 }
-.stat-refused{
+
+.stat-refused {
   color: red !important;
 }
-.stat-handing{
+
+.stat-handing {
   color: #F18E1D !important;
 }
-.stat-reported{
+
+.stat-reported {
   color: #DC6C5D !important;
 }
-.stat-finished{
+
+.stat-finished {
   color: #0FF747 !important;
 }
-.stat-revisited{
+
+.stat-revisited {
   color: #0431F1 !important;
 }
-.stat-audited{
+
+.stat-audited {
   color: #09F1E1 !important;
 }
-.stat-audited-out{
+
+.stat-audited-out {
   color: #C001DC !important;
 }
-.stat-returned{
+
+.stat-returned {
   color: #DC6C5D !important;
 }
-.stat-cancled{
+
+.stat-cancled {
   color: #BDBABA !important;
 }
+
 /*
   设置button style type：button-crm-edit : 编辑button   主要是调整颜色，字体大小等请自行调整
   使用方法如下：
     1、<div class="button button-yge"></div>
     2、<div class="button button-yge button-outline"></div>
 */
-$button-crm-edit-bg:                   rgb(142,193,33);
-$button-crm-edit-border:                 #FF8C2D;
-$button-crm-edit-active-bg:                #F36E00;
-$button-crm-edit-active-border:              #F36E00;
-$button-crm-edit-text:                 white;
+$button-crm-edit-bg: rgb(142, 193, 33);
+$button-crm-edit-border: #FF8C2D;
+$button-crm-edit-active-bg: #F36E00;
+$button-crm-edit-active-border: #F36E00;
+$button-crm-edit-text: white;
 .button.button-crm-edit {
   @include button-style($button-crm-edit-bg, $button-crm-edit-border, $button-crm-edit-active-bg, $button-crm-edit-active-border, $button-crm-edit-text);
   @include button-clear($button-crm-edit-border);
-  @include button-outline($button-crm-edit-border); 
+  @include button-outline($button-crm-edit-border);
 }
 
 /*
@@ -161,52 +197,50 @@ $button-crm-edit-text:                 white;
       <span class="title-bottom"></span>
   </div>
 */
-.crm-line-title{ //默认为4个字
-    width: 100%;
-    //height: 4rem; // 3.5rem刚好够用
-    height: 2.9rem;
-    .title-top{
-        //height: 2rem;
-        //line-height: 2rem;
-        //font-size: 1.2rem;
-        font-size: 1.1rem;
-        height: 1.8rem;
-        line-height: 1.8rem;
-        padding-left: 1rem;
-        @include display-flex;
-        @include align-items(center);
-        color: rgb(50,90,164);
-        .line{
-            height: 1px;
-            @include flex(1);
-            background-color: rgb(50,90,164);
-        }
+.crm-line-title { //默认为4个字
+  width: 100%;
+  //height: 4rem; // 3.5rem刚好够用
+  height: 2.9rem;
+  .title-top {
+    //height: 2rem;
+    //line-height: 2rem;
+    //font-size: 1.2rem;
+    font-size: 1.1rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+    padding-left: 1rem;
+    @include display-flex;
+    @include align-items(center);
+    color: rgb(50, 90, 164);
+    .line {
+      height: 1px;
+      @include flex(1);
+      background-color: rgb(50, 90, 164);
     }
+  }
+  .title-bottom {
+    //height: 1.5rem;
+    height: 1.1rem;
+    border-bottom: 1px solid rgb(50, 90, 164);
+    border-right: 1px solid rgb(50, 90, 164);
+    width: 3.2rem; //3.5rem;    // 3.5rem会使 下面的border-right刚好对准“基本信息”的正中间
+    display: inline-block;
+  }
+  /*&.word-2{
     .title-bottom{
-        //height: 1.5rem;
-        height: 1.1rem;
-        border-bottom: 1px solid rgb(50,90,164);
-        border-right: 1px solid rgb(50,90,164);
-        width: 3.2rem;//3.5rem;    // 3.5rem会使 下面的border-right刚好对准“基本信息”的正中间
-        display: inline-block;
+      width: 2rem;
     }
-    /*&.word-2{
-      .title-bottom{
-        width: 2rem;
-      }
-    }*/
+  }*/
 }
 
-@mixin bg-linear-gradient($deg, $color-steps...){
-    background: -moz-linear-gradient($deg, $color-steps);
-    //background: -webkit-gradient(linear, deg, left bottom, color-stop(0%,#000000), color-stop(100%,#ffffff));
-    background: -webkit-linear-gradient($deg, $color-steps);
-    background: -o-linear-gradient($deg, $color-steps);
-    background: -ms-linear-gradient($deg, $color-steps);
-    background: linear-gradient($deg, $color-steps);
+@mixin bg-linear-gradient($deg, $color-steps...) {
+  background: -moz-linear-gradient($deg, $color-steps);
+  //background: -webkit-gradient(linear, deg, left bottom, color-stop(0%,#000000), color-stop(100%,#ffffff));
+  background: -webkit-linear-gradient($deg, $color-steps);
+  background: -o-linear-gradient($deg, $color-steps);
+  background: -ms-linear-gradient($deg, $color-steps);
+  background: linear-gradient($deg, $color-steps);
 }
-
-
 
 /*公共样式*/
 
@@ -214,45 +248,51 @@ $button-crm-edit-text:                 white;
 //  height: 100%
 //}
 .no-padding {
-  padding: 0!important; }
-.no-margin {
-  margin: 0!important; }
-.no-border{
-  border:none!important;
+  padding: 0 !important;
 }
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.no-border {
+  border: none !important;
+}
+
 /*公共样式 end*/
 
 /*# sourceMappingURL=style.css.map */
 
-.publicheadtitlei{
+.publicheadtitlei {
   font-size: 35px;
   color: white;
   display: block;
   float: left;
-  margin-top:7px;
-  margin-left:15px;
+  margin-top: 7px;
+  margin-left: 15px;
 }
-.view_publicheadtitlei{
+
+.view_publicheadtitlei {
   font-size: 40px;
   color: white;
   display: block;
   float: left;
-  margin-top:5px;
-  margin-left:10px;
+  margin-top: 5px;
+  margin-left: 10px;
 }
 
-.employeequery_headquery{
+.employeequery_headquery {
   //height:50px;
   //position: relative;
-  .employeequery_headqueryimg{
-    font-size:20px;
+  .employeequery_headqueryimg {
+    font-size: 20px;
     color: #A8A8A8;
     position: absolute;
-    top:12px;
-    left:15px;
+    top: 12px;
+    left: 15px;
     z-index: 10;
   }
-  .employeequery_headqueryinput{
+  .employeequery_headqueryinput {
     display: inline-block;
     height: 28px;
     line-height: 28px;
@@ -266,32 +306,39 @@ $button-crm-edit-text:                 white;
     left: 2%;
     z-index: 1;
   }
-};
+}
+
+;
 //popover public
 .platform-android .popover-backdrop, .platform-android .popover-backdrop.active {
-  background-color: rgba(0,0,0,.38);
+  background-color: rgba(0, 0, 0, .38);
 }
+
 .popover-backdrop.active {
-  background-color: rgba(0,0,0,.38);
+  background-color: rgba(0, 0, 0, .38);
 }
+
 .action-sheet-group {
   margin-bottom: 1px;
   border-radius: 4px;
   background-color: #fff;
   overflow: hidden;
 }
+
 .customershowFilterPage1.ng-hide-remove {
   -webkit-animation: fadeInDown 0.5s;
   animation: fadeInDown .5s;
   -webkit-animation-duration: 5s;
   animation-duration: 5s;
 }
+
 .slider-pager .slider-pager-page.active {
   -webkit-transition: opacity 0.4s ease-in;
   transition: opacity 0.4s ease-in;
   opacity: 1;
   color: #9EC92A;
 }
+
 .slider-pager .slider-pager-page {
   display: inline-block;
   margin: 0px 3px;
