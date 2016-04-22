@@ -75,12 +75,12 @@
                            <option value="">国家</option>
                         </select>
                     </div>
-                    <div class="row" style="padding: 5px;" ng-class="{true:'',false:'display:none'}[showFlag]">
+                    <div class="row" style="padding: 5px;" ng-show="showFlag">
                         <select style="height: 40px;border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white;width: 40%" ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
                            <option value="">省份</option>
                         </select>
                     </div>
-                    <div class="row" style="padding: 5px;"ng-class="{true:'',false:'display:none'}[showFlag]" >
+                    <div class="row" style="padding: 5px;" ng-show="showFlag">
                         <select style="height: 40px;border:none;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white;width: 40%"   ng-model="config.currentCity" ng-options="c as c.CITY_NAME for c in city" ng-change="chang2()">
                            <option value="">城市</option>
                         </select>

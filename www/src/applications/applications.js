@@ -9,6 +9,7 @@ appModule
         //console.log(ionic.Platform.platform())
         var menuList=LoginService.getMenulist();
         console.log(menuList);
+        console.log(LoginService.getProfileType());
         $scope.imgs = [{
             name:'CUSTOMER',
             url:'img/apps/partner.png',

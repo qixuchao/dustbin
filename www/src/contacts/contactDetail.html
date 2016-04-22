@@ -16,11 +16,11 @@
             <div class="Contacts_detailcontentphone" ng-click="contactshowphone(contactdetails.MOB_NUMBER)">
                 <img src="img/contact/phone@2x.png" style="width:15px;height:15px" class="customerContacts_detailcontentphonei">
                 <span>电话/分机</span>
-                <span style="margin-left: 4px;" ng-bind="contactdetails.MOB_NUMBER"></span>/<span ng-bind="contactdetails.TEL_EXTENS"></span>
+                <span style="margin-left: 4px;" ng-bind="contactdetails.TEL_NUMBER"></span>/<span ng-bind="contactdetails.TEL_EXTENS"></span>
             </div>
             <div class="Contacts_detailcontentmobile" ng-click="contactshowphone(contactdetails.TEL_NUMBER)">
                 <img src="img/contact/tel@2x.png" style="width:15px;height:15px" class="Contacts_detailcontentmobilei">
-                <span style="margin-left: 4px;" ng-bind="contactdetails.TEL_NUMBER"></span>
+                <span style="margin-left: 4px;" ng-bind="contactdetails.MOB_NUMBER"></span>
             </div>
             <div class="Contacts_detailcontentaddress">
                 地址:<span ng-bind="contactdetails.STREET"></span>
@@ -115,30 +115,32 @@
                 国家
             </div>
             <div class="col col-60" style="color:#AEA3A3">
-                <span ng-bind="contactdetails.COUNTRY"></span>
+                <span ng-bind="contactdetails.LANDX"></span>
             </div>
         </div>
         <div class="employee_query_listline">
         </div>
-        <div class="row" style="padding:5px 5px" ng-class="{true:'',false:'display:none'}[showFlag]">
-            <div class="col col-40" style="margin-left: 7px;">
-                省份
+        <div ng-show="showFlag">
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    省份
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    <span ng-bind="contactdetails.BEZEI"></span>
+                </div>
             </div>
-            <div class="col col-60" style="color:#AEA3A3">
-                <span ng-bind="contactdetails.BEZEI"></span>
-            </div>
+            <div class="employee_query_listline"></div>
         </div>
-        <div class="employee_query_listline">
-        </div>
-        <div class="row" style="padding:5px 5px" ng-class="{true:'',false:'display:none'}[showFlag]">
-            <div class="col col-40" style="margin-left: 7px;">
-                城市
+        <div ng-show="showFlag">
+            <div class="row" style="padding:5px 5px" >
+                <div class="col col-40" style="margin-left: 7px;">
+                    城市
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    <span ng-bind="contactdetails.CITY1"></span>
+                </div>
             </div>
-            <div class="col col-60" style="color:#AEA3A3">
-                <span ng-bind="contactdetails.CITY_NAME"></span>
-            </div>
-        </div>
-        <div class="employee_query_listline">
+            <div class="employee_query_listline"></div>
         </div>
         <div class="row" style="padding:5px 5px">
             <div class="col col-40" style="margin-left: 7px;">

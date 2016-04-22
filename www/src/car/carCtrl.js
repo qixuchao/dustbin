@@ -394,7 +394,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         $scope.projectName="CATL项目名称:";
 
         $scope.goPage=function(data){
-            CarService.setSpare(data);
+            CarService.setSpare1(data);
             $state.go("spare");
         };
         $scope.goDetail=function(data){
@@ -971,7 +971,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             //    document.getElementById('searchSpareId').focus();
             //}, 1)
         };
-        var code= CarService.getSpare();
+        var code= CarService.getSpare1();
 
         var Date1=function(date){
             for(var i=0;i<date.length;i++){

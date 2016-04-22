@@ -65,40 +65,43 @@
                 <img id="contcreapostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('POST_CODE1')"/>
             </span>
             <span class="item item-input">出生日期：
-                <input type="date" placeholder="请输入生日" class="contact_editinputsty"  ng-model="contactcreat.BIRTHDT"  style="background-color:white">
+                <input type="text" readonly placeholder="请输入生日" class="contact_editinputsty"  ng-model="contactcreat.BIRTHDT" ng-click="selectCreateTime" style="background-color:white">
             </span>
              <span class="item item-input">语言：
                 <select style="height:40px; width: 40%;margin-left:33px;border: none;padding-right:4px;-webkit-appearance:none;background:white"  ng-model="config.currentLanguage" ng-options="a.name as a.name for a in contactlistvaluesel">
                     <option value="">语言</option>
                 </select>
             </span>
-             <span class="item item-input">地址：
-                <input type="text" id="contcreateaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactcreat.STREET">
-                <img id="contcreaaddressnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('STREET')"/>
-            </span>
-            <div class="row">
+            <div class="row" style="border-bottom: 1px solid rgba(155, 155, 155, 0.36);">
                 <div class="col col-20" style="font-size: 14px;padding-left: 9px;color:#9B9B9B;">
                     位置:
                 </div>
                 <div class="col col-80">
                     <div class="row" style="padding: 5px;">
-                        <select style="border:none;height:40px;width: 40%;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white"  ng-model="config.currentCountry" ng-options="a as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
+                        <select style="border:none;height:40px;width: 40%;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white"  ng-model="config.currentCountry" ng-options="a.COUNTRY as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
                             <option value="" >国家</option>
                         </select>
                     </div>
-                    <div class="row" style="padding: 5px;"ng-class="{true:'',false:'display:none'}[showFlag]" >
+                    <div class="row" style="padding: 5px;"ng-show="showFlag" >
                         <select style="border:none;height:40px;width: 40%;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white" ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
                             <option value="">省份</option>
                         </select>
                     </div>
-                    <div class="row" style="padding: 5px;" ng-class="{true:'',false:'display:none'}[showFlag]">
+                    <div class="row" style="padding: 5px;" ng-show="showFlag">
                         <select style="border:none;height:40px;width: 40%;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white"   ng-model="config.currentCity" ng-options="c as c.CITY_NAME for c in city">
                             <option value="" >城市</option>
                         </select>
                     </div>
-
                 </div>
             </div>
+             <span class="item item-input">邮箱：
+                <input type="email" id="contcreateaddressname1" class="contact_editinputsty" placeholder="请输入邮箱" ng-model="contactcreat.SMTP_ADDR">
+                <img id="contcreaaddressnameimg1" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('SMTP_ADDR')"/>
+            </span>
+             <span class="item item-input">地址：
+                <input type="text" id="contcreateaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactcreat.STREET">
+                <img id="contcreaaddressnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('STREET')"/>
+            </span>
         </div>
     </ion-content>
 </ion-nav-view>

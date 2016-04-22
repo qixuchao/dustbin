@@ -386,7 +386,8 @@ ContactsModule
         ////定制从联系人详细界面进入列表界面改变界面flag
         ////返回回退
         $scope.peopleCode="";
-        $scope.countryCode="";
+        $scope.countryCode=""
+        $scope.showFlag=true;
         $scope.ContactgoBack = function() {
             $rootScope.$broadcast('contactBack','false');
             $rootScope.$on('contactCreatevalue');
@@ -401,11 +402,6 @@ ContactsModule
           //$state.go('ContactQuery');
           //  });
         };
-            if(LoginService.getProfileType()=="APP_SALE"){
-                $scope.showFlag=false;
-            }else{
-                $scope.showFlag=true;
-            };
         var numDo=function(num){
             for(var i=0;i<num.length;i++){
                 if(num[i]!='0'){
@@ -415,6 +411,7 @@ ContactsModule
             }
         };
        //获取数据
+            console.log(contactService.get_ContactsListvalue()+"ccc");
         Prompter.showLoading("数据加载中...");
         var loadData=function() {
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
@@ -469,7 +466,9 @@ ContactsModule
             loadData();
         if(LoginService.getProfileType()=="APP_SERVICE"){
             $scope.customer_detailstypes=new Array;
+            $scope.showFlag=true;
         }else{
+            $scope.showFlag=false;
             $scope.customer_detailstypes = [{
                 typemane:'活动',
                 imgurl:'img/customer/customerhuod.png',
@@ -569,6 +568,7 @@ ContactsModule
             DPRTMNT:"",
             FNCTN:"",
             COUNTRY:"",
+            LANDX:"",
             BEZEI:"",
             CITY1:"",
             REGION:"",
@@ -576,6 +576,7 @@ ContactsModule
             BIRTHDT:"",
             LANGU:"",
             NAME_LAST:"",
+            SMTP_ADDR:"",
             TEL_NUMBER:"",
             MOB_NUMBER:"",
             STREET:"",
@@ -603,6 +604,7 @@ ContactsModule
                     "FNCTN": "",
                     "DPRTMNT": "",
                     "COUNTRY": "",
+                    "LANDX":"",
                     "REGION": "",
                     "CITY1": "",
                     "POST_CODE1": "",
@@ -613,7 +615,7 @@ ContactsModule
                     "MOB_NUMBER": "",
                     "FAX_NUMBER": "",
                     "FAX_EXTENS": "",
-                    "SMTP_ADDR": "888888@qq.com",
+                    "SMTP_ADDR": "",
                     "BAPIBNAME":  window.localStorage.crmUserName,
                     "MODE": "I"
                 },
@@ -625,7 +627,7 @@ ContactsModule
                 }
             };
             //data.IS_CUSTOMER.PARTNER = $scope.contactcreat.PARTNER;
-            data.IS_CUSTOMER.PARTNER = $scope.contactcreat.PARTNER;
+            data.IS_CUSTOMER.PARTNER = window.localStorage.crmUserName;
             data.IS_CUSTOMER.PARTNER2 = $scope.contactcreat.PARTNER2;
             data.IS_CUSTOMER.TITLE = $scope.config.currentTitle.codeId;
             data.IS_CUSTOMER.TITLE_MEDI = $scope.config.currentTitle.name;
@@ -635,7 +637,8 @@ ContactsModule
             data.IS_CUSTOMER.FNCTN = $scope.contactcreat.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactcreat.DPRTMNT;
             //data.IS_CUSTOMER.COUNTRY = $scope.contactcreat.COUNTRY;
-            data.IS_CUSTOMER.COUNTRY =$scope.config.currentCountry.COUNTRY;
+            data.IS_CUSTOMER.COUNTRY =$scope.config.currentCountry;
+            //data.IS_CUSTOMER.LANDX =$scope.config.currentCountry.LANDX;
             data.IS_CUSTOMER.REGION = $scope.config.currentProvence.REGION;
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY1;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.POST_CODE1;
@@ -643,6 +646,7 @@ ContactsModule
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactcreat.TEL_NUMBER;
             data.IS_CUSTOMER.TEL_EXTENS = $scope.contactcreat.TEL_EXTENS;
             data.IS_CUSTOMER.MOB_NUMBER = $scope.contactcreat.MOB_NUMBER;
+            data.IS_CUSTOMER.SMTP_ADDR = $scope.contactcreat.SMTP_ADDR;
             data.IS_CUSTOMER.FAX_NUMBER = $scope.contactcreat.FAX_NUMBER;
             data.IS_CUSTOMER.FAX_EXTENS = $scope.contactcreat.FAX_EXTENS;
             data.IT_LINES.item.TDLINE=$scope.contactcreat.conatctdeatilnote;
@@ -798,8 +802,8 @@ ContactsModule
         //选择日期
         $scope.selectCreateTime = function () { // type: start、end
             var date;
-            if($scope.contactedit.BIRTHDT){
-                date = new Date($scope.contactedit.BIRTHDT.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+            if($scope.contactcreat.BIRTHDT){
+                date = new Date($scope.contactcreat.BIRTHDT.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
                 console.log(date);
             }else{
                 date=new Date();
@@ -814,12 +818,11 @@ ContactsModule
                 doneButtonLabel: '确认',
                 cancelButtonLabel: '取消',
                 locale: 'zh_cn'
-
             }).then(function (returnDate) {
                 var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
                 alert(time);
                 console.log(date);
-                $scope.contactedit.BIRTHDT = time;
+                $scope.contactcreat.BIRTHDT = time;
                 //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
                 if(!$scope.$$phrese){
                     $scope.$apply();
@@ -846,7 +849,9 @@ ContactsModule
                     "ITEMS": "10"
                 },
                 "IS_SEARCH": {"SEARCH": search},
-                "IT_IN_ROLE": {}
+                 "IT_IN_ROLE": {
+                    "item": { "RLTYP": $scope.selectCustomerText }
+                }
             };
             console.log(data);
             HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
@@ -910,8 +915,8 @@ ContactsModule
             $scope.selectCustomerModal = modal;
         });
         $scope.customerModalArr = saleActService.getCustomerTypes();
-        $scope.selectCustomerText = '竞争对手';
-            $scope.openSelectCustomer = function () {
+
+        $scope.openSelectCustomer = function () {
             $scope.isDropShow = true;
             $scope.customerSearch = true;
             $scope.selectCustomerModal.show();
@@ -920,6 +925,7 @@ ContactsModule
             $scope.selectCustomerModal.hide();
         };
         $scope.selectPop = function (x) {
+            console.log(x+"客户类型");
             $scope.selectCustomerText = x.text;
             $scope.referMoreflag = !$scope.referMoreflag;
         };
@@ -932,7 +938,7 @@ ContactsModule
         };
         $scope.initCustomerSearch = function () {
             $scope.input.customer = '';
-            //$scope.getCustomerArr();
+            $scope.getCustomerArr();
             $timeout(function () {
                 document.getElementById('selectCustomerId').focus();
             }, 1)
@@ -940,10 +946,9 @@ ContactsModule
         $scope.selectCustomer = function (x) {
            console.log(x);
             $scope.contactcreat.PARTNER2VALUE = x.NAME_ORG1;
-            $scope.contactcreat.PARTNER = x.PARTNER;
-            $scope.contactcreat.PARTNER2 = x.PARTNER2;
-            console.log(x.PARTNER+x.PARTNER2);
-            customeService.set_customerListvalue(x);
+            $scope.contactcreat.PARTNER2 = x.PARTNER;
+            console.log(x.PARTNER);
+
             //$scope.create.contact='';
             //contactPage = 1;
             //$scope.contacts = [];
@@ -971,7 +976,7 @@ ContactsModule
         $scope.provenceCode="";
 
         $scope.config = {
-            currentCountry: {},
+            currentCountry:{},
             currentProvence:{},
             currentCity:{},
             currentTitle:{},
@@ -1204,6 +1209,7 @@ ContactsModule
                     "FNCTN": "",
                     "DPRTMNT": "",
                     "COUNTRY": "",
+                    "LANDX":"",
                     "REGION": "",
                     "CITY1": "",
                     "POST_CODE1": "",
@@ -1238,6 +1244,7 @@ ContactsModule
             data.IS_CUSTOMER.FNCTN = $scope.contactedit.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactedit.DPRTMNT;
             data.IS_CUSTOMER.COUNTRY = $scope.config.currentCountry.COUNTRY;
+            data.IS_CUSTOMER.LANDX = $scope.config.currentCountry.LANDX;
             data.IS_CUSTOMER.REGION = $scope.config.currentProvence.REGION;
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactedit.POST_CODE1;
