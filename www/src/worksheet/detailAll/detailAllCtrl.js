@@ -19,10 +19,11 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         "saleActService",
         "$rootScope",
         "$filter",
+        "CarService",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter
-                  , saleActService, $rootScope, $filter) {
+                  , saleActService, $rootScope, $filter,CarService) {
 
         	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 		        if(fromState && toState && fromState.name == 'worksheetEdit' && toState.name == 'worksheetDetail'){
@@ -36,6 +37,14 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         	$scope.$on('$destroy', function() {
 				__destroyMoreModal();
 			});
+
+        	$scope.goCarDetail = function(){
+        		CarService.setData({
+        			ZBAR_CODE: $scope.datas.detail.ES_OUT_LIST.CAR_NO,
+        			SHORT_TEXT: $scope.datas.detail.ES_OUT_LIST.CAR_DESC
+        		});
+        		$state.go("carDetail");
+        	};
 
 			function __destroyMoreModal(){
 				if($scope.config.moreModal != null){			
@@ -145,12 +154,11 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		                scope: $scope
 		            });
 			    }
-
 			    $scope.config.moreModal.show();
 			    $scope.config.moreModal.$el.addClass("worksheet-detail-more-modal");			    
 			    $scope.initMoreModal(sourceClassName);
 			    var eleBgJQ = $scope.config.moreModal.$el.find('.modal-backdrop-bg');
-			    eleBgJQ[0].style.opacity="0";
+			    eleBgJQ[0].style.opacity="0.35";
 			};
 			$scope.initMoreModal = function(sourceClassName){
 					var eleJQ = angular.element('.'+sourceClassName);
