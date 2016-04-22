@@ -23,6 +23,17 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$cordovaDatePicker,
 		HttpAppService, worksheetHttpService, worksheetDataService, customeService, CarService, $cordovaToast){
 	
+	$scope.safeApply = function(fn){
+	   var phase = this.$root.$$phase;
+	   if (phase == '$apply' || phase == '$digest') {
+	       if (fn && ( typeof (fn) === 'function')) {
+	          fn();
+	       }
+	   } else {
+	       this.$apply(fn);
+	   }
+	}
+
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
         /*ionicMaterialMotion.fadeSlideIn({
@@ -153,7 +164,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 	    searchInputHasText: false,
 
 	    historyStrs: [{text:"测试1"},{text:'测试2'},{text:'测试3'}],
-
 
 	    //从其他界面跳转到该界面的一些参数信息
 	    isFromCustomer: false,
@@ -827,15 +837,19 @@ worksheetModule.controller("WorksheetListCtrl",[
 	$scope.canReLoadData  = function(){
 		return true;
 	};
-
+	
 	$scope.reloadData = function(){
 		//$ionicScrollDelegate.$getByHandle().scrollTop(true);
-		$scope.config.queryResultScrollDelegate.scrollTop(true);
+		$timeout(function(){
+			$scope.config.queryResultScrollDelegate.scrollTop(true);
+		}, 200);
 		delete $scope.datas.serviceListDatas;
 		$scope.datas.serviceListDatas = [];
+		console.log("reloadData  ---  start");
 		if(!$scope.$$phase) {
         	$scope.$apply();
         }
+        console.log("reloadData  ---  end");
 		if($scope.canReLoadData()){
 			$scope.config.currentPage = 0;
 			$scope.config.hasMoreData = true;
@@ -847,13 +861,15 @@ worksheetModule.controller("WorksheetListCtrl",[
 	};
 
 	$scope.loadMoreDatas = function(){
+		if(!$scope.config.hasMoreData){
+			$scope.$broadcast('scroll.infiniteScrollComplete');
+		}
 		// 默认:1 代表开始时间倒序:desc 	 2 是开始时间顺序:aes 	 3 是影响由高到低:
 		var sortedInt = $scope.config.sortedTypeTimeAes ? "2" : (
 				$scope.config.sortedTypeTimeDesc ? "1" : (
 						$scope.config.sortedTypeCompactDesc ? "3" : "1" 
 					)
 			);
-		
 
 		var queryParams = {
 			IS_PAGE: {CURRPAGE: ++$scope.config.currentPage, ITEMS: 10},
@@ -963,6 +979,8 @@ worksheetModule.controller("WorksheetListCtrl",[
         		$scope.config.isReloading = false;
         		$scope.$broadcast('scroll.refreshComplete');
         		$scope.datas.serviceListDatas = [];
+        	}else{
+        		$scope.$broadcast('scroll.infiniteScrollComplete');
         	}
         	if(response.ES_RESULT.ZFLAG == "E"){ // 未加载到数据
         		$scope.config.hasMoreData = false;
@@ -1024,7 +1042,7 @@ worksheetModule.controller("WorksheetListCtrl",[
                         $scope.config.timeEnd = time;
                         break;
                 }
-                if(!$scope.$scope.$$phase){
+                if(!$scope.$$phase){
                 	$scope.$apply();
                 }
             });
@@ -1113,7 +1131,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	            	}
 	                break;
 	        }
-	        if(!$scope.$$phrese){
+	        if(!$scope.$$phase){
 	            $scope.$apply();
 	        }
         });

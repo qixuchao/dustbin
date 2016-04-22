@@ -46,7 +46,7 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
                 $scope.config.nowPage += 1;
                 $scope.carMile = worksheetDataService.wsDetailData.ET_MILEAGE.item[$scope.config.nowPage-1];
             }
-        }
+        };
         $scope.upPage = function(){
             if($scope.config.nowPage == 1){
                 $cordovaToast.showShortBottom("已是第一 页");
@@ -54,7 +54,7 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
                 $scope.config.nowPage -= 1;
                 $scope.carMile = worksheetDataService.wsDetailData.ET_MILEAGE.item[$scope.config.nowPage-1];
             }
-        }
+        };
 }]);
 
 worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
@@ -67,7 +67,8 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
         }
         var worksheetDetail = worksheetDataService.wsDetailData;
         var config = worksheetHttpService.getWSCarMileage();
-        $scope.carMile = worksheetDetail.ET_MILEAGE.item[config.nowPage-1];
+        $scope.carMile = worksheetDetail.ET_MILEAGE && worksheetDetail.ET_MILEAGE.item && worksheetDetail.ET_MILEAGE.item.length ? worksheetDetail.ET_MILEAGE.item[config.nowPage-1] : {};
+        //$scope.carMile = worksheetDetail.ET_MILEAGE.item[config.nowPage-1] : {};
         console.log(angular.toJson($scope.carMile));
         $scope.update = {
             readDate : $scope.carMile.MILEAGE_DATE,
@@ -115,7 +116,6 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                 Prompter.hideLoading();
                 console.log(angular.toJson(err));
             });
-
         }
 
         //选择时间

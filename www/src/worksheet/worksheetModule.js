@@ -21,6 +21,7 @@ worksheetModule.directive('crmToast', function() {
     };
 });
 
+
 worksheetModule.filter('xbrParseInt', function(){
   var fn = function (str) {
       return window.parseInt(str);
