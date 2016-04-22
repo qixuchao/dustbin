@@ -119,7 +119,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             Prompter.showLoading("正在提交");
             var updateEdit = {
                 "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                "IS_AUTHORITY": {"BNAME": worksheetDetail.ES_OUT_LIST.CREATED_BY},
+                "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                 "IS_OBJECT_ID": worksheetDetail.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDetail.IS_PROCESS_TYPE,
                     "IS_HEAD_DATA": {
@@ -150,6 +150,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     $scope.updateInfos();
+                    worksheetDataService.wsDetailToList.needReload = true;
                     $cordovaToast.showShortBottom("故障信息维护成功");
                 } else {
                     Prompter.hideLoading();
@@ -401,7 +402,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         $scope.updateInfos = function(){
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_BY },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
             }

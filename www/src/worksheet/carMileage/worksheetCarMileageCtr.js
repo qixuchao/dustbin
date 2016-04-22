@@ -17,12 +17,13 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
        var init = function(info){
            var worksheetDetail = worksheetDataService.wsDetailData;
            console.log(angular.toJson(worksheetDetail));
-           if(worksheetDataService.wsDetailData.ET_PARTNER.item == undefined){
-               $cordovaToast.showShortBottom('暂无车辆读数信息');
+           if(worksheetDataService.wsDetailData.ET_MILEAGE.item == undefined){
+               //$cordovaToast.showShortBottom('暂无车辆读数信息');
+               $scope.carMile = ''
            }else{
                $scope.config = {
                    num : worksheetDetail.ET_MILEAGE.item.length,//总页数
-                   nowPage : info//当前页
+                   nowPage : info,//当前页,
                }
                $scope.carMile = worksheetDetail.ET_MILEAGE.item[info-1];
                console.log($scope.carMile);
@@ -32,11 +33,12 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
        }
         var no =1;
         init(no);
-        if($scope.carMile.MILEAGE_DATE === "" && $scope.carMile.MILEAGE_VALUE === "" && $scope.carMile.MILEAGE_DESC === ""){
-            $scope.carEdit = true;
-        }else{
-            $scope.carEdit = false;
-        }
+        $scope.carEdit = true;
+        //if($scope.carMile.MILEAGE_DATE === "" && $scope.carMile.MILEAGE_VALUE === "" && $scope.carMile.MILEAGE_DESC === ""){
+        //    $scope.carEdit = true;
+        //}else{
+        //    $scope.carEdit = false;
+        //}
         $scope.downPage = function(){
             if($scope.config.nowPage >= $scope.config.num){
                 $cordovaToast.showShortBottom("已是最后一页");
@@ -77,13 +79,15 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
             console.log(angular.toJson($scope.update));
             if ($scope.update.readDate === ""  ) {
                 $cordovaToast.showShortBottom("请输入本次记录日期");
+                return;
             }else if($scope.update.readValue === ""){
                 $cordovaToast.showShortBottom("请输入本次记录里程");
+                return;
             }
             Prompter.showLoading("正在提交");
             var data = {
                 "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                "IS_AUTHORITY": {"BNAME": worksheetDetail.ES_OUT_LIST.CREATED_BY},
+                "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                 "IS_OBJECT_ID": worksheetDetail.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDetail.IS_PROCESS_TYPE,
                 "IT_MILEAGE": {
@@ -102,7 +106,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                 console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     $scope.updateInfos();
-                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    $cordovaToast.showShortBottom("维护成功");
                 } else {
                     Prompter.hideLoading();
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -128,7 +132,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                 cancelButtonLabel: '取消',
                 locale: 'zh_cn'
             }).then(function (returnDate) {
-                var time = returnDate.format("yyyy-MM-dd"); //__getFormatTime(returnDate);
+                var time = returnDate.format("yyyyMMdd"); //__getFormatTime(returnDate);
                 $scope.update.readDate = time;
                 if(!$scope.$$phrese){
                     $scope.$apply();
@@ -139,7 +143,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
         $scope.updateInfos = function(){
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_BY },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
             }
@@ -156,6 +160,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                     worksheetDataService.wsDetailData.waifuRenyuan = wf;
                     worksheetDataService.wsDetailData.IS_PROCESS_TYPE = name;
                     console.log(angular.toJson(response));
+                    $state.go("worksheetCarMileage");
                 }else{
 
                 }

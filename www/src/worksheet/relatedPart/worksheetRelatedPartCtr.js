@@ -76,7 +76,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                 Prompter.showLoading("正在删除");
                 var data={
                     "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                    "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                     "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
                     "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
                     "IT_PARTNER": {
@@ -193,7 +193,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         Prompter.showLoading("正在添加");
         var data={
             "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
             "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
             "IT_PARTNER": {
@@ -241,6 +241,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         }
         var data = {
             "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_PAGE": {
                 "CURRPAGE": conPage++,
                 "ITEMS": "10"
@@ -306,7 +307,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         Prompter.showLoading("正在添加");
         var data={
             "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
             "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
             "IT_PARTNER": {
@@ -341,7 +342,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
     $scope.updateInfos = function(){
        var data = {
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            "IS_AUTHORITY": { "BNAME": worksheetDetailData.ES_OUT_LIST.CREATED_BY },
+           "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
             "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
         }
