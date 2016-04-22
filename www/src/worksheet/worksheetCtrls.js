@@ -415,7 +415,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.timeStart = $scope.config.timeStartDefault;
 		$scope.config.timeEnd = $scope.config.timeEndDefault;
 		//
-		__remeberCurrentFilters();
+		//__remeberCurrentFilters();
 
 	};
 	

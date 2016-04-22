@@ -34,8 +34,13 @@
     }
     ion-content{
         @include flex(1);
-        margin-top:160px;
+        //margin-top:160px;
+        margin-top: 175px;
         margin-bottom: 3.8rem;
+        .scroll-bar{
+            //top: 200px;
+            top: 215px;
+        }
         &.can-not-editor-detail{
             margin-bottom: 0px;
         }
@@ -197,6 +202,7 @@
         padding: .4rem 0rem;
         margin-top: .4rem;
         min-height: 2.6rem;
+        top: 185px;
         .line-inner{
             @include display-flex;
             display: -webkit-box;
@@ -250,7 +256,7 @@
         }
     }
 	
-	font-size: .9rem;
+	font-size: .9rem;   
     .basic-info, .fuwuduixiang-info{
         ion-scroll.xbr-scroll-x{
             .scroll{
@@ -266,19 +272,24 @@
             }
         }
         .cheliang-desc{
-            height: 5rem !important;
+            //height: 5rem !important;
             .scroll{
                 height: 5rem !important;
             }
             ion-scroll{
                 margin-top: 0.4rem !important;
             }
+            div:nth-child(1){
+                height: 2.5rem;
+                line-height: 2.5rem;
+            }
             .color-common-blue{
-                overflow: hidden !important;
+                /*overflow: hidden !important;
                 height: 5rem !important;
                 white-space: normal !important;
                 line-height: 1.4rem !important;
-                padding-top: .6rem !important;
+                padding-top: .6rem !important;*/
+                padding-left: 1rem;
             }
         }
     }
@@ -343,7 +354,7 @@
 	}
 	/*.status-handleing{ 
     		color: #9ED85F !important;
-    	}  
+    	}
     	.status-not-handle{
     		color: red !important;
 	}*/
@@ -358,17 +369,25 @@
         
     }
     #saleTopBackId{
-        height: 170px;
+        //height: 170px;
+        height: 185px;  //上面增加一行 工单类型+工单号
         .mainInfo{
             .row{
-                height: 2.5rem;
+                //height: 2.5rem;
                 padding-right: 5%;
+                line-height: 2rem;
+                height: 2rem;
+                padding-bottom: 0px;
+                margin-top: 0px;
             }
             .row:nth-child(2){
                 font-size: 15px;
             }
             .detail-last-line{
                 @include display-flex;
+                height: 1.2rem;
+                line-height: 1.2rem;
+                font-size: .8rem;
                 .detail-customer, .detail-status{
                     @include flex(1);
                     @include display-flex;
