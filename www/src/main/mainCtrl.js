@@ -13,6 +13,7 @@ mainModule
         '$ionicPopover',
         '$cordovaDatePicker',
         '$location',
+        '$cordovaToast',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'Prompter',
@@ -21,7 +22,7 @@ mainModule
         'saleActService',
         'worksheetDataService',
         function ($scope, $state, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
-                  $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location,
+                  $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location,$cordovaToast,
                   ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService, worksheetDataService) {
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');

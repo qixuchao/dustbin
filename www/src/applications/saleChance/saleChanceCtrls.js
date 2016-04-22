@@ -466,6 +466,7 @@ salesModule
             $scope.customerArr = [];
             $scope.customerSearch = false;
             $scope.input = {customer:''};
+            var customerType = 'CRM000';
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -481,7 +482,9 @@ salesModule
                         "ITEMS": "10"
                     },
                     "IS_SEARCH": {"SEARCH": $scope.input.customer},
-                    "IT_IN_ROLE": {}
+                    "IT_IN_ROLE": {
+                        "item1": { "RLTYP": customerType }
+                    }
                 };
                 console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
@@ -571,6 +574,8 @@ salesModule
             };
             $scope.selectPop = function (x) {
                 $scope.selectCustomerText = x.text;
+                customerType = x.code;
+                $scope.getCustomerArr('search');
                 $scope.referMoreflag = !$scope.referMoreflag;
             };
             $scope.changeReferMoreflag = function () {
