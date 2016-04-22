@@ -5,7 +5,7 @@
 	    "baseEnvironment": "CATL",
 	    "devEnvironment": "ATL"
 	},
-	"currentVersion": "0.1.08",
+	"currentVersion": "0.1.09",
 	"pkgIdentifier": "com.crmEnergy.hrms",
-	"versionName": "0.1.08" 
+	"versionName": "0.1.09" 
 }

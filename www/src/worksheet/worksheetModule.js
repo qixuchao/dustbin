@@ -65,15 +65,20 @@ worksheetModule.service('worksheetDataService', [function(){
     toDetailPageTag: null, //"history",
     worksheetHistoryList:{
       toDetail: {
-
+        
       }
     },
     wsDetailData: null,
     wsDetailToList: {
       needReload: false
     },
+    
+    //选择车辆
     selectedCheLiang: null,
-    backObject:null,
+    backObject:null,   //选择的车辆信息
+    //选择产品
+    selectedProduct: null,
+    backObjectProduct: null,  //选择的产品信息
 
     wsEditToDetail: {
       needReload: false

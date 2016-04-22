@@ -16,13 +16,13 @@
                         <i class="ion-ios-search" style="font-size: 18px; position: relative;color: #9A9AA0;"></i>
                     </div>
                 </div>
-                <div class="textInfo text-right row-center" ng-click="goUpdateSAP()">传输至SAP</div>
+                <div class="textInfo text-right row-center" ng-click="goUpdateSAP()">提交备件申请</div>
             </div>
         </div>
     <div style="background-color: white;height: 65px;margin: 0px 15px 0px 15px;margin-top: 88px" class="iostop">
         <div style="color: #276DAC;height: 40px;font-size: 16px;" class="row">请选择</div>
         <div class ="row ">
-            <select class="selectC"  ng-model="config.warehouse" ng-options="impact as impact.ZZSTORAGE_DESC for impact in wareHouse"  ng-change="change(config.warehouse)">
+            <select ng-class="{true: 'selectC', false: 'selectS'}[isActive]"  ng-model="config.warehouse" ng-options="impact as impact.ZZSTORAGE_DESC for impact in wareHouse"  ng-change="change(config.warehouse)">
                 <option selected value="">--仓库--</option>
             </select>
         </div>

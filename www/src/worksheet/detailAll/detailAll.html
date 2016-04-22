@@ -6,7 +6,7 @@
                 <div class="col-15 show-more-modal-content-source3 " ng-if="canShowMoreBtn();"  ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
                     <span class="detail-all-more-button {{config.statusStr}} {{config.typeStr}}"><i class="ion-ios-more"></i></span>
                 </div>
-            </div> 
+            </div>
             <div class="mainInfo" style="width:100%;top:60px;position:relative;height:125px;padding-left: 1rem;">
                 <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
                     <i class="ion-android-radio-button-off"></i>
@@ -76,8 +76,12 @@
             编辑
         </div>
     </div>
-    
-    <ion-content class="has-header {{config.typeStr}}" has-bouncing="false" delegate-handle="xbrDelegateContent"  scrollbar-y="false" ng-class="{'can-not-editor-detail':!canShowEditBtn()}">
+    <style>
+        .ws-detail-all-content .scroll-bar{
+            top: 200px;
+        }
+    </style>
+    <ion-content class="has-header {{config.typeStr}} ws-detail-all-content" has-bouncing="false" delegate-handle="xbrDelegateContent"  scrollbar-y="true" ng-class="{'can-not-editor-detail':!canShowEditBtn()}">
         <div ng-if="config.detailTypeNewCar">
             <div class="basic-info first-line commment-info-lines">
                 <div class="crm-line-title">
@@ -101,7 +105,7 @@
                         <div ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
                     </ion-scroll>                 
                 </div>
-
+                
                 <div class="row">
                     <div class="col-40">状态&nbsp;:</div>
                     <div class="col-60 status-not-handle" ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
@@ -120,6 +124,10 @@
                 <div class="row">
                     <div class="col-40">影响&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.IMPACT_DESC"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">上线项目&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
                 </div>
                 <div class="row">
                     <div class="col-40">总金额&nbsp;:</div>
@@ -144,6 +152,35 @@
                 <div class="row">
                     <div class="col-40">报修电话&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZBXDH"></div>
+                </div>
+                <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
+                    <div class="" style="margin-right:0px;">注释&nbsp;:</div>
+                    <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
+                            <span ng-bind="item.finalStr"></span>
+                        </div>
+                    </ion-scroll-->
+                    <div class="" style="line-height:.9rem;padding: 0rem 1rem;font-size: .8rem;color: #7B7878;">
+                        <div ng-bind="item.finalStr" ng-repeat="item in datas.detail.XBRZHUSHIS"></div>
+                    </div>
+                </div>
+                <style>
+                    .text-row-ion-scroll .scroll{
+                        padding-left: 0px;
+                        width: 100%;
+                        font-size: .8rem;
+                    }
+                </style>
+                <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
+                    <div class="" style="margin-right:0px;">处理结果&nbsp;:</div>
+                    <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
+                            <span ng-bind="item.finalStr"></span>
+                        </div>
+                    </ion-scroll-->
+                    <div class="" style="line-height:.9rem;padding: 0rem 1rem;font-size: .8rem;color: #7B7878;">
+                        <div ng-bind="item.finalStr" ng-repeat="item in datas.detail.XBRCHULIJIEGUOS"></div>
+                    </div>
                 </div>
             </div>
             <div class="time-info commment-info-lines">
@@ -318,7 +355,7 @@
                 </div>
             </div>
 
-            <div class="guzhang-info commment-info-lines">
+            <div class="guzhang-info commment-info-lines" style="margin-bottom: 1rem;">
                 <div class="crm-line-title">
                     <div class="title-top">
                         <span >故障信息</span>
@@ -350,13 +387,16 @@
                     <div class="col-40">故障名称&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.REASON"></div>
                 </div>
-                <div class="row text-row" style="height:5rem;margin-right:0px;margin-top:.2rem;">
-                    <div class="col-40" style="margin-right:0px;">注释&nbsp;:</div>
-                    <ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
+                    <div class="" style="margin-right:0px;">注释&nbsp;:</div>
+                    <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
                         <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
                             <span ng-bind="item.finalStr"></span>
                         </div>
-                    </ion-scroll>
+                    </ion-scroll-->
+                    <div class="" style="line-height:.9rem;padding: 0rem 1rem;font-size: .8rem;color: #7B7878;">
+                        <div ng-bind="item.finalStr" ng-repeat="item in datas.detail.XBRZHUSHIS"></div>
+                    </div>
                 </div>
                 <style>
                     .text-row-ion-scroll .scroll{
@@ -365,14 +405,18 @@
                         font-size: .8rem;
                     }
                 </style>
-                <div class="row text-row" style="height:5rem;margin-right:0px;margin-top:.2rem;">
-                    <div class="col-40" style="margin-right:0px;">处理结果&nbsp;:</div>
-                    <ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
-                        <div ng-repeat="item in datas.detail.XBRCHULIJIEGUOS">
+                <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
+                    <div class="" style="margin-right:0px;">处理结果&nbsp;:</div>
+                    <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
                             <span ng-bind="item.finalStr"></span>
                         </div>
-                    </ion-scroll>
+                    </ion-scroll-->
+                    <div class="" style="line-height:.9rem;padding: 0rem 1rem;font-size: .8rem;color: #7B7878;">
+                        <div ng-bind="item.finalStr" ng-repeat="item in datas.detail.XBRCHULIJIEGUOS"></div>
+                    </div>
                 </div>
+
             </div>
         </div>
         

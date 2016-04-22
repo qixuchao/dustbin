@@ -29,8 +29,8 @@
                 </div>
                 <div class="row">
                     <div class="col-40">上线项目&nbsp;:</div>                    
-                    <div class="col-60">
-                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.SHORT_TEXT">
+                    <div class="col-60" ng-click="selectProduct();">
+                        <div style="padding-left:0px;color:#111;" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -58,14 +58,21 @@
                         <ion-toggle class="xbr-my-ion-toggle" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm" style="padding-left: 6px;padding-top: 3px;"></ion-toggle>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-40">注释:</div>
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO">
+                <div class="" style="padding-left: 1rem;">
+                    <div class="">注释:</div>
+                    <!--div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO">
+                    </div-->
+                    <div>
+                        <textarea id="textarea_zhushi" placeholder="回复内容" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.zhushi" class="ng-pristine ng-valid ng-touched"></textarea>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-40">处理结果:</div>
-                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO">
+                <div class="" style="padding-left: 1rem;">
+                    <!--div class="col-40">处理结果:</div-->
+                    <!--div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TODO">
+                    </div-->
+                    <div class="" style="margin-right:0px;">处理结果&nbsp;:</div>
+                    <div>
+                        <textarea id="textarea_chulijieguo" placeholder="输入读取信息" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.chulijieguo" class="ng-pristine ng-valid ng-touched"></textarea>
                     </div>
                 </div>
             </div>
@@ -265,14 +272,17 @@
                          </select>
                     </div>
                 </div>
-
-                <div class="row text-row" style="height:5rem;margin-right:0px;margin-top:.2rem;">
-                    <div class="col-40" style="margin-right:0px;">注释&nbsp;:</div>
-                    <ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                
+                <div class="" style="margin-right:0px;margin-top:.2rem;margin-left: 1rem;">
+                    <div class="" style="margin-right:0px;">注释&nbsp;:</div>
+                    <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
                         <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
                             <span ng-bind="item.finalStr"></span>
                         </div>
-                    </ion-scroll>
+                    </ion-scroll-->
+                    <div>
+                        <textarea id="textarea_zhushi" placeholder="回复内容" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.zhushi" class="ng-pristine ng-valid ng-touched"></textarea>
+                    </div>
                 </div>
                 <style>
                     .text-row-ion-scroll .scroll{
@@ -281,13 +291,11 @@
                         font-size: .8rem;
                     }
                 </style>
-                <div class="row text-row" style="height:5rem;margin-right:0px;margin-top:.2rem;">
-                    <div class="col-40" style="margin-right:0px;">处理结果&nbsp;:</div>
-                    <ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
-                        <div ng-repeat="item in datas.detail.XBRCHULIJIEGUOS">
-                            <span ng-bind="item.finalStr"></span>
-                        </div>
-                    </ion-scroll>
+                <div class="" style="margin-right:0px;margin-top:.2rem;margin-left: 1rem;">
+                    <div class="" style="margin-right:0px;">处理结果&nbsp;:</div>
+                    <div>
+                        <textarea id="textarea_chulijieguo" placeholder="输入读取信息" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.chulijieguo" class="ng-pristine ng-valid ng-touched"></textarea>
+                    </div>
                 </div>
                 <!--div class="text-row">
                     <div class="">注释&nbsp;:</div>

@@ -4,7 +4,7 @@
     <div ng-include="'src/contacts/contactQuery.html'" ng-if="tabs[2].isActive" ng-controller="contactQueryCtrl"></div>    
     <!--div ng-include="'src/applications/applications.html'" ng-if="tabs[3].isActive"></div-->
     <div ng-include="'src/settings/main.html'" ng-if="tabs[3].isActive" ng-controller="SettingCtrl"></div>
-    <div class="bar bar-footer" style="z-index: 12">
+    <div class="bar bar-footer" style="z-index: 11">
         <div class="tabs tabs-icon-top">
             <div class="tab-item ink" ng-repeat="tab in tabs" ng-click="clickTab(tab)"
                  ng-class="tab.isActive?'backColor-on':'backColor-off'">

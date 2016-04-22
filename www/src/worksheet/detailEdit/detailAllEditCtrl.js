@@ -21,7 +21,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter) {
-
+        
         //选择车辆返回的时候，获取车辆信息
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
@@ -31,13 +31,23 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     console.log($scope.datas.detail.ES_OUT_LIST);
                 }     
             }
+            if(fromState && toState && fromState.name == 'spareList' && toState.name == 'worksheetEdit'){
+                if(worksheetDataService.backObjectProduct != null){
+                    $scope.datas.detail.ES_OUT_LIST.CAR_DESC = worksheetDataService.backObjectProduct.SHORT_TEXT;
+                    $scope.datas.detail.ES_OUT_LIST.CAR_NO = worksheetDataService.backObjectProduct.PRODUCT_ID;
+                    if(!$scope.$$phase){
+                        $scope.$apply();
+                    }
+                    console.log($scope.datas.detail.ES_OUT_LIST);
+                }     
+            }
         }); 
         
         var pleaseChoose = '-- 请选择 --                                                         ';
         var pleaseChooseId = null;
         var noneValue = '空';
         var noneValueId = null;
-
+        
         $scope.config = {
             typeStr: '',
 
@@ -54,13 +64,16 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             currentGuZhangMingCheng: null,   //{CODE: '', REASON: ''}
 
             isLoading_BujianReason: false,
-            isLoading_response: false
-        };
+            isLoading_response: false,
 
+            zhushi: '',
+            chulijieguo: ''
+        };
+        
         $scope.goBack = function(){
             Prompter.wsConfirm("提示","放弃本次编辑?","确定", "取消");
         };
-
+        
         $scope.saveEdited = function(){
             var impact = $scope.config.currentImpact.IMPACT;
             var scenario = $scope.config.currentGuZhangChangJing.SCENARIO;
@@ -104,14 +117,26 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             };
             __requestUpdateWorksheet(header);
         };
-
+        
         function __requestUpdateWorksheet(headerData){
             var url = worksheetHttpService.serviceDetailChange.url;
             var defaults = worksheetHttpService.serviceDetailChange.defaults;
             var postData = angular.extend(defaults, {
                 IS_HEAD_DATA: headerData,
                 IS_OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
-                IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE
+                IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE,
+                IT_TEXT: {
+                    item: [
+                        {
+                            TDID: "Z002",
+                            TEXT: $scope.config.zhushi
+                        },
+                        {
+                            TDID: "Z005",
+                            TEXT: $scope.config.chulijieguo
+                        }
+                    ]
+                }
             });
             var promise = HttpAppService.post(url,postData);
             Prompter.showLoading("正在保存修改");
@@ -408,8 +433,6 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             });
         }
 
-
-
         function __startTimeIsValid(startTime, endTime){
             if(!startTime || startTime==""){
                 return false;
@@ -432,8 +455,6 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
             return startTime <= endTime;
         }
-
-
 
         function __getFormatTime(date) {
             var dateTemp, minutes, hour, time;
@@ -464,6 +485,15 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             $scope.datas.detail = angular.copy(worksheetDataService.wsDetailData);
             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
+            
+            var texts = $scope.datas.detail.ET_TEXT.item;
+            if(texts){
+                for(var i = 0; i < texts.length; i++){
+                    if(texts[i].TDID == "Z005"){
+                        $scope.config.chulijieguo = texts[i].TDLINE;
+                    }
+                }
+            }
             //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
             //console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);
             //__initSelectDatas();
@@ -769,11 +799,87 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         
         $scope.init();
 
-        $scope.selectCar = function(){
+        $scope.selectCar = function(){  //选择车辆
             //worksheetDataService.selectedCheLiang  backObject;
             worksheetDataService.selectedCheLiang = true;
             $state.go("car");
         };
+        $scope.selectProduct = function(){ //选择上线项目
+            worksheetDataService.selectedProduct = true;
+            $state.go("spareList");
+        };
+
+
+        //文本框自适应换行
+        var autoTextarea = function (elem, extra, maxHeight) {
+            extra = extra || 0;
+            var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
+                isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
+                addEvent = function (type, callback) {
+                    elem.addEventListener ?
+                        elem.addEventListener(type, callback, false) :
+                        elem.attachEvent('on' + type, callback);
+                },
+                getStyle = elem.currentStyle ? function (name) {
+                    var val = elem.currentStyle[name];
+
+                    if (name === 'height' && val.search(/px/i) !== 1) {
+                        var rect = elem.getBoundingClientRect();
+                        return rect.bottom - rect.top -
+                            parseFloat(getStyle('paddingTop')) -
+                            parseFloat(getStyle('paddingBottom')) + 'px';
+                    };
+
+                    return val;
+                } : function (name) {
+                    return getComputedStyle(elem, null)[name];
+                },
+                minHeight = parseFloat(getStyle('height'));
+
+            elem.style.resize = 'none';
+
+            var change = function () {
+                var scrollTop, height,
+                    padding = 0,
+                    style = elem.style;
+
+                if (elem._length === elem.value.length) return;
+                elem._length = elem.value.length;
+
+                if (!isFirefox && !isOpera) {
+                    padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
+                };
+                scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+                elem.style.height = minHeight + 'px';
+                if (elem.scrollHeight > minHeight) {
+                    if (maxHeight && elem.scrollHeight > maxHeight) {
+                        height = maxHeight - padding;
+                        style.overflowY = 'auto';
+                    } else {
+                        height = elem.scrollHeight - padding;
+                        style.overflowY = 'hidden';
+                    };
+                    style.height = height + extra + 'px';
+                    scrollTop += parseInt(style.height) - elem.currHeight;
+                    document.body.scrollTop = scrollTop;
+                    document.documentElement.scrollTop = scrollTop;
+                    elem.currHeight = parseInt(style.height);
+                };
+            };
+
+            addEvent('propertychange', change);
+            addEvent('input', change);
+            addEvent('focus', change);
+            change();
+        };
+        $timeout(function() {
+            var text = document.getElementById("textarea_zhushi");
+            autoTextarea(text);// 调用
+            var textresult = document.getElementById("textarea_chulijieguo");
+            autoTextarea(textresult);// 调用
+        }, 1500);
+        
 
         
 

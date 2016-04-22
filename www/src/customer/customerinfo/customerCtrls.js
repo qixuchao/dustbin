@@ -633,14 +633,14 @@ customerModule
            }
 
         $scope.gocustomerLists = function(cusvalue){
-            if(cusvalue.url){
+            if(cusvalue.url == "worksheetList" || cusvalue.url == "saleChanList" || cusvalue.url == "saleActList"){
                 //从客户详情-进入各个详情界面
                 var customerWorkorderdata = {
                     "PARTNER": $scope.customerdetails.PARTNER
                 };
                 customeService.set_customerWorkordervalue(customerWorkorderdata);
-                $state.go(cusvalue.url);
             };
+            $state.go(cusvalue.url);
         };
         //电话
         $scope.customershowphone =function(types){

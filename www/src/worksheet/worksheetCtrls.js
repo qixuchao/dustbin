@@ -157,9 +157,11 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 	    //从其他界面跳转到该界面的一些参数信息
 	    isFromCustomer: false,
-	    PARTNER: null,	   
+	    PARTNER: null,
 	    isFromCarDetail: false,
-	    carCodeFromCarDetail: null
+	    carCodeFromCarDetail: null,
+
+	    queryResultScrollDelegate: null
 	};
 	$scope.oldFilters = null;
 	function __remeberCurrentFilters(){ //打开筛选界面的时候执行
@@ -827,7 +829,8 @@ worksheetModule.controller("WorksheetListCtrl",[
 	};
 
 	$scope.reloadData = function(){
-		$ionicScrollDelegate.$getByHandle().scrollTop(true);
+		//$ionicScrollDelegate.$getByHandle().scrollTop(true);
+		$scope.config.queryResultScrollDelegate.scrollTop(true);
 		delete $scope.datas.serviceListDatas;
 		$scope.datas.serviceListDatas = [];
 		if(!$scope.$$phase) {
@@ -900,15 +903,16 @@ worksheetModule.controller("WorksheetListCtrl",[
             }, 100);
 		$scope.enterListMode();
 
-
 		$timeout(function (){
 			$scope.config.showListItemAnimate = true;
 		}, 150);
 		//__requestServiceList({IS_PAGE:{CURRPAGE: ++$scope.config.currentPage, ITEMS: 10}});
 		
+		$scope.config.isFromCarDetail = false;
+		$scope.config.isFromCustomer = false;
 		// 从客户界面进入
 		var temp = customeService.get_customerWorkordervalue();
-		if(temp && temp.PARTNER){
+		if(temp!=null && temp.PARTNER){
 			$scope.config.PARTNER = temp.PARTNER;
 			$scope.config.isFromCustomer = true;
 			$scope.config.titleText="客户历史工单列表";
@@ -923,8 +927,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 		}
 		CarService.setData(null);
 
-
+		$scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("worksheetListResult");
 		$scope.reloadData();
+
 		/*$ionicPopup.alert({
 			title: '你好',
 			template: '你好不'
@@ -975,7 +980,8 @@ worksheetModule.controller("WorksheetListCtrl",[
 	        	if(response.T_OUT_LIST.item.length < 10){
 	        		$scope.config.hasMoreData = false;
 	        	}
-        	}        	
+        	}
+        	$scope.config.queryResultScrollDelegate.resize();
         })
         .error(function(errorResponse){
         	$scope.config.isLoading = false;
@@ -988,7 +994,6 @@ worksheetModule.controller("WorksheetListCtrl",[
         	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
         });
 	}
-
 	
 	//选择时间		timeType: datetime  、date
     $scope.selectCreateTimeOld = function (type, title, timeType) { // type: start、end
