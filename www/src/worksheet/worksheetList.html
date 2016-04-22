@@ -175,7 +175,7 @@
                                     <div class="row item-line">
                                         <div class="col-28 name">工单描述:</div>
                                         <div class="col-72 value" ng-bind="item.DESCRIPTION"></div>
-                                    </div>
+                                    </div>  
                                     <div class="row item-line">
                                         <div class="col-28 name">客户名称:</div>
                                         <div class="col-72 value single-line-ellipsis" ng-bind="item.NAME1"></div>
@@ -207,9 +207,13 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="loading-more" ng-if="config.hasMoreData && !config.isLoading" ng-click="loadMoreDatas()">
+                        <!--div class="loading-more" ng-if="config.hasMoreData && !config.isLoading" ng-click="loadMoreDatas()">
                             点击加载更多...
-                        </div>
+                        </div-->
+                        <!--ion-infinite-scroll on-infinite="loadMore()" distance="1%">
+                        </ion-infinite-scroll-->
+                        <ion-infinite-scroll ng-show="config.hasMoreData && !config.isReloading" distance="1%" on-infinite="loadMoreDatas() " immediate-check="true"></ion-infinite-scroll>
+
                         <div class="has-more-data-no" ng-if="!config.hasMoreData && !config.isLoading && (config.loadingErrorMsg == null || config.loadingErrorMsg=='')">
                             无更多数据
                         </div>

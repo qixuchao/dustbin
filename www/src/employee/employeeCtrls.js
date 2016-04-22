@@ -223,14 +223,39 @@ employeeModule
             };
         };
         //电话
-        $scope.employeequeryphone =function(types){
-            if(types == undefined || types == ""){
+        //$scope.employeequeryphone =function(types){
+        //    if(types == undefined || types == ""){
+        //        $cordovaToast.showShortBottom('没有数据');
+        //    }else{
+        //        Prompter.showphone(types)
+        //    }
+        //}
+        //拨打电话
+        $scope.employeequeryphone = function(data){
+            console.log(data)
+            if(data.TEL_NUMBER == '' && data.MOB_NUMBER == ""){
                 $cordovaToast.showShortBottom('没有数据');
             }else{
-                Prompter.showphone(types)
+                $ionicActionSheet.show({
+                    buttons: [
+                        {text: data.TEL_NUMBER},
+                        {text: data.MOB_NUMBER},
+                    ],
+                    titleText: '拨打电话',
+                    cancelText: '取消',
+                    buttonClicked: function (index) {
+                        if (index == 0) {
+                            $window.location.href = "tel:" + data.TEL_NUMBER;
+                            return true;
+                        };
+                        if (index == 1) {
+                            $window.location.href = "tel:" + data.MOB_NUMBER;
+                            return true;
+                        }
+                    }
+                })
             }
-
-        }
+        };
         //进入详细界面传递标识
         //初始化本地数据
         if (JSON.parse(localStorage.getItem("usuaemploydb")) != null || JSON.parse(localStorage.getItem("usuaemploydb")) != undefined) {
