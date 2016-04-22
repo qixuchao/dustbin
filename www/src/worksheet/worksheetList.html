@@ -212,7 +212,7 @@
                         </div-->
                         <!--ion-infinite-scroll on-infinite="loadMore()" distance="1%">
                         </ion-infinite-scroll-->
-                        <ion-infinite-scroll ng-show="config.hasMoreData && !config.isReloading" distance="1%" on-infinite="loadMoreDatas() " immediate-check="false"></ion-infinite-scroll>
+                        <ion-infinite-scroll ng-show="config.hasMoreData && !config.isReloading" distance="1%" on-infinite="loadMoreDatas() " immediate-check="true"></ion-infinite-scroll>
 
                         <div class="has-more-data-no" ng-if="!config.hasMoreData && !config.isLoading && (config.loadingErrorMsg == null || config.loadingErrorMsg=='')">
                             无更多数据

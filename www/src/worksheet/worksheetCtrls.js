@@ -837,7 +837,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	$scope.canReLoadData  = function(){
 		return true;
 	};
-	
+
 	$scope.reloadData = function(){
 		//$ionicScrollDelegate.$getByHandle().scrollTop(true);
 		$timeout(function(){
@@ -861,7 +861,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	};
 
 	$scope.loadMoreDatas = function(){
-		if(!$scope.config.hasMoreData){
+		if(!$scope.config.hasMoreData && $scope.config.isReloading){
 			$scope.$broadcast('scroll.infiniteScrollComplete');
 		}
 		// 默认:1 代表开始时间倒序:desc 	 2 是开始时间顺序:aes 	 3 是影响由高到低:
