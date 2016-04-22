@@ -21,7 +21,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter) {
-
+        
         //选择车辆返回的时候，获取车辆信息
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
@@ -33,8 +33,8 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             }
             if(fromState && toState && fromState.name == 'spareList' && toState.name == 'worksheetEdit'){
                 if(worksheetDataService.backObjectProduct != null){
-                    $scope.datas.detail.ES_OUT_LIST.SHORT_TEXT = worksheetDataService.backObjectProduct.SHORT_TEXT;
-                    $scope.datas.detail.ES_OUT_LIST.PRODUCT_ID = worksheetDataService.backObjectProduct.PRODUCT_ID;
+                    $scope.datas.detail.ES_OUT_LIST.CAR_DESC = worksheetDataService.backObjectProduct.SHORT_TEXT;
+                    $scope.datas.detail.ES_OUT_LIST.CAR_NO = worksheetDataService.backObjectProduct.PRODUCT_ID;
                     if(!$scope.$$phase){
                         $scope.$apply();
                     }
@@ -47,7 +47,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         var pleaseChooseId = null;
         var noneValue = '空';
         var noneValueId = null;
-
+        
         $scope.config = {
             typeStr: '',
 
@@ -69,11 +69,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             zhushi: '',
             chulijieguo: ''
         };
-
+        
         $scope.goBack = function(){
             Prompter.wsConfirm("提示","放弃本次编辑?","确定", "取消");
         };
-
+        
         $scope.saveEdited = function(){
             var impact = $scope.config.currentImpact.IMPACT;
             var scenario = $scope.config.currentGuZhangChangJing.SCENARIO;
@@ -117,7 +117,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             };
             __requestUpdateWorksheet(header);
         };
-
+        
         function __requestUpdateWorksheet(headerData){
             var url = worksheetHttpService.serviceDetailChange.url;
             var defaults = worksheetHttpService.serviceDetailChange.defaults;

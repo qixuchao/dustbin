@@ -745,7 +745,19 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                 $scope.selectCustomerModal.hide();
 
                 $scope.config.selectedEmp = x;
-                requestChangeStatus("E0002", "已派工", "正在派工", "派工成功", "派工失败，请检查网络");
+                $cordovaDialogs.confirm("确定派工给"+x.NAME_LAST+x.NAME_FIRST+"吗?", "提示", ["确定","取消"])
+                	.then(function(buttonIndex){
+                		var btnIndex = buttonIndex;
+                		if(btnIndex == 1){
+                			requestChangeStatus("E0002", "已派工", "正在派工", "派工成功", "派工失败，请检查网络");                			
+                		}else{
+                			$scope.cofnig.selectedEmp = null;
+                		}
+                	});
+
+                //Prompter.wsConfirm("提示",isLoadingNum+'张图片正在上传,确定放弃?',"确定", "取消");
+
+                
             };
 
 

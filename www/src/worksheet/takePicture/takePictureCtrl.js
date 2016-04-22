@@ -12,6 +12,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	"worksheetHttpService",
 	"$ionicPopup",
 	"worksheetDataService",
+	"Prompter",
 	function($scope, $timeout, $ionicActionSheet, $ionicPosition,$ionicBackdrop, $ionicGesture, $ionicModal, $state,
 			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService){
 
@@ -33,7 +34,8 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				}
 			}
 			if(isLoadingNum > 0){
-				var confirmPopup = $ionicPopup.confirm({
+				Prompter.wsConfirm("提示",isLoadingNum+'张图片正在上传,确定放弃?',"确定", "取消");
+				/*var confirmPopup = $ionicPopup.confirm({
 					title: '提示',
 					template: isLoadingNum+'张图片正在上传',
 					buttons: [
@@ -52,7 +54,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 							}
 						}
 					]
-				});
+				});*/
 				/*confirmPopup.then(function(res) {
 			       if(res) {
 			         $scope.$ionicGoBack();
@@ -61,7 +63,8 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			     return;
 			}
 			if(needUploadNum > 0){
-				var confirmPopup2 = $ionicPopup.confirm({
+				Prompter.wsConfirm("提示",'还有'+needUploadNum+"张图片需要上传!确定放弃？","确定", "取消");
+				/*var confirmPopup2 = $ionicPopup.confirm({
 					title: '提示',
 					template: '还有'+needUploadNum+"张图片需要上传!",
 					buttons: [
@@ -79,7 +82,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 							}
 						}
 					]
-				});
+				});*/
 				return;
 			}			
 			$scope.$ionicGoBack();
