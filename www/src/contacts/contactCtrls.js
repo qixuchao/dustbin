@@ -1115,11 +1115,11 @@ ContactsModule
                 resize();
             };
         $scope.contactlistvaluesel = [{
-                    typId:'１',
-                    name:'中文'
+                    typId:"1",
+                    name:"中文"
                 },{
-                    typeId:'E',
-                    name:'英语'
+                    typeId:"E",
+                    name:"英语"
                 }];
         $scope.contactlistTitle = [{
                codeId:'0002',
@@ -1211,6 +1211,7 @@ ContactsModule
                     "COUNTRY": "",
                     "LANDX":"",
                     "REGION": "",
+                    "SPTXT":"",
                     "CITY1": "",
                     "POST_CODE1": "",
                     "LANGU2": "",
@@ -1240,13 +1241,14 @@ ContactsModule
             data.IS_CUSTOMER.NAME_LAST = $scope.contactedit.NAME_LAST;
             data.IS_CUSTOMER.BIRTHDT = $scope.contactedit.BIRTHDT;
             data.IS_CUSTOMER.LANGU2 = $scope.config.currentLanguage;
-            data.IS_CUSTOMER.LANGU = $scope.config.currentLanguage.typeId;
+            data.IS_CUSTOMER.LANGU = $scope.config.currentLanguage;
+            data.IS_CUSTOMER.SPTXT = $scope.config.currentLanguage;
             data.IS_CUSTOMER.FNCTN = $scope.contactedit.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactedit.DPRTMNT;
             data.IS_CUSTOMER.COUNTRY = $scope.config.currentCountry.COUNTRY;
-            data.IS_CUSTOMER.LANDX = $scope.config.currentCountry.LANDX;
+            data.IS_CUSTOMER.LANDX = $scope.config.currentCountry.COUNTRY_NAME;
             data.IS_CUSTOMER.REGION = $scope.config.currentProvence.REGION;
-            data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY;
+            data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactedit.POST_CODE1;
             data.IS_CUSTOMER.STREET = $scope.contactedit.STREET;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactedit.TEL_NUMBER;
@@ -1355,17 +1357,16 @@ ContactsModule
             }
         }
         //国家。省，市级联下拉框
-        $scope.contactedit.CITY="";
         $scope.country=[];
         $scope.provence=[];
         $scope.city=[];
         $scope.countryCode="";
         $scope.provenceCode="";
         $scope.config = {
-            currentCountry:$scope.contactedit.COUNTRY ,
-            currentProvence:$scope.contactedit.REGION,
-            currentCity:$scope.contactedit.CITY,
-            currentLanguage:{},
+            currentCountry:$scope.contactedit.COUNTRY_NAME ,
+            currentProvence:{},
+            currentCity:{},
+            currentLanguage:$scope.contactedit.SPTEX,
             currentTitile:$scope.contactedit.TITLE
         };
             console.log(angular.toJson($scope.config)+"sdsdsd");
