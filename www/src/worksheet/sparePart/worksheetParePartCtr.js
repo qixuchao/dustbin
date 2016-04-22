@@ -29,57 +29,59 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     $scope.goSAPInfos = $scope.goSAPInfos.concat(worksheetDetail);
                 }
                 console.log($scope.goSAPInfos);
+            $scope.goMore = false;//等待更多
+            $scope.goNo = false;//没有
+            $scope.goLoad = true;//加载
+            $scope.goLoadUp = false;
+            $scope.isActive = true;
+            var numPage = 1;
+            var dataCang = {
+                "I_SYSTEM": { "SysName": "CATL" },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName }
+            }
+            $scope.infos;
+            //$scope.goSAPInfos = new Array();
+            //cangku
+            var urlCang = ROOTCONFIG.hempConfig.basePath + 'SERVICE_ORDER_STORAGE';
+            HttpAppService.post(urlCang, dataCang).success(function(response){
+                $scope.wareHouse = response.ET_STORAGE.item;
+                console.log(response+"仓库");
+            }).error(function(err){
+                console.log(err);
             });
-        $scope.goMore = false;//等待更多
-        $scope.goNo = false;//没有
-        $scope.goLoad = true;//加载
-        $scope.goLoadUp = false;
-        var numPage = 1;
-        var dataCang = {
-            "I_SYSTEM": { "SysName": "CATL" },
-            "IS_USER": { "BNAME": "" }
-        }
-        $scope.infos;
-        //$scope.goSAPInfos = new Array();
-        //cangku
-        var urlCang = ROOTCONFIG.hempConfig.basePath + 'SERVICE_ORDER_STORAGE';
-        HttpAppService.post(urlCang, dataCang).success(function(response){
-            $scope.wareHouse = response.ET_STORAGE.item;
-            console.log(response+"仓库");
-        }).error(function(err){
-            console.log(err);
-        });
 
-        var data = {
-            "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            "IS_USER": { "BNAME": "" },
-            "IS_PAGE": {
-                "CURRPAGE": numPage,
-                "ITEMS": "10"
-            },
-            "IS_VEHICLID": {
-                "PRODUCT_ID": worksheetDataService.wsDetailData.ES_OUT_LIST.CAR_NO,
-                "PRODUCT_TEXT": ""
+            var data = {
+                "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
+                "IS_PAGE": {
+                    "CURRPAGE": numPage,
+                    "ITEMS": "10"
+                },
+                "IS_VEHICLID": {
+                    "PRODUCT_ID": worksheetDataService.wsDetailData.ES_OUT_LIST.CAR_NO,
+                    "PRODUCT_TEXT": ""
+                }
             }
-        }
-        console.log(data);
-        var url = ROOTCONFIG.hempConfig.basePath + 'ATTACHMENT_LIST';
-        HttpAppService.post(url, data).success(function(response){
-            $scope.goLoad = false;
-            $scope.goMore = true;
-            infosItem = response.ET_COMM_LIST.Item;
-            console.log(infosItem);
-            $scope.infos = infosItem;
-            for(var i=0;i<$scope.infos.length;i++){
-                $scope.infos[i].APPLY_NUM = 0;//数量
-                $scope.infos[i].ishave = true;//是否已被选择 显示
-                $scope.infos[i].checked = "NO";//是否默认
-            }
-            console.log($scope.infos);
-            $scope.deletePro("");
-        }).error(function(err){
+            console.log(data);
+            var url = ROOTCONFIG.hempConfig.basePath + 'ATTACHMENT_LIST';
+            HttpAppService.post(url, data).success(function(response){
+                $scope.goLoad = false;
+                $scope.goMore = true;
+                infosItem = response.ET_COMM_LIST.Item;
+                console.log(infosItem);
+                $scope.infos = infosItem;
+                for(var i=0;i<$scope.infos.length;i++){
+                    $scope.infos[i].APPLY_NUM = 0;//数量
+                    $scope.infos[i].ishave = true;//是否已被选择 显示
+                    $scope.infos[i].checked = "NO";//是否默认
+                }
+                console.log($scope.infos);
+                $scope.deletePro("");
+            }).error(function(err){
 
-        });
+            });
+            });
+
         //去除其他仓库选择的产品
         //$scope.addDel = [];
         $scope.deletePro = function(warehouse){
@@ -123,7 +125,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 numPage++;
                 data = {
                     "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                    "IS_USER": { "BNAME": "" },
+                    "IS_USER": { "BNAME": window.localStorage.crmUserName },
                     "IS_PAGE": {
                         "CURRPAGE": numPage,
                         "ITEMS": "10"
@@ -175,7 +177,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             console.log(($scope.config.searchInfos));
             var dataSeach = {
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_USER": { "BNAME": "" },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "IS_PAGE": {
                     "CURRPAGE": searchNum,
                     "ITEMS": "10"
@@ -351,7 +353,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             }
             var data={
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_BY },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_OBJECT_ID": worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE,
                 "IT_MAT_LIST": {
@@ -461,7 +463,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         $scope.updateInfos = function(){
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_BY },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
             }
@@ -569,7 +571,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                         var btnIndex = buttonIndex;
                         if (btnIndex == 1) {
                             worksheetHttpService.setSparePart("");
-                            gobackDetail();
+                            $ionicHistory.goBack();
                         }
                     });
             }else{
@@ -656,7 +658,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
             }
             var data={
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_BY },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_OBJECT_ID": worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE,
                 "IT_MAT_LIST": {
@@ -698,7 +700,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         $scope.updateInfos = function(){
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_AUTHORITY": { "BNAME": worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_BY },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
             }

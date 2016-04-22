@@ -1,6 +1,6 @@
 
-worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast){
-    $ionicPopover.fromTemplateUrl('src/customer/customerFuZe/customer_selectbyD.html', {
+worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast','contactService',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast,contactService){
+    $ionicPopover.fromTemplateUrl('src/customer/customerContacts/customer_selectConbyD.html', {
             scope: $scope
         }).then(function(popover) {
             $scope.relatedpopover = popover;
@@ -19,15 +19,19 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
         goLoad : false,
         goNo : false
     }
-        $scope.related_types = ['联系人'];
+        $scope.related_types = ['扫描名片创建联系人','手动创建联系人'];
         $scope.relatedqueryType = function(types){
             console.log(types);
-            if(types === "联系人"){
+            if(types === "手动创建联系人"){
                 //$state.go("worksheetRelatedPartContact");
-                $scope.openSelectCon();
-            }else if(types === ""){
+                //$scope.openSelectCon();
+                contactService.set_ContactCreateflag();
+                $state.go('ContactCreate');
+            }else if(types === "扫描名片创建联系人"){
                 //$state.go("worksheetRelatedPartCust");
-                $scope.openSelectCustomer();
+                //$scope.openSelectCon();
+                contactService.set_ContactCreateflag();
+                $state.go('ContactCreate');
             }
 
             $scope.relatedPopoverhide();
@@ -38,6 +42,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
                 Prompter.showLoading("正在删除");
                 var data={
                     "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                     "IS_RELATIONSHIP": {
                         "RELNR": "",
                         "RELTYP": "BUR001",
@@ -81,6 +86,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
         }
         var data = {
             "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_PAGE": {
                 "CURRPAGE": customerPage++,
                 "ITEMS": "10"
@@ -127,6 +133,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
         }
         var data = {
             "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_PAGE": {
                 "CURRPAGE": conPage++,
                 "ITEMS": "10"
@@ -192,6 +199,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
         Prompter.showLoading("正在添加");
         var data={
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_RELATIONSHIP": {
                 "RELNR": "",
                 "RELTYP": "BUR011",
@@ -231,6 +239,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
         $scope.config.goMore = false;
         var data = {
             "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_PAGE": {
                 "CURRPAGE": conpageNum++,
                 "ITEMS": "10"

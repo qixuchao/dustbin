@@ -35,6 +35,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
                 Prompter.showLoading("正在删除");
                 var data={
                     "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                     "IS_RELATIONSHIP": {
                         "RELNR": "",
                         "RELTYP": "BUR011",
@@ -78,6 +79,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
         }
         var data = {
             "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_PAGE": {
                 "CURRPAGE": customerPage++,
                 "ITEMS": "10"
@@ -122,6 +124,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
         }
         var data = {
             "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_PAGE": {
                 "CURRPAGE": conPage++,
                 "ITEMS": "10"
@@ -191,6 +194,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
         Prompter.showLoading("正在添加");
         var data={
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_RELATIONSHIP": {
                 "RELNR": "",
                 "RELTYP": "BUR011",
@@ -227,7 +231,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
        var data = {
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
             "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER },
-            "IS_AUTHORITY": { "BNAME": "HANDLCX02" }
+           "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
         }
         console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
