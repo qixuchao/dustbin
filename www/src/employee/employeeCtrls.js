@@ -3,7 +3,8 @@
  */
 'use strict';
 employeeModule
-    .controller('userQueryCtrl',['$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading',function($scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading){
+    .controller('userQueryCtrl',['$ionicActionSheet','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading',
+        function($ionicActionSheet,$scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading){
         $scope.searchFlag=false;
         $scope.employ={
             employeefiledvalue:''
@@ -401,9 +402,10 @@ employeeModule
         }
 
     }])
-    .controller('customerListCtrl',['$scope','$rootScope','$state','$cordovaToast','$ionicModal','HttpAppService','saleActService','$ionicScrollDelegate','ionicMaterialInk','employeeService',function($scope,$rootScope,$state,$cordovaToast,$ionicModal,HttpAppService,saleActService,$ionicScrollDelegate,ionicMaterialInk,employeeService){
+    .controller('customerListCtrl',['Prompter','$scope','$rootScope','$state','$cordovaToast','$ionicModal','HttpAppService','saleActService','$ionicScrollDelegate','ionicMaterialInk','employeeService',
+        function(Prompter,$scope,$rootScope,$state,$cordovaToast,$ionicModal,HttpAppService,saleActService,$ionicScrollDelegate,ionicMaterialInk,employeeService){
         ionicMaterialInk.displayEffect();
-        console.log(employeeService.get_employeecustomerlist())
+        console.log(employeeService.get_employeecustomerlist());
         $scope.employcustomerlist = new Array;
         if(employeeService.get_employeecustomerlist() == undefined){
             $scope.employcustomerlist = [];
@@ -495,67 +497,24 @@ employeeModule
                 document.getElementById('selectCustomerId').focus();
             }, 1)
         };
-        //获取数据列表函数
-        $scope.employLoadmore = function(){
-            //$scope.employisshow = true;
-            $scope.empitemPage += 1;
-            var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST';
+        //更新客户列表
+        $scope.updateCustomer=function(){
+            var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_DETAIL';
             var data = {
-                "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                "IS_PAGE": {
-                    "CURRPAGE": $scope.empitemPage,
-                    "ITEMS": "10"
-                },
-                "IS_EMPLOYEE": {"NAME":employeeService.get_employeeListvalue().PARTNER}
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_EMPLOYEE": { "PARTNER": employeeService.get_employeeListvalue().PARTNER}
             };
             HttpAppService.post(url, data).success(function (response) {
                 if (response.ES_RESULT.ZFLAG == 'E') {
-                    $scope.employisshow = false;
-                    $cordovaToast.showShortCenter('无符合条件数据');
-                } else {
-                    if (response.ES_RESULT.ZFLAG == 'S') {
-
-                        if(response.ET_EMPLOYEE != '') {
-
-                            if (response.ET_EMPLOYEE.item.length == 0) {
-                                $scope.employisshow = false;
-                                Prompter.hideLoading();
-                                if ($scope.empitemPage == 1) {
-                                    $cordovaToast.showShortBottom('数据为空');
-                                } else {
-                                    $cordovaToast.showShortBottom('没有更多数据');
-                                }
-                                $scope.$broadcast('scroll.infiniteScrollComplete');
-                            } else {
-                                console.log(angular.toJson((response.ET_EMPLOYEE.item)));
-                                $.each(response.ET_EMPLOYEE.item, function (n, value) {
-                                    if($scope.employ.employeefiledvalue===""){
-                                        $scope.employee_query_list=new Array;
-                                    }else{
-                                        $scope.employee_query_list.push(value);
-                                    }
-
-                                });
-                            }
-                            if (response.ET_EMPLOYEE.item.length < 10) {
-                                $scope.employisshow = false;
-                                if ($scope.empitemPage > 1) {
-                                    //console.log("没有更多数据了");
-                                    $cordovaToast.showShortBottom('没有更多数据');
-                                }
-                            } else {
-                                $scope.employisshow = true;
-                            }
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        }else{
-                            $cordovaToast.showShortBottom('搜索数据为空');
-                        }
-
-                    };
-                }
-            }).error(function (response, status) {
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                } else if(response.ET_RELATIONSHIP != ''){
+                    console.log(angular.toJson(response.ET_RELATIONSHIP));
+                    $scope.employcustomerlist=response.ET_RELATIONSHIP.item;
+                    }
+                Prompter.hideLoading();
+            }).error(function(){
+                Prompter.hideLoading();
                 $cordovaToast.showShortBottom('请检查你的网络设备');
-                $scope.employisshow = false;
             });
         };
         //添加客户
@@ -582,20 +541,19 @@ employeeModule
                     console.log(response.ES_RESULT.ZRESULT);
                   $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }else{
-                    $scope.employLoadmore();
-                    //var name={
-                    //    NAME:x.NAME_ORG1
-                    //};
-                    //$scope.employcustomerlist.unshift(name);
+
+                    $scope.updateCustomer();
                     console.log("添加成功");
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT)
                 }
             });
-            $scope.getCustomerArr();
+            //$scope.getCustomerArr();
             $scope.contactsLoadMoreFlag = true;
             //$scope.getContacts();
             $scope.selectCustomerModal.hide();
         };
-        $scope.deleteCustomer=function(i,customer){
+        //删除客户信息
+        $scope.deleteCustomer=function(customer){
             console.log(customer);
             var url=ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
             var data={
@@ -618,7 +576,9 @@ employeeModule
                     console.log(response.ES_RESULT.ZRESULT);
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }else {
-                    $scope.employcustomerlist.splice(i,1);
+                    $scope.employcustomerlist=new Array;
+                    $scope.updateCustomer();
+                    //$scope.employcustomerlist.splice(i,1);
                     console.log("删除成功");
                 }
             })
