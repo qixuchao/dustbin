@@ -34,7 +34,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             $scope.goLoad = true;//加载
             $scope.goLoadUp = false;
             $scope.isActive = true;
-            var numPage = 1;
+            $scope.numPage = 1;
             var dataCang = {
                 "I_SYSTEM": { "SysName": "CATL" },
                 "IS_USER": { "BNAME": window.localStorage.crmUserName }
@@ -54,7 +54,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "IS_PAGE": {
-                    "CURRPAGE": numPage,
+                    "CURRPAGE": $scope.numPage,
                     "ITEMS": "10"
                 },
                 "IS_VEHICLID": {
@@ -122,12 +122,12 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             if($scope.goNo){
 
             }else{
-                numPage++;
+                $scope.numPage++;
                 data = {
                     "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                     "IS_USER": { "BNAME": window.localStorage.crmUserName },
                     "IS_PAGE": {
-                        "CURRPAGE": numPage,
+                        "CURRPAGE": $scope.numPage,
                         "ITEMS": "10"
                     },
                     "IS_VEHICLID": {
@@ -135,11 +135,12 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         "PRODUCT_TEXT": ""
                     }
                 }
-                console.log(numPage);
+                console.log($scope.numPage);
                 console.log(data);
                 $scope.goLoad = true;
                 $scope.goMore = false;
-                HttpAppService.post(url, data).success(function(response){
+                var uri = ROOTCONFIG.hempConfig.basePath + 'ATTACHMENT_LIST';
+                HttpAppService.post(uri, data).success(function(response){
                     $scope.goLoad = false;
                     $scope.goMore = true;
                     var infosItem = response.ET_COMM_LIST.Item;
@@ -193,14 +194,20 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 searchNum++;
                 $scope.goLoadUp = false;
                 var infosItem = response.ET_COMM_LIST.Item;
+                console.log(response);
                 console.log(infosItem);
+                console.log($scope.infos);
                 if(infosItem === undefined){
                     $cordovaToast.showShortBottom('未搜索到相关备件');
                 }else{
                     for(var m=0;m<infosItem.length;m++){
                         for(var k=0;k<$scope.infos.length;k++){
-                            if($scope.infos[k].PRODUCT_ID === infosItem[m].PRODUCT_ID){
+                            console.log($scope.infos[k].PRODUCT_ID);
+                            console.log(infosItem[m].PRODUCT_ID);
+                            if($scope.infos[k].PRODUCT_ID == infosItem[m].PRODUCT_ID){
                                 infosItem.splice(m,1);
+                                console.log("相同啊");
+                                console.log(infosItem);
                             }
                         }
                     }
@@ -497,6 +504,9 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 console.log((err));
             });
         }
+        $scope.goCustomer = function(){
+            $state.go("worksheetSelectPro");
+        }
 }]);
 
 
@@ -733,3 +743,174 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
             });
         }
     }]);
+
+//chanpin
+/**
+ * Created by Administrator on 2016/3/22 0022.
+ */
+spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootScope','$cordovaToast','worksheetDataService','HttpAppService','$http','SpareListService','$state','$scope','Prompter','$timeout',
+    "$ionicHistory",
+    function ($ionicScrollDelegate,$rootScope,$cordovaToast,worksheetDataService,HttpAppService,$http,SpareListService,$state,$scope,Prompter,$timeout, $ionicHistory){
+        var page=0;
+        $scope.spareList=[];
+        $scope.spareList1=[];
+        $scope.data=[];
+        $scope.spareInfo="";
+        $scope.spareimisshow=false;
+        $scope.searchFlag=false;
+        $scope.isSearch=false;
+        $scope.showFlag=worksheetDataService.selectedProduct;
+
+
+        $scope.spareListHistoryval = function(){
+
+            if(storedb('sparedb').find().arrUniq() != undefined || storedb('sparedb').find().arrUniq() != null){
+                $scope.data = (storedb('sparedb').find().arrUniq());
+                if ($scope.data.length > 5) {
+                    $scope.data = $scope.data.slice(0, 5);
+                }
+            }
+
+            //if(storedb('sparedb1').find().arrUniq() != undefined || storedb('sparedb1').find().arrUniq() != null){
+            //    $scope.spareList1 = (storedb('sparedb1').find().arrUniq());
+            //    if ($scope.spareList1.length > 15) {
+            //        $scope.spareList1 = $scope.spareList1.slice(0,15);
+            //    }
+            //}
+            if (JSON.parse(localStorage.getItem("oftenSparedb")) != null || JSON.parse(localStorage.getItem("oftenSparedb")) != undefined) {
+                $scope.spareList1 = JSON.parse(localStorage.getItem("oftenSparedb"));
+                //console.log($scope.spareList1.SHORT_TEXT);
+                if ($scope.spareList1.length > 15) {
+                    $scope.spareList1 = $scope.spareList1.slice(0, 15);
+                }
+            } else {
+                $scope.spareList1 = [];
+            }
+        };
+        $scope.spareListHistoryval();
+
+        //广播修改界面显示flag
+        $rootScope.$on('customercontactCreatevalue', function(event, data) {
+            console.log("接收成功"+data);
+            $scope.searchFlag =data;
+            $scope.spareInfo ="";
+            $scope.cancelSearch();
+
+            //$scope.spareListHistoryval();
+        });
+        //$rootScope.$on('sparelist', function(event, data) {
+        //    console.log("接收成功1");
+        //
+        //    $scope.spareListHistoryval();
+        //
+        //});
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            if(fromState && toState && fromState.name == 'worksheetEdit'){
+                // worksheetDataService.selectedProduct="";
+            }
+        });
+        $scope.changePage=function(){
+            $scope.searchFlag=true;
+            //$timeout(function () {z
+            //    document.getElementById('spareId').focus();
+            //}, 1)
+        };
+        $scope.changeSearch=function(){
+            $scope.isSearch=true;
+        };
+        $scope.initSearch = function () {
+            $scope.spareInfo = '';
+            //$timeout(function () {
+            //    document.getElementById('spareId').focus();
+            //}, 1)
+        };
+        $scope.cancelSearch=function(){
+            $scope.searchFlag=false;
+            $scope.spareInfo = '';
+            $scope.spareList=new Array;
+            $scope.spareListHistoryval();
+            page=0;
+        };
+        $scope.search = function (x, e) {
+            Prompter.showLoading('正在搜索');
+            $scope.searchFlag=true;
+            $scope.spareInfo = x;
+            $scope.spareLoadmoreIm();
+        };
+        $scope.spareLoadmoreIm = function() {
+            //$scope.spareimisshow = false;
+            //console.log("第1步");
+            page+=1;
+            var url = ROOTCONFIG.hempConfig.basePath + 'PRODUCT_LIST';
+            var data = {
+                "I_SYSNAME": {"SysName": "CATL"},
+                "IS_PAGE": {
+                    "CURRPAGE": page,
+                    "ITEMS": "10"
+                },
+                "IS_PRODMAS_INPUT": {"SHORT_TEXT": $scope.spareInfo}
+            };
+            HttpAppService.post(url, data).success(function (response) {
+                console.log(page);
+                if (response.ES_RESULT.ZFLAG == 'E') {
+                    //console.log("第3步");
+                    $scope.spareimisshow = false;
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                } else {
+                    if (response.ES_RESULT.ZFLAG == 'S') {
+                        //console.log("第4步");
+                        Prompter.hideLoading();
+                        $scope.spareimisshow = false;
+                        if (response.ET_PRODMAS_OUTPUT.item.length == 0) {
+                            if (page == 1) {
+                                $cordovaToast.showShortBottom('数据为空');
+                            } else {
+                                $cordovaToast.showShortBottom('没有更多数据了');
+                            }
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        } else {
+                            //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
+                            $.each(response.ET_PRODMAS_OUTPUT.item, function (n, value) {
+                                if($scope.spareInfo===""){
+                                    $scope.spareList=new Array;
+                                }else{
+                                    $scope.spareList.push(value);
+                                }
+                                //console.log("第5步");
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
+                            });
+                        }
+                        if (response.ET_PRODMAS_OUTPUT.item.length < 10) {
+                            $scope.spareimisshow = false;
+                            if (page > 1) {
+                                $cordovaToast.showShortBottom('没有更多数据了');
+                            }
+                        } else {
+                            if($scope.spareList.length===0){
+                                $scope.spareimisshow=false;
+                            }else{
+                                $scope.spareimisshow = true;
+                            }
+                        }
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                    }
+                }
+            }).error(function (response, status) {
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+                $scope.spareimisshow = false;
+            });
+        };
+        //初始化本地数据库
+        if (JSON.parse(localStorage.getItem("oftenSparedb")) != null || JSON.parse(localStorage.getItem("oftenSparedb")) != undefined) {
+            $scope.oftenSpareList = JSON.parse(localStorage.getItem("oftenSparedb"));
+        }else{
+            $scope.oftenSpareList=new Array;
+        }
+        $scope.initLoad=function(){
+            page=0;
+            $scope.spareList = new Array;
+            $scope.spareLoadmoreIm();
+        };
+    }
+])

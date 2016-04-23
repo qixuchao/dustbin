@@ -5,7 +5,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     "worksheetDataService",
     function($scope, ionicMaterialInk, ionicMaterialMotion, worksheetDataService){
     
-
+    
     $scope.config = {
         currentTip: "暂无数据",
         noDatas: false
