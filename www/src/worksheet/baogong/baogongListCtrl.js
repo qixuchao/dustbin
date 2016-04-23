@@ -5,7 +5,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     "worksheetDataService",
     function($scope, ionicMaterialInk, ionicMaterialMotion, worksheetDataService){
     
-
+    
     $scope.config = {
         currentTip: "暂无数据",
         noDatas: false
@@ -42,7 +42,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         $scope.datas.baogongDatas = worksheetDataService.wsDetailData.ET_DETAIL.item;
         console.log($scope.datas.baogongDatas);
         if(!$scope.datas.baogongDatas ||$scope.datas.baogongDatas.length <=0){
-            $scope.config.currentTip = "该工单暂无报工信息!";
+            $scope.config.currentTip = "该工单暂无费用结算信息!";
             $scope.config.noDatas = true;
         }
     };

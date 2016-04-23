@@ -23,6 +23,17 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$cordovaDatePicker,
 		HttpAppService, worksheetHttpService, worksheetDataService, customeService, CarService, $cordovaToast){
 	
+	$scope.safeApply = function(fn){
+	   var phase = this.$root.$$phase;
+	   if (phase == '$apply' || phase == '$digest') {
+	       if (fn && ( typeof (fn) === 'function')) {
+	          fn();
+	       }
+	   } else {
+	       this.$apply(fn);
+	   }
+	}
+
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
         /*ionicMaterialMotion.fadeSlideIn({
@@ -154,7 +165,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 	    historyStrs: [{text:"测试1"},{text:'测试2'},{text:'测试3'}],
 
-
 	    //从其他界面跳转到该界面的一些参数信息
 	    isFromCustomer: false,
 	    PARTNER: null,
@@ -211,17 +221,25 @@ worksheetModule.controller("WorksheetListCtrl",[
 		eleContent.addClass("has-header");
 		$scope.config.queryModeNew = false;
 		if($scope.config.searchText && $scope.config.searchText!=""){
-			var hasExist = false;
-			for (var i = 0; i < $scope.config.historyStrs.length; i++) {
-				if($scope.config.historyStrs[i].text == $scope.config.searchText){
-					hasExist = true;
-				}
-			};
-			if(!hasExist){
-				$scope.config.historyStrs.push({text: $scope.config.searchText});
-			}
+			__addHistoryStr($scope.config.searchText);
 		}
 	};
+	function __addHistoryStr(str){ 
+		if(!str || str == ""){ return; }
+		var hasExist = false;
+		for (var i = 0; i < $scope.config.historyStrs.length; i++) {
+			if($scope.config.historyStrs[i].text == $scope.config.searchText){
+				hasExist = true;
+			}
+		};
+		if(!hasExist){
+			$scope.config.historyStrs.push({text: $scope.config.searchText});
+			worksheetDataService.setStored("weeksheetListQueryHistory", JSON.stringify($scope.config.historyStrs));
+		}
+	}
+
+
+
 	$scope.clickSearchInput = function(){
 		var eleContent = angular.element("#xbr-worksheet-list-content");
 		//eleContent.removeClass("has-header");
@@ -233,6 +251,18 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.showHistoryLog = false;
 		$scope.config.searchInputHasText = true;
 		$scope.reloadData();
+	};
+	$scope.searchInputOnKeyup = function(e){
+		var keycode = window.event ? e.keyCode : e.which;
+		//alert(keycode);
+        if(keycode==13){
+        	$scope.enterListMode();
+			$scope.config.showHistoryLog = false;
+			$scope.config.searchInputHasText = true;
+            $scope.reloadData();
+            return true;
+        }
+        return false;
 	};
 	$scope.onSearchTextChange = function($event){
 		//console.log("onSearchTextChange");
@@ -422,6 +452,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	$scope.goDetailState = function(item, i){
 		//工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
 		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
+		__addHistoryStr($scope.config.searchText);
 		worksheetDataService.worksheetList.toDetail = {
 			"IS_OBJECT_ID": item.OBJECT_ID,
     		"IS_PROCESS_TYPE": item.PROCESS_TYPE,
@@ -830,12 +861,16 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 	$scope.reloadData = function(){
 		//$ionicScrollDelegate.$getByHandle().scrollTop(true);
-		$scope.config.queryResultScrollDelegate.scrollTop(true);
+		$timeout(function(){
+			$scope.config.queryResultScrollDelegate.scrollTop(true);
+		}, 200);
 		delete $scope.datas.serviceListDatas;
 		$scope.datas.serviceListDatas = [];
+		console.log("reloadData  ---  start");
 		if(!$scope.$$phase) {
         	$scope.$apply();
         }
+        console.log("reloadData  ---  end");
 		if($scope.canReLoadData()){
 			$scope.config.currentPage = 0;
 			$scope.config.hasMoreData = true;
@@ -847,13 +882,15 @@ worksheetModule.controller("WorksheetListCtrl",[
 	};
 
 	$scope.loadMoreDatas = function(){
+		if(!$scope.config.hasMoreData && $scope.config.isReloading){
+			$scope.$broadcast('scroll.infiniteScrollComplete');
+		}
 		// 默认:1 代表开始时间倒序:desc 	 2 是开始时间顺序:aes 	 3 是影响由高到低:
 		var sortedInt = $scope.config.sortedTypeTimeAes ? "2" : (
 				$scope.config.sortedTypeTimeDesc ? "1" : (
 						$scope.config.sortedTypeCompactDesc ? "3" : "1" 
 					)
 			);
-		
 
 		var queryParams = {
 			IS_PAGE: {CURRPAGE: ++$scope.config.currentPage, ITEMS: 10},
@@ -884,8 +921,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail;
 		}
 
-		
-
 		//console.log(queryParams);
 		if($scope.config.hasMoreData){
 			__requestServiceList(queryParams);
@@ -897,10 +932,12 @@ worksheetModule.controller("WorksheetListCtrl",[
 		// = $scope.config.timeStart    = $scope.config.timeEnd
 		//$scope.config.timeStartDefault  = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000).format("yyyy-MM-dd");
 		//$scope.config.timeEndDefault  = new Date().format("yyyy-MM-dd");
+		
+
 
 		$timeout(function () {
-                ionicMaterialInk.displayEffect();
-            }, 100);
+            ionicMaterialInk.displayEffect();
+        }, 100);
 		$scope.enterListMode();
 
 		$timeout(function (){
@@ -935,6 +972,12 @@ worksheetModule.controller("WorksheetListCtrl",[
 			template: '你好不'
 		});*/
 		//justTest();
+		var historys = worksheetDataService.getStoredByKey("weeksheetListQueryHistory");
+		if(historys){
+			$scope.config.historyStrs = JSON.parse(historys);
+		}else{
+			$scope.config.historyStrs = [];
+		}
 	};
 	$scope.init();
 
@@ -963,6 +1006,8 @@ worksheetModule.controller("WorksheetListCtrl",[
         		$scope.config.isReloading = false;
         		$scope.$broadcast('scroll.refreshComplete');
         		$scope.datas.serviceListDatas = [];
+        	}else{
+        		$scope.$broadcast('scroll.infiniteScrollComplete');
         	}
         	if(response.ES_RESULT.ZFLAG == "E"){ // 未加载到数据
         		$scope.config.hasMoreData = false;
@@ -975,7 +1020,11 @@ worksheetModule.controller("WorksheetListCtrl",[
         	if(response.ET_OUT_LIST){
         		response.T_OUT_LIST = angular.copy(response.ET_OUT_LIST);
         	}
-        	if(response.T_OUT_LIST.item && response.T_OUT_LIST.item.length){
+        	if(response.T_OUT_LIST && response.T_OUT_LIST.item1){
+        		response.T_OUT_LIST.item = angular.copy(response.T_OUT_LIST.item1);
+        		delete response.T_OUT_LIST.item1;
+        	}
+        	if(response.T_OUT_LIST.item && !!response.T_OUT_LIST.item.length){
         		$scope.datas.serviceListDatas = $scope.datas.serviceListDatas.concat(response.T_OUT_LIST.item);
 	        	if(response.T_OUT_LIST.item.length < 10){
 	        		$scope.config.hasMoreData = false;
@@ -1024,7 +1073,7 @@ worksheetModule.controller("WorksheetListCtrl",[
                         $scope.config.timeEnd = time;
                         break;
                 }
-                if(!$scope.$scope.$$phase){
+                if(!$scope.$$phase){
                 	$scope.$apply();
                 }
             });
@@ -1113,7 +1162,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	            	}
 	                break;
 	        }
-	        if(!$scope.$$phrese){
+	        if(!$scope.$$phase){
 	            $scope.$apply();
 	        }
         });

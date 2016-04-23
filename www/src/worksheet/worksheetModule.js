@@ -21,6 +21,7 @@ worksheetModule.directive('crmToast', function() {
     };
 });
 
+
 worksheetModule.filter('xbrParseInt', function(){
   var fn = function (str) {
       return window.parseInt(str);
@@ -87,11 +88,14 @@ worksheetModule.service('worksheetDataService', [function(){
     getStoredByKey: function(key){
       if(key == "userName"){
         return window.localStorage.crmUserName;
-      }
-      if(key == "sysName"){
+      }else if(key == "sysName"){
         return "CATL";
+      }else{
+        return window.localStorage[key];
       }
-      
+    },
+    setStored: function(key, value){
+      window.localStorage[key] = value;
     }
     /*{
       ydWorksheetNum: 

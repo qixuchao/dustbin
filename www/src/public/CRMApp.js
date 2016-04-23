@@ -348,6 +348,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             templateUrl: 'src/worksheet/sparePart/worksheet_spareSelect.html',
             controller: 'WorksheetPareSelectCtrl'
         })
+        .state('worksheetSelectPro', {
+            url: '/worksheetSelectPro',
+            templateUrl: 'src/worksheet/sparePart/worksheet_pro.html',
+            controller: 'worksheetSpareListCtrl'
+        })
         .state('worksheetRelatedPart', {
             url: '/worksheetRelatedPart',
             templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',

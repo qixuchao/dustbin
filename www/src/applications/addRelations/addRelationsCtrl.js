@@ -102,7 +102,7 @@ salesModule
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         } else {
-                            Prompter.alert(response.ES_RESULT.ZRESULT);
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                             $scope.relationSpinnerFlag = true;
                             $scope.relationSearch = true;
                         }
@@ -164,7 +164,7 @@ salesModule
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         } else {
-                            Prompter.alert(response.ES_RESULT.ZRESULT);
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                             $scope.relationSpinnerFlag = true;
                             $scope.relationSearch = true;
                         }
@@ -210,7 +210,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         } else {
-                            Prompter.alert(response.ES_RESULT.ZRESULT);
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                             $scope.relationSpinnerFlag = true;
                             $scope.relationSearch = true;
                         }

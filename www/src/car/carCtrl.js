@@ -10,10 +10,10 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
     $scope.carInfo="";
     $scope.data=[];
     var page=0;
-        $scope.config={
-            changeData:false,
-            backParameter:worksheetDataService.selectedCheLiang
-        };
+    $scope.config={
+        changeData:false,
+        backParameter:worksheetDataService.selectedCheLiang
+    };
     $scope.search = function (x, e){
         Prompter.showLoading('正在搜索');
         $scope.searchFlag=true;
@@ -25,14 +25,13 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         $scope.searchFlag =data;
         $scope.carInfo="";
         $scope.cancelSearch();
-
     });
     $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         if(fromState && toState && fromState.name == 'worksheetDetail'){
             worksheetDataService.selectedCheLiang="";
         }
     });
-
+    
     $scope.carListHistoryval = function(){
         if(storedb('cardb').find().arrUniq() != undefined || storedb('cardb').find().arrUniq() != null){
             $scope.data = (storedb('cardb').find().arrUniq());

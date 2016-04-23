@@ -1,8 +1,10 @@
 customerModuleServive
     .factory('customeService', [function() {
         var customerlistdeatilvalue;
-        var customerContactsvalues;
-        var customerWorkordervalue;
+        var customerContactsvalues ;
+        var customerWorkordervalue = {
+            PARTNER:""
+        };
         var customerContactvalue;
         var customerDetailEditvalue;
         var customerFuZe;

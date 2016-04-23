@@ -1,9 +1,9 @@
-<ion-modal-view class="createSaleActModal">
+<ion-modal-view class="createSaleActModal" ng-controller="saleActCreateModalCtrl">
     <!--<div ng-class="selectPersonflag?'own-backDrop-on':'own-backDrop-off'"></div>-->
     <div class="saleList">
         <ion-header-bar no-tap-scroll="true" align-title="center" class="head pub-head no-padding">
             <div class="row row-center">
-                <a class="col col-20 text-left goBack" ng-click="createModal.hide()"><i
+                <a class="col col-20 text-left goBack" ng-click="createModal.remove()"><i
                         class="ion-chevron-left"></i></a>
 
                 <div class="col col-60 text-center">新建销售活动</div>
