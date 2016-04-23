@@ -8,6 +8,7 @@
         </div>
     </ion-header-bar>
     <ion-content>
+        <div ng-hide="nomore">
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">车辆读数</div>
             <div class="Car_countentbasicline"></div>
@@ -47,9 +48,13 @@
             </div>
             <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{carMile.MILEAGE_DESC}}<br/></div>
         </div>
+        </div>
+        <div class="row row-center" ng-show="nomore">
+            <div class="col col-center" style="text-align: center;font-size: 17px;color:#A8A49F">无内容</div>
+        </div>
     </ion-content>
     </div><div class="bar bar-footer" style="background-color: white">
-    <div class="row row-center" style="text-align: center">
+    <div class="row row-center" style="text-align: center" ng-hide="nomore">
         <div class="col col-30 col-center" ng-click="upPage()">上一页</div>
         <div class="col col-40 col-center">{{config.nowPage}}/{{config.num}}</div>
         <div class="col col-30 col-center" ng-click="downPage()">下一页</div>

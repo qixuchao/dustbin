@@ -14,7 +14,21 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             $scope.relatedpopover.hide();
             //document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";.ET_OUT_RELATION.item
         };
-        $scope.infos = customeService.get_customeFuZe().ET_OUT_RELATION.item;
+        var fuze = customeService.get_customeFuZe().ET_OUT_RELATION.item;
+        $scope.infos = [];
+        if(fuze == undefined){
+            $cordovaToast.showShortBottom('暂无负责人信息');
+        }else{
+            for(var i=0;i< fuze.length;i++){
+                if(fuze[i].RELTYP == "BUR011"){
+                    console.log(fuze[i]);
+                    $scope.infos.push(fuze[i]);
+                }
+            }
+            if($scope.infos.length<1){
+                $cordovaToast.showShortBottom('暂无负责人信息');
+            }
+        }
         console.log($scope.infos);
         $scope.related_types = ['负责人'];
         $scope.relatedqueryType = function(types){
@@ -52,7 +66,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
                     console.log(response);
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG === 'S') {
-                        $cordovaToast.showShortBottom('删除成功 ');
+                        //$cordovaToast.showShortBottom('删除成功 ');
                         $scope.updateInfos();
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -240,7 +254,21 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             if (response.ES_RESULT.ZFLAG === 'S') {
                 customeService.set_customeFuZe(response);
                 //console.log(angular.toJson(response));
-                $scope.infos = response.ET_OUT_RELATION.item;
+                var fuze = response.ET_OUT_RELATION.item;
+                $scope.infos = [];
+                if(fuze == undefined){
+                    $cordovaToast.showShortBottom('暂无负责人信息');
+                }else{
+                    for(var i=0;i< fuze.length;i++){
+                        if(fuze[i].RELTYP == "BUR011"){
+                            console.log(fuze[i]);
+                            $scope.infos.push(fuze[i]);
+                        }
+                    }
+                    if($scope.infos.length<1){
+                        $cordovaToast.showShortBottom('暂无负责人信息');
+                    }
+                }
                 Prompter.hideLoading();
             }else{
                 Prompter.hideLoading();
