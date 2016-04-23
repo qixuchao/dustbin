@@ -84,6 +84,41 @@
         min-height: 30px;
       }
     }
+      .search3 {
+        .placeholder-icon {
+          color: #aaa;
+          position: absolute;
+          z-index: 2;
+          top: .3em;
+          left: 1em;
+        }
+        input {
+          display: block;
+          padding-left: 2em;
+          color: black;
+          vertical-align: middle;
+          font-size: 14px;
+          height: 28px;
+          width: 96%;
+          position: fixed;
+          border-radius: 5px;
+        }
+        .ion-ios-close {
+          position: fixed;
+          top: 5px;
+          left: 93%;
+          z-index: 2;
+          color: #aaa;
+        }
+        .button-clear {
+          position: fixed;
+          left: 86%;
+          font-size: 16px;
+          top: 1px;
+          max-height: 30px;
+          min-height: 30px;
+        }
+      }
   }
   .pointImg{
     height: 10px;
