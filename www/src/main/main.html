@@ -107,32 +107,37 @@
                                 <div>{{x.date | date:'yyyy MM dd'}}</div>
                                 <!--<div class="paddingLeft">{{(x.month+'').length==1?('0'+x.month):x.month}}</div>-->
                                 <!--<div class="paddingLeft">{{(x.day+'').length==1?('0'+x.day):x.day}}</div>-->
-                                <div class="paddingLeft">{{x.startTime}}<span ng-if="x.startTime&&x.endTime">—</span>{{x.endTime}}
-                                </div>
+                                <div class="paddingLeft">{{x.startTime}}<span ng-if="x.startTime&&x.endTime">—</span>{{x.endTime}}</div>
+                                <div ng-if="role=='APP_SALE'" class="status" ng-class="{'main-accomplish':(x.STATUS_ID=='E0002'||x.STATUS_ID=='E0003'),
+                                            'main-unPunish':(x.STATUS_ID=='E0001')||x.STATUS_ID=='E0004'}">{{x.STATUS_TXT}}</div>
+                                <div ng-if="role!='APP_SALE'" class="status" ng-class="{'stat-new':(x.STAT=='E0001'),
+                                            'stat-sendedworker':(x.STAT=='E0002'),
+                                            'stat-refused':(x.STAT=='E0003'),
+                                            'stat-handing':(x.STAT=='E0004')}">{{x.STAT_T}}</div>
                             </div>
                         </div>
-                        <div class="col col-10 text-center"><i class="ion-ios-arrow-right"
+                        <div class="col col-20 text-center"><i class="ion-ios-arrow-right"
                                                                style="{{'color:'+ x.mark}}"></i>
                         </div>
-                        <div class="col col-10 text-center" ng-click="showMarks(x,$event)"><img
-                                src="img/main/dash.png" class="more"></div>
+                        <!--<div class="col col-10 text-center" ng-click="showMarks(x,$event)"><img-->
+                                <!--src="img/main/dash.png" class="more"></div>-->
                     </div>
                     <div class="border-bottom"></div>
-                    <div class="row row-center mark" ng-if="x.showMarks">
-                        <img src="img/main/mark.png" class="markImg">
+                    <!--<div class="row row-center mark" ng-if="x.showMarks">-->
+                        <!--<img src="img/main/mark.png" class="markImg">-->
 
-                        <div class="markText">标记:</div>
-                        <div class="col-48 markSelect">
-                            <div class="row">
-                                <div class="col own-animated fadeInRight" ng-repeat="color in marks">
-                                    <button class="button button-fab" style="{{'background:'+color}}"
-                                            ng-click="chooseMark(x,color)"></button>
-                                </div>
-                            </div>
-                        </div>
+                        <!--<div class="markText">标记:</div>-->
+                        <!--<div class="col-48 markSelect">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col own-animated fadeInRight" ng-repeat="color in marks">-->
+                                    <!--<button class="button button-fab" style="{{'background:'+color}}"-->
+                                            <!--ng-click="chooseMark(x,color)"></button>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <!--<img src="img/main/delete.png" class="deleteImg" ng-click="delete(x)">-->
                         <!--<div class="markText" ng-click="delete(x)">删除</div>-->
-                    </div>
+                    <!--</div>-->
                 </div>
             </div>
         </div>

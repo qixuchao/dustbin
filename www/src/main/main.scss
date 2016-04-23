@@ -363,6 +363,10 @@ $main-lineColor: #d2d2d2;
           font-size: 13px;
           color: $main-textColor;
           text-align: center;
+          .status{
+            position: fixed;
+            right:20%;
+          }
           .paddingLeft {
             padding-left: 3px;
           }

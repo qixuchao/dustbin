@@ -121,6 +121,7 @@ salesModule
                         } else {
                             $scope.loadMoreFlag = false;
                             $scope.saleListNoMoreInfoFLag = true;
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         }
                     }).finally(function () {
                     // 停止广播ion-refresher
@@ -465,6 +466,7 @@ salesModule
             $scope.customerArr = [];
             $scope.customerSearch = false;
             $scope.input = {customer:''};
+            var customerType = 'CRM000';
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -480,7 +482,9 @@ salesModule
                         "ITEMS": "10"
                     },
                     "IS_SEARCH": {"SEARCH": $scope.input.customer},
-                    "IT_IN_ROLE": {}
+                    "IT_IN_ROLE": {
+                        "item1": { "RLTYP": customerType }
+                    }
                 };
                 console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
@@ -503,6 +507,9 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
+                        }else{
+                            $scope.CustomerLoadMoreFlag = false;
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         }
                     });
             };
@@ -567,6 +574,8 @@ salesModule
             };
             $scope.selectPop = function (x) {
                 $scope.selectCustomerText = x.text;
+                customerType = x.code;
+                $scope.getCustomerArr('search');
                 $scope.referMoreflag = !$scope.referMoreflag;
             };
             $scope.changeReferMoreflag = function () {
@@ -1043,7 +1052,11 @@ salesModule
                 for (var j = 0; j < $scope.relationArr.length; j++) {
                     if ($scope.relationArr[j].position == '客户') {
                         isAlreadyHaveCustomer = true;
+                        x.mode='U';
+                        x.PARTNER_FCT = "00000021";
+                        var temp = angular.copy($scope.relationArr[j]);
                         $scope.relationArr[j] = x;
+                        $scope.relationArr[j].old = temp;
                     }
                 }
                 if (isAlreadyHaveCustomer) {
@@ -1084,7 +1097,7 @@ salesModule
                                 "MODE": "U",
                                 "PARTNER_FCT": data.PARTNER_FCT,
                                 "PARTNER": data.PARTNER,
-                                "MAINPARTNER": "",
+                                "MAINPARTNER": "X",
                                 "OLD_FCT": data.old.PARTNER_FCT,
                                 "OLD_PARTNER": data.old.PARTNER_NO,
                                 "RELATION_PARTNER": ""
@@ -1095,7 +1108,7 @@ salesModule
                                 "MODE": "I",
                                 "PARTNER_FCT": data.PARTNER_FCT,
                                 "PARTNER": data.PARTNER,
-                                "MAINPARTNER": "",
+                                "MAINPARTNER": "X",
                                 "OLD_FCT": "",
                                 "OLD_PARTNER": "",
                                 "RELATION_PARTNER": ""
@@ -1141,6 +1154,10 @@ salesModule
                         console.log(index);
                         switch (index) {
                             case 0:
+                                if(x.position=='CATL销售'&&!angular.isUndefined(x.mode)){
+                                    Prompter.alert('CALTL销售不能删除!');
+                                    return
+                                }
                                 if (x.position == '客户') {
                                     $scope.chanceDetails.PARTNER_TXT = '';
                                     relationService.relationCustomer = {};
@@ -1150,7 +1167,7 @@ salesModule
                                         "MODE": "D",
                                         "PARTNER_FCT": "",
                                         "PARTNER": "",
-                                        "MAINPARTNER": "",
+                                        "MAINPARTNER": "X",
                                         "OLD_FCT": x.PARTNER_FCT,
                                         "OLD_PARTNER": x.PARTNER_NO,
                                         "RELATION_PARTNER": ""
@@ -1159,6 +1176,10 @@ salesModule
                                 $scope.relationArr.splice(repTempIndex, 1);
                                 break;
                             case 1:
+                                if(x.position=='CATL销售'&&!angular.isUndefined(x.mode)){
+                                    Prompter.alert('CALTL销售不能修改!');
+                                    return
+                                }
                                 relationService.isReplace = true;
                                 relationService.myRelations = $scope.relationArr;
                                 relationService.replaceMan = x;

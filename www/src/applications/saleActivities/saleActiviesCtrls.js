@@ -263,7 +263,7 @@ salesModule
                 console.log($scope.pop);
                 $scope.createPop.hide();
                 $scope.create = {
-                    de_startTime: new Date().format('yyyy-MM-dd hh:ss'),
+                    de_startTime: new Date().format('yyyy-MM-dd hh:mm'),
                     de_endTime: getDefultStartTime()
                 };
                 $scope.CustomerLoadMoreFlag = true;
@@ -278,7 +278,7 @@ salesModule
             var customerPage = 1;
             $scope.customerArr = [];
             $scope.customerSearch = false;
-            var customerType = '';
+            var customerType = 'CRM000';
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -318,6 +318,9 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                        }else{
+                            $scope.CustomerLoadMoreFlag = false;
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         }
                     });
             };
@@ -357,6 +360,7 @@ salesModule
                             }
                             $scope.contactSpinnerFLag = false;
                             $scope.contactsLoadMoreFlag = false;
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                             $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         }
                     });
@@ -515,6 +519,8 @@ salesModule
             };
             $scope.selectPop = function (x) {
                 $scope.selectCustomerText = x.text;
+                customerType = x.code;
+                $scope.getCustomerArr('search');
                 $scope.referMoreflag = !$scope.referMoreflag;
             };
             $scope.changeReferMoreflag = function () {
@@ -1305,6 +1311,7 @@ salesModule
                     case 'IT_SA0021':
                         data = {
                             "MODE": mode,
+                            "RECORD_ID":$scope.process.RECORD_ID,
                             "ZZSXNR": $scope.process.content,  //事项内容
                             "ZZFLD0000BB": getProcessPosition(), //我司'客户
                             "ZZFZBM": $scope.process.department,  //部门
@@ -1324,6 +1331,7 @@ salesModule
                     case 'IT_SA0022':
                         data = {
                             "MODE": mode,
+                            "RECORD_ID":$scope.process.RECORD_ID,
                             "ZZSXNR_1": $scope.process.content,
                             "ZZWSKH_1": getProcessPosition(),
                             "ZZFZBM_1": $scope.process.department,
@@ -1344,6 +1352,7 @@ salesModule
                     case 'IT_SA0023':
                         data = {
                             "MODE": mode,
+                            "RECORD_ID":$scope.process.RECORD_ID,
                             "ZZSXNR_2": $scope.process.content,
                             "ZZZCYX": $scope.process.affect,
                             "ZZNOTE_3": ""
@@ -1369,7 +1378,21 @@ salesModule
                 Prompter.showLoading();
                 $scope.edit('process').success(function (response) {
                     if (response.ES_RESULT.ZFLAG === 'S') {
-                        $scope.tempArr.push(data);
+                        if(!isProcessModify){
+                            $scope.tempArr.push(data);
+                        }else{
+                            switch ($scope.myProcess.code){
+                                case 'IT_SA0021':
+                                    $scope.tempArr[processModifyIndex].ZZSXNR = data.ZZSXNR;
+                                    break;
+                                case 'IT_SA0022':
+                                    $scope.tempArr[processModifyIndex].ZZSXNR_1 = data.ZZSXNR_1;
+                                    break;
+                                case 'IT_SA0023':
+                                    $scope.tempArr[processModifyIndex].ZZSXNR_2 = data.ZZSXNR_2;
+                                    break;
+                            }
+                        }
                         $scope.changeProcessDropFlag();
                         $ionicScrollDelegate.resize();
                         $timeout(function () {
@@ -1472,29 +1495,34 @@ salesModule
                     case 'makeConsensus':
                         isProcessModify = true;
                         $scope.process = {
+                            "RECORD_ID":x.RECORD_ID,
                             content: x.ZZSXNR,
                             position: x.ZZFLD0000BB,
                             status: '',
-                            department: x.ZZSXNR,
+                            department: x.ZZFZBM,
                             chargeMan: x.ZZFZR,
                             time: x.ZZSXSJ,
                             affect: ''
                         };
+                        $scope.myProcess = $scope.processArr[0];
                         break;
                     case 'followUpMatter':
                         $scope.process = {
+                            "RECORD_ID":x.RECORD_ID,
                             content: x.ZZSXNR_1,
                             position: x.ZZWSKH_1,
                             status: x.ZZWCZK,
-                            department: x.ZZSXNR_1,
+                            department: x.ZZFZBM_1,
                             chargeMan: x.ZZFZR_1,
                             time: x.ZZGXSJ,
                             affect: ''
                         };
                         isProcessModify = true;
+                        $scope.myProcess = $scope.processArr[1];
                         break;
                     case 'policyDecode':
                         $scope.process = {
+                            "RECORD_ID":x.RECORD_ID,
                             content: x.ZZSXNR_2,
                             position: '',
                             status: '',
@@ -1504,12 +1532,12 @@ salesModule
                             affect: x.ZZZCYX
                         };
                         isProcessModify = true;
+                        $scope.myProcess = $scope.processArr[2];
                         break;
                     default:
                         isProcessModify = false;
                         break;
                 }
-                console.log(isProcessModify);
                 initProcessPosition();
                 initProcessStatus();
                 $scope.processDropflag = true;

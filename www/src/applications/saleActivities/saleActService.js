@@ -126,15 +126,17 @@ salesModule.factory('saleActService', function () {
         text: '外销'
     }];
     var customerTypesArr = [{
-        text: '正式客户'
+        text: '正式客户',
+        code:'CRM000'
     }, {
-        text: '潜在客户'
+        text: '潜在客户',
+        code:'Z00001'
     }, {
-        text: '竞争对手'
+        text: '竞争对手',
+        code:'Z00002'
     }, {
-        text: '合作伙伴'
-    }, {
-        text: '公司员工'
+        text: '合作伙伴',
+        code:'Z00003'
     }];
     var customer = [{
         text: '郑州金龙客车(福州)分公司'

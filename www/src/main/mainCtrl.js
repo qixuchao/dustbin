@@ -13,6 +13,7 @@ mainModule
         '$ionicPopover',
         '$cordovaDatePicker',
         '$location',
+        '$cordovaToast',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'Prompter',
@@ -21,7 +22,7 @@ mainModule
         'saleActService',
         'worksheetDataService',
         function ($scope, $state, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
-                  $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location,
+                  $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location,$cordovaToast,
                   ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService, worksheetDataService) {
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
@@ -33,6 +34,7 @@ mainModule
             var isLeapYear = function (year) {
                 return ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
             };
+            $scope.role = LoginService.getProfileType();
             var selectDate = new Date().format('yyyy-MM-dd');
             var mydate = new Date();
             $scope.modeFlag = true;//判断显示销售活动还是服务工单
@@ -40,7 +42,7 @@ mainModule
             //当天周几
             var today = mydate.getDay();
 
-            if (LoginService.getProfileType() == 'APP_SALE') {
+            if ($scope.role == 'APP_SALE') {
                 $scope.selectModeText = '销售活动';
             } else {
                 $scope.selectModeText = '服务工单';
@@ -88,7 +90,7 @@ mainModule
                 //$timeout(function () {
                 $scope.topHeight = {
                     'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
-                }
+                };
                 //},1)
                 //切换至月视图
                 if ($scope.viewFlag == false) {
@@ -287,7 +289,7 @@ mainModule
                             return
                         }
                         selectDate = new Date().format('yyyy-MM-dd');
-                        if(temp){
+                        if (temp) {
                             dayViewHandle.previous(300);
                             $timeout(function () {
                                 dayViewHandle.slide(0, 300);
@@ -647,85 +649,105 @@ mainModule
                         } else {
                             $scope.loadMoreHasData = false;
                             $scope.loadMoreFlag = false;
+                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
                     });
             };
             var getOrdersArr = function (type) {
-                if (type == 'init') {
-                    $scope.loadMoreHasData = true;
-                    salePageNum = 1;
-                    var arr = document.getElementsByClassName('obj');
-                    for (var i = 0; i < arr.length; i++) {
-                        arr[i].style.transitionDelay = '0s';
+                    if (type == 'init') {
+                        $scope.loadMoreHasData = true;
+                        salePageNum = 1;
+                        var arr = document.getElementsByClassName('obj');
+                        for (var i = 0; i < arr.length; i++) {
+                            arr[i].style.transitionDelay = '0s';
+                        }
+                        $scope.loadMoreFlag = true;
+                        $scope.contentArr = [];
+                        $ionicScrollDelegate.scrollTop(true);
                     }
-                    $scope.loadMoreFlag = true;
-                    $scope.contentArr = [];
-                    $ionicScrollDelegate.scrollTop(true);
-                }
-                var data = {
-                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                    "IS_AUTHORITY": {"BNAME": "60000051"},
-                    "IS_PAGE": {
-                        "CURRPAGE": salePageNum++,
-                        "ITEMS": "10"
-                    },
-                    "IS_SEARCH": {
-                        "SEARCH": "",
-                        "OBJECT_ID": "",
-                        "DESCRIPTION": "",
-                        "PARTNER": "",
-                        "PRODUCT_ID": "",
-                        "CAR_TEXT": "",
-                        "CREATED_FROM": selectDate,
-                        "CREATED_TO": selectDate
-                    },
-                    "IV_SORT": "0",
-                    "IT_IMPACT": {},
-                    "IT_PARTNER": {},
-                    "IT_PROCESS_TYPE": {},
-                    "IT_STAT": {}
-                };
-                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST', data)
-                    .success(function (response, status, headers, config) {
-                        if (config.data.IS_SEARCH.CREATED_FROM != selectDate ||
-                            type == 'init' && $scope.contentArr.length != 0) {
-                            return
+                    var data = {
+                        "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                        "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
+                        "IS_PAGE": {
+                            "CURRPAGE": 1,
+                            "ITEMS": "10"
+                        },
+                        "IS_SEARCH": {
+                            "SEARCH": "",
+                            "OBJECT_ID": "",
+                            "DESCRIPTION": "",
+                            "PARTNER": "",
+                            "PRODUCT_ID": "",
+                            "CAR_TEXT": "",
+                            "CREATED_FROM": selectDate,
+                            "CREATED_TO": selectDate
+                        },
+                        "IV_SORT": "0",
+                        "IT_IMPACT": {
+                            "item": {"ZZIMPACT": "0"}
+                        },
+                        "IT_PARTNER": {
+                            //"item": {
+                            //    "PARTNER_FCT": "",
+                            //    "PARTNER_NO": "60000878"
+                            //}
+                        },
+                        "IT_PROCESS_TYPE": {},
+                        "IT_STAT": {
+                            "item": [{
+                                "STAT": "NEW"
+                            }, {
+                                "STAT": "INPR"
+                            }, {
+                                "STAT": "DIST"
+                            }, {
+                                "STAT": "REJC"
+                            }]
                         }
-                        if (response.ES_RESULT.ZFLAG === 'S') {
-                            Prompter.hideLoading();
-                            $scope.contenHideFlag = false;
-                            if (response.ET_OUT_LIST.item.length < 10) {
-                                $scope.loadMoreFlag = false;
+                    };
+                    HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST', data)
+                        .success(function (response, status, headers, config) {
+                            if (config.data.IS_SEARCH.CREATED_FROM != selectDate ||
+                                type == 'init' && $scope.contentArr.length != 0) {
+                                return
                             }
-                            ;
-                            var tempArr = response.ET_OUT_LIST.item;
-                            angular.forEach(tempArr, function (x) {
-                                x.CHANGED_AT = x.CHANGED_AT + "";
-                                x.title = x.DESCRIPTION;
-                                x.date = new Date(x.CHANGED_AT.substring(0, 4) + '-' + x.CHANGED_AT.substring(4, 6) + '-' + x.CHANGED_AT.substring(6, 8));
-                                x.startTime = x.CHANGED_AT.substring(8, 10) + ':' + x.CHANGED_AT.substring(10, 12);
-                            });
-                            if (type === 'init') {
-                                $scope.contentArr = tempArr;
-                            } else {
-                                $scope.contentArr = $scope.contentArr.concat(tempArr);
-                            }
-                            $timeout(function () {
-                                ionicMaterialMotion.fadeSlideInRight({
-                                    startVelocity: 3000,
-                                    selector: '.animate-fade-slide-in-right .item'
+                            if (response.ES_RESULT.ZFLAG === 'S') {
+                                Prompter.hideLoading();
+                                $scope.contenHideFlag = false;
+                                if (response.ET_OUT_LIST.item.length < 10) {
+                                    $scope.loadMoreFlag = false;
+                                }
+                                ;
+                                var tempArr = response.ET_OUT_LIST.item;
+                                angular.forEach(tempArr, function (x) {
+                                    x.CHANGED_AT = x.CHANGED_AT + "";
+                                    x.title = x.DESCRIPTION;
+                                    x.date = new Date(x.CHANGED_AT.substring(0, 4) + '-' + x.CHANGED_AT.substring(4, 6) + '-' + x.CHANGED_AT.substring(6, 8));
+                                    x.startTime = x.CHANGED_AT.substring(8, 10) + ':' + x.CHANGED_AT.substring(10, 12);
                                 });
-                            }, 100);
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                            $ionicScrollDelegate.resize();
-                        } else {
-                            $scope.loadMoreHasData = false;
-                            $scope.loadMoreFlag = false;
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        }
-                    });
-            };
+                                if (type === 'init') {
+                                    $scope.contentArr = tempArr;
+                                } else {
+                                    $scope.contentArr = $scope.contentArr.concat(tempArr);
+                                }
+                                $timeout(function () {
+                                    ionicMaterialMotion.fadeSlideInRight({
+                                        startVelocity: 3000,
+                                        selector: '.animate-fade-slide-in-right .item'
+                                    });
+                                }, 100);
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
+                                $ionicScrollDelegate.resize();
+                            } else {
+                                $scope.loadMoreHasData = false;
+                                $scope.loadMoreFlag = false;
+                                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
+                            }
+                        });
+                }
+                ;
             $scope.getList = function (type) {
                 if ($scope.selectModeText == '销售活动') {
                     getSalesArr(type);
@@ -761,7 +783,7 @@ mainModule
                     }
                 }
             };
-            //初始化
+//初始化
             $scope.getList('init');
             $scope.contentArr = $scope.thingsToDo;
             $scope.moreApps = function () {
@@ -771,7 +793,7 @@ mainModule
                 x.showMarks = false;
                 x.mark = color;
             };
-            $scope.showMarks = function (x,e) {
+            $scope.showMarks = function (x, e) {
                 x.showMarks = !x.showMarks;
                 e.stopPropagation();
             };
