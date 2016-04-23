@@ -85,7 +85,7 @@ $lineColor:#d2d2d2;
 
 // 文本单行省略号
 @mixin single-line-ellipsis{
-  overflow: hidden; 
+  overflow: hidden;
   white-space: nowrap;  
   text-overflow: ellipsis;
 }

@@ -993,7 +993,11 @@ worksheetModule.controller("WorksheetListCtrl",[
         	if(response.ET_OUT_LIST){
         		response.T_OUT_LIST = angular.copy(response.ET_OUT_LIST);
         	}
-        	if(response.T_OUT_LIST.item && response.T_OUT_LIST.item.length){
+        	if(response.T_OUT_LIST && response.T_OUT_LIST.item1){
+        		response.T_OUT_LIST.item = angular.copy(response.T_OUT_LIST.item1);
+        		delete response.T_OUT_LIST.item1;
+        	}
+        	if(response.T_OUT_LIST.item && !!response.T_OUT_LIST.item.length){
         		$scope.datas.serviceListDatas = $scope.datas.serviceListDatas.concat(response.T_OUT_LIST.item);
 	        	if(response.T_OUT_LIST.item.length < 10){
 	        		$scope.config.hasMoreData = false;
