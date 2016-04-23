@@ -475,7 +475,7 @@ ContactsModule
             change();
         };
         var text = document.getElementById("textarea");
-        autoTextarea(text);// 调用
+            autoTextarea(text);// 调用
         //var textresult = document.getElementById("textareare");
         //autoTextarea(textresult);
         //邮箱
@@ -1328,8 +1328,8 @@ ContactsModule
             data.IS_CUSTOMER.SPTXT = $scope.config.currentLanguage;
             data.IS_CUSTOMER.FNCTN = $scope.contactedit.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactedit.DPRTMNT;
-            data.IS_CUSTOMER.COUNTRY = $scope.config.currentCountry.COUNTRY;
-            data.IS_CUSTOMER.LANDX = $scope.config.currentCountry.COUNTRY_NAME;
+            data.IS_CUSTOMER.COUNTRY = $scope.config.currentCountry;
+            data.IS_CUSTOMER.LANDX = $scope.config.currentCountry;
             data.IS_CUSTOMER.REGION = $scope.config.currentProvence.REGION;
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactedit.POST_CODE1;
@@ -1446,11 +1446,11 @@ ContactsModule
         $scope.countryCode="";
         $scope.provenceCode="";
         $scope.config = {
-            currentCountry:$scope.contactedit.LANDX,
+            currentCountry:"CN",
             currentProvence:{},
             currentCity:{},
-            currentLanguage:$scope.contactedit.SPTEX,
-            currentTitile:$scope.contactedit.TITLE
+            currentLanguage:"1",
+            currentTitile:"0002"
         };
             console.log(angular.toJson($scope.config)+"sdsdsd");
         $scope.cascade=function(){

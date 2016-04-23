@@ -13,7 +13,7 @@
         <div class="list" style="font-size: 18px;margin-top:5px">
             <!--title-->
             <span class="item item-input" style="border:none">注释：</span>
-            <textarea id="textarea" placeholder="请输入备注" style="width: 100%;background-color:white;padding: 0 15px 15px 50px;" ng-model="contactedit.conatctdeatilnote"></textarea>
+            <textarea id="textarea" placeholder="请输入备注" style="width: 100%;background-color:white;min-height: 50px;max-height: 300px;overflow-y: hidden;padding: 0 15px 15px 50px;" ng-model="contactedit.conatctdeatilnote"></textarea>
               <span class="item item-input">部门：
                 <input type="text" id="contpartment" placeholder="请输入部门" class="contact_editinputsty" style="margin-left: 32px;" ng-model="contactedit.DPRTMNT">
                 <img id="contpartmentimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('DPRTMNT')"/>
@@ -69,7 +69,7 @@
                 </div>
                 <div class="col col-80">
                     <div class="row" style="padding: 5px;">
-                        <select style="border:none;color:#9B9B9B;height: 40px;padding: 5px -webkit-appearance:none;background:white;width: 85%;margin-left:25px ;" ng-model="config.currentCountry" ng-options="a.COUNTRY_NAME as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
+                        <select style="border:none;color:#9B9B9B;height: 40px;padding: 5px -webkit-appearance:none;background:white;width: 85%;margin-left:25px ;" ng-model="config.currentCountry" ng-options="a.COUNTRY as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
                            <option value="">请输入国家</option>
                         </select>
                     </div>
