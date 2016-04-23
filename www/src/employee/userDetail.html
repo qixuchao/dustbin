@@ -8,9 +8,11 @@
         </div>
         <div class="employee_detailcontent">
             <div class="employee_detailcontentname">
-                <div class="employee_detailcontentcicle" ></div><span class="employee_detailcontentspan" ng-bind="userdetailval.NAME_LAST"></span>
-                <span class="employee_detailcontentspan" ng-bind="userdetailval.NAME_FIRST" style="padding-left:50px"></span>
-                <span>-销售人员</span>
+                <div class="employee_detailcontentcicle" ></div><span style="margin-left: 5px;" class="employee_detailcontentspan" ng-bind="userdetailval.NAME_LAST"></span>
+            </div>
+            <div style="position: relative;top: 25px;">
+                <span class="employee_detailcontentspan" ng-bind="userdetailval.NAME_FIRST" style="padding-left: 44px;font-size: 14px;"></span>
+                <span style="font-size: 14px;">-销售人员</span>
             </div>
             <div class="employee_detailcontentphone" ng-click="employeeshowphone(userdetailval.TELEPHONE)">
                 <i class="icon ion-ios-telephone-outline employee_detailcontentphonei"></i>
