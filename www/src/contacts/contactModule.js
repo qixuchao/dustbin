@@ -43,8 +43,8 @@ contactModuleServive
                 return contactcreatenewvalue;
             },
             //从联系人进入创建联系人界面设置一个标记
-            set_ContactCreateflag:function(){
-                contactcreate = true;
+            set_ContactCreateflag:function(data){
+                contactcreate = data;
             },
             get_ContactCreateflag:function(){
                 return contactcreate;
