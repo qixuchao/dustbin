@@ -8,57 +8,22 @@
         </ion-header-bar>
     </div>
     <ion-header-bar class="bar bar-subheader ">
-        <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
+        <div class="search3">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
-            <input type="text" placeholder="输入产品信息" ng-model="spareInfo" ng-click="changePage()" ng-change="initLoad()">
-            <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
+            <input type="text" placeholder="输入产品信息" ng-model="spareInfo"  ng-change="initLoad()">
         </div>
     </ion-header-bar>
-    <ion-content ng-show="!searchFlag">
-        <div class="Car_countentbasic" >
-            <div class="Car_countentbasicinfo">常用产品</div>
-            <div class="Car_countentbasicline"></div>
-            <div class="Car_countentbasicclok"></div>
-        </div>
-        <div class="contentType animated" ng-repeat="spare in spareList1 track by $index"  >
-            <div class="row row-center rowType1">
-                <div class="col col-8 col-center">
-                    <img ng-src="img/car/Oval.png" class="pointImg">
-                </div>
-                <div class="col col-80 col-center colType">
-                    <span class="car2">{{spare.SHORT_TEXT}}</span>
-                </div>
-                <div class="col col-10 col-center" ng-class="{true:'display:none',false:''}[showFlag]">
-                    <img ng-src="img/car/Shape.png" class="shapeImg">
-                </div>
-            </div>
-        </div>
-    </ion-content>
-    <ion-content has-bouncing="true" class="has-header search " ng-show="searchFlag">
-        <div ng-show="!spareInfo.length>0">
-            <div class="row row-center his-title">
-                <i class="ion-android-time"></i>
-                <div class="hisText">历史记录</div>
-                <div class="horizon-line"></div>
-            </div>
-            <ion-list>
-                <ion-item ng-click="search(x.name,$event)" ng-repeat="x in data">{{x.name}}</ion-item>
-            </ion-list>
-        </div>
-        <!--<div ng-show="spareInfo.length">-->
-        <div class="contentType animated" ng-repeat="spare in spareList track by $index"  ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
-            <div class="row row-center rowType1">
-                <div class="col col-8 col-center">
-                    <img ng-src="img/car/Oval.png" class="pointImg">
-                </div>
-                <div class="col col-80 col-center colType">
-                    <span class="car2"><div ng-bind-html="spare.SHORT_TEXT | highlight:spareInfo"></div></span>
-                </div>
-                <div class="col col-10 col-center">
-                    <img ng-src="img/car/Shape.png" class="shapeImg">
-                </div>
-            </div>
+    <ion-content has-bouncing="true" class="has-header search " ng-show="true">
+        <div class="contentType animated" ng-repeat="spare in spareList track by $index" style="height: 44px" ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
+                <div class="item item-checkbox" style="padding:0px 0px 0px 43px;border: none" >
+                    <label class="checkbox checkbox-diy" style="padding:7px 0 7px 0" ng-click="goSelectWareHouse(i)">
+                        <input type="checkbox" name="selectSparePart" value="{{i.PRODUCT_ID}}" ng-true-value="'YES'" ng-false-value="'NO'" ng-model="i.checked">
+                    </label>
+                    <div class="col col-80 col-center colType">
+                        <span class="car2"><div ng-bind-html="spare.SHORT_TEXT | highlight:spareInfo"></div></span>
+                    </div>
+                 </div>
         </div>
         <ion-infinite-scroll distance="1%" on-infinite="spareLoadmoreIm()" ng-if="spareimisshow"></ion-infinite-scroll>
     </ion-content>
