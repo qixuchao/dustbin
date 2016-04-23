@@ -36,7 +36,7 @@
     	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);"  ng-class="{'isSearchingMode':(config.queryModeNew)}">
     		<div class="search-box" style="margin-left: .4rem;">
 	            <i class="icon ion-ios-search-strong left"></i>
-	            <input type="search" ng-model="config.searchText" style="font-size: 12px;padding-top:0px; padding-bottom:0px;" ng-change="onSearchTextChange($event);" ng-click="clickSearchInput();" placeholder="{{config.searchPlaceholder}}">
+	            <input type="search" ng-model="config.searchText" style="font-size: 12px;padding-top:0px; padding-bottom:0px;" ng-change="onSearchTextChange($event);" ng-keyup="searchInputOnKeyup($event);" ng-click="clickSearchInput();" placeholder="{{config.searchPlaceholder}}">
                 <i ng-if="config.searchInputHasText" class="ion-ios-close right" ng-click="clearSearchText();"></i>
 	        </div>
             <div class="cancle-button button button-clear" ng-click="cancleQueryMode();">取消</div>
@@ -48,7 +48,7 @@
                 <span class="line"></span>
             </div>
             <div class="list">
-                <div class="item" ng-click="selectOldSearch(item.text)" ng-repeat="item in config.historyStrs"><span ng-bind="item.text"></span></div>
+                <div class="item" ng-click="selectOldSearch(item.text)" ng-repeat="item in config.historyStrs track by $index"><span ng-bind="item.text"></span></div>
             </div>
         </div>
         
@@ -170,7 +170,7 @@
                         </div>
                         <div class="list">
                             <!-- animated flipInX     ng-class="{'flipInX':(config.showListItemAnimate)}"-->
-                            <a class="item "  ng-click="goDetailState(item, $index);" ng-repeat="item in datas.serviceListDatas">
+                            <a class="item "  ng-click="goDetailState(item, $index);" ng-repeat="item in datas.serviceListDatas track by $index">
                                 <div class="left single-line-ellipsis">
                                     <div class="row item-line">
                                         <div class="col-28 name">工单描述:</div>

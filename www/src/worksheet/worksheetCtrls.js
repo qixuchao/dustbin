@@ -221,17 +221,25 @@ worksheetModule.controller("WorksheetListCtrl",[
 		eleContent.addClass("has-header");
 		$scope.config.queryModeNew = false;
 		if($scope.config.searchText && $scope.config.searchText!=""){
-			var hasExist = false;
-			for (var i = 0; i < $scope.config.historyStrs.length; i++) {
-				if($scope.config.historyStrs[i].text == $scope.config.searchText){
-					hasExist = true;
-				}
-			};
-			if(!hasExist){
-				$scope.config.historyStrs.push({text: $scope.config.searchText});
-			}
+			__addHistoryStr($scope.config.searchText);
 		}
 	};
+	function __addHistoryStr(str){ 
+		if(!str || str == ""){ return; }
+		var hasExist = false;
+		for (var i = 0; i < $scope.config.historyStrs.length; i++) {
+			if($scope.config.historyStrs[i].text == $scope.config.searchText){
+				hasExist = true;
+			}
+		};
+		if(!hasExist){
+			$scope.config.historyStrs.push({text: $scope.config.searchText});
+			worksheetDataService.setStored("weeksheetListQueryHistory", JSON.stringify($scope.config.historyStrs));
+		}
+	}
+
+
+
 	$scope.clickSearchInput = function(){
 		var eleContent = angular.element("#xbr-worksheet-list-content");
 		//eleContent.removeClass("has-header");
@@ -243,6 +251,18 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.showHistoryLog = false;
 		$scope.config.searchInputHasText = true;
 		$scope.reloadData();
+	};
+	$scope.searchInputOnKeyup = function(e){
+		var keycode = window.event ? e.keyCode : e.which;
+		//alert(keycode);
+        if(keycode==13){
+        	$scope.enterListMode();
+			$scope.config.showHistoryLog = false;
+			$scope.config.searchInputHasText = true;
+            $scope.reloadData();
+            return true;
+        }
+        return false;
 	};
 	$scope.onSearchTextChange = function($event){
 		//console.log("onSearchTextChange");
@@ -432,6 +452,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	$scope.goDetailState = function(item, i){
 		//工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
 		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
+		__addHistoryStr($scope.config.searchText);
 		worksheetDataService.worksheetList.toDetail = {
 			"IS_OBJECT_ID": item.OBJECT_ID,
     		"IS_PROCESS_TYPE": item.PROCESS_TYPE,
@@ -900,8 +921,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail;
 		}
 
-		
-
 		//console.log(queryParams);
 		if($scope.config.hasMoreData){
 			__requestServiceList(queryParams);
@@ -913,10 +932,12 @@ worksheetModule.controller("WorksheetListCtrl",[
 		// = $scope.config.timeStart    = $scope.config.timeEnd
 		//$scope.config.timeStartDefault  = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000).format("yyyy-MM-dd");
 		//$scope.config.timeEndDefault  = new Date().format("yyyy-MM-dd");
+		
+
 
 		$timeout(function () {
-                ionicMaterialInk.displayEffect();
-            }, 100);
+            ionicMaterialInk.displayEffect();
+        }, 100);
 		$scope.enterListMode();
 
 		$timeout(function (){
@@ -951,6 +972,12 @@ worksheetModule.controller("WorksheetListCtrl",[
 			template: '你好不'
 		});*/
 		//justTest();
+		var historys = worksheetDataService.getStoredByKey("weeksheetListQueryHistory");
+		if(historys){
+			$scope.config.historyStrs = JSON.parse(historys);
+		}else{
+			$scope.config.historyStrs = [];
+		}
 	};
 	$scope.init();
 
