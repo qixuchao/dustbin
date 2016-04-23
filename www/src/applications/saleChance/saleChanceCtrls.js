@@ -11,14 +11,16 @@ salesModule
         '$ionicPopover',
         '$ionicModal',
         '$ionicScrollDelegate',
+        '$ionicHistory',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'saleActService',
         'Prompter',
         'HttpAppService',
         'saleChanService',
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, ionicMaterialInk,
-                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService) {
+        'customeService',
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory,ionicMaterialInk,
+                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService,customeService) {
             ionicMaterialInk.displayEffect();
             //ionicMaterialMotion.fadeSlideInRight();
             console.log('销售机会列表');
@@ -35,8 +37,18 @@ salesModule
             $scope.loadMoreFlag = true;
             $scope.saleListArr = [];
             var tempHisPostData;
+            var PARTNER_NO
             //没有 更多数据
             $scope.saleListNoMoreInfoFLag = false;
+            if(angular.isObject(customeService.get_customerWorkordervalue())){
+                PARTNER_NO = customeService.get_customerWorkordervalue().PARTNER;
+            }else{
+                PARTNER_NO = "";
+            }
+            $scope.goBack = function () {
+                customeService.set_customerWorkordervalue("");
+                $ionicHistory.goBack();
+            };
             $scope.getList = function (type) {
                 switch (type) {
                     case 'searchPage':
@@ -73,7 +85,7 @@ salesModule
                     },
                     "IS_SEARCH": {
                         "ZSRTING": $scope.input.list,
-                        "PARTNER_NO": "",
+                        "PARTNER_NO": PARTNER_NO,
                         "OBJECT_ID": "",
                         "PHASE": "",
                         "STARTDATE": "",
@@ -121,7 +133,7 @@ salesModule
                         } else {
                             $scope.loadMoreFlag = false;
                             $scope.saleListNoMoreInfoFLag = true;
-                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                            Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
                     }).finally(function () {
                     // 停止广播ion-refresher
@@ -509,7 +521,7 @@ salesModule
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }else{
                             $scope.CustomerLoadMoreFlag = false;
-                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                            Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
                     });
             };
@@ -776,7 +788,7 @@ salesModule
                                 Prompter.showLoading('正在保存');
                                 $timeout(function () {
                                     Prompter.hideLoading();
-                                    $cordovaToast.showShortBottom('保存成功');
+                                    Prompter.showShortToastBotton('保存成功');
                                     $rootScope.goBack();
                                 }, 500);
                             } else {

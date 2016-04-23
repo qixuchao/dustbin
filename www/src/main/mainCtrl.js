@@ -14,6 +14,7 @@ mainModule
         '$cordovaDatePicker',
         '$location',
         '$cordovaToast',
+        '$ionicModal',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'Prompter',
@@ -22,7 +23,7 @@ mainModule
         'saleActService',
         'worksheetDataService',
         function ($scope, $state, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
-                  $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location,$cordovaToast,
+                  $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location, $cordovaToast, $ionicModal,
                   ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService, worksheetDataService) {
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
@@ -715,11 +716,11 @@ mainModule
                             if (response.ES_RESULT.ZFLAG === 'S') {
                                 Prompter.hideLoading();
                                 $scope.contenHideFlag = false;
-                                if (response.ET_OUT_LIST.item.length < 10) {
+                                if (response.ET_OUT_LIST.item1.length < 10) {
                                     $scope.loadMoreFlag = false;
                                 }
                                 ;
-                                var tempArr = response.ET_OUT_LIST.item;
+                                var tempArr = response.ET_OUT_LIST.item1;
                                 angular.forEach(tempArr, function (x) {
                                     x.CHANGED_AT = x.CHANGED_AT + "";
                                     x.title = x.DESCRIPTION;
@@ -783,7 +784,7 @@ mainModule
                     }
                 }
             };
-//初始化
+            //初始化
             $scope.getList('init');
             $scope.contentArr = $scope.thingsToDo;
             $scope.moreApps = function () {
@@ -823,7 +824,42 @@ mainModule
             $scope.changeShowPop = function () {
                 $scope.showPop = !$scope.showPop;
                 $('#mainSelectionsId').removeClass('own-animated');
-            }
+            };
+
+            /*--------------------------------------新建-------------------------------------*/
+            //销售活动
+            $scope.createPopTypes = saleActService.getCreatePopTypes();
+            $scope.createPopOrgs = saleActService.getCreatePopOrgs();
+            $scope.pop = {
+                type: {}
+            };
+            $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Pop.html', {
+                scope: $scope
+            }).then(function (popover) {
+                $scope.createPop = popover;
+            });
+            $scope.openCreatePop = function (e) {
+                $scope.pop.type = $scope.createPopTypes[0];
+                $scope.createPop.show();
+            };
+            $scope.showCreateModal = function () {
+                $scope.createPop.hide();
+                $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/create_Modal/createSaleAct_Modal.html', {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then(function (modal) {
+                    $scope.createModal = modal;
+                    modal.show();
+                    var tempArr = document.getElementsByClassName('modal-wrapper');
+                    for (var i = 0; i < tempArr.length; i++) {
+                        tempArr[i].style.pointerEvents = 'auto';
+                    }
+                });
+            };
+            /*-------------------------------新建 end-------------------------------------*/
+            $scope.$on('$destroy', function () {
+                $scope.createPop.remove();
+            });
         }
     ])
 ;
