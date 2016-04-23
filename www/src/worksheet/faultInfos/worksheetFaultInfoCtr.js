@@ -150,7 +150,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     $scope.updateInfos();
-                    worksheetDataService.wsDetailToList.needReload = true;
+                    worksheetDataService.wsEditToDetail.needReload = true;
                     $cordovaToast.showShortBottom("故障信息维护成功");
                 } else {
                     Prompter.hideLoading();
@@ -188,12 +188,12 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         }
 
         $scope.config = {
-            scenarioItem : null,
-            responseItem : null,
-            defectItem : null,
-            currentChanPinLeiXing: null,  //{"KATALOGART": "F0", "COMP_TYPE": "eBus",}
-            currentGuZhangBuJian: null,      //{ "CODEGRUPPE": "04", "COMPONENT": "电芯" }
-            currentGuZhangMingCheng: null,   //{CODE: '', REASON: ''}
+            scenarioItem : "",
+            responseItem : "",
+            defectItem : "",
+            currentChanPinLeiXing: "",  //{"KATALOGART": "F0", "COMP_TYPE": "eBus",}
+            currentGuZhangBuJian: "",      //{ "CODEGRUPPE": "04", "COMPONENT": "电芯" }
+            currentGuZhangMingCheng: "",   //{CODE: '', REASON: ''}
         };
         var pleaseChoose = '-- 请选择 --';
         $scope.datas = {
