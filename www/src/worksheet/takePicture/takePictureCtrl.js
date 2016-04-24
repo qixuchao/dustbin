@@ -225,7 +225,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			    	"OBJECT_ID": $scope.config.OBJECT_ID,//'5200000315',
 			    	"PROCESS_TYPE": $scope.config.PROCESS_TYPE,//"ZPRO"
 			    }
-			}
+			} 
 	        //var promise = HttpAppService.post(worksheetHttpService.imageInfos.listUrl,queryParams);
 	        var promise = HttpAppService.post(worksheetHttpService.imageInfos.listUrl,queryParams);
 	        $scope.config.isLoading = true;
