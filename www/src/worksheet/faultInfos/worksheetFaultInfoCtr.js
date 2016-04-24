@@ -117,18 +117,60 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         autoTextarea(textresult);// 调用
         $scope.keep = function(){
             Prompter.showLoading("正在提交");
+            if($scope.config.scenarioItem == null || $scope.config.scenarioItem ==undefined || $scope.config.scenarioItem ==''){
+                $cordovaToast.showShortBottom("请选择故障发生场景");
+                return;
+                //var SCENARIO = '';
+            }else {
+                var SCENARIO= $scope.config.scenarioItem.SCENARIO
+            }
+            if($scope.config.responseItem == null || $scope.config.responseItem ==undefined|| $scope.config.responseItem ==""){
+                $cordovaToast.showShortBottom("请选择责任方");
+                return;
+               //var RESPONSE = '';
+            }else {
+                var RESPONSE =  $scope.config.responseItem.RESPONSE
+            }
+            if($scope.config.defectItem == null || $scope.config.defectItem ==undefined || $scope.config.defectItem ==""){
+                $cordovaToast.showShortBottom("请选择故障分类");
+                return;
+                //var DEFECT = '';
+            }else {
+                var DEFECT = $scope.config.defectItem.DEFECT
+            }
+            if($scope.config.currentChanPinLeiXing == null || $scope.config.currentChanPinLeiXing ==undefined  || $scope.config.currentChanPinLeiXing ==""){
+                $cordovaToast.showShortBottom("请选择产品类型");
+                return;
+                //var KATALOGART = '';
+            }else {
+                var KATALOGART = $scope.config.currentChanPinLeiXing.KATALOGART
+            }
+            if($scope.config.currentGuZhangBuJian == null || $scope.config.currentGuZhangBuJian ==undefined || $scope.config.currentGuZhangBuJian ==""){
+                $cordovaToast.showShortBottom("请选择故障部件");
+                return;
+                //var CODEGRUPPE = '';
+            }else {
+                var CODEGRUPPE = $scope.config.currentGuZhangBuJian.CODEGRUPPE
+            }
+            if($scope.config.currentGuZhangMingCheng == null || $scope.config.currentGuZhangMingCheng ==undefined || $scope.config.currentGuZhangMingCheng ==""){
+                $cordovaToast.showShortBottom("请选择故障名称");
+                return;
+                //var CODE = '';
+            }else {
+               var CODE = $scope.config.currentGuZhangMingCheng.CODE
+            }
             var updateEdit = {
                 "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                 "IS_OBJECT_ID": worksheetDetail.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDetail.IS_PROCESS_TYPE,
                     "IS_HEAD_DATA": {
-                    "SCENARIO": $scope.config.scenarioItem.SCENARIO,
-                        "RESPONSE": $scope.config.responseItem.RESPONSE,
-                        "DEFECT": $scope.config.defectItem.DEFECT,
-                        "COMP_TYPE": $scope.config.currentChanPinLeiXing.KATALOGART,
-                        "COMPONENT": $scope.config.currentGuZhangBuJian.CODEGRUPPE,
-                        "REASON": $scope.config.currentGuZhangMingCheng.CODE
+                    "SCENARIO": SCENARIO,
+                        "RESPONSE": RESPONSE,
+                        "DEFECT": DEFECT,
+                        "COMP_TYPE": KATALOGART,
+                        "COMPONENT": CODEGRUPPE,
+                        "REASON": CODE
                 },
                     "IT_TEXT": {
                     "item": [

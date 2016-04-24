@@ -1,5 +1,5 @@
 
-worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast){
+worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast','employeeService','contactService',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast,employeeService,contactService){
     $ionicPopover.fromTemplateUrl('src/worksheet/relatedPart/worksheetRelate_select.html', {
             scope: $scope
         }).then(function(popover) {
@@ -367,6 +367,27 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         }).error(function(err){
             console.log(angular.toJson(err));
         });
+    }
+    $scope.goDetail = function(item){
+        console.log(item);
+        if(item.PARTNER_FCT == "ZCUSTCTT"){
+            var x1= item.PARTNER_NO;
+            contactService.set_ContactsListvalue(x1);
+            $state.go("ContactDetail");//联系人详情
+        }else if(item.PARTNER_FCT == "ZSRVEMPL" || item.PARTNER_FCT == "ZTERLEAD"){
+            var value = {
+                PARTNER : item.PARTNER_NO
+            }
+            employeeService.set_employeeListvalue(value);
+            $state.go("userDetail");//员工详情
+        }else{
+            var infosCust = {
+                PARTNER_ROLE : item.PARTNER_FCT,
+                PARTNER : item.PARTNER_NO
+            }
+            customeService.set_customerListvalue(infosCust);
+            $state.go("customerDetail");//客户详情
+        }
     }
 }]);
 

@@ -47,6 +47,7 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
             }else{
                 $scope.config.nowPage += 1;
                 $scope.carMile = worksheetDataService.wsDetailData.ET_MILEAGE.item[$scope.config.nowPage-1];
+                init($scope.config.nowPage);
             }
         };
         $scope.upPage = function(){
@@ -55,6 +56,7 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
             }else{
                 $scope.config.nowPage -= 1;
                 $scope.carMile = worksheetDataService.wsDetailData.ET_MILEAGE.item[$scope.config.nowPage-1];
+                init($scope.config.nowPage);
             }
         };
 }]);

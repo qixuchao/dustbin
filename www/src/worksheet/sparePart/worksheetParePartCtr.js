@@ -7,7 +7,12 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         //    searchInfos : ""
         //}
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-            //if(fromState.name == 'worksheetSelect' && toState.name == 'worksheetSparepart'){
+            if(fromState.name == 'worksheetSelectPro' && toState.name == 'worksheetSparepart'){
+                var proInfos =  worksheetHttpService.addPro.proInfos;
+                $scope.goSAPInfos = $scope.goSAPInfos.concat(proInfos);
+                console.log(proInfos);
+                console.log($scope.goSAPInfos);
+            }
                 $scope.config = {
                     warehouse : "",
                     searchInfos : ""
@@ -16,7 +21,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 for (var i=0;i<str.length;i++) {
                     str[i].checked = false;
                 }
-                console.log($scope.goSAPInfos);
+
                 $scope.goSAPInfos = [];
                 var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
                 if(worksheetDetail === undefined){
@@ -39,7 +44,12 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 "I_SYSTEM": { "SysName": "CATL" },
                 "IS_USER": { "BNAME": window.localStorage.crmUserName }
             }
-            $scope.infos;
+            //$scope.infos;
+            if(proInfos == undefined){
+                $scope.infos = [];
+            }else{
+                $scope.infos = $scope.infos.concat(proInfos);
+            }
             //$scope.goSAPInfos = new Array();
             //cangku
             var urlCang = ROOTCONFIG.hempConfig.basePath + 'SERVICE_ORDER_STORAGE';
@@ -69,7 +79,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 $scope.goMore = true;
                 infosItem = response.ET_COMM_LIST.Item;
                 console.log(infosItem);
-                $scope.infos = infosItem;
+                $scope.infos = $scope.infos.concat(infosItem);
                 for(var i=0;i<$scope.infos.length;i++){
                     $scope.infos[i].APPLY_NUM = 0;//数量
                     $scope.infos[i].ishave = true;//是否已被选择 显示
@@ -749,8 +759,8 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
  * Created by Administrator on 2016/3/22 0022.
  */
 spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootScope','$cordovaToast','worksheetDataService','HttpAppService','$http','SpareListService','$state','$scope','Prompter','$timeout',
-    "$ionicHistory",
-    function ($ionicScrollDelegate,$rootScope,$cordovaToast,worksheetDataService,HttpAppService,$http,SpareListService,$state,$scope,Prompter,$timeout, $ionicHistory){
+    "$ionicHistory",'worksheetHttpService',
+    function ($ionicScrollDelegate,$rootScope,$cordovaToast,worksheetDataService,HttpAppService,$http,SpareListService,$state,$scope,Prompter,$timeout, $ionicHistory,worksheetHttpService){
         var page=0;
         $scope.spareList=[];
         $scope.spareList1=[];
@@ -771,12 +781,6 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                 }
             }
 
-            //if(storedb('sparedb1').find().arrUniq() != undefined || storedb('sparedb1').find().arrUniq() != null){
-            //    $scope.spareList1 = (storedb('sparedb1').find().arrUniq());
-            //    if ($scope.spareList1.length > 15) {
-            //        $scope.spareList1 = $scope.spareList1.slice(0,15);
-            //    }
-            //}
             if (JSON.parse(localStorage.getItem("oftenSparedb")) != null || JSON.parse(localStorage.getItem("oftenSparedb")) != undefined) {
                 $scope.spareList1 = JSON.parse(localStorage.getItem("oftenSparedb"));
                 //console.log($scope.spareList1.SHORT_TEXT);
@@ -846,7 +850,7 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                 "I_SYSNAME": {"SysName": "CATL"},
                 "IS_PAGE": {
                     "CURRPAGE": page,
-                    "ITEMS": "10"
+                    "ITEMS": "20"
                 },
                 "IS_PRODMAS_INPUT": {"SHORT_TEXT": $scope.spareInfo}
             };
@@ -875,13 +879,22 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                                 if($scope.spareInfo===""){
                                     $scope.spareList=new Array;
                                 }else{
-                                    $scope.spareList.push(value);
+                                    $scope.spareList.push({
+                                        APPLY_NUM : 0,
+                                        PRODUCT_ID : value.PRODUCT_ID,
+                                        ishave:true,
+                                        checkedP:"NO",
+                                        checked:"NO",
+                                        SHORT_TEXT:value.SHORT_TEXT
+                                    });
                                 }
                                 //console.log("第5步");
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                             });
+                            $scope.spareList = $scope.checkedPro.concat($scope.spareList);
+                            console.log($scope.spareList);
                         }
-                        if (response.ET_PRODMAS_OUTPUT.item.length < 10) {
+                        if (response.ET_PRODMAS_OUTPUT.item.length < 20) {
                             $scope.spareimisshow = false;
                             if (page > 1) {
                                 $cordovaToast.showShortBottom('没有更多数据了');
@@ -907,10 +920,106 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
         }else{
             $scope.oftenSpareList=new Array;
         }
+        //进入详细界面传递标识
+        $scope.goDetail = function(value){
+            //存储历史记录
+            var spareIs=false;
+            if($scope.spareInfo!==""){
+                if(storedb('sparedb').find()!==null || storedb('sparedb').find()!==undefined){
+                    var list=storedb('sparedb').find();
+                    for(var i=0;i<list.length;i++){
+                        if(storedb('sparedb').find($scope.spareInfo)){
+                            storedb('sparedb').remove($scope.spareInfo);
+                            storedb('sparedb').insert({'name':$scope.spareInfo},function(err){
+                                if(!err){
+                                    console.log('历史记录保存成功')
+                                }else {
+                                    $cordovaToast.showShortBottom('历史记录保存失败');
+                                }
+                            });
+                            spareIs=true;
+                        }
+                    }
+                    if(spareIs===false){
+                        storedb('sparedb').insert({'name':$scope.spareInfo},function(err){
+                            if(!err){
+                                console.log('历史记录保存成功')
+                            }else {
+                                $cordovaToast.showShortBottom('历史记录保存失败');
+                            }
+                        });
+                    }
+                }
+            }
+
+            //存储常用产品
+            if (JSON.parse(localStorage.getItem("oftenSparedb")) != null || JSON.parse(localStorage.getItem("oftenSparedb")) != undefined) {
+                //判断是否有相同的值
+                for (var i = 0; i < $scope.oftenSpareList.length; i++) {
+                    var spareIsIn=true;
+                    if ($scope.oftenSpareList[i].PRODUCT_ID == value.PRODUCT_ID) {
+                        //删除原有的，重新插入
+                        $scope.oftenSpareList = JSON.parse(localStorage.getItem("oftenSparedb"));
+                        $scope.oftenSpareList.splice(i, 1);
+                        $scope.oftenSpareList.unshift(value);
+                        localStorage['oftenSparedb'] = JSON.stringify($scope.oftenSpareList);
+                        console.log("产品保存成功");
+                        spareIsIn=false;
+                    }
+                }
+                if(spareIsIn){
+                    $scope.oftenSpareList.unshift(value);
+                    localStorage['oftenSparedb'] = JSON.stringify( $scope.oftenSpareList);
+                    console.log("产品1保存成功");
+                }
+            }else{
+                $scope.oftenSpareList.unshift(value);
+                localStorage['oftenSparedb'] = JSON.stringify( $scope.oftenSpareList);
+            }
+            SpareListService.set(value);
+            if($scope.showFlag) {
+                worksheetDataService.backObjectProduct = value;
+                worksheetDataService.selectedProduct = false;
+                $ionicHistory.goBack();
+            }else{
+                $state.go('spareDetail');
+            }
+
+        };
+        $scope.checkedPro = [];
         $scope.initLoad=function(){
             page=0;
+            for(var i=0;i<$scope.spareList.length;i++){
+                if($scope.spareList[i].checkedP == 'YES' && $scope.checkedPro < 1){
+                    $scope.checkedPro.push($scope.spareList[i]);
+                }
+                for(var j=0;j<$scope.checkedPro.length;j++){
+                    if($scope.spareList[i].checkedP == 'YES' && $scope.spareList[i].PRODUCT_ID != $scope.checkedPro[j].PRODUCT_ID){
+                        $scope.checkedPro.push($scope.spareList[i]);
+                    }
+                }
+            }
+            console.log($scope.checkedPro);
             $scope.spareList = new Array;
             $scope.spareLoadmoreIm();
         };
+        $scope.selectdPro = function(item){
+            //if(item.checkedP == "YES"){
+            //    item.checkedP = "NO"
+            //}else{
+            //    item.checkedP = "YES"
+            //}
+            console.log($scope.spareList);
+        }
+        $scope.addPro = function(){
+            var addProInfos = [];
+            for(var i=0;i<$scope.spareList.length;i++){
+                if($scope.spareList[i].checkedP == 'YES'){
+                    addProInfos.push($scope.spareList[i]);
+                }
+            }
+            worksheetHttpService.addPro.proInfos = addProInfos;
+            $ionicHistory.goBack();
+        }
     }
 ])

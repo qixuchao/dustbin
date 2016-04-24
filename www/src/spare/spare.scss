@@ -1,5 +1,13 @@
 
 .SpareList{
+
+  $diy:#92CB3A !default;
+  //$diyS:white !default;
+  $checkbox-off-border-diy:$diy !default;
+  $checkbox-on-border-diy:$diy !default;
+  .checkbox-diy{
+    @include checkbox-style($checkbox-off-border-diy, $checkbox-on-border-diy, $checkbox-off-border-diy);
+  }
   .bar .title {
     position: absolute;
     right: 0;

@@ -177,13 +177,17 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
         getSparePart:function(){
             return sparePart;
         },
-        //相关方
+        //车辆
         setWSCarMileage:function(data){
             worksheetRelatePart=data;
             return worksheetRelatePart;
         },
         getWSCarMileage:function(){
             return worksheetRelatePart;
+        },
+        //添加产品
+        addPro : {
+            proInfos : ""
         },
         //产品
 

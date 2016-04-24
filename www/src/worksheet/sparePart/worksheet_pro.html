@@ -4,6 +4,7 @@
             <div class="row row-center">
                 <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
                 <div class="col col-60 text-center">产品信息</div>
+                <div class="col col-20 text-right" ng-click="addPro()">确定</div>
             </div>
         </ion-header-bar>
     </div>
@@ -14,17 +15,17 @@
             <input type="text" placeholder="输入产品信息" ng-model="spareInfo"  ng-change="initLoad()">
         </div>
     </ion-header-bar>
-    <ion-content has-bouncing="true" class="has-header search " ng-show="true">
-        <div class="contentType animated" ng-repeat="spare in spareList track by $index" style="height: 44px" ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
-                <div class="item item-checkbox" style="padding:0px 0px 0px 43px;border: none" >
-                    <label class="checkbox checkbox-diy" style="padding:7px 0 7px 0" ng-click="goSelectWareHouse(i)">
-                        <input type="checkbox" name="selectSparePart" value="{{i.PRODUCT_ID}}" ng-true-value="'YES'" ng-false-value="'NO'" ng-model="i.checked">
-                    </label>
-                    <div class="col col-80 col-center colType">
-                        <span class="car2"><div ng-bind-html="spare.SHORT_TEXT | highlight:spareInfo"></div></span>
-                    </div>
-                 </div>
-        </div>
+    <ion-content has-bouncing="true" class="has-header search " ng-show="true" >
+        <div class="item item-checkbox animated" ng-click="selectdPro(spare)"
+             style="padding:5px 0px 5px 15px;border-bottom: 1px solid #D6D3CE"
+             ng-repeat="spare in spareList track by $index" style="height:44px" ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
+            <label class="checkbox checkbox-diy" style="padding:7px 0 7px 0">
+                <input type="checkbox" name="selectSparePart"  ng-true-value="'YES'" ng-false-value="'NO'" ng-model="spare.checkedP">
+            </label>
+            <div class="col col-80 col-center colType" style="padding-left: 40px">
+                <span class="car2"><div ng-bind-html="spare.SHORT_TEXT | highlight:spareInfo"></div></span>
+            </div>
+         </div>
         <ion-infinite-scroll distance="1%" on-infinite="spareLoadmoreIm()" ng-if="spareimisshow"></ion-infinite-scroll>
     </ion-content>
 </ion-view>

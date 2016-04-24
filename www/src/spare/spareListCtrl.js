@@ -99,7 +99,7 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
             "I_SYSNAME": {"SysName": "CATL"},
             "IS_PAGE": {
                 "CURRPAGE": page,
-                "ITEMS": "10"
+                "ITEMS": "20"
             },
             "IS_PRODMAS_INPUT": {"SHORT_TEXT": $scope.spareInfo}
         };
@@ -134,7 +134,7 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         });
                     }
-                    if (response.ET_PRODMAS_OUTPUT.item.length < 10) {
+                    if (response.ET_PRODMAS_OUTPUT.item.length < 20) {
                         $scope.spareimisshow = false;
                         if (page > 1) {
                             $cordovaToast.showShortBottom('没有更多数据了');
