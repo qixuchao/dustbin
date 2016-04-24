@@ -60,7 +60,7 @@ loginModule
         var userPassword = $scope.loginData.password;
        $scope.login = function(){
            //http://117.28.248.23:9388/test/api/bty/login
-           var url="http://117.28.248.23:9388/test/api/bty/login";
+           var url=ROOTCONFIG.hempConfig.LoginUrl; //"http://117.28.248.23:9388/test/api/bty/login";
            var data={
                "username": $scope.loginData.username,
                "password": $scope.loginData.password,

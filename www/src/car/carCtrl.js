@@ -281,7 +281,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         var codeId=CarService.getData().ZBAR_CODE;
         console.log(codeId);
         var carDetail=function(){
-            var url="http://117.28.248.23:9388/test/api/CRMAPP/CAR_DETAIL";
+            var url=ROOTCONFIG.hempConfig.basePath + "CAR_DETAIL";
             var data =
             {
                 "I_SYSNAME": { "SysName": "CATL" },
