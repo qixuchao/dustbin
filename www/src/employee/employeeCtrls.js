@@ -246,11 +246,11 @@ employeeModule
                 };
                 if(data.TEL_NUMBER!=""){
                     number.push(tel_number);
-                    console.log(number);
-                    if(data.MOB_NUMBER!=""){
-                        number.push(mob_number);
-                        console.log(number);
-                    }
+                    //console.log(number);
+                }
+                if(data.MOB_NUMBER!=""){
+                    number.push(mob_number);
+                    //console.log(number);
                 }
                 $ionicActionSheet.show({
                     buttons:number,
