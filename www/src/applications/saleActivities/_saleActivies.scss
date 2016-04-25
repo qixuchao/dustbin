@@ -741,7 +741,6 @@
 }
 
 .createSaleActPop {
-  height: 208px !important;
   width: 208px !important;
   margin-left: -104px !important;
   .row {
@@ -759,7 +758,12 @@
     padding-left: 8px;
   }
 }
-
+.saleActShortHeight{
+  height: 208px !important;
+}
+.saleActLongHeight{
+  height: 241px !important;;
+}
 .createSaleActModal {
   $saleActModalColor: #9B9B9B;
   .own-backDrop-on {

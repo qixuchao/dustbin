@@ -7,7 +7,7 @@
         <div class="row row-center">
             <div>销售办公室</div>
             <div class="select">
-                <select ng-model="pop.saleOffice" ng-options="x as x.text for x in salesGroup">{{pop.text}}</select>
+                <select ng-model="chancePop.saleOffice" ng-options="x as x.text for x in salesChanceGroup">{{pop.text}}</select>
             </div>
         </div>
         <!--<div class="row row-center">-->
@@ -16,9 +16,9 @@
                 <!--<select ng-model="pop.org" ng-options="x as x.text for x in createPopData.channels">{{pop.text}}</select>-->
             <!--</div>-->
         <!--</div>-->
-        <button ng-click="showCreateModal()" class="save">完成</button>
+        <button ng-click="showCreateChanceModal()" class="save">完成</button>
         <div>
-            <button ng-click="createPop.hide()" class="cancel">取消</button>
+            <button ng-click="createChancePop.hide()" class="cancel">取消</button>
         </div>
     </ion-content>
 </ion-popover-view>

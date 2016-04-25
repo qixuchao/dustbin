@@ -153,12 +153,12 @@ salesModule
                         "REF_DOC_NO": ""
                     },
                     "IS_ORGMAN": {
-                        "SALES_ORG": "",
+                        "SALES_ORG": $scope.pop.saleOffice.SALES_ORG,
                         "DIS_CHANNEL": "",
                         "DIVISION": "",
-                        "SALES_OFFICE": "",
-                        "SALES_GROUP": "",
-                        "SALES_ORG_RESP": ""
+                        "SALES_OFFICE": $scope.pop.saleOffice.SALES_OFFICE,
+                        "SALES_GROUP": $scope.pop.saleOffice.SALES_GROUP,
+                        "SALES_ORG_RESP": $scope.pop.saleOffice.SALES_GROUP
                     },
                     "IS_USER": {"BNAME": window.localStorage.crmUserName},
                     "IT_LINES": {

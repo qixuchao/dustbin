@@ -4,10 +4,9 @@
             <div class="row row-center">
                 <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i
                         class="ion-chevron-left"></i></a>
-
                 <div class="col col-60 text-center">{{saleTitleText}}</div>
-                <div class="col col-20 add button-clear button preVentScrollTop" ng-click="openCreatePop()">
-                    <img src="img/saleList/add.png" ng-if="!creaeSpinnerFlag">
+                <div class="col col-20 add button-clear button preVentScrollTop" ng-disabled="!isCanCreate" ng-click="openCreateChancePop()">
+                    <img src="img/saleList/add.png" ng-if="!creaeSpinnerFlag&&isCanCreate">
                     <ion-spinner class="mySpinner" icon="ios" ng-if="creaeSpinnerFlag"></ion-spinner>
                 </div>
             </div>
