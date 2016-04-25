@@ -316,14 +316,25 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
             },
             //工单模块使用的confirm风格
             wsConfirm: function (title, text, okText, cancelText) {
-                return $cordovaDialogs.confirm(text, title, [okText, cancelText])
+                $cordovaDialogs.confirm(text, title, [okText, cancelText])
                     .then(function (buttonIndex) {
                         // no button = 0, 'OK' = 1, 'Cancel' = 2
+                        console.log("wsConfirm   buttonIndex: "+buttonIndex);
                         var btnIndex = buttonIndex;
                         if (btnIndex == 1) {
                             $rootScope.goBack();
                         }
                     });
+                    /*console.log(" ----------   wsConfirm   ---------- ");
+                console.log("wsConfirm   "+navigator.notification);
+                navigator.notification.confirm(
+                    text, // message
+                     function (buttonIndex){
+                        console.log("wsConfirm   buttonIndex: "+buttonIndex);
+                     },            // callback to invoke with index of button pressed
+                    title,           // title
+                    [okText, cancelText]     // buttonLabels
+                );*/
             }
         }
     }])

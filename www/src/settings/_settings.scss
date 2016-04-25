@@ -1,5 +1,5 @@
 #my-settings-content{
-    .item-version-info{
+    .item-version-info, .item-app-name-info, .item-package-name-info{
         @include display-flex;
         border-bottom: 1px solid #E6E3E3;
         span{
@@ -7,6 +7,10 @@
         }
         span:nth-child(2){
             text-align:right;
+        }
+    }
+    .item-version-info{
+        span:nth-child(2){
             color: #B5B5B5;
         }
     }

@@ -10,9 +10,16 @@
     	<div class="list">
             <div class="item item-version-info">
                 <span>当前版本:</span>
-                <span ng-bind="config.currentVersion"></span>
+                <span ng-bind-template="v {{config.currentVersion}}     build {{config.currentVersionCode}}"></span>
+            </div>
+            <div class="item item-app-name-info">
+                <span>APP名称:</span>
+                <span ng-bind-template="{{config.appName}}"></span>
+            </div>
+            <div class="item item-package-name-info">
+                <span>App 唯一标识:</span>
+                <span ng-bind-template="{{config.packageName}}"></span>
             </div>
         </div>
     </ion-content>
 </ion-view>
-

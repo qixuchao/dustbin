@@ -1,7 +1,6 @@
 /*
 	TODO: 
 		筛选：不点击“确定”按钮的时候，如果处理、		时间筛选、	工单类型筛选接口有问题
-	
 */
 worksheetModule.controller("WorksheetListCtrl",[
 	"$scope",
@@ -227,7 +226,24 @@ worksheetModule.controller("WorksheetListCtrl",[
 			__addHistoryStr($scope.config.searchText);
 		}
 	};
-	function __addHistoryStr(str){ 
+	$scope.clearSearchHistorys = function(){
+		worksheetDataService.setStored("weeksheetListQueryHistory", "[]");
+		$scope.config.historyStrs = [];
+	};
+	$scope.deleteThisSearchHistory = function(item){
+		for(var i = 0; i < $scope.config.historyStrs.length; i++){
+			if(item.text == $scope.config.historyStrs[i].text){
+				if(i == $scope.config.historyStrs.length-1){
+					$scope.config.historyStrs.pop();
+				}else{
+					$scope.config.historyStrs = $scope.config.historyStrs.slice(0, i).concat($scope.config.historyStrs.slice(i+1));
+				}
+				worksheetDataService.setStored("weeksheetListQueryHistory", JSON.stringify($scope.config.historyStrs));
+				return;
+			}
+		}
+	};
+	function __addHistoryStr(str){
 		if(!str || str == ""){ return; }
 		var hasExist = false;
 		for (var i = 0; i < $scope.config.historyStrs.length; i++) {
@@ -921,7 +937,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 			queryParams.IS_SEARCH.PARTNER = $scope.config.PARTNER;
 		}
 		if($scope.config.isFromCarDetail){
-			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail && $scope.config.carCodeFromCarDetail.ZBAR_CODE ? $scope.config.carCodeFromCarDetail.ZBAR_CODE : null;
+			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail && $scope.config.carCodeFromCarDetail.code1 ? $scope.config.carCodeFromCarDetail.code1 : null;
 		}
 
 		//console.log(queryParams);
@@ -957,13 +973,14 @@ worksheetModule.controller("WorksheetListCtrl",[
 		}
 		customeService.set_customerWorkordervalue(null);
 		// 从车辆详情界面进入
-		var code = CarService.getData();
+		//var code = CarService.getData();
+		var code = CarService.getSpare();
 		if(code != null && code != ""){
 			$scope.config.carCodeFromCarDetail = code;
 			$scope.config.isFromCarDetail = true;
 			$scope.config.titleText="维修记录";
 		}
-		CarService.setData(null);
+		CarService.setSpare(null);
 
 		$scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("worksheetListResult");
 		$scope.reloadData();

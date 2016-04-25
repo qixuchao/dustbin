@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.crmEnergy.hrms" version="0.1.13" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.crmEnergy.hrms" version="0.1.24" android-versionCode="24" ios-CFBundleVersion="24" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>CATL Test</name>
   <description>
-        An Ionic Framework and Cordova project.
-    </description>
+        新能源CRM CATL应用
+  </description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">
-        Ionic Framework Team
-  </author>
+        Hand
+  </author> 
   <content src="index.html"/>
   <allow-intent href="tel:*"/>
   <allow-intent href="sms:*"/>
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
+  
   <access origin="*"/>
   <access launch-external="yes" origin="tel:*"/>
   <access launch-external="yes" origin="geo:*"/>
@@ -19,6 +20,7 @@
   <access launch-external="yes" origin="sms:*"/>
   <access launch-external="yes" origin="market:*"/>
   <access launch-external="yes" origin="mailto:*"/>
+
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
@@ -30,12 +32,16 @@
   <preference name="xwalkMode" value="embedded"/>
   <preference name="xwalkMultipleApk" value="true"/>
   <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+
   <plugin name="Contacts" value="org.apache.cordova.ContactManager"/>
   <plugin name="Contacts" value="CDVContacts"/>
+
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>
+
   <platform name="android">
+    <allow-intent href="market:*" />
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>
     <icon src="resources/android/icon/drawable-mdpi-icon.png" density="mdpi"/>
     <icon src="resources/android/icon/drawable-hdpi-icon.png" density="hdpi"/>
@@ -56,6 +62,8 @@
     <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
   </platform>
   <platform name="ios">
+    <allow-intent href="itms:*" />
+    <allow-intent href="itms-apps:*" />
     <splash src="resources/ios/splash/Default-568h@2x~iphone.png" width="640" height="1136"/>
     <splash src="resources/ios/splash/Default-667h.png" width="750" height="1334"/>
     <splash src="resources/ios/splash/Default-736h.png" width="1242" height="2208"/>

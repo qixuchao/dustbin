@@ -19,6 +19,8 @@
 			    @include justify-content(center); 
 			    @include align-items(center);
 			    padding: .4rem;
+			    width: 100%;
+			    height: 100%;
 		    }
 		    img{
 				max-height: 100%;
@@ -28,9 +30,6 @@
 		    	border: 1px dashed  $crm-header-bar-bgcolor;
 		    	font-size: 4.5rem;
 		    	color: $crm-header-bar-bgcolor;
-		    	@include display-flex;
-		    	@include align-items(center);
-		    	@include justify-content(center);
 		    }
 		    .img-handler-wrapper{
 		    	position: relative;
@@ -69,7 +68,7 @@
 	height: 100%;
 }
 .takePicture-image-modal-wrapper{
-	@include transition(background-color .15s linear 0s);
+	@include transition(background-color .3s linear 0s);
 	text-align: center;
 	width: 100%;
 	height: 100%;
@@ -104,12 +103,9 @@
 	img {
 		max-height: 100%;
 		max-width: 100%;
-		@include transition-transform(0.2s linear);
-		@include scale(0);
-		//@include transition(opacity);
-		//opacity: 0;
+		@include transition-transform(0.3s linear);
+		@include scale(0); 
 		&.inited{
-			//opacity: 1;
 			@include scale(1);
 		}
 	}

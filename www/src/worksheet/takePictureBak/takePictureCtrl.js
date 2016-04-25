@@ -14,14 +14,13 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	"worksheetDataService",
 	"Prompter",
 	function($scope, $timeout, $ionicActionSheet, $ionicPosition,$ionicBackdrop, $ionicGesture, $ionicModal, $state,
-			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService, Prompter){
+			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService){
 
 		function __initModal(){
 			var ele = angular.element(".modal-backdrop");
 		};
 
 		$scope.goBackForPicture = function(){
-			//console.log("----- goBackForPicture ----- start");
 			var hasLoading = false;
 			var needUploadNum = 0;
 			var isLoadingNum = 0;
@@ -34,22 +33,99 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 					needUploadNum++;
 				}
 			}
-			//console.log("----- goBackForPicture ----- 1");
 			if(isLoadingNum > 0){
 				Prompter.wsConfirm("提示",isLoadingNum+'张图片正在上传,确定放弃?',"确定", "取消");
+				/*var confirmPopup = $ionicPopup.confirm({
+					title: '提示',
+					template: isLoadingNum+'张图片正在上传',
+					buttons: [
+						{
+							text: '取消',
+							type: 'button-default',
+							onTap: function(e){
+
+							}
+						},
+						{
+							text: '放弃',
+							type: 'button-default',
+							onTap: function(e){
+								$scope.$ionicGoBack();
+							}
+						}
+					]
+				});*/
+				/*confirmPopup.then(function(res) {
+			       if(res) {
+			         $scope.$ionicGoBack();
+			       }else{}
+			     });*/
 			     return;
 			}
-			//console.log("----- goBackForPicture ----- 2 "+needUploadNum+ '  --abc');
 			if(needUploadNum > 0){
-				Prompter.wsConfirm("提示","还有"+needUploadNum+"张图片需要上传!确定放弃？","确定", "取消");
+				Prompter.wsConfirm("提示",'还有'+needUploadNum+"张图片需要上传!确定放弃？","确定", "取消");
+				/*var confirmPopup2 = $ionicPopup.confirm({
+					title: '提示',
+					template: '还有'+needUploadNum+"张图片需要上传!",
+					buttons: [
+						{
+							text: '取消',
+							type: 'button-default',
+							onTap: function(e){
+							}
+						},
+						{
+							text: '放弃上传',
+							type: 'button-default',
+							onTap: function(e){
+								$scope.$ionicGoBack();
+							}
+						}
+					]
+				});*/
 				return;
-			}
-			console.log("----- goBackForPicture ----- 3");
+			}			
 			$scope.$ionicGoBack();
-			console.log("----- goBackForPicture ----- end");
 		};
 
+		$scope.$on('modal.hidden', function($event, child) {
+			var modalEle = child.el;
+			var imgEle = modalEle.getElementsByTagName('img')[0];			
+			angular.element(imgEle).removeClass("inited");
+
+			var backdropEleJQ = angular.element(".modal-backdrop");
+
+			var wrapperEleJQ = angular.element(".takePicture-image-modal-wrapper");
+			var wrapperEle = wrapperEleJQ[0];
+			wrapperEle.style.backgroundColor = "transparent";
+			
+			$timeout(function (){				
+				//img元素取消 transformOrigin 属性
+				imgEle.style.transformOrigin = "";
+				
+			}, 400);
+			$timeout(function (){
+				backdropEleJQ[0].style="";
+				$scope.closeImageModal();
+			}, 600);
+		});
+		$scope.$on('modal.removed', function() {
+		    //debugger;
+		});
 		
+		$scope.$on("$destroy", function(){
+			__destroyModal();
+		});
+		function __destroyModal(){
+			if($scope.config.imageModal != null){
+				if($scope.config.imageModal.isShown()){
+					$scope.config.imageModal.hide();
+				}
+				$scope.config.imageModal.remove();
+				$scope.config.imageModal = null;
+			}
+		}
+
 		$scope.config = {
 			actionSheet: null,
 			imageModal: null,
@@ -63,29 +139,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			hasMoreData: true,
 			isReloading: false,
 			isLoading: false,
-			loadingErrorMsg: null,
-
-			fileItemDefaults: {
-				originServer: false,
-				originPhoto: false,
-				originCamera: false,
-
-				isServerHolder: false,
-				isNetworking: false,
-				networkTip: "",
-				networkResultDesc: '',
-
-				isDeleting: false,
-				deletedError: false,
-				deletedOk: false,
-
-				uploading: false,
-				uploadOk: false,
-				uploadError: false,
-
-				src: "",
-				fileLocalPath: ""
-			}
+			loadingErrorMsg: null
 		};
 
 		$scope.datas = {
@@ -132,24 +186,25 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 
 		$scope.deleteImage = function(item, index){
 			__deleteImageInServer(item, index);
-		}; 
+		};
 
 		$scope.saveImage = function(item){
+		
 		};
 
 		$scope.uploadImage = function(item){
 			//console.log("uploadImage    :"+JSON.stringify(item));
 			var inbond = {
 				I_SYSNAME: { 
-					SysName: worksheetDataService.getStoredByKey("sysName") 
+					SysName: "CATL" 
 				},
 				IS_AUTHORITY: { 
-					BNAME: worksheetDataService.getStoredByKey("userName")
+					BNAME: "HANDLCX02" 
 				},
 				IS_URL: {
 					OBJECT_ID: $scope.config.OBJECT_ID,//  "5200000315",
 					PROCESS_TYPE: $scope.config.PROCESS_TYPE,// "ZPRO",
-					CREATED_BY: worksheetDataService.getStoredByKey("userName"), //"HANDLCX",
+					CREATED_BY: "HANDLCX",
 					LINE: ""
 				}
 			};
@@ -162,8 +217,8 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			var loadingStr = "正在加载";
 	        var params = $scope.config.requestParams;
 	        var queryParams = {
-			    "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
-			    "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") },
+			    "I_SYSNAME": { "SysName": "CATL" },
+			    "IS_AUTHORITY": { "BNAME": "HANDLCX" },
 			    "IS_PAGE": {
 			    	"CURRPAGE": $scope.config.pageNum++,
 			    	"ITEMS": 10
@@ -206,20 +261,10 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	        	if(response && response.ET_OUT_LIST && response.ET_OUT_LIST.item && response.ET_OUT_LIST.item.length > 0){
 	        		for(var i = 0; i < response.ET_OUT_LIST.item.length; i++){
 	        			var item = response.ET_OUT_LIST.item[i];
-	        			var newFileItem = angular.copy($scope.config.fileItemDefaults);
-						angular.extend(newFileItem, {
-							OBJECT_ID: item.OBJECT_ID,
-							PROCESS_TYPE: item.PROCESS_TYPE,
-							KW_RELATIVE_URL: item.KW_RELATIVE_URL,
-							OBJIDLO: item.OBJIDLO,
-							CLASSLO: item.CLASSLO,
-
-					        src: item.LINE,
-					        OBJTYPELO: item.OBJTYPELO,
-					        isFromServer: true,
-					        isServerHolder: true
-						});
-	        			$scope.datas.imageDatas.push(newFileItem);
+	        			item.displaySrc=item.LINE;
+	        			item.isFromServer = true;
+	        			item.isServerHolder = true;
+	        			$scope.datas.imageDatas.push(item);
 	        		}
 	        	}
 	        })
@@ -233,12 +278,25 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	        	}    	
 	        });
 		};
-		
+
+		/*
+			isServerHolder
+			isNetworking
+            networkTip
+			
+			isDeleting
+            deletedError
+            deletedOk
+			
+            uploading
+            uploadOk
+            uploadError
+		*/
 		function __deleteImageInServer(fileItem, index){
 			var loadingStr = "正在加载";
 	        var queryParams = {
-			    "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
-			    "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") },
+			    "I_SYSNAME": { "SysName": "CATL" },
+			    "IS_AUTHORITY": { "BNAME": "HANDLCX" },
 			    "IS_URL": {
 			      "OBJECT_ID": fileItem.OBJECT_ID,
 			      "PROCESS_TYPE": fileItem.PROCESS_TYPE,
@@ -298,56 +356,37 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		};
 
 		$scope.init = function(){
+
 			$scope.config.OBJECT_ID = worksheetDataService.wsDetailToPaiZHao.OBJECT_ID;
 			$scope.config.PROCESS_TYPE = worksheetDataService.wsDetailToPaiZHao.PROCESS_TYPE;
-			__requestImageList();
 
-			var ele = angular.element("body")[0];
-			ele.style.pointerEvents = "auto";
+			__requestImageList();
 		};
 
 		$scope.init();
 
 		$scope.closeImageModal = function(){
-			/*if($scope.datas.showImageItem && $scope.config.imageModal.isShown()){
-				$scope.datas.showImageItem.hide();
-				$scope.config.imageModal.remove();
-			}*/
-			__destroyModal();
 			$scope.datas.showImageItem = null;
-			angular.element("body").removeClass("modal-open");
+			__destroyModal();
 		};
 
 		$scope.initImageModal = function(){
 		};
 
-		function __removeModalOpenClass(){
-
-		}
-
 		$scope.showImage = function($event, imageInfo){
-			angular.element("body").removeClass("modal-open");
 			// 创建并准备显示modal层dome元素
 			$scope.datas.showImageItem = imageInfo;
-			//if($scope.config.imageModal == null){
-				$scope.config.imageModal = $ionicModal.fromTemplate("\
-						<div class='takePicture-image-modal-wrapper'>\
-							<div class='close-div'>\
-								<span ng-click='closeImageModal();'>关闭</span>\
-							</div>\
-							<img ng-src='{{datas.showImageItem.src}}' style='z-index:20;'></img>\
-						</div>", {
+			if($scope.config.imageModal == null){
+				$scope.config.imageModal = $ionicModal.fromTemplate("<div ng-init='initImageModal();' class='takePicture-image-modal-wrapper'><div class='close-div'><span ng-click='closeImageModal();'>关闭</span></div><img src='{{datas.showImageItem.displaySrc}}'></img></div>", {
 					scope: $scope,
 					animation: 'slide-in-up',
 					hardwareBackButtonClose: true,
 					backdropClickToClose: true
 				});
-			//}
+			}
 			if(!$scope.config.imageModal.isShown()){
 				$scope.config.imageModal.show();
 			}
-			/*var ele2JQ = angular.element(".takePicture-image-modal-wrapper img");
-			ele2JQ.addClass("inited");*/
 
 			// modal-backdrop 层设置为display:block; 防止 hide(class)导致界面元素突然消失			
 			var backdropEleJQ = angular.element(".modal-backdrop");
@@ -355,12 +394,12 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			
 			var wrapperEleJQ = angular.element(".takePicture-image-modal-wrapper");
 			var wrapperEle = wrapperEleJQ[0];
-			//wrapperEle.style.backgroundColor = "rgba(4, 4, 4, 0.49)";
+			wrapperEle.style.backgroundColor = "rgba(4, 4, 4, 0.49)";
 			var eleTempJQ = wrapperEleJQ.find(".img");
 			if(eleTempJQ){
 				eleTempJQ.removeClass("inited");			
 			}
-			
+
 			//alert($event);
 			var eleJQ = angular.element($event.target);
 			//var elePos = $ionicPosition.position(eleJQ);
@@ -370,105 +409,14 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			var initY = eleOffset.top + eleOffset.height/2;
 			var initX = eleOffset.left + eleOffset.width/2;
 			
+			
+
 			var ele2JQ = angular.element(".takePicture-image-modal-wrapper img");
 			var ele2 = ele2JQ[0];
 			ele2.style.transformOrigin = initX+"px"+" "+initY+"px";
-			console.log(initX+"px"+"     "+initY+"px");
 			ele2JQ.addClass("inited");
 		};
-		$scope.$on('modal.hidden', function($event, child) {
-			//console.log(" image modal.hidden ~~~ ");
-			var modalEle = child.el;
-			var imgEle = modalEle.getElementsByTagName('img')[0];			
-			angular.element(imgEle).removeClass("inited");
 
-			var backdropEleJQ = angular.element(".modal-backdrop");
-
-			var wrapperEleJQ = angular.element(".takePicture-image-modal-wrapper");
-			var wrapperEle = wrapperEleJQ[0];
-			wrapperEle.style.backgroundColor = "transparent";
-			
-			$timeout(function (){		
-				//img元素取消 transformOrigin 属性
-				imgEle.style.transformOrigin = "";
-			}, 150); //400
-			
-			$timeout(function (){
-				backdropEleJQ[0].style="";
-				$scope.closeImageModal();
-			}, 300); //600
-
-			/*var ele2JQ = angular.element(".takePicture-image-modal-wrapper img");
-			ele2JQ.removeClass("inited");
-
-			$timeout(function (){
-				//$scope.closeImageModal();
-			}, 300);*/
-
-		});
-		$scope.$on('modal.removed', function() {
-		    //debugger;
-		});
-		$scope.$on("$destroy", function(){
-			__destroyModal();
-			var ele = angular.element("body")[0];
-			ele.style.pointerEvents = "";
-		});
-		function __destroyModal(){
-			if($scope.config.imageModal != null){
-				if($scope.config.imageModal.isShown()){
-					$scope.config.imageModal.hide();
-				}
-				$scope.config.imageModal.remove();
-				$scope.config.imageModal = null;
-			}
-		}
-
-
-
-
-
-
-		/*
-			默认参数：
-				{
-					originServer: false,
-					originPhoto: false,
-					originCamera: false,
-
-					isServerHolder: false,
-					isNetworking: false,
-					networkTip: false,
-					networkResultDesc: '',
-
-					isDeleting: false,
-					deletedError: false,
-					deletedOk: false,
-
-					uploading: false,
-					uploadOk: false,
-					uploadError: false,
-
-					src: "",
-					fileLocalPath: ""
-				}
-			originServe		：图片来源为server 	boolean   
-			originPhoto		：图片来源为photo     boolean 	
-			originCamera	：图片来源为拍照		boolean
-
-			isServerHolder  ：服务器是否存在该图片  boolean
-			isNetworking	：是否在上传或者删除    boolean
-            networkTip		：上传或删除的提示语句   string
-            networkResultDesc ：上传成功或失败、删除成功或失败的原因或描述  string
-			
-			isDeleting		：正在删除       boolean
-            deletedError	：删除失败的原因 boolean
-            deletedOk		：删除成功	   boolean
-			
-            uploading 		：正在上传
-            uploadOk		：上传成功
-            uploadError 	：上传失败	boolean
-		*/
 		$scope.takePicture = function(){
 			$scope.config.actionSheet = $ionicActionSheet.show({
 				buttons: [
@@ -523,7 +471,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	        };
 	        if(navigator.camera){
 	            navigator.camera.getPicture(function (successRes){
-	            	getBase64FromFilepath(successRes, sourceTypeInt);
+	            	getBase64FromFilepath(successRes);
 	            }, function (errorRes){
 	            	/*if(errorRes == "no image selected"){
 	            		alert("未选择照片!");
@@ -540,23 +488,13 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	        }
 		};
 		
-		function getBase64FromFilepath(filepath, sourceTypeInt){
+		function getBase64FromFilepath(filepath){
 			//alert(filepath);
 			window.plugins.Base64.encodeFile(filepath, function (successRes){
-				var newFileItem = angular.copy($scope.config.fileItemDefaults);
-				var isFromCamera = false;
-				if(sourceTypeInt == 0){
-					isFromCamera = true;
-				}
-				angular.extend(newFileItem, {
-					fileLocalPath: filepath,
-			        src: successRes,
-			        isFromCamera: isFromCamera,
-			        isFromPhotos: !isFromCamera
-				});
-
-				$scope.datas.imageDatas.push(newFileItem);
-
+				$scope.datas.imageDatas.push({
+			        	filepath: filepath,
+			        	displaySrc: successRes
+			        });
 				if(!$scope.$$phase){
 					$scope.$apply();
 				}
@@ -571,7 +509,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 
 		function __uploadImage(file, url, inbond){
 			//alert("__uploadImage2");
-			var filepath = file.fileLocalPath;
+			var filepath = file.filepath;
 			//var url = encodeURI("http://192.168.31.101:8080/h5uploader/upload");
 			//var url = encodeURI("http://117.28.248.23:9388/test/api/bty/uploadImage");
 			var url = encodeURI(ROOTCONFIG.hempConfig.UploadImageUrl);

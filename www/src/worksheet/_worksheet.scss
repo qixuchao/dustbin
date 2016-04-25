@@ -167,8 +167,17 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	.search-history{
 		display: none;
 		padding-right: 1.2rem;
+		
+		div.history-title{
+			height: 2rem;
+		}
+		ion-scroll{
+			@include flex(1);
+		}
 		&.isSearchingMode{
-			display: block;
+			//display: block;
+			@include display-flex;
+			@include flex-direction(column);
 			&.no-show-search-box{
 				display: none;
 			}
@@ -211,6 +220,18 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			    padding: 0rem 0px;
 			    height: 2.2rem;
 			    line-height: 2.2rem;
+			    @include display-flex;
+			    @include justify-content(space-between);
+			    @include align-items(center);
+			    span{
+			    	@include flex(1);
+			    }
+			    i{
+					color: #D2D2D2;
+				    font-size: 1.4rem;
+				    padding-left: 1rem;
+				    padding-right: 1rem;
+			    }
 			}
 		}		
 	}
