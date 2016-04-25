@@ -101,12 +101,12 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             controller: 'LoginCtrl'
         })
 
-        //.state('login', {
+        // .state('login', {
         //    url: '/login',
         //    //abstract: true,
         //    templateUrl: 'src/loginSecond/loginSecond.html',
         //    controller: 'LoginSecondCtrl'
-        //})
+        // })
         .state('tabs', {
             url: '/tabs',
             templateUrl: 'src/tabs/tabs.html',

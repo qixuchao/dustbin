@@ -229,8 +229,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         $scope.titleStatus=false;
 
         var position;
-        var maxPosition;
-        $scope.back=function(){
+        var maxPosition;        $scope.back=function(){
             $rootScope.$broadcast('carCreatevalue1','false');
             $ionicHistory.goBack();
         };
@@ -398,7 +397,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         };
         $scope.goDetail=function(data){
             CarService.setSpare(data);
-            //$state.go("maintenance");
+            //$state.go("maintenance"); 
             $state.go("worksheetList");
         };
         //电话

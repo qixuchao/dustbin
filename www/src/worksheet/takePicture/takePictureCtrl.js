@@ -49,44 +49,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			console.log("----- goBackForPicture ----- end");
 		};
 
-		$scope.$on('modal.hidden', function($event, child) {
-			var modalEle = child.el;
-			var imgEle = modalEle.getElementsByTagName('img')[0];			
-			angular.element(imgEle).removeClass("inited");
-
-			var backdropEleJQ = angular.element(".modal-backdrop");
-
-			var wrapperEleJQ = angular.element(".takePicture-image-modal-wrapper");
-			var wrapperEle = wrapperEleJQ[0];
-			wrapperEle.style.backgroundColor = "transparent";
-			
-			$timeout(function (){				
-				//img元素取消 transformOrigin 属性
-				imgEle.style.transformOrigin = "";
-				
-			}, 400);
-			$timeout(function (){
-				backdropEleJQ[0].style="";
-				$scope.closeImageModal();
-			}, 600);
-		});
-		$scope.$on('modal.removed', function() {
-		    //debugger;
-		});
 		
-		$scope.$on("$destroy", function(){
-			__destroyModal();
-		});
-		function __destroyModal(){
-			if($scope.config.imageModal != null){
-				if($scope.config.imageModal.isShown()){
-					$scope.config.imageModal.hide();
-				}
-				$scope.config.imageModal.remove();
-				$scope.config.imageModal = null;
-			}
-		}
-
 		$scope.config = {
 			actionSheet: null,
 			imageModal: null,
@@ -172,7 +135,6 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		}; 
 
 		$scope.saveImage = function(item){
-		
 		};
 
 		$scope.uploadImage = function(item){
@@ -339,32 +301,53 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			$scope.config.OBJECT_ID = worksheetDataService.wsDetailToPaiZHao.OBJECT_ID;
 			$scope.config.PROCESS_TYPE = worksheetDataService.wsDetailToPaiZHao.PROCESS_TYPE;
 			__requestImageList();
+
+			var ele = angular.element("body")[0];
+			ele.style.pointerEvents = "auto";
 		};
 
 		$scope.init();
 
 		$scope.closeImageModal = function(){
-			$scope.datas.showImageItem = null;
+			/*if($scope.datas.showImageItem && $scope.config.imageModal.isShown()){
+				$scope.datas.showImageItem.hide();
+				$scope.config.imageModal.remove();
+			}*/
 			__destroyModal();
+			$scope.datas.showImageItem = null;
+			angular.element("body").removeClass("modal-open");
 		};
 
 		$scope.initImageModal = function(){
 		};
 
+		function __removeModalOpenClass(){
+
+		}
+
 		$scope.showImage = function($event, imageInfo){
+			angular.element("body").removeClass("modal-open");
 			// 创建并准备显示modal层dome元素
 			$scope.datas.showImageItem = imageInfo;
-			if($scope.config.imageModal == null){
-				$scope.config.imageModal = $ionicModal.fromTemplate("<div ng-init='initImageModal();' class='takePicture-image-modal-wrapper'><div class='close-div'><span ng-click='closeImageModal();'>关闭</span></div><img ng-src='{{datas.showImageItem.src}}' style='z-index:20;'></img></div>", {
+			//if($scope.config.imageModal == null){
+				$scope.config.imageModal = $ionicModal.fromTemplate("\
+						<div class='takePicture-image-modal-wrapper'>\
+							<div class='close-div'>\
+								<span ng-click='closeImageModal();'>关闭</span>\
+							</div>\
+							<img ng-src='{{datas.showImageItem.src}}' style='z-index:20;'></img>\
+						</div>", {
 					scope: $scope,
 					animation: 'slide-in-up',
 					hardwareBackButtonClose: true,
 					backdropClickToClose: true
 				});
-			}
+			//}
 			if(!$scope.config.imageModal.isShown()){
 				$scope.config.imageModal.show();
 			}
+			/*var ele2JQ = angular.element(".takePicture-image-modal-wrapper img");
+			ele2JQ.addClass("inited");*/
 
 			// modal-backdrop 层设置为display:block; 防止 hide(class)导致界面元素突然消失			
 			var backdropEleJQ = angular.element(".modal-backdrop");
@@ -377,7 +360,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			if(eleTempJQ){
 				eleTempJQ.removeClass("inited");			
 			}
-
+			
 			//alert($event);
 			var eleJQ = angular.element($event.target);
 			//var elePos = $ionicPosition.position(eleJQ);
@@ -387,13 +370,59 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			var initY = eleOffset.top + eleOffset.height/2;
 			var initX = eleOffset.left + eleOffset.width/2;
 			
-			
-
 			var ele2JQ = angular.element(".takePicture-image-modal-wrapper img");
 			var ele2 = ele2JQ[0];
 			ele2.style.transformOrigin = initX+"px"+" "+initY+"px";
+			console.log(initX+"px"+"     "+initY+"px");
 			ele2JQ.addClass("inited");
 		};
+		$scope.$on('modal.hidden', function($event, child) {
+			//console.log(" image modal.hidden ~~~ ");
+			var modalEle = child.el;
+			var imgEle = modalEle.getElementsByTagName('img')[0];			
+			angular.element(imgEle).removeClass("inited");
+
+			var backdropEleJQ = angular.element(".modal-backdrop");
+
+			var wrapperEleJQ = angular.element(".takePicture-image-modal-wrapper");
+			var wrapperEle = wrapperEleJQ[0];
+			wrapperEle.style.backgroundColor = "transparent";
+			
+			$timeout(function (){		
+				//img元素取消 transformOrigin 属性
+				imgEle.style.transformOrigin = "";
+			}, 150); //400
+			
+			$timeout(function (){
+				backdropEleJQ[0].style="";
+				$scope.closeImageModal();
+			}, 300); //600
+
+			/*var ele2JQ = angular.element(".takePicture-image-modal-wrapper img");
+			ele2JQ.removeClass("inited");
+
+			$timeout(function (){
+				//$scope.closeImageModal();
+			}, 300);*/
+
+		});
+		$scope.$on('modal.removed', function() {
+		    //debugger;
+		});
+		$scope.$on("$destroy", function(){
+			__destroyModal();
+			var ele = angular.element("body")[0];
+			ele.style.pointerEvents = "";
+		});
+		function __destroyModal(){
+			if($scope.config.imageModal != null){
+				if($scope.config.imageModal.isShown()){
+					$scope.config.imageModal.hide();
+				}
+				$scope.config.imageModal.remove();
+				$scope.config.imageModal = null;
+			}
+		}
 
 
 

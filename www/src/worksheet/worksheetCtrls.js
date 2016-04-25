@@ -231,13 +231,14 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.historyStrs = [];
 	};
 	$scope.deleteThisSearchHistory = function(item){
-		for(int i = 0; i < $scope.config.historyStrs.length; i++){
+		for(var i = 0; i < $scope.config.historyStrs.length; i++){
 			if(item.text == $scope.config.historyStrs[i].text){
-				if(i == $scope.config.historyStrs.length){
-
+				if(i == $scope.config.historyStrs.length-1){
+					$scope.config.historyStrs.pop();
 				}else{
-					$scope.config.historyStrs = $scope.config.historyStrs.slice(0, i).concat($scope.config.historyStrs.slice(0, i+1));
+					$scope.config.historyStrs = $scope.config.historyStrs.slice(0, i).concat($scope.config.historyStrs.slice(i+1));
 				}
+				worksheetDataService.setStored("weeksheetListQueryHistory", JSON.stringify($scope.config.historyStrs));
 				return;
 			}
 		}
@@ -936,7 +937,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 			queryParams.IS_SEARCH.PARTNER = $scope.config.PARTNER;
 		}
 		if($scope.config.isFromCarDetail){
-			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail && $scope.config.carCodeFromCarDetail.ZBAR_CODE ? $scope.config.carCodeFromCarDetail.ZBAR_CODE : null;
+			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail && $scope.config.carCodeFromCarDetail.code1 ? $scope.config.carCodeFromCarDetail.code1 : null;
 		}
 
 		//console.log(queryParams);
