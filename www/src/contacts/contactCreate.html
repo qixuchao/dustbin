@@ -12,8 +12,8 @@
         <div class="list" style="font-size: 16px;margin-top:5px">
             <!--title-->
             <span class="item item-input" style="border:none">注释：</span>
-            <textarea id="textarea" placeholder="请输入备注" style="width: 100%;background-color:white;min-height: 47px;max-height: 300px;overflow-y: hidden;padding: 0 15px 15px 50px;border-bottom: 1px solid #ddd" ng-model="contactcreat.conatctdeatilnote"></textarea>
-             <span class="item item-input">客户：
+            <textarea id="textarea2" placeholder="请输入备注" style="width: 100%;background-color:white;min-height: 47px;max-height: 300px;overflow-y: hidden;padding: 0 15px 15px 50px;border-bottom: 1px solid #ddd" ng-model="contactcreat.conatctdeatilnote" ng-init="autoHeight()"></textarea>
+            <span class="item item-input">客户：
                 <div class="row" ng-click="openSelectCustomer()">
                     <div class="col col-74 col-center" style="color:#9B9B9B" ng-bind="contactcreat.PARTNER2VALUE"></div>
                     <div class="col col-26 col-center" style="text-align: right;padding-right:12px;">
@@ -21,6 +21,14 @@
                     </div>
                 </div>
             </span>
+           <!--<span class="item item-input">客户：-->
+                <!--<div class="row" ng-click="openSelectCustomer()">-->
+                    <!--<div class="col col-74 col-center" style="color:#9B9B9B" ng-bind="contactcreat.PARTNER2VALUE"></div>-->
+                    <!--<div class="col col-26 col-center" style="text-align: right;padding-right:12px;">-->
+                        <!--<img class="contact_edit_listfor" src="img/employee/Shape@2x.png">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</span>-->
               <span class="item item-input">部门：
                 <input type="text" style="margin-left: 32px;" id="contcreapartment" placeholder="请输入部门" class="contact_editinputsty" ng-model="contactcreat.DPRTMNT">
                 <img id="contcreapartmentimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('DPRTMNT')"/>
@@ -79,12 +87,12 @@
                             <option value="" >请输入国家</option>
                         </select>
                     </div>
-                    <div class="row" style="padding: 5px;">
+                    <div class="row" style="padding: 5px;" ng-show="showFlag">
                         <select style="height: 40px;border:none;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white;width: 85%;margin-left:25px" ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
                             <option value="">请输入省份</option>
                         </select>
                     </div>
-                    <div class="row" style="padding: 5px;">
+                    <div class="row" style="padding: 5px;" ng-show="showFlag">
                         <select style="height: 40px;border:none;color:#9B9B9B;padding: 5px; -webkit-appearance:none;background:white;width: 85%;margin-left:25px"   ng-model="config.currentCity" ng-options="c as c.CITY_NAME for c in city">
                             <option value="" >请输入城市</option>
                         </select>
@@ -100,7 +108,7 @@
                 <img id="contcreaaddressnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('STREET')"/>
             </span>
             <span class="item item-input">门牌号：
-                <input type="text" style="margin-left: 15px;" id="contcreateaddressname2" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactcreat.HOUSE">
+                <input type="text" style="margin-left: 15px;" id="contcreateaddressname2" class="contact_editinputsty" placeholder="请输入门牌号" ng-model="contactcreat.HOUSE">
                 <img id="contcreaaddressnameimg2" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('HOUSE')"/>
             </span>
         </div>

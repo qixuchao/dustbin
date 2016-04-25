@@ -1,12 +1,53 @@
 
-worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast','contactService',,function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast,contactService){
+worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast','contactService',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast,contactService){
 
     $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         if(fromState.name == 'contactsCreate' && toState.name == 'customerContactQuery'){
-            var x = contactService.get_ContactsListvalue
+            var x = contactService.get_ContactsListvalue;
             $scope.selectCon(x);
         }
     });
+    $scope.gomore = true;
+    $scope.goload = false;
+    $scope.gono = false;
+    var detaile = customeService.get_customerEditServevalue();
+    //数据刷新
+    var conpageNum = 1;
+    $scope.infos = [];
+    $scope.updateInfos = function(){
+        $scope.goload = true;
+        $scope.gomore = false;
+        var data = {
+            "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
+            "IS_PAGE": {
+                "CURRPAGE": conpageNum++,
+                "ITEMS": "10"
+            },
+            "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER },
+            "IS_SEARCH": { "SEARCH": "" }
+        };
+        console.log(data);
+        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
+            .success(function (response) {
+                $scope.goload = false;
+                $scope.gomore = true;
+                console.log(angular.toJson(response));
+                if (response.ES_RESULT.ZFLAG === 'S') {
+                    $scope.infos = $scope.infos.concat(response.ET_OUT_LIST.item);
+                    if (response.ET_OUT_LIST.item.length < 10) {
+                        $scope.gono = true;
+                        $scope.goload = false;
+                        $scope.gomore = false;
+                    }
+                }else{
+                    $scope.gono = true;
+                    $scope.goload = false;
+                    $scope.gomore = false;
+                }
+            });
+    }
+    $scope.updateInfos();
     $scope.selectCon = function (x) {
         console.log(angular.toJson(x));
         console.log(angular.toJson($scope.infos));
@@ -59,24 +100,15 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             $scope.relatedpopover.hide();
             //document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";.ET_OUT_RELATION.item
         };
-    $scope.config = {
-        goMore : true,
-        goLoad : false,
-        goNo : false
-    }
+
         $scope.related_types = ['扫描名片创建联系人','手动创建联系人'];
         $scope.relatedqueryType = function(types){
             console.log(types);
             if(types === "手动创建联系人"){
-                //$state.go("worksheetRelatedPartContact");
-                //$scope.openSelectCon();
-                contactService.set_ContactCreateflag("Y");
+                customeService.goContacts.formCusttomer = true;
                 $state.go('ContactCreate');
             }else if(types === "扫描名片创建联系人"){
-                //$state.go("worksheetRelatedPartCust");
-                //$scope.openSelectCon();
-                contactService.set_ContactCreateflag("Y");
-                $state.go('ContactCreate');
+                //$state.go('ContactCreate');
             }
 
             $scope.relatedPopoverhide();
@@ -119,40 +151,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
     }
 
 
-    //数据刷新
-    var conpageNum = 1;
-    $scope.infos = [];
-    $scope.updateInfos = function(){
-        $scope.config.goload = true;
-        $scope.config.goMore = false;
-        var data = {
-            "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
-            "IS_PAGE": {
-                "CURRPAGE": conpageNum++,
-                "ITEMS": "10"
-            },
-            "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER },
-            "IS_SEARCH": { "SEARCH": "" }
-        };
-        console.log(data);
-        HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
-            .success(function (response) {
-                $scope.config.goload = false;
-                console.log(angular.toJson(response));
-                if (response.ES_RESULT.ZFLAG === 'S') {
-                    $scope.infos = $scope.infos.concat(response.ET_OUT_LIST.item);
-                    if (response.ET_OUT_LIST.item.length < 10) {
-                        $scope.config.goNo = true;
-                        $scope.config.goload = false;
-                    }
-                }else{
-                    $scope.config.goNo = true;
-                    $scope.config.goload = false;
-                }
-            });
-    }
-    $scope.updateInfos();
+
 }]);
 
 

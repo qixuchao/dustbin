@@ -13,7 +13,7 @@
         <div class="list" style="font-size: 18px;margin-top:5px">
             <!--title-->
             <span class="item item-input" style="border:none">注释：</span>
-            <textarea id="textarea" placeholder="请输入备注" style="width: 100%;background-color:white;min-height: 50px;max-height: 300px;overflow-y: hidden;padding: 0 15px 15px 50px;" ng-model="contactedit.conatctdeatilnote"></textarea>
+            <textarea id="textarea1" placeholder="请输入备注" style="width: 100%;background-color:white;max-height: 300px;border-bottom: 1px solid #ddd;overflow-y: hidden;padding: 0 15px 15px 50px;" ng-model="contactedit.conatctdeatilnote" ng-init="autoHeight()"></textarea>
               <span class="item item-input">部门：
                 <input type="text" id="contpartment" placeholder="请输入部门" class="contact_editinputsty" style="margin-left: 32px;" ng-model="contactedit.DPRTMNT">
                 <img id="contpartmentimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('DPRTMNT')"/>
@@ -32,12 +32,12 @@
                 <img id="contnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('NAME_LAST')"/>
               </span>
               <span class="item item-input">手机：
-                <input type="text" id="contmobilenumber" style="margin-left: 32px;" class="contact_editinputsty" placeholder="请输入手机号码" ng-model="contactedit.MOB_NUMBER">
-                <img id="contmobilenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('MOB_NUMBER')"/>
+                <input type="text" id="contmobilenumber" style="margin-left: 32px;" class="contact_editinputsty" placeholder="请输入手机号码" ng-model="contactedit.TEL_NUMBER">
+                <img id="contmobilenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('TEL_NUMBER')"/>
             </span>
              <span class="item item-input">电话：
-                <input type="text" id="contphonenumber" style="margin-left: 32px;" class="contact_editinputsty" placeholder="请输入电话号码" ng-model="contactedit.TEL_NUMBER">
-                <img id="contphonenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('TEL_NUMBER')"/>
+                <input type="text" id="contphonenumber" style="margin-left: 32px;" class="contact_editinputsty" placeholder="请输入电话号码" ng-model="contactedit.MOB_NUMBER">
+                <img id="contphonenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('MOB_NUMBER')"/>
             </span>
              <span class="item item-input">电话分机：
                 <input type="text" id="contphonenumber1" class="contact_editinputsty" placeholder="请输入电话分机" ng-model="contactedit.TEL_EXTENS">
@@ -73,8 +73,8 @@
                            <option value="">请输入国家</option>
                         </select>
                     </div>
-                    <div class="row" style="padding: 5px;" >
-                        <select style="height: 40px;border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white;width: 85%;margin-left:25px" ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
+                    <div class="row" style="padding: 5px;">
+                        <select style="height: 40px;border:none;color:#9B9B9B;padding: 5px -webkit-appearance:none;background:white;width: 85%;margin-left:25px" ng-model="config.currentProvence" ng-options="b.REGION as b.REGION_NAME for b in provence" ng-change="changProvence()">
                            <option value="">请输入省份</option>
                         </select>
                     </div>
@@ -94,7 +94,7 @@
                 <img id="contaddressnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('STREET')"/>
             </span>
             <span class="item item-input">门牌号：
-                <input type="text" style="margin-left: 15px;" id="contcreateaddressname1" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactedit.HOUSE">
+                <input type="text" style="margin-left: 15px;" id="contcreateaddressname1" class="contact_editinputsty" placeholder="请输入门牌号" ng-model="contactedit.HOUSE_NUM1">
                 <img id="contcreaaddressnameimg1" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('HOUSE')"/>
             </span>
         </div>

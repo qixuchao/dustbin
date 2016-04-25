@@ -22,9 +22,11 @@ mainModule
         'LoginService',
         'saleActService',
         'worksheetDataService',
+        'saleChanService',
         function ($scope, $state, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location, $cordovaToast, $ionicModal,
-                  ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService, worksheetDataService) {
+                  ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService,
+                  worksheetDataService,saleChanService) {
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
                 ionicMaterialInk.displayEffect();
@@ -332,16 +334,6 @@ mainModule
                 }
                 $scope.getList('init');
             };
-
-            $scope.onMonthSwipeLeft = function () {
-                //当前周一对应的日期
-                //nextDays(7);
-                alert('月份左滑')
-            };
-            $scope.onMonthSwipeRight = function () {
-                //nextDays(-7);
-                alert('月份右滑动')
-            };
             var lastSelectedDate = angular.copy(selectDate);
             $scope.selectDay = function (x, y) {
                 selectDate = new Date($scope.year + '/' + $scope.month + '/' + y.value).format('yyyy-MM-dd');
@@ -471,7 +463,10 @@ mainModule
                 //获取当月1号是周几
                 var month_getWeek = new Date(year + '/' + month + '/1').getDay();
                 console.log(year + '/' + month + '/1');
-                console.log(month_getWeek)
+                console.log(month_getWeek);
+                if (month_getWeek == 0) {
+                    month_getWeek = 7;
+                }
                 var count = 0;
                 //var daysArr = [];
                 for (var i = 1; i < month_getWeek; i++, count++) {
@@ -612,7 +607,7 @@ mainModule
                         "ITEMS": "10"
                     },
                     //"IS_USER": {"BNAME": window.localStorage.crmUserName}
-                    "IS_USER": {"BNAME": "HANDBLH"}
+                    "IS_USER": {"BNAME": window.localStorage.crmUserName}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_LIST', data)
                     .success(function (response, status, headers, config) {
@@ -833,15 +828,44 @@ mainModule
             $scope.pop = {
                 type: {}
             };
+            $ionicPopover.fromTemplateUrl('src/applications/saleChance/modal/create_Pop.html', {
+                scope: $scope
+            }).then(function (popover) {
+                $scope.createPop = popover;
+            });
+            $scope.openCreatePop = function () {
+                Prompter.showLoading();
+                $scope.pop.type = $scope.createPopTypes[0];
+                $scope.salesGroup = [];
+                $scope.creaeSpinnerFlag = true;
+                var data = {
+                    "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_USER": {"BNAME": window.localStorage.crmUserName}
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
+                    .success(function (response) {
+                        $scope.creaeSpinnerFlag = false;
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            Prompter.hideLoading();
+                            for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
+                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_TXT.split(' ')[1];
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                    $scope.salesGroup.push(response.ET_ORGMAN.item[i]);
+                                }
+                            }
+                            $scope.pop.saleOffice = $scope.salesGroup[0];
+                            $scope.createPop.show();
+                            //}
+                        } else {
+                            Prompter.showShortToastBotton('无法创建');
+                        }
+                    });
+            };
             $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Pop.html', {
                 scope: $scope
             }).then(function (popover) {
                 $scope.createPop = popover;
             });
-            $scope.openCreatePop = function (e) {
-                $scope.pop.type = $scope.createPopTypes[0];
-                $scope.createPop.show();
-            };
             $scope.showCreateModal = function () {
                 $scope.createPop.hide();
                 $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/create_Modal/createSaleAct_Modal.html', {
@@ -856,9 +880,64 @@ mainModule
                     }
                 });
             };
+
+            //机会
+            $scope.chancePop = {
+                type: {}
+            };
+            $scope.createChancePopData = saleChanService.createPop;
+            $ionicPopover.fromTemplateUrl('src/applications/saleChance/modal/create_Pop.html', {
+                scope: $scope
+            }).then(function (popover) {
+                $scope.createChancePop = popover;
+            });
+            $scope.openCreateChancePop = function () {
+                Prompter.showLoading();
+                $scope.salesChanceGroup = [];
+                var data = {
+                    "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_USER": {"BNAME": window.localStorage.crmUserName}
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
+                    .success(function (response) {
+                        Prompter.hideLoading();
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
+                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_TXT.split(' ')[1];
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesChanceGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                    $scope.salesChanceGroup.push(response.ET_ORGMAN.item[i]);
+                                }
+                            }
+                            if ($scope.salesChanceGroup.length > 1) {
+                                $scope.chancePop.saleOffice = $scope.salesChanceGroup[0];
+                                $scope.createChancePop.show();
+                            } else {
+                                $scope.chancePop.saleOffice = $scope.salesChanceGroup[0];
+                                $scope.showCreateChanceModal();
+                            }
+                        } else {
+                            Prompter.showShortToastBotton('无法创建');
+                        }
+                    });
+            };
+            $scope.showCreateChanceModal = function () {
+                $scope.createChancePop.hide();
+                $ionicModal.fromTemplateUrl('src/applications/saleChance/modal/create_Modal/create_Modal.html', {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then(function (modal) {
+                    $scope.createChanceModal = modal;
+                    modal.show();
+                    var tempArr = document.getElementsByClassName('modal-wrapper');
+                    for (var i = 0; i < tempArr.length; i++) {
+                        tempArr[i].style.pointerEvents = 'auto';
+                    }
+                });
+            };
             /*-------------------------------新建 end-------------------------------------*/
             $scope.$on('$destroy', function () {
                 $scope.createPop.remove();
+                $scope.createChancePop.remove();
             });
         }
     ])

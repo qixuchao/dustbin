@@ -64,7 +64,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             page+=1;
             var url = ROOTCONFIG.hempConfig.basePath + 'CAR_LIST_BY_DCR';
             var data = {
-                "I_SYSNAME": {"SysName": "CATL"},
+                "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_PAGE": {
                     "CURRPAGE": page,
                     "ITEMS": "10"
@@ -280,10 +280,10 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         var codeId=CarService.getData().ZBAR_CODE;
         console.log(codeId);
         var carDetail=function(){
-            var url=ROOTCONFIG.hempConfig.basePath + "CAR_DETAIL";
+            var url=ROOTCONFIG.hempConfig.basePath+'CAR_DETAIL';
             var data =
             {
-                "I_SYSNAME": { "SysName": "CATL" },
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IT_VEHICLID": { "ZZ0010": codeId }
             };
 
@@ -391,11 +391,12 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         //console.log($scope.cars.describe)
         $scope.projectName="CATL项目名称:";
 
-        $scope.goPage=function(data){
-            CarService.setSpare1(data);
+        $scope.goPage=function(data1){
+            CarService.setSpare1(data1);
             $state.go("spare");
         };
         $scope.goDetail=function(data){
+            console.log(data);
             CarService.setSpare(data);
             //$state.go("maintenance"); 
             $state.go("worksheetList");
@@ -552,14 +553,14 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             };
 
 
-            $scope.goDetailState = function(i){
-                console.log("goDetailState");
-                if(i == 0){
-                    $state.go("worksheetdetailnewcar");
-                }else{
-                    $state.go("worksheetdetailsiterepair");
-                }
-            };
+            //$scope.goDetailState = function(i){
+            //    console.log("goDetailState");
+            //    if(i == 0){
+            //        $state.go("worksheetdetailnewcar");
+            //    }else{
+            //        $state.go("worksheetdetailsiterepair");
+            //    }
+            //};
 
             $scope.onSearchTextChange = function($event){
                 if($scope.config.searchText && $scope.config.searchText.trim()!=''){
@@ -898,8 +899,8 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
                 page+=1;
                 var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST';
                 var data = {
-                    I_SYSNAME: { SysName: "CATL" },
-                    IS_AUTHORITY: { BNAME: "" },
+                    I_SYSNAME: { SysName: ROOTCONFIG.hempConfig.baseEnvironment},
+                    IS_AUTHORITY: { BNAME:  window.localStorage.crmUserName },
                     IS_PAGE: {
                         CURRPAGE: page,
                         ITEMS: 10
@@ -985,27 +986,27 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
 
             };
             $scope.init();
-            $scope.goDetailState = function(record,i) {
-                worksheetDataService.worksheetList.toDetail = {
-                    "IS_OBJECT_ID": record.OBJECT_ID,
-                    "IS_PROCESS_TYPE": record.PROCESS_TYPE,
-                    "ydWorksheetNum": record.SOLDTO_NAME,
-                    'ydStatusNum': record.STAT
-                };
-                if (record.PROCESS_TYPE == "ZNCO" || record.PROCESS_TYPE == "ZNCV") {
-                    $state.go("worksheetDetail", {
-                        detailType: 'newCar'
-                    });
-                } else if (record.PROCESS_TYPE == "ZPRO" || record.PROCESS_TYPE == "ZPRV") {
-                    $state.go("worksheetDetail", {
-                        detailType: 'siteRepair'
-                    });
-                } else if (record.PROCESS_TYPE == "ZPLO" || record.PROCESS_TYPE == "ZPLV") {
-                    $state.go("worksheetDetail", {
-                        detailType: 'batchUpdate'
-                    });
-                }
-            }
+            //$scope.goDetailState = function(record,i) {
+            //    worksheetDataService.worksheetList.toDetail = {
+            //        "IS_OBJECT_ID": record.OBJECT_ID,
+            //        "IS_PROCESS_TYPE": record.PROCESS_TYPE,
+            //        "ydWorksheetNum": record.SOLDTO_NAME,
+            //        'ydStatusNum': record.STAT
+            //    };
+            //    if (record.PROCESS_TYPE == "ZNCO" || record.PROCESS_TYPE == "ZNCV") {
+            //        $state.go("worksheetDetail", {
+            //            detailType: 'newCar'
+            //        });
+            //    } else if (record.PROCESS_TYPE == "ZPRO" || record.PROCESS_TYPE == "ZPRV") {
+            //        $state.go("worksheetDetail", {
+            //            detailType: 'siteRepair'
+            //        });
+            //    } else if (record.PROCESS_TYPE == "ZPLO" || record.PROCESS_TYPE == "ZPLV") {
+            //        $state.go("worksheetDetail", {
+            //            detailType: 'batchUpdate'
+            //        });
+            //    }
+            //}
 
         }])
 
@@ -1052,8 +1053,8 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             page+=1;
             var url=ROOTCONFIG.hempConfig.basePath+'ATTACHMENT_LIST';
             var data = {
-                "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "" },
+                "I_SYSTEM": { "SysName":ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "IS_PAGE": {
                     "CURRPAGE": page,
                     "ITEMS": "10"
@@ -1125,8 +1126,8 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             Prompter.showLoading("正在加载");
             var url=ROOTCONFIG.hempConfig.basePath+'ATTACHMENT_LIST';
             var data = {
-                "I_SYSTEM": { "SysName": "CATL" },
-                "IS_USER": { "BNAME": "" },
+                "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "IS_PAGE": {
                     "CURRPAGE": "1",
                     "ITEMS": "10"

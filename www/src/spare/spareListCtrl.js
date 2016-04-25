@@ -96,7 +96,7 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
         page+=1;
         var url = ROOTCONFIG.hempConfig.basePath + 'PRODUCT_LIST';
         var data = {
-            "I_SYSNAME": {"SysName": "CATL"},
+            "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
             "IS_PAGE": {
                 "CURRPAGE": page,
                 "ITEMS": "20"
