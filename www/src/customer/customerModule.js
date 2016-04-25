@@ -9,6 +9,9 @@ customerModuleServive
         var customerDetailEditvalue;
         var customerFuZe;
         return {
+            goContacts : {
+              formCusttomer : "",
+            },
             //客户数据
             set_customerListvalue:function(cusvalue){
                 customerlistdeatilvalue = cusvalue;
@@ -37,7 +40,7 @@ customerModuleServive
             get_customerEditServevalue:function(){
                 return customerDetailEditvalue;
             },
-            //存储从详情界面数据到联系人页面
+            //存储从详情界面数据到负责人页面
             set_customeFuZe:function(value){
                 customerFuZe = value;
             },

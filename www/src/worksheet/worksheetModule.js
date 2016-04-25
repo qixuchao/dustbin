@@ -187,7 +187,8 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
         },
         //添加产品
         addPro : {
-            proInfos : ""
+            proInfos : "",
+            wareHouse : ""
         },
         //产品
 
