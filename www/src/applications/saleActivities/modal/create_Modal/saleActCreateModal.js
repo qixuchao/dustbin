@@ -23,6 +23,7 @@ salesModule
             var customerPage = 1;
             $scope.customerArr = [];
             $scope.customerSearch = false;
+            $scope.urgentDegreeArr = saleActService.urgentDegreeArr;
             var customerType = 'CRM000';
             $scope.input = {customer:''};
             $scope.getCustomerArr = function (search) {
@@ -159,7 +160,7 @@ salesModule
                         "SALES_GROUP": "",
                         "SALES_ORG_RESP": ""
                     },
-                    "IS_USER": {"BNAME": "HANDBLH"},
+                    "IS_USER": {"BNAME": window.localStorage.crmUserName},
                     "IT_LINES": {
                         "item": {
                             "TDFORMAT": "*",

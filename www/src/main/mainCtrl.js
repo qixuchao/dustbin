@@ -332,16 +332,6 @@ mainModule
                 }
                 $scope.getList('init');
             };
-
-            $scope.onMonthSwipeLeft = function () {
-                //当前周一对应的日期
-                //nextDays(7);
-                alert('月份左滑')
-            };
-            $scope.onMonthSwipeRight = function () {
-                //nextDays(-7);
-                alert('月份右滑动')
-            };
             var lastSelectedDate = angular.copy(selectDate);
             $scope.selectDay = function (x, y) {
                 selectDate = new Date($scope.year + '/' + $scope.month + '/' + y.value).format('yyyy-MM-dd');
@@ -471,7 +461,10 @@ mainModule
                 //获取当月1号是周几
                 var month_getWeek = new Date(year + '/' + month + '/1').getDay();
                 console.log(year + '/' + month + '/1');
-                console.log(month_getWeek)
+                console.log(month_getWeek);
+                if (month_getWeek == 0) {
+                    month_getWeek = 7;
+                }
                 var count = 0;
                 //var daysArr = [];
                 for (var i = 1; i < month_getWeek; i++, count++) {

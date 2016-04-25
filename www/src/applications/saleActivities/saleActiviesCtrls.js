@@ -177,6 +177,7 @@ salesModule
                 return "";
             };
             $scope.filterSure = function () {
+                $scope.serachButton = true;
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
                 var ele = angular.element('#saleChanListFilterId');
@@ -189,6 +190,7 @@ salesModule
             };
             $scope.filterFlag = false;
             $scope.changeSearch = function () {
+                $scope.serachButton = false;
                 angular.element('#saleChanListFilterId').css('display', 'none');
                 if ($scope.filterFlag) {
                     $scope.filterFlag = false;
@@ -1329,10 +1331,9 @@ salesModule
                 return text;
             }
             var regex = new RegExp(search, 'gi');
-            var result = text.replace(regex, '<span style="color: red;">$&</span>');
+            var result = text.replace(regex, '<span style="color:red;">$&</span>');
             return $sce.trustAsHtml(result);
         };
-
         return fn;
     })
     .directive('focusMe', function ($timeout) {

@@ -19,8 +19,8 @@ salesModule
         'HttpAppService',
         'saleChanService',
         'customeService',
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory,ionicMaterialInk,
-                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService,customeService) {
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
+                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService) {
             ionicMaterialInk.displayEffect();
             //ionicMaterialMotion.fadeSlideInRight();
             console.log('销售机会列表');
@@ -31,7 +31,7 @@ salesModule
             }, 100);
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
-            $scope.input = {search: '',list:''};
+            $scope.input = {search: '', list: ''};
             $scope.filters = saleChanService.filters;
             var pageNum = 1;
             $scope.loadMoreFlag = true;
@@ -40,9 +40,9 @@ salesModule
             var PARTNER_NO
             //没有 更多数据
             $scope.saleListNoMoreInfoFLag = false;
-            if(angular.isObject(customeService.get_customerWorkordervalue())){
+            if (angular.isObject(customeService.get_customerWorkordervalue())) {
                 PARTNER_NO = customeService.get_customerWorkordervalue().PARTNER;
-            }else{
+            } else {
                 PARTNER_NO = "";
             }
             $scope.goBack = function () {
@@ -67,7 +67,9 @@ salesModule
                         break;
                     case 'search':
                         $scope.loadMoreFlag = true;
-                        angular.element('#saleActListSearchPageId').addClass('active');
+
+                        angular.element('#saleActListSearchPageId').removeClass('ng-hide').addClass('active');
+                        console.log($scope.loadMoreFlag && $scope.input.list == '' && $scope.serachButton);
                         pageNum = 1;
                         var arr = document.getElementsByClassName('flipInX');
                         for (var i = 0; i < arr.length; i++) {
@@ -200,18 +202,20 @@ salesModule
                 }
             };
             $scope.filterSure = function () {
+                $scope.serachButton = true;
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
                 var ele = angular.element('#saleActListFilterId');
-                ele.css('display','block').removeClass('fadeInDown');
-                ele.css('display','block').addClass('slideOutUp');
+                ele.css('display', 'block').removeClass('fadeInDown');
+                ele.css('display', 'block').addClass('slideOutUp');
                 $scope.getList('search');
             };
             $scope.filterPrevent = function (e) {
                 e.stopPropagation();
             };
             $scope.changeSearch = function () {
-                angular.element('#saleActListFilterId').css('display','none');
+                $scope.serachButton = false;
+                angular.element('#saleActListFilterId').css('display', 'none');
                 if ($scope.filterFlag) {
                     $scope.filterFlag = false;
                 }
@@ -247,11 +251,11 @@ salesModule
                 $scope.filterFlag = !$scope.filterFlag;
                 if ($scope.filterFlag) {
                     onceCilck = true;
-                    ele.css('display','block').removeClass('slideOutUp');
-                    ele.css('display','block').addClass('fadeInDown');
-                }else {
-                    ele.css('display','block').removeClass('fadeInDown');
-                    ele.css('display','block').addClass('slideOutUp');
+                    ele.css('display', 'block').removeClass('slideOutUp');
+                    ele.css('display', 'block').addClass('fadeInDown');
+                } else {
+                    ele.css('display', 'block').removeClass('fadeInDown');
+                    ele.css('display', 'block').addClass('slideOutUp');
                 }
 
                 e.stopPropagation();
@@ -260,11 +264,11 @@ salesModule
                 saleChanService.obj_id = x.OBJECT_ID;
                 var isStored = false;
                 angular.forEach($scope.hisArr, function (data) {
-                    if(data.text == $scope.input.list){
+                    if (data.text == $scope.input.list) {
                         isStored = true;
                     }
                 });
-                if(!isStored){
+                if (!isStored) {
                     storedb('saleChanListHisArr').insert({
                         text: $scope.input.list,
                         data: tempHisPostData
@@ -477,7 +481,7 @@ salesModule
             var customerPage = 1;
             $scope.customerArr = [];
             $scope.customerSearch = false;
-            $scope.input = {customer:''};
+            $scope.input = {customer: ''};
             var customerType = 'CRM000';
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
@@ -495,7 +499,7 @@ salesModule
                     },
                     "IS_SEARCH": {"SEARCH": $scope.input.customer},
                     "IT_IN_ROLE": {
-                        "item1": { "RLTYP": customerType }
+                        "item1": {"RLTYP": customerType}
                     }
                 };
                 console.log(data);
@@ -519,7 +523,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                        }else{
+                        } else {
                             $scope.CustomerLoadMoreFlag = false;
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
@@ -956,7 +960,7 @@ salesModule
             var customerPage = 1;
             $scope.customerArr = [];
             $scope.customerSearch = false;
-            $scope.input={customer:''}
+            $scope.input = {customer: ''}
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -1064,7 +1068,7 @@ salesModule
                 for (var j = 0; j < $scope.relationArr.length; j++) {
                     if ($scope.relationArr[j].position == '客户') {
                         isAlreadyHaveCustomer = true;
-                        x.mode='U';
+                        x.mode = 'U';
                         x.PARTNER_FCT = "00000021";
                         var temp = angular.copy($scope.relationArr[j]);
                         $scope.relationArr[j] = x;
@@ -1166,7 +1170,7 @@ salesModule
                         console.log(index);
                         switch (index) {
                             case 0:
-                                if(x.position=='CATL销售'&&!angular.isUndefined(x.mode)){
+                                if (x.position == 'CATL销售' && !angular.isUndefined(x.mode)) {
                                     Prompter.alert('CALTL销售不能删除!');
                                     return
                                 }
@@ -1188,7 +1192,7 @@ salesModule
                                 $scope.relationArr.splice(repTempIndex, 1);
                                 break;
                             case 1:
-                                if(x.position=='CATL销售'&&!angular.isUndefined(x.mode)){
+                                if (x.position == 'CATL销售' && !angular.isUndefined(x.mode)) {
                                     Prompter.alert('CALTL销售不能修改!');
                                     return
                                 }

@@ -71,7 +71,7 @@
         </div>
         <ion-infinite-scroll id="saleChanListSpinnerId" on-infinite="getList()" distance="1%"
                              ng-if="loadMoreFlag&&!searchFlag"></ion-infinite-scroll>
-        <div class="noMoreInfo" ng-if="saleListNoMoreInfoFLag&&!(loadMoreFlag&&!searchFlag)&&saleListArr.length!=0">没有更多数据了</div>
+        <!--<div class="noMoreInfo" ng-if="saleListNoMoreInfoFLag&&!(loadMoreFlag&&!searchFlag)&&saleListArr.length!=0">没有更多数据了</div>-->
     </ion-content>
     <ion-content class="has-header search" ng-show="searchFlag" scroll="false" ng-click="changeSearch($event)">
         <div ng-class="filterFlag?'own-backDrop-on':'own-backDrop-off'"
@@ -106,17 +106,16 @@
             </div>
         </div>
         <ion-scroll class="fill-parent">
-            <div class="row row-center his-title" ng-if="!input.list">
+            <div class="row row-center his-title" ng-if="!input.list&&!serachButton">
                 <i class="ion-android-time"></i>
-
                 <div class="hisText">历史记录</div>
                 <div class="horizon-line"></div>
             </div>
-            <ion-list ng-if="!input.list">
+            <ion-list ng-if="!input.list&&!serachButton">
                 <ion-item ng-click="search(x,$event)" ng-repeat="x in hisArr">{{x.text}}</ion-item>
             </ion-list>
             <div class="content">
-                <div class="list" ng-if="input.list">
+                <div class="list" ng-if="input.list||serachButton">
                     <a ng-click="goDetail(x,$event)" class="item" ng-repeat="x in saleListArr">
                         <div class="row row-center">
                             <img class="title_oval" src="img/saleDetail/title_oval.png">
@@ -126,9 +125,9 @@
                         </div>
                         <div class="row row-center sub-title">
                             <div class="startText">开始日期:&nbsp;&nbsp;</div>
-                            <div class="startDate" ng-bind-html="x.DATE_FROM | highlight:input.list"></div>
+                            <div class="startDate" ng-bind-html="x.DATE_FROM"></div>
                             <div class="type">类型:&nbsp;&nbsp;</div>
-                            <div class="typeValue" ng-bind-html="x.PROT_TXT | highlight:input.list"></div>
+                            <div class="typeValue" ng-bind-html="x.PROT_TXT"></div>
                             <div class="col status" ng-class="{'waitStatus':x.STATUS_TXT=='未处理'}"
                                  ng-bind-html="x.STATUS_TXT | highlight:input.list"></div>
                         </div>
@@ -136,7 +135,7 @@
                 </div>
             </div>
             <ion-infinite-scroll id="saleChanListSearchPageId" on-infinite="getList('searchPage')" distance="1%"
-                                 ng-if="loadMoreFlag&&input.list"></ion-infinite-scroll>
+                                 ng-if="(loadMoreFlag&&input.list)||(input.list==''&&serachButton&&loadMoreFlag)"></ion-infinite-scroll>
             <!--<div class="noMoreInfo" ng-if="saleListNoMoreInfoFLag&&!(loadMoreFlag&&input.list)">没有更多数据了</div>-->
         </ion-scroll>
     </ion-content>
