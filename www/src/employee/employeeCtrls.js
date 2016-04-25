@@ -240,7 +240,7 @@ employeeModule
                 $ionicActionSheet.show({
                     buttons: [
                         {text: data.TEL_NUMBER},
-                        {text: data.MOB_NUMBER},
+                        {text: data.MOB_NUMBER}
                     ],
                     titleText: '拨打电话',
                     cancelText: '取消',
@@ -385,13 +385,13 @@ employeeModule
         };
         $scope.userdetailval = employeeService.get_employeeListvalue();
         //电话
-        $scope.employeeshowphone =function(types){
-            if(types == undefined || types == ""){
-                $cordovaToast.showShortBottom('没有数据');
-            }else{
-                Prompter.showphone(types)
-            }
-        }
+        //$scope.employeeshowphone =function(types){
+        //    if(types == undefined || types == ""){
+        //        $cordovaToast.showShortBottom('没有数据');
+        //    }else{
+        //        Prompter.showphone(types)
+        //    }
+        //}
         //邮箱
         $scope.mailcopyvalue = function(valuecopy){
             if(valuecopy == undefined || valuecopy == ""){
