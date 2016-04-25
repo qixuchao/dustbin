@@ -3,8 +3,8 @@
  */
 'use strict';
 employeeModule
-    .controller('userQueryCtrl',['$ionicActionSheet','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading',
-        function($ionicActionSheet,$scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading){
+    .controller('userQueryCtrl',['$ionicActionSheet','$window','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading',
+        function($ionicActionSheet,$window,$scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading){
         $scope.searchFlag=false;
         $scope.employ={
             employeefiledvalue:''
@@ -233,15 +233,27 @@ employeeModule
         //}
         //拨打电话
         $scope.employeequeryphone = function(data){
-            console.log(data)
+            console.log(data);
             if(data.TEL_NUMBER == '' && data.MOB_NUMBER == ""){
                 $cordovaToast.showShortBottom('没有数据');
             }else{
+                var number=[];
+                var tel_number={
+                    text: data.TEL_NUMBER
+                };
+                var mob_number={
+                    text: data.MOB_NUMBER
+                };
+                if(data.TEL_NUMBER!=""){
+                    number.push(tel_number);
+                    console.log(number);
+                    if(data.MOB_NUMBER!=""){
+                        number.push(mob_number);
+                        console.log(number);
+                    }
+                }
                 $ionicActionSheet.show({
-                    buttons: [
-                        {text: data.TEL_NUMBER},
-                        {text: data.MOB_NUMBER}
-                    ],
+                    buttons:number,
                     titleText: '拨打电话',
                     cancelText: '取消',
                     buttonClicked: function (index) {
