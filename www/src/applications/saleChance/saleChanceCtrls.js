@@ -19,8 +19,8 @@ salesModule
         'HttpAppService',
         'saleChanService',
         'customeService',
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory,ionicMaterialInk,
-                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService,customeService) {
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
+                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService) {
             ionicMaterialInk.displayEffect();
             //ionicMaterialMotion.fadeSlideInRight();
             console.log('销售机会列表');
@@ -31,7 +31,7 @@ salesModule
             }, 100);
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
-            $scope.input = {search: '',list:''};
+            $scope.input = {search: '', list: ''};
             $scope.filters = saleChanService.filters;
             var pageNum = 1;
             $scope.loadMoreFlag = true;
@@ -40,9 +40,11 @@ salesModule
             var PARTNER_NO
             //没有 更多数据
             $scope.saleListNoMoreInfoFLag = false;
-            if(angular.isObject(customeService.get_customerWorkordervalue())){
+            $scope.isCanCreate = true;
+            if (angular.isObject(customeService.get_customerWorkordervalue())) {
                 PARTNER_NO = customeService.get_customerWorkordervalue().PARTNER;
-            }else{
+                $scope.isCanCreate = false;
+            } else {
                 PARTNER_NO = "";
             }
             $scope.goBack = function () {
@@ -67,7 +69,9 @@ salesModule
                         break;
                     case 'search':
                         $scope.loadMoreFlag = true;
-                        angular.element('#saleActListSearchPageId').addClass('active');
+
+                        angular.element('#saleActListSearchPageId').removeClass('ng-hide').addClass('active');
+                        console.log($scope.loadMoreFlag && $scope.input.list == '' && $scope.serachButton);
                         pageNum = 1;
                         var arr = document.getElementsByClassName('flipInX');
                         for (var i = 0; i < arr.length; i++) {
@@ -143,7 +147,7 @@ salesModule
             //列表搜索
             $scope.initListSearch = function () {
                 $scope.input.list = '';
-                $scope.getList();
+                $scope.getList('search');
                 $timeout(function () {
                     document.getElementById('saleChanListSearchId').focus();
                 }, 1)
@@ -200,23 +204,24 @@ salesModule
                 }
             };
             $scope.filterSure = function () {
+                $scope.serachButton = true;
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
                 var ele = angular.element('#saleActListFilterId');
-                ele.css('display','block').removeClass('fadeInDown');
-                ele.css('display','block').addClass('slideOutUp');
+                ele.css('display', 'block').removeClass('fadeInDown');
+                ele.css('display', 'block').addClass('slideOutUp');
                 $scope.getList('search');
             };
             $scope.filterPrevent = function (e) {
                 e.stopPropagation();
             };
             $scope.changeSearch = function () {
-                angular.element('#saleActListFilterId').css('display','none');
+                $scope.serachButton = false;
+                angular.element('#saleActListFilterId').css('display', 'none');
                 if ($scope.filterFlag) {
                     $scope.filterFlag = false;
                 }
                 $scope.searchFlag = !$scope.searchFlag;
-
                 //$('#searchTitle').removeClass('animated');
                 if ($scope.searchFlag) {
                     $timeout(function () {
@@ -247,11 +252,11 @@ salesModule
                 $scope.filterFlag = !$scope.filterFlag;
                 if ($scope.filterFlag) {
                     onceCilck = true;
-                    ele.css('display','block').removeClass('slideOutUp');
-                    ele.css('display','block').addClass('fadeInDown');
-                }else {
-                    ele.css('display','block').removeClass('fadeInDown');
-                    ele.css('display','block').addClass('slideOutUp');
+                    ele.css('display', 'block').removeClass('slideOutUp');
+                    ele.css('display', 'block').addClass('fadeInDown');
+                } else {
+                    ele.css('display', 'block').removeClass('fadeInDown');
+                    ele.css('display', 'block').addClass('slideOutUp');
                 }
 
                 e.stopPropagation();
@@ -260,11 +265,11 @@ salesModule
                 saleChanService.obj_id = x.OBJECT_ID;
                 var isStored = false;
                 angular.forEach($scope.hisArr, function (data) {
-                    if(data.text == $scope.input.list){
+                    if (data.text == $scope.input.list) {
                         isStored = true;
                     }
                 });
-                if(!isStored){
+                if (!isStored) {
                     storedb('saleChanListHisArr').insert({
                         text: $scope.input.list,
                         data: tempHisPostData
@@ -281,17 +286,17 @@ salesModule
                 e.stopPropagation();
             };
             /*-------------------------------Pop 新建-------------------------------------*/
-            $scope.pop = {
+            $scope.chancePop = {
                 type: {}
             };
-            $scope.createPopData = saleChanService.createPop;
+            $scope.createChancePopData = saleChanService.createPop;
             $ionicPopover.fromTemplateUrl('src/applications/saleChance/modal/create_Pop.html', {
                 scope: $scope
             }).then(function (popover) {
-                $scope.createPop = popover;
+                $scope.createChancePop = popover;
             });
-            $scope.openCreatePop = function () {
-                $scope.salesGroup = [];
+            $scope.openCreateChancePop = function () {
+                $scope.salesChanceGroup = [];
                 $scope.creaeSpinnerFlag = true;
                 var data = {
                     "I_SYSTEM": {"SysName": $scope.sysName},
@@ -303,324 +308,42 @@ salesModule
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
                                 response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_TXT.split(' ')[1];
-                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
-                                    $scope.salesGroup.push(response.ET_ORGMAN.item[i]);
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesChanceGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                    $scope.salesChanceGroup.push(response.ET_ORGMAN.item[i]);
                                 }
                             }
-                            if ($scope.salesGroup.length > 1) {
+                            if ($scope.salesChanceGroup.length > 1) {
                                 $scope.creaeSpinnerFlag = false;
-                                $scope.pop.saleOffice = $scope.salesGroup[0];
-                                $scope.createPop.show();
+                                $scope.chancePop.saleOffice = $scope.salesChanceGroup[0];
+                                $scope.createChancePop.show();
                             } else {
-                                $scope.pop.saleOffice = $scope.salesGroup[0];
-                                $scope.showCreateModal();
+                                $scope.chancePop.saleOffice = $scope.salesChanceGroup[0];
+                                $scope.showCreateChanceModal();
                             }
                         } else {
                             Prompter.showShortToastBotton('无法创建');
                         }
                     });
             };
-            $scope.showCreateModal = function () {
-                console.log($scope.pop);
-                $scope.createPop.hide();
-                $scope.CustomerLoadMoreFlag = true;
-                $scope.createModal.show();
-                $scope.getCustomerArr();
-                var tempArr = document.getElementsByClassName('modal-wrapper');
-                for (var i = 0; i < tempArr.length; i++) {
-                    tempArr[i].style.pointerEvents = 'auto';
-                }
-            };
-            /*-------------------------------Pop 新建 end-------------------------------------*/
-            /*-------------------------------Modal 新建-------------------------------------*/
-            $scope.saleStages = saleChanService.saleStages;
-            $scope.create = {
-                description: '',
-                place: '',
-                customer: '',
-                contact: '',
-                stage: $scope.saleStages[0],
-                de_startTime: new Date().format('yyyy-MM-dd'),
-                de_endTime: '',
-                annotate: '测试'
-            };
-            $scope.selectPersonflag = false;
-            //选择时间
-            $scope.selectCreateTime = function (type) {
-                if (type == 'start') {
-                    Prompter.selectTime($scope, 'actCreateStart',
-                        $scope.create.de_startTime.replace(/-/g, "/"), 'date', '开始时间');
-                } else {
-                    Prompter.selectTime($scope, 'actCreateEnd', $scope.create.de_endTime.replace(/-/g, "/"), 'date', '结束时间');
-                }
-            };
-            $ionicModal.fromTemplateUrl('src/applications/saleChance/modal/create_Modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function (modal) {
-                $scope.createModal = modal;
-            });
-            var getProcessType = function () {
-                for (var i = 0; i < $scope.filters.types.length; i++) {
-                    if ($scope.pop.saleOffice.text.substring(0, 2) == $scope.filters.types[i].text.substring(0, 2)) {
-                        return $scope.filters.types[i].value;
-                    }
-                }
-            };
-            $scope.saveCreateModal = function () {
-                if (!$scope.create.title) {
-                    Prompter.alert('请填写描述');
-                    return
-                } else if (!$scope.create.customer) {
-                    Prompter.alert('请选择客户');
-                    return
-                }
-                Prompter.showLoading('正在保存');
-                var data = {
-                    "I_SYSNAME": {
-                        "SysName": $scope.sysName
-                    },
-                    "IS_OPPORT_H": {
-                        "DESCRIPTION": $scope.create.title,
-                        "PROCESS_TYPE": getProcessType(),
-                        "STARTDATE": $scope.create.de_startTime,
-                        "EXPECT_END": $scope.create.de_endTime,
-                        "PHASE": $scope.create.stage.value,
-                        "PROBABILITY": "",
-                        "STATUS": "E0001",
-                        "ZZXMBH": $scope.create.proNum,
-                        "EXP_REVENUE": "",
-                        "CURRENCY": "",
-                        "ZZXSYXL": "",
-                        "ZZYQXSLDW": "",
-                        "ZZMBCP": "",
-                        "ZZFLD00002E": ""
-                    },
-                    "IS_ORGMAN": {
-                        "SALES_ORG": $scope.pop.saleOffice.SALES_ORG,
-                        "DIS_CHANNEL": "",
-                        "DIVISION": "",
-                        "SALES_OFFICE": $scope.pop.saleOffice.SALES_OFFICE,
-                        "SALES_GROUP": $scope.pop.saleOffice.SALES_GROUP,
-                        "SALES_ORG_RESP": $scope.pop.saleOffice.SALES_GROUP
-                    },
-                    "IS_USER": {
-                        "BNAME": window.localStorage.crmUserName
-                    },
-                    "IT_LINES": {
-                        "item": {
-                            "TDFORMAT": "*",
-                            "TDLINE": $scope.create.annotation
-                        }
-                    },
-                    "IT_PARTNER": {
-                        "item": [{
-                            "PARTNER_NO": $scope.create.customer.PARTNER,
-                            "PARTNER_FCT": "00000021",//客户
-                            "NAME": "",
-                            "MAINPARTNER": "",
-                            "ZMODE": ""
-                        }, {
-                            "PARTNER_NO": $scope.create.contact.PARTNER,
-                            "PARTNER_FCT": "00000015",//联系人
-                            "NAME": "",
-                            "MAINPARTNER": "",
-                            "ZMODE": ""
-                        }]
-                    }
-                };
-                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_CREAT', data)
-                    .success(function (response) {
-                        if (response.ES_RESULT.ZFLAG === 'S') {
-                            $scope.createModal.hide();
-                            Prompter.showShortToastBotton('创建成功');
-                            saleChanService.obj_id = response.ES_RESULT.ZRESULT;
-                            $state.go('saleChanDetail');
-                            Prompter.hideLoading();
-                        } else {
-                            Prompter.showShortToastBotton('创建失败');
-                            Prompter.hideLoading();
-                            $scope.createModal.hide();
-                        }
-                    });
-            };
-
-            //选择人
-            var addContactsModal = function () {
-                $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectPerson_Modal.html', {
+            $scope.showCreateChanceModal = function () {
+                $scope.createChancePop.hide();
+                $ionicModal.fromTemplateUrl('src/applications/saleChance/modal/create_Modal/create_Modal.html', {
                     scope: $scope,
                     animation: 'slide-in-up'
                 }).then(function (modal) {
-                    $scope.selectPersonModal = modal;
+                    $scope.createChanceModal = modal;
+                    modal.show();
+                    var tempArr = document.getElementsByClassName('modal-wrapper');
+                    for (var i = 0; i < tempArr.length; i++) {
+                        tempArr[i].style.pointerEvents = 'auto';
+                    }
                 });
             };
-            addContactsModal();
-            //$scope.contacts = saleActService.getContact();
-            $scope.openSelectPerson = function () {
-                if (isNoContacts || !$scope.create.customer) {
-                    Prompter.alert('当前客户无联系人');
-                    return
-                }
-                $scope.selectPersonflag = true;
-                $scope.selectPersonModal.show();
-            };
-            $scope.closeSelectPerson = function () {
-                $scope.selectPersonflag = false;
-                $scope.selectPersonModal.hide();
-            };
-            $scope.selectContact = function (x) {
-                $scope.create.contact = x;
-                $scope.selectPersonModal.hide();
-            };
-
-            //选择客户
-            var customerPage = 1;
-            $scope.customerArr = [];
-            $scope.customerSearch = false;
-            $scope.input = {customer:''};
-            var customerType = 'CRM000';
-            $scope.getCustomerArr = function (search) {
-                $scope.CustomerLoadMoreFlag = false;
-                if (search) {
-                    $scope.customerSearch = false;
-                    customerPage = 1;
-                } else {
-                    $scope.spinnerFlag = true;
-                }
-                var data = {
-                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                    "IS_PAGE": {
-                        "CURRPAGE": customerPage++,
-                        "ITEMS": "10"
-                    },
-                    "IS_SEARCH": {"SEARCH": $scope.input.customer},
-                    "IT_IN_ROLE": {
-                        "item1": { "RLTYP": customerType }
-                    }
-                };
-                console.log(data);
-                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
-                    .success(function (response, status, headers, config) {
-                        if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
-                            return;
-                        }
-                        if (response.ES_RESULT.ZFLAG === 'S') {
-                            if (response.ET_OUT_LIST.item.length < 10) {
-                                $scope.CustomerLoadMoreFlag = false;
-                            }
-                            if (search) {
-                                $scope.customerArr = response.ET_OUT_LIST.item;
-                            } else {
-                                $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
-                            }
-                            $scope.spinnerFlag = false;
-                            $scope.customerSearch = true;
-                            $scope.CustomerLoadMoreFlag = true;
-                            $ionicScrollDelegate.resize();
-                            //saleActService.customerArr = $scope.customerArr;
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        }else{
-                            $scope.CustomerLoadMoreFlag = false;
-                            Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
-                        }
-                    });
-            };
-            //选择联系人
-            $scope.contacts = [];
-            var contactPage = 1;
-            $scope.contactsLoadMoreFlag = false;
-            var isNoContacts = false;
-            $scope.getContacts = function () {
-                isNoContacts = false;
-                $scope.contactsLoadMoreFlag = false;
-                var data = {
-                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                    "IS_AUTHORITY": {"BNAME": "HANDLCX02"},
-                    "IS_PAGE": {
-                        "CURRPAGE": contactPage++,
-                        "ITEMS": "10"
-                    },
-                    "IS_PARTNER": {"PARTNER": $scope.create.customer.PARTNER},
-                    "IS_SEARCH": {"SEARCH": ""}
-                };
-                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
-                    .success(function (response) {
-                        if (response.ES_RESULT.ZFLAG === 'S') {
-                            $scope.contactsLoadMoreFlag = true;
-                            if (response.ET_OUT_LIST.item.length < 10) {
-                                $scope.contactsLoadMoreFlag = false;
-                            }
-                            $scope.contacts = $scope.contacts.concat(response.ET_OUT_LIST.item);
-                            if ($scope.contacts.length == 0) {
-                                isNoContacts = true;
-                            }
-                            $scope.contactSpinnerFLag = false;
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
-                            if ($scope.contacts.length == 0) {
-                                isNoContacts = true;
-                            }
-                            $scope.contactSpinnerFLag = false;
-                            $scope.contactsLoadMoreFlag = false;
-                            Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
-                        }
-                    });
-            };
-            //选择客户Modal
-            $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
-                scope: $scope,
-                animation: 'slide-in-up',
-                focusFirstInput: true
-            }).then(function (modal) {
-                $scope.selectCustomerModal = modal;
-            });
-            $scope.customerModalArr = saleActService.getCustomerTypes();
-            $scope.selectCustomerText = '竞争对手';
-            $scope.openSelectCustomer = function () {
-                $scope.isDropShow = true;
-                $scope.customerSearch = true;
-                $scope.selectCustomerModal.show();
-            };
-            $scope.closeSelectCustomer = function () {
-                $scope.selectCustomerModal.hide();
-            };
-            $scope.selectPop = function (x) {
-                $scope.selectCustomerText = x.text;
-                customerType = x.code;
-                $scope.getCustomerArr('search');
-                $scope.referMoreflag = !$scope.referMoreflag;
-            };
-            $scope.changeReferMoreflag = function () {
-                $scope.referMoreflag = !$scope.referMoreflag;
-            };
-            $scope.showChancePop = function () {
-                $scope.referMoreflag = true;
-                $scope.isDropShow = true;
-            };
-            $scope.initCustomerSearch = function () {
-                $scope.input.customer = '';
-                //$scope.getCustomerArr();
-                $timeout(function () {
-                    document.getElementById('selectCustomerId').focus();
-                }, 1)
-            };
-            $scope.selectCustomer = function (x) {
-                $scope.create.customer = x;
-                $scope.create.contact = '';
-                contactPage = 1;
-                $scope.contacts = [];
-                $scope.contactSpinnerFLag = true;
-                $scope.contactsLoadMoreFlag = true;
-                //$scope.getContacts();
-                $scope.selectCustomerModal.hide();
-            };
+            /*-------------------------------Pop 新建 end-------------------------------------*/
 
             $scope.$on('$destroy', function () {
-                $scope.createPop.remove();
-                $scope.createModal.remove();
-                $scope.selectPersonModal.remove();
+                $scope.createChancePop.remove();
             });
-            /*-------------------------------Modal 新建 end-------------------------------------*/
         }])
     .controller('saleChanDetailCtrl', [
         '$scope',
@@ -691,7 +414,7 @@ salesModule
                 Prompter.showLoading();
                 var data = {
                     "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                    "IS_USER": {"BNAME": ""},
+                    "IS_USER": {"BNAME": window.localStorage.crmUserName},
                     "IS_ID": {"OBJECT_ID": saleChanService.obj_id}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_DETAIL', data)
@@ -956,7 +679,7 @@ salesModule
             var customerPage = 1;
             $scope.customerArr = [];
             $scope.customerSearch = false;
-            $scope.input={customer:''}
+            $scope.input = {customer: ''}
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -1064,7 +787,7 @@ salesModule
                 for (var j = 0; j < $scope.relationArr.length; j++) {
                     if ($scope.relationArr[j].position == '客户') {
                         isAlreadyHaveCustomer = true;
-                        x.mode='U';
+                        x.mode = 'U';
                         x.PARTNER_FCT = "00000021";
                         var temp = angular.copy($scope.relationArr[j]);
                         $scope.relationArr[j] = x;
@@ -1166,7 +889,7 @@ salesModule
                         console.log(index);
                         switch (index) {
                             case 0:
-                                if(x.position=='CATL销售'&&!angular.isUndefined(x.mode)){
+                                if (x.position == 'CATL销售' && !angular.isUndefined(x.mode)) {
                                     Prompter.alert('CALTL销售不能删除!');
                                     return
                                 }
@@ -1188,7 +911,7 @@ salesModule
                                 $scope.relationArr.splice(repTempIndex, 1);
                                 break;
                             case 1:
-                                if(x.position=='CATL销售'&&!angular.isUndefined(x.mode)){
+                                if (x.position == 'CATL销售' && !angular.isUndefined(x.mode)) {
                                     Prompter.alert('CALTL销售不能修改!');
                                     return
                                 }

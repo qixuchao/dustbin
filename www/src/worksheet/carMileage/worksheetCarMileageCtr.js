@@ -16,7 +16,7 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
         }
        var init = function(info){
            var worksheetDetail = worksheetDataService.wsDetailData;
-           console.log(angular.toJson(worksheetDetail));
+           console.log(angular.toJson(worksheetDetail.ET_MILEAGE.item ));
            if(worksheetDataService.wsDetailData.ET_MILEAGE.item == undefined){
                //$cordovaToast.showShortBottom('暂无车辆读数信息');
                $scope.carMile = '';
@@ -32,11 +32,11 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
                console.log($scope.config);
            }
 
-           if($scope.carMile.MILEAGE_DATE === "" && $scope.carMile.MILEAGE_VALUE === "" && $scope.carMile.MILEAGE_DESC === ""){
+           //if($scope.carMile.MILEAGE_DATE === "" && $scope.carMile.MILEAGE_VALUE === "" && $scope.carMile.MILEAGE_DESC === ""){
                $scope.carEdit = true;
-           }else{
-               $scope.carEdit = false;
-           }
+           //}else{
+           //    $scope.carEdit = false;
+           //}
        }
         var no =1;
         init(no);
@@ -69,10 +69,15 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
         $scope.goAlert = function(){
             Prompter.ContactCreateCancelvalue();
         }
+        $scope.numMore = function(item){
+            if(item.length == 40){
+                $cordovaToast.showShortBottom("您输入备注字数已达到40字");
+            }
+        }
         var worksheetDetail = worksheetDataService.wsDetailData;
         var config = worksheetHttpService.getWSCarMileage();
-        $scope.carMile = worksheetDetail.ET_MILEAGE && worksheetDetail.ET_MILEAGE.item && worksheetDetail.ET_MILEAGE.item.length ? worksheetDetail.ET_MILEAGE.item[config.nowPage-1] : {};
-        //$scope.carMile = worksheetDetail.ET_MILEAGE.item[config.nowPage-1] : {};
+        //$scope.carMile = worksheetDetail.ET_MILEAGE && worksheetDetail.ET_MILEAGE.item && worksheetDetail.ET_MILEAGE.item.length ? worksheetDetail.ET_MILEAGE.item[config.nowPage-1] : {};
+        $scope.carMile = worksheetDetail.ET_MILEAGE.item[config.nowPage-1];
         console.log(angular.toJson($scope.carMile));
         $scope.update = {
             readDate : $scope.carMile.MILEAGE_DATE,

@@ -118,6 +118,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         $scope.keep = function(){
             Prompter.showLoading("正在提交");
             if($scope.config.scenarioItem == null || $scope.config.scenarioItem ==undefined || $scope.config.scenarioItem ==''){
+                Prompter.hideLoading();
                 $cordovaToast.showShortBottom("请选择故障发生场景");
                 return;
                 //var SCENARIO = '';
@@ -125,6 +126,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 var SCENARIO= $scope.config.scenarioItem.SCENARIO
             }
             if($scope.config.responseItem == null || $scope.config.responseItem ==undefined|| $scope.config.responseItem ==""){
+                Prompter.hideLoading();
                 $cordovaToast.showShortBottom("请选择责任方");
                 return;
                //var RESPONSE = '';
@@ -132,6 +134,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 var RESPONSE =  $scope.config.responseItem.RESPONSE
             }
             if($scope.config.defectItem == null || $scope.config.defectItem ==undefined || $scope.config.defectItem ==""){
+                Prompter.hideLoading();
                 $cordovaToast.showShortBottom("请选择故障分类");
                 return;
                 //var DEFECT = '';
@@ -139,6 +142,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 var DEFECT = $scope.config.defectItem.DEFECT
             }
             if($scope.config.currentChanPinLeiXing == null || $scope.config.currentChanPinLeiXing ==undefined  || $scope.config.currentChanPinLeiXing ==""){
+                Prompter.hideLoading();
                 $cordovaToast.showShortBottom("请选择产品类型");
                 return;
                 //var KATALOGART = '';
@@ -146,6 +150,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 var KATALOGART = $scope.config.currentChanPinLeiXing.KATALOGART
             }
             if($scope.config.currentGuZhangBuJian == null || $scope.config.currentGuZhangBuJian ==undefined || $scope.config.currentGuZhangBuJian ==""){
+                Prompter.hideLoading();
                 $cordovaToast.showShortBottom("请选择故障部件");
                 return;
                 //var CODEGRUPPE = '';
@@ -153,6 +158,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 var CODEGRUPPE = $scope.config.currentGuZhangBuJian.CODEGRUPPE
             }
             if($scope.config.currentGuZhangMingCheng == null || $scope.config.currentGuZhangMingCheng ==undefined || $scope.config.currentGuZhangMingCheng ==""){
+                Prompter.hideLoading();
                 $cordovaToast.showShortBottom("请选择故障名称");
                 return;
                 //var CODE = '';

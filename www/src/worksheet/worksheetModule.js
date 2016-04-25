@@ -187,7 +187,8 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
         },
         //添加产品
         addPro : {
-            proInfos : ""
+            proInfos : "",
+            wareHouse : ""
         },
         //产品
 
@@ -284,11 +285,11 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
           }
         },
         imageInfos: {  // 图片展示界面
-           listUrl: "http://117.28.248.23:9388/test/api/CRMAPP/URL_LIST",
+           listUrl: ROOTCONFIG.hempConfig.basePath + "URL_LIST",
            listDefaults: null,
-           deleteUrl: "http://117.28.248.23:9388/test/api/CRMAPP/URL_DELETE",
+           deleteUrl: ROOTCONFIG.hempConfig.basePath + "URL_DELETE",
            deleteDefaults: null,
-           uploadUrl: "http://117.28.248.23:9388/test/api/CRMAPP/URL_CREATE",
+           uploadUrl: ROOTCONFIG.hempConfig.basePath + "URL_CREATE",
            uploadDefaults: null
         }
     };

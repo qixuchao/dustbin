@@ -7,12 +7,9 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         //    searchInfos : ""
         //}
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-            if(fromState.name == 'worksheetSelectPro' && toState.name == 'worksheetSparepart'){
+            //if(fromState.name == 'worksheetSelectPro' && toState.name == 'worksheetSparepart'){
                 var proInfos =  worksheetHttpService.addPro.proInfos;
-                $scope.goSAPInfos = $scope.goSAPInfos.concat(proInfos);
-                console.log(proInfos);
-                console.log($scope.goSAPInfos);
-            }
+            //}
                 $scope.config = {
                     warehouse : "",
                     searchInfos : ""
@@ -48,8 +45,11 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             if(proInfos == undefined){
                 $scope.infos = [];
             }else{
-                $scope.infos = $scope.infos.concat(proInfos);
+                $scope.config.wareHouse = worksheetHttpService.addPro.wareHouse;
+                $scope.infos = proInfos;
             }
+            console.log($scope.config.warehouse);
+            console.log($scope.infos);
             //$scope.goSAPInfos = new Array();
             //cangku
             var urlCang = ROOTCONFIG.hempConfig.basePath + 'SERVICE_ORDER_STORAGE';
@@ -77,9 +77,13 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             HttpAppService.post(url, data).success(function(response){
                 $scope.goLoad = false;
                 $scope.goMore = true;
-                infosItem = response.ET_COMM_LIST.Item;
+                var infosItem = response.ET_COMM_LIST.Item;
                 console.log(infosItem);
-                $scope.infos = $scope.infos.concat(infosItem);
+                if($scope.infos == []){
+                    $scope.infos = infosItem;
+                }else{
+                    $scope.infos = $scope.infos.concat(infosItem);
+                }
                 for(var i=0;i<$scope.infos.length;i++){
                     $scope.infos[i].APPLY_NUM = 0;//数量
                     $scope.infos[i].ishave = true;//是否已被选择 显示
@@ -160,8 +164,9 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         $scope.goNo = true;//没有
                         $scope.goLoad = false;//加载
                     }else{
-                        for(var m=0;m<infosItem.length;m++){
-                            for(var k=0;k<$scope.infos.length;k++){
+
+                        for(var k=0;k<$scope.infos.length;k++){
+                            for(var m=0;m<infosItem.length;m++){
                                 if($scope.infos[k].PRODUCT_ID === infosItem[m].PRODUCT_ID){
                                     infosItem.splice(m,1);
                                 }
@@ -210,14 +215,17 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 if(infosItem === undefined){
                     $cordovaToast.showShortBottom('未搜索到相关备件');
                 }else{
-                    for(var m=0;m<infosItem.length;m++){
-                        for(var k=0;k<$scope.infos.length;k++){
+                    for(var k=0;k<$scope.infos.length;k++){
+                        for(var m=0;m<infosItem.length;m++){
                             console.log($scope.infos[k].PRODUCT_ID);
                             console.log(infosItem[m].PRODUCT_ID);
                             if($scope.infos[k].PRODUCT_ID == infosItem[m].PRODUCT_ID){
+                                console.log(m);
+                                console.log(angular.toJson(infosItem));
                                 infosItem.splice(m,1);
+                                break;
                                 console.log("相同啊");
-                                console.log(infosItem);
+                                console.log(angular.toJson(infosItem));
                             }
                         }
                     }
@@ -515,7 +523,19 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             });
         }
         $scope.goCustomer = function(){
-            $state.go("worksheetSelectPro");
+            //if($scope.config.warehouse.ZZSTORAGE === undefined ){
+            //    var str=document.getElementsByName("selectSparePart");
+            //    var chestr = new Array();
+            //    for (var i=0;i<str.length;i++) {
+            //        str[i].checked = false;
+            //    }
+            //    $cordovaToast.showShortBottom('请先选择仓库');
+            //}else{
+            //    worksheetHttpService.addPro.wareHouse = $scope.config.warehouse;
+                worksheetHttpService.setSparePart($scope.goSAPInfos);
+                console.log(worksheetHttpService.addPro.wareHouse);
+                $state.go("worksheetSelectPro");
+            //}
         }
 }]);
 
@@ -855,58 +875,67 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                 "IS_PRODMAS_INPUT": {"SHORT_TEXT": $scope.spareInfo}
             };
             HttpAppService.post(url, data).success(function (response) {
-                console.log(page);
-                if (response.ES_RESULT.ZFLAG == 'E') {
-                    //console.log("第3步");
-                    $scope.spareimisshow = false;
-                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                    $scope.$broadcast('scroll.infiniteScrollComplete');
-                } else {
-                    if (response.ES_RESULT.ZFLAG == 'S') {
-                        //console.log("第4步");
-                        Prompter.hideLoading();
+                if($scope.spareInfo == data.IS_PRODMAS_INPUT.SHORT_TEXT){
+                    console.log(page);
+                    if (response.ES_RESULT.ZFLAG == 'E') {
+                        //console.log("第3步");
                         $scope.spareimisshow = false;
-                        if (response.ET_PRODMAS_OUTPUT.item.length == 0) {
-                            if (page == 1) {
-                                $cordovaToast.showShortBottom('数据为空');
+                        $scope.spareList = $scope.checkedPro
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                    } else {
+                        if (response.ES_RESULT.ZFLAG == 'S') {
+                            //console.log("第4步");
+                            Prompter.hideLoading();
+                            $scope.spareimisshow = false;
+                            if (response.ET_PRODMAS_OUTPUT.item.length == 0) {
+                                if (page == 1) {
+                                    $cordovaToast.showShortBottom('数据为空');
+                                } else {
+                                    $cordovaToast.showShortBottom('没有更多数据了');
+                                }
+                                $scope.$broadcast('scroll.infiniteScrollComplete');
                             } else {
-                                $cordovaToast.showShortBottom('没有更多数据了');
+                                //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
+                                $.each(response.ET_PRODMAS_OUTPUT.item, function (n, value) {
+                                    if($scope.spareInfo===""){
+                                        $scope.spareList=new Array;
+                                    }else{
+                                        $scope.spareList.push({
+                                            APPLY_NUM : 0,
+                                            PRODUCT_ID : value.PRODUCT_ID,
+                                            ishave:true,
+                                            checkedP:"NO",
+                                            checked:"NO",
+                                            SHORT_TEXT:value.SHORT_TEXT
+                                        });
+                                    }
+                                    //console.log("第5步");
+                                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                                });
+                                for(var i=0;i<$scope.spareList.length;i++){
+                                    if($scope.spareList.checkedP == "YES"){
+                                        $scope.spareList.splice(i,1);
+                                    }
+                                }
+                                console.log($scope.checkedPro);
+                                $scope.spareList = $scope.checkedPro.concat($scope.spareList);
+                                console.log($scope.spareList);
+                            }
+                            if (response.ET_PRODMAS_OUTPUT.item.length < 20) {
+                                $scope.spareimisshow = false;
+                                if (page > 1) {
+                                    $cordovaToast.showShortBottom('没有更多数据了');
+                                }
+                            } else {
+                                if($scope.spareList.length===0){
+                                    $scope.spareimisshow=false;
+                                }else{
+                                    $scope.spareimisshow = true;
+                                }
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
-                            //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
-                            $.each(response.ET_PRODMAS_OUTPUT.item, function (n, value) {
-                                if($scope.spareInfo===""){
-                                    $scope.spareList=new Array;
-                                }else{
-                                    $scope.spareList.push({
-                                        APPLY_NUM : 0,
-                                        PRODUCT_ID : value.PRODUCT_ID,
-                                        ishave:true,
-                                        checkedP:"NO",
-                                        checked:"NO",
-                                        SHORT_TEXT:value.SHORT_TEXT
-                                    });
-                                }
-                                //console.log("第5步");
-                                $scope.$broadcast('scroll.infiniteScrollComplete');
-                            });
-                            $scope.spareList = $scope.checkedPro.concat($scope.spareList);
-                            console.log($scope.spareList);
                         }
-                        if (response.ET_PRODMAS_OUTPUT.item.length < 20) {
-                            $scope.spareimisshow = false;
-                            if (page > 1) {
-                                $cordovaToast.showShortBottom('没有更多数据了');
-                            }
-                        } else {
-                            if($scope.spareList.length===0){
-                                $scope.spareimisshow=false;
-                            }else{
-                                $scope.spareimisshow = true;
-                            }
-                        }
-                        $scope.$broadcast('scroll.infiniteScrollComplete');
                     }
                 }
             }).error(function (response, status) {
@@ -987,36 +1016,53 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
 
         };
         $scope.checkedPro = [];
+        $scope.spareInfo = "";
         $scope.initLoad=function(){
-            page=0;
-            for(var i=0;i<$scope.spareList.length;i++){
-                if($scope.spareList[i].checkedP == 'YES' && $scope.checkedPro < 1){
-                    $scope.checkedPro.push($scope.spareList[i]);
+            if($scope.spareInfo.length == 0){
+                $scope.spareInfo = " ";
+            }else{
+                page=0;
+                $scope.spareList = [];
+                $scope.spareLoadmoreIm();
+            }
+        };
+        $scope.selectdPro = function(item){
+            console.log(item);
+            if(item.checkedP == 'YES'){
+                if($scope.checkedPro.length < 1){
+                    $scope.checkedPro.push(item);
+                }else{
+                    var numadd = 0;
+                    for(var j=0;j<$scope.checkedPro.length;j++){
+                        if(item.PRODUCT_ID == $scope.checkedPro[j].PRODUCT_ID){
+                            numadd++ ;
+                        }
+                    }
+                    if(numadd == 0){
+                        $scope.checkedPro.push(item);
+                    }
                 }
+            }else{
                 for(var j=0;j<$scope.checkedPro.length;j++){
-                    if($scope.spareList[i].checkedP == 'YES' && $scope.spareList[i].PRODUCT_ID != $scope.checkedPro[j].PRODUCT_ID){
-                        $scope.checkedPro.push($scope.spareList[i]);
+                    if(item.PRODUCT_ID == $scope.checkedPro[j].PRODUCT_ID){
+                        $scope.checkedPro.splice(j,1);
+                        return;
                     }
                 }
             }
             console.log($scope.checkedPro);
-            $scope.spareList = new Array;
-            $scope.spareLoadmoreIm();
-        };
-        $scope.selectdPro = function(item){
-            //if(item.checkedP == "YES"){
-            //    item.checkedP = "NO"
-            //}else{
-            //    item.checkedP = "YES"
-            //}
-            console.log($scope.spareList);
         }
         $scope.addPro = function(){
             var addProInfos = [];
             for(var i=0;i<$scope.spareList.length;i++){
                 if($scope.spareList[i].checkedP == 'YES'){
+                    $scope.spareList[i].checked = 'YES';
                     addProInfos.push($scope.spareList[i]);
                 }
+            }
+            var a = worksheetHttpService.addPro.proInfos;
+            if(a!= undefined){
+                addProInfos = addProInfos.concat(a);
             }
             worksheetHttpService.addPro.proInfos = addProInfos;
             $ionicHistory.goBack();

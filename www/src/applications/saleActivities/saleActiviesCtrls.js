@@ -38,8 +38,10 @@ salesModule
             //没有 更多数据
             $scope.saleListNoMoreInfoFLag = false;
             var PARTNER_NO;
+            $scope.isCanCreate = true;
             if(angular.isObject(customeService.get_customerWorkordervalue())){
                 PARTNER_NO = customeService.get_customerWorkordervalue().PARTNER;
+                $scope.isCanCreate = false;
             }else{
                 PARTNER_NO = "";
             }
@@ -177,6 +179,7 @@ salesModule
                 return "";
             };
             $scope.filterSure = function () {
+                $scope.serachButton = true;
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
                 var ele = angular.element('#saleChanListFilterId');
@@ -189,6 +192,7 @@ salesModule
             };
             $scope.filterFlag = false;
             $scope.changeSearch = function () {
+                $scope.serachButton = false;
                 angular.element('#saleChanListFilterId').css('display', 'none');
                 if ($scope.filterFlag) {
                     $scope.filterFlag = false;
@@ -260,15 +264,33 @@ salesModule
             }).then(function (popover) {
                 $scope.createPop = popover;
             });
-            $scope.openCreatePop = function (e) {
+            $scope.openCreatePop = function () {
+                $scope.pop.type = $scope.createPopTypes[0];
+                $scope.salesGroup = [];
                 $scope.creaeSpinnerFlag = true;
-                $timeout(function () {
-                    $scope.creaeSpinnerFlag = false;
-                    $scope.pop.type = $scope.createPopTypes[0];
-                    $scope.createPop.show();
-                }, 1000);
+                var data = {
+                    "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_USER": {"BNAME": window.localStorage.crmUserName}
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
+                    .success(function (response) {
+                        $scope.creaeSpinnerFlag = false;
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            Prompter.hideLoading();
+                            for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
+                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_TXT.split(' ')[1];
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                    $scope.salesGroup.push(response.ET_ORGMAN.item[i]);
+                                }
+                            }
+                            $scope.pop.saleOffice = $scope.salesGroup[0];
+                            $scope.createPop.show();
+                            //}
+                        } else {
+                            Prompter.showShortToastBotton('无法创建');
+                        }
+                    });
             };
-
             $scope.showCreateModal = function () {
                 $scope.createPop.hide();
                 $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/create_Modal/createSaleAct_Modal.html', {
@@ -1329,10 +1351,9 @@ salesModule
                 return text;
             }
             var regex = new RegExp(search, 'gi');
-            var result = text.replace(regex, '<span style="color: red;">$&</span>');
+            var result = text.replace(regex, '<span style="color:red;">$&</span>');
             return $sce.trustAsHtml(result);
         };
-
         return fn;
     })
     .directive('focusMe', function ($timeout) {

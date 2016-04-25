@@ -208,7 +208,9 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 					LINE: ""
 				}
 			};
-			__uploadImage(item, "http://117.28.248.23:9388/test/api/bty/uploadImage", JSON.stringify(inbond));
+			//ROOTCONFIG.hempConfig.UploadImageUrl;			
+			// http://117.28.248.23:9388/test/api/bty/uploadImage
+			__uploadImage(item, ROOTCONFIG.hempConfig.UploadImageUrl, JSON.stringify(inbond));
 		};
 
 		function __requestImageList(isRealod){
@@ -225,7 +227,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			    	"OBJECT_ID": $scope.config.OBJECT_ID,//'5200000315',
 			    	"PROCESS_TYPE": $scope.config.PROCESS_TYPE,//"ZPRO"
 			    }
-			}
+			} 
 	        //var promise = HttpAppService.post(worksheetHttpService.imageInfos.listUrl,queryParams);
 	        var promise = HttpAppService.post(worksheetHttpService.imageInfos.listUrl,queryParams);
 	        $scope.config.isLoading = true;
@@ -509,7 +511,8 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			//alert("__uploadImage2");
 			var filepath = file.filepath;
 			//var url = encodeURI("http://192.168.31.101:8080/h5uploader/upload");
-			var url = encodeURI("http://117.28.248.23:9388/test/api/bty/uploadImage");
+			//var url = encodeURI("http://117.28.248.23:9388/test/api/bty/uploadImage");
+			var url = encodeURI(ROOTCONFIG.hempConfig.UploadImageUrl);
 			var options = new FileUploadOptions();
 			options.fileKey = "image";
 			options.fileName = file.name;

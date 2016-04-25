@@ -217,6 +217,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 	};
 
 	$scope.cancleQueryMode = function(){
+		if($scope.config.searchText == ""){
+			$scope.reloadData();
+		}
 		var eleContent = angular.element("#xbr-worksheet-list-content");
 		eleContent.addClass("has-header");
 		$scope.config.queryModeNew = false;
@@ -866,11 +869,11 @@ worksheetModule.controller("WorksheetListCtrl",[
 		}, 200);
 		delete $scope.datas.serviceListDatas;
 		$scope.datas.serviceListDatas = [];
-		console.log("reloadData  ---  start");
+		//console.log("reloadData  ---  start");
 		if(!$scope.$$phase) {
         	$scope.$apply();
         }
-        console.log("reloadData  ---  end");
+        //console.log("reloadData  ---  end");
 		if($scope.canReLoadData()){
 			$scope.config.currentPage = 0;
 			$scope.config.hasMoreData = true;
@@ -918,7 +921,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 			queryParams.IS_SEARCH.PARTNER = $scope.config.PARTNER;
 		}
 		if($scope.config.isFromCarDetail){
-			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail;
+			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail && $scope.config.carCodeFromCarDetail.ZBAR_CODE ? $scope.config.carCodeFromCarDetail.ZBAR_CODE : null;
 		}
 
 		//console.log(queryParams);
@@ -933,8 +936,6 @@ worksheetModule.controller("WorksheetListCtrl",[
 		//$scope.config.timeStartDefault  = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000).format("yyyy-MM-dd");
 		//$scope.config.timeEndDefault  = new Date().format("yyyy-MM-dd");
 		
-
-
 		$timeout(function () {
             ionicMaterialInk.displayEffect();
         }, 100);
@@ -1000,7 +1001,11 @@ worksheetModule.controller("WorksheetListCtrl",[
         var promise = HttpAppService.post(worksheetHttpService.serviceList.url,postData);
         $scope.config.isLoading = true;
         $scope.config.loadingErrorMsg = null;
-        promise.success(function(response){
+        promise.success(function(response, status, obj, config){
+        	if(config.data.IS_SEARCH && config.data.IS_SEARCH.SEARCH && config.data.IS_SEARCH.SEARCH != $scope.config.searchText){
+        		console.log("------  不是最新的HTTP响应，直接丢弃  --------");
+        		return;
+        	}
         	$scope.config.isLoading = false;
         	if($scope.config.isReloading){
         		$scope.config.isReloading = false;

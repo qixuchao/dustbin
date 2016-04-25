@@ -243,13 +243,16 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			    color: #D2D2D2;
 		    }
 		}
+		form{
+			@include flex(1);
+			height: 2rem;
+		}
 		input{
 			display: inline-block;
 		    height: 2rem;
 		    line-height: 1rem;
     		padding: .5rem 0px;
-		    //width: 87%;
-		    @include flex(1);
+		    width: 100%;
 		}
 		.cancle-button{
 			display: none;

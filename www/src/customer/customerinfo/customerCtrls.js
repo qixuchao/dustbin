@@ -639,7 +639,9 @@ customerModule
                     "PARTNER": $scope.customerdetails.PARTNER
                 };
                 customeService.set_customerWorkordervalue(customerWorkorderdata);
-            };
+            }else if(cusvalue.url == "customerContactQuery"){
+                customeService.set_customerEditServevalue( $scope.customerdetails);
+            }
             $state.go(cusvalue.url);
         };
         //电话

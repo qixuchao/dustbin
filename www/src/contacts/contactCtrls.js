@@ -900,7 +900,7 @@ ContactsModule
             };
             $scope.cascade1=function(){
                 //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
-                var url=ROOTCONFIG.hempConfig.basePath +'LIST_CITY';
+                var url=ROOTCONFIG.hempConfig.basePath + "LIST_CITY";
                 var data={
                     "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                     "IS_USER": { "BNAME": window.localStorage.crmUserName },
@@ -923,7 +923,7 @@ ContactsModule
             }
             $scope.cascade2=function(){
                 //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
-                var url=ROOTCONFIG.hempConfig.basePath +'LIST_CITY';
+                var url=ROOTCONFIG.hempConfig.basePath + "LIST_CITY";
                 var data={
                     "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                     "IS_USER": { "BNAME": window.localStorage.crmUserName },
@@ -1682,7 +1682,7 @@ ContactsModule
             console.log(angular.toJson($scope.config)+"sdsdsd");
         $scope.cascade=function(){
             //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
-            var url=ROOTCONFIG.hempConfig.basePath +'LIST_CITY';
+            var url=ROOTCONFIG.hempConfig.basePath + "LIST_CITY";
             var data={
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_USER": { "BNAME": window.localStorage.crmUserName },
@@ -1701,7 +1701,7 @@ ContactsModule
         };
         $scope.cascade1=function(){
             //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
-            var url=ROOTCONFIG.hempConfig.basePath +'LIST_CITY';
+            var url=ROOTCONFIG.hempConfig.basePath + "LIST_CITY";
             var data={
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_USER": { "BNAME": window.localStorage.crmUserName },
