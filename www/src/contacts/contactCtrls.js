@@ -1521,6 +1521,7 @@ ContactsModule
                     "COUNTRY": "",
                     "LANDX":"",
                     "REGION": "",
+                    "HOUSE_NUM1":"",
                     "SPTXT":"",
                     "CITY1": "",
                     "POST_CODE1": "",
@@ -1561,6 +1562,7 @@ ContactsModule
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactedit.POST_CODE1;
             data.IS_CUSTOMER.STREET = $scope.contactedit.STREET;
+            data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactedit.HOUSE_NUM1;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactedit.MOB_NUMBER;
             data.IS_CUSTOMER.TEL_EXTENS =$scope.contactedit.TEL_EXTENS;
             data.IS_CUSTOMER.MOB_NUMBER = $scope.contactedit.TEL_NUMBER;
@@ -1673,8 +1675,8 @@ ContactsModule
         $scope.countryCode="";
         $scope.provenceCode="";
         $scope.config = {
-            currentCountry:"CN",
-            currentProvence:{},
+            currentCountry:$scope.contactedit.COUNTRY,
+            currentProvence:$scope.contactedit.REGION,
             currentCity:{},
             currentLanguage:"1",
             currentTitile:"0002"
