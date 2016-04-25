@@ -43,17 +43,22 @@
                 <i ng-if="config.searchInputHasText" class="ion-ios-close right" ng-click="clearSearchText();"></i>
 	        </div>
             <div class="cancle-button button button-clear" ng-click="cancleQueryMode();">取消</div>
-            
     	</div>
         <div class="search-history" ng-class="{'isSearchingMode':(config.queryModeNew),'no-show-search-box':(!config.showHistoryLog)}">
             <div class="row history-title">
                 <i class="ion-android-time"></i>
                 <span class="text">历史记录</span>
                 <span class="line"></span>
+                <span class="text" style="margin-left:.4rem;" ng-click="clearSearchHistorys();">清空记录</span>
             </div>
-            <div class="list">
-                <div class="item" ng-click="selectOldSearch(item.text)" ng-repeat="item in config.historyStrs track by $index"><span ng-bind="item.text"></span></div>
-            </div>
+            <ion-scroll>
+                <div class="list">
+                    <div class="item"  ng-repeat="item in config.historyStrs track by $index">
+                        <span ng-bind="item.text" ng-click="selectOldSearch(item.text)"></span>
+                        <i class="ion-ios-close" ng-click="deleteThisSearchHistory(item);"></i>
+                    </div>
+                </div>
+            </ion-scroll>
         </div>
         
     	<div ng-if="!config.queryModeNew" class="tab-buttons-line">

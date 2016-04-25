@@ -89,7 +89,8 @@ worksheetModule.service('worksheetDataService', [function(){
       if(key == "userName"){
         return window.localStorage.crmUserName;
       }else if(key == "sysName"){
-        return "CATL";
+        //return "CATL";
+        return ROOTCONFIG.hempConfig.baseEnvironment;
       }else{
         return window.localStorage[key];
       }
