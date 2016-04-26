@@ -758,6 +758,7 @@ customerModule
             POST_CODE1:customeService.get_customerEditServevalue().POST_CODE1,
             TDLINE:customeService.get_customerEditServevalue().TDLINE
         };
+        console.log(customeService.get_customerEditServevalue());
         $scope.country=[];
         $scope.provence=[];
         $scope.city=[];

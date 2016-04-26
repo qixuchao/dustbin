@@ -868,6 +868,7 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
             var url = ROOTCONFIG.hempConfig.basePath + 'PRODUCT_LIST';
             var data = {
                 "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "IS_USER": { "BNAME":  window.localStorage.crmUserName  },
                 "IS_PAGE": {
                     "CURRPAGE": page,
                     "ITEMS": "20"

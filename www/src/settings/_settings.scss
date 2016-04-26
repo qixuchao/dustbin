@@ -2,7 +2,7 @@
     .item-version-info, .item-app-name-info, .item-package-name-info, .myinfo-item-common{
         @include display-flex;
         border-bottom: 1px solid #E6E3E3;
-        span{
+        span{ 
             @include flex(1);
         }
         span:nth-child(2){

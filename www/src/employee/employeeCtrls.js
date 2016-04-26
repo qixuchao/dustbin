@@ -234,24 +234,19 @@ employeeModule
         //拨打电话
         $scope.employeequeryphone = function(data){
             console.log(data);
-            if(data.TEL_NUMBER == '' && data.MOB_NUMBER == ""){
-                $cordovaToast.showShortBottom('没有数据');
+            if((data.TEL_NUMBER==""||data.TEL_NUMBER==undefined) && (data.MOB_NUMBER==""||data.MOB_NUMBER==undefined)){
+                $cordovaToast.showShortBottom('无号码');
             }else{
                 var number=[];
-                var tel_number={
-                    text: data.TEL_NUMBER
-                };
-                var mob_number={
-                    text: data.MOB_NUMBER
-                };
-                if(data.TEL_NUMBER!=""){
-                    number.push(tel_number);
-                    //console.log(number);
+                if(data.TEL_NUMBER!==undefined){
+                    number.push({text:data.TEL_NUMBER});
+                    console.log(number);
                 }
-                if(data.MOB_NUMBER!=""){
-                    number.push(mob_number);
-                    //console.log(number);
+                if(data.MOB_NUMBER!==undefined){
+                    number.push({text:data.MOB_NUMBER});
+                    console.log(number);
                 }
+
                 $ionicActionSheet.show({
                     buttons:number,
                     titleText: '拨打电话',
