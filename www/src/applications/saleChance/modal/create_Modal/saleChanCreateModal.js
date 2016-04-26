@@ -48,7 +48,7 @@ salesModule
 
             var getProcessType = function () {
                 for (var i = 0; i < $scope.filters.types.length; i++) {
-                    if ($scope.chancePop.saleOffice.text.substring(0, 2) == $scope.filters.types[i].text.substring(0, 2)) {
+                    if ($scope.chancePop.saleOffice.SALES_OFF_TXT.substring(0, 2) == $scope.filters.types[i].text.substring(0, 2)) {
                         return $scope.filters.types[i].value;
                     }
                 }
