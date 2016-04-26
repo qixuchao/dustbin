@@ -4,7 +4,6 @@
 'use strict';
 salesModule
     .controller('saleChanListCtrl', ['$scope',
-
         '$state',
         '$timeout',
         '$ionicLoading',
@@ -23,7 +22,6 @@ salesModule
                   ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService) {
             ionicMaterialInk.displayEffect();
             //ionicMaterialMotion.fadeSlideInRight();
-            console.log('销售机会列表');
             $scope.saleTitleText = '销售机会';
             $scope.sysName = ROOTCONFIG.hempConfig.baseEnvironment;
             $timeout(function () {
@@ -71,7 +69,6 @@ salesModule
                         $scope.loadMoreFlag = true;
 
                         angular.element('#saleActListSearchPageId').removeClass('ng-hide').addClass('active');
-                        console.log($scope.loadMoreFlag && $scope.input.list == '' && $scope.serachButton);
                         pageNum = 1;
                         var arr = document.getElementsByClassName('flipInX');
                         for (var i = 0; i < arr.length; i++) {
@@ -275,7 +272,6 @@ salesModule
                         data: tempHisPostData
                     }, function (err) {
                         if (!err) {
-                            console.log('历史记录保存成功')
                         } else {
                             Prompter.alert('历史记录保存失败');
                         }
@@ -371,12 +367,10 @@ salesModule
                   $ionicPopover, $ionicModal, $cordovaDialogs, $cordovaToast, $cordovaDatePicker, $ionicActionSheet,
                   saleChanService, Prompter, HttpAppService, saleActService, relationService, customeService, contactService,
                   employeeService) {
-            console.log('chanceDetail');
             ionicMaterialInk.displayEffect();
 
             $scope.statusArr = saleChanService.listStatusArr;
             $scope.relationsTypes = saleChanService.relationsTypes;
-            console.log($scope.relationsTypes);
             $scope.chanceDetails = {
                 preMount: '0.00',
                 CURRENCY: 'CNY',
@@ -697,7 +691,6 @@ salesModule
                     "IS_SEARCH": {"SEARCH": $scope.input.customer},
                     "IT_IN_ROLE": {}
                 };
-                console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
@@ -818,7 +811,6 @@ salesModule
                     //    "RELATION_PARTNER": ""
                     //});
                 }
-                console.log($scope.relationArr);
                 $scope.selectCustomerModal.hide();
             };
             //相关方
@@ -886,7 +878,6 @@ salesModule
                     titleText: '请选择操作',
                     cancelText: '取消',
                     buttonClicked: function (index) {
-                        console.log(index);
                         switch (index) {
                             case 0:
                                 if (x.position == 'CATL销售' && !angular.isUndefined(x.mode)) {

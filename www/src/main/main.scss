@@ -126,6 +126,7 @@ $main-lineColor: #d2d2d2;
         min-width: 14.28%;
         padding: 0 3px 10px 3px;
         font-size: 18px;
+        height: 30px;
         .checked {
           width: 28px;
           height: 28px;
@@ -133,7 +134,7 @@ $main-lineColor: #d2d2d2;
           background: #7794B7;
           border-radius: 50%;
           position: absolute;
-          margin-left: 11px;
+          margin-left: 3%;
           margin-top: -4px;
           color: white;
         }
@@ -271,18 +272,15 @@ $main-lineColor: #d2d2d2;
       }
       .opportunity {
         position: absolute;
-        top: 103px;
-        height: 21px;
-        left: 22px;
-        -webkit-transform: rotate(-45deg);
-        -moz-transform: rotate(-45deg);
-        transform: rotate(-45deg);
+        top: 9px;
+        height: 35px;
+        left: 66px;
       }
       .contacts {
         position: absolute;
         width: 33px;
-        bottom: 12px;
-        right: 45px;
+        bottom: 9px;
+        right: 55px;
       }
     }
     .lightColor {

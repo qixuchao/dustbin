@@ -1253,6 +1253,7 @@ ContactsModule
         $scope.Createancel = function(){
             Prompter.ContactCreateCancelvalue1("创建");
         };
+
         //$scope.contactKeepCreatevalue = function(){
         //    contactService.set_ContactCreatevalue($scope.contactcreat);
         //    //广播修改详细信息界面的数据

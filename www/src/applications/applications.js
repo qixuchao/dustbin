@@ -4,12 +4,8 @@
 'use strict';
 appModule
     .controller('AppCtrl',['LoginService','$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function(LoginService,$scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
-        console.log('app')
         //ionicMaterialInk.displayEffect();
-        //console.log(ionic.Platform.platform())
         var menuList=LoginService.getMenulist();
-        console.log(menuList);
-        console.log(LoginService.getProfileType());
         $scope.imgs = [{
             name:'CUSTOMER',
             url:'img/apps/partner.png',
