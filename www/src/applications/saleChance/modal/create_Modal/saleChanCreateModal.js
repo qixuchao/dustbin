@@ -22,7 +22,7 @@ salesModule
                   ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService) {
             console.log('机会新建modal');
 
-
+            $scope.filters = saleChanService.filters;
             $scope.CustomerLoadMoreFlag = true;
             $scope.saleStages = saleChanService.saleStages;
             $scope.create = {
@@ -48,7 +48,7 @@ salesModule
 
             var getProcessType = function () {
                 for (var i = 0; i < $scope.filters.types.length; i++) {
-                    if ($scope.pop.saleOffice.text.substring(0, 2) == $scope.filters.types[i].text.substring(0, 2)) {
+                    if ($scope.chancePop.saleOffice.text.substring(0, 2) == $scope.filters.types[i].text.substring(0, 2)) {
                         return $scope.filters.types[i].value;
                     }
                 }
@@ -64,7 +64,7 @@ salesModule
                 Prompter.showLoading('正在保存');
                 var data = {
                     "I_SYSNAME": {
-                        "SysName": $scope.sysName
+                        "SysName": ROOTCONFIG.hempConfig.baseEnvironment
                     },
                     "IS_OPPORT_H": {
                         "DESCRIPTION": $scope.create.title,
@@ -118,7 +118,7 @@ salesModule
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_CREAT', data)
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
-                            $scope.createModal.remove();
+                            $scope.createChanceModal.remove();
                             Prompter.showShortToastBotton('创建成功');
                             saleChanService.obj_id = response.ES_RESULT.ZRESULT;
                             $state.go('saleChanDetail');
@@ -126,7 +126,7 @@ salesModule
                         } else {
                             Prompter.showShortToastBotton('创建失败');
                             Prompter.hideLoading();
-                            $scope.createModal.remove();
+                            $scope.createChanceModal.remove();
                         }
                     });
             };
@@ -302,7 +302,7 @@ salesModule
             };
             //销毁
             $scope.$on('$destroy', function () {
-                $scope.createModal.remove();
+                $scope.createChanceModal.remove();
                 $scope.selectPersonModal.remove();
                 $scope.selectCustomerModal.remove();
             });

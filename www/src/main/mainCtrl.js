@@ -26,7 +26,7 @@ mainModule
         function ($scope, $state, $ionicSlideBoxDelegate, $ionicScrollDelegate, $timeout,
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location, $cordovaToast, $ionicModal,
                   ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService,
-                  worksheetDataService,saleChanService) {
+                  worksheetDataService, saleChanService) {
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
                 ionicMaterialInk.displayEffect();
@@ -650,6 +650,7 @@ mainModule
                         }
                     });
             };
+            var profile;
             var getOrdersArr = function (type) {
                     if (type == 'init') {
                         $scope.loadMoreHasData = true;
@@ -661,6 +662,16 @@ mainModule
                         $scope.loadMoreFlag = true;
                         $scope.contentArr = [];
                         $ionicScrollDelegate.scrollTop(true);
+                    }
+                    if (LoginService.getProfile() == 'ZCATL_SRVEMP') {
+                        profile = {
+                            "item": {
+                                "PARTNER_FCT": "",
+                                "PARTNER_NO": window.localStorage.crmUserName
+                            }
+                        };
+                    }else{
+                        profile = {};
                     }
                     var data = {
                         "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
@@ -683,12 +694,7 @@ mainModule
                         "IT_IMPACT": {
                             "item": {"ZZIMPACT": "0"}
                         },
-                        "IT_PARTNER": {
-                            //"item": {
-                            //    "PARTNER_FCT": "",
-                            //    "PARTNER_NO": "60000878"
-                            //}
-                        },
+                        "IT_PARTNER": profile,
                         "IT_PROCESS_TYPE": {},
                         "IT_STAT": {
                             "item": [{
