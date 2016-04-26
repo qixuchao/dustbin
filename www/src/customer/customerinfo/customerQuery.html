@@ -1,72 +1,139 @@
 <ion-view class="customer_Query">
-
-    <div class="customer_queryList">
-        <ion-header-bar align-title="center" class="head pub-head" style="height:88px">
-            <div class="row">
-                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-65 text-center">客户</div>
-                <div class="col col-20 add" ng-click="customerPopover($event)" style="text-align: left">筛选</div>
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head ">
+            <div class="row row-center">
+                <a class="col col-20 text-left goBack button button-clear"></a>
+                <div class="col col-60 text-center">客户列表</div>
+                <div class="col col-20 add" ng-click="customerPopover($event)" style="text-align: right">筛选</div>
             </div>
         </ion-header-bar>
-        <div class="pub-subhead bar bar-subheader">s
-            <div class="employeequery_headquery">
-                <i class="ion-ios-search employeequery_headqueryimg"></i>
-                <input id="customerinputvalueid" class="employeequery_headqueryinput" type="text" ng-model="customer.customerfiledvalue" ng-change="customerFirstLoad()" ng-focus="initSearch()" placeholder="请输入客户关键字">
-                <i id="customerqueryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="customeriputDeletevalue()"></i>
-            </div>
-        </div>
-        <div ng-if="!customer_queryflag || (customerselecttyperole && (customerQuery_list.length>0 || customer.customerfiledvalue.length>0))" class="employee_detail_countentbasic androidcustomertop iostop">
-            <div class="employee_detail_countentbasicinfo">{{customerqueryTypeunit}}</div>
-            <div class="employee_detail_countentbasicline" ng-class="employbasiclineflag?'employee_detail_countentbasiclinea':'employee_detail_countentbasiclineb'"></div>
-            <div class="employee_detail_countentbasicclok" ng-class="employbasiclineflag?'employee_detail_countentbasiclocka':'employee_detail_countentbasiclockb'"></div>
-        </div>
     </div>
-    <ion-content ng-show="!customer_queryflag" class="customercontenttopt">
-        <!--显示常用联系人-->
-        <div ng-repeat="x in usuallycustomerQuery_list" ng-click="customergodeatil(x)">
-            <div class="row row-center rowType1 item customer_Querylists">
-                <div class="col col-8 col-center">
-                    <img ng-src="img/employee/Oval-G@2x.png" class="customer_point">
+    <ion-header-bar  class="bar bar-subheader">
+        <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <i class="icon ion-ios-close" ng-show="customer.customerfiledvalue.length>0" ng-click="initSearch()"></i>
+            <input type="text" placeholder="请输入联系人信息" ng-model="customer.customerfiledvalue" ng-click="changePage()" ng-change="initLoad()">
+            <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
+        </div>
+    </ion-header-bar>
+    <ion-content ng-show="!searchFlag" style="margin-bottom: 50px">
+        <!--<img ng-src="img/car/oftenCar.png" class="textImg">-->
+        <div class="Car_countentbasic">
+            <div class="Car_countentbasicinfo">常用客户</div>
+            <div class="Car_countentbasicline"></div>
+            <div class="Car_countentbasicclok"></div>
+        </div>
+        <div class="contentType animated" ng-repeat="x in  usuallycustomerQuery_list track by $index">
+            <div class="row row-center rowType " ng-click="customergodeatil(x)">
+                <div class="col col-6 col-center">
+                    <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
                 <div class="col col-80 col-center colType">
                     <span>{{x.NAME_ORG1}}</span>
                 </div>
-                <div class="col col-10 col-center">
-                    <img class="customer_Querylistsimg" src="img/employee/Shape@2x.png"></img>
+                <div class="col col-12 col-center">
+                    <img ng-src="img/car/Shape.png" class="shapeImg">
                 </div>
+                <div class="col col-2"></div>
             </div>
-            <div class="employee_query_listline"></div>
-        </div>
-        <!--搜索历史-->
-    </ion-content>
-    <ion-content ng-show="customer_queryflag" ng-class="customerselecttyperole && (customerQuery_list.length>0 || customer.customerfiledvalue.length>0)?'customercontenttopt':'customercontenttopf'">
-        <div ng-if="!customerQuery_list.length>0 && !customer.customerfiledvalue.length>0" class="employee_query_historys">
-            <div class="employee_query_historysspan">
-                搜索历史
-            </div>
-            <div class="customer_query_historylist" ng-repeat="list in customer_query_historylists" ng-click="CustomerHisGetvalue(list)">
-                <span>{{list.name}}</span>
-            </div>
-            <div class="employee_query_historyclear" ng-click="CustomerClearhis()">
-                清楚历史记录
-            </div>
-        </div>
-        <div ng-repeat="x in customerQuery_list" ng-click="customergodeatil(x)"  ng-class="{true:'fadeInLeftBig animated',false:'fadeInRightBig animated'}[$index%2 == 0]">
-            <div class="row row-center rowType1 item customer_Querylists">
-                <div class="col col-8 col-center">
-                    <img ng-src="img/employee/Oval-G@2x.png" class="customer_point">
-                </div>
-                <div class="col col-80 col-center colType">
-                    <span>{{x.NAME_ORG1}}</span>
-                </div>
-                <div class="col col-10 col-center">
-                    <img class="customer_Querylistsimg" src="img/employee/Shape@2x.png"></img>
-                </div>
-            </div>
-            <div class="employee_query_listline"></div>
         </div>
         <ion-infinite-scroll on-infinite="customerLoadmore()" ng-if="customerisshow"></ion-infinite-scroll>
     </ion-content>
+    <ion-content class="has-header search " has-bouncing="true" ng-show="searchFlag">
+        <div ng-hide="customer.customerfiledvalue.length>0">
+            <div class="row row-center his-title" >
+                <i class="ion-android-time"></i>
+                <div class="hisText">历史记录</div>
+                <div class="horizon-line"></div>
+            </div>
+            <ion-list>
+                <ion-item ng-click="search(x.name,$event)" ng-repeat="x in customer_query_historylists">{{x.name}}</ion-item>
+            </ion-list>
+        </div>
+        <div class="contentType animated" ng-repeat="lists in customerQuery_list"  ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
+            <div class="row row-center rowType " ng-click="customergodeatil(lists)">
+                <div class="col col-6 col-center">
+                    <img ng-src="img/car/Oval.png" class="pointImg">
+                </div>
+                <div class="col col-80 col-center colType">
+                    <span>{{lists.NAME_ORG1}}</span>
+                </div>
+                <div class="col col-12 col-center">
+                    <img ng-src="img/car/Shape.png" class="shapeImg" >
+                </div>
+                <div class="col col-2"></div>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>
+
+    <!--<div class="customer_queryList">-->
+        <!--<ion-header-bar align-title="center" class="head pub-head" style="height:88px">-->
+            <!--<div class="row">-->
+                <!--<a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>-->
+                <!--<div class="col col-65 text-center">客户</div>-->
+                <!--<div class="col col-20 add" ng-click="customerPopover($event)" style="text-align: left">筛选</div>-->
+            <!--</div>-->
+        <!--</ion-header-bar>-->
+        <!--<div class="pub-subhead bar bar-subheader">s-->
+            <!--<div class="employeequery_headquery">-->
+                <!--<i class="ion-ios-search employeequery_headqueryimg"></i>-->
+                <!--<input id="customerinputvalueid" class="employeequery_headqueryinput" type="text" ng-model="customer.customerfiledvalue" ng-change="customerFirstLoad()" ng-focus="initSearch()" placeholder="请输入客户关键字">-->
+                <!--<i id="customerqueryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="customeriputDeletevalue()"></i>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div ng-if="!customer_queryflag || (customerselecttyperole && (customerQuery_list.length>0 || customer.customerfiledvalue.length>0))" class="employee_detail_countentbasic androidcustomertop iostop">-->
+            <!--<div class="employee_detail_countentbasicinfo">{{customerqueryTypeunit}}</div>-->
+            <!--<div class="employee_detail_countentbasicline" ng-class="employbasiclineflag?'employee_detail_countentbasiclinea':'employee_detail_countentbasiclineb'"></div>-->
+            <!--<div class="employee_detail_countentbasicclok" ng-class="employbasiclineflag?'employee_detail_countentbasiclocka':'employee_detail_countentbasiclockb'"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<ion-content ng-show="!customer_queryflag" class="customercontenttopt">-->
+        <!--&lt;!&ndash;显示常用联系人&ndash;&gt;-->
+        <!--<div ng-repeat="x in usuallycustomerQuery_list" ng-click="customergodeatil(x)">-->
+            <!--<div class="row row-center rowType1 item customer_Querylists">-->
+                <!--<div class="col col-8 col-center">-->
+                    <!--<img ng-src="img/employee/Oval-G@2x.png" class="customer_point">-->
+                <!--</div>-->
+                <!--<div class="col col-80 col-center colType">-->
+                    <!--<span>{{x.NAME_ORG1}}</span>-->
+                <!--</div>-->
+                <!--<div class="col col-10 col-center">-->
+                    <!--<img class="customer_Querylistsimg" src="img/employee/Shape@2x.png"></img>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="employee_query_listline"></div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;搜索历史&ndash;&gt;-->
+    <!--</ion-content>-->
+    <!--<ion-content ng-show="customer_queryflag" ng-class="customerselecttyperole && (customerQuery_list.length>0 || customer.customerfiledvalue.length>0)?'customercontenttopt':'customercontenttopf'">-->
+        <!--<div ng-if="!customerQuery_list.length>0 && !customer.customerfiledvalue.length>0" class="employee_query_historys">-->
+            <!--<div class="employee_query_historysspan">-->
+                <!--搜索历史-->
+            <!--</div>-->
+            <!--<div class="customer_query_historylist" ng-repeat="list in customer_query_historylists" ng-click="CustomerHisGetvalue(list)">-->
+                <!--<span>{{list.name}}</span>-->
+            <!--</div>-->
+            <!--<div class="employee_query_historyclear" ng-click="CustomerClearhis()">-->
+                <!--清楚历史记录-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div ng-repeat="x in customerQuery_list" ng-click="customergodeatil(x)"  ng-class="{true:'fadeInLeftBig animated',false:'fadeInRightBig animated'}[$index%2 == 0]">-->
+            <!--<div class="row row-center rowType1 item customer_Querylists">-->
+                <!--<div class="col col-8 col-center">-->
+                    <!--<img ng-src="img/employee/Oval-G@2x.png" class="customer_point">-->
+                <!--</div>-->
+                <!--<div class="col col-80 col-center colType">-->
+                    <!--<span>{{x.NAME_ORG1}}</span>-->
+                <!--</div>-->
+                <!--<div class="col col-10 col-center">-->
+                    <!--<img class="customer_Querylistsimg" src="img/employee/Shape@2x.png"></img>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="employee_query_listline"></div>-->
+        <!--</div>-->
+        <!--<ion-infinite-scroll on-infinite="customerLoadmore()" ng-if="customerisshow"></ion-infinite-scroll>-->
+    <!--</ion-content>-->
+<!--</ion-view>-->
 
 
