@@ -73,8 +73,9 @@ loginModule
            var data={
                "username": $scope.loginData.username,
                "password": $scope.loginData.password,
-               "system": ROOTCONFIG.hempConfig.baseEnvironment //"CATL"
-           };
+               "system": ROOTCONFIG.hempConfig.baseEnvironment
+           };//ROOTCONFIG.hempConfig.baseEnvironment
+
            //alert(JSON.stringify(data));
            HttpAppService.post(url,data).success(function(response){
                //alert("请求成功："+JSON.stringify(response));

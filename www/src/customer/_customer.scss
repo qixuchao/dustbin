@@ -76,50 +76,189 @@
   }
 }
 .customer_Query{
-  .customer_Query_headspan{
-    color: white;
-    float: right;
-    margin-right:15px;
+  .bar .title {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    margin: 0 10px;
+    min-width: 30px;
+    height: 43px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    //font-weight: 100;
+    color: rgb(250, 250, 250);
   }
-  .customer_Querylisthead{
-    color:#d4d4d4;
-    font-size:16px;
-    padding: 0 0px 0 5px;
-    margin-top:4px;
-    .customer_Querylistheadimg{
-      width:20px;
-      height: 20px;
+  .bar.bar-header .button + .title {
+    text-align: center;
+    line-height: 55px;
+  }
+  .bar {
+    border-bottom: none;
+    background-color: $crm-header-bar-bgcolor;
+    background-size: 0;
+    box-shadow: none;
+  }
+  .bar-subheader {
+    height: 37px;
+    display: block;
+    padding: 0 2% 8px 2%;
+    .search1 {
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .3em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: black;
+        vertical-align: middle;
+        font-size: 14px;
+        height: 28px;
+        width: 96%;
+        position: fixed;
+        border-radius: 5px;
+      }
     }
-    .customer_Querylistheadline{     
+    .search2 {
+      .placeholder-icon {
+        color: #aaa;
+        position: absolute;
+        z-index: 2;
+        top: .3em;
+        left: 1em;
+      }
+      input {
+        display: block;
+        padding-left: 2em;
+        color: black;
+        vertical-align: middle;
+        font-size: 14px;
+        height: 28px;
+        width: 80%;
+        position: fixed;
+        border-radius: 5px;
+      }
+      .ion-ios-close {
+        position: absolute;
+        top: 5px;
+        right: 5em;
+        z-index: 2;
+        color: #aaa;
+      }
+      .button-clear {
+        position: fixed;
+        left: 86%;
+        font-size: 16px;
+        top: -2px;
+        min-height: 30px;
+        max-height: 30px;
+      }
+    }
+  }
+  .row + .row .row {
+    padding-top: 0;
+    height: 4em;
+  }
+  .Car_countentbasic {
+    position: relative;
+    font-size: 15px;
+    color: $crm-header-bar-bgcolor;
+    padding-bottom:1.5em;
+    .Car_countentbasicinfo {
+      position: absolute;
+      top: 0px;
+      left: 20px;
+    }
+    .Car_countentbasicline {
+      position: absolute;
+      top: 10px;
+      left: 95px;
+      width: 100%;
       height: 1px;
-      width: 130%;
-      background-color: #d4d4d4;
-      margin-top: 8px;
+      background-color: $crm-header-bar-bgcolor;
+    }
+    .Car_countentbasicclok {
+      position: absolute;
+      top: 15px;
+      margin-top: 2px;
+      left: 0px;
+      width: 55px;
+      height: 15px;
+      border: 1px solid #406FB3;
+      border-top: none;
+      border-left: none;
     }
   }
-  .androidcustomertop{
-    margin-top:96px;
+  .shapeImg {
+    position: relative;
+    height: 16px;
+    top: .2em;
+    left: 0.5em;
   }
-  .customercontenttopt{
-     margin-top: 88px;
-   }
-  .customercontenttopf{
-    margin-top: 44px;
+  .contentType {
+    .row {
+      .col {
+        padding: 0;
+      }
+    }
+    position: relative;
+    top: 1em;
+    border-bottom: 1px solid rgba(43, 43, 43, 0.17);
   }
-  .customer_Querylists{
-    padding:10px 13px 10px 13px;
-    border: none;
-    .customer_point{
-      height: 10px;
+  .rowType {
+    position: relative;
+    left: 4%;
+    padding: 1.2em 0;
+    .pointImg {
+      height: 0.7em;
+    }
+    .colType {
+      padding-left: 0;
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+  .search {
+    .his-title {
+      color: #BFBFBF;
+    }
+    .ion-android-time {
+      margin-right: 5px;
+    }
+    .hisText {
+      white-space: nowrap;
+    }
+    .horizon-line {
+      background: #D8D8D8;
+      width: 100%;
+      height: 1px;
+      margin-left: 5px;
+    }
+    ion-item {
+      border-bottom: 1px solid #D8D8D8;
+      min-height: 0;
+      font-size: 14px;
+      padding: 10px 16px;
+    }
+  }
+  .content {
+    .item {
       position: relative;
-      left: 30%;
+      display: block;
+      margin: -1px;
+      font-size: 14px;
+      padding: 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.16);
     }
-    .customer_Querylistsimg{
-      width: 16px;
-      height: 16px;
-      float: right;
-    }
-  };
+  }
 };
 .platform-ios .iostop{
   margin-top:116px;

@@ -158,7 +158,7 @@ ContactsModule
                 $scope.initLoad();
             };
             $scope.cancelSearch=function(){
-                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+                //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
                 $scope.searchFlag=false;
                 $scope.config.contactfiledvalue = '';
                 $scope.contact_query_list=new Array;
@@ -1628,7 +1628,7 @@ ContactsModule
             currentCountry:$scope.contactedit.COUNTRY,
             currentProvence:$scope.contactedit.REGION,
             currentCity:{},
-            currentLanguage:"1",
+            currentLanguage:$scope.con,
             currentTitile:"0002"
         };
             console.log(angular.toJson($scope.config)+"sdsdsd");
@@ -1700,7 +1700,14 @@ ContactsModule
             if($scope.config.currentCountry!=null||$scope.config.currentCountry!=undefined){
                 $scope.countryCode= "CN";
                 $scope.provence=new Array;
+                $scope.city=new Array;
                 $scope.cascade1();
+            }
+            if($scope.config.currentProvence!=""||$scope.config.currentProvence!=undefined){
+                console.log($scope.currentProvence);
+                $scope.provenceCode=$scope.currentProvence;
+                $scope.city=new Array;
+                $scope.cascade2();
             }
         $scope.changCountry=function(){
             $scope.provence=new Array;
