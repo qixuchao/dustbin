@@ -9,6 +9,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             //if(fromState.name == 'worksheetSelectPro' && toState.name == 'worksheetSparepart'){
                 var proInfos =  worksheetHttpService.addPro.proInfos;
+                var proInfos =  worksheetHttpService.addPro.proInfos;
             //}
                 $scope.config = {
                     warehouse : "",
@@ -30,7 +31,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 }else{
                     $scope.goSAPInfos = $scope.goSAPInfos.concat(worksheetDetail);
                 }
-                console.log($scope.goSAPInfos);
             $scope.goMore = false;//等待更多
             $scope.goNo = false;//没有
             $scope.goLoad = true;//加载
@@ -48,16 +48,13 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 $scope.config.wareHouse = worksheetHttpService.addPro.wareHouse;
                 $scope.infos = proInfos;
             }
-            console.log($scope.config.warehouse);
-            console.log($scope.infos);
             //$scope.goSAPInfos = new Array();
             //cangku
             var urlCang = ROOTCONFIG.hempConfig.basePath + 'SERVICE_ORDER_STORAGE';
             HttpAppService.post(urlCang, dataCang).success(function(response){
-                $scope.wareHouse = response.ET_STORAGE.item;
-                console.log(response+"仓库");
+                    $scope.wareHouse = response.ET_STORAGE.item;
+
             }).error(function(err){
-                console.log(err);
             });
 
             var data = {
@@ -72,13 +69,11 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     "PRODUCT_TEXT": ""
                 }
             }
-            console.log(data);
             var url = ROOTCONFIG.hempConfig.basePath + 'ATTACHMENT_LIST';
             HttpAppService.post(url, data).success(function(response){
                 $scope.goLoad = false;
                 $scope.goMore = true;
                 var infosItem = response.ET_COMM_LIST.Item;
-                console.log(infosItem);
                 if($scope.infos == []){
                     $scope.infos = infosItem;
                 }else{
@@ -89,7 +84,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     $scope.infos[i].ishave = true;//是否已被选择 显示
                     $scope.infos[i].checked = "NO";//是否默认
                 }
-                console.log($scope.infos);
                 $scope.deletePro("");
             }).error(function(err){
 
@@ -102,9 +96,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             for(var k=0;k<$scope.infos.length;k++){
                 $scope.infos[k].ishave = true;
             }
-            console.log(warehouse);
-            console.log($scope.infos);
-            console.log($scope.goSAPInfos);
             if(warehouse === ""){
                 for(var i=0;i<$scope.infos.length;i++){
                     for(var j=0;j<$scope.goSAPInfos.length;j++){
@@ -115,7 +106,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         }
                     }
                 }
-                console.log($scope.infos);
             }else{
                 for(var i=0;i<$scope.infos.length;i++){
                     for(var j=0;j<$scope.goSAPInfos.length;j++){
@@ -126,7 +116,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         }
                     }
                 }
-                console.log($scope.infos);
             }
             var arr = $scope.infos;
             return arr;
@@ -149,8 +138,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         "PRODUCT_TEXT": ""
                     }
                 }
-                console.log($scope.numPage);
-                console.log(data);
                 $scope.goLoad = true;
                 $scope.goMore = false;
                 var uri = ROOTCONFIG.hempConfig.basePath + 'ATTACHMENT_LIST';
@@ -158,7 +145,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     $scope.goLoad = false;
                     $scope.goMore = true;
                     var infosItem = response.ET_COMM_LIST.Item;
-                    console.log((infosItem));
                     if(infosItem === undefined){
                         $scope.goMore = false;//等待更多
                         $scope.goNo = true;//没有
@@ -178,9 +164,8 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                             $scope.infos[i].ishave = true;
                             $scope.infos[i].checked = "NO";
                         }
-                        $scope.change($scope.config.warehouse);
-                        console.log(($scope.infos));
-                    }
+                        $scope.change($scope.config.warehouse);}
+
                 }).error(function(err){
 
                 });
@@ -190,7 +175,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         $scope.changeSearch = function(){
             var searchNum = 1;
             $scope.goLoadUp = true;
-            console.log(($scope.config.searchInfos));
             var dataSeach = {
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_USER": { "BNAME": window.localStorage.crmUserName },
@@ -203,33 +187,22 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     "PRODUCT_TEXT": $scope.config.searchInfos
                 }
             }
-            console.log((dataSeach));
             var url = ROOTCONFIG.hempConfig.basePath + 'ATTACHMENT_LIST';
             HttpAppService.post(url, dataSeach).success(function(response){
                 searchNum++;
                 $scope.goLoadUp = false;
                 var infosItem = response.ET_COMM_LIST.Item;
-                console.log(response);
-                console.log(infosItem);
-                console.log($scope.infos);
                 if(infosItem === undefined){
                     $cordovaToast.showShortBottom('未搜索到相关备件');
                 }else{
                     for(var k=0;k<$scope.infos.length;k++){
                         for(var m=0;m<infosItem.length;m++){
-                            console.log($scope.infos[k].PRODUCT_ID);
-                            console.log(infosItem[m].PRODUCT_ID);
                             if($scope.infos[k].PRODUCT_ID == infosItem[m].PRODUCT_ID){
-                                console.log(m);
-                                console.log(angular.toJson(infosItem));
                                 infosItem.splice(m,1);
                                 break;
-                                console.log("相同啊");
-                                console.log(angular.toJson(infosItem));
                             }
                         }
                     }
-                    console.log((infosItem));
                     $scope.infos = infosItem.concat($scope.infos);
                     //$scope.infos = $scope.infos.concat(infosItem);
                     for(var i=0;i<$scope.infos.length;i++){
@@ -247,7 +220,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         //默认已选中的  下拉框选择仓库
         $scope.change = function(item){
             $scope.infos = $scope.deletePro($scope.config.warehouse);
-            console.log($scope.infos)
             for(var m=0;m<$scope.infos.length;m++){
                 $scope.infos[m].APPLY_NUM = 0;
                 //$scope.infos[m].ishave = true;
@@ -259,18 +231,14 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     }
                 }
             }
-            console.log((item));
             //var str=document.getElementsByName("selectSparePart");
             //console.log(str.length);
-            console.log($scope.infos.length);
             if(item==="" || item === null || item === undefined){
                 //for (var i=0;i<str.length;i++) {
                 //    str[i].checked = false;
                 //}
             }else{
-                console.log("--");
                 for (var i=0;i<$scope.infos.length;i++) {
-                    console.log("--+");
                     for(var j=0;j<$scope.goSAPInfos.length;j++){
                         //if(item.ZZSTORAGE === $scope.goSAPInfos[j].STORAGE && str[i].value === $scope.goSAPInfos[j].PROD){
                         //    str[i].checked = true;
@@ -292,8 +260,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         //点击多选框的判定
         $scope.goSelectWareHouse = function(item){
             var length = $scope.goSAPInfos.length
-            console.log($scope.config.warehouse);
-            console.log(item);
+
             if($scope.config.warehouse.ZZSTORAGE === undefined ){
                 var str=document.getElementsByName("selectSparePart");
                 var chestr = new Array();
@@ -321,7 +288,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 var num = 0;
                 for(var i=0;i<length;i++){
                     if($scope.config.warehouse.ZZSTORAGE === $scope.goSAPInfos[i].STORAGE && item.PRODUCT_ID === $scope.goSAPInfos[i].PROD){
-                        console.log((num)+"==");
                         if($scope.goSAPInfos[i].showPic === true){
                             return;
                         }
@@ -329,11 +295,9 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         num = 1;
                         return;
                     }else{
-                        console.log((num)+"--");
                         num = 2;
                     }
                 }
-                console.log((num)+"--");
                 if(num === 2){
                     $scope.goSAPInfos.push(
                         {"RECORD_ID":"",
@@ -352,7 +316,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                             "addNum" : true});
                 }
             }
-            console.log(($scope.goSAPInfos));
         }
         //传输至sap
         $scope.goUpdateSAP = function(){
@@ -384,10 +347,8 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 "IT_MAT_LIST": {
                     "item": item
                 }};
-            console.log((data));
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             HttpAppService.post(url, data).success(function(response){
-                console.log((response));
                 Prompter.hideLoading();
                 if(response.ES_RESULT.ZFLAG === 'S'){
                     //for(var i=0;i<$scope.goSAPInfos.length;i++){
@@ -404,30 +365,23 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     $state.go("worksheetSelect");
                 }
             }).error(function(err){
-                console.log((err));
             });
         }
         //暂存
         $scope.goDetailList = function(){
-            console.log(angular.toJson($scope.goSAPInfos));
             worksheetHttpService.setSparePart($scope.goSAPInfos);
-            console.log(($scope.goSAPInfos));
             $state.go("worksheetSelect");
         }
         //增加数量
         $scope.add = function(item){
             item.APPLY_NUM += 1;
-            console.log((item));
             numChange(item);
-            console.log((item));
         }
         //减少数量
         $scope.reduce = function(item){
             if(item.APPLY_NUM > 0){
                 item.APPLY_NUM = item.APPLY_NUM-1;
-                console.log(item);
                 numChange(item);
-                console.log((item));
             }else{
                 $cordovaToast.showShortBottom("此备件数量已为0");
             }
@@ -436,31 +390,25 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         //input
         $scope.inputChange = function(item){
             numChange(item);
-            console.log((item));
         }
         $scope.blurnum = function(item){
             numChange(item);
-            console.log((item));
         }
         //$scope.focusnum = function(item){
         //    console.log((item));
         //    //numChange(item);
         //}
         var numChange = function(item){
-            console.log(item);
             for(var n=0;n<$scope.goSAPInfos.length;n++){
                 if(item.PRODUCT_ID === $scope.goSAPInfos[n].PROD && $scope.config.warehouse.ZZSTORAGE === $scope.goSAPInfos[n].STORAGE){
                     if($scope.goSAPInfos[n].showPic === true){
                         if(item.APPLY_NUM > $scope.goSAPInfos[n].APPLY_NUM){
-                            console.log("zeng");
                             $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
                             $scope.goSAPInfos[n].addNum = false;
                         }else if(item.APPLY_NUM === $scope.goSAPInfos[n].APPLY_NUM){
                             $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
                             $scope.goSAPInfos[n].addNum = true;
-                            console.log("deng");
                         }else{
-                            console.log("jian");
                             item.APPLY_NUM = item.APPLY_NUM+1;
                             $scope.goSAPInfos[n].addNum = true;
                             $cordovaToast.showShortBottom("此数量不允许减少");
@@ -479,6 +427,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         var btnIndex = buttonIndex;
                         if (btnIndex == 1) {
                             worksheetHttpService.setSparePart("");
+                            worksheetHttpService.addPro.proInfos = "";
                             $ionicHistory.goBack();
                         }
                     });
@@ -492,13 +441,11 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
             }
-            console.log((data));
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL';
             var id = worksheetDataService.wsDetailData.ydWorksheetNum;
             var wf = worksheetDataService.wsDetailData.waifuRenyuan;
             var name = worksheetDataService.wsDetailData.IS_PROCESS_TYPE;
             HttpAppService.post(url, data).success(function(response){
-                //console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     worksheetDataService.wsDetailData = response;
                     worksheetDataService.wsDetailData.ydWorksheetNum = id;
@@ -512,14 +459,12 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     $scope.goSAPInfos = worksheetDetail;
                     worksheetHttpService.setSparePart($scope.goSAPInfos);
                     $state.go("worksheetSelect");
-                    console.log((response));
                 }else{
 
                 }
                 Prompter.hideLoading();
             }).error(function(err){
                 Prompter.hideLoading();
-                console.log((err));
             });
         }
         $scope.goCustomer = function(){
@@ -533,7 +478,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             //}else{
             //    worksheetHttpService.addPro.wareHouse = $scope.config.warehouse;
                 worksheetHttpService.setSparePart($scope.goSAPInfos);
-                console.log(worksheetHttpService.addPro.wareHouse);
                 $state.go("worksheetSelectPro");
             //}
         }
@@ -545,8 +489,6 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         ionicMaterialInk.displayEffect();
         //工单详情
         var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
-        console.log((worksheetDataService.wsDetailData));
-        console.log((worksheetDetail));
         if(worksheetDetail === undefined){
             worksheetDetail = [];
         }else{
@@ -563,7 +505,6 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 }else{
                     //worksheetDetail = worksheetDetail.concat(localInfos);
                     worksheetDetail =  localInfos;
-                    console.log((localInfos)+"=======");
                     changeArr();
                 }
             }
@@ -592,7 +533,6 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                     }
                 }
             }
-            console.log((dest));
             $scope.spareDetail = dest;
         }
         changeArr();
@@ -611,12 +551,12 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                         var btnIndex = buttonIndex;
                         if (btnIndex == 1) {
                             worksheetHttpService.setSparePart("");
+                            worksheetHttpService.addPro.proInfos = "";
                             $ionicHistory.goBack();
                         }
                     });
             }else{
                 worksheetHttpService.setSparePart("");
-                console.log("---");
                 $ionicHistory.goBack();
             }
         }
@@ -625,7 +565,6 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         }
         var gobackDetail = function(){
             if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV"){
-                console.log("---=");
                 $state.go("worksheetDetail",{
                     detailType: 'siteRepair'
                 });
@@ -641,19 +580,15 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         }
         $scope.upDown = true;
         $scope.showDetail = function(items) {
-            console.log(items);
             for(var i=0;i<$scope.spareDetail.length;i++){
                 $scope.spareDetail[i].scrollStyle = "height:"+0+"px";
             }
-            console.log(items.detail.length);
             var scrHe = sco - items.detail.length * 116;
-            console.log("内容高度"+scrHe);
             if(scrHe < 0){
                 items.scrollStyle = "height:"+sco+"px";
              }else {
                 items.scrollStyle = "height:"+items.detail.length * 116+"px";
             }
-            console.log(($scope.spareDetail));
             for(var i=0;i<$scope.spareDetail.length;i++){
                 if($scope.spareDetail[i].flag === false && $scope.spareDetail[i].STORAGE_DESC !== items.STORAGE_DESC){
                     $scope.spareDetail[i].flag = true;
@@ -666,17 +601,13 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
             }
             var a = items.flag;
             items.flag = !a;
-            console.log(($scope.spareDetail));
         }
 
         $scope.showDetailInfos = false;
         var a=document.getElementById("content").offsetHeight-44;
-        console.log(a + "内容高度");//48  116
         var h = $scope.spareDetail.length;
         var sco = a - 48*h;
-        console.log(sco + "剩余高度");
         $scope.goUpdateSAP = function(){
-            console.log((worksheetDetail));
             Prompter.showLoading("正在传输");
             var item = new Array();
             for(var i=0;i<worksheetDetail.length;i++){
@@ -704,7 +635,6 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 "IT_MAT_LIST": {
                     "item": item
                 }};
-            console.log((data));
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             if(item.length<1){
                 $cordovaToast.showShortBottom("暂无信息需要传输");
@@ -712,7 +642,6 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
             }else{
                 HttpAppService.post(url, data).success(function(response){
                     Prompter.hideLoading();
-                    console.log((response));
                     if(response.ES_RESULT.ZFLAG === 'S'){
                         //for(var i=0;i<$scope.spareDetail.length;i++){
                         //    $scope.spareDetail[i].detail.showPic = true;
@@ -723,15 +652,12 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                         //    worksheetDetail[i].showPic = true;
                         //}
                         $scope.updateInfos();
-                        console.log(($scope.spareDetail));
                         //worksheetDataService.wsDetailToList.needReload = true;
                         $cordovaToast.showShortBottom("数据已传输至SAP");
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
-                    console.log((response));
                 }).error(function(err){
-                    console.log((err));
                 });
             }
 
@@ -744,13 +670,11 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
             }
-            console.log((data));
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL';
             var id = worksheetDataService.wsDetailData.ydWorksheetNum;
             var wf = worksheetDataService.wsDetailData.waifuRenyuan;
             var name = worksheetDataService.wsDetailData.IS_PROCESS_TYPE;
             HttpAppService.post(url, data).success(function(response){
-                //console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     worksheetDataService.wsDetailData = response;
                     worksheetDataService.wsDetailData.ydWorksheetNum = id;
@@ -762,14 +686,12 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                         worksheetDetail[k].addNum = true;
                     }
                     changeArr();
-                    console.log((response));
                 }else{
 
                 }
                 Prompter.hideLoading();
             }).error(function(err){
                 Prompter.hideLoading();
-                console.log((err));
             });
         }
     }]);
@@ -803,7 +725,6 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
 
             if (JSON.parse(localStorage.getItem("oftenSparedb")) != null || JSON.parse(localStorage.getItem("oftenSparedb")) != undefined) {
                 $scope.spareList1 = JSON.parse(localStorage.getItem("oftenSparedb"));
-                //console.log($scope.spareList1.SHORT_TEXT);
                 if ($scope.spareList1.length > 15) {
                     $scope.spareList1 = $scope.spareList1.slice(0, 15);
                 }
@@ -815,7 +736,6 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
 
         //广播修改界面显示flag
         $rootScope.$on('customercontactCreatevalue', function(event, data) {
-            console.log("接收成功"+data);
             $scope.searchFlag =data;
             $scope.spareInfo ="";
             $scope.cancelSearch();
@@ -879,7 +799,6 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                 if($scope.spareInfo == data.IS_PRODMAS_INPUT.SHORT_TEXT){
                     console.log(page);
                     if (response.ES_RESULT.ZFLAG == 'E') {
-                        //console.log("第3步");
                         $scope.spareimisshow = false;
                         $scope.spareList = $scope.checkedPro
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -919,9 +838,7 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                                         $scope.spareList.splice(i,1);
                                     }
                                 }
-                                console.log($scope.checkedPro);
                                 $scope.spareList = $scope.checkedPro.concat($scope.spareList);
-                                console.log($scope.spareList);
                             }
                             if (response.ET_PRODMAS_OUTPUT.item.length < 20) {
                                 $scope.spareimisshow = false;
@@ -962,7 +879,6 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                             storedb('sparedb').remove($scope.spareInfo);
                             storedb('sparedb').insert({'name':$scope.spareInfo},function(err){
                                 if(!err){
-                                    console.log('历史记录保存成功')
                                 }else {
                                     $cordovaToast.showShortBottom('历史记录保存失败');
                                 }
@@ -973,7 +889,6 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                     if(spareIs===false){
                         storedb('sparedb').insert({'name':$scope.spareInfo},function(err){
                             if(!err){
-                                console.log('历史记录保存成功')
                             }else {
                                 $cordovaToast.showShortBottom('历史记录保存失败');
                             }
@@ -993,14 +908,12 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                         $scope.oftenSpareList.splice(i, 1);
                         $scope.oftenSpareList.unshift(value);
                         localStorage['oftenSparedb'] = JSON.stringify($scope.oftenSpareList);
-                        console.log("产品保存成功");
                         spareIsIn=false;
                     }
                 }
                 if(spareIsIn){
                     $scope.oftenSpareList.unshift(value);
                     localStorage['oftenSparedb'] = JSON.stringify( $scope.oftenSpareList);
-                    console.log("产品1保存成功");
                 }
             }else{
                 $scope.oftenSpareList.unshift(value);
@@ -1028,7 +941,6 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
             }
         };
         $scope.selectdPro = function(item){
-            console.log(item);
             if(item.checkedP == 'YES'){
                 if($scope.checkedPro.length < 1){
                     $scope.checkedPro.push(item);
@@ -1051,7 +963,6 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                     }
                 }
             }
-            console.log($scope.checkedPro);
         }
         $scope.addPro = function(){
             var addProInfos = [];
