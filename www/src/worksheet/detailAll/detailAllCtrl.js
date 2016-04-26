@@ -192,6 +192,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 			$scope.editDetail = function(){
 				//$rootScope.$viewHistory.currentView = $rootScope.$viewHistory.backView;
+
 				var params = $scope.config.requestParams;
 				if(params.IS_PROCESS_TYPE == 'ZNCO'){	//ZNCO 新车档案收集工单 
 					$state.go("worksheetEdit", {

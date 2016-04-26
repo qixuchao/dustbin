@@ -65,6 +65,9 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			isLoading: false,
 			loadingErrorMsg: null,
 
+			uploadingText: "正在上传中 ... #PROGRESS#",
+
+
 			fileItemDefaults: {
 				originServer: false,
 				originPhoto: false,
@@ -82,6 +85,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				uploading: false,
 				uploadOk: false,
 				uploadError: false,
+				uploadPercentDesc: "",
 
 				src: "",
 				fileLocalPath: ""
@@ -324,19 +328,21 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		function __removeModalOpenClass(){
 
 		}
-
+		/*
+			<div class='images-buttons buttons'>\
+				<div class=button button-clear ng-click='deleteImage();'>删除</div>\
+				<div class=button button-clear ng-click='saveImage();'>保存在本地</div>\
+			</div>\
+		*/
 		$scope.showImage = function($event, imageInfo){
 			angular.element("body").removeClass("modal-open");
 			// 创建并准备显示modal层dome元素
 			$scope.datas.showImageItem = imageInfo;
 			//if($scope.config.imageModal == null){
-				$scope.config.imageModal = $ionicModal.fromTemplate("\
-						<div class='takePicture-image-modal-wrapper'>\
-							<div class='close-div'>\
-								<span ng-click='closeImageModal();'>关闭</span>\
-							</div>\
-							<img ng-src='{{datas.showImageItem.src}}' style='z-index:20;'></img>\
-						</div>", {
+				$scope.config.imageModal = $ionicModal.fromTemplate("<div class='takePicture-image-modal-wrapper'>" +
+							"<div class='close-div'> <span ng-click='closeImageModal();'>关闭</span> </div>" +
+							"<img ng-src='{{datas.showImageItem.src}}' style='z-index:20;'></img>" +
+							"</div>", {
 					scope: $scope,
 					animation: 'slide-in-up',
 					hardwareBackButtonClose: true,
@@ -448,6 +454,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 					uploading: false,
 					uploadOk: false,
 					uploadError: false,
+					uploadPercentDesc: '',
 
 					src: "",
 					fileLocalPath: ""
@@ -590,6 +597,22 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				file.uploading = true;
 				file.uploadOk = false;
 				file.uploadError = false;
+
+				ft.onprogress = function(progressEvent){
+					var percent = progressEvent.loaded / progressEvent.total;
+						//file.uploadPercentDesc = $scope.config.uploadingText + "" + percent;
+						file.networkTip = $scope.config.uploadingText + percent;
+						if(!$scope.$$phase){
+							$scope.$apply();
+						}
+					// uploadingText: "正在上传中 ... ",
+					if (progressEvent.lengthComputable) {
+						
+				      //loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+				    } else {
+				      //loadingStatus.increment();
+				    }
+				};
 				
 				file.isNetworking = true;
 	        	file.networkTip = "正在上传中...";

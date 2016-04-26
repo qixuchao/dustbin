@@ -25,8 +25,8 @@
                     </div>
                     <div class="img-handler-wrapper" ng-if="!item.isServerHolder">
                         <span ng-if="!item.uploadError"></span>
-                        <span ng-click="uploadImage(item);" ng-if="!item.uploadError">上传</span>
-                        <span ng-bind="item.networkTip" ng-if="item.uploadError"></span>
+                        <span ng-click="uploadImage(item);" ng-if="!item.uploadError && !item.isDeleting && !item.isNetworking">上传</span>
+                        <span ng-bind="item.networkTip" ng-if="item.uploadError || item.isDeleting || item.isNetworking"></span>
                     </div>
                 </div>
                 <div class="selected-btn selected-image" style="font-size:3.5rem;border:0px;" ng-click="takePicture();" ng-if="!config.isLoading">

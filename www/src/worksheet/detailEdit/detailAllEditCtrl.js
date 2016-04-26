@@ -43,7 +43,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             }
         }); 
         
-        var pleaseChoose = '-- 请选择 --                                                         ';
+        var pleaseChoose = '-- 请选择 --';
         var pleaseChooseId = null;
         var noneValue = '空';
         var noneValueId = null;
@@ -69,9 +69,14 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             zhushi: '',
             chulijieguo: ''
         };
+
+        //$scope.$ionicHistory = $ionicHistory;
+        //$scope.$state = $state;
         
         $scope.goBack = function(){
             Prompter.wsConfirm("提示","放弃本次编辑?","确定", "取消");
+            //$ionicHistory.goBack(-2);
+             //$ionicHistory.goBack(2);
         };
         
         $scope.saveEdited = function(){
@@ -117,8 +122,25 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             };
             __requestUpdateWorksheet(header);
         };
-        
+        function __checkCanUpdate(){
+            if(!$scope.config.currentChanPinLeiXing || !$scope.config.currentChanPinLeiXing.KATALOGART){
+                Prompter.alert("请选择部件分类!");
+                return false;
+            }
+            if(!$scope.config.currentGuZhangBuJian || !$scope.config.currentGuZhangBuJian.CODEGRUPPE){
+                Prompter.alert("请选择故障部件!");
+                return false;
+            }
+            if(!$scope.config.currentGuZhangMingCheng || !$scope.config.currentGuZhangMingCheng.CODE){
+                Prompter.alert("请选择故障名称!");
+                return false;
+            }
+            return true;
+        }
         function __requestUpdateWorksheet(headerData){
+            if(!__checkCanUpdate()){
+                return;
+            }
             var url = worksheetHttpService.serviceDetailChange.url;
             var defaults = worksheetHttpService.serviceDetailChange.defaults;
             var postData = angular.extend(defaults, {
@@ -349,16 +371,12 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 }
             }
             if($scope.config.currentChanPinLeiXing== null){
-                $scope.config.currentChanPinLeiXing = $scope.datas.chanPinLeiXingS[0];
-                $scope.config.currentGuZhangBuJian = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0];
-                $scope.config.currentGuZhangMingCheng =  $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0].guZhangMingChengS[0];
-                return;
-                $scope.datas.currentGuZhangBuJian = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS;
-                $scope.datas.currentGuZhangMingCheng = $scope.datas.currentGuZhangBuJian[0].currentGuZhangMingCheng;
+                $scope.datas.guZhangBuJianS = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS;
+                $scope.datas.guZhangMingChengS = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0].guZhangMingChengS;
 
                 $scope.config.currentChanPinLeiXing = $scope.datas.chanPinLeiXingS[0];
-                $scope.config.currentGuZhangBuJian = $scope.config.currentChanPinLeiXing[0].guZhangBuJianS;
-                $scope.config.currentGuZhangMingCheng =  $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0].guZhangMingChengS[0];
+                $scope.config.currentGuZhangBuJian = $scope.datas.guZhangBuJianS[0];
+                $scope.config.currentGuZhangMingCheng =  $scope.datas.guZhangMingChengS[0];
                 return;
             }
         };
@@ -484,6 +502,14 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         };
 
         $scope.init = function(){
+            $scope.config.currentGuZhangMingCheng = null;
+            $scope.config.currentGuZhangBuJian = null;
+            $scope.config.currentChanPinLeiXing = null;
+            $scope.datas.guZhangMingChengS = null;
+            $scope.datas.guZhangBuJianS = null;
+            //$scope.datas.chanPinLeiXingS = null;
+
+
             $scope.config.typeStr = $stateParams.detailType;  // newCar  siteRepair  batchUpdate
             $scope.config.detailTypeNewCar =  $scope.config.typeStr == "newCar" ? true : false;
             $scope.config.detailTypeSiteRepair =  $scope.config.typeStr == "siteRepair" ? true : false;
