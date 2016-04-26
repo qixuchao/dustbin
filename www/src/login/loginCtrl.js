@@ -7,8 +7,8 @@ loginModule
         function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading, $timeout){
         //$scope.goMain = function(){
         //    $state.go('main')
-        //};
-
+        //}; 
+        
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(toState && toState.name == 'login'){
                 $ionicHistory.clearCache();
@@ -20,7 +20,7 @@ loginModule
         ionicMaterialInk.displayEffect();
         $scope.loginData = {
             username: window.localStorage.crmUserName,
-            password:''
+            password: window.localStorage.crmUserPassword
         };
         $scope.loginradioimgflag = true;
         $scope.loginradioSele = function(){
@@ -89,6 +89,11 @@ loginModule
                          LoginService.setMenulist(response.MENULIST);
                          LoginService.setAuth(response.AUTH);
                          LoginService.setUserName($scope.loginData.username);
+                         if(!$scope.loginradioimgflag){ //记住密码
+                            LoginService.setPassword($scope.loginData.password);
+                         }else{
+                            LoginService.setPassword("");
+                         }
                           
                         $state.go('tabs', {}, {location:"replace", reload:"true"});
                    }

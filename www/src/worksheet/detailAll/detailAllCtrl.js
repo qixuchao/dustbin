@@ -1,3 +1,4 @@
+
 worksheetModule.controller('worksheetDetailAllCtrl',[
         '$scope',
         '$state',
@@ -18,7 +19,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         "Prompter",
         "saleActService",
         "$rootScope",
-        "$filter",
+        "$filter", 
         "CarService",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
@@ -65,6 +66,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}, 100);
 			};
 			$scope.dibButtonClickHandler = function(type){
+				//alert(type);
 				switch(type){
 					case 'xiangGuanFang':
 						$scope.goState('worksheetRelatedPart');
@@ -73,7 +75,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 						$scope.goState('worksheetDetailHistoryList');
 						break;
 					case 'baoGongXinXi':
+						//alert(" ~ baoGongXinXi  费用结算 ~ ");
 						$scope.goState('worksheetBaoGonglist');
+						//$scope.goState('worksheetDetailHistoryList');
+						//alert(" ~ baoGongXinXi  费用结算 ~ 2");
 						break;
 				}
 			};

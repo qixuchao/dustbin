@@ -6,7 +6,7 @@ loginModule
         //$scope.goMain = function(){
         //    $state.go('main')
         //};
-
+   
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(toState && toState.name == 'login'){
                 $ionicHistory.clearCache();
@@ -17,7 +17,7 @@ loginModule
 
         ionicMaterialInk.displayEffect();
         $scope.loginData = {
-            username:'',
+            username: window.localStorage.crmUserName,
             password:''
         };
         $scope.loginradioimgflag = true;

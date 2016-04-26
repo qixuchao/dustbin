@@ -852,12 +852,22 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 					border-radius: 6px;
 					background-color: $filter-item-bg;
 					color: $filter-name-color;
-					width: 48%;
+					//width: 48%;
 					@include single-line-ellipsis;
 					&.selected{
     					background-color: $filter-item-selected-bg;
     					color: white;
 					}
+				}
+				.filter-type:nth-child(odd){
+					width: 40%;
+					padding-left: 0px;
+					padding-right: 0px;
+				}
+				.filter-type:nth-child(even){
+					width: 55%;
+					padding-left: 0px;
+					padding-right: 0px;
 				}
 			}
 			/*

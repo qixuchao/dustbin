@@ -5,9 +5,15 @@ loginModule.factory('LoginService',function(){
     var data;
     var data3;
     var type;
-    var menuList=[];
+    var menuList=[]; 
     var author={};
     return{
+        setPassword: function(password){
+            window.localStorage.crmUserPassword = password;
+        },
+        getPassword: function(){
+            return window.localStorage.crmUserPassword;
+        },
         setUserName:function(data4){
             window.localStorage.crmUserName = data4;
             data=data4;

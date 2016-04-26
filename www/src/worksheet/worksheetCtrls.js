@@ -256,9 +256,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 			worksheetDataService.setStored("weeksheetListQueryHistory", JSON.stringify($scope.config.historyStrs));
 		}
 	}
-
-
-
+	
+	
+	
 	$scope.clickSearchInput = function(){
 		var eleContent = angular.element("#xbr-worksheet-list-content");
 		//eleContent.removeClass("has-header");

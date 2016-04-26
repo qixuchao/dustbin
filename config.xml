@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.crmEnergy.catl" version="0.1.27" android-versionCode="27" ios-CFBundleVersion="27" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.crmEnergy.catl" version="0.1.27" android-versionCode="027" ios-CFBundleVersion="27" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>CATL UAT</name>
   <description>
         新能源CRM应用
   </description>
   <author email="hi@ionicframework" href="http://ionicframework.com/">
         Hand
-  </author> 
+  </author>
   <content src="index.html"/>
   <allow-intent href="tel:*"/>
   <allow-intent href="sms:*"/>
@@ -20,7 +20,7 @@
   <access launch-external="yes" origin="sms:*"/>
   <access launch-external="yes" origin="market:*"/>
   <access launch-external="yes" origin="mailto:*"/>
-
+  
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>
@@ -35,11 +35,11 @@
 
   <plugin name="Contacts" value="org.apache.cordova.ContactManager"/>
   <plugin name="Contacts" value="CDVContacts"/>
-
+  
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>
-
+  
   <platform name="android">
     <allow-intent href="market:*" />
     <icon src="resources/android/icon/drawable-ldpi-icon.png" density="ldpi"/>

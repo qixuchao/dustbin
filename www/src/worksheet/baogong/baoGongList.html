@@ -1,25 +1,34 @@
+<!--ion-view  align-title="center">
+    <ion-header-bar align-title="center" class="head pub-head">
+        <div class="row row-center">
+            <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+            <div class="col col-70 text-center">费用结算</div>
+            <div class="col col-15 add"></div>
+        </div>
+    </ion-header-bar>
+    <ion-content scroll="false" has-bouncing="false">
+            
+            <div>
+                报工列表 。。。       
+            </div>
+    </ion-content>
+    
+</ion-view-->
+
+
+
+
 <ion-view  id="worksheet-baogong-list-view"  align-title="center">
-    <!--ion-header-bar align-title="center" class="bar-positive">
-		<div class="left-back" ng-click="$ionicGoBack();">
-			<i class="ion-ios-arrow-back"></i>
-		</div>
-		<div class="title">报工信息列表</div>
-	</ion-header-bar-->
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
                 <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
                 <div class="col col-70 text-center">费用结算</div>
-                <div class="col col-15 add"><!--img src="img/saleList/add.png"--></div>
+                <div class="col col-15 add"></div>
             </div>
         </ion-header-bar>
-        <!--div class="pub-subhead bar bar-subheader">
-            <div class="row row-center no-padding" ng-click="changeSearch()">
-                <i class="ion-ios-search"></i>请输入活动关键字
-            </div>
-        </div-->
     </div>
-    <ion-content on-refresh="" scroll="true" has-bouncing="false">
+    <ion-content scroll="true" has-bouncing="false"> 
             <style>
                 .baogong-list .bu-shou-fen{
                     color: red;
@@ -37,20 +46,20 @@
             <div class="baogong-list">
                 <div class="baogong-item" ng-class="{'animated flipInX':itemAnimatedShow}" ng-init="itemAnimatedShow=true" ng-repeat="item in datas.baogongDatas">
                     <div class="title-top">
-                    	<div class="title-icon"></div>
-                    	<span ng-bind="item.DESCRIPTION"></span>
+                        <div class="title-icon"></div>
+                        <span ng-bind="item.DESCRIPTION"></span>
                     </div>
                     <div class="desc">
-                    	<div class="col-50">
-                    		产品编码:<span ng-bind="item.ORDERED_PROD"></span>
-                    	</div>
+                        <div class="col-50">
+                            产品编码:<span ng-bind="item.ORDERED_PROD"></span>
+                        </div>
                         <div class="col-15">
                             <span ng-bind="item.ACIND_DESCR_20" ng-class="{'shou-fen':(item.AC_INDICATOR=='D2'),'bu-shou-fen':(item.AC_INDICATOR=='D1')}"></span>
                         </div>
                         
-                    	<div class="col-35">
-                    		数量: <span ng-bind="item.QUANTITY"></span>
-                    	</div>
+                        <div class="col-35">
+                            数量: <span ng-bind="item.QUANTITY"></span>
+                        </div>
                     </div>
                 </div>         
             </div>

@@ -350,8 +350,15 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             }
             if($scope.config.currentChanPinLeiXing== null){
                 $scope.config.currentChanPinLeiXing = $scope.datas.chanPinLeiXingS[0];
-                $scope.config.currentGuZhangBuJian = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS;
-                $scope.config.currentGuZhangMingCheng =  $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0].guZhangMingChengS;
+                $scope.config.currentGuZhangBuJian = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0];
+                $scope.config.currentGuZhangMingCheng =  $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0].guZhangMingChengS[0];
+                return;
+                $scope.datas.currentGuZhangBuJian = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS;
+                $scope.datas.currentGuZhangMingCheng = $scope.datas.currentGuZhangBuJian[0].currentGuZhangMingCheng;
+
+                $scope.config.currentChanPinLeiXing = $scope.datas.chanPinLeiXingS[0];
+                $scope.config.currentGuZhangBuJian = $scope.config.currentChanPinLeiXing[0].guZhangBuJianS;
+                $scope.config.currentGuZhangMingCheng =  $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0].guZhangMingChengS[0];
                 return;
             }
         };
@@ -543,7 +550,10 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var promise = HttpAppService.post(url, defaults);
             $scope.config.isLoading_scenario = true;
             promise.success(function(successRes){
-                    var items = successRes.MT_ListScenario_Res.ET_SCENARIO.item;
+                    var items = [];
+                    if(successRes && successRes.MT_ListScenario_Res && successRes.MT_ListScenario_Res.item){
+                        item = successRes.MT_ListScenario_Res.ET_SCENARIO.item;
+                    }
                     //$scope.datas.guZhangChangJingS = $scope.datas.guZhangChangJingS.concat(items);
                     for(var j = 0; j < items.length; j++){
                         $scope.datas.guZhangChangJingS.push({
