@@ -527,7 +527,7 @@ customerModule
         var data = {
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
             "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER},
-            "IS_AUTHORITY": { "BNAME": "" }
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
         };
         HttpAppService.post(url, data).success(function (response) {
             console.log(response);

@@ -7,40 +7,49 @@
         </ion-header-bar>
     </div>
     <ion-content id="my-settings-content" scroll="false" has-bouncing="false">
-
+        
         <div class="list">
-            <div class="item myinfo-item-common radius-top">
-                
+            <div class="item myinfo-item-common radius-top user-name-line">
+                <span>
+                    <img src="img/shape.png">
+                    <span class="margin-left-8">
+                        <span ng-bind="config.userName"></span>
+                        <span ng-bind="config.userCode" class="user-code"></span>
+                    </span>
+                </span>
+                <span><i class="ion-android-arrow-forward"></i></span>
             </div>
             <div class="item myinfo-item-common radius-bottom">
                 <span>修改密码</span>
                 <span><i class="ion-android-arrow-forward"></i></span>
             </div>
         </div>
-
         
-
     	<div class="list">
             <div class="item item-version-info radius-top">
                 <span>功能介绍:</span>
                 <span>
-                    <span></span>
                     <i class="ion-android-arrow-forward"></i>
                 </span>                
             </div>
             <div class="item item-version-info">
                 <span>版本信息:</span>
-                <span ng-bind-template="Version {{config.currentVersion}}"></span>
-                <i class="ion-android-arrow-forward"></i>
+                <span>
+                    <span ng-bind-template="Version {{config.currentVersion}}"></span>
+                    <i class="ion-android-arrow-forward"></i>
+                </span>
             </div>
             <div class="item item-version-info radius-bottom">
                 <span>关于:</span>
-                <span></span>
-                <i class="ion-android-arrow-forward"></i>
+                <span>
+                    <i class="ion-android-arrow-forward"></i>
+                </span>
             </div>
+        </div>
 
-
-
+        <div class="button button-assertive logout-button" ng-click="logout();">退出登录</div>
+            
+            
             <!--div class="item item-app-name-info">
                 <span>APP名称:</span>
                 <span ng-bind-template="{{config.appName}}"></span>
@@ -51,6 +60,6 @@
                 <span ng-bind-template="{{config.packageName}}"></span>
                 <i class="ion-android-arrow-forward"></i>
             </div-->
-        </div>
+        
     </ion-content>
 </ion-view>
