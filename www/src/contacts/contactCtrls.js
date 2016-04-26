@@ -158,7 +158,7 @@ ContactsModule
                 $scope.initLoad();
             };
             $scope.cancelSearch=function(){
-                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+                //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
                 $scope.searchFlag=false;
                 $scope.config.contactfiledvalue = '';
                 $scope.contact_query_list=new Array;
@@ -386,7 +386,7 @@ ContactsModule
         ////定制从联系人详细界面进入列表界面改变界面flag
         ////返回回退
         $scope.peopleCode="";
-        $scope.countryCode=""
+        $scope.countryCode="";
         $scope.showFlag=true;
         $scope.ContactgoBack = function() {
             $rootScope.$broadcast('contactBack','false');
@@ -639,72 +639,79 @@ ContactsModule
             name:'女士'
         }];
             //文本框自适应换行
-            var autoTextarea1 = function (elem, extra, maxHeight) {
-                extra = extra || 0;
-                var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
-                    isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
-                    addEvent = function (type, callback) {
-                        elem.addEventListener ?
-                            elem.addEventListener(type, callback, false) :
-                            elem.attachEvent('on' + type, callback);
-                    },
-                    getStyle = elem.currentStyle ? function (name) {
-                        var val = elem.currentStyle[name];
+        var autoTextarea1 = function (elem, extra, maxHeight) {
+            extra = extra || 0;
+            var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
+                isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
+                addEvent = function (type, callback) {
+                    elem.addEventListener ?
+                        elem.addEventListener(type, callback, false) :
+                        elem.attachEvent('on' + type, callback);
+                },
+                getStyle = elem.currentStyle ? function (name) {
+                    var val = elem.currentStyle[name];
 
-                        if (name === 'height' && val.search(/px/i) !== 1) {
-                            var rect = elem.getBoundingClientRect();
-                            return rect.bottom - rect.top -
-                                parseFloat(getStyle('paddingTop')) -
-                                parseFloat(getStyle('paddingBottom')) + 'px';
-                        };
-
-                        return val;
-                    } : function (name) {
-                        return getComputedStyle(elem, null)[name];
-                    },
-                    minHeight = parseFloat(getStyle('height'));
-
-                elem.style.resize = 'none';
-
-                var change = function () {
-                    var scrollTop, height,
-                        padding = 0,
-                        style = elem.style;
-
-                    if (elem._length === elem.value.length) return;
-                    elem._length = elem.value.length;
-
-                    if (!isFirefox && !isOpera) {
-                        padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
+                    if (name === 'height' && val.search(/px/i) !== 1) {
+                        var rect = elem.getBoundingClientRect();
+                        return rect.bottom - rect.top -
+                            parseFloat(getStyle('paddingTop')) -
+                            parseFloat(getStyle('paddingBottom')) + 'px';
                     };
-                    scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
-                    elem.style.height = minHeight + 'px';
-                    if (elem.scrollHeight > minHeight) {
-                        if (maxHeight && elem.scrollHeight > maxHeight) {
-                            height = maxHeight - padding;
-                            style.overflowY = 'auto';
-                        } else {
-                            height = elem.scrollHeight - padding;
-                            style.overflowY = 'hidden';
-                        };
-                        style.height = height + extra + 'px';
-                        scrollTop += parseInt(style.height) - elem.currHeight;
-                        document.body.scrollTop = scrollTop;
-                        document.documentElement.scrollTop = scrollTop;
-                        elem.currHeight = parseInt(style.height);
-                    };
+                    return val;
+                } : function (name) {
+                    return getComputedStyle(elem, null)[name];
+                },
+                minHeight = parseFloat(getStyle('height'));
+
+            elem.style.resize = 'none';
+
+            var change = function () {
+                var scrollTop, height,
+                    padding = 0,
+                    style = elem.style;
+
+                if (elem._length === elem.value.length) return;
+                elem._length = elem.value.length;
+
+                if (!isFirefox && !isOpera) {
+                    padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
                 };
+                scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
-                addEvent('propertychange', change);
-                addEvent('input', change);
-                addEvent('focus', change);
-                change();
+                elem.style.height = minHeight + 'px';
+                if (elem.scrollHeight > minHeight) {
+                    if (maxHeight && elem.scrollHeight > maxHeight) {
+                        height = maxHeight - padding;
+                        style.overflowY = 'auto';
+                    } else {
+                        height = elem.scrollHeight - padding;
+                        style.overflowY = 'hidden';
+                    };
+                    style.height = height + extra + 'px';
+                    scrollTop += parseInt(style.height) - elem.currHeight;
+                    document.body.scrollTop = scrollTop;
+                    document.documentElement.scrollTop = scrollTop;
+                    elem.currHeight = parseInt(style.height);
+                };
             };
-            $scope.autoHeight=function(){
-                var text = document.getElementById("textarea2");
-                autoTextarea1(text);
-            };
+
+            addEvent('propertychange', change);
+            addEvent('input', change);
+            addEvent('focus', change);
+            change();
+        };
+        $scope.autoHeight=function(){
+            var text = document.getElementById("textarea2");
+            autoTextarea1(text);
+        };
+        //根据用户权限显示
+        $scope.showFlag=true;
+        if(LoginService.getProfileType()=="APP_SALE"){
+            $scope.showFlag=false;
+        }else {
+            $scope.showFlag=true;
+        }
 
         $scope.contactcreat = {
             //客户编号
@@ -731,7 +738,7 @@ ContactsModule
             MOB_NUMBER:"",
             STREET:"",
             //不需要改的
-            PARTNER2:"",
+            PARTNER2:""
             //relationsalsname:"",
             //PARTNER:"",
         };
@@ -743,7 +750,7 @@ ContactsModule
                 $scope.contactcreat.PARTNER2VALUE= customeService.get_customerEditServevalue().NAME_ORG1;
                 $scope.contactcreat.PARTNER2=customeService.get_customerEditServevalue().PARTNER;
             }else{
-                console.log("2323");
+                //console.log("2323");
                 $scope.contactcreat.PARTNER2VALUE="";
             }
         //创建
@@ -1137,12 +1144,12 @@ ContactsModule
             };
         $scope.getCustomerArr();
             //根据用户权限显示
-            $scope.showFlag="";
-            if(LoginService.getProfileType=="APP_SALE"){
-                $scope.showFlag=false;
-            }else if(LoginService.getProfileType=="APP_SERVICE"){
-                $scope.showFlag=true;
-            }
+            //$scope.showFlag="";
+            //if(LoginService.getProfileType=="APP_SALE"){
+            //    $scope.showFlag=false;
+            //}else if(LoginService.getProfileType=="APP_SERVICE"){
+            //    $scope.showFlag=true;
+            //}
             // 选择时间
             $scope.selectCreateTime = function () { // type: start、end
                 var date;
@@ -1235,17 +1242,18 @@ ContactsModule
                 //$scope.selectCustomerModal.hide();
             };
 
-            $scope.$on('$destroy', function () {
-                $scope.createPop.remove();
-                $scope.createModal.remove();
-                $scope.selectPersonModal.remove();
-            });
+            //$scope.$on('$destroy', function () {
+            //    $scope.createPop.remove();
+            //    $scope.createModal.remove();
+            //    $scope.selectPersonModal.remove();
+            //});
 
 
         ////点击取消事件
         $scope.Createancel = function(){
-            Prompter.ContactCreateCancelvalue();4
-        }
+            Prompter.ContactCreateCancelvalue1("创建");
+        };
+
         //$scope.contactKeepCreatevalue = function(){
         //    contactService.set_ContactCreatevalue($scope.contactcreat);
         //    //广播修改详细信息界面的数据
@@ -1300,7 +1308,7 @@ ContactsModule
              console.log(angular.toJson($scope.contactedit));
         ////点击取消事件
         $scope.EditCancel = function(){
-           Prompter.ContactCreateCancelvalue();
+           Prompter.ContactCreateCancelvalue1("编辑");
         };
             //文本框自适应换行
             var autoTextarea1 = function (elem, extra, maxHeight) {
@@ -1369,11 +1377,11 @@ ContactsModule
                 var text = document.getElementById("textarea1");
                 autoTextarea1(text);
             };
-        //根据用户权限显示
-            $scope.showFlag="";
-            if(LoginService.getProfileType=="APP_SALE"){
+            //根据用户类型
+            $scope.showFlag=true;
+            if(LoginService.getProfileType()=="APP_SALE"){
                 $scope.showFlag=false;
-            }else if(LoginService.getProfileType=="APP_SERVICE"){
+            }else {
                 $scope.showFlag=true;
             }
         //选择日期
@@ -1388,7 +1396,7 @@ ContactsModule
                     }//console.log(angular.toJson(date));
                 }else{
                     date=new Date();
-                    console.log(date);
+                    //console.log(date);
                 }
                 $cordovaDatePicker.show({
                     date: date,
@@ -1402,7 +1410,7 @@ ContactsModule
                 }).then(function (returnDate) {
                     var time = returnDate.format("yyyy-MM-dd"); //__getFormatTime(returnDate);
                     //alert(time);
-                    console.log(date);
+                    //console.log(date);
                     $scope.contactedit.BIRTHDT = time;
                     //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
                     if(!$scope.$$phrese){
@@ -1410,32 +1418,7 @@ ContactsModule
                     }
                 })
             };
-            //$scope.selectCreateTime1 = function () { // type: start、end
-            //    var date;
-            //      if($scope.contactedit.BIRTHDT!==""){
-            //          date = new Date($scope.contactedit.BIRTHDT.replace(/-/g, "/")).format('yyyy/MM/dd');
-            //      }else{
-            //          date=new Date();
-            //      }
-            //    $cordovaDatePicker.show({
-            //        date: date,
-            //        mode: 'date',
-            //        titleText: "",
-            //        okText: '确定',
-            //        cancelText: '取消',
-            //        doneButtonLabel: '确认',
-            //        cancelButtonLabel: '取消',
-            //        locale: 'zh_cn'
-            //    }).then(function (returnDate) {
-            //        var time = returnDate.format("yyyy-MM-dd"); //__getFormatTime(returnDate);
-            //        //alert(time);
-            //        $scope.contactedit.BIRTHDT = time;
-            //                //console.log($scope.datas.detail.ES_OUT_LIST.START_TIME_STR);
-            //        if(!$scope.$$phrese){
-            //            $scope.$apply();
-            //        }
-            //    })
-            //};
+
             $scope.contactlistvaluesel = [{
                 typeId:"1",
                 name:"中文"
@@ -1450,6 +1433,7 @@ ContactsModule
                 codeId:'0001',
                 name:'女士'
             }];
+            //lian
         $scope.contactKeepEditvalue = function(){
             contactService.set_Contactsdetailvalue($scope.contactedit);
             //提交修改数据
@@ -1506,7 +1490,7 @@ ContactsModule
             data.IS_CUSTOMER.SPTXT = $scope.config.currentLanguage;
             data.IS_CUSTOMER.FNCTN = $scope.contactedit.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactedit.DPRTMNT;
-            data.IS_CUSTOMER.COUNTRY = $scope.config.currentCountry;
+            data.IS_CUSTOMER.COUNTRY = $scope.config.currentCountry.COUNTRY;
             data.IS_CUSTOMER.LANDX = $scope.config.currentCountry;
             data.IS_CUSTOMER.REGION = $scope.config.currentProvence.REGION;
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
@@ -1617,7 +1601,8 @@ ContactsModule
                     document.getElementById('contpostmimg').style.display = "none";
                     break;
             }
-        }
+        };
+
         //国家。省，市级联下拉框
         $scope.country=[];
         $scope.provence=[];
@@ -1628,7 +1613,7 @@ ContactsModule
             currentCountry:$scope.contactedit.COUNTRY,
             currentProvence:$scope.contactedit.REGION,
             currentCity:{},
-            currentLanguage:"1",
+            currentLanguage:$scope.con,
             currentTitile:"0002"
         };
             console.log(angular.toJson($scope.config)+"sdsdsd");
@@ -1700,7 +1685,14 @@ ContactsModule
             if($scope.config.currentCountry!=null||$scope.config.currentCountry!=undefined){
                 $scope.countryCode= "CN";
                 $scope.provence=new Array;
+                $scope.city=new Array;
                 $scope.cascade1();
+            }
+            if($scope.config.currentProvence!=""||$scope.config.currentProvence!=undefined){
+                console.log($scope.currentProvence);
+                $scope.provenceCode=$scope.currentProvence;
+                $scope.city=new Array;
+                $scope.cascade2();
             }
         $scope.changCountry=function(){
             $scope.provence=new Array;

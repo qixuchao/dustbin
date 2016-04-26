@@ -178,7 +178,6 @@ mainModule
                 } else {
                     last_day = init_day;
                 }
-                console.log(last_day)
                 var addDateTemp = addDate($scope.year + '/' + $scope.month + '/' + day, last_day);
                 $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
                 //if(day!=1){
@@ -255,7 +254,6 @@ mainModule
                 return true;
             }
             $scope.doubleClick = function () {
-                console.log('doubleClick')
             };
             //长按修改年月
             $scope.onHold = function () {
@@ -336,7 +334,16 @@ mainModule
             };
             var lastSelectedDate = angular.copy(selectDate);
             $scope.selectDay = function (x, y) {
-                selectDate = new Date($scope.year + '/' + $scope.month + '/' + y.value).format('yyyy-MM-dd');
+                var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
+                var page_index = dayViewHandle.currentIndex();
+                var tempMonth = angular.copy($scope.month);
+                //当前在周视图
+                if (angular.isDefined(page_index)) {
+                    if($scope.days[page_index].arr[6].value<7&&y.value>7){
+                        tempMonth--;
+                    }
+                }
+                selectDate = new Date($scope.year + '/' + tempMonth + '/' + y.value).format('yyyy-MM-dd');
                 if (selectDate === lastSelectedDate) {
                     return
                 }
@@ -462,8 +469,6 @@ mainModule
                 monthObj.month = month;
                 //获取当月1号是周几
                 var month_getWeek = new Date(year + '/' + month + '/1').getDay();
-                console.log(year + '/' + month + '/1');
-                console.log(month_getWeek);
                 if (month_getWeek == 0) {
                     month_getWeek = 7;
                 }
@@ -481,7 +486,6 @@ mainModule
                 return monthObj;
             };
             var initFirstMonth = function (day) {
-                console.log(day);
                 var month_page_now = $ionicSlideBoxDelegate.$getByHandle('monthView-handle').currentIndex();
                 var arr = $scope.monthView[month_page_now].arr;
                 $timeout(function () {
@@ -677,7 +681,7 @@ mainModule
                         "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                         "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                         "IS_PAGE": {
-                            "CURRPAGE": 1,
+                            "CURRPAGE": salePageNum++,
                             "ITEMS": "10"
                         },
                         "IS_SEARCH": {
@@ -691,9 +695,7 @@ mainModule
                             "CREATED_TO": selectDate
                         },
                         "IV_SORT": "0",
-                        "IT_IMPACT": {
-                            "item": {"ZZIMPACT": "0"}
-                        },
+                        "IT_IMPACT": {},
                         "IT_PARTNER": profile,
                         "IT_PROCESS_TYPE": {},
                         "IT_STAT": {
@@ -939,6 +941,10 @@ mainModule
                         tempArr[i].style.pointerEvents = 'auto';
                     }
                 });
+            };
+            //联系人
+            $scope.createContact = function () {
+                $state.go('ContactCreate');
             };
             /*-------------------------------新建 end-------------------------------------*/
             $scope.$on('$destroy', function () {

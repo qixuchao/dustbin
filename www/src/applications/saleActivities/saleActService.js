@@ -138,6 +138,16 @@ salesModule.factory('saleActService', function () {
         text: '合作伙伴',
         code:'Z00003'
     }];
+    var customerTypeArr_server = [{
+        text: '正式客户',
+        code:'CRM000'
+    },{
+        text: '终端客户',
+        code:'Z00004'
+    },{
+        text: '服务商',
+        code:'BUP000'
+    }];
     var customer = [{
         text: '郑州金龙客车(福州)分公司'
     }, {
@@ -340,6 +350,7 @@ salesModule.factory('saleActService', function () {
         processTypesArr,
         relationPositionArr,
         relationPositionForAdd,
-        filters
+        filters,
+        customerTypeArr_server
     };
 });

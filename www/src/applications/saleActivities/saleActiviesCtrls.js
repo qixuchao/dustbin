@@ -20,7 +20,6 @@ salesModule
         'customeService',
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService,customeService) {
-            console.log('销售活动列表');
             $scope.saleTitleText = '销售活动';
             $timeout(function () {
                 ionicMaterialInk.displayEffect();
@@ -243,7 +242,6 @@ salesModule
                         data: tempHisPostData
                     }, function (err) {
                         if (!err) {
-                            console.log('历史记录保存成功')
                         } else {
                             Prompter.alert('历史记录保存失败');
                         }
@@ -785,7 +783,6 @@ salesModule
                     titleText: '请选择操作',
                     cancelText: '取消',
                     buttonClicked: function (index) {
-                        console.log(index);
                         switch (index) {
                             case 0:
                                 if (x.position == '客户') {
@@ -870,7 +867,6 @@ salesModule
                             var isDelete = true;
                             angular.forEach($scope.makeConsensus.item, function (y) {
                                 if (!angular.isUndefined(x.RECORD_ID) && x.RECORD_ID == y.RECORD_ID) {
-                                    console.log(y)
                                     isDelete = false;
                                     //是否修改
                                     if (!angular.isUndefined(y.MODE)) {
@@ -1305,6 +1301,16 @@ salesModule
                         $scope.myProcess = $scope.processArr[2];
                         break;
                     default:
+                        $scope.process = {
+                            "RECORD_ID":"",
+                            content: "",
+                            position: '',
+                            status: '',
+                            department: "",
+                            chargeMan: "",
+                            time: "",
+                            affect: ""
+                        };
                         isProcessModify = false;
                         break;
                 }

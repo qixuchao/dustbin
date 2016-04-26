@@ -2,7 +2,8 @@
  * Created by zhangren on 16/3/7.
  */
 customerModule
-    .controller('customerQueryCtrl',['$scope','$rootScope','$state','$http','HttpAppService','LoginService','$timeout','$cordovaToast','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,HttpAppService,LoginService,$timeout,$cordovaToast,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+    .controller('customerQueryCtrl',['Prompter','$scope','$rootScope','$state','$http','HttpAppService','LoginService','$timeout','$cordovaToast','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',
+        function(Prompter,$scope,$rootScope,$state,$http,HttpAppService,LoginService,$timeout,$cordovaToast,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
         $ionicPopover.fromTemplateUrl('src/customer/model/customer_selec.html', {
             scope: $scope
         }).then(function(popover) {
@@ -13,6 +14,10 @@ customerModule
         };
         $scope.customerPopoverhide = function() {
             $scope.customerpopover.hide();
+        };
+        $scope.searchFlag=false;
+        $scope.customer={
+            customerfiledvalue:""
         };
         
         //历史记录显示customer_usuaflag
@@ -41,38 +46,37 @@ customerModule
         $scope.CustomerHisGetvaluehis();
 
         //广播修改界面显示flag
-        $rootScope.$on('customerdeatillist', function(event, data) {
-            //返回初始化
-            $scope.customerisshow = false;
-            //删除请求
-            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
-            $scope.customerQuery_list = [];
-            $scope.customerQuery_list = new Array;
-            $scope.customerPage = 0;
-
-            $scope.customer.customerfiledvalue ='';
-            $scope.CustomerHisGetvaluehis();
-        });
+        //$rootScope.$on('customerdeatillist', function(event, data) {
+        //    //返回初始化
+        //    $scope.customerisshow = false;
+        //    //删除请求
+        //    //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
+        //    $scope.customerQuery_list = [];
+        //    $scope.customerQuery_list = new Array;
+        //    $scope.customerPage = 0;
+        //
+        //    $scope.customer.customerfiledvalue ='';
+        //    $scope.CustomerHisGetvaluehis();
+        //});
         //查询
         //初始化查询参数
-        $scope.customerselecttyperole = '';
-        $scope.customerQuery_list = [];
-        $scope.customerQuery_list = new Array;
-        $scope.customerPage = 0;
+        //$scope.customerselecttyperole = '';
+        //$scope.customerQuery_list = [];
+        //$scope.customerQuery_list = new Array;
+        //$scope.customerPage = 0;
 
-        $scope.initSearch = function(){
-            $scope.customer_queryflag = true;
-        };
-        $scope.customerFirstLoad = function() {
-            $scope.customerQuery_list = [];
-            $scope.customerQuery_list = new Array;
-            $scope.customerPage = 1;
-            $scope.customerLoadmore("first");
-        }
-        $scope.customerLoadmore = function(flag) {
-            console.log("flag: " + flag);
-            $scope.contactisshow = true;
-            $scope.customerPage = $scope.customerPage + 1;
+        //$scope.initSearch = function(){
+        //    $scope.customer_queryflag = true;
+        //};
+        //$scope.customerFirstLoad = function() {
+        //    $scope.customerQuery_list = [];
+        //    $scope.customerQuery_list = new Array;
+        //    $scope.customerPage = 1;
+        //    $scope.customerLoadmore("first");
+        //}
+        $scope.customerLoadmore = function() {
+
+            $scope.customerPage += 1;
             var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST';
             var data = {
                 "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
@@ -112,7 +116,12 @@ customerModule
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                             } else {
                                 $.each(response.ET_OUT_LIST.item, function (n, value) {
-                                    $scope.customerQuery_list.push(value);
+                                    if($scope.customer.customerfiledvalue==""){
+                                        $scope.customerQuery_list = new Array;
+                                    }else{
+                                        $scope.customerQuery_list.push(value);
+                                    }
+
                                 });
                             }
                             if (response.ET_OUT_LIST.item.length < 10) {
@@ -127,71 +136,52 @@ customerModule
                         }
                     }
                 }
+                $scope.config.queryResultScrollDelegate.resize();
             }).error(function (response, status) {
                 $cordovaToast.showShortBottom('请检查你的网络设备');
                 $scope.customerisshow = false;
             });
-        }
-        //实时搜索
-        //实时搜索变量初始化一次flag
-        $scope.customer ={customerfiledvalue :''};
-        var customertimer;
-        setTimeout(function(){
-            document.getElementById('customerqueryinput').style.display = "none";
-            document.getElementById('customerinputvalueid').addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
-                if(!$scope.$$phase) {
-                    $scope.$apply();
-                };
-                $scope.contactisshow = false;
-                clearTimeout(customertimer);
-                customertimer = setTimeout(function() {
-                    if (document.getElementById('customerinputvalueid').value.length > 0) {
-                        document.getElementById('customerqueryinput').style.display = "inline-block";
-                        $scope.$apply(function(){
-                            $scope.customerisshow = false;
-                            //删除请求
-                            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST')
-                            //$scope.customerQuery_list = [];
-                            //$scope.customerQuery_list = new Array;
-                            $scope.customerPage = 0;
-
-                            $scope.customer_queryflag = true;
-                            $ionicScrollDelegate.resize();
-                            $scope.customerisshow = true;
-                        });
-
-                        //if(!$scope.$$phase) {
-                        //    $scope.$apply();
-                        //};
-                    } else {
-                        $scope.customerselecttyperole = '';
-                        //删除请求
-                        //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
-                        $scope.customer_queryflag = false;
-                        $scope.customerisshow = false;
-                        //$scope.customerQuery_list = [];
-                        $scope.customerPage = 0;
-                        if(!$scope.$$phase) {
-                            $scope.$apply();
-                        };
-                        $ionicScrollDelegate.resize();
-                        document.getElementById('customerqueryinput').style.display = "none";
-
-                    }
-                }, 500);
-
-            });
-        },50);
-        $scope.customeriputDeletevalue = function(){
-            //删除请求
-            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
-            $scope.customer_queryflag = false;
-            $scope.customerisshow = false;
-            $scope.customerQuery_list = [];
-            $scope.customerPage = 0;
-            $scope.customer.customerfiledvalue ='';
         };
+        //实时搜索
+        $scope.initLoad=function(){
+            $scope.customerPage = 0;
+            $scope.customerQuery_list=new Array;
+            Prompter.showLoading("正在加载");
+            $scope.customerLoadmore();
+        };
+        $scope.search = function (x, e){
+            Prompter.showLoading('正在搜索');
+            $scope.searchFlag=true;
+            $scope.customer.customerfiledvalue = x;
+            $scope.initLoad();
+        };
+        $scope.cancelSearch=function(){
+            //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+            $scope.searchFlag=false;
+            $scope.customer.customerfiledvalue = '';
+            $scope.customerQuery_list=new Array;
+            $scope.CustomerHisGetvaluehis();
 
+        };
+        //显示搜索页面
+        $scope.changePage=function(){
+            $scope.searchFlag=true;
+        };
+            $rootScope.$on('customerCreatevalue',function(event, data) {
+                console.log("接收成功" + data);
+                $scope.searchFlag = data;
+                $scope.customer.customerfiledvalue = "";
+                $scope.cancelSearch();
+            });
+            //清除输入框内的内容
+            $scope.initSearch = function () {
+                //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+                $scope.customer.customerfiledvalue = '';
+                $scope.customerPage = 0;
+                $scope.customerQuery_list = new Array;
+                Prompter.showLoading("正在加载")
+                $scope.customerLoadmore();
+            }
         //清除历史记录
         $scope.CustomerClearhis = function(){
             storedb('customerdb').remove();
@@ -210,6 +200,10 @@ customerModule
                 $scope.$apply();
             };
         };
+            $scope.config={
+                queryResultScrollDelegate:""
+            };
+            $scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("customerListResult");
 
         //跳转detail界面
         //$scope.customergodeatil = function(cusvalue){
@@ -366,20 +360,22 @@ customerModule
             };
             //改变角色的参数
             //$scope.$apply(function(){
-            $scope.customerisshow = false;
+
+            //$scope.customerisshow = false;
             //删除请求
             //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
-            $scope.customerQuery_list = [];
-            $scope.customerQuery_list = new Array;
-            $scope.customerPage = 0;
-            $scope.customer_queryflag = true;
-            $ionicScrollDelegate.resize();
-            $scope.customerFirstLoad();
+            //$scope.customerQuery_list = [];
+            //$scope.customerQuery_list = new Array;
+            //$scope.customerPage = 0;
+            //$scope.customer_queryflag = true;
+            //$ionicScrollDelegate.resize();
+            //$scope.customerFirstLoad();
             //$scope.customerisshow = true;
-            $scope.customerPopoverhide();
+            //$scope.customerPopoverhide();
         };
     }])
     .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
+
         //文本框自适应换行
         var autoTextarea = function (elem, extra, maxHeight) {
             extra = extra || 0;
@@ -477,6 +473,13 @@ customerModule
                 });
             }
         });
+
+        $scope.CustomergoBack = function() {
+            $rootScope.$broadcast('customerCreatevalue', 'false');
+            window.history.back(-1);
+            //$ionicHistory.goBack();
+        };
+
         //根据角色检查字段初始化
         ////搜索项
         //$scope.customerDetailsearcho = true;
@@ -646,10 +649,6 @@ customerModule
             $cordovaToast.showShortBottom('请检查你的网络设备');
         });
 
-        $scope.CustomergoBack = function() {
-            $rootScope.$broadcast('customerdeatillist');
-            $ionicHistory.goBack();
-        };
            if(LoginService.getProfileType()=="APP_SERVICE"){
                    $scope.customer_detailstypes = [
                        {
