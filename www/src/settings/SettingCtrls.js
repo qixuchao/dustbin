@@ -1,6 +1,8 @@
 settingsModule.controller("SettingCtrl", [
 	'$scope',
-	function($scope){
+	'$state',
+	'$ionicHistory',
+	function($scope, $state, $ionicHistory){
 		
 		$scope.config = {
 			currentVersion: "",
@@ -9,9 +11,14 @@ settingsModule.controller("SettingCtrl", [
 			appName: "",
 			packageName: "",
 
-			userName: "",
+			userName: "暂无",
 			userCode: "", //登录名:工号
 
+		};
+
+		$scope.logout = function(){
+			
+			$state.go("login");
 		};
 		
 		$scope.init = function(){

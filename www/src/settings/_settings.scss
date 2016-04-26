@@ -19,12 +19,53 @@ ion-content#my-settings-content{
     padding: 2.3% 1.3%;
     background-color: rgb(244,244,241);
     .list{
+        margin-bottom: 8px;
         .item{
             margin-top: 0px;
             background-color: white;
             border-bottom: 1px solid #f4f4f1;
             margin-bottom: 0px;
+            i{
+                font-size: 11px;
+                color: #B5B5B5;
+                margin-left: .6rem;
+            }
         }
+        .user-name-line{
+            img{
+                width: 46px;
+                height: 46px;
+            }
+            padding-top: 10px;
+            padding-bottom: 10px;
+            span:nth-child(1){
+                @include display-flex;
+                //@include flex-direction(column);
+                @include align-items(flex-start);
+                @include justify-content(center);
+                &>span{
+                    line-height: 23px;
+                    @include display-flex;
+                    @include flex-direction(column);
+                    @include align-items(flex-start);
+                    @include justify-content(center);
+                }
+            }
+            .user-code{
+                color: #ABABA9;
+            }
+        }
+    }
+    .logout-button{
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 20px;
+        height: 48px;
+        line-height: 48px;
+    }
+    .margin-left-8{
+        margin-left: .8rem;
     }
     .radius-top-left{
         border-top-left-radius: 8px;
