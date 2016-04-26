@@ -165,7 +165,21 @@ customerModule
         $scope.changePage=function(){
             $scope.searchFlag=true;
         };
-
+            $rootScope.$on('contactBack1',function(event, data) {
+                console.log("接收成功" + data);
+                $scope.searchFlag = data;
+                $scope.customer.customerfiledvalue = "";
+                $scope.cancelSearch();
+            });
+            //清除输入框内的内容
+            $scope.initSearch = function () {
+                //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+                $scope.customer.customerfiledvalue = '';
+                $scope.customerPage = 0;
+                $scope.customerQuery_list = new Array;
+                Prompter.showLoading("正在加载")
+                $scope.customerLoadmore();
+            }
         //清除历史记录
         $scope.CustomerClearhis = function(){
             storedb('customerdb').remove();
@@ -502,7 +516,7 @@ customerModule
         var data = {
             "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
             "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER},
-            "IS_AUTHORITY": { "BNAME": "" }
+            "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
         };
         HttpAppService.post(url, data).success(function (response) {
             console.log(response);
@@ -733,6 +747,7 @@ customerModule
             POST_CODE1:customeService.get_customerEditServevalue().POST_CODE1,
             TDLINE:customeService.get_customerEditServevalue().TDLINE
         };
+        console.log(customeService.get_customerEditServevalue());
         $scope.country=[];
         $scope.provence=[];
         $scope.city=[];

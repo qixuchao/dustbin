@@ -1,5 +1,5 @@
 <ion-popover-view class="createSaleActPop saleDetailPop own-animated slideInUp"
-                  style="animation-duration:.4s;margin-top: 50%;" ng-class="salesGroup.length>1?'saleActLongHeight':'saleActShortHeight'">
+                  style="animation-duration:.4s;margin-top: 50%;" ng-class="salesGroup.length>1?'saleActLongLongHeight':'saleActShortHeight'">
     <div class="myHeader">
         <div class="headerText">请选择</div>
     </div>
@@ -13,7 +13,7 @@
         <div class="row row-center" ng-if="salesGroup.length>1">
             <div>销售办公室</div>
             <div class="select">
-                <select ng-model="pop.saleOffice" ng-options="x as x.text for x in salesGroup">{{pop.text}}</select>
+                <select ng-model="pop.saleOffice" ng-options="x as x.SALES_OFF_TXT for x in salesGroup">{{pop.text}}</select>
             </div>
         </div>
         <button ng-click="showCreateModal()" class="save">完成</button>

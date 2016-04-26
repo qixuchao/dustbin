@@ -32,11 +32,11 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
                console.log($scope.config);
            }
 
-           //if($scope.carMile.MILEAGE_DATE === "" && $scope.carMile.MILEAGE_VALUE === "" && $scope.carMile.MILEAGE_DESC === ""){
+           if($scope.carMile.MILEAGE_DATE === "" && $scope.carMile.MILEAGE_VALUE === "" && $scope.carMile.MILEAGE_DESC === ""){
                $scope.carEdit = true;
-           //}else{
-           //    $scope.carEdit = false;
-           //}
+           }else{
+              $scope.carEdit = false;
+           }
        }
         var no =1;
         init(no);

@@ -2,19 +2,23 @@
 worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast','contactService',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast,contactService){
 
     $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-        if(fromState.name == 'contactsCreate' && toState.name == 'customerContactQuery'){
-            var x = contactService.get_ContactsListvalue;
-            $scope.selectCon(x);
+        console.log(fromState.name+toState.name);
+        if(fromState.name == 'ContactCreate' && toState.name == 'customerContactQuery'){
+            var x = contactService.get_ContactsListvalue();
+            console.log(x);
+            conpageNum = 1;
+            $scope.updateInfos(x);
+            $cordovaToast.showShortBottom('添加成功');
         }
     });
     $scope.gomore = true;
     $scope.goload = false;
     $scope.gono = false;
-    var detaile = customeService.get_customerEditServevalue();
+
     //数据刷新
     var conpageNum = 1;
     $scope.infos = [];
-    $scope.updateInfos = function(){
+    $scope.updateInfos = function(item){
         $scope.goload = true;
         $scope.gomore = false;
         var data = {
@@ -34,7 +38,11 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
                 $scope.gomore = true;
                 console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
-                    $scope.infos = $scope.infos.concat(response.ET_OUT_LIST.item);
+                    //if(item == ""){
+                        $scope.infos = (response.ET_OUT_LIST.item);
+                    //}else{
+                    //    $scope.infos = response.ET_OUT_LIST.item.concat($scope.infos);
+                    //}
                     if (response.ET_OUT_LIST.item.length < 10) {
                         $scope.gono = true;
                         $scope.goload = false;
@@ -59,7 +67,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
                 "RELNR": "",
                 "RELTYP": "BUR011",
                 "PARTNER1": customeService.get_customerListvalue().PARTNER,
-                "PARTNER2": x.PARTNER,
+                "PARTNER2": x,
                 "XDFREL": "X",
                 "DATE_FROM": "0001-01-01",
                 "DATE_TO": "9999-12-31",
@@ -67,11 +75,11 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             }};
         console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
-        console.log(angular.toJson(url));
         HttpAppService.post(url, data).success(function(response){
             console.log(response);
             if (response.ES_RESULT.ZFLAG === 'S') {
-                $scope.updateInfos();
+                conpageNum = 1;
+                $scope.updateInfos(x);
                 $cordovaToast.showShortBottom('添加成功');
             }else{
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -137,7 +145,8 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG === 'S') {
                         $cordovaToast.showShortBottom('删除成功 ');
-                        $scope.updateInfos();
+                        conpageNum = 1;
+                        $scope.updateInfos("");
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }

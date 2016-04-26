@@ -134,6 +134,12 @@ salesModule
                     Prompter.alert('结束时间过小');
                     return
                 }
+                if(angular.isUndefined($scope.create.customer)){
+                    $scope.create.customer = {PARTNER: ""}
+                }
+                if(angular.isUndefined($scope.create.contact)){
+                    $scope.create.contact = {PARTNER : ""}
+                }
                 Prompter.showLoading('正在保存');
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},

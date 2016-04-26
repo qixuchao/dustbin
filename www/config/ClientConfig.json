@@ -1,14 +1,10 @@
 {
-	"hempConfig":
-	{
-		"basePath":"http://117.28.248.23:9388/crmuat/api/CRMAPP/",
-		"LoginUrl": "http://117.28.248.23:9388/crmuat/api/bty/login",
-		"UploadImageUrl": "http://117.28.248.23:9388/crmuat/api/bty/uploadImage",
+  "hempConfig":
+  {
+	"basePath":"http://117.28.248.23:9388/crmuat/api/CRMAPP/",
+	"LoginUrl": "http://117.28.248.23:9388/crmuat/api/bty/login",
+	"UploadImageUrl": "http://117.28.248.23:9388/crmuat/api/bty/uploadImage",
 
-	    "baseEnvironment": "ATL",
-	    "devEnvironment": "ATL"
-	},
-	"currentVersion": "0.1.13",
-	"pkgIdentifier": "com.crmEnergy.hrms",
-	"versionName": "0.1.13"
+	"baseEnvironment": "CATL"
+  }
 }

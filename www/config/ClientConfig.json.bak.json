@@ -1,0 +1,14 @@
+{
+	"hempConfig":
+	{
+		"basePath":"http://117.28.248.23:9388/test/api/CRMAPP/",
+		"LoginUrl": "http://117.28.248.23:9388/test/api/bty/login",
+		"UploadImageUrl": "http://117.28.248.23:9388/crmuat/api/bty/uploadImage",
+
+	    "baseEnvironment": "CATL",
+	    "devEnvironment": "CATL"
+	},
+	"currentVersion": "0.1.25",
+	"pkgIdentifier": "com.crmEnergy.catl",
+	"versionName": "0.1.25"
+}

@@ -7,7 +7,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
         var debug = function (text) {
             $log.debug(procedure + " success");
         };
-
+        
         var request = {
             isSuccessfull: function (status) {
                 if (status == "S" || status == "SW") {

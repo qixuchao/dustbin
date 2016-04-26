@@ -54,7 +54,7 @@ loginModule
                 })
             }
         });
-        var userName = "HANDLCX02";
+        var userName = "HANameDLCX02";
         var userPassword = $scope.loginData.password;
        $scope.login = function(){
            //http://117.28.248.23:9388/test/api/bty/login
@@ -62,9 +62,10 @@ loginModule
            var data={
                "username": $scope.loginData.username,
                "password": $scope.loginData.password,
-               "system": "CATL"
+               "system": ROOTCONFIG.hempConfig.baseEnvironment
            };
            //alert(JSON.stringify(data));
+           console.log(ROOTCONFIG.hempConfig.baseEnvironment);
            HttpAppService.post(url,data).success(function(response){
                //alert("请求成功："+JSON.stringify(response));
                if (response.ES_RESULT.ZFLAG == 'E') {

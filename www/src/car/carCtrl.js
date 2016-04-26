@@ -17,6 +17,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
     $scope.search = function (x, e){
         Prompter.showLoading('正在搜索');
         $scope.searchFlag=true;
+        page=0;
         $scope.carInfo = x;
         $scope.carLoadMore1Im();
     };
@@ -31,7 +32,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             worksheetDataService.selectedCheLiang="";
         }
     });
-    
+
     $scope.carListHistoryval = function(){
         if(storedb('cardb').find().arrUniq() != undefined || storedb('cardb').find().arrUniq() != null){
             $scope.data = (storedb('cardb').find().arrUniq());
@@ -58,19 +59,25 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             $scope.cars = new Array;
             $scope.carLoadMore1Im();
         };
+
         $scope.carLoadMore1Im = function() {
             //$scope.spareimisshow = false;
             //console.log("第1步");
             page+=1;
-            var url = ROOTCONFIG.hempConfig.basePath + 'CAR_LIST_BY_DCR';
+            //ROOTCONFIG.hempConfig.basePath + 'CAR_LIST_BY_DCR'
+            //"http://117.28.248.23:9388/test/api/CRMAPP/CAR_LIST_BY_DCR"
+            var url ="http://117.28.248.23:9388/crmuat/api/CRMAPP/CAR_LIST_BY_DCR";
             var data = {
                 "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "IS_USER": { "BNAME":window.localStorage.crmUserName },
                 "IS_PAGE": {
                     "CURRPAGE": page,
                     "ITEMS": "10"
                 },
                 "IS_VEHICL_INPUT": {"SHORT_TEXT": $scope.carInfo}
             };
+            console.log(ROOTCONFIG.hempConfig.baseEnvironment);
+            console.log($scope.carInfo);
             HttpAppService.post(url, data).success(function (response) {
                 console.log(page);
                 if (response.ES_RESULT.ZFLAG == 'E') {
@@ -188,6 +195,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             localStorage['oftenCardb'] = JSON.stringify($scope.oftenCarList);
         }
         CarService.setData(value);
+        console.log(angular.toJson(value));
         if($scope.config.backParameter==true){
             worksheetDataService.backObject=value;
             worksheetDataService.selectedCheLiang=false;
@@ -398,7 +406,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
         $scope.goDetail=function(data){
             console.log(data);
             CarService.setSpare(data);
-            //$state.go("maintenance"); 
+            //$state.go("maintenance");
             $state.go("worksheetList");
         };
         //电话

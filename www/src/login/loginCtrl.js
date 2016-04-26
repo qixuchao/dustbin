@@ -32,8 +32,8 @@ loginModule
                 }
             });
         };
-        $scope.watchloginvalue('username')
-        $scope.watchloginvalue('password')
+        $scope.watchloginvalue('username');
+        $scope.watchloginvalue('password');
 
         //监听password
         $scope.deletepass =function(){
@@ -66,6 +66,7 @@ loginModule
                "password": $scope.loginData.password,
                "system": ROOTCONFIG.hempConfig.baseEnvironment
            };//ROOTCONFIG.hempConfig.baseEnvironment
+
            //alert(JSON.stringify(data));
            HttpAppService.post(url,data).success(function(response){
                //alert("请求成功："+JSON.stringify(response));
@@ -79,8 +80,8 @@ loginModule
                          LoginService.setMenulist(response.MENULIST);
                          LoginService.setAuth(response.AUTH);
                          LoginService.setUserName($scope.loginData.username);
-
-                   $state.go('tabs');
+                         
+                        $state.go('tabs', {}, {location:"replace", reload:"true"});
                    }
 
            });

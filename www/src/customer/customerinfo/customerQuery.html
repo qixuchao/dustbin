@@ -56,7 +56,7 @@
                     <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
                 <div class="col col-80 col-center colType">
-                    <span>{{lists.NAME_ORG1}}</span>
+                    <span><div ng-bind-html="lists.NAME_ORG1 |highlight:customer.customerfiledvalue"></div></span>
                 </div>
                 <div class="col col-12 col-center">
                     <img ng-src="img/car/Shape.png" class="shapeImg" >

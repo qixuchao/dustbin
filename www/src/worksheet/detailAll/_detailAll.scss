@@ -208,7 +208,7 @@
             display: -webkit-box;
         }
         .relation-box, .history-box, .info-box{
-            @include display-flex;
+            @include display-flex;   
             //border: 1px solid red;
             height: 2rem;
             vertical-align: middle;

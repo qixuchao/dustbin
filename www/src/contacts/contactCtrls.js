@@ -158,7 +158,7 @@ ContactsModule
                 $scope.initLoad();
             };
             $scope.cancelSearch=function(){
-                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+                //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
                 $scope.searchFlag=false;
                 $scope.config.contactfiledvalue = '';
                 $scope.contact_query_list=new Array;
