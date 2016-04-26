@@ -859,6 +859,7 @@ customerModule
                     "POST_CODE1": "",
                     "CITY1": "" ,
                     "COUNTRY": "CN",
+                    "LANGU": "1",
                     "REGION": "",
                     "TEL_NUMBER": "",
                     "TEL_EXTENS": "",
