@@ -18,10 +18,10 @@ salesModule
         'HttpAppService',
         'saleChanService',
         'customeService',
+        'LoginService',
         function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
-                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService) {
-            console.log('机会新建modal');
-
+                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService,LoginService) {
+            $scope.role = LoginService.getProfileType();
             $scope.filters = saleChanService.filters;
             $scope.CustomerLoadMoreFlag = true;
             $scope.saleStages = saleChanService.saleStages;
@@ -184,7 +184,6 @@ salesModule
                         "item1": {"RLTYP": customerType}
                     }
                 };
-                console.log(data);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
@@ -260,7 +259,11 @@ salesModule
             }).then(function (modal) {
                 $scope.selectCustomerModal = modal;
             });
-            $scope.customerModalArr = saleActService.getCustomerTypes();
+            if ($scope.role == 'APP_SALE') {
+                $scope.customerModalArr = saleActService.getCustomerTypes();
+            } else {
+                $scope.customerModalArr = saleActService.customerTypeArr_server;
+            }
             $scope.selectCustomerText = '潜在客户';
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;

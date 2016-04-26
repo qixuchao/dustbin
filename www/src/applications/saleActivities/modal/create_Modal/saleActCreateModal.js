@@ -16,9 +16,10 @@ salesModule
         'Prompter',
         'HttpAppService',
         'relationService',
+        'LoginService',
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService) {
-            console.log('活动新建Modal');
+                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService,LoginService) {
+            $scope.role = LoginService.getProfileType();
             $scope.CustomerLoadMoreFlag = true;
             var customerPage = 1;
             $scope.customerArr = [];
@@ -66,6 +67,7 @@ salesModule
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         }else{
+                            $scope.customerSearch = true;
                             $scope.CustomerLoadMoreFlag = false;
                             $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         }
@@ -244,7 +246,11 @@ salesModule
             }).then(function (modal) {
                 $scope.selectCustomerModal = modal;
             });
-            $scope.customerModalArr = saleActService.getCustomerTypes();
+            if ($scope.role == 'APP_SALE') {
+                $scope.customerModalArr = saleActService.getCustomerTypes();
+            } else {
+                $scope.customerModalArr = saleActService.customerTypeArr_server;
+            }
             $scope.selectCustomerText = '正式客户';
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;

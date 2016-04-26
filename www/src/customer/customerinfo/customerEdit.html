@@ -11,14 +11,13 @@
     </div>
     <ion-content>
         <div class="list" style="font-size: 16px;margin-bottom:0">
-            <span class="item item-input">注释：
-                <textarea type="text" id="cuszhishiv" placeholder="请输入注释" class="contact_edittextareasty" ng-model="customeredit.TDLINE"></textarea>
-                <img id="cuszhishivimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('TDLINE')"/>
+            <span class="item item-input" style="border: none">注释：
+                <!--<textarea type="text" id="cuszhishiv" placeholder="请输入注释" class="contact_edittextareasty" ng-model="customeredit.TDLINE"></textarea>-->
+                <!--<img id="cuszhishivimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('TDLINE')"/>-->
             </span>
-            <!--<span class="item item-input">注释：
-                <input type="text" id="cuszhishiv" placeholder="请输入注释" class="contact_edittextareasty" ng-model="customeredit.TDLINE"/>
-                <img id="cuszhishivimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('TDLINE')"/>
-            </span>-->
+            <textarea id="textarea1"  placeholder="请输入备注" style="width: 100%; padding: 0px 15px 0px 20px;resize: none;min-height: 33px;max-height: 300px;overflow-y: hidden;background-color: white;" ng-model="customeredit.TDLINE"  ng-init="autoHeight()"></textarea>
+            <div class="employee_query_listline">
+            </div>
             <span class="item item-input">名称：
                 <input type="text" id="comrole" class="customeredittwo" placeholder="请输入名称" ng-model="customeredit.NAME_ORG1">
                  <img id="comroleimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="customerDeletevalue('NAME_ORG1')"/>
@@ -53,12 +52,12 @@
                 </div>
                 <div class="col col-80">
                     <div class="row" style="padding: 5px;">
-                        <select style="color:#9B9B9B;padding: 5px;"  ng-model="config.currentCountry" ng-options="a as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
+                        <select style="color:#9B9B9B;padding: 5px;"  ng-model="config.currentCountry" ng-options="a.COUNTRY as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
                             <option value="">国家</option>
                         </select>
                     </div>
                     <div class="row" style="padding: 5px;">
-                        <select style="color:#9B9B9B;padding: 5px"  ng-model="config.currentProvence" ng-options="b as b.REGION_NAME for b in provence" ng-change="changProvence()">
+                        <select style="color:#9B9B9B;padding: 5px"  ng-model="config.currentProvence" ng-options="b.REGION as b.REGION_NAME for b in provence" ng-change="changProvence()">
                             <option value="">省份</option>
                         </select>
                     </div>
