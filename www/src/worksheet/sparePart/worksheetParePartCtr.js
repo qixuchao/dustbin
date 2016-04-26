@@ -38,7 +38,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             $scope.isActive = true;
             $scope.numPage = 1;
             var dataCang = {
-                "I_SYSTEM": { "SysName": "CATL" },
+                "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_USER": { "BNAME": window.localStorage.crmUserName }
             }
             //$scope.infos;
@@ -867,7 +867,7 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
             page+=1;
             var url = ROOTCONFIG.hempConfig.basePath + 'PRODUCT_LIST';
             var data = {
-                "I_SYSNAME": {"SysName": "CATL"},
+                "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_PAGE": {
                     "CURRPAGE": page,
                     "ITEMS": "20"

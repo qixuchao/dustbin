@@ -4,8 +4,18 @@
 
 'use strict';
 tabsModule
-    .controller('TabsCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$templateCache','$ionicSlideBoxDelegate','$ionicPlatform', 'ionicMaterialInk',
-        function ($scope, $rootScope, $state, $ionicHistory, $templateCache, $ionicSlideBoxDelegate,$ionicPlatform,ionicMaterialInk) {
+    .controller('TabsCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache','$ionicSlideBoxDelegate','$ionicPlatform', 'ionicMaterialInk',
+        function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate,$ionicPlatform,ionicMaterialInk) {
+            
+            $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+                if(fromState && toState && fromState.name == 'login' && toState.name == 'tabs'){
+                    /*$ionicConfig.views.swipeBackEnabled(true);
+                    alert("set ok");*/
+                    $ionicHistory.clearCache();
+                    $ionicHistory.clearHistory();
+                }
+            });
+
             //ionicMaterialInk.displayEffect();
             $rootScope.goBack = function () {
                 console.log('goback')

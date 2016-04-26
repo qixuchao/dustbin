@@ -32,8 +32,8 @@ loginModule
                 }
             });
         };
-        $scope.watchloginvalue('username')
-        $scope.watchloginvalue('password')
+        $scope.watchloginvalue('username');
+        $scope.watchloginvalue('password');
 
         //监听password
         $scope.deletepass =function(){
@@ -64,7 +64,7 @@ loginModule
            var data={
                "username": $scope.loginData.username,
                "password": $scope.loginData.password,
-               "system": "CATL"
+               "system": ROOTCONFIG.hempConfig.baseEnvironment //"CATL"
            };
            //alert(JSON.stringify(data));
            HttpAppService.post(url,data).success(function(response){
@@ -79,8 +79,8 @@ loginModule
                          LoginService.setMenulist(response.MENULIST);
                          LoginService.setAuth(response.AUTH);
                          LoginService.setUserName($scope.loginData.username);
-
-                   $state.go('tabs');
+                         
+                        $state.go('tabs', {}, {location:"replace", reload:"true"});
                    }
 
            });

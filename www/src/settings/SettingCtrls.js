@@ -7,10 +7,15 @@ settingsModule.controller("SettingCtrl", [
 			currentVersionCode: "",
 			
 			appName: "",
-			packageName: ""
+			packageName: "",
+
+			userName: "",
+			userCode: "", //登录名:工号
+
 		};
 		
 		$scope.init = function(){
+			$scope.config.userCode = window.localStorage.crmUserName;
 			//$scope.config.currentVersion = "v"+ROOTCONFIG.versionName;
 			if(window.cordova && window.cordova.getAppVersion){
 				cordova.getAppVersion.getVersionNumber(function (version) {
@@ -30,6 +35,7 @@ settingsModule.controller("SettingCtrl", [
 					console.log("getPackageName "+packageName);
 				});
 			}
+
 			//$scope.config.versionStr = "v " + $scope.config.currentVersion +"   build "+$scope.config.currentVersionCode;
 		};
 		$scope.init();

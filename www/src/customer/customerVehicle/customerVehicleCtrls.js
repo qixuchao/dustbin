@@ -17,7 +17,7 @@ customerVehicleModule
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
-                "IS_USER": { "BNAME": "HANDLCX02" },
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "IS_PAGE": {
                     "CURRPAGE": $scope.customerVehicletactPage,
                     "ITEMS": "10"

@@ -7,19 +7,50 @@
         </ion-header-bar>
     </div>
     <ion-content id="my-settings-content" scroll="false" has-bouncing="false">
-    	<div class="list">
-            <div class="item item-version-info">
-                <span>当前版本:</span>
-                <span ng-bind-template="v {{config.currentVersion}}     build {{config.currentVersionCode}}"></span>
+
+        <div class="list">
+            <div class="item myinfo-item-common radius-top">
+                
             </div>
-            <div class="item item-app-name-info">
+            <div class="item myinfo-item-common radius-bottom">
+                <span>修改密码</span>
+                <span><i class="ion-android-arrow-forward"></i></span>
+            </div>
+        </div>
+
+        
+
+    	<div class="list">
+            <div class="item item-version-info radius-top">
+                <span>功能介绍:</span>
+                <span>
+                    <span></span>
+                    <i class="ion-android-arrow-forward"></i>
+                </span>                
+            </div>
+            <div class="item item-version-info">
+                <span>版本信息:</span>
+                <span ng-bind-template="Version {{config.currentVersion}}"></span>
+                <i class="ion-android-arrow-forward"></i>
+            </div>
+            <div class="item item-version-info radius-bottom">
+                <span>关于:</span>
+                <span></span>
+                <i class="ion-android-arrow-forward"></i>
+            </div>
+
+
+
+            <!--div class="item item-app-name-info">
                 <span>APP名称:</span>
                 <span ng-bind-template="{{config.appName}}"></span>
+                <i class="ion-android-arrow-forward"></i>
             </div>
             <div class="item item-package-name-info">
                 <span>App 唯一标识:</span>
                 <span ng-bind-template="{{config.packageName}}"></span>
-            </div>
+                <i class="ion-android-arrow-forward"></i>
+            </div-->
         </div>
     </ion-content>
 </ion-view>
