@@ -66,7 +66,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             page+=1;
             //ROOTCONFIG.hempConfig.basePath + 'CAR_LIST_BY_DCR'
             //"http://117.28.248.23:9388/test/api/CRMAPP/CAR_LIST_BY_DCR"
-            var url ="http://117.28.248.23:9388/crmuat/api/CRMAPP/CAR_LIST_BY_DCR";
+            var url =ROOTCONFIG.hempConfig.basePath + 'CAR_LIST_BY_DCR';
             var data = {
                 "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_USER": { "BNAME":window.localStorage.crmUserName },
