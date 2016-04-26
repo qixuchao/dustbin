@@ -13,6 +13,7 @@ tabsModule
                     alert("set ok");*/
                     $ionicHistory.clearCache();
                     $ionicHistory.clearHistory();
+                    $scope.clickTab($scope.tabs[0]);
                 }
             });
 

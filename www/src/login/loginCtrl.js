@@ -3,14 +3,23 @@
  */
 'use strict';
 loginModule
-    .controller('LoginCtrl',['LoginService','Prompter','$cordovaToast','HttpAppService','$scope','$state','ionicMaterialInk','$ionicLoading','$timeout',
-        function(LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading, $timeout){
+    .controller('LoginCtrl',['$ionicHistory', 'LoginService','Prompter','$cordovaToast','HttpAppService','$scope','$state','ionicMaterialInk','$ionicLoading','$timeout',
+        function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading, $timeout){
         //$scope.goMain = function(){
         //    $state.go('main')
         //};
+
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            if(toState && toState.name == 'login'){
+                $ionicHistory.clearCache();
+                $ionicHistory.clearHistory();
+                console.log("************ login clear history =======");
+            }
+        });
+
         ionicMaterialInk.displayEffect();
         $scope.loginData = {
-            username:'',
+            username: window.localStorage.crmUserName,
             password:''
         };
         $scope.loginradioimgflag = true;
@@ -80,7 +89,7 @@ loginModule
                          LoginService.setMenulist(response.MENULIST);
                          LoginService.setAuth(response.AUTH);
                          LoginService.setUserName($scope.loginData.username);
-                         
+                          
                         $state.go('tabs', {}, {location:"replace", reload:"true"});
                    }
 

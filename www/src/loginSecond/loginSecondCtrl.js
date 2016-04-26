@@ -1,11 +1,20 @@
 
 'use strict';
 loginModule
-    .controller('LoginSecondCtrl',['LoginService','Prompter','$cordovaToast','HttpAppService','$scope','$state','ionicMaterialInk','$ionicLoading','$timeout',
-        function(LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading, $timeout){
+    .controller('LoginSecondCtrl',['$ionicHistory', 'LoginService','Prompter','$cordovaToast','HttpAppService','$scope','$state','ionicMaterialInk','$ionicLoading','$timeout',
+        function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading, $timeout){
         //$scope.goMain = function(){
         //    $state.go('main')
         //};
+
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            if(toState && toState.name == 'login'){
+                $ionicHistory.clearCache();
+                $ionicHistory.clearHistory();
+                console.log("************ login clear history =======");
+            }
+        });
+
         ionicMaterialInk.displayEffect();
         $scope.loginData = {
             username:'',
@@ -78,7 +87,7 @@ loginModule
                          LoginService.setMenulist(response.MENULIST);
                          LoginService.setAuth(response.AUTH);
                          LoginService.setUserName($scope.loginData.username);
-
+                          
                    $state.go('tabs');
                    }
 
