@@ -1305,6 +1305,16 @@ salesModule
                         $scope.myProcess = $scope.processArr[2];
                         break;
                     default:
+                        $scope.process = {
+                            "RECORD_ID":"",
+                            content: "",
+                            position: '',
+                            status: '',
+                            department: "",
+                            chargeMan: "",
+                            time: "",
+                            affect: ""
+                        };
                         isProcessModify = false;
                         break;
                 }

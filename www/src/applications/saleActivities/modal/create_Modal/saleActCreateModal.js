@@ -245,7 +245,7 @@ salesModule
                 $scope.selectCustomerModal = modal;
             });
             $scope.customerModalArr = saleActService.getCustomerTypes();
-            $scope.selectCustomerText = '竞争对手';
+            $scope.selectCustomerText = '正式客户';
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;
                 $scope.customerSearch = true;
