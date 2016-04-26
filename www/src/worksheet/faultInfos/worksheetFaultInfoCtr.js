@@ -231,8 +231,8 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         };
         console.log(angular.toJson($scope.otherInfos));
         var data = {
-            "I_SYSTEM": { "SysName": "CATL" },
-            "IS_USER": { "BNAME": "" }
+            "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_USER": { "BNAME": window.localStorage.crmUserName }
         }
 
         $scope.config = {

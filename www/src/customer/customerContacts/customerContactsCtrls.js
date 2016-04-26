@@ -10,7 +10,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
     $scope.gomore = true;
     $scope.goload = false;
     $scope.gono = false;
-    var detaile = customeService.get_customerEditServevalue();
+
     //数据刷新
     var conpageNum = 1;
     $scope.infos = [];
