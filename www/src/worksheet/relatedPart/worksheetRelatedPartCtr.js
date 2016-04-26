@@ -12,7 +12,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         }else{
             $scope.infos = worksheetDataService.wsDetailData.ET_PARTNER.item;
         }
-        console.log(angular.toJson(worksheetDataService.wsDetailData));
     //ZPRV ZPLV  ZNCV
         if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCV"){
             $scope.add = false;
@@ -44,7 +43,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         };
         $scope.related_types = ['联系人'];
         $scope.relatedqueryType = function(types){
-            console.log(types);
             if(types === "联系人"){
                 //$state.go("worksheetRelatedPartContact");
                 $scope.openSelectCon();
@@ -66,7 +64,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                     phone : msg.TEL_NUMBER
                 });
             }
-            console.log('' + angular.toJson(msg));
         });
 
         $scope.deleteInfos = function(item){
@@ -88,7 +85,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                             }
                         ]
                     }};
-                console.log(angular.toJson(data));
                 var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
                 HttpAppService.post(url, data).success(function(response){
                     Prompter.hideLoading();
@@ -98,9 +94,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
-                    console.log(angular.toJson(response));
                 }).error(function(err){
-                    console.log(angular.toJson(err));
                 });
             }
         }
@@ -128,7 +122,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             "IS_SEARCH": {"SEARCH": search},
             "IT_IN_ROLE": {}
         };
-        console.log(data);
         HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
             .success(function (response) {
                 if (response.ES_RESULT.ZFLAG === 'S') {
@@ -188,8 +181,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
     $scope.selectCustomer = function (x) {
         //$scope.create.customer = x;
         //$scope.create.contact = '';
-        console.log(angular.toJson(x));
-        console.log(angular.toJson($scope.infos));
         Prompter.showLoading("正在添加");
         var data={
             "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
@@ -205,7 +196,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                     }
                 ]
             }};
-        console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
         HttpAppService.post(url, data).success(function(response){
             if (response.ES_RESULT.ZFLAG === 'S') {
@@ -217,7 +207,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             }
         }).error(function(err){
             Prompter.hideLoading();
-            console.log(angular.toJson(err));
         });
         $scope.contactSpinnerFLag = true;
         $scope.contactsLoadMoreFlag = true;
@@ -232,11 +221,9 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
     $scope.getConArr = function (search) {
         $scope.ConLoadMoreFlag = false;
         if (search) {
-            console.log(search)
             $scope.conSearch = false;
             conPage = 1;
         } else {
-            console.log(search)
             $scope.spinnerFlag = true;
         }
         var data = {
@@ -249,10 +236,8 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             "IS_PARTNER": { "PARTNER": "" },
             "IS_SEARCH": { "SEARCH": search }
         };
-        console.log(data);
         HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
             .success(function (response) {
-                console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     if (response.ET_OUT_LIST.item.length < 10) {
                         $scope.ConLoadMoreFlag = false;
@@ -302,8 +287,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         }, 1)
     };
     $scope.selectCon = function (x) {
-        console.log(angular.toJson(x));
-        console.log(angular.toJson($scope.infos));
         Prompter.showLoading("正在添加");
         var data={
             "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
@@ -319,10 +302,8 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                     }
                 ]
             }};
-        console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
         HttpAppService.post(url, data).success(function(response){
-            console.log(angular.toJson(response));
             if (response.ES_RESULT.ZFLAG === 'S') {
                 $scope.updateInfos();
                 $cordovaToast.showShortBottom('添加成功');
@@ -333,7 +314,6 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
 
         }).error(function(err){
             Prompter.hideLoading();
-            console.log(angular.toJson(err));
         });
         $scope.selectContactModal.hide();
     };
@@ -346,30 +326,25 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
             "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
         }
-        console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL';
         var id = worksheetDataService.wsDetailData.ydWorksheetNum;
         var wf = worksheetDataService.wsDetailData.waifuRenyuan;
         var name = worksheetDataService.wsDetailData.IS_PROCESS_TYPE;
         HttpAppService.post(url, data).success(function(response){
-            //console.log(angular.toJson(response));
             if (response.ES_RESULT.ZFLAG === 'S') {
                 worksheetDataService.wsDetailData = response;
                 worksheetDataService.wsDetailData.ydWorksheetNum = id;
                 worksheetDataService.wsDetailData.waifuRenyuan = wf;
                 worksheetDataService.wsDetailData.IS_PROCESS_TYPE = name;
-                //console.log(angular.toJson(response));
                 $scope.infos = worksheetDataService.wsDetailData.ET_PARTNER.item;
                 Prompter.hideLoading();
             }else{
                 Prompter.hideLoading();
             }
         }).error(function(err){
-            console.log(angular.toJson(err));
         });
     }
     $scope.goDetail = function(item){
-        console.log(item);
         if(item.PARTNER_FCT == "ZCUSTCTT"){
             var x1= item.PARTNER_NO;
             contactService.set_ContactsListvalue(x1);
@@ -417,7 +392,6 @@ worksheetModule.controller("WorksheetRelatedContactCtrl",['$scope','$state','$ht
         TEL_NUMBER : "18298182052"
     }]
     $scope.gorelatePart = function(item){
-        console.log(angular.toJson(item));
         $rootScope.$broadcast("worksheetRelatePartItem", item);
         $state.go("worksheetRelatedPart");
     }
