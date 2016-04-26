@@ -16,9 +16,10 @@ salesModule
         'Prompter',
         'HttpAppService',
         'relationService',
+        'LoginService',
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService) {
-            console.log('添加相关方');
+                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService,LoginService) {
+            $scope.role = LoginService.getProfileType();
             //是否单选
             $scope.isReplace = relationService.isReplace;
             //替换对象
@@ -55,9 +56,6 @@ salesModule
                         getStaff(search);
                         break
                 }
-            };
-            var getCompeteMan = function () {
-
             };
             var getContacts = function (search) {
                 $scope.relationLoadMoreFlag = false;
@@ -262,7 +260,6 @@ salesModule
             $scope.addRelationModal = function (x) {
                 if ($scope.selectPopText == '客户' && !angular.isUndefined(relationService.relationCustomer.position)) {
                     Prompter.alert('已存在客户!');
-                    console.log('已存在客户');
                     return
                 }
                 x.flag = true;
@@ -281,7 +278,6 @@ salesModule
                             data.mode = "I";
                             myRelations.push(data);
                         } else {
-                            console.log('相关方已存在');
                         }
                     }
                 });
@@ -290,7 +286,6 @@ salesModule
                     relationService.relationCustomer = x;
                     relationService.chanceDetailPartner.PARTNER_TXT = x.NAME;
                     relationService.chanceDetailPartner.customerName = x.NAME;
-                    console.log(x);
                 }
                 $scope.hideRelations();
             };
@@ -315,7 +310,6 @@ salesModule
                     relationService.relationCustomer = x;
                     relationService.chanceDetailPartner.PARTNER_TXT = x.NAME;
                     relationService.chanceDetailPartner.customerName = x.NAME;
-                    console.log(x);
                 }
                 $scope.hideRelations();
             };

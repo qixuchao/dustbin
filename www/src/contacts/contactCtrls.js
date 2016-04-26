@@ -1244,7 +1244,7 @@ ContactsModule
 
         ////点击取消事件
         $scope.Createancel = function(){
-            Prompter.ContactCreateCancelvalue();4
+            Prompter.ContactCreateCancelvalue();
         }
         //$scope.contactKeepCreatevalue = function(){
         //    contactService.set_ContactCreatevalue($scope.contactcreat);
