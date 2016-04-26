@@ -336,7 +336,17 @@ mainModule
             };
             var lastSelectedDate = angular.copy(selectDate);
             $scope.selectDay = function (x, y) {
-                selectDate = new Date($scope.year + '/' + $scope.month + '/' + y.value).format('yyyy-MM-dd');
+                var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
+                var page_index = dayViewHandle.currentIndex();
+                var tempMonth = angular.copy($scope.month);
+                //当前在周视图
+                if (angular.isDefined(page_index)) {
+                    console.log($scope.days[page_index].arr[6].value)
+                    if($scope.days[page_index].arr[6].value<7){
+                        tempMonth--;
+                    }
+                }
+                selectDate = new Date($scope.year + '/' + tempMonth + '/' + y.value).format('yyyy-MM-dd');
                 if (selectDate === lastSelectedDate) {
                     return
                 }
