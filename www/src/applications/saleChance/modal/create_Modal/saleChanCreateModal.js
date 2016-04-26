@@ -164,7 +164,7 @@ salesModule
             $scope.customerArr = [];
             $scope.customerSearch = false;
             $scope.input = {customer: ''};
-            var customerType = 'CRM000';
+            var customerType = 'Z00001';
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -261,7 +261,7 @@ salesModule
                 $scope.selectCustomerModal = modal;
             });
             $scope.customerModalArr = saleActService.getCustomerTypes();
-            $scope.selectCustomerText = '竞争对手';
+            $scope.selectCustomerText = '潜在客户';
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;
                 $scope.customerSearch = true;
