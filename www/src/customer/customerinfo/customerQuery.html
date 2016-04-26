@@ -2,7 +2,7 @@
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head ">
             <div class="row row-center">
-                <a class="col col-20 text-left goBack button button-clear"></a>
+                <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
                 <div class="col col-60 text-center">客户列表</div>
                 <div class="col col-20 add" ng-click="customerPopover($event)" style="text-align: right">筛选</div>
             </div>
@@ -37,7 +37,7 @@
                 <div class="col col-2"></div>
             </div>
         </div>
-        <ion-infinite-scroll on-infinite="customerLoadmore()" ng-if="customerisshow"></ion-infinite-scroll>
+        <ion-infinite-scroll on-infinite="customerLoadmore()" ng-if="customerisshow"　immediate-check="true"></ion-infinite-scroll>
     </ion-content>
     <ion-content class="has-header search " has-bouncing="true" ng-show="searchFlag">
         <div ng-hide="customer.customerfiledvalue.length>0">

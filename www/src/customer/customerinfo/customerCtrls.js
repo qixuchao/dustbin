@@ -135,6 +135,7 @@ customerModule
                         }
                     }
                 }
+                $scope.config.queryResultScrollDelegate.resize();
             }).error(function (response, status) {
                 $cordovaToast.showShortBottom('请检查你的网络设备');
                 $scope.customerisshow = false;
@@ -156,7 +157,7 @@ customerModule
         $scope.cancelSearch=function(){
             //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
             $scope.searchFlag=false;
-            $scope.config.contactfiledvalue = '';
+            $scope.customer.customerfiledvalue = '';
             $scope.customerQuery_list=new Array;
             $scope.CustomerHisGetvaluehis();
 
@@ -165,7 +166,7 @@ customerModule
         $scope.changePage=function(){
             $scope.searchFlag=true;
         };
-            $rootScope.$on('contactBack1',function(event, data) {
+            $rootScope.$on('customerCreatevalue',function(event, data) {
                 console.log("接收成功" + data);
                 $scope.searchFlag = data;
                 $scope.customer.customerfiledvalue = "";
@@ -198,6 +199,10 @@ customerModule
                 $scope.$apply();
             };
         };
+            $scope.config={
+                queryResultScrollDelegate:""
+            };
+            $scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("customerListResult");
 
         //跳转detail界面
         //$scope.customergodeatil = function(cusvalue){
@@ -354,21 +359,26 @@ customerModule
             };
             //改变角色的参数
             //$scope.$apply(function(){
-            $scope.customerisshow = false;
+
+            //$scope.customerisshow = false;
             //删除请求
             //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST');
-            $scope.customerQuery_list = [];
-            $scope.customerQuery_list = new Array;
-            $scope.customerPage = 0;
-            $scope.customer_queryflag = true;
-            $ionicScrollDelegate.resize();
-            $scope.customerFirstLoad();
+            //$scope.customerQuery_list = [];
+            //$scope.customerQuery_list = new Array;
+            //$scope.customerPage = 0;
+            //$scope.customer_queryflag = true;
+            //$ionicScrollDelegate.resize();
+            //$scope.customerFirstLoad();
             //$scope.customerisshow = true;
-            $scope.customerPopoverhide();
+            //$scope.customerPopoverhide();
         };
     }])
     .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
-
+        $scope.CustomergoBack = function() {
+            $rootScope.$broadcast('customerCreatevalue', 'false');
+            window.history.back(-1);
+            //$ionicHistory.goBack();
+        };
         //根据角色检查字段初始化
         ////搜索项
         //$scope.customerDetailsearcho = true;
@@ -538,10 +548,6 @@ customerModule
             $cordovaToast.showShortBottom('请检查你的网络设备');
         });
 
-        $scope.CustomergoBack = function() {
-            $rootScope.$broadcast('customerdeatillist');
-            $ionicHistory.goBack();
-        };
            if(LoginService.getProfileType()=="APP_SERVICE"){
                    $scope.customer_detailstypes = [
                        {

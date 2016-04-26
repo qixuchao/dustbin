@@ -144,25 +144,29 @@
             </div>
             <div class="employee_query_listline"></div>
         </div>
-        <div class="row" style="padding:5px 5px">
-            <div class="col col-40" style="margin-left: 7px;">
-                邮编
+        <div ng-show="showFlag">
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    邮编
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    <span ng-bind="contactdetails.POST_CODE1"></span>
+                </div>
             </div>
-            <div class="col col-60" style="color:#AEA3A3">
-                <span ng-bind="contactdetails.POST_CODE1"></span>
-            </div>
-        </div>
-        <div class="employee_query_listline">
-        </div>
-        <div class="row" style="padding:5px 5px">
-            <div class="col col-40" style="margin-left: 7px;">
-                门牌号
-            </div>
-            <div class="col col-60" style="color:#AEA3A3">
-                <span ng-bind="contactdetails.HOUSE_NUM1"></span>
+            <div class="employee_query_listline">
             </div>
         </div>
-        <div class="employee_query_listline">
+        <div ng-show="showFlag">
+            <div class="row" style="padding:5px 5px">
+                <div class="col col-40" style="margin-left: 7px;">
+                    门牌号
+                </div>
+                <div class="col col-60" style="color:#AEA3A3">
+                    <span ng-bind="contactdetails.HOUSE_NUM1"></span>
+                </div>
+            </div>
+            <div class="employee_query_listline">
+            </div>
         </div>
         <div class="row" style="padding:5px 5px">
             <div class="col col-40" style="margin-left: 7px;">
