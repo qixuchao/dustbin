@@ -86,7 +86,7 @@
   }
 }
 .createSaleChanPop{
-  height: 213px !important;
+  height: 227px !important;
   width: 232px !important;
   margin-left: -116px!important;
   .row {
@@ -100,8 +100,9 @@
   ion-content {
     padding: 2% 20px 0 20px !important;
   }
-  .select {
+  select {
     padding-left: 8px;
+    width: 100px!important;
   }
 }
 .saleChanDetail{
@@ -240,6 +241,8 @@
       position: relative;
       -webkit-appearance: none;
       left: 8px;
+      width: 80px;
+      white-space: normal;
     }
     .save{
       width: 80%;
