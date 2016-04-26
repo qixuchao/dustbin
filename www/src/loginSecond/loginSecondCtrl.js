@@ -74,6 +74,7 @@ loginModule
                "system": ROOTCONFIG.hempConfig.baseEnvironment
            };
            //alert(JSON.stringify(data));
+           console.log(ROOTCONFIG.hempConfig.baseEnvironment);
            HttpAppService.post(url,data).success(function(response){
                //alert("请求成功："+JSON.stringify(response));
                if (response.ES_RESULT.ZFLAG == 'E') {
