@@ -51,6 +51,11 @@ ion-content#my-settings-content{
                     @include justify-content(center);
                 }
             }
+            span:nth-child(2){
+                @include display-flex;
+                @include align-items(center);
+                @include justify-content(flex-end);
+            }
             .user-code{
                 color: #ABABA9;
             }
