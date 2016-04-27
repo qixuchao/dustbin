@@ -6,6 +6,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             $scope.relatedpopover = popover;
         });
         var  worksheetDetailData = worksheetDataService.wsDetailData;
+    console.log(worksheetDetailData);
         if(worksheetDataService.wsDetailData.ET_PARTNER.item == undefined){
             $scope.infos = [];
             $cordovaToast.showShortBottom('暂无相关方');
@@ -19,6 +20,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
 
         }
     //ZPRO ZPLO ZNCO
+        //filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
         else if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCO" ){
             if(worksheetDataService.wsDetailData.ES_OUT_LIST.EDIT_FLAG == "Y"){
                 if(worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0006" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0007" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0010"){
@@ -355,7 +357,13 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             }
             employeeService.set_employeeListvalue(value);
             $state.go("userDetail");//员工详情
-        }else{
+        }else if(item.PARTNER_FCT == "ZCREATOR" && (worksheetDataService.wsDetailData.IS_PROCESS_TYPE == "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE == "ZPLO" ||worksheetDataService.wsDetailData.IS_PROCESS_TYPE == "ZNCO")){
+            var value = {
+                PARTNER : item.PARTNER_NO
+            }
+            employeeService.set_employeeListvalue(value);
+            $state.go("userDetail");//员工详情
+        } else{
             var infosCust = {
                 PARTNER_ROLE : item.PARTNER_FCT,
                 PARTNER : item.PARTNER_NO
