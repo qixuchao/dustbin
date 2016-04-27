@@ -976,7 +976,9 @@ customerModule
             currentProvence:customeService.get_customerEditServevalue().REGION,
             currentCity:customeService.get_customerEditServevalue().CITY1
         };
-
+        if($scope.config.currentCountry = ''){
+            $scope.config.currentCountry = "CN";
+        }
         $scope.cascade=function(){
             var url=ROOTCONFIG.hempConfig.basePath + "LIST_CITY";
             var data={
@@ -1079,7 +1081,7 @@ customerModule
                     "STREET": "",//地址
                     "HOUSE_NUM1": "",//门牌号
                     "POST_CODE1": "",//youbian邮编
-                    "CITY1": $scope.config.currentCity.CITY_NAME,//chengshiming城市
+                    "CITY1": "",//chengshiming城市
                     "LANGU" : customeService.get_customerEditServevalue().LANGU,
                     "COUNTRY": $scope.config.currentCountry,//guojiabiaoshi国家
                     "REGION": $scope.config.currentProvence,//shifeibiaoshi省份
@@ -1108,6 +1110,20 @@ customerModule
             if(data.IS_ADDR.LANGU == ''){
                 data.IS_ADDR.LANGU = '1';
             }
+            if($scope.config.currentCity == '' || $scope.config.currentCity == null || $scope.config.currentCity == undefined){
+                $cordovaToast.showShortCenter('请输入城市');
+                Prompter.hideLoading();
+                return;
+            }else{
+                data.IS_ADDR.CITY1 =  $scope.config.currentCity.CITY_NAME;
+            }
+            if($scope.config.currentCountry == '' || $scope.config.currentCountry == null || $scope.config.currentCountry == undefined){
+                $cordovaToast.showShortCenter('请输入城市');
+                Prompter.hideLoading();
+                return;
+            }else{
+                data.IS_ADDR.REGION =  $scope.config.currentCountry;
+            }
             data.IT_LINES.item.TDLINE = $scope.customeredit.TDLINE;
             //data.IT_lINES.item.TDFORMAT = $scope.customeredit.TDLINE;
             data.IS_ADDR.STREET = $scope.customeredit.STREET;
@@ -1134,7 +1150,7 @@ customerModule
                 $cordovaToast.showShortCenter('请输入国家');
                 //console.log("请输入客户姓名或标识");
                 Prompter.hideLoading();
-            }else{
+            } else{
                 console.log(angular.toJson(data));
                 console.log(angular.toJson(url));
                 HttpAppService.post(url, data).success(function (response) {
