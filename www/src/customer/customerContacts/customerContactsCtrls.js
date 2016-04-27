@@ -162,7 +162,11 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
     }
 
 
-
+    $scope.goDetail = function(i){
+        console.log(i);
+        contactService.set_ContactsListvalue(i.PARTNER);
+        $state.go("ContactDetail");
+    }
 }]);
 
 

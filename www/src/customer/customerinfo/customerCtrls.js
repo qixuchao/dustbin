@@ -468,7 +468,10 @@ customerModule
                             $scope.customerdetails.PARTNER_ID = parseInt($scope.customerdetails.PARTNER);
                         }
                         if(response.ET_LINES != '' && response.ET_LINES.item){
-                            $scope.customerdetails.TDLINE = response.ET_LINES.item[0].TDLINE;
+                            $scope.customerdetails.TDLINE = "";
+                            for(var i=0;i<response.ET_LINES.item.length;i++){
+                                $scope.customerdetails.TDLINE = $scope.customerdetails.TDLINE.concat(response.ET_LINES.item[i].TDLINE);
+                            }
                         }
                     }
                 }).error(function(){
@@ -627,7 +630,7 @@ customerModule
             "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
         };
         HttpAppService.post(url, data).success(function (response) {
-            console.log(response);
+            console.log(angular.toJson(response));
             Prompter.hideLoading();
             if (response.ES_RESULT.ZFLAG == 'E') {
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -990,6 +993,12 @@ customerModule
                     $.each(response.ET_CITY.item, function (n, value) {
                         $scope.city.push(value);
                     })
+                    for(var i=0;i<$scope.city.length;i++){
+                        if($scope.city[i].CITY_NAME == customeService.get_customerEditServevalue().CITY1){
+                            $scope.config.currentCity = $scope.city[i];
+                        }
+                    }
+                    console.log($scope.config.currentCity);
                 }
             }).error(function (response, status) {
                 $cordovaToast.showShortBottom('请检查你的网络设备');
@@ -1028,12 +1037,13 @@ customerModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_EDIT';
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                "IS_USER": { "BNAME": window.localStorage.crmUserName },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_ADDR": {
                     "STREET": "",//地址
                     "HOUSE_NUM1": "",//门牌号
                     "POST_CODE1": "",//youbian邮编
-                    "CITY1": $scope.config.currentCity.CITY,//chengshiming城市
+                    "CITY1": $scope.config.currentCity.CITY_NAME,//chengshiming城市
+                    "LANGU" : customeService.get_customerEditServevalue().LANGU,
                     "COUNTRY": $scope.config.currentCountry,//guojiabiaoshi国家
                     "REGION": $scope.config.currentProvence,//shifeibiaoshi省份
                     "TEL_NUMBER": "",//dianhua电话
@@ -1051,14 +1061,17 @@ customerModule
                     "BU_SORT1": "",
                     "BU_SORT2": ""
                 },
-                "IT_lINES" : {
+                "IT_LINES" : {
                     "item": {
                         "TDFORMAT": "",
                         "TDLINE": ""//beizhu
                     }} ,
                 "IS_PARTNER": { "PARTNER": customeService.get_customerEditServevalue().PARTNER }
             };
-            data.IT_lINES.item.TDLINE = $scope.customeredit.TDLINE;
+            if(data.IS_ADDR.LANGU == ''){
+                data.IS_ADDR.LANGU = '1';
+            }
+            data.IT_LINES.item.TDLINE = $scope.customeredit.TDLINE;
             //data.IT_lINES.item.TDFORMAT = $scope.customeredit.TDLINE;
             data.IS_ADDR.STREET = $scope.customeredit.STREET;
             data.IS_ADDR.HOUSE_NUM1 = $scope.customeredit.HOUSE_NUM1;
