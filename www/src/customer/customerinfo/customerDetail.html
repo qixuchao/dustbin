@@ -16,9 +16,9 @@
                         地址:<span ng-bind="customerdetails.NAME_CO" ng-if="customerDetailnameco"></span><span ng-bind="customerdetails.STR_SUPPL1" ng-if="customerDetailstrret"></span>
                         <span ng-bind="customerdetails.STR_SUPPL2" ng-if="customerDetailstrreth"></span><span ng-bind="customerdetails.STREET"></span>
                     </div>
-                    <div class="customer_detailcontentphone" ng-click="customershowphone(customerdetails.MOB_NUMBER)">
-                        <i class="icon ion-ios-telephone-outline customer_detailcontentphonei"></i>
-                        <span style="margin-left: 4px;" ng-bind="customerdetails.MOB_NUMBER"></span>
+                    <div class="customer_detailcontentphone" >
+                        <!--&lt;!&ndash;<i class="icon ion-ios-telephone-outline customer_detailcontentphonei"></i>&ndash;&gt;ng-click="customershowphone(customerdetails.MOB_NUMBER)"-->
+                        <!--<span style="margin-left: 4px;" ng-bind="customerdetails.MOB_NUMBER"></span>-->
                     </div>
                     <div class="customer_detailcontentphonespan" style="right:0">
                         NO:<span style=" margin-left: 10px;" ng-bind="customerdetails.PARTNER_ID"></span>
@@ -75,10 +75,11 @@
                 <div class="col col-40" style="margin-left: 7px;">
                     注释
                 </div>
-                <div class="col col-60" style="color:#AEA3A3">
-                    <span ng-bind="customerdetails.TDLINE"></span>
-                </div>
+                <!--<div class="col col-60" style="color:#AEA3A3">-->
+                    <!--<span ng-bind="customerdetails.TDLINE"></span>-->
+                <!--</div>-->
             </div>
+            <textarea id="textarea" readonly placeholder="" style="width: 100%; padding: 0px 15px 15px 20px;resize: none;min-height: 47px;max-height: 300px;overflow-y: hidden;background-color: white;color:#909993" ng-bind="customerdetails.TDLINE"></textarea>
             <div class="employee_query_listline">
             </div>
             <div class="row" style="padding:5px 5px">

@@ -80,6 +80,7 @@ customerModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST';
             var data = {
                 "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "IS_PAGE": {
                     "CURRPAGE": $scope.customerPage,
                     "ITEMS": "10"
@@ -373,11 +374,114 @@ customerModule
         };
     }])
     .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
+
+        //文本框自适应换行
+        var autoTextarea = function (elem, extra, maxHeight) {
+            extra = extra || 0;
+            var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
+                isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
+                addEvent = function (type, callback) {
+                    elem.addEventListener ?
+                        elem.addEventListener(type, callback, false) :
+                        elem.attachEvent('on' + type, callback);
+                },
+                getStyle = elem.currentStyle ? function (name) {
+                    var val = elem.currentStyle[name];
+
+                    if (name === 'height' && val.search(/px/i) !== 1) {
+                        var rect = elem.getBoundingClientRect();
+                        return rect.bottom - rect.top -
+                            parseFloat(getStyle('paddingTop')) -
+                            parseFloat(getStyle('paddingBottom')) + 'px';
+                    };
+
+                    return val;
+                } : function (name) {
+                    return getComputedStyle(elem, null)[name];
+                },
+                minHeight = parseFloat(getStyle('height'));
+
+            elem.style.resize = 'none';
+
+            var change = function () {
+                var scrollTop, height,
+                    padding = 0,
+                    style = elem.style;
+
+                if (elem._length === elem.value.length) return;
+                elem._length = elem.value.length;
+
+                if (!isFirefox && !isOpera) {
+                    padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
+                };
+                scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+                elem.style.height = minHeight + 'px';
+                if (elem.scrollHeight > minHeight) {
+                    if (maxHeight && elem.scrollHeight > maxHeight) {
+                        height = maxHeight - padding;
+                        style.overflowY = 'auto';
+                    } else {
+                        height = elem.scrollHeight - padding;
+                        style.overflowY = 'hidden';
+                    };
+                    style.height = height + extra + 'px';
+                    scrollTop += parseInt(style.height) - elem.currHeight;
+                    document.body.scrollTop = scrollTop;
+                    document.documentElement.scrollTop = scrollTop;
+                    elem.currHeight = parseInt(style.height);
+                };
+            };
+
+            addEvent('propertychange', change);
+            addEvent('input', change);
+            addEvent('focus', change);
+            change();
+        };
+        var text = document.getElementById("textarea");
+        autoTextarea(text);// 调用
+
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            console.log(fromState.name+toState.name);
+            if(fromState.name == 'customerEdit' && toState.name == 'customerDetail'){
+                Prompter.showLoading("数据加载中...");
+                var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
+                var data = {
+                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER},
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
+                };
+                HttpAppService.post(url, data).success(function (response) {
+                    console.log(response);
+                    Prompter.hideLoading();
+                    if (response.ES_RESULT.ZFLAG == 'E') {
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    } else {
+                        customeService.set_customeFuZe(response);
+                        if(response.ET_OUT_DETAIL != ''){
+                            $scope.customerdetails = response.ET_OUT_DETAIL.item[0];
+                            $scope.customerdetails.PARTNER_ID = parseInt($scope.customerdetails.PARTNER);
+                        }
+                        if(response.ET_LINES != '' && response.ET_LINES.item){
+                            $scope.customerdetails.TDLINE = "";
+                            for(var i=0;i<response.ET_LINES.item.length;i++){
+                                $scope.customerdetails.TDLINE = $scope.customerdetails.TDLINE.concat(response.ET_LINES.item[i].TDLINE);
+                            }
+                        }
+                    }
+                }).error(function(){
+                    Prompter.hideLoading();
+                    $cordovaToast.showShortBottom('请检查你的网络设备');
+                });
+            }
+        });
+
         $scope.CustomergoBack = function() {
             $rootScope.$broadcast('customerCreatevalue', 'false');
             window.history.back(-1);
             //$ionicHistory.goBack();
         };
+
         //根据角色检查字段初始化
         ////搜索项
         //$scope.customerDetailsearcho = true;
@@ -528,7 +632,7 @@ customerModule
             "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
         };
         HttpAppService.post(url, data).success(function (response) {
-            console.log(response);
+            console.log(angular.toJson(response));
             Prompter.hideLoading();
             if (response.ES_RESULT.ZFLAG == 'E') {
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -702,13 +806,81 @@ customerModule
             $state.go('customerEdit');
         };
 
-        //广播编辑
-        $rootScope.$on('customerEditvalue', function(event, data) {
-            $scope.customerdetails = customeService.get_customerEditServevalue();
-        });
+        ////广播编辑
+        //$rootScope.$on('customerEditvalue', function(event, data) {
+        //    $scope.customerdetails = customeService.get_customerEditServevalue();
+        //});
 
     }])
     .controller('customerEditlCtrl',['$scope','$rootScope','$state','$http','$timeout','$cordovaToast','HttpAppService','$ionicPopover','customeService','Prompter','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$rootScope,$state,$http,$timeout,$cordovaToast,HttpAppService,$ionicPopover,customeService,Prompter,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+        //文本框自适应换行
+        var autoTextarea = function (elem, extra, maxHeight) {
+            extra = extra || 0;
+            var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
+                isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
+                addEvent = function (type, callback) {
+                    elem.addEventListener ?
+                        elem.addEventListener(type, callback, false) :
+                        elem.attachEvent('on' + type, callback);
+                },
+                getStyle = elem.currentStyle ? function (name) {
+                    var val = elem.currentStyle[name];
+
+                    if (name === 'height' && val.search(/px/i) !== 1) {
+                        var rect = elem.getBoundingClientRect();
+                        return rect.bottom - rect.top -
+                            parseFloat(getStyle('paddingTop')) -
+                            parseFloat(getStyle('paddingBottom')) + 'px';
+                    };
+
+                    return val;
+                } : function (name) {
+                    return getComputedStyle(elem, null)[name];
+                },
+                minHeight = parseFloat(getStyle('height'));
+
+            elem.style.resize = 'none';
+
+            var change = function () {
+                var scrollTop, height,
+                    padding = 0,
+                    style = elem.style;
+
+                if (elem._length === elem.value.length) return;
+                elem._length = elem.value.length;
+
+                if (!isFirefox && !isOpera) {
+                    padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
+                };
+                scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+                elem.style.height = minHeight + 'px';
+                if (elem.scrollHeight > minHeight) {
+                    if (maxHeight && elem.scrollHeight > maxHeight) {
+                        height = maxHeight - padding;
+                        style.overflowY = 'auto';
+                    } else {
+                        height = elem.scrollHeight - padding;
+                        style.overflowY = 'hidden';
+                    };
+                    style.height = height + extra + 'px';
+                    scrollTop += parseInt(style.height) - elem.currHeight;
+                    document.body.scrollTop = scrollTop;
+                    document.documentElement.scrollTop = scrollTop;
+                    elem.currHeight = parseInt(style.height);
+                };
+            };
+
+            addEvent('propertychange', change);
+            addEvent('input', change);
+            addEvent('focus', change);
+            change();
+        };
+        $scope.autoHeight = function(){
+            var text = document.getElementById("textarea1");
+            autoTextarea(text);// 调用
+            console.log('1');
+        }
         //位置级联
         $scope.customereditcontry = [
             {
@@ -761,9 +933,9 @@ customerModule
         $scope.provenceCode="";
 
         $scope.config = {
-            currentCountry: {},
-            currentProvence:{},
-            currentCity:{}
+            currentCountry: customeService.get_customerEditServevalue().COUNTRY,
+            currentProvence:customeService.get_customerEditServevalue().REGION,
+            currentCity:customeService.get_customerEditServevalue().CITY1
         };
 
         $scope.cascade=function(){
@@ -793,6 +965,7 @@ customerModule
                 "I_REGION": ""
             };
             HttpAppService.post(url,data).success(function(response){
+                console.log(response);
                 $.each(response.ET_CITY.item, function (n, value) {
                     $scope.provence.push(value);
                 })
@@ -811,12 +984,19 @@ customerModule
                 "I_REGION": $scope.provenceCode
             };
             HttpAppService.post(url,data).success(function(response){
+                console.log(response);
                 if(response.ET_CITY.item.length===undefined){
                     $scope.city=new Array;
                 }else{
                     $.each(response.ET_CITY.item, function (n, value) {
                         $scope.city.push(value);
                     })
+                    for(var i=0;i<$scope.city.length;i++){
+                        if($scope.city[i].CITY_NAME == customeService.get_customerEditServevalue().CITY1){
+                            $scope.config.currentCity = $scope.city[i];
+                        }
+                    }
+                    console.log($scope.config.currentCity);
                 }
             }).error(function (response, status) {
                 $cordovaToast.showShortBottom('请检查你的网络设备');
@@ -826,13 +1006,13 @@ customerModule
         $scope.changCountry=function(){
             $scope.provence=new Array;
             $scope.city=new Array;
-            $scope.countryCode= $scope.config.currentCountry.COUNTRY;
+            $scope.countryCode= $scope.config.currentCountry;
             //console.log($scope.country.COUNTRY);
             $scope.cascade1();
         };
         $scope.changProvence=function(){
             $scope.city=new Array;
-            $scope.provenceCode=$scope.config.currentProvence.REGION;
+            $scope.provenceCode=$scope.config.currentProvence;
             $scope.cascade2();
         };
         $scope.init=function(){
@@ -840,6 +1020,14 @@ customerModule
             $scope.provence=new Array;
             $scope.city=new Array;
         };
+        if($scope.config.currentCountry == ""){
+            $scope.config.currentCountry = "CN";
+        }
+        $scope.changCountry();
+        if($scope.config.currentProvence != ""){
+            $scope.changProvence();
+        }
+
         $scope.customerKeepEditvalue = function(){
             //提交数据
             //提交修改数据
@@ -847,19 +1035,21 @@ customerModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_EDIT';
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_ADDR": {
-                    "STREET": "",
-                    "HOUSE_NUM1": "",
-                    "POST_CODE1": "",
-                    "CITY1": "" ,
-                    "COUNTRY": "CN",
-                    "REGION": "",
-                    "TEL_NUMBER": "",
-                    "TEL_EXTENS": "",
-                    "MOB_NUMBER": "",
-                    "FAX_NUMBER": "",
-                    "FAX_EXTENS": "",
-                    "SMTP_ADDR": ""
+                    "STREET": "",//地址
+                    "HOUSE_NUM1": "",//门牌号
+                    "POST_CODE1": "",//youbian邮编
+                    "CITY1": $scope.config.currentCity.CITY_NAME,//chengshiming城市
+                    "LANGU" : customeService.get_customerEditServevalue().LANGU,
+                    "COUNTRY": $scope.config.currentCountry,//guojiabiaoshi国家
+                    "REGION": $scope.config.currentProvence,//shifeibiaoshi省份
+                    "TEL_NUMBER": "",//dianhua电话
+                    "TEL_EXTENS": "",//dianhuafenji电话
+                    "MOB_NUMBER": "",//yidongdianhua移动
+                    "FAX_NUMBER": "",//chuanzhen
+                    "FAX_EXTENS": "",//chuanzhenfenji
+                    "SMTP_ADDR": ""//emial 邮箱
                 },
                 "IS_CUSTOMER": {
                     "NAME_ORG1": "",
@@ -869,14 +1059,24 @@ customerModule
                     "BU_SORT1": "",
                     "BU_SORT2": ""
                 },
+                "IT_LINES" : {
+                    "item": {
+                        "TDFORMAT": "",
+                        "TDLINE": ""//beizhu
+                    }} ,
                 "IS_PARTNER": { "PARTNER": customeService.get_customerEditServevalue().PARTNER }
             };
+            if(data.IS_ADDR.LANGU == ''){
+                data.IS_ADDR.LANGU = '1';
+            }
+            data.IT_LINES.item.TDLINE = $scope.customeredit.TDLINE;
+            //data.IT_lINES.item.TDFORMAT = $scope.customeredit.TDLINE;
             data.IS_ADDR.STREET = $scope.customeredit.STREET;
             data.IS_ADDR.HOUSE_NUM1 = $scope.customeredit.HOUSE_NUM1;
             data.IS_ADDR.POST_CODE1 = $scope.customeredit.POST_CODE1;
-            data.IS_ADDR.CITY1 = $scope.customeredit.CITY1;
+            //data.IS_ADDR.CITY1 = $scope.customeredit.CITY1;
             //data.IS_ADDR.COUNTRY = $scope.customeredit.COUNTRY;
-            data.IS_ADDR.REGION = $scope.customeredit.REGION;
+            //data.IS_ADDR.REGION = $scope.customeredit.REGION;
             data.IS_ADDR.TEL_NUMBER = $scope.customeredit.TEL_NUMBER;
             data.IS_ADDR.TEL_EXTENS = $scope.customeredit.TEL_EXTENS;
             data.IS_ADDR.MOB_NUMBER = $scope.customeredit.MOB_NUMBER;
@@ -896,6 +1096,8 @@ customerModule
                 //console.log("请输入客户姓名或标识");
                 Prompter.hideLoading();
             }else{
+                console.log(angular.toJson(data));
+                console.log(angular.toJson(url));
                 HttpAppService.post(url, data).success(function (response) {
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG == 'E') {
@@ -903,11 +1105,11 @@ customerModule
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         //$state.go('ContactDetail');
                     } else {
-                        $cordovaToast.showShortCenter('保存数据成功');
+                        //$cordovaToast.showShortCenter('保存数据成功');
                         console.log("保存数据成功")
                         //广播修改详细信息界面的数据
                         customeService.set_customerEditServevalue($scope.customeredit);
-                        $rootScope.$broadcast('customerEditvalue');
+                        //$rootScope.$broadcast('customerEditvalue');
                         $state.go('customerDetail');
                     }
                 }).error(function(){

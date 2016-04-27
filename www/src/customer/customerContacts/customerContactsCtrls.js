@@ -8,7 +8,9 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             console.log(x);
             conpageNum = 1;
             $scope.updateInfos(x);
-            $cordovaToast.showShortBottom('添加成功');
+            if(x != undefined){
+                $cordovaToast.showShortBottom('添加成功');
+            }
         }
     });
     $scope.gomore = true;
@@ -160,7 +162,11 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
     }
 
 
-
+    $scope.goDetail = function(i){
+        console.log(i);
+        contactService.set_ContactsListvalue(i.PARTNER);
+        $state.go("ContactDetail");
+    }
 }]);
 
 

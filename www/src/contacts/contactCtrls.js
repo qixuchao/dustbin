@@ -1471,9 +1471,9 @@ ContactsModule
             data.IS_CUSTOMER.SPTXT = $scope.config.currentLanguage;
             data.IS_CUSTOMER.FNCTN = $scope.contactedit.FNCTN;
             data.IS_CUSTOMER.DPRTMNT = $scope.contactedit.DPRTMNT;
-            data.IS_CUSTOMER.COUNTRY = $scope.config.currentCountry.COUNTRY;
+            data.IS_CUSTOMER.COUNTRY = $scope.config.currentCountry;
             data.IS_CUSTOMER.LANDX = $scope.config.currentCountry;
-            data.IS_CUSTOMER.REGION = $scope.config.currentProvence.REGION;
+            data.IS_CUSTOMER.REGION = $scope.config.currentProvence;
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactedit.POST_CODE1;
             data.IS_CUSTOMER.STREET = $scope.contactedit.STREET;
@@ -1593,7 +1593,7 @@ ContactsModule
         $scope.config = {
             currentCountry:$scope.contactedit.COUNTRY,
             currentProvence:$scope.contactedit.REGION,
-            currentCity:{},
+            currentCity:$scope.contactedit.CITY1,
             currentLanguage:$scope.contactedit.LANGU,
             currentTitile:$scope.contactedit.TITLE
         };
@@ -1653,6 +1653,11 @@ ContactsModule
                     $.each(response.ET_CITY.item, function (n, value) {
                         $scope.city.push(value);
                     })
+                    for(var i=0;i<$scope.city.length;i++){
+                        if($scope.city[i].CITY_NAME ==$scope.contactedit.CITY1){
+                            $scope.config.currentCity = $scope.city[i];
+                        }
+                    }
                 }
             }).error(function (response, status) {
                 $cordovaToast.showShortBottom('请检查你的网络设备');
@@ -1660,16 +1665,6 @@ ContactsModule
         };
             $scope.cascade();
             //根据页面的值，循环找到城市对应的城市ID
-            var cityId="";
-
-            var getCityId=function(){
-                console.log(angular.toJson($scope.city)+"城市");
-                for(var i=0;i<$scope.city.length;i++){
-                    if($scope.contactedit.CITY1==$scope.city[i].CITY_NAME){
-                        cityId=$scope.city[i].CITY;
-                    }
-                }
-            };
             //$scope.chang1=function(){
             //    console.log(angular.toJson($scope.config)+'称谓');
             //    //console.log($scope.config.currentLanguage.typeId+'语言');
@@ -1685,7 +1680,6 @@ ContactsModule
                 $scope.provenceCode=$scope.config.currentProvence;
                 $scope.city=new Array;
                 $scope.cascade2();
-                getCityId();
             }
 
             $scope.changCountry=function(){
@@ -1703,11 +1697,6 @@ ContactsModule
                 console.log($scope.config);
                 $scope.provenceCode=$scope.config.currentProvence;
                 $scope.cascade2();
-            };
-            $scope.init=function(){
-                $scope.country=new Array;
-                $scope.provence=new Array;
-                $scope.city=new Array;
             };
 
     }]);

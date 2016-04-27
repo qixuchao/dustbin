@@ -6,12 +6,10 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
     ionicMaterialInk.displayEffect();
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             var worksheetDetail = worksheetDataService.wsDetailData;
-            console.log(angular.toJson(worksheetDetail));
             $scope.faulInfos = worksheetDetail.ES_OUT_LIST;
-            console.log(angular.toJson($scope.faulInfos));
 
             var arrInfos = worksheetDetail.ET_TEXT.item;
-            console.log(angular.toJson(arrInfos));
+            console.log($scope.faulInfos);
             var remark = []; var result = "";
             if(arrInfos === undefined){
 
@@ -22,15 +20,12 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
                     }else if(arrInfos[i].TDID === 'Z005'){
                         result = result + arrInfos[i].TDLINE;
                     }
-                    console.log(angular.toJson(remark+"=="+result));
                 }
             }
             $scope.otherInfos = {
                 remark : remark,
                 result : result
             };
-            console.log(angular.toJson($scope.otherInfos));
-
         });
         $scope.edit = function(){
             $state.go("worksheetFaultInfosEdit");
@@ -191,11 +186,8 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                     ]
                 }
             }
-            console.log(angular.toJson(updateEdit));
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             HttpAppService.post(url, updateEdit).success(function(response){
-                console.log(angular.toJson(response));
-                console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     $scope.updateInfos();
                     worksheetDataService.wsEditToDetail.needReload = true;
@@ -206,15 +198,11 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 }
             }).error(function(err){
                 Prompter.hideLoading();
-                console.log(angular.toJson(err));
             });
         }
         var worksheetDetail = worksheetDataService.wsDetailData;
-        console.log(angular.toJson(worksheetDetail));
         $scope.faulInfos = worksheetDetail.ES_OUT_LIST;
-        console.log(angular.toJson($scope.faulInfos));
         var arrInfos = worksheetDetail.ET_TEXT.item;
-        console.log(angular.toJson(arrInfos));
         var remark = ""; var result = "";
         if(arrInfos === undefined){
 
@@ -229,7 +217,6 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             remark : remark,
             result : result
         };
-        console.log(angular.toJson($scope.otherInfos));
         var data = {
             "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
             "IS_USER": { "BNAME": window.localStorage.crmUserName }
@@ -268,8 +255,6 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             ]
         };
         $scope.buJianFeiLenChanged = function(){
-            //console.log("guZhangFeiLenChanged");
-            //console.log($scope.config.currentChanPinLeiXing.guZhangBuJianS);
             $scope.datas.guZhangBuJianS = $scope.config.currentChanPinLeiXing.guZhangBuJianS;
             $scope.datas.guZhangMingChengS = $scope.datas.guZhangBuJianS.guZhangMingChengS;
             $scope.config.currentGuZhangBuJian = $scope.datas.guZhangBuJianS[0];
@@ -283,30 +268,27 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         //场景
         var urlChang = ROOTCONFIG.hempConfig.basePath + 'LIST_SCENARIO';
         HttpAppService.post(urlChang, data).success(function(response){
-            $scope.scenario = response.MT_ListScenario_Res.ET_SCENARIO.item;
+            console.log(angular.toJson(response));
+            $scope.scenario = response.ET_SCENARIO.item;
             for(var i=0;i<$scope.scenario.length;i++){
                 if($scope.scenario[i].SCENARIO === $scope.faulInfos.SCENARIO){
-                    console.log("===");
                     $scope.config.scenarioItem = $scope.scenario[i];
                 }
             }
-            console.log(angular.toJson(response)+"场景");
         }).error(function(err){
-            console.log(angular.toJson(err));
         });
         //责任方
         var urlReaponse = ROOTCONFIG.hempConfig.basePath + 'LIST_RESPONSE';
         HttpAppService.post(urlReaponse, data).success(function(response){
+            console.log(response);
             $scope.response = response.ET_RESPONSE.item;
             for(var i=0;i<$scope.response.length;i++){
                 if($scope.response[i].RESPONSE === $scope.faulInfos.RESPONSE){
-                    console.log("===");
+
                     $scope.config.responseItem = $scope.response[i];
                 }
             }
-            console.log(angular.toJson(response)+"zeren");
         }).error(function(err){
-            console.log(angular.toJson(err));
         });
         //故障分类
         var urlDefect = ROOTCONFIG.hempConfig.basePath + 'LIST_DEFECT';
@@ -314,13 +296,10 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             $scope.defect = response.ET_DEFECT.item;
             for(var i=0;i<$scope.defect.length;i++){
                 if($scope.defect[i].DEFECT === $scope.faulInfos.DEFECT){
-                    console.log("===");
                     $scope.config.defectItem = $scope.defect[i];
                 }
             }
-            console.log(angular.toJson(response)+"故障");
         }).error(function(err){
-            console.log(angular.toJson(err));
         });
         //产品类型-故障部件-故障名称  --级联
         var urlReson = ROOTCONFIG.hempConfig.basePath + 'SERVICE_ORDER_REASON';
@@ -331,7 +310,6 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             }
             __initCurrentChangPinLeiXing();
         }).error(function(err){
-            console.log(angular.toJson(err));
         });
         $scope.datas.chanPinLeiXingS.addItem = function(item){
             for(var i = 0; i < this.length; i++){
@@ -405,7 +383,6 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                     }
                 ]
             });
-            console.log(this);
         };
         function __initCurrentChangPinLeiXing(){
             var obj = $scope.datas.chanPinLeiXingS;
@@ -439,9 +416,12 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 }
             }
             if($scope.config.currentChanPinLeiXing== null){
+                $scope.datas.guZhangBuJianS = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS;
+                $scope.datas.guZhangMingChengS = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0].guZhangMingChengS;
+
                 $scope.config.currentChanPinLeiXing = $scope.datas.chanPinLeiXingS[0];
-                $scope.config.currentGuZhangBuJian = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS;
-                $scope.config.currentGuZhangMingCheng =  $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0].guZhangMingChengS;
+                $scope.config.currentGuZhangBuJian = $scope.datas.guZhangBuJianS[0];
+                $scope.config.currentGuZhangMingCheng =  $scope.datas.guZhangMingChengS[0];
                 return;
             }
         };
@@ -454,19 +434,16 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 "IS_OBJECT_ID":worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE
             }
-            console.log(angular.toJson(data));
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL';
             var id = worksheetDataService.wsDetailData.ydWorksheetNum;
             var wf = worksheetDataService.wsDetailData.waifuRenyuan;
             var name = worksheetDataService.wsDetailData.IS_PROCESS_TYPE;
             HttpAppService.post(url, data).success(function(response){
-                //console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     worksheetDataService.wsDetailData = response;
                     worksheetDataService.wsDetailData.ydWorksheetNum = id;
                     worksheetDataService.wsDetailData.waifuRenyuan = wf;
                     worksheetDataService.wsDetailData.IS_PROCESS_TYPE = name;
-                    console.log(angular.toJson(response));
                 }else{
 
                 }
@@ -474,7 +451,6 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 Prompter.hideLoading();
             }).error(function(err){
                 Prompter.hideLoading();
-                console.log(angular.toJson(err));
             });
         }
     }]);

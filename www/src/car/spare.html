@@ -14,26 +14,9 @@
             <input type="text" placeholder="请输入备件描述" ng-model="spareDesc" ng-click="changePage()" ng-change="initLoad()">
             <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
         </div>
-        <!--<div class="search1" ng-show="!searchFlag">-->
-            <!--<i class="icon ion-ios-search placeholder-icon"></i>-->
-            <!--<input  type="text" placeholder="请输入备件描述" ng-click="changePage()">-->
-        <!--</div>-->
-        <!--<div class="search2" ng-show="searchFlag" ng-class="{'searchFlag':'animated fadeOutLeft'}">-->
-            <!--<i class="icon ion-ios-search placeholder-icon"></i>-->
-            <!--<i class="icon ion-ios-close" ng-show="spareDesc.length>0" ng-click="initSearch()"></i>-->
-            <!--<input id="searchSpareId" type="text" placeholder="请输入备件描述" ng-model="spareDesc" ng-change="initLoad()">-->
-            <!--<i class="button button-clear" ng-click="cancelSearch()">取消</i>-->
-        <!--</div>-->
     </ion-header-bar>
     <ion-content class="has-header search " ng-show="searchFlag">
-        <!--<div class="row row-center his-title" ng-if="!spareDesc">-->
-            <!--<i class="ion-android-time"></i>-->
-            <!--<div class="hisText">历史记录</div>-->
-            <!--<div class="horizon-line"></div>-->
-        <!--</div>-->
-        <!--<ion-list ng-if="!spareDesc">-->
-            <!--<ion-item ng-click="search(x,$event)" ng-repeat="x in data">{{x}}</ion-item>-->
-        <!--</ion-list>-->
+        <ion-scroll delegate-handle="spareListResult" has-bouncing="false">
         <div class="divContent" ng-repeat="x in spareList1">
              <div class="row row-center ">
                 <div class="col col-5">
@@ -72,6 +55,7 @@
                 <span ng-hide="buttonShow">无更多数据显示</span>
             </div>
         </div>
+        </ion-scroll>
     </ion-content>
     <ion-content has-bouncing="false"  ng-show="!searchFlag">
         <div class="divContent" ng-repeat="spare in spareList">
