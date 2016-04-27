@@ -239,6 +239,13 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		};
 		
 		function __deleteImageInServer(fileItem, index){
+			//alert(JSON.stringify(fileItem));
+
+			/*var tempSrc = fileItem.src;
+    		fileItem.src = "";
+    		alert(JSON.stringify(fileItem));
+    		fileItem.str = tempSrc;*/
+
 			var loadingStr = "正在加载";
 	        var queryParams = {
 			    "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
@@ -430,11 +437,6 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			}
 		}
 
-
-
-
-
-
 		/*
 			默认参数：
 				{
@@ -598,7 +600,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				file.uploadOk = false;
 				file.uploadError = false;
 
-				ft.onprogress = function(progressEvent){
+				/*ft.onprogress = function(progressEvent){
 					var percent = progressEvent.loaded / progressEvent.total;
 						//file.uploadPercentDesc = $scope.config.uploadingText + "" + percent;
 						file.networkTip = $scope.config.uploadingText + percent;
@@ -612,7 +614,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				    } else {
 				      //loadingStatus.increment();
 				    }
-				};
+				};*/
 				
 				file.isNetworking = true;
 	        	file.networkTip = "正在上传中...";
@@ -626,6 +628,21 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 
 					file.isNetworking = false;
 	        		file.networkTip = "";
+
+	        		//var response = (typeof winRes.response == "string") ? JSON.parse(winRes.response) : winRes.response;
+	        		var response = JSON.parse(winRes.response);
+	        		if(response.ES_OBJECT){
+	        			file.OBJECT_ID = $scope.config.OBJECT_ID;  //  "5200000315
+	        			file.PROCESS_TYPE = $scope.config.PROCESS_TYPE;// "ZPRO",;
+	        			file.OBJIDLO = response.ES_OBJECT.OBJID;
+	        			file.OBJTYPELO = response.ES_OBJECT.OBJTYPE;
+	        			file.CLASSLO = response.ES_OBJECT.CLASS;
+	        		}
+	        		
+	        		/*var tempSrc = file.src;
+	        		file.src = "";
+	        		alert(JSON.stringify(file));
+	        		file.str = tempSrc;*/
 
 					if(!$scope.$$phase){
 						$scope.$apply();

@@ -16,6 +16,10 @@ settingsModule.controller("SettingCtrl", [
 
 		};
 
+		$scope.changePass = function(){
+			$state.go("changePass");
+		};
+
 		$scope.logout = function(){
 			
 			$state.go("login");

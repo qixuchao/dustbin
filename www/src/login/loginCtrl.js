@@ -13,15 +13,15 @@ loginModule
             if(toState && toState.name == 'login'){
                 $ionicHistory.clearCache();
                 $ionicHistory.clearHistory();
-                console.log("************ login clear history =======");
-            }
+                //console.log("************ login clear history =======");
+            } 
         });
 
         ionicMaterialInk.displayEffect();
         $scope.loginData = {
             username: window.localStorage.crmUserName,
             password: window.localStorage.crmUserPassword
-        };
+        }; 
         $scope.loginradioimgflag = true;
         $scope.loginradioSele = function(){
             $scope.loginradioimgflag = !$scope.loginradioimgflag;
@@ -93,9 +93,14 @@ loginModule
                             LoginService.setPassword($scope.loginData.password);
                          }else{
                             LoginService.setPassword("");
+                            $scope.loginData.password = "";
                          }
-                          
-                        $state.go('tabs', {}, {location:"replace", reload:"true"});
+                        
+                        if(response.FIRST_LOGIN != "Y"){
+                          $state.go('changePass');
+                        }else{
+                          $state.go('tabs', {}, {location:"replace", reload:"true"});
+                        }
                    }
 
            });

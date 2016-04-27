@@ -23,8 +23,8 @@
                     <div class="img-wrapper fill-parent">
                         <img ng-src="{{item.src}}" ng-click="showImage($event,item);">
                     </div>
-                    <div class="img-handler-wrapper" ng-if="!item.isServerHolder">
-                        <span ng-if="!item.uploadError"></span>
+                    <div class="img-handler-wrapper"> <!--  ng-if="!item.isServerHolder" -->
+                        <span ng-click="deleteImage(item, $index);">删除</span>
                         <span ng-click="uploadImage(item);" ng-if="!item.uploadError && !item.isDeleting && !item.isNetworking">上传</span>
                         <span ng-bind="item.networkTip" ng-if="item.uploadError || item.isDeleting || item.isNetworking"></span>
                     </div>

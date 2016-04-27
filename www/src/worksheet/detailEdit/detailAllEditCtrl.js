@@ -65,11 +65,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
             isLoading_BujianReason: false,
             isLoading_response: false,
-
+            
             zhushi: '',
             chulijieguo: ''
         };
-
+        
         //$scope.$ionicHistory = $ionicHistory;
         //$scope.$state = $state;
         
@@ -123,6 +123,9 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             __requestUpdateWorksheet(header);
         };
         function __checkCanUpdate(){
+            if($scope.config.detailTypeNewCar){
+                return true;
+            }
             if(!$scope.config.currentChanPinLeiXing || !$scope.config.currentChanPinLeiXing.KATALOGART){
                 Prompter.alert("请选择部件分类!");
                 return false;
@@ -577,8 +580,9 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             $scope.config.isLoading_scenario = true;
             promise.success(function(successRes){
                     var items = [];
-                    if(successRes && successRes.MT_ListScenario_Res && successRes.MT_ListScenario_Res.item){
-                        item = successRes.MT_ListScenario_Res.ET_SCENARIO.item;
+                    //if(successRes && successRes.MT_ListScenario_Res && successRes.MT_ListScenario_Res.item){
+                    if(successRes && successRes.ET_SCENARIO && successRes.ET_SCENARIO.item){
+                        items = successRes.ET_SCENARIO.item;
                     }
                     //$scope.datas.guZhangChangJingS = $scope.datas.guZhangChangJingS.concat(items);
                     for(var j = 0; j < items.length; j++){

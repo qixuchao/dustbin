@@ -8,7 +8,7 @@ tabsModule
         function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate,$ionicPlatform,ionicMaterialInk) {
             
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-                if(fromState && toState && fromState.name == 'login' && toState.name == 'tabs'){
+                if(fromState && toState && (fromState.name == 'login' || fromState.name == "changePass") && toState.name == 'tabs'){
                     /*$ionicConfig.views.swipeBackEnabled(true);
                     alert("set ok");*/
                     $ionicHistory.clearCache();

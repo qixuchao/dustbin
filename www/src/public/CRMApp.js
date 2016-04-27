@@ -94,18 +94,18 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
      */
     
     $stateProvider
-        // .state('login', {
-        //    url: '/login',
-        //    //abstract: true,
-        //    templateUrl: 'src/login/login.html',
-        //    controller: 'LoginCtrl'
-        // })
-
-         .state('login', {
-            url: '/login',
-            templateUrl: 'src/loginSecond/loginSecond.html',
-            controller: 'LoginCtrl'
+        .state('login', {
+           url: '/login',
+           //abstract: true,
+           templateUrl: 'src/login/login.html',
+           controller: 'LoginCtrl'
         })
+
+        // .state('login', {
+        //     url: '/login',
+        //     templateUrl: 'src/loginSecond/loginSecond.html',
+        //     controller: 'LoginCtrl'
+        // })
 
         .state('tabs', {
             url: '/tabs',
@@ -385,6 +385,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             controller: 'selectStaffCtrl'
         })
         // 工单模块相关： end ------------------------
+        .state('changePass', {
+            url: '/changePass',
+            templateUrl: 'src/settings/changePass/changePass.html',
+            controller: 'ChangePassCtrl'
+        })
         //报工单模块 start-----
         .state('worksheetReportedList', {
             url: '/worksheetReportedList',
