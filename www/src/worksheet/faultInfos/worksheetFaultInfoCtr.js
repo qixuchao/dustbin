@@ -9,6 +9,7 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
             $scope.faulInfos = worksheetDetail.ES_OUT_LIST;
 
             var arrInfos = worksheetDetail.ET_TEXT.item;
+            console.log($scope.faulInfos);
             var remark = []; var result = "";
             if(arrInfos === undefined){
 
@@ -25,7 +26,6 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
                 remark : remark,
                 result : result
             };
-
         });
         $scope.edit = function(){
             $state.go("worksheetFaultInfosEdit");
@@ -268,7 +268,8 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         //场景
         var urlChang = ROOTCONFIG.hempConfig.basePath + 'LIST_SCENARIO';
         HttpAppService.post(urlChang, data).success(function(response){
-            $scope.scenario = response.MT_ListScenario_Res.ET_SCENARIO.item;
+            console.log(angular.toJson(response));
+            $scope.scenario = response.ET_SCENARIO.item;
             for(var i=0;i<$scope.scenario.length;i++){
                 if($scope.scenario[i].SCENARIO === $scope.faulInfos.SCENARIO){
                     $scope.config.scenarioItem = $scope.scenario[i];

@@ -8,7 +8,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         //}
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             //if(fromState.name == 'worksheetSelectPro' && toState.name == 'worksheetSparepart'){
-                var proInfos =  worksheetHttpService.addPro.proInfos;
+            //    var proInfos =  worksheetHttpService.addPro.proInfos;
                 var proInfos =  worksheetHttpService.addPro.proInfos;
             //}
                 $scope.config = {
@@ -48,6 +48,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 $scope.config.wareHouse = worksheetHttpService.addPro.wareHouse;
                 $scope.infos = proInfos;
             }
+            //console.log($scope.infos);
             //$scope.goSAPInfos = new Array();
             //cangku
             var urlCang = ROOTCONFIG.hempConfig.basePath + 'SERVICE_ORDER_STORAGE';
@@ -941,6 +942,7 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
             }
         };
         $scope.selectdPro = function(item){
+            //console.log(item);
             if(item.checkedP == 'YES'){
                 if($scope.checkedPro.length < 1){
                     $scope.checkedPro.push(item);
@@ -972,6 +974,7 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                     addProInfos.push($scope.spareList[i]);
                 }
             }
+            //console.log(addProInfos)
             var a = worksheetHttpService.addPro.proInfos;
             if(a!= undefined){
                 addProInfos = addProInfos.concat(a);

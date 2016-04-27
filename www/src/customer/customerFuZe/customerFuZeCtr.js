@@ -66,7 +66,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
                     console.log(response);
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG === 'S') {
-                        //$cordovaToast.showShortBottom('删除成功 ');
+                        $cordovaToast.showShortBottom('删除成功 ');
                         $scope.updateInfos();
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
