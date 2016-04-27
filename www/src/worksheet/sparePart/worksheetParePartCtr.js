@@ -581,6 +581,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         }
         $scope.upDown = true;
         $scope.showDetail = function(items) {
+            console.log(items);
             for(var i=0;i<$scope.spareDetail.length;i++){
                 $scope.spareDetail[i].scrollStyle = "height:"+0+"px";
             }
@@ -590,6 +591,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
              }else {
                 items.scrollStyle = "height:"+items.detail.length * 116+"px";
             }
+            console.log(items.scrollStyle);
             for(var i=0;i<$scope.spareDetail.length;i++){
                 if($scope.spareDetail[i].flag === false && $scope.spareDetail[i].STORAGE_DESC !== items.STORAGE_DESC){
                     $scope.spareDetail[i].flag = true;
@@ -605,9 +607,11 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         }
 
         $scope.showDetailInfos = false;
-        var a=document.getElementById("content").offsetHeight-44;
+        var a=document.getElementById("content").offsetHeight;
+        console.log(a);
         var h = $scope.spareDetail.length;
         var sco = a - 48*h;
+        console.log(sco);
         $scope.goUpdateSAP = function(){
             Prompter.showLoading("正在传输");
             var item = new Array();
