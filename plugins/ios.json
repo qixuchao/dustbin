@@ -19,6 +19,9 @@
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
+        },
         "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
@@ -54,9 +57,6 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.crmEnergy.atl"
         }
     },
     "dependent_plugins": {}
