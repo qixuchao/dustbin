@@ -255,6 +255,12 @@ $main-lineColor: #d2d2d2;
         top: 60px;
         left: 3px;
       }
+      .visit {
+        width: 48px;
+        position: absolute;
+        top: 65px;
+        left: 3px;
+      }
       .clue {
         width: 22px;
         position: absolute;
@@ -275,6 +281,12 @@ $main-lineColor: #d2d2d2;
         top: 9px;
         height: 35px;
         left: 66px;
+      }
+      .check {
+        position: absolute;
+        top: 9px;
+        height: 32px;
+        left: 65px;
       }
       .contacts {
         position: absolute;

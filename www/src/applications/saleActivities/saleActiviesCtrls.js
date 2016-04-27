@@ -276,7 +276,7 @@ salesModule
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             Prompter.hideLoading();
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
-                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_TXT.split(' ')[1];
+                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
                                 if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
                                     $scope.salesGroup.push(response.ET_ORGMAN.item[i]);
                                 }
@@ -353,12 +353,18 @@ salesModule
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $cordovaDatePicker, $ionicActionSheet, saleActService, saleChanService, Prompter
             , HttpAppService, relationService, customeService, contactService, employeeService) {
+            if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL"){
+                //相关方类型值列表
+                $scope.relationPositionArr = saleActService.relationPositionArr.CATL;
+            }else{
+                $scope.relationPositionArr = saleActService.relationPositionArr.ATL;
+                $scope.isATL = true;
+            }
             $scope.formTest = function () {
                 Prompter.alert('提交');
             };
             $scope.details = {relations: []};
-            //相关方类型值列表
-            $scope.relationPositionArr = saleActService.relationPositionArr;
+
             ionicMaterialInk.displayEffect();
             $scope.urgentDegreeArr = saleActService.urgentDegreeArr;
             var getRelationPosition = function (data) {
@@ -412,6 +418,8 @@ salesModule
                 return x;
             };
             $scope.listInfo = saleActService.actDetail;
+            //ZA04类型不能修改相关方
+            $scope.isCanEditRelation = true;
             var getDetails = function () {
                 Prompter.showLoading('正在查询');
                 var data = {
@@ -431,6 +439,9 @@ salesModule
                             };
                             $scope.details.urgent = $scope.urgentDegreeArr[getUrgentIndex($scope.details.ZZHDJJD)];
                             $scope.details.actType = getActType($scope.details.PROCESS_TYPE);
+                            if($scope.details.PROCESS_TYPE=="ZA04"){
+                                $scope.isCanEditRelation = false;
+                            }
                             $scope.relationArr = response.ET_PARTNERS.item;
                             $scope.details.customerName = getCustomerName();
                             //进展
@@ -774,6 +785,14 @@ salesModule
                 if (!$scope.isEdit) {
                     return
                 }
+                if(!$scope.isCanEditRelation){
+                    Prompter.alert('此类型相关方无法修改!');
+                    return
+                }
+                if (x.PARTNER_FCT == "Z0000003" && !angular.isUndefined(x.mode)) {
+                    Prompter.alert(x.position+'不能删除或替换!');
+                    return
+                }
                 repTempIndex = $scope.relationArr.indexOf(x);
                 $ionicActionSheet.show({
                     buttons: [
@@ -785,7 +804,7 @@ salesModule
                     buttonClicked: function (index) {
                         switch (index) {
                             case 0:
-                                if (x.position == '客户') {
+                                if (x.PARTNER_FCT == '00000009') {
                                     $scope.details.customerName = '';
                                     relationService.relationCustomer = {};
                                 }
@@ -824,17 +843,17 @@ salesModule
             };
             //跳转详情界面
             $scope.goRelationDetail = function (x) {
-                switch (x.position) {
-                    case '客户':
+                switch (x.PARTNER_FCT) {
+                    case '00000009':
                         x.PARTNER_ROLE = 'CRM000';
                         customeService.set_customerListvalue(x);
                         $state.go('customerDetail');
                         break;
-                    case 'CATL销售':
+                    case 'Z0000003':
                         employeeService.set_employeeListvalue(x);
                         $state.go('userDetail');
                         break;
-                    case '联系人':
+                    case '00000015':
                         contactService.set_ContactsListvalue(x.PARTNER);
                         $state.go('ContactDetail');
                         break;

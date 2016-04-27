@@ -93,8 +93,8 @@
                          ng-repeat="x in filters.status">{{x.text}}
                     </div>
                 </div>
-                <div class="status">紧急程度</div>
-                <div class="row row-wrap statusSecond">
+                <div class="status" ng-hide="isATL">紧急程度</div>
+                <div class="row row-wrap statusSecond" ng-hide="isATL">
                     <div class="typeSelections" ng-class="{'selected':x.flag}" ng-click="filterSelect(x,filters.urgentDegree)"
                          ng-repeat="x in filters.urgentDegree">{{x.text}}
                     </div>

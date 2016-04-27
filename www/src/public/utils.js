@@ -118,6 +118,12 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
             }
         };
         return {
+            isATL: function () {
+                if(ROOTCONFIG.hempConfig.baseEnvironment == "ATL"){
+                    return true;
+                }
+                return false;
+            },
             showShortToastBotton: function (text) {
                 if (ionic.Platform.isAndroid() || ionic.Platform.isIOS()) {
                     console.log(ionic.Platform.platform());

@@ -87,10 +87,10 @@
                      ng-show="moreflag">
             </div>
             <div ng-if="role!='APP_SALE'">
-                <!--<img src="img/main/activity.png" ng-click="openCreatePop()" ng-class="{activity:moreflag}"-->
-                     <!--ng-show="moreflag">-->
-                <!--<img src="img/main/opportunity.png" ng-click="openCreateChancePop()" ng-class="{opportunity:moreflag}"-->
-                     <!--ng-show="moreflag">-->
+                <img src="img/main/visit.png" ng-click="openCreateVisit()" ng-class="{visit:moreflag}"
+                     ng-show="moreflag">
+                <img src="img/main/check.png" ng-click="openCreateCheck()" ng-class="{check:moreflag}"
+                     ng-show="moreflag">
                 <img src="img/main/contacts.png" ng-click="createContact()" ng-class="{contacts:moreflag}"
                      ng-show="moreflag">
             </div>
@@ -108,7 +108,7 @@
     <ion-scroll class="fill-parent" delegate-handle="mainScroll-handle">
         <div class="content">
             <div class="line-vertical"></div>
-            <div class="main-content animate-fade-slide-in-right">
+            <div id="testtest" class="main-content animate-fade-slide-in-right">
                 <div class="await-apl">待处理</div>
                 <div class="obj item {{x.class}}" ng-hide="contenHideFlag" ng-repeat="x in contentArr"
                      ng-style="x.style" ng-click="goDetail(x)">
