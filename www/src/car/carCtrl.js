@@ -70,7 +70,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
                 "IS_USER": { "BNAME":window.localStorage.crmUserName },
                 "IS_PAGE": {
                     "CURRPAGE": page,
-                    "ITEMS": "10"
+                    "ITEMS": "20"
                 },
                 "IS_VEHICL_INPUT": {"SHORT_TEXT": $scope.carInfo}
             };
@@ -1023,7 +1023,8 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
 
         }])
 
-.controller('SpareCtrl',['$cordovaToast','HttpAppService','$scope','CarService','Prompter','$timeout',function($cordovaToast,HttpAppService,$scope,CarService,Prompter,$timeout){
+.controller('SpareCtrl',['$ionicScrollDelegate','$cordovaToast','HttpAppService','$scope','CarService','Prompter','$timeout',
+        function($ionicScrollDelegate,$cordovaToast,HttpAppService,$scope,CarService,Prompter,$timeout){
         $scope.spareList=[];
         $scope.searchFlag=false;
         $scope.spareDesc="";
@@ -1125,6 +1126,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 }
+                $scope.config.queryResultScrollDelegate.resize();
             }).error(function (response, status) {
                 $cordovaToast.showShortBottom('请检查你的网络设备');
             });
@@ -1201,6 +1203,10 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             });
         };
         Prompter.showLoading("正在加载");
+        $scope.config={
+            queryResultScrollDelegate:null
+        };
+        $scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("spareListResult");
         $scope.spare();
         $scope.initLoad=function(){
             page=0;

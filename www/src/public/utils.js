@@ -77,10 +77,10 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
         return request;
     }
 ]); 
-utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '$cordovaDialogs',
+utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', '$ionicPopup', '$cordovaDialogs',
     '$ionicActionSheet', '$window', '$cordovaClipboard', '$cordovaInAppBrowser', '$cordovaDatePicker', '$cordovaToast',
     '$timeout',
-    function ($ionicLoading, $rootScope, $ionicPopup, $cordovaDialogs, $ionicActionSheet, $window,
+    function ($ionicLoading,$ionicHistory, $rootScope, $ionicPopup, $cordovaDialogs, $ionicActionSheet, $window,
               $cordovaClipboard, $cordovaInAppBrowser, $cordovaDatePicker, $cordovaToast, $timeout) {
 
         var getFormatTime = function (date) {
@@ -196,7 +196,7 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
                 $ionicLoading.show({
                     template: ('<p>' + content + '</p>'),
                     animation: 'fade-in',
-                    showBackdrop: true,
+                    showBackdrop: true
                 });
             },
             hideLoading: function () {
@@ -316,6 +316,7 @@ utilsModule.service('Prompter', ['$ionicLoading', '$rootScope', '$ionicPopup', '
                         // no button = 0, 'OK' = 1, 'Cancel' = 2
                         var btnIndex = buttonIndex;
                         if (btnIndex == 1) {
+                            //$ionicHistory.goBack();
                             $rootScope.goBack();
                         }
                     });

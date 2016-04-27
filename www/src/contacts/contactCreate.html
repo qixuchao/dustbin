@@ -11,9 +11,10 @@
     <ion-content>
         <div class="list" style="font-size: 16px;margin-top:5px">
             <!--title-->
-            <span class="item item-input" style="border:none">注释：</span>
-            <textarea id="textarea2" placeholder="请输入备注" style="width: 100%;background-color:white;min-height: 47px;max-height: 300px;overflow-y: hidden;padding: 0 15px 15px 50px;border-bottom: 1px solid #ddd" ng-model="contactcreat.conatctdeatilnote" ng-init="autoHeight()"></textarea>
-
+            <div ng-hide="showFlag">
+                <span class="item item-input" style="border:none">注释：</span>
+                <textarea id="textarea2" placeholder="请输入备注" style="width: 100%;background-color:white;max-height: 300px;overflow-y: hidden;padding: 0 15px 15px 50px;border-bottom: 1px solid #ddd" ng-model="contactcreat.conatctdeatilnote" ng-init="autoHeight()"></textarea>
+            </div>
             <span class="item item-input">客户：
                 <div class="row" ng-click="openSelectCustomer()">
                     <div class="col col-74 col-center" style="color:#9B9B9B" ng-bind="contactcreat.PARTNER2VALUE"></div>
@@ -92,12 +93,13 @@
                     </div>
                 </div>
             </div>
-           <span class="item item-input">邮编：
+           <span class="item item-input" ng-show="showFlag">邮编：
                 <input type="text" style="margin-left: 32px;" id="contcreapostm" placeholder="请输入部门邮编" class="contact_editinputsty"  ng-model="contactcreat.POST_CODE1">
                 <img id="contcreapostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('POST_CODE1')"/>
             </span>
-             <span class="item item-input"  ng-show="showFlag">地址：
-                <input type="text" style="margin-left: 32px;" id="contcreateaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactcreat.STREET">
+             <span class="item item-input" >地址：
+                 <textarea id="textarea3" placeholder="请输入地址" style="width: 100%;background-color:white;max-height: 300px;overflow-y: hidden;padding: 20px 15px 15px 64px;" ng-model="contactcreat.STREET" ng-init="autoHeight1()"></textarea>
+                <!--<input type="text" style="margin-left: 32px;" id="contcreateaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactcreat.STREET">-->
                 <img id="contcreaaddressnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('STREET')"/>
             </span>
             <span class="item item-input" ng-show="showFlag">门牌号：

@@ -207,22 +207,41 @@ customerModule
             $scope.customer_query_historylists = [];
         };
         //点击历史记录开始请求
-        $scope.CustomerHisGetvalue = function(value){
-            $scope.customer.customerfiledvalue = value.name;
-            $scope.customerQuery_list = [];
-            $scope.customerQuery_list = new Array;
-            $scope.customerPage = 0;
-            $scope.customer_queryflag = true;
-            $ionicScrollDelegate.resize();
-            $scope.customerisshow = true;
-            if(!$scope.$$phase) {
-                $scope.$apply();
-            };
-        };
+
+        //$scope.CustomerHisGetvalue = function(value){
+        //    $scope.customer.customerfiledvalue = value.name;
+        //    $scope.customerQuery_list = [];
+        //    $scope.customerQuery_list = new Array;
+        //    $scope.customerPage = 0;
+        //    $scope.customer_queryflag = true;
+        //    $ionicScrollDelegate.resize();
+        //    $scope.customerisshow = true;
+        //    if(!$scope.$$phase) {
+        //        $scope.$apply();
+        //    };
+        //};
+        //    $scope.config={
+        //        queryResultScrollDelegate:""
+        //    };
+        //    $scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("customerListResult");
+        ////
+        //$scope.CustomerHisGetvalue = function(value){
+        //    $scope.customer.customerfiledvalue = value.name;
+        //    $scope.customerQuery_list = [];
+        //    $scope.customerQuery_list = new Array;
+        //    $scope.customerPage = 0;
+        //    $scope.customer_queryflag = true;
+        //    $ionicScrollDelegate.resize();
+        //    $scope.customerisshow = true;
+        //    if(!$scope.$$phase) {
+        //        $scope.$apply();
+        //    };
+        //};
             //$scope.config={
             //    queryResultScrollDelegate:""
             //};
             //$scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("customerListResult");
+
 
         //跳转detail界面
         //$scope.customergodeatil = function(cusvalue){
@@ -257,8 +276,7 @@ customerModule
                                 if (!err) {
                                 } else {
                                 }
-
-                            })
+                            });
                             //storedb('customerdb').find().splice(i,1);
                             storedb('customerdb').insert({"name": $scope.customer.customerfiledvalue}, function (err) {
                                 if (!err) {

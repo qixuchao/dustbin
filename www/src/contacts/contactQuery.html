@@ -10,16 +10,6 @@
             </div>
         </ion-header-bar>
     </div>
-    <!--<div class="saleList">-->
-        <!--<ion-header-bar align-title="center" class="head pub-head">-->
-            <!--<div class="row row-center">-->
-                <!--<a class="col col-15 text-left goBack button button-clear" ng-click=""></a>-->
-                <!--<div class="col col-70 text-center">联系人</div>-->
-                <!--<div class="col col-20 add" style="text-align: left" ng-click="Contactsopenpopv()">-->
-                    <!--<img src="img/employee/increase@2x.png"/>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</ion-header-bar>-->
         <ion-header-bar  class="bar bar-subheader">
             <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
                 <i class="icon ion-ios-search placeholder-icon"></i>
@@ -27,14 +17,8 @@
                 <input type="text" placeholder="请输入联系人信息" ng-model="config.contactfiledvalue" ng-click="changePage()" ng-change="initLoad()">
                 <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
             </div>
-            <!--<div class="employeequery_headquery">-->
-                <!--<i class="ion-ios-search employeequery_headqueryimg"></i>-->
-                <!--<input type="text" id="contactinputvalueid" ng-model="contact.contactfiledvalue" ng-change="initLoad()" class="employeequery_headqueryinput" placeholder="请输入联系人姓名、编号、电话、手机"/>-->
-                <!--<i id="contactqueryinput" class="icon ion-ios-close-empty contactqueryinputdelete" ng-click="contactiputDeletevalue('note')"></i>-->
-            <!--</div>-->
     </ion-header-bar>
         <ion-content ng-show="!searchFlag" style="margin-bottom: 50px">
-            <!--<img ng-src="img/car/oftenCar.png" class="textImg">-->
             <div class="Car_countentbasic">
                 <div class="Car_countentbasicinfo">常用联系人</div>
                 <div class="Car_countentbasicline"></div>
