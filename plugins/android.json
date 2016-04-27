@@ -22,9 +22,6 @@
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
-        "cordova-plugin-crosswalk-webview": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
         "cordova-plugin-datepicker": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
@@ -56,6 +53,9 @@
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
         "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
+        },
+        "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         }
     },
