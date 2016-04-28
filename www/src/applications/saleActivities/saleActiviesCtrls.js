@@ -735,6 +735,7 @@ salesModule
                 $scope.referMoreflag = !$scope.referMoreflag;
             };
             $scope.openRefer = function () {
+                return;
                 if (!$scope.isEdit) {
                     return
                 }
