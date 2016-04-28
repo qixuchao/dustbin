@@ -343,7 +343,8 @@ customerModule
         if(LoginService.getProfileType()=="APP_SERVICE"){
             $scope.customer_types = [{name : '正式客户',color1 : false,color2: true},{name : '服务供应商',color1 : false,color2: true},{ name:'终端客户',color1 : false,color2: true}];
         }else if (LoginService.getProfileType()=="APP_SALE"){
-            $scope.customer_types = [{name:'潜在客户',color1 : false,color2: true},{name:'正式客户',color1 : false,color2: true},{name:'竞争对手',color1 : false,color2: true},{name:'助销合作伙伴',color1 : false,color2: true},{name:'终端客户',color1 : false,color2: true},{name:'服务供应商',color1 : false,color2: true}];
+            $scope.customer_types = [{name:'潜在客户',color1 : false,color2: true},{name:'正式客户',color1 : false,color2: true},{name:'竞争对手',color1 : false,color2: true},{name:'助销合作伙伴',color1 : false,color2: true}];
+            //,{name:'终端客户',color1 : false,color2: true},{name:'服务供应商',color1 : false,color2: true}
         }
 
         $scope.customerqueryTypeunit = "常用客户";
