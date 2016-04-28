@@ -343,7 +343,7 @@ customerModule
         if(LoginService.getProfileType()=="APP_SERVICE"){
             $scope.customer_types = [{name : '正式客户',color1 : false,color2: true},{name : '服务供应商',color1 : false,color2: true},{ name:'终端客户',color1 : false,color2: true}];
         }else if (LoginService.getProfileType()=="APP_SALE"){
-            $scope.customer_types = [{name:'潜在客户',color1 : false,color2: true},{name:'正式客户',color1 : false,color2: true},{name:'竞争对手',color1 : false,color2: true},{name:'助销伙伴',color1 : false,color2: true},{name:'终端客户',color1 : false,color2: true},{name:'服务供应商',color1 : false,color2: true}];
+            $scope.customer_types = [{name:'潜在客户',color1 : false,color2: true},{name:'正式客户',color1 : false,color2: true},{name:'竞争对手',color1 : false,color2: true},{name:'助销合作伙伴',color1 : false,color2: true},{name:'终端客户',color1 : false,color2: true},{name:'服务供应商',color1 : false,color2: true}];
         }
 
         $scope.customerqueryTypeunit = "常用客户";
@@ -376,7 +376,7 @@ customerModule
                     case '竞争对手':
                         $scope.customerselecttyperole = 'Z00002';
                         break;
-                    case '助销伙伴':
+                    case '助销合作伙伴':
                         $scope.customerselecttyperole = 'Z00003';
                         break;
                     case '终端客户':
@@ -397,7 +397,7 @@ customerModule
                     case '竞争对手':
                         $scope.customerselecttyperole = 'ZATL05';
                         break;
-                    case '助销伙伴':
+                    case '助销合作伙伴':
                         $scope.customerselecttyperole = 'ZATL06';
                         break;
                 }
@@ -591,7 +591,7 @@ customerModule
                 $scope.customerDroletype='竞争对手';
                 customerDroletypenewvalue = 'Z00002';
             }else if(customerDroletypeold.includes("Z00003")){
-                $scope.customerDroletype='助销伙伴';
+                $scope.customerDroletype='助销合作伙伴';
                 customerDroletypenewvalue = 'Z00003';
             }else if(customerDroletypeold.includes("CRM000")== false && customerDroletypeold.includes("BBP000") == true){
                 $scope.customerDroletype='服务商';
@@ -606,7 +606,7 @@ customerModule
                 $scope.customerDroletype='竞争对手';
                 customerDroletypenewvalue = 'ZATL05';
             }else if(customerDroletypeold.includes("ZATL06")){
-                $scope.customerDroletype='助销伙伴';
+                $scope.customerDroletype='助销合作伙伴';
                 customerDroletypenewvalue = 'ZATL06';
             }else if(customerDroletypeold.includes("Z00004")){
                 $scope.customerDroletype='终端客户';
@@ -652,7 +652,7 @@ customerModule
             //移动电话
             $scope.customerDetailmobilenum = false;
 
-        }else if($scope.customerDroletype == "助销伙伴"){
+        }else if($scope.customerDroletype == "助销合作伙伴"){
             //付款方式
             $scope.customerDetailplayway = false;
             //付款日历
