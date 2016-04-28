@@ -44,7 +44,7 @@
                     <input type="text" ng-model="details.customerName" readonly
                            ng-class="{'border-bottom-white':isEdit}">
 
-                    <div class="urgentDegree">
+                    <div class="urgentDegree" ng-hide="isATL">
                         <select ng-model="details.urgent" ng-disabled="!isEdit" ng-options="x as x.text for x in urgentDegreeArr"></select>
                         <div ng-class="details.urgent.text.length==4?'textFour':'textFif'">{{details.urgent.text}}</div>
                     </div>
@@ -110,7 +110,7 @@
                         <div class="col col-15 text-right rewrite"><img src="img/saleDetail/Shape.png"></div>
                     </div>
                 </div>
-                <div class="progress">
+                <div class="progress" ng-hide="isATL">
                     <div class="row">进展:</div>
                     <div class="obj own-animated {{x.class?x.class:'zoomInRight'}}" ng-repeat="x in makeConsensus.item">
                         <i class="ion-ios-close" ng-click="deleteProcess(x,makeConsensus.item,$index,'makeConsensus',$event)"></i>
@@ -164,13 +164,13 @@
                     <div class="col col-60 col-center">{{x.NAME}}</div>
                     <div class="col position col-center text-center">{{x.position}}</div>
                 </div>
-                <div class="row row-center add" ng-if="isEdit">
+                <div class="row row-center add" ng-if="isEdit&&isCanEditRelation">
                     <div class="col" ng-click="openRelations()"><i class="ion-ios-plus-outline"></i>添加相关方</div>
                 </div>
             </div>
         </div>
     </ion-content>
-    <div class="bar bar-footer content item-input-inset" keyboard-attach>
+    <div class="bar bar-footer content item-input-inset" keyboard-attach ng-hide="isATL">
         <form ng-submit="formTest()" style="width: 100%">
             <div class="submit">
                 <div class="row row-center">

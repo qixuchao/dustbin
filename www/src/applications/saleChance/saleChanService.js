@@ -192,6 +192,142 @@ salesModule.factory('saleChanService', function () {
         text:'投标报价阶段',
         value:'Z13'
     }];
+    var saleStages2 = {
+        CATL:{
+            EBUS:[{
+                text:'关系建立阶段',
+                value:'Z01',
+                confidence:0
+            },{
+                text:'方案沟通确认',
+                value:'Z03',
+                confidence:20
+            },{
+                text:'样品合同签订',
+                value:'Z04',
+                confidence:20
+            },{
+                text:'样品设计',
+                value:'Z05',
+                confidence:20
+            },{
+                text:'样品试制',
+                value:'Z06',
+                confidence:20
+            },{
+                text:'样品测试',
+                value:'Z07',
+                confidence:20
+            },{
+                text:'SOP阶段',
+                value:'Z12',
+                confidence:80
+            },{
+                text:'投标报价阶段',
+                value:'Z13',
+                confidence:90
+            },{
+                text:'合同签订',
+                value:'Z14',
+                confidence:90
+            }],
+            ECAR:[{
+                text:'关系建立阶段',
+                value:'Z01',
+                confidence:0
+            },{
+                text:'方案沟通确认',
+                value:'Z03',
+                confidence:20
+            },{
+                text:'A样',
+                value:'Z08',
+                confidence:20
+            },{
+                text:'B样',
+                value:'Z09',
+                confidence:20
+            },{
+                text:'C样',
+                value:'Z10',
+                confidence:20
+            },{
+                text:'D样',
+                value:'Z11',
+                confidence:20
+            },{
+                text:'SOP阶段',
+                value:'Z12',
+                confidence:80
+            },{
+                text:'投标报价阶段',
+                value:'Z13',
+                confidence:80
+            },{
+                text:'合同签订',
+                value:'Z14',
+                confidence:90
+            },{
+                text:'EOP阶段',
+                value:'Z15',
+                confidence:90
+            }],
+            ESS:[{
+                text:'关系建立阶段',
+                value:'Z01',
+                confidence:0
+            },{
+                text:'方案沟通确认',
+                value:'Z03',
+                confidence:20
+            },{
+                text:'样品合同签订',
+                value:'Z04',
+                confidence:20
+            },{
+                text:'样品设计',
+                value:'Z05',
+                confidence:20
+            },{
+                text:'样品试制',
+                value:'Z06',
+                confidence:20
+            },{
+                text:'样品测试',
+                value:'Z07',
+                confidence:20
+            },{
+                text:'SOP阶段',
+                value:'Z12',
+                confidence:80
+            },{
+                text:'投标报价阶段',
+                value:'Z13',
+                confidence:80
+            },{
+                text:'合同签订',
+                value:'Z14',
+                confidence:90
+            }]
+        },
+        ATL:[{
+            text:'关系建立阶段',
+            value:'Z1',
+            confidence:0
+        },{
+            text:'技术交流及式样阶段',
+            value:'Z14',
+            confidence:20
+        },{
+            text:'投标报价阶段',
+            value:'Z3',
+            confidence:80
+        },{
+            text:'合同签订',
+            value:'Z4',
+            confidence:90
+        }]
+    };
     var saleUnits = [{
         value:'AH',
         text:'安时'
@@ -234,6 +370,7 @@ salesModule.factory('saleChanService', function () {
         text:'CATL销售2',
         code:'Z0000004'
     }];
+
     var chanListArr=[],
         listPage=1,
         obj_id,

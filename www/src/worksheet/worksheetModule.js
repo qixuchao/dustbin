@@ -191,6 +191,10 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
             proInfos : "",
             wareHouse : ""
         },
+        goWhere : {
+            go : '',
+            back :''
+        },
         //产品
 
         serviceDetail: {

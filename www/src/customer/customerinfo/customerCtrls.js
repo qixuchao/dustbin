@@ -89,7 +89,7 @@ customerModule
             var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST';
             var data = {
                 "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                "IS_USER": { "BNAME": window.localStorage.crmUserName },
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_PAGE": {
                     "CURRPAGE": $scope.customerPage,
                     "ITEMS": "10"
@@ -422,7 +422,8 @@ customerModule
             $scope.customerPopoverhide();
         };
     }])
-    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet',function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet){
+    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet','saleActService',
+        function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet,saleActService){
 
         //文本框自适应换行
         var autoTextarea = function (elem, extra, maxHeight) {
@@ -598,16 +599,25 @@ customerModule
             };
             $scope.authInfo = LoginService.getAuthInfoByFunction(customerDroletypenewvalue);
         }else{
-            //if(customerDroletypeold.includes("ZATL") || customerDroletypeold.includes("CRM000")){
-            //    $scope.customerDroletype='潜在客户';
-            //    customerDroletypenewvalue = 'CRM000';
-            //}else if(customerDroletypeold.includes("Z00002")){
-            //    $scope.customerDroletype='竞争对手';
-            //    customerDroletypenewvalue = 'Z00002';
-            //}else if(customerDroletypeold.includes("Z00003")){
-            //    $scope.customerDroletype='助销伙伴';
-            //    customerDroletypenewvalue = 'Z00003';
-            //}
+            if(customerDroletypeold.includes("ZATL01")){
+                $scope.customerDroletype='潜在客户';
+                customerDroletypenewvalue = 'ZATL01';
+            }else if(customerDroletypeold.includes("ZATL05")){
+                $scope.customerDroletype='竞争对手';
+                customerDroletypenewvalue = 'ZATL05';
+            }else if(customerDroletypeold.includes("ZATL06")){
+                $scope.customerDroletype='助销伙伴';
+                customerDroletypenewvalue = 'ZATL06';
+            }else if(customerDroletypeold.includes("Z00004")){
+                $scope.customerDroletype='终端客户';
+                customerDroletypenewvalue = 'Z00004';
+            }else if(customerDroletypeold.includes("CRM000")){
+                $scope.customerDroletype='正式客户';
+                customerDroletypenewvalue = 'CRM000';
+            }else if(customerDroletypeold.includes("CRM000")== false && customerDroletypeold.includes("BBP000") == true){
+                $scope.customerDroletype='服务商';
+                customerDroletypenewvalue = 'BBP000';
+            };
         }
         if($scope.customerDroletype == "潜在客户" || $scope.customerDroletype == "正式客户" || $scope.customerDroletype == "终端客户"){
             //竞争对手领域
@@ -676,7 +686,31 @@ customerModule
             //街道三
             $scope.customerDetailstrreth = false;
         };
-
+        if(ROOTCONFIG.hempConfig.baseEnvironment == 'ATL'){
+            //竞争对手领域
+            $scope.customerDetailZzlyone = false;
+            //份额
+            $scope.customerDetailContains = false;
+            //价格
+            $scope.customerDetailPrice = false;
+            //助销伙伴领域
+            $scope.customerDetailZzlytwo = false;
+            //长项
+            $scope.customerDetailAdvatage = false;
+            //项目
+            $scope.customerDetailEvent = false;
+            if($scope.customerDroletype == "潜在客户" || $scope.customerDroletype == "正式客户"){
+                //付款方式
+                $scope.customerDetailplayway = true;
+                //付款日历
+                $scope.customerDetailplaydate = true;
+            }else{
+                //付款方式
+                $scope.customerDetailplayway = false;
+                //付款日历
+                $scope.customerDetailplaydate = false;
+            }
+        }
         Prompter.showLoading("数据加载中...");
         var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
         var data = {
@@ -685,7 +719,7 @@ customerModule
             "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
         };
         HttpAppService.post(url, data).success(function (response) {
-            //console.log(angular.toJson(response));
+            console.log(angular.toJson(response));
             Prompter.hideLoading();
             if (response.ES_RESULT.ZFLAG == 'E') {
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -726,23 +760,35 @@ customerModule
                        }
                    ]
            }else if (LoginService.getProfileType()=="APP_SALE"){
-               $scope.customer_detailstypes = [{
-                   typemane:'联系人',
-                   imgurl:'img/customer/customerlianxir@2x.png',
-                   url:'customerContactQuery'
-               },{
-                   typemane:'负责人',
-                   imgurl:'img/customer/customerfuz@2x.png',
-                   url:'customerFuZe'
-               },{
-                   typemane:'机会',
-                   imgurl:'img/customer/customerjihui@2x.png',
-                   url:'saleChanList'
-               },{
-                   typemane:'活动',
-                   imgurl:'img/customer/customerhuod.png',
-                   url:'saleActList'
-               }];
+               if(saleActService.isFromRelation == true){
+                   $scope.customer_detailstypes = [{
+                       typemane:'联系人',
+                       imgurl:'img/customer/customerlianxir@2x.png',
+                       url:'customerContactQuery'
+                   },{
+                       typemane:'负责人',
+                       imgurl:'img/customer/customerfuz@2x.png',
+                       url:'customerFuZe'
+                   }];
+               }else{
+                   $scope.customer_detailstypes = [{
+                       typemane:'联系人',
+                       imgurl:'img/customer/customerlianxir@2x.png',
+                       url:'customerContactQuery'
+                   },{
+                       typemane:'负责人',
+                       imgurl:'img/customer/customerfuz@2x.png',
+                       url:'customerFuZe'
+                   },{
+                       typemane:'机会',
+                       imgurl:'img/customer/customerjihui@2x.png',
+                       url:'saleChanList'
+                   },{
+                       typemane:'活动',
+                       imgurl:'img/customer/customerhuod.png',
+                       url:'saleActList'
+                   }];
+               }
            } else{
                $scope.customer_detailstypes = [{
                    typemane:'联系人',
@@ -1135,12 +1181,12 @@ customerModule
             }else{
                 data.IS_ADDR.CITY1 =  $scope.config.currentCity.CITY_NAME;
             }
-            if($scope.config.currentCountry == '' || $scope.config.currentCountry == null || $scope.config.currentCountry == undefined){
+            if($scope.config.currentProvence == '' || $scope.config.currentProvence == null || $scope.config.currentProvence == undefined){
                 $cordovaToast.showShortCenter('请输入城市');
                 Prompter.hideLoading();
                 return;
             }else{
-                data.IS_ADDR.REGION =  $scope.config.currentCountry;
+                data.IS_ADDR.REGION =  $scope.config.currentProvence;
             }
             data.IT_LINES.item.TDLINE = $scope.customeredit.TDLINE;
             //data.IT_lINES.item.TDFORMAT = $scope.customeredit.TDLINE;

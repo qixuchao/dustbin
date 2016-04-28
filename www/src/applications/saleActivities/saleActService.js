@@ -118,6 +118,19 @@ salesModule.factory('saleActService', function () {
         text: '市场营销',
         value: 'ZA06'
     }];
+    var createPopTypes_ATL = [{
+        text: '技术交流',
+        value: 'ZA01'
+    }, {
+        text: '业务交流',
+        value: 'ZA02'
+    }, {
+        text: '关系维护',
+        value: 'ZA03'
+    }, {
+        text: '事务性活动',
+        value: 'ZA04'
+    }];
     var createPopOrgs = [{
         text: '公司间'
     }, {
@@ -127,26 +140,39 @@ salesModule.factory('saleActService', function () {
     }];
     var customerTypesArr = [{
         text: '正式客户',
-        code:'CRM000'
+        code: 'CRM000'
     }, {
         text: '潜在客户',
-        code:'Z00001'
+        code: 'Z00001'
     }, {
         text: '竞争对手',
-        code:'Z00002'
+        code: 'Z00002'
     }, {
         text: '合作伙伴',
-        code:'Z00003'
+        code: 'Z00003'
     }];
     var customerTypeArr_server = [{
         text: '正式客户',
-        code:'CRM000'
-    },{
+        code: 'CRM000'
+    }, {
         text: '终端客户',
-        code:'Z00004'
-    },{
+        code: 'Z00004'
+    }, {
         text: '服务商',
-        code:'BUP000'
+        code: 'BUP000'
+    }];
+    var customerTypeArr_ATL = [{
+        text: '正式客户',
+        code: 'CRM000'
+    }, {
+        text: '潜在客户',
+        code: 'ZATL01'
+    }, {
+        text: '竞争对手',
+        code: 'ZATL05'
+    }, {
+        text: '合作伙伴',
+        code: 'ZATL06'
     }];
     var customer = [{
         text: '郑州金龙客车(福州)分公司'
@@ -235,47 +261,60 @@ salesModule.factory('saleActService', function () {
         code: '02'
     }];
     var processTypesArr = [{
-        text:'处理中',
-        code:'01'
-    },{
-        text:'已完成',
-        code:'02'
-    },{
-        text:'已取消',
-        code:'03'
+        text: '处理中',
+        code: '01'
+    }, {
+        text: '已完成',
+        code: '02'
+    }, {
+        text: '已取消',
+        code: '03'
     }];
-    var relationPositionArr = [{
-        text:'联系人',
-        code:'00000015'
-    },{
-        text:'客户',
-        code:'00000009'
-    },{
-        text:'CATL销售',
-        code:'Z0000003'
-    }];
+    var relationPositionArr = {
+        CATL: [{
+            text: '联系人',
+            code: '00000015'
+        }, {
+            text: '客户',
+            code: '00000009'
+        }, {
+            text: 'CATL销售',
+            code: 'Z0000003'
+        }],
+        ATL: [{
+            text: '联系人',
+            code: '00000015'
+        }, {
+            text: '客户',
+            code: '00000009'
+        }, {
+            text: 'ATL销售',
+            code: 'Z0000003'
+        }]
+    };
     var relationPositionForAdd = [{
-        text:'联系人',
-        code:'00000015'
-    },{
-        text:'客户',
-        code:'00000009'
+        text: '联系人',
+        code: '00000015'
+    }, {
+        text: '客户',
+        code: '00000009'
     }];
     var filters = {
-        status:[{
-            text:'未处理',
-            value:'E0001'
-        },{
-            text:'处理中',
-            value:'E0002'
-        },{
-            text:'已完成',
-            value:'E0003'
-        },{
-            text:'已取消',
-            value:'E0004'
+        status: [{
+            text: '未处理',
+            value: 'E0001',
+            flag: true
+        }, {
+            text: '处理中',
+            value: 'E0002'
+        }, {
+            text: '已完成',
+            value: 'E0003'
+        }, {
+            text: '已取消',
+            value: 'E0004'
         }],
-        type:[{
+        type: [{
             text: '商务洽谈',
             value: 'ZA01'
         }, {
@@ -294,7 +333,7 @@ salesModule.factory('saleActService', function () {
             text: '市场营销',
             value: 'ZA06'
         }],
-        urgentDegree:[{
+        urgentDegree: [{
             text: '需上司支持',
             value: '01'
         }, {
@@ -314,6 +353,7 @@ salesModule.factory('saleActService', function () {
     var customerArr = [];
     var listPage = 1;
     var saleListArr = [];
+    var isFromRelation = false;
     return {
         getSaleListArr: function () {
             return saleListArr2;
@@ -354,6 +394,9 @@ salesModule.factory('saleActService', function () {
         relationPositionArr,
         relationPositionForAdd,
         filters,
-        customerTypeArr_server
+        customerTypeArr_server,
+        customerTypeArr_ATL,
+        isFromRelation,
+        createPopTypes_ATL
     };
 });

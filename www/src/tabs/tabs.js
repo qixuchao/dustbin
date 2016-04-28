@@ -4,9 +4,16 @@
 
 'use strict';
 tabsModule
-    .controller('TabsCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache','$ionicSlideBoxDelegate','$ionicPlatform', 'ionicMaterialInk',
-        function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate,$ionicPlatform,ionicMaterialInk) {
-            
+    .controller('TabsCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
+        '$ionicSlideBoxDelegate','$ionicPlatform', '$cordovaAppVersion','ionicMaterialInk','Prompter','LoginService',
+        function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate,
+                  $ionicPlatform,$cordovaAppVersion,ionicMaterialInk,Prompter,LoginService) {
+            if(Prompter.isATL()){
+                $rootScope.isATL = true;
+            }
+            console.log('sss')
+            //判断版本信息
+            LoginService.getNewVersion(LoginService.version);
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
                 if(fromState && toState && fromState.name == 'login' && toState.name == 'tabs'){
                     /*$ionicConfig.views.swipeBackEnabled(true);
