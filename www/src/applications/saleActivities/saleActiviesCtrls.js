@@ -252,7 +252,11 @@ salesModule
                 e.stopPropagation();
             };
             /*-------------------------------Pop 新建-------------------------------------*/
-            $scope.createPopTypes = saleActService.getCreatePopTypes();
+            if(Prompter.isATL()){
+                $scope.createPopTypes = saleActService.createPopTypes_ATL;
+            }else{
+                $scope.createPopTypes = saleActService.getCreatePopTypes();
+            }
             $scope.createPopOrgs = saleActService.getCreatePopOrgs();
             $scope.pop = {
                 type: {}
@@ -391,7 +395,11 @@ salesModule
                 }
                 return 0;
             };
-            var actTypes = saleActService.createPopTypes;
+            if(Prompter.isATL()){
+                var actTypes = saleActService.createPopTypes_ATL;
+            }else{
+                var actTypes = saleActService.createPopTypes;
+            }
             var getActType = function (typeCode) {
                 for (var i = 0; i < actTypes.length; i++) {
                     if (actTypes[i].value == typeCode) {
@@ -847,6 +855,7 @@ salesModule
                     case '00000009':
                         x.PARTNER_ROLE = 'CRM000';
                         customeService.set_customerListvalue(x);
+                        saleActService.isFromRelation = true;
                         $state.go('customerDetail');
                         break;
                     case 'Z0000003':

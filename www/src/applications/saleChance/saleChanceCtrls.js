@@ -928,11 +928,13 @@ salesModule
                     case "00000021":
                         x.PARTNER_ROLE = 'CRM000';
                         customeService.set_customerListvalue(x);
+                        saleActService.isFromRelation = true;
                         $state.go('customerDetail');
                         break;
                     case "00000023":
                         x.PARTNER_ROLE = 'Z00002';
                         customeService.set_customerListvalue(x);
+                        saleActService.isFromRelation = true;
                         $state.go('customerDetail');
                         break;
                     case 'Z0000003':

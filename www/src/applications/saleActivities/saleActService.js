@@ -118,6 +118,19 @@ salesModule.factory('saleActService', function () {
         text: '市场营销',
         value: 'ZA06'
     }];
+    var createPopTypes_ATL = [{
+        text: '技术交流',
+        value: 'ZA01'
+    }, {
+        text: '业务交流',
+        value: 'ZA02'
+    }, {
+        text: '关系维护',
+        value: 'ZA03'
+    }, {
+        text: '事务性活动',
+        value: 'ZA04'
+    }];
     var createPopOrgs = [{
         text: '公司间'
     }, {
@@ -340,6 +353,7 @@ salesModule.factory('saleActService', function () {
     var customerArr = [];
     var listPage = 1;
     var saleListArr = [];
+    var isFromRelation = false;
     return {
         getSaleListArr: function () {
             return saleListArr2;
@@ -378,6 +392,8 @@ salesModule.factory('saleActService', function () {
         relationPositionForAdd,
         filters,
         customerTypeArr_server,
-        customerTypeArr_ATL
+        customerTypeArr_ATL,
+        isFromRelation,
+        createPopTypes_ATL
     };
 });

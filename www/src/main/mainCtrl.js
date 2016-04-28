@@ -46,10 +46,10 @@ mainModule
             //当天周几
             var today = mydate.getDay();
 
-            if ($scope.role == 'APP_SALE') {
-                $scope.selectModeText = '销售活动';
-            } else {
+            if ($scope.role == 'APP_SERVICE') {
                 $scope.selectModeText = '服务工单';
+            } else {
+                $scope.selectModeText = '销售活动';
             }
             //当天多少号
             var day = mydate.getDate();
@@ -116,23 +116,20 @@ mainModule
                     $timeout(function () {
                         var year = angular.copy($scope.year);
                         var month = angular.copy($scope.month);
-                        if (arr[0].value > arr[6].value && select_day >= arr[0].value) {
-
-                            if (month == 1) {
-                                month = 12;
-                                year--;
-                            } else {
-                                month--;
-                            }
+                        //if (arr[0].value > arr[6].value && select_day >= arr[0].value) {
+                        //    if (month == 1) {
+                        //        month = 12;
+                        //        year--;
+                        //    }
+                        //    $scope.year = year;
+                        //    $scope.month = month;
+                        //    monthInit(year, month, select_day);
+                        //} else {
                             $scope.year = year;
                             $scope.month = month;
                             monthInit(year, month, select_day);
-                        } else {
-                            $scope.year = year;
-                            $scope.month = month;
-                            monthInit(year, month, select_day);
-                        }
-                    }, 5)
+                        //}
+                    }, 5);
                     $ionicSlideBoxDelegate.update();
                 } else {
                     document.getElementById('monthViewId').className = 'monthView';
@@ -192,13 +189,13 @@ mainModule
                     $scope.days[0].arr[countTem].checked = true;
                 }, 450);
                 //}
-                if ($scope.days[0].arr[6].value < $scope.days[0].arr[0].value && day > $scope.days[0].arr[6].value) {
-                    $scope.month++;
-                    if ($scope.month == 13) {
-                        $scope.month = 1;
-                        $scope.year++;
-                    }
-                }
+                //if ($scope.days[0].arr[6].value < $scope.days[0].arr[0].value && day > $scope.days[0].arr[6].value) {
+                //    $scope.month++;
+                //    if ($scope.month == 13) {
+                //        $scope.month = 1;
+                //        $scope.year++;
+                //    }
+                //}
                 isToday($scope.days[0].arr);
 
                 $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
@@ -238,9 +235,20 @@ mainModule
             }
             var tempDate = new Date();
             var nextDays = function (add, daysArr, nextDateObj) {
+                var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
+                var page_index = dayViewHandle.currentIndex();
+                console.log(daysArr);
+                //console.log($scope.days[page_index]);
+                var myTempMonth;
+                if(angular.isUndefined(page_index)){
+                    myTempMonth = $scope.month;
+                }else{
+                    myTempMonth = daysArr.month;
+                }
                 var arr = angular.copy(daysArr);
-                var nowLastDate = $scope.year + '/' + $scope.month + '/' + arr[6].value;
+                var nowLastDate = $scope.year + '/' + myTempMonth + '/' + arr[6].value;
                 tempDate = addDate(nowLastDate, add);
+                tempDate = new Date(nowLastDate);
                 nextDateObj.year = tempDate.getFullYear();
                 nextDateObj.month = tempDate.getMonth() + 1;
                 return getDays(nextDateObj.month, tempDate.getDate());
@@ -337,14 +345,16 @@ mainModule
             $scope.selectDay = function (x, y) {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
-                var tempMonth = angular.copy($scope.month);
                 //当前在周视图
                 if (angular.isDefined(page_index)) {
                     if ($scope.days[page_index].arr[6].value < 7 && y.value > 7) {
-                        tempMonth--;
+                        //tempMonth--;
+                        $scope.month = $scope.days[page_index].month-1;
+                    }else{
+                        $scope.month = $scope.days[page_index].month;
                     }
                 }
-                selectDate = new Date($scope.year + '/' + tempMonth + '/' + y.value).format('yyyy-MM-dd');
+                selectDate = new Date($scope.year + '/' + $scope.month + '/' + y.value).format('yyyy-MM-dd');
                 if (selectDate === lastSelectedDate) {
                     return
                 }
@@ -392,6 +402,7 @@ mainModule
                     last_day = today;
                 }
                 var addDateTemp = addDate(todayDate, last_day);
+                $scope.days[0].month = addDateTemp.getMonth() + 1;
                 $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
                 var todayTemp = angular.copy(today);
                 if (todayTemp == 0) {
@@ -406,9 +417,8 @@ mainModule
                 //模拟有代办事项
                 $scope.days[0].arr[todayTemp].toDo = true;
                 //$scope.days[0].arr[todayTemp + 1].toDo = true;
-
                 $scope.year = addDateTemp.getFullYear();
-                $scope.month = addDateTemp.getMonth() + 1;
+                $scope.month = new Date().getMonth()+1;
                 isToday($scope.days[0].arr);
                 $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
                 $scope.days[2].arr = nextDays(-7, $scope.days[0].arr, $scope.days[2]);
@@ -832,7 +842,12 @@ mainModule
 
             /*--------------------------------------新建-------------------------------------*/
             //销售活动
-            $scope.createPopTypes = saleActService.getCreatePopTypes();
+            if(Prompter.isATL()){
+                $scope.createPopTypes = saleActService.createPopTypes_ATL;
+            }else{
+                $scope.createPopTypes = saleActService.getCreatePopTypes();
+            }
+
             $scope.createPopOrgs = saleActService.getCreatePopOrgs();
             $scope.pop = {
                 type: {}
