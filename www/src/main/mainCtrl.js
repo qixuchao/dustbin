@@ -619,7 +619,7 @@ mainModule
                     salePageNum = 1;
                     var arr = document.getElementsByClassName('flipInX');
                     for (var i = 0; i < arr.length; i++) {
-                        document.getElementById(arr[i]).removeClass('animated');
+                        angular.element(arr[i]).removeClass('animated');
                     }
                     $scope.loadMoreFlag = true;
                     $scope.contentArr = [];
@@ -688,7 +688,7 @@ mainModule
                         salePageNum = 1;
                         var arr = document.getElementsByClassName('flipInX');
                         for (var i = 0; i < arr.length; i++) {
-                            document.getElementById(arr[i]).removeClass('animated');
+                            angular.element(arr[i]).removeClass('animated');
                         }
                         $scope.loadMoreFlag = true;
                         $scope.contentArr = [];
