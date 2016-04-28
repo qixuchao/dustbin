@@ -8,7 +8,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             console.log(x);
             conpageNum = 1;
             $scope.updateInfos(x);
-            if(x != undefined){
+            if(x != undefined  && x != ""){
                 $cordovaToast.showShortBottom('添加成功');
             }
         }
@@ -33,12 +33,13 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER },
             "IS_SEARCH": { "SEARCH": "" }
         };
-        console.log(data);
+        console.log(angular.toJson(data));
         HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
             .success(function (response) {
                 $scope.goload = false;
                 $scope.gomore = true;
                 console.log(angular.toJson(response));
+                console.log(angular.toJson(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST'));
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     //if(item == ""){
                         $scope.infos = (response.ET_OUT_LIST.item);

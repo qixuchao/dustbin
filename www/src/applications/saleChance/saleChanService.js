@@ -335,7 +335,7 @@ salesModule.factory('saleChanService', function () {
         value:'KWH',
         text:'千瓦时'
     },{
-        value:'PSC',
+        value:'PCS',
         text:'个、件'
     },{
         value:'SET',
@@ -355,6 +355,22 @@ salesModule.factory('saleChanService', function () {
         code:'Z0000003'
     },{
         text:'CATL销售2',
+        code:'Z0000004'
+    }];
+    var relationsTypes_ATL = [{
+        text:'竞争对手',
+        code:'00000023'
+    },{
+        text:'客户',
+        code:'00000021'
+    },{
+        text:'联系人',
+        code:'00000015'
+    },{
+        text:'ATL销售',
+        code:'Z0000003'
+    },{
+        text:'ATL销售2',
         code:'Z0000004'
     }];
     var relationsTypesForAdd = [{
@@ -395,6 +411,7 @@ salesModule.factory('saleChanService', function () {
         listStatusArr,
         relationsTypes,
         loadMoreFlag,
-        relationsTypesForAdd
+        relationsTypesForAdd,
+        relationsTypes_ATL
         }
 });

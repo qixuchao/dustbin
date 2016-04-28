@@ -11,7 +11,9 @@ tabsModule
             if(Prompter.isATL()){
                 $rootScope.isATL = true;
             }
-            console.log('sss')
+            if(ionic.Platform.isAndroid()){
+                $rootScope.isAndroid = true;
+            }
             //判断版本信息
             LoginService.getNewVersion(LoginService.version);
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
