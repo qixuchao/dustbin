@@ -40,7 +40,7 @@
     <ion-content class="has-subheader content" ng-show="!searchFlag">
         <ion-refresher pulling-text="下拉刷新..." on-refresh="getList('refresh')"></ion-refresher>
         <div class="list">
-            <a ng-click="goDetail(x,$event)" class="item animated flipInX" ng-repeat="x in saleListArr">
+            <a ng-click="goDetail(x,$event)" class="item flipInX" ng-class="isAndroid?'':'animated'" ng-repeat="x in saleListArr">
                 <div class="row row-center">
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
 
@@ -64,8 +64,8 @@
                  ng-click="changeSearch($event)" scroll="false">
         <div ng-class="filterFlag?'own-backDrop-on':'own-backDrop-off'"
              ng-click="changeFilterFlag($event)"></div>
-        <div id="saleActListFilterId" class="listFilter selectionsDown pushDown-animated refer-selectionsDown"
-             ng-class="{'slideOutUp':!filterFlag,'fadeInDown':filterFlag}"
+        <div id="saleActListFilterId" class="listFilter selectionsDown refer-selectionsDown"
+             ng-class="isAndroid?'':'pushDown-animated'"
              ng-click="filterPrevent($event)">
             <div class="type">类型</div>
             <div class="row typeRow row-wrap">

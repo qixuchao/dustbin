@@ -70,8 +70,20 @@ mainModule
             var todayDate = mydate.getFullYear() + '/' + (mydate.getMonth() + 1) + '/' + mydate.getDate();
             $scope.myTodayDate = todayDate;
             var isToday = function (days) {
+                var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
+                var page_index = dayViewHandle.currentIndex();
+                if (angular.isUndefined(page_index)) {
+                    page_index = 0;
+                }
+                var myTempMonth = $scope.days[page_index].month;
                 for (var i = 0; i < days.length; i++) {
-                    if (todayDate == $scope.year + '/' + $scope.month + '/' + days[i].value) {
+                    if (days[6].value < 7) {
+                        myTempMonth = $scope.days[page_index].month-1;
+                        if(days[i].value>0&&days[i].value<7){
+                            myTempMonth = $scope.days[page_index].month;
+                        }
+                    }
+                    if (todayDate == $scope.year + '/' + myTempMonth + '/' + days[i].value) {
                         $scope.weeks[i].flag = true;
                     } else {
                         $scope.weeks[i].flag = false;
@@ -92,13 +104,17 @@ mainModule
                 $ionicScrollDelegate.resize();
                 $ionicScrollDelegate.scrollTop(true)
                 $timeout(function () {
-                $scope.topHeight = {
-                    'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
-                };
-                },10)
+                    $scope.topHeight = {
+                        'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
+                    };
+                }, 10)
                 //切换至月视图
                 if ($scope.viewFlag == false) {
-                    document.getElementById('monthViewId').className = 'monthView own-animated fadeInDown';
+                    if(Prompter.isAndroid()){
+                        document.getElementById('monthViewId').className = 'monthView';
+                    }else{
+                        document.getElementById('monthViewId').className = 'monthView own-animated fadeInDown';
+                    }
                     document.getElementById('dayViewId').className = 'dayView';
                     $timeout(function () {
                         document.getElementById('monthViewId').className = 'monthView';
@@ -125,15 +141,19 @@ mainModule
                         //    $scope.month = month;
                         //    monthInit(year, month, select_day);
                         //} else {
-                            $scope.year = year;
-                            $scope.month = month;
-                            monthInit(year, month, select_day);
+                        $scope.year = year;
+                        $scope.month = month;
+                        monthInit(year, month, select_day);
                         //}
                     }, 5);
                     $ionicSlideBoxDelegate.update();
                 } else {
+                    if(Prompter.isAndroid()){
+                        document.getElementById('dayViewId').className = 'dayView';
+                    }else{
+                        document.getElementById('dayViewId').className = 'dayView own-animated fadeInDown';
+                    }
                     document.getElementById('monthViewId').className = 'monthView';
-                    document.getElementById('dayViewId').className = 'dayView own-animated fadeInDown';
                     $timeout(function () {
                         document.getElementById('dayViewId').className = 'dayView';
                     }, 500);
@@ -178,6 +198,7 @@ mainModule
                 }
                 var addDateTemp = addDate($scope.year + '/' + $scope.month + '/' + day, last_day);
                 $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
+                $scope.days[0].month = addDateTemp.getMonth() + 1;
                 //if(day!=1){
                 var countTem;
                 for (var i = 0; i < $scope.days[0].arr.length; i++) {
@@ -237,18 +258,18 @@ mainModule
             var nextDays = function (add, daysArr, nextDateObj) {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
-                console.log(daysArr);
                 //console.log($scope.days[page_index]);
                 var myTempMonth;
-                if(angular.isUndefined(page_index)){
-                    myTempMonth = $scope.month;
-                }else{
-                    myTempMonth = daysArr.month;
+                if (angular.isUndefined(page_index)) {
+                    myTempMonth = $scope.days[0].month;
+                } else {
+                    myTempMonth = $scope.days[page_index].month;
                 }
+                console.log(myTempMonth)
                 var arr = angular.copy(daysArr);
                 var nowLastDate = $scope.year + '/' + myTempMonth + '/' + arr[6].value;
                 tempDate = addDate(nowLastDate, add);
-                tempDate = new Date(nowLastDate);
+                //tempDate = new Date(nowLastDate);
                 nextDateObj.year = tempDate.getFullYear();
                 nextDateObj.month = tempDate.getMonth() + 1;
                 return getDays(nextDateObj.month, tempDate.getDate());
@@ -345,12 +366,13 @@ mainModule
             $scope.selectDay = function (x, y) {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
+                console.log(page_index)
                 //当前在周视图
                 if (angular.isDefined(page_index)) {
                     if ($scope.days[page_index].arr[6].value < 7 && y.value > 7) {
                         //tempMonth--;
-                        $scope.month = $scope.days[page_index].month-1;
-                    }else{
+                        $scope.month = $scope.days[page_index].month - 1;
+                    } else {
                         $scope.month = $scope.days[page_index].month;
                     }
                 }
@@ -418,7 +440,7 @@ mainModule
                 $scope.days[0].arr[todayTemp].toDo = true;
                 //$scope.days[0].arr[todayTemp + 1].toDo = true;
                 $scope.year = addDateTemp.getFullYear();
-                $scope.month = new Date().getMonth()+1;
+                $scope.month = new Date().getMonth() + 1;
                 isToday($scope.days[0].arr);
                 $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
                 $scope.days[2].arr = nextDays(-7, $scope.days[0].arr, $scope.days[2]);
@@ -595,9 +617,9 @@ mainModule
                 if (type == 'init') {
                     $scope.loadMoreHasData = true;
                     salePageNum = 1;
-                    var arr = document.getElementsByClassName('item');
+                    var arr = document.getElementsByClassName('flipInX');
                     for (var i = 0; i < arr.length; i++) {
-                        arr[i].style.transitionDelay = '0s';
+                        document.getElementById(arr[i]).removeClass('animated');
                     }
                     $scope.loadMoreFlag = true;
                     $scope.contentArr = [];
@@ -649,12 +671,6 @@ mainModule
                             } else {
                                 $scope.contentArr = $scope.contentArr.concat(tempArr);
                             }
-                            $timeout(function () {
-                                ionicMaterialMotion.fadeSlideInRight({
-                                    startVelocity: 3000,
-                                    selector: '.animate-fade-slide-in-right .item'
-                                });
-                            }, 100);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $ionicScrollDelegate.resize();
                         } else {
@@ -670,9 +686,9 @@ mainModule
                     if (type == 'init') {
                         $scope.loadMoreHasData = true;
                         salePageNum = 1;
-                        var arr = document.getElementsByClassName('obj');
+                        var arr = document.getElementsByClassName('flipInX');
                         for (var i = 0; i < arr.length; i++) {
-                            arr[i].style.transitionDelay = '0s';
+                            document.getElementById(arr[i]).removeClass('animated');
                         }
                         $scope.loadMoreFlag = true;
                         $scope.contentArr = [];
@@ -746,12 +762,6 @@ mainModule
                                 } else {
                                     $scope.contentArr = $scope.contentArr.concat(tempArr);
                                 }
-                                $timeout(function () {
-                                    ionicMaterialMotion.fadeSlideInRight({
-                                        startVelocity: 3000,
-                                        selector: '.animate-fade-slide-in-right .item'
-                                    });
-                                }, 100);
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                                 $ionicScrollDelegate.resize();
                             } else {
@@ -842,9 +852,9 @@ mainModule
 
             /*--------------------------------------新建-------------------------------------*/
             //销售活动
-            if(Prompter.isATL()){
+            if (Prompter.isATL()) {
                 $scope.createPopTypes = saleActService.createPopTypes_ATL;
-            }else{
+            } else {
                 $scope.createPopTypes = saleActService.getCreatePopTypes();
             }
 
@@ -870,15 +880,14 @@ mainModule
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
                     .success(function (response) {
                         $scope.creaeSpinnerFlag = false;
+                        var tempOfficeArr = [];
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
-                                console.log(i)
-                                //response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
-                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && tempOfficeArr.indexOf(response.ET_ORGMAN.item[i].SALES_OFFICE) == -1) {
                                     $scope.salesGroup.push(response.ET_ORGMAN.item[i]);
+                                    tempOfficeArr.push(response.ET_ORGMAN.item[i].SALES_OFFICE);
                                 }
                             }
-                            console.log($scope.salesGroup);
                             $scope.pop.saleOffice = $scope.salesGroup[0];
                             Prompter.hideLoading();
                             $scope.createPop.show();
@@ -923,11 +932,13 @@ mainModule
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
                     .success(function (response) {
                         Prompter.hideLoading();
+                        var tempOfficeArr = [];
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
                                 response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
-                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesChanceGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && tempOfficeArr.indexOf(response.ET_ORGMAN.item[i].SALES_OFFICE) == -1) {
                                     $scope.salesChanceGroup.push(response.ET_ORGMAN.item[i]);
+                                    tempOfficeArr.push(response.ET_ORGMAN.item[i].SALES_OFFICE);
                                 }
                             }
                             if ($scope.salesChanceGroup.length > 1) {

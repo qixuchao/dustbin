@@ -102,15 +102,15 @@
         </div>
     </div>
 </div>
-<ion-content id="mainContentId" class="main animate-fade-slide-in has-footer" has-bouncing="false"
+<ion-content id="mainContentId" class="main has-footer" has-bouncing="false"
              ng-class="{expanded:isExpanded}"
              ng-style="topHeight" scroll="false">
     <ion-scroll class="fill-parent" delegate-handle="mainScroll-handle">
         <div class="content">
             <div class="line-vertical"></div>
-            <div id="testtest" class="main-content animate-fade-slide-in-right">
+            <div class="main-content">
                 <div class="await-apl">待处理</div>
-                <div class="obj item {{x.class}}" ng-hide="contenHideFlag" ng-repeat="x in contentArr"
+                <div class="obj item flipInX {{x.class}}" ng-class="isAndroid?'':'animated'" ng-hide="contenHideFlag" ng-repeat="x in contentArr"
                      ng-style="x.style" ng-click="goDetail(x)">
                     <div class="circleNum" style="{{'border-color:'+x.mark}}">{{$index+1}}</div>
                     <div class="row row-center apl-content no-padding">

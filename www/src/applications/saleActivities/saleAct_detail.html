@@ -1,6 +1,6 @@
 <ion-view class="saleActDetail">
-    <div class="top-back absolute animated fadeIn" style="height: 75px;background: none"
-         ng-class="!TitleFlag?'fadeOut':''" ng-show="TitleFlag">
+    <div class="top-back absolute " style="height: 75px;background: none"
+         ng-class="!TitleFlag&&!isAndroid?'animated fadeOut':isAndroid?'':'animated fadeIn'" ng-show="TitleFlag">
         <div class="row row-center title">
             <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-70 text-center">活动详情
@@ -28,18 +28,18 @@
                  ng-click="changeProcessDropFlag()"></div>
         </div>
         <div id="saleTopBackId" class="top-back">
-            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+            <div class="row row-center title" ng-class="TitleFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">活动详情</div>
                 <div class="col col-15 text-right" ng-click="openFollow()"></div>
             </div>
             <div class="mainInfo">
-                <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="row row-center" ng-class="TitleFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <img class="title_oval" src="img/saleDetail/title_oval.png">
                     <input type="text" ng-model="details.DESCRIPTION" ng-readonly="!isEdit"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
-                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="row row-center" ng-class="customerFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div class="col col-16">客户:</div>
                     <input type="text" ng-model="details.customerName" readonly
                            ng-class="{'border-bottom-white':isEdit}">
@@ -49,16 +49,16 @@
                         <div ng-class="details.urgent.text.length==4?'textFour':'textFif'">{{details.urgent.text}}</div>
                     </div>
                 </div>
-                <div class="row row-center" ng-class="placeFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="row row-center" ng-class="placeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div class="col col-16">地点:</div>
                     <input type="text" ng-model="details.ACT_LOCATION" ng-readonly="!isEdit"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
-                <div class="row row-center" ng-class="{'animated fadeOut':typeFlag,'animated fadeIn':!typeFlag}">
+                <div class="row row-center" ng-class="typeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div class="col col-16">类型:</div>
                     <input type="text" ng-model="details.actType" style="border: none;" readonly>
                 </div>
-                <div class="row row-center" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="row row-center" ng-class="statusFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div>状态:</div>
                     <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
