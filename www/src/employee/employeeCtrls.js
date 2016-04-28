@@ -80,7 +80,7 @@ employeeModule
                                     }
                                     $scope.$broadcast('scroll.infiniteScrollComplete');
                                 } else {
-                                    console.log(angular.toJson((response.ET_EMPLOYEE.item)));
+                                    //console.log(angular.toJson((response.ET_EMPLOYEE.item)));
                                     $.each(response.ET_EMPLOYEE.item, function (n, value) {
                                         if($scope.employ.employeefiledvalue===""){
                                             $scope.employee_query_list=new Array;
