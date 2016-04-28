@@ -7,7 +7,7 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
     var type;
     var menuList = [];
     var author = {};
-    var version={};
+    var version = {};
     return {
         setUserName: function (data4) {
             window.localStorage.crmUserName = data4;
@@ -91,10 +91,8 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
             }
             return null;
         },
-        setVersion: function (obj) {
-          version = obj;
-        },
-        getNewVersion: function() {
+        version,
+        getNewVersion: function () {
             console.log(version);
             if (ionic.Platform.isAndroid() || ionic.Platform.isIOS()) {
                 //强制更新
