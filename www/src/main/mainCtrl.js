@@ -27,6 +27,7 @@ mainModule
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location, $cordovaToast, $ionicModal,
                   ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService,
                   worksheetDataService, saleChanService) {
+            console.log('s')
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
                 ionicMaterialInk.displayEffect();
@@ -90,11 +91,11 @@ mainModule
                 $scope.viewFlag = !$scope.viewFlag;
                 $ionicScrollDelegate.resize();
                 $ionicScrollDelegate.scrollTop(true)
-                //$timeout(function () {
+                $timeout(function () {
                 $scope.topHeight = {
                     'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
                 };
-                //},1)
+                },10)
                 //切换至月视图
                 if ($scope.viewFlag == false) {
                     document.getElementById('monthViewId').className = 'monthView own-animated fadeInDown';
@@ -836,7 +837,8 @@ mainModule
             $scope.pop = {
                 type: {}
             };
-            $ionicPopover.fromTemplateUrl('src/applications/saleChance/modal/create_Pop.html', {
+            $scope.salesGroup = [];
+            $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Pop.html', {
                 scope: $scope
             }).then(function (popover) {
                 $scope.createPop = popover;
@@ -854,14 +856,16 @@ mainModule
                     .success(function (response) {
                         $scope.creaeSpinnerFlag = false;
                         if (response.ES_RESULT.ZFLAG === 'S') {
-                            Prompter.hideLoading();
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
-                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
+                                console.log(i)
+                                //response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
                                 if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
                                     $scope.salesGroup.push(response.ET_ORGMAN.item[i]);
                                 }
                             }
+                            console.log($scope.salesGroup);
                             $scope.pop.saleOffice = $scope.salesGroup[0];
+                            Prompter.hideLoading();
                             $scope.createPop.show();
                             //}
                         } else {
@@ -869,11 +873,6 @@ mainModule
                         }
                     });
             };
-            $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Pop.html', {
-                scope: $scope
-            }).then(function (popover) {
-                $scope.createPop = popover;
-            });
             $scope.showCreateModal = function () {
                 $scope.createPop.hide();
                 $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/create_Modal/createSaleAct_Modal.html', {

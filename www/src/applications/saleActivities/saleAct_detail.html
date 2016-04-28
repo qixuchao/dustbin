@@ -44,7 +44,7 @@
                     <input type="text" ng-model="details.customerName" readonly
                            ng-class="{'border-bottom-white':isEdit}">
 
-                    <div class="urgentDegree">
+                    <div class="urgentDegree" ng-if="!isATL">
                         <select ng-model="details.urgent" ng-disabled="!isEdit" ng-options="x as x.text for x in urgentDegreeArr"></select>
                         <div ng-class="details.urgent.text.length==4?'textFour':'textFif'">{{details.urgent.text}}</div>
                     </div>

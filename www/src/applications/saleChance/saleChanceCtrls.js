@@ -86,7 +86,7 @@ salesModule
                     },
                     "IS_SEARCH": {
                         "ZSRTING": $scope.input.list,
-                        "PARTNER_NO": PARTNER_NO,
+                        "PARTNER": PARTNER_NO,
                         "OBJECT_ID": "",
                         "PHASE": "",
                         "STARTDATE": "",

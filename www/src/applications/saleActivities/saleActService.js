@@ -289,11 +289,11 @@ salesModule.factory('saleActService', function () {
     var filters = {
         status: [{
             text: '未处理',
-            value: 'E0001'
+            value: 'E0001',
+            flag: true
         }, {
             text: '处理中',
-            value: 'E0002',
-            flag: true
+            value: 'E0002'
         }, {
             text: '已完成',
             value: 'E0003'

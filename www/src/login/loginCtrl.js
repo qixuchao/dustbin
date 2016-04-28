@@ -11,8 +11,11 @@ loginModule
 
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam) {
                 if (toState && toState.name == 'login') {
-                    $ionicHistory.clearCache();
                     $ionicHistory.clearHistory();
+                    $ionicHistory.clearCache();
+                    $timeout(function () {
+                        angular.element('#myTabId').remove();
+                    },500);
                     console.log("************ login clear history =======");
                 }
             });
