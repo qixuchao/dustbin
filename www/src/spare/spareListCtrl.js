@@ -104,50 +104,46 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
             "IS_PRODMAS_INPUT": {"SHORT_TEXT": $scope.spareInfo}
         };
         HttpAppService.post(url, data).success(function (response) {
-            console.log(page);
-            if (response.ES_RESULT.ZFLAG == 'E') {
-                //console.log("第3步");
+            //console.log(page);
+            if (response.ES_RESULT.ZFLAG == 'S') {
+                //console.log("第4步");
+                Prompter.hideLoading();
                 $scope.spareimisshow = false;
-                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                $scope.$broadcast('scroll.infiniteScrollComplete');
-            } else {
-                if (response.ES_RESULT.ZFLAG == 'S') {
-                    //console.log("第4步");
-                    Prompter.hideLoading();
-                    $scope.spareimisshow = false;
-                    if (response.ET_PRODMAS_OUTPUT.item.length == 0) {
-                        if (page == 1) {
-                            $cordovaToast.showShortBottom('数据为空');
-                        } else {
-                            $cordovaToast.showShortBottom('没有更多数据了');
-                        }
-                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                if (response.ET_PRODMAS_OUTPUT.item.length == 0) {
+                    if (page == 1) {
+                        $cordovaToast.showShortBottom('数据为空');
                     } else {
-                        //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
-                        $.each(response.ET_PRODMAS_OUTPUT.item, function (n, value) {
-                            if($scope.spareInfo===""){
-                                $scope.spareList=new Array;
-                            }else{
-                                $scope.spareList.push(value);
-                            }
-                            //console.log("第5步");
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        });
-                    }
-                    if (response.ET_PRODMAS_OUTPUT.item.length < 20) {
-                        $scope.spareimisshow = false;
-                        if (page > 1) {
-                            $cordovaToast.showShortBottom('没有更多数据了');
-                        }
-                    } else {
-                        if($scope.spareList.length===0){
-                            $scope.spareimisshow=false;
-                        }else{
-                            $scope.spareimisshow = true;
-                        }
+                        $cordovaToast.showShortBottom('没有更多数据了');
                     }
                     $scope.$broadcast('scroll.infiniteScrollComplete');
+                } else {
+                    //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
+                    $.each(response.ET_PRODMAS_OUTPUT.item, function (n, value) {
+                        if($scope.spareInfo===""){
+                            $scope.spareList=new Array;
+                        }else{
+                            $scope.spareList.push(value);
+                        }
+                        //console.log("第5步");
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                    });
                 }
+                if (response.ET_PRODMAS_OUTPUT.item.length < 20) {
+                    $scope.spareimisshow = false;
+                    if (page > 1) {
+                        $cordovaToast.showShortBottom('没有更多数据了');
+                    }
+                } else {
+                    if($scope.spareList.length===0){
+                        $scope.spareimisshow=false;
+                    }else{
+                        $scope.spareimisshow = true;
+                    }
+                }
+                $scope.$broadcast('scroll.infiniteScrollComplete');
+            }else {
+                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                $scope.$broadcast('scroll.infiniteScrollComplete');
             }
         }).error(function (response, status) {
             $cordovaToast.showShortBottom('请检查你的网络设备');

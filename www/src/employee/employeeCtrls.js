@@ -365,41 +365,41 @@ employeeModule
 
 
         Prompter.showLoading("数据加载中...");
-        var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_DETAIL';
-        var data = {
-            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            "IS_EMPLOYEE": { "PARTNER": employeeService.get_employeeListvalue().PARTNER}
-            //    "IS_EMPLOYEE": { "PARTNER":'E060000051'}
-        }
-        HttpAppService.post(url, data).success(function (response) {
-            if (response.ES_RESULT.ZFLAG == 'E') {
-                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-            } else {
-                if(response.ES_EMPLOYEE != ""){
-                    $scope.userdetailval = response.ES_EMPLOYEE;
-                };
-                if(response.ET_RELATIONSHIP != ''){
-                    $scope.userdetailcustomerlist = response.ET_RELATIONSHIP;
-                }
+        $scope.updateCustomer=function(){
+            var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_DETAIL';
+            var data = {
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_EMPLOYEE": { "PARTNER": employeeService.get_employeeListvalue().PARTNER}
             };
-            Prompter.hideLoading();
-        }).error(function(){
-            Prompter.hideLoading();
-            $cordovaToast.showShortBottom('请检查你的网络设备');
-        });
+            HttpAppService.post(url, data).success(function (response) {
+                if (response.ES_RESULT.ZFLAG == 'S') {
+                    if (response.ES_EMPLOYEE != "") {
+                        $scope.userdetailval = response.ES_EMPLOYEE;
+                    }
+                    if (response.ET_RELATIONSHIP != '') {
+                        $scope.userdetailcustomerlist = response.ET_RELATIONSHIP;
+                    }
+                    Prompter.hideLoading();
+                }else if (response.ES_RESULT.ZFLAG == 'E') {
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                }
+            }).error(function(){
+                Prompter.hideLoading();
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+            });
+        };
+        $scope.updateCustomer();
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+                if(fromState && toState && fromState.name == 'customerList'){
+                    $scope.updateCustomer();
+                }
+            });
         $scope.gocustomerList = function(){
             employeeService.set_employeecustomerlist($scope.userdetailcustomerlist);
             $state.go('customerList');
         };
         $scope.userdetailval = employeeService.get_employeeListvalue();
-        //电话
-        //$scope.employeeshowphone =function(types){
-        //    if(types == undefined || types == ""){
-        //        $cordovaToast.showShortBottom('没有数据');
-        //    }else{
-        //        Prompter.showphone(types)
-        //    }
-        //}
+
         //邮箱
         $scope.mailcopyvalue = function(valuecopy){
             if(valuecopy == undefined || valuecopy == ""){
@@ -422,7 +422,7 @@ employeeModule
             $.each(employeeService.get_employeecustomerlist().item, function (n, value) {
                 $scope.employcustomerlist.push(value);
             });
-        };
+        }
 
         //增加客戶
         //选择客户
@@ -550,6 +550,7 @@ employeeModule
                   $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }else{
 
+                    $scope.employcustomerlist=new Array;
                     $scope.updateCustomer();
                     console.log("添加成功");
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT)
