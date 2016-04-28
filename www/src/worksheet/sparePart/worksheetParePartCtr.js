@@ -7,10 +7,12 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         //    searchInfos : ""
         //}
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-            //if(fromState.name == 'worksheetSelectPro' && toState.name == 'worksheetSparepart'){
-            //    var proInfos =  worksheetHttpService.addPro.proInfos;
-                var proInfos =  worksheetHttpService.addPro.proInfos;
-            //}
+            if(fromState.name == 'worksheetSelect' && toState.name == 'worksheetSparepart' && worksheetHttpService.goWhere.go == true){
+                worksheetHttpService.goWhere.go = false;
+                 //worksheetHttpService.goWhere.back = false;
+                $ionicHistory.goBack();
+            }
+            var proInfos =  worksheetHttpService.addPro.proInfos;
                 $scope.config = {
                     warehouse : "",
                     searchInfos : ""
@@ -22,6 +24,9 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
 
                 $scope.goSAPInfos = [];
                 var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
+                if(worksheetDataService.wsDetailData.ET_MAT_LIST == ''){
+                    worksheetHttpService.goWhere.go = true;
+                }
                 if(worksheetDetail === undefined){
                     worksheetDetail = [];
                 }
@@ -490,6 +495,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         ionicMaterialInk.displayEffect();
         //工单详情
         var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
+        console.log(worksheetDetail);
         if(worksheetDetail === undefined){
             worksheetDetail = [];
         }else{
@@ -558,26 +564,11 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                     });
             }else{
                 worksheetHttpService.setSparePart("");
-                $ionicHistory.goBack();
+                    $ionicHistory.goBack();
             }
         }
         $scope.goUpdateSelect = function(){
             $state.go("worksheetSparepart");
-        }
-        var gobackDetail = function(){
-            if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV"){
-                $state.go("worksheetDetail",{
-                    detailType: 'siteRepair'
-                });
-            }else if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCV"){
-                $state.go("worksheetDetail",{
-                    detailType: 'newCar'
-                });
-            }else if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLO " || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLV"){
-                $state.go("worksheetDetail",{
-                    detailType: 'batchUpdate'
-                });
-            }
         }
         $scope.upDown = true;
         $scope.showDetail = function(items) {

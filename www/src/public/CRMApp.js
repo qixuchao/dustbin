@@ -105,7 +105,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
             url: '/login',
             //abstract: true,
             templateUrl: 'src/loginSecond/loginSecond.html',
-            controller: 'LoginSecondCtrl'
+            controller: 'LoginCtrl'
          })
         .state('tabs', {
             url: '/tabs',
