@@ -1,10 +1,10 @@
 {
   "hempConfig":
   {
-	"basePath":"http://117.28.248.23:9388/test/api/CRMAPP/",
-	"LoginUrl": "http://117.28.248.23:9388/test/api/bty/login",
-	"UploadImageUrl": "http://117.28.248.23:9388/test/api/bty/uploadImage",
+	"basePath":"http://117.28.248.23:9388/crmuat/api/CRMAPP/",
+	"LoginUrl": "http://117.28.248.23:9388/crmuat/api/bty/login",
+	"UploadImageUrl": "http://117.28.248.23:9388/crmuat/api/bty/uploadImage",
 
-	"baseEnvironment": "ATL"
+	"baseEnvironment": "CATL"
   }
 }

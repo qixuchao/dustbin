@@ -16,7 +16,6 @@ customerModule
         $scope.customerPopoverhide = function() {
             $scope.customerpopover.hide();
         };
-
         if(LoginService.getProfileType()=="APP_SERVICE"){
             $scope.ser = true;
             $scope.sale = false;
@@ -531,6 +530,7 @@ customerModule
         });
 
         $scope.CustomergoBack = function() {
+            saleActService.isFromRelation = false;
             $rootScope.$broadcast('customerCreatevalue', 'false');
             //window.history.back(-1);
             $ionicHistory.goBack();
@@ -711,6 +711,12 @@ customerModule
                 $scope.customerDetailplaydate = false;
             }
         }
+            if(LoginService.getProfileType()=="APP_SERVICE"){
+                $scope.customerDetailmobilenum = true;
+            }
+        else if (LoginService.getProfileType()=="APP_SALE"){
+                $scope.customerDetailmobilenum = false;
+            }
         Prompter.showLoading("数据加载中...");
         var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
         var data = {
