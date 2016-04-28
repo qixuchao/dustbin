@@ -28,8 +28,12 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
                }
                $scope.carMile = worksheetDetail.ET_MILEAGE.item[info-1];
            }
-
-           if($scope.carMile.MILEAGE_DATE === "" && $scope.carMile.MILEAGE_VALUE === "" && $scope.carMile.MILEAGE_DESC === ""){
+           if($scope.carMile.MILEAGE_VALUE == ""){
+               $scope.dateCar = ""
+           }else{
+               $scope.dateCar = $scope.carMile.MILEAGE_DATE;
+           }
+           if($scope.carMile.MILEAGE_VALUE == "" && $scope.carMile.MILEAGE_DESC == ""){
                $scope.carEdit = true;
            }else{
               $scope.carEdit = false;
@@ -87,11 +91,8 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
         };
 
         $scope.keep = function() {
-            if ($scope.update.readDate === ""  ) {
-                $cordovaToast.showShortBottom("请输入本次记录日期");
-                return;
-            }else if($scope.update.readValue === ""){
-                $cordovaToast.showShortBottom("请输入本次记录里程");
+            if($scope.update.readValue === ""){
+                $cordovaToast.showShortBottom("请输入本次记录读数");
                 return;
             }
             Prompter.showLoading("正在提交");
@@ -123,26 +124,80 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                 Prompter.hideLoading();
             });
         }
-
-        //选择时间
-        $scope.selectCreateTime = function (title) {
-            var date = new Date().format('yyyy/MM/dd');;
-            $cordovaDatePicker.show({
-                date: date,
-                mode: 'date',
-                titleText: title,
-                okText: '确定',
-                cancelText: '取消',
-                doneButtonLabel: '确认',
-                cancelButtonLabel: '取消',
-                locale: 'zh_cn'
-            }).then(function (returnDate) {
-                var time = returnDate.format("yyyyMMdd"); //__getFormatTime(returnDate);
-                $scope.update.readDate = time;
-                if(!$scope.$$phrese){
-                    $scope.$apply();
-                }
+        //
+        ////选择时间
+        //$scope.selectCreateTimecar = function (title) {
+        //    var date = new Date().format('yyyy/MM/dd');
+        //    alert(data);
+        //    $cordovaDatePicker.show({
+        //        date: date,
+        //        allowOldDates: true,
+        //        allowFutureDates: true,
+        //        mode: 'date',
+        //        titleText: title,
+        //        okText: '确定',               //android
+        //        cancelText: '取消',           //android
+        //        doneButtonLabel: '确认',      // ios
+        //        cancelButtonLabel: '取消',    //ios
+        //        todayText: '今天',            //android
+        //        nowText: '现在',              //android
+        //        is24Hour: true,              //android
+        //        androidTheme: datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT, // android： 3
+        //        popoverArrowDirection: 'UP',
+        //        locale: 'zh_cn'
+        //        //locale: 'en_us'
+        //    }).then(function (returnDate) {
+        //        alert(data);
+        //        var time = returnDate.format("yyyyMMdd"); //__getFormatTime(returnDate);
+        //        $scope.update.readDate = time;
+        //        alert(time);
+        //        if(!$scope.$$phrese){
+        //            $scope.$apply();
+        //        }
+        //    });
+        //};
+        $scope.pickDate = function (type) {
+            if (device.platform === 'android' || device.platform === 'Android') {
+                $scope.androidPickDate(type);
+            } else {
+                $scope.iosPickDate(type);
+            }
+        };
+        $scope.iosPickDate = function (type) {
+            var dateTime = "";
+            var options = {
+                date: new Date(),
+                mode: 'date'
+            };
+            datePicker.show(options, function (date) {
+                dateTime = date.format('yyyyMMdd ');
+                $scope.inputDatePicker(type, dateTime);
             });
+        };
+        $scope.androidPickDate = function (type) {
+            var pickDate = "";
+            var options1 = {
+                date: new Date(),
+                mode: 'date'
+            };
+            datePicker.show(options1, function (date) {
+                pickDate = date.format('yyyyMMdd');
+                $scope.inputDatePicker(type, pickDate);
+            });
+        };
+        //根据INPUT里面的参数赋值
+        $scope.inputDatePicker = function (type, dateTime) {
+
+            if ("instart" === type) {
+                $scope.update.readDate = dateTime;
+            }
+            if ("inend" === type) {
+                $scope.dateEnd = dateTime;
+            }
+
+                    if(!$scope.$$phrese){
+                        $scope.$apply();
+                    }
         };
         //数据刷新
         $scope.updateInfos = function(){
