@@ -13,6 +13,9 @@ loginModule
                 if(toState && toState.name == 'login'){
                     $ionicHistory.clearCache();
                     $ionicHistory.clearHistory();
+                    $timeout(function () {
+                        angular.element('#myTabId').remove();
+                    },500);
                     $ionicPlatform.ready(function () {
                         if(window.device){
                             $scope.config.deviceId = device.uuid;

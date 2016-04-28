@@ -191,6 +191,10 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
             proInfos : "",
             wareHouse : ""
         },
+        goWhere : {
+            go : '',
+            back :''
+        },
         //产品
         serviceDetail: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL'   //工单详情接口

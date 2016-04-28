@@ -11,7 +11,11 @@ tabsModule
             if(Prompter.isATL()){
                 $rootScope.isATL = true;
             }
+            if(ionic.Platform.isAndroid()){
+                $rootScope.isAndroid = true;
+            }
             //判断版本信息
+            LoginService.getNewVersion(LoginService.version);
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
                 if(fromState && toState && (fromState.name == 'login' || fromState.name == "changePass") && toState.name == 'tabs'){
                     /*$ionicConfig.views.swipeBackEnabled(true);

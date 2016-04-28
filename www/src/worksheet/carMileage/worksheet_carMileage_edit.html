@@ -33,14 +33,14 @@
                 <div class="col-3 col-center"><span style="color: red">*</span></div>
                 <div class="col-42 col-center">本次记录日期：</div>
                 <div class="col-55 col-center">
-                    <input type="text" placeholder="日期" ng-model="update.readDate"  readonly style="font-size: 16px" class="fontColor" ng-click="selectCreateTime('读取日期')" >
+                    <input type="text" placeholder="日期" ng-model="update.readDate"  readonly style="font-size: 16px" class="fontColor">
                 </div>
             </div>
             <div class="row itemContent row-center">
                 <div class="col-3 col-center"><span style="color: red">*</span></div>
                 <div class="col-42 col-center">本次记录读数：</div>
                 <div class="col-55 col-center">
-                    <input type="text" placeholder="请输入值" ng-model="update.readValue" value="" style="font-size: 16px" class="fontColor" ng-change="inputchange(update.readValue)">
+                    <input type="text" placeholder="请输入值" maxlength="16"  ng-model="update.readValue" value="" style="font-size: 16px" class="fontColor" ng-change="inputchange(update.readValue)">
                 </div>
             </div>
 

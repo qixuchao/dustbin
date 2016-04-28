@@ -12,16 +12,17 @@
                     <div class="customer_detailcontentname">
                         <div class="customer_detailcontentcicle"></div><span ng-bind="customerdetails.NAME_ORG1"></span>
                     </div>
-                    <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
-                        地址:<span ng-bind="customerdetails.NAME_CO" ng-if="customerDetailnameco"></span><span ng-bind="customerdetails.STR_SUPPL1" ng-if="customerDetailstrret"></span>
-                        <span ng-bind="customerdetails.STR_SUPPL2" ng-if="customerDetailstrreth"></span><span ng-bind="customerdetails.STREET"></span>
+                    <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 15px">
+                        NO:<span ng-bind="customerdetails.PARTNER_ID" ></span>
+                        <!--地址:<span ng-bind="customerdetails.NAME_CO" ng-if="customerDetailnameco"></span><span ng-bind="customerdetails.STR_SUPPL1" ng-if="customerDetailstrret"></span>-->
+                        <!--<span ng-bind="customerdetails.STR_SUPPL2" ng-if="customerDetailstrreth"></span><span ng-bind="customerdetails.STREET"></span>-->
                     </div>
                     <div class="customer_detailcontentphone" >
                         <!--&lt;!&ndash;<i class="icon ion-ios-telephone-outline customer_detailcontentphonei"></i>&ndash;&gt;ng-click="customershowphone(customerdetails.MOB_NUMBER)"-->
                         <!--<span style="margin-left: 4px;" ng-bind="customerdetails.MOB_NUMBER"></span>-->
                     </div>
                     <div class="customer_detailcontentphonespan" style="right:0">
-                        NO:<span style=" margin-left: 10px;" ng-bind="customerdetails.PARTNER_ID"></span>
+                        <!--NO:<span style=" margin-left: 10px;" ng-bind="customerdetails.PARTNER_ID"></span>-->
                     </div>
                 </div>
             </div>
@@ -69,7 +70,7 @@
         <div class="customer_detail_countentbasicline"></div>
         <div class="customer_detail_countentbasicclok"></div>
     </div>
-    <ion-content style="margin-top:235px">
+    <ion-content style="margin-top:235px;margin-bottom: 44px">
         <div class="customer_detail_countentlist">
             <div class="row" style="padding:5px 5px">
                 <div class="col col-40" style="margin-left: 7px;">
@@ -80,7 +81,7 @@
                 <!--</div>-->
             </div>
             <!--<textarea id="textareas" readonly placeholder="" style="width: 100%; padding: 0px 15px 15px 20px;resize: none;min-height: 47px;max-height: 300px;overflow-y: hidden;background-color: white;color:#909993" ng-bind="customerdetails.TDLINE"></textarea>-->
-            <textarea id="textareas"  placeholder="请输入备注" style="width: 100%; padding: 0px 15px 0px 20px;resize: none;min-height: 33px;max-height: 300px;overflow-y: hidden;background-color: white;color: #A0A09F" ng-model="customerdetails.TDLINE"  ng-init="autoHeight()"></textarea>
+            <textarea id="textareas"  placeholder="" style="width: 100%; padding: 0px 15px 0px 20px;resize: none;min-height: 33px;max-height: 300px;overflow-y: hidden;background-color: white;color: #A0A09F" ng-model="customerdetails.TDLINE"  ng-init="autoHeight()"></textarea>
             <div class="employee_query_listline">
             </div>
             <div class="row" style="padding:5px 5px">

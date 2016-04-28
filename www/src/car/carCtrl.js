@@ -70,7 +70,7 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
                 "IS_USER": { "BNAME":window.localStorage.crmUserName },
                 "IS_PAGE": {
                     "CURRPAGE": page,
-                    "ITEMS": "20"
+                    "ITEMS": "10"
                 },
                 "IS_VEHICL_INPUT": {"SHORT_TEXT": $scope.carInfo}
             };

@@ -1082,7 +1082,7 @@ ContactsModule
             $scope.customerArr = [];
             $scope.customerSearch = false;
             $scope.input = {customer:''};
-            var customerType = 'CRM000';
+            var customerType = "";
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -1090,6 +1090,12 @@ ContactsModule
                     customerPage = 1;
                 } else {
                     $scope.spinnerFlag = true;
+                }
+                if(LoginService.getProfileType()=="APP_SALE"){
+                    customerType='CRM000';
+                }
+                if(LoginService.getProfileType()=="APP_SERVICE"){
+                    customerType='Z00004';
                 }
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
@@ -1103,6 +1109,7 @@ ContactsModule
                     }
                 };
                 //console.log(data);
+                console.log(customerType);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
@@ -1177,8 +1184,17 @@ ContactsModule
             }).then(function (modal) {
                 $scope.selectCustomerModal = modal;
             });
-            $scope.customerModalArr = saleActService.getCustomerTypes();
-            $scope.selectCustomerText = '竞争对手';
+
+            if(LoginService.getProfileType()=="APP_SALE"){
+                $scope.customerModalArr=new Array();
+                $scope.customerModalArr = saleActService.getCustomerTypes();
+                $scope.selectCustomerText = '正式客户';
+            }
+            if(LoginService.getProfileType()=="APP_SERVICE"){
+                $scope.customerModalArr=new Array();
+                $scope.customerModalArr = saleActService.getServiceCustomer();
+                $scope.selectCustomerText = '终端客户';
+            }
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;
                 $scope.customerSearch = true;
@@ -1436,6 +1452,8 @@ ContactsModule
                     "COUNTRY": "",
                     "LANDX":"",
                     "REGION": "",
+                    "ZZBYYX":"",
+                    "ZZJX":"",
                     "HOUSE_NUM1":"",
                     "SPTXT":"",
                     "CITY1": "",
@@ -1476,6 +1494,8 @@ ContactsModule
             data.IS_CUSTOMER.REGION = $scope.config.currentProvence;
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactedit.POST_CODE1;
+            data.IS_CUSTOMER.JX=$scope.contactedit.ZZJX;
+            data.IS_CUSTOMER.BYYX=$scope.contactedit.ZZBYYX;
             data.IS_CUSTOMER.STREET = $scope.contactedit.STREET;
             data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactedit.HOUSE_NUM1;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactedit.MOB_NUMBER;

@@ -27,6 +27,7 @@ mainModule
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location, $cordovaToast, $ionicModal,
                   ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService,
                   worksheetDataService, saleChanService) {
+            console.log('s')
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
                 ionicMaterialInk.displayEffect();
@@ -45,10 +46,10 @@ mainModule
             //当天周几
             var today = mydate.getDay();
 
-            if ($scope.role == 'APP_SALE') {
-                $scope.selectModeText = '销售活动';
-            } else {
+            if ($scope.role == 'APP_SERVICE') {
                 $scope.selectModeText = '服务工单';
+            } else {
+                $scope.selectModeText = '销售活动';
             }
             //当天多少号
             var day = mydate.getDate();
@@ -69,8 +70,20 @@ mainModule
             var todayDate = mydate.getFullYear() + '/' + (mydate.getMonth() + 1) + '/' + mydate.getDate();
             $scope.myTodayDate = todayDate;
             var isToday = function (days) {
+                var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
+                var page_index = dayViewHandle.currentIndex();
+                if (angular.isUndefined(page_index)) {
+                    page_index = 0;
+                }
+                var myTempMonth = $scope.days[page_index].month;
                 for (var i = 0; i < days.length; i++) {
-                    if (todayDate == $scope.year + '/' + $scope.month + '/' + days[i].value) {
+                    if (days[6].value < 7) {
+                        myTempMonth = $scope.days[page_index].month-1;
+                        if(days[i].value>0&&days[i].value<7){
+                            myTempMonth = $scope.days[page_index].month;
+                        }
+                    }
+                    if (todayDate == $scope.year + '/' + myTempMonth + '/' + days[i].value) {
                         $scope.weeks[i].flag = true;
                     } else {
                         $scope.weeks[i].flag = false;
@@ -90,14 +103,18 @@ mainModule
                 $scope.viewFlag = !$scope.viewFlag;
                 $ionicScrollDelegate.resize();
                 $ionicScrollDelegate.scrollTop(true)
-                //$timeout(function () {
-                $scope.topHeight = {
-                    'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
-                };
-                //},1)
+                $timeout(function () {
+                    $scope.topHeight = {
+                        'margin-top': document.getElementById('mainTopId').clientHeight + 'px'
+                    };
+                }, 10)
                 //切换至月视图
                 if ($scope.viewFlag == false) {
-                    document.getElementById('monthViewId').className = 'monthView own-animated fadeInDown';
+                    if(Prompter.isAndroid()){
+                        document.getElementById('monthViewId').className = 'monthView';
+                    }else{
+                        document.getElementById('monthViewId').className = 'monthView own-animated fadeInDown';
+                    }
                     document.getElementById('dayViewId').className = 'dayView';
                     $timeout(function () {
                         document.getElementById('monthViewId').className = 'monthView';
@@ -115,27 +132,28 @@ mainModule
                     $timeout(function () {
                         var year = angular.copy($scope.year);
                         var month = angular.copy($scope.month);
-                        if (arr[0].value > arr[6].value && select_day >= arr[0].value) {
-
-                            if (month == 1) {
-                                month = 12;
-                                year--;
-                            } else {
-                                month--;
-                            }
-                            $scope.year = year;
-                            $scope.month = month;
-                            monthInit(year, month, select_day);
-                        } else {
-                            $scope.year = year;
-                            $scope.month = month;
-                            monthInit(year, month, select_day);
-                        }
-                    }, 5)
+                        //if (arr[0].value > arr[6].value && select_day >= arr[0].value) {
+                        //    if (month == 1) {
+                        //        month = 12;
+                        //        year--;
+                        //    }
+                        //    $scope.year = year;
+                        //    $scope.month = month;
+                        //    monthInit(year, month, select_day);
+                        //} else {
+                        $scope.year = year;
+                        $scope.month = month;
+                        monthInit(year, month, select_day);
+                        //}
+                    }, 5);
                     $ionicSlideBoxDelegate.update();
                 } else {
+                    if(Prompter.isAndroid()){
+                        document.getElementById('dayViewId').className = 'dayView';
+                    }else{
+                        document.getElementById('dayViewId').className = 'dayView own-animated fadeInDown';
+                    }
                     document.getElementById('monthViewId').className = 'monthView';
-                    document.getElementById('dayViewId').className = 'dayView own-animated fadeInDown';
                     $timeout(function () {
                         document.getElementById('dayViewId').className = 'dayView';
                     }, 500);
@@ -180,6 +198,7 @@ mainModule
                 }
                 var addDateTemp = addDate($scope.year + '/' + $scope.month + '/' + day, last_day);
                 $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
+                $scope.days[0].month = addDateTemp.getMonth() + 1;
                 //if(day!=1){
                 var countTem;
                 for (var i = 0; i < $scope.days[0].arr.length; i++) {
@@ -191,13 +210,13 @@ mainModule
                     $scope.days[0].arr[countTem].checked = true;
                 }, 450);
                 //}
-                if ($scope.days[0].arr[6].value < $scope.days[0].arr[0].value && day > $scope.days[0].arr[6].value) {
-                    $scope.month++;
-                    if ($scope.month == 13) {
-                        $scope.month = 1;
-                        $scope.year++;
-                    }
-                }
+                //if ($scope.days[0].arr[6].value < $scope.days[0].arr[0].value && day > $scope.days[0].arr[6].value) {
+                //    $scope.month++;
+                //    if ($scope.month == 13) {
+                //        $scope.month = 1;
+                //        $scope.year++;
+                //    }
+                //}
                 isToday($scope.days[0].arr);
 
                 $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
@@ -237,9 +256,20 @@ mainModule
             }
             var tempDate = new Date();
             var nextDays = function (add, daysArr, nextDateObj) {
+                var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
+                var page_index = dayViewHandle.currentIndex();
+                //console.log($scope.days[page_index]);
+                var myTempMonth;
+                if (angular.isUndefined(page_index)) {
+                    myTempMonth = $scope.days[0].month;
+                } else {
+                    myTempMonth = $scope.days[page_index].month;
+                }
+                console.log(myTempMonth)
                 var arr = angular.copy(daysArr);
-                var nowLastDate = $scope.year + '/' + $scope.month + '/' + arr[6].value;
+                var nowLastDate = $scope.year + '/' + myTempMonth + '/' + arr[6].value;
                 tempDate = addDate(nowLastDate, add);
+                //tempDate = new Date(nowLastDate);
                 nextDateObj.year = tempDate.getFullYear();
                 nextDateObj.month = tempDate.getMonth() + 1;
                 return getDays(nextDateObj.month, tempDate.getDate());
@@ -336,14 +366,17 @@ mainModule
             $scope.selectDay = function (x, y) {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
-                var tempMonth = angular.copy($scope.month);
+                console.log(page_index)
                 //当前在周视图
                 if (angular.isDefined(page_index)) {
                     if ($scope.days[page_index].arr[6].value < 7 && y.value > 7) {
-                        tempMonth--;
+                        //tempMonth--;
+                        $scope.month = $scope.days[page_index].month - 1;
+                    } else {
+                        $scope.month = $scope.days[page_index].month;
                     }
                 }
-                selectDate = new Date($scope.year + '/' + tempMonth + '/' + y.value).format('yyyy-MM-dd');
+                selectDate = new Date($scope.year + '/' + $scope.month + '/' + y.value).format('yyyy-MM-dd');
                 if (selectDate === lastSelectedDate) {
                     return
                 }
@@ -391,6 +424,7 @@ mainModule
                     last_day = today;
                 }
                 var addDateTemp = addDate(todayDate, last_day);
+                $scope.days[0].month = addDateTemp.getMonth() + 1;
                 $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
                 var todayTemp = angular.copy(today);
                 if (todayTemp == 0) {
@@ -405,9 +439,8 @@ mainModule
                 //模拟有代办事项
                 $scope.days[0].arr[todayTemp].toDo = true;
                 //$scope.days[0].arr[todayTemp + 1].toDo = true;
-
                 $scope.year = addDateTemp.getFullYear();
-                $scope.month = addDateTemp.getMonth() + 1;
+                $scope.month = new Date().getMonth() + 1;
                 isToday($scope.days[0].arr);
                 $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
                 $scope.days[2].arr = nextDays(-7, $scope.days[0].arr, $scope.days[2]);
@@ -584,9 +617,9 @@ mainModule
                 if (type == 'init') {
                     $scope.loadMoreHasData = true;
                     salePageNum = 1;
-                    var arr = document.getElementsByClassName('item');
+                    var arr = document.getElementsByClassName('flipInX');
                     for (var i = 0; i < arr.length; i++) {
-                        arr[i].style.transitionDelay = '0s';
+                        angular.element(arr[i]).removeClass('animated');
                     }
                     $scope.loadMoreFlag = true;
                     $scope.contentArr = [];
@@ -638,12 +671,6 @@ mainModule
                             } else {
                                 $scope.contentArr = $scope.contentArr.concat(tempArr);
                             }
-                            $timeout(function () {
-                                ionicMaterialMotion.fadeSlideInRight({
-                                    startVelocity: 3000,
-                                    selector: '.animate-fade-slide-in-right .item'
-                                });
-                            }, 100);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $ionicScrollDelegate.resize();
                         } else {
@@ -659,9 +686,9 @@ mainModule
                     if (type == 'init') {
                         $scope.loadMoreHasData = true;
                         salePageNum = 1;
-                        var arr = document.getElementsByClassName('obj');
+                        var arr = document.getElementsByClassName('flipInX');
                         for (var i = 0; i < arr.length; i++) {
-                            arr[i].style.transitionDelay = '0s';
+                            angular.element(arr[i]).removeClass('animated');
                         }
                         $scope.loadMoreFlag = true;
                         $scope.contentArr = [];
@@ -735,12 +762,6 @@ mainModule
                                 } else {
                                     $scope.contentArr = $scope.contentArr.concat(tempArr);
                                 }
-                                $timeout(function () {
-                                    ionicMaterialMotion.fadeSlideInRight({
-                                        startVelocity: 3000,
-                                        selector: '.animate-fade-slide-in-right .item'
-                                    });
-                                }, 100);
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                                 $ionicScrollDelegate.resize();
                             } else {
@@ -831,12 +852,18 @@ mainModule
 
             /*--------------------------------------新建-------------------------------------*/
             //销售活动
-            $scope.createPopTypes = saleActService.getCreatePopTypes();
+            if (Prompter.isATL()) {
+                $scope.createPopTypes = saleActService.createPopTypes_ATL;
+            } else {
+                $scope.createPopTypes = saleActService.getCreatePopTypes();
+            }
+
             $scope.createPopOrgs = saleActService.getCreatePopOrgs();
             $scope.pop = {
                 type: {}
             };
-            $ionicPopover.fromTemplateUrl('src/applications/saleChance/modal/create_Pop.html', {
+            $scope.salesGroup = [];
+            $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Pop.html', {
                 scope: $scope
             }).then(function (popover) {
                 $scope.createPop = popover;
@@ -853,15 +880,16 @@ mainModule
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
                     .success(function (response) {
                         $scope.creaeSpinnerFlag = false;
+                        var tempOfficeArr = [];
                         if (response.ES_RESULT.ZFLAG === 'S') {
-                            Prompter.hideLoading();
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
-                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
-                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && tempOfficeArr.indexOf(response.ET_ORGMAN.item[i].SALES_OFFICE) == -1) {
                                     $scope.salesGroup.push(response.ET_ORGMAN.item[i]);
+                                    tempOfficeArr.push(response.ET_ORGMAN.item[i].SALES_OFFICE);
                                 }
                             }
                             $scope.pop.saleOffice = $scope.salesGroup[0];
+                            Prompter.hideLoading();
                             $scope.createPop.show();
                             //}
                         } else {
@@ -869,11 +897,6 @@ mainModule
                         }
                     });
             };
-            $ionicPopover.fromTemplateUrl('src/applications/saleActivities/modal/createSaleAct_Pop.html', {
-                scope: $scope
-            }).then(function (popover) {
-                $scope.createPop = popover;
-            });
             $scope.showCreateModal = function () {
                 $scope.createPop.hide();
                 $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/create_Modal/createSaleAct_Modal.html', {
@@ -909,11 +932,13 @@ mainModule
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
                     .success(function (response) {
                         Prompter.hideLoading();
+                        var tempOfficeArr = [];
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
                                 response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
-                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesChanceGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && tempOfficeArr.indexOf(response.ET_ORGMAN.item[i].SALES_OFFICE) == -1) {
                                     $scope.salesChanceGroup.push(response.ET_ORGMAN.item[i]);
+                                    tempOfficeArr.push(response.ET_ORGMAN.item[i].SALES_OFFICE);
                                 }
                             }
                             if ($scope.salesChanceGroup.length > 1) {

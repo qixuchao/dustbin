@@ -118,6 +118,12 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
             }
         };
         return {
+            isAndroid: function () {
+                if(ionic.Platform.isAndroid()){
+                    return true
+                }
+                return false
+            },
             isATL: function () {
                 if(ROOTCONFIG.hempConfig.baseEnvironment == "ATL"){
                     return true;
@@ -125,7 +131,7 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
                 return false;
             },
             showShortToastBotton: function (text) {
-                if (ionic.Platform.isAndroid() || ionic.Platform.isIOS()) {
+                if (ionic.Platform.isWebView()) {
                     console.log(ionic.Platform.platform());
                     $cordovaToast.showShortBottom(text);
                 }

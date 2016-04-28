@@ -21,9 +21,6 @@ salesModule
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService,customeService) {
             $scope.saleTitleText = '销售活动';
-            $timeout(function () {
-                ionicMaterialInk.displayEffect();
-            }, 100);
             $scope.searchFlag = false;
             $scope.input = {search: '', customer: '', list: ''};
             $scope.isloading = true;
@@ -119,6 +116,9 @@ salesModule
                             $scope.saleListArr = $scope.saleListArr.concat(response.ET_LIST.item);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $ionicScrollDelegate.resize();
+                            $timeout(function () {
+                                ionicMaterialInk.displayEffect();
+                            }, 100);
                             //saleActService.saleListArr = $scope.saleListArr;
                         } else {
                             $scope.loadMoreFlag = false;
@@ -182,8 +182,12 @@ salesModule
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
                 var ele = angular.element('#saleChanListFilterId');
-                ele.css('display', 'block').removeClass('fadeInDown');
-                ele.css('display', 'block').addClass('slideOutUp');
+                if(Prompter.isAndroid()){
+                    ele.css('display', 'none')
+                }else{
+                    ele.css('display', 'block').removeClass('fadeInDown');
+                    ele.css('display', 'block').addClass('slideOutUp');
+                }
                 $scope.getList('search');
             };
             $scope.filterPrevent = function (e) {
@@ -219,12 +223,20 @@ salesModule
                 tempFilterArr = '';
                 $scope.filterFlag = !$scope.filterFlag;
                 if ($scope.filterFlag) {
-                    ele.css('display', 'block').removeClass('slideOutUp');
-                    ele.css('display', 'block').addClass('fadeInDown');
+                    if(Prompter.isAndroid()){
+                        ele.css('display', 'block');
+                    }else{
+                        ele.css('display', 'block').removeClass('slideOutUp');
+                        ele.css('display', 'block').addClass('fadeInDown');
+                    }
                     onceCilck = true;
                 } else {
-                    ele.css('display', 'block').removeClass('fadeInDown');
-                    ele.css('display', 'block').addClass('slideOutUp');
+                    if(Prompter.isAndroid()){
+                        ele.css('display', 'none');
+                    }else{
+                        ele.css('display', 'block').removeClass('fadeInDown');
+                        ele.css('display', 'block').addClass('slideOutUp');
+                    }
                 }
                 e.stopPropagation();
             };
@@ -252,7 +264,11 @@ salesModule
                 e.stopPropagation();
             };
             /*-------------------------------Pop 新建-------------------------------------*/
-            $scope.createPopTypes = saleActService.getCreatePopTypes();
+            if(Prompter.isATL()){
+                $scope.createPopTypes = saleActService.createPopTypes_ATL;
+            }else{
+                $scope.createPopTypes = saleActService.getCreatePopTypes();
+            }
             $scope.createPopOrgs = saleActService.getCreatePopOrgs();
             $scope.pop = {
                 type: {}
@@ -273,12 +289,12 @@ salesModule
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
                     .success(function (response) {
                         $scope.creaeSpinnerFlag = false;
+                        var tempOfficeArr = [];
                         if (response.ES_RESULT.ZFLAG === 'S') {
-                            Prompter.hideLoading();
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
-                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
-                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && tempOfficeArr.indexOf(response.ET_ORGMAN.item[i].SALES_OFFICE) == -1) {
                                     $scope.salesGroup.push(response.ET_ORGMAN.item[i]);
+                                    tempOfficeArr.push(response.ET_ORGMAN.item[i].SALES_OFFICE);
                                 }
                             }
                             $scope.pop.saleOffice = $scope.salesGroup[0];
@@ -391,7 +407,12 @@ salesModule
                 }
                 return 0;
             };
-            var actTypes = saleActService.createPopTypes;
+            var actTypes;
+            if(Prompter.isATL()){
+                actTypes = saleActService.createPopTypes_ATL;
+            }else{
+                actTypes = saleActService.createPopTypes;
+            }
             var getActType = function (typeCode) {
                 for (var i = 0; i < actTypes.length; i++) {
                     if (actTypes[i].value == typeCode) {
@@ -847,6 +868,7 @@ salesModule
                     case '00000009':
                         x.PARTNER_ROLE = 'CRM000';
                         customeService.set_customerListvalue(x);
+                        saleActService.isFromRelation = true;
                         $state.go('customerDetail');
                         break;
                     case 'Z0000003':

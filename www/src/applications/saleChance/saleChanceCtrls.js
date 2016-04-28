@@ -86,7 +86,7 @@ salesModule
                     },
                     "IS_SEARCH": {
                         "ZSRTING": $scope.input.list,
-                        "PARTNER_NO": PARTNER_NO,
+                        "PARTNER": PARTNER_NO,
                         "OBJECT_ID": "",
                         "PHASE": "",
                         "STARTDATE": "",
@@ -205,8 +205,12 @@ salesModule
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
                 var ele = angular.element('#saleActListFilterId');
-                ele.css('display', 'block').removeClass('fadeInDown');
-                ele.css('display', 'block').addClass('slideOutUp');
+                if(Prompter.isAndroid()){
+                    ele.css('display', 'none');
+                }else{
+                    ele.css('display', 'block').removeClass('fadeInDown');
+                    ele.css('display', 'block').addClass('slideOutUp');
+                }
                 $scope.getList('search');
             };
             $scope.filterPrevent = function (e) {
@@ -249,11 +253,19 @@ salesModule
                 $scope.filterFlag = !$scope.filterFlag;
                 if ($scope.filterFlag) {
                     onceCilck = true;
-                    ele.css('display', 'block').removeClass('slideOutUp');
-                    ele.css('display', 'block').addClass('fadeInDown');
+                    if(Prompter.isAndroid()){
+                        ele.css('display', 'block');
+                    }else{
+                        ele.css('display', 'block').removeClass('slideOutUp');
+                        ele.css('display', 'block').addClass('fadeInDown');
+                    }
                 } else {
-                    ele.css('display', 'block').removeClass('fadeInDown');
-                    ele.css('display', 'block').addClass('slideOutUp');
+                    if(Prompter.isAndroid()){
+                        ele.css('display', 'none');
+                    }else{
+                        ele.css('display', 'block').removeClass('fadeInDown');
+                        ele.css('display', 'block').addClass('slideOutUp');
+                    }
                 }
 
                 e.stopPropagation();
@@ -301,11 +313,13 @@ salesModule
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
                     .success(function (response) {
                         $scope.creaeSpinnerFlag = false;
+                        var tempOfficeArr = [];
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
                                 response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
-                                if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesChanceGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
+                                if (response.ET_ORGMAN.item[i].SALES_GROUP && tempOfficeArr.indexOf(response.ET_ORGMAN.item[i].SALES_OFFICE) == -1) {
                                     $scope.salesChanceGroup.push(response.ET_ORGMAN.item[i]);
+                                    tempOfficeArr.push(response.ET_ORGMAN.item[i].SALES_OFFICE);
                                 }
                             }
                             if ($scope.salesChanceGroup.length > 1) {
@@ -370,7 +384,11 @@ salesModule
             ionicMaterialInk.displayEffect();
 
             $scope.statusArr = saleChanService.listStatusArr;
-            $scope.relationsTypes = saleChanService.relationsTypes;
+            if(Prompter.isATL()){
+                $scope.relationsTypes = saleChanService.relationsTypes_ATL;
+            }else{
+                $scope.relationsTypes = saleChanService.relationsTypes;
+            }
             $scope.chanceDetails = {
                 preMount: '0.00',
                 CURRENCY: 'CNY',
@@ -727,8 +745,8 @@ salesModule
                 if (!$scope.isEdit) {
                     return;
                 }
-                $scope.getCustomerArr();
                 $scope.isDropShow = true;
+                $scope.getCustomerArr();
                 $scope.customerSearch = true;
                 $scope.selectCustomerModal.show();
             };
@@ -928,11 +946,13 @@ salesModule
                     case "00000021":
                         x.PARTNER_ROLE = 'CRM000';
                         customeService.set_customerListvalue(x);
+                        saleActService.isFromRelation = true;
                         $state.go('customerDetail');
                         break;
                     case "00000023":
                         x.PARTNER_ROLE = 'Z00002';
                         customeService.set_customerListvalue(x);
+                        saleActService.isFromRelation = true;
                         $state.go('customerDetail');
                         break;
                     case 'Z0000003':

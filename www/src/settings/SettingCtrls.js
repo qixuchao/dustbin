@@ -81,5 +81,26 @@ settingsModule.controller("SettingCtrl", [
 			//$scope.config.versionStr = "v " + $scope.config.currentVersion +"   build "+$scope.config.currentVersionCode;
 		};
 		$scope.init();
+
+        //版本检查
+        $scope.checkVersion = function () {
+            Prompter.showLoading();
+            //var url = ROOTCONFIG.hempConfig.basePath + 'version';
+            var url = 'http://117.28.248.23:9388/crmuat/api/bty/version';
+            var data = {
+                "appname": "CRM",
+                "system": ROOTCONFIG.hempConfig.baseEnvironment,
+                "platform": ionic.Platform.platform()
+            };
+            HttpAppService.post(url, data).success(function (response) {
+                Prompter.hideLoading();
+                if (response.ES_RESULT.ZFLAG == 'S') {
+                    LoginService.getNewVersion(response.VERSION);
+                } else {
+                    $cordovaToast.alert(response.ES_RESULT.ZRESULT);
+                }
+
+            });
+        };
 		
 	}]);
