@@ -1,7 +1,7 @@
 /**
  * Created by gongke on 2016/3/14.
  */
-loginModule.factory('LoginService',function(){
+loginModule.factory('LoginService1',function(){
     var data;
     var data3;
     var type;

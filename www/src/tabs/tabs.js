@@ -12,6 +12,8 @@ tabsModule
                 $rootScope.isATL = true;
             }
             //判断版本信息
+            console.log(LoginService.getNewVersion());
+            console.log(LoginService.version)
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
                 if(fromState && toState && fromState.name == 'login' && toState.name == 'tabs'){
                     /*$ionicConfig.views.swipeBackEnabled(true);
