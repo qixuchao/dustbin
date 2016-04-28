@@ -25,7 +25,7 @@
             <div class="Contacts_detailcontentaddress">
                 地址:<span ng-bind="contactdetails.STREET"></span>
             </div>
-            <div style="position: fixed;top: 190px;left: 24px;">
+            <div style="position: fixed;top: 190px;left: 24px;" ng-show="showFlag">
                 <span>销售员工&nbsp;:</span>
                 <span ng-bind="contactdetails.relationsalsname"></span>
             </div>
@@ -50,13 +50,14 @@
         <div class="Contacts_detail_countentbasicclok"></div>
     </div>
     <ion-content style="margin-top:300px">
-        <div class="row row-center" style="padding:5px 5px">
+        <div class="row row-center" style="padding:5px 5px" ng-show="showFlag">
             <div class="col col-15" col-center style="margin-left: 7px;">
                 注释
             </div>
             <div class="col col-25"></div>
         </div>
-        <textarea id="textarea" readonly placeholder="" style="width: 100%; padding: 0px 15px 15px 20px;resize: none;min-height: 47px;max-height: 300px;overflow-y: hidden;background-color: white;" ng-bind="contactdetails.conatctdeatilnote"></textarea>
+        <textarea id="textarea" readonly style="width: 100%; padding: 0px 15px 15px 20px;resize: none;max-height: 300px;overflow-y: hidden;background-color: white;" ng-bind="contactdetails.conatctdeatilnote"></textarea>
+
         <div class="employee_query_listline">
         </div>
         <div class="row" style="padding:5px 5px">
@@ -79,17 +80,6 @@
                 <span ng-bind="contactdetails.FAX_EXTENS"></span>
             </div>
         </div>
-        <!--<div class="employee_query_listline">-->
-        <!--</div>-->
-        <!--<div class="row" style="padding:5px 5px" ng-click="employeeshowphone(userdetailval.phoneNumber)">-->
-            <!--<div class="col col-40">-->
-                <!--<img src="img/customer/customerchuanz2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>-->
-                <!--传真分机-->
-            <!--</div>-->
-            <!--<div class="col col-60" style="color:#AEA3A3;margin-left: 7px;">-->
-                <!--<span ng-bind="contactdetails.FAX_EXTENS"></span>-->
-            <!--</div>-->
-        <!--</div>-->
         <div class="employee_query_listline">
         </div>
         <div class="row" style="padding:5px 5px">
@@ -200,7 +190,7 @@
         <div class="employee_query_listline">
         </div>
     </ion-content>
-    <ion-footer-bar style="height:60px;background: transparent;">
+    <ion-footer-bar style="height:60px;box-shadow:none;background: transparent;">
         <div class="customercontentbutton" ng-click="contact_deatilgoedit()">
             编辑
         </div>

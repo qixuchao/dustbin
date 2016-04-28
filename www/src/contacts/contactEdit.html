@@ -12,9 +12,11 @@
     <ion-content>
         <div class="list" style="font-size: 18px;margin-top:5px">
             <!--title-->
-            <span class="item item-input" style="border:none">注释：</span>
-            <textarea id="textarea1" placeholder="请输入备注" style="width: 100%;background-color:white;max-height: 300px;border-bottom: 1px solid #ddd;overflow-y: hidden;padding: 0 15px 15px 50px;" ng-model="contactedit.conatctdeatilnote" ng-init="autoHeight()"></textarea>
-              <span class="item item-input">部门：
+            <div ng-hide="showFlag">
+                <span class="item item-input" style="border:none">注释：</span>
+                <textarea id="textarea1" placeholder="请输入备注" style="width: 100%;background-color:white;max-height: 300px;border-bottom: 1px solid #ddd;overflow-y: hidden;padding: 0 15px 15px 50px;" ng-model="contactedit.conatctdeatilnote" ng-init="autoHeight()"></textarea>
+            </div>
+            <span class="item item-input">部门：
                 <input type="text" id="contpartment" placeholder="请输入部门" class="contact_editinputsty" style="margin-left: 32px;" ng-model="contactedit.DPRTMNT">
                 <img id="contpartmentimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('DPRTMNT')"/>
             </span>
@@ -41,7 +43,7 @@
             </span>
              <span class="item item-input">电话分机：
                 <input type="text" id="contphonenumber1" class="contact_editinputsty" placeholder="请输入电话分机" ng-model="contactedit.TEL_EXTENS">
-                <img id="contphonenumberimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('TEL_EXTENS')"/>
+                <img id="contphonenumberimg1" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('TEL_EXTENS')"/>
             </span>
             <span class="item item-input">传真：
                 <input type="text" id="contfax" placeholder="请输入传真" class="contact_editinputsty" style="margin-left: 32px;" ng-model="contactedit.FAX_NUMBER">
@@ -90,7 +92,8 @@
                 <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('POST_CODE1')"/>
             </span>
              <span class="item item-input">地址：
-                <input type="text" style="margin-left: 32px;" id="contaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactedit.STREET">
+                 <textarea id="textarea4" placeholder="请输入地址" style="width: 100%;background-color:white;max-height: 300px;overflow-y: hidden;padding: 20px 15px 15px 64px;" ng-model="contactedit.STREET" ng-init="autoHeight1()"></textarea>
+                <!--<input type="text" style="margin-left: 32px;" id="contaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactedit.STREET">-->
                 <img id="contaddressnameimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('STREET')"/>
             </span>
             <span class="item item-input" ng-show="showFlag">门牌号：

@@ -233,18 +233,19 @@ employeeModule
         //}
         //拨打电话
         $scope.employeequeryphone = function(data){
-            console.log(data);
-            if((data.TEL_NUMBER==""||data.TEL_NUMBER==undefined) && (data.MOB_NUMBER==""||data.MOB_NUMBER==undefined)){
+            //console.log(angular.toJson(data));
+            //console.log(data.TEL_NUMBER);
+            if((data.TEL_NUMBER==undefined) && (data.MOB_NUMBER==undefined)){
                 $cordovaToast.showShortBottom('无号码');
             }else{
                 var number=[];
                 if(data.TEL_NUMBER!==undefined){
                     number.push({text:data.TEL_NUMBER});
-                    console.log(number);
+                    //console.log(number);
                 }
                 if(data.MOB_NUMBER!==undefined){
                     number.push({text:data.MOB_NUMBER});
-                    console.log(number);
+                    //console.log(number);
                 }
 
                 $ionicActionSheet.show({
