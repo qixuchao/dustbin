@@ -21,9 +21,6 @@ salesModule
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService,customeService) {
             $scope.saleTitleText = '销售活动';
-            $timeout(function () {
-                ionicMaterialInk.displayEffect();
-            }, 100);
             $scope.searchFlag = false;
             $scope.input = {search: '', customer: '', list: ''};
             $scope.isloading = true;
@@ -119,6 +116,9 @@ salesModule
                             $scope.saleListArr = $scope.saleListArr.concat(response.ET_LIST.item);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $ionicScrollDelegate.resize();
+                            $timeout(function () {
+                                ionicMaterialInk.displayEffect();
+                            }, 100);
                             //saleActService.saleListArr = $scope.saleListArr;
                         } else {
                             $scope.loadMoreFlag = false;
