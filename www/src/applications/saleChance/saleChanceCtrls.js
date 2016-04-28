@@ -727,8 +727,8 @@ salesModule
                 if (!$scope.isEdit) {
                     return;
                 }
-                $scope.getCustomerArr();
                 $scope.isDropShow = true;
+                $scope.getCustomerArr();
                 $scope.customerSearch = true;
                 $scope.selectCustomerModal.show();
             };
