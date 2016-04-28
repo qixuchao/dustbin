@@ -19,7 +19,7 @@
     <div class="search-hearder-bar"></div-->
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
-            <div class="row row-center">
+            <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
                 <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
                 <div class="col col-70 text-center" ng-bind="config.titleText"></div>
                 <!--div class="col col-15 add"><img src="img/saleList/add.png"></div-->
@@ -81,8 +81,10 @@
         <!-- 'sort-model-show':config.isSorteMode,'filter-model-show':config.isFilterMode, -->
         <!--div class="divs-wrapper animate-fade-slide-in" ng-class="{'show-model':showXbrModel(),'sort-to-filter-ing':config.filterModeFromingSortMode,'filter-to-sort-ing':config.sortModeFromingFilterMode}" -->
         <!-- animate-fade-slide-in -->
-        <div class="divs-wrapper " ng-class="{
+        <div class="divs-wrapper" ng-class="{
             'show-model':showXbrModel(),
+            'platform-ios': isIosPlatform(),
+            'platform-android': isAndroidPlatform(),
             'sort-from-click ':(config.isSorteMode&& config.sortModeFromClick),
             'sort-from-filter':(config.isSorteMode&&config.sortModeFromFilterMode),
             'filter-from-sort':(config.isFilterMode&&config.filterModeFromSortMode),

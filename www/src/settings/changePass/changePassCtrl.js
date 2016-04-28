@@ -8,7 +8,8 @@ settingsModule.controller("ChangePassCtrl", [
 	'HttpAppService',
 	'SettingsService',
 	'worksheetDataService',
-	function($scope, $state, $ionicHistory, $timeout, $interval, $cordovaToast, HttpAppService, SettingsService, worksheetDataService){
+	'Prompter',
+	function($scope, $state, $ionicHistory, $timeout, $interval, $cordovaToast, HttpAppService, SettingsService, worksheetDataService, Prompter){
 
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState && toState && fromState.name == 'login' && toState.name == 'changePass'){
@@ -47,15 +48,15 @@ settingsModule.controller("ChangePassCtrl", [
 		};
 
 		$scope.otherInputChangeForConfirm = function(){
-			if($scope.config.newPassWord!="" && $scope.config.newPassWord2!="" && $scope.config.remoteValideCode == $scope.config.valideCode){
-				if(!$scope.config.isReset && $scope.config.oldPassword.trim() != ""){
-					$scope.config.btnConfirmDisabled = false;
-				}else{
-					$scope.config.btnConfirmDisabled = true;
-				}
+			var showConfirmBtn = false;
+			if($scope.config.isReset){
+				showConfirmBtn = $scope.config.newPassWord!="" && $scope.config.newPassWord2!="" && $scope.config.valideCode!="";
 			}else{
-				$scope.config.btnConfirmDisabled = true;
+				showConfirmBtn = $scope.config.oldPassword!="" && $scope.config.newPassWord!="" && 
+						$scope.config.newPassWord2!="";
 			}
+			$scope.config.btnConfirmDisabled = !showConfirmBtn;
+			return showConfirmBtn;
 		};
 		$scope.cellPhoneChange = function(){
 			if($scope.config.cellphone.length >= 11){
@@ -125,9 +126,9 @@ settingsModule.controller("ChangePassCtrl", [
 	    function __requestChangePass(){
 	    	var queryParams = {
 			    userName: worksheetDataService.getStoredByKey("userName"),
-			    oldPassword: $scope.config.oldPassword,
-			    newPassword: $scope.config.newPassword,
-			    newPassword2: $scope.config.newPassword2,
+			    oldPassword: $scope.config.oldPassWord,
+			    newPassword: $scope.config.newPassWord,
+			    newPassword2: $scope.config.newPassWord2,
 			    moduleCode: 'CHANGE_PASS',
 			    checkcode: $scope.config.valideCode,
 			    system: worksheetDataService.getStoredByKey("sysName")
@@ -141,23 +142,21 @@ settingsModule.controller("ChangePassCtrl", [
 	        promise.success(function(response){
 	        	//Prompter.hideLoading();
 	        	if(response.ES_RESULT && response.ES_RESULT.ZFLAG == 'S'){
-	        		Prompter.showLoadingAutoHidden("密码修改成功!", false, 2000);
-	        	}else{
-
+	        		Prompter.showLoadingAutoHidden("密码修改成功!", false, 1000);
+	        	}else if(response.ES_RESULT){
+	        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 1000);
 	        	}
-	        	
-				
 	        })
 	        .error(function(errorResponse){
-	        	Prompter.showLoadingAutoHidden("修改密码失败!请检查网络", false, 2000);
+	        	Prompter.showLoadingAutoHidden("修改密码失败!请检查网络", false, 1500);
 	        });
 	    }
 
 	    function __requestResetPassword(){
 	    	var queryParams = {
 			    userName: worksheetDataService.getStoredByKey("userName"),
-			    newPassword: $scope.config.newPassword,
-			    newPassword2: $scope.config.newPassword2,
+			    newPassword: $scope.config.newPassWord,
+			    newPassword2: $scope.config.newPassWord2,
 			    moduleCode: 'RESET_PASS',
 			    checkcode: $scope.config.valideCode,
 			    system: worksheetDataService.getStoredByKey("sysName")

@@ -1,13 +1,26 @@
 /**
  * Created by gongke on 2016/3/14.
  */
-loginModule.factory('LoginService',function(){
+loginModule.factory('LoginService',function($cordovaAppVersion,$cordovaDialogs){
     var data;
     var data3;
     var type;
     var menuList=[]; 
     var author={};
+    var version;
     return{
+        setLoginerName: function(name){
+            window.localStorage.loginerName = name;
+        },
+        getLoginerName: function(){
+            return window.localStorage.loginerName;
+        },
+        setBupaTypeUser: function(bupaTypeUser){
+            window.localStorage.bupaTypeUser = bupaTypeUser;
+        },
+        getBupaTypeUser: function(){
+            return window.localStorage.bupaTypeUser;
+        },
         setPassword: function(password){
             window.localStorage.crmUserPassword = password;
         },
@@ -90,6 +103,16 @@ loginModule.factory('LoginService',function(){
                 };
             }
             return null;
+        },
+        version,
+        getNewVersion: function (ver) {
+            if(ionic.Platform.isAndroid()||ionic.Platform.isIOS()){
+                //强制更新
+                if(ver.minVersion > $cordovaAppVersion.getVersionNumber()){
+                    
+                }
+            }
+
         }
     }
 });

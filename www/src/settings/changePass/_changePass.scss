@@ -66,4 +66,13 @@
 	    	color: red;
 	    }
     }
+    .return-button{
+        .cancel{
+            width: 50px;
+            position: absolute;
+            bottom: 45px;
+            left: 50%;
+            margin-left: -25px;
+        }
+    }
 }

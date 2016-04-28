@@ -19,6 +19,12 @@ salesModule
         'LoginService',
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService,LoginService) {
+            if(ROOTCONFIG.hempConfig.baseEnvironment=="ATL"){
+                $scope.isHideUrgent = true;
+            }
+            if($scope.pop.type.value == 'ZA04'){
+                $scope.isHideCustomer = true;
+            }
             $scope.role = LoginService.getProfileType();
             $scope.CustomerLoadMoreFlag = true;
             var customerPage = 1;
@@ -124,7 +130,7 @@ salesModule
                 if (!$scope.create.title) {
                     Prompter.alert('请填写描述');
                     return
-                } else if (!$scope.create.urgent) {
+                } else if (!$scope.create.urgent&&ROOTCONFIG.hempConfig.baseEnvironment=="CATL") {
                     Prompter.alert('请选择紧急程度');
                     return
                 } else if (!$scope.create.de_startTime) {
@@ -141,6 +147,9 @@ salesModule
                 }
                 if(angular.isUndefined($scope.create.contact)){
                     $scope.create.contact = {PARTNER : ""}
+                }
+                if(angular.isUndefined($scope.create.urgent)){
+                    $scope.create.urgent = {value:""};
                 }
                 Prompter.showLoading('正在保存');
                 var data = {
@@ -250,6 +259,9 @@ salesModule
                 $scope.customerModalArr = saleActService.getCustomerTypes();
             } else {
                 $scope.customerModalArr = saleActService.customerTypeArr_server;
+            }
+            if(Prompter.isATL()){
+                $scope.customerModalArr = saleActService.customerTypeArr_ATL;
             }
             $scope.selectCustomerText = '正式客户';
             $scope.openSelectCustomer = function () {

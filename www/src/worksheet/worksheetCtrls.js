@@ -33,6 +33,16 @@ worksheetModule.controller("WorksheetListCtrl",[
 	   }
 	}
 
+	//     ionic.Platform.isIOS()
+	$scope.isIosPlatform = function(){
+		//console.log("is IOS: "+ionic.Platform.isIOS());
+		return ionic.Platform.isIOS();
+	};
+	$scope.isAndroidPlatform = function(){
+		//console.log("is Android: "+ionic.Platform.isAndroid());
+		return ionic.Platform.isAndroid();
+	};
+
 	$timeout(function () { //pushDown  fadeSlideIn  fadeSlideInRight
         //ionicMaterialInk.displayEffect();
         /*ionicMaterialMotion.fadeSlideIn({
@@ -951,15 +961,18 @@ worksheetModule.controller("WorksheetListCtrl",[
 		// = $scope.config.timeStart    = $scope.config.timeEnd
 		//$scope.config.timeStartDefault  = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000).format("yyyy-MM-dd");
 		//$scope.config.timeEndDefault  = new Date().format("yyyy-MM-dd");
+		if(ionic.Platform.isIOS){
+			$timeout(function () {
+	            ionicMaterialInk.displayEffect();
+	        }, 100);
+	        $timeout(function (){
+				$scope.config.showListItemAnimate = true;
+			}, 150);	
+		}
 		
-		$timeout(function () {
-            ionicMaterialInk.displayEffect();
-        }, 100);
 		$scope.enterListMode();
 
-		$timeout(function (){
-			$scope.config.showListItemAnimate = true;
-		}, 150);
+		
 		//__requestServiceList({IS_PAGE:{CURRPAGE: ++$scope.config.currentPage, ITEMS: 10}});
 		
 		$scope.config.isFromCarDetail = false;
@@ -981,7 +994,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 			$scope.config.titleText="维修记录";
 		}
 		CarService.setSpare(null);
-
+		
 		$scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("worksheetListResult");
 		$scope.reloadData();
 

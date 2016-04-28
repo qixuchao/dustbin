@@ -40,7 +40,7 @@
         <ion-infinite-scroll on-infinite="customerLoadmore()" ng-if="customerisshow"　immediate-check="true"></ion-infinite-scroll>
     </ion-content>
     <ion-content class="has-header search " has-bouncing="true" ng-show="searchFlag">
-        <div ng-hide="customer.customerfiledvalue.length>0">
+        <div ng-hide="customer.customerfiledvalue.length>0 || customerselecttyperole">
             <div class="row row-center his-title" >
                 <i class="ion-android-time"></i>
                 <div class="hisText">历史记录</div>

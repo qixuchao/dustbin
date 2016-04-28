@@ -2,7 +2,10 @@ settingsModule.controller("SettingCtrl", [
 	'$scope',
 	'$state',
 	'$ionicHistory',
-	function($scope, $state, $ionicHistory){
+	'Prompter',
+	'LoginService',
+	'HttpAppService',
+	function($scope, $state, $ionicHistory, Prompter, LoginService, HttpAppService){
 		
 		$scope.config = {
 			currentVersion: "",
@@ -12,7 +15,7 @@ settingsModule.controller("SettingCtrl", [
 			packageName: "",
 
 			userName: "暂无",
-			userCode: "", //登录名:工号
+			userCode: "" //登录名:工号
 
 		};
 
@@ -24,8 +27,36 @@ settingsModule.controller("SettingCtrl", [
 			
 			$state.go("login");
 		};
+
+		function __requestStaffInfo(){
+			Prompter.showLoading();
+            var url = ROOTCONFIG.hempConfig.basePath + "STAFF_DETAIL"; //"http://117.28.248.23:9388/test/api/bty/login";
+            var querParams = {
+            	"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+    			"IS_EMPLOYEE": { "PARTNER": LoginService.getBupaTypeUser() }
+            };
+
+            HttpAppService.post(url,querParams).success(function(response){
+            	Prompter.hideLoading();
+                if(response.ES_RESULT.ZFLAG == 'E') {
+                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                } else if (response.ES_RESULT.ZFLAG == 'S') {
+                	if(response.ES_EMPLOYEE){
+                		$scope.config.userName = response.ES_EMPLOYEE.NAME_LAST+response.ES_EMPLOYEE.NAME_FIRST;
+                		LoginService.setLoginerName($scope.config.userName);
+                	}
+                }
+
+            });
+		};
 		
 		$scope.init = function(){
+			var userName = LoginService.getLoginerName();
+			if(userName && userName!=null && userName!= "" && userName!="null"){
+				$scope.config.userName = userName;
+			}else{
+				__requestStaffInfo();
+			}
 			$scope.config.userCode = window.localStorage.crmUserName;
 			//$scope.config.currentVersion = "v"+ROOTCONFIG.versionName;
 			if(window.cordova && window.cordova.getAppVersion){

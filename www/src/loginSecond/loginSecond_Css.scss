@@ -56,11 +56,13 @@
    .login_contentdeleimg{
     width:20px;
     height:20px;
-    right: 15%;
-    top: 72px;
+     position: absolute;left:78%;top:41%
 
   }
-   .login_radioselerem{
+  input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #666;
+  }
+  .login_radioselerem{
     font-size:14px;
     color: #ffffff;
     float: right;

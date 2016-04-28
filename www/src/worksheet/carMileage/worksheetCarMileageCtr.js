@@ -71,6 +71,11 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                 $cordovaToast.showShortBottom("您输入备注字数已达到40字");
             }
         }
+        $scope.inputchange = function(item){
+            if(item.length == 16){
+                $cordovaToast.showShortBottom("您输入本次记录读数已达到16字");
+            }
+        }
         var worksheetDetail = worksheetDataService.wsDetailData;
         var config = worksheetHttpService.getWSCarMileage();
         //$scope.carMile = worksheetDetail.ET_MILEAGE && worksheetDetail.ET_MILEAGE.item && worksheetDetail.ET_MILEAGE.item.length ? worksheetDetail.ET_MILEAGE.item[config.nowPage-1] : {};

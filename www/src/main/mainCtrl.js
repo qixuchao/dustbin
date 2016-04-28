@@ -339,7 +339,7 @@ mainModule
                 var tempMonth = angular.copy($scope.month);
                 //当前在周视图
                 if (angular.isDefined(page_index)) {
-                    if($scope.days[page_index].arr[6].value<7&&y.value>7){
+                    if ($scope.days[page_index].arr[6].value < 7 && y.value > 7) {
                         tempMonth--;
                     }
                 }
@@ -584,7 +584,7 @@ mainModule
                 if (type == 'init') {
                     $scope.loadMoreHasData = true;
                     salePageNum = 1;
-                    var arr = document.getElementsByClassName('obj');
+                    var arr = document.getElementsByClassName('item');
                     for (var i = 0; i < arr.length; i++) {
                         arr[i].style.transitionDelay = '0s';
                     }
@@ -649,7 +649,7 @@ mainModule
                         } else {
                             $scope.loadMoreHasData = false;
                             $scope.loadMoreFlag = false;
-                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                            //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
                     });
@@ -674,7 +674,7 @@ mainModule
                                 "PARTNER_NO": window.localStorage.crmUserName
                             }
                         };
-                    }else{
+                    } else {
                         profile = {};
                     }
                     var data = {
@@ -746,7 +746,7 @@ mainModule
                             } else {
                                 $scope.loadMoreHasData = false;
                                 $scope.loadMoreFlag = false;
-                                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                                //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                             }
                         });
@@ -856,7 +856,7 @@ mainModule
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             Prompter.hideLoading();
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
-                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_TXT.split(' ')[1];
+                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
                                 if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
                                     $scope.salesGroup.push(response.ET_ORGMAN.item[i]);
                                 }
@@ -911,7 +911,7 @@ mainModule
                         Prompter.hideLoading();
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
-                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_TXT.split(' ')[1];
+                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
                                 if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesChanceGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
                                     $scope.salesChanceGroup.push(response.ET_ORGMAN.item[i]);
                                 }
@@ -945,6 +945,14 @@ mainModule
             //联系人
             $scope.createContact = function () {
                 $state.go('ContactCreate');
+            };
+            //拜访
+            $scope.openCreateVisit = function () {
+                Prompter.alert('该功能尚未开通,敬请期待!');
+            };
+            //签到
+            $scope.openCreateCheck = function () {
+                Prompter.alert('该功能尚未开通,敬请期待!');
             };
             /*-------------------------------新建 end-------------------------------------*/
             $scope.$on('$destroy', function () {

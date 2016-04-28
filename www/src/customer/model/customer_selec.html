@@ -1,5 +1,5 @@
 <style>
-    .customer_selec {
+    .customer_selecl {
         text-align: center;
         position: relative;
         float: right;
@@ -11,6 +11,24 @@
         margin-top: 12px;
         margin-left:0;
         height: 275px;
+        width: 130px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.4);
+        opacity: 0;
+    }
+    .customer_selecs {
+        text-align: center;
+        position: relative;
+        float: right;
+        left:0;
+        top:55px;
+        margin-right:5px;
+        z-index: 10;
+        display: block;
+        margin-top: 12px;
+        margin-left:0;
+        height: 150px;
         width: 130px;
         background-color: #fff;
         border-radius: 10px;
@@ -29,13 +47,19 @@
         right: 23px;
         top: -9px;
     }
+    .colorFont{
+        color: rgb(50,89,164);
+    }
+    .colorFont1{
+        color: #9B9B9B;
+    }
 </style>
-    <ion-popover-view class="customer_selec customer_seleciosh" style="left: 0;margin-top: 0px;background-color: white">
+    <ion-popover-view class="customer_seleciosh" style="left: 0;margin-top: 0px;background-color: white" ng-class="{'customer_selecs' : ser,'customer_selecl' :sale}">
         <img src="img/customer/sanjiao.png" class="customer_up customer_seleciosr"></img>
         <ion-content style="border-radius:10px">
             <div ng-repeat="types in customer_types track by $index" ng-click="customerqueryType(types)" style="height:41px">
-               <ion-item style="padding:10px;border:none;color: #9B9B9B;font-size:14px;background-color:white;margin:0">
-                   {{types}}
+               <ion-item style="padding:10px;border:none;font-size:14px;background-color:white;margin:0" ng-class="{'colorFont' : types.color1 ,'colorFont1' :types.color2}">
+                   {{types.name}}
                </ion-item>
                 <div style="width:80%;height: 1px;background-color: #9B9B9B;margin-left:10%"></div>
             </div>

@@ -69,7 +69,170 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	}
 }
 
-
+.platform-ios{
+	#worksheetlist-view{
+		.divs-wrapper{
+			//为动画而生 : just for animation --- 哈哈哈  
+			.tab-sort-content, .tab-filter-content{
+				@include transition-transform(0.2s linear);
+				@include translate(0px, -100%);
+			}
+	        &.sort-from-click{
+				.tab-sort-content{
+					@include translate(0px, 0px);
+				}
+				.tab-filter-content{
+					@include transition-transform(0s linear 0s); 
+					@include translate(100%, 0px);
+				}
+	        }
+	        &.sort-from-filter{
+				.tab-sort-content{
+					@include translate(0px, 0px);
+				}
+				.tab-filter-content{
+					@include translate(100%, 0px);
+				}
+	        }
+	        &.filter-from-click{
+				.tab-filter-content{
+					@include translate(0px, 0px);
+				}
+				.tab-sort-content{
+					@include transition-transform(0s linear 0s);
+					@include translate(-100%, 0px);
+				}
+	        }
+	        &.filter-from-sort{
+				.tab-sort-content{
+					@include translate(-100%, 0px);
+				}
+				.tab-filter-content{
+					@include translate(0px, 0px);
+				}
+	        }
+			
+			&.sort-click-gone{
+				.tab-sort-content{
+					@include translate(0px, -100%);
+				}
+				.tab-filter-content{
+					@include transition-transform(0s linear 0s);
+					@include translate(0px, -100%);
+				}
+			}
+			&.filter-click-gone{
+				.tab-sort-content{
+					@include translate(0px, -100%);
+				}
+				.tab-filter-content{
+					@include translate(0px, -100%);
+				}
+			} 
+			
+			&.filter-gone-bymodelclick{
+				.tab-sort-content{
+					@include transition-transform(0s linear 0s);
+					@include translate(0px, -100%);
+				}
+				.tab-filter-content{
+					@include translate(0px, -100%);
+				}
+			}
+			&.sorte-gone-bymodelclick{
+				.tab-sort-content{
+					@include translate(0px, -100%);
+				}
+				.tab-filter-content{
+					@include transition-transform(0s linear 0s);
+					@include translate(0px, -100%);
+				}
+			} 
+		}
+	}
+}
+.platform-android{
+	#worksheetlist-view{
+		.divs-wrapper{
+			//去年动画
+			.tab-sort-content, .tab-filter-content{
+				//@include transition-transform(0.2s linear);
+				@include translate(0px, -100%);
+			}
+	        &.sort-from-click{
+				.tab-sort-content{
+					@include translate(0px, 0px);
+				}
+				.tab-filter-content{
+					//@include transition-transform(0s linear 0s); 
+					@include translate(100%, 0px);
+				}
+	        }
+	        &.sort-from-filter{
+				.tab-sort-content{
+					@include translate(0px, 0px);
+				}
+				.tab-filter-content{
+					@include translate(100%, 0px);
+				}
+	        }
+	        &.filter-from-click{
+				.tab-filter-content{
+					@include translate(0px, 0px);
+				}
+				.tab-sort-content{
+					//@include transition-transform(0s linear 0s);
+					@include translate(-100%, 0px);
+				}
+	        }
+	        &.filter-from-sort{
+				.tab-sort-content{
+					@include translate(-100%, 0px);
+				}
+				.tab-filter-content{
+					@include translate(0px, 0px);
+				}
+	        }
+			
+			&.sort-click-gone{
+				.tab-sort-content{
+					@include translate(0px, -100%);
+				}
+				.tab-filter-content{
+					//@include transition-transform(0s linear 0s);
+					@include translate(0px, -100%);
+				}
+			}
+			&.filter-click-gone{
+				.tab-sort-content{
+					@include translate(0px, -100%);
+				}
+				.tab-filter-content{
+					@include translate(0px, -100%);
+				}
+			} 
+			
+			&.filter-gone-bymodelclick{
+				.tab-sort-content{
+					//@include transition-transform(0s linear 0s);
+					@include translate(0px, -100%);
+				}
+				.tab-filter-content{
+					@include translate(0px, -100%);
+				}
+			}
+			&.sorte-gone-bymodelclick{
+				.tab-sort-content{
+					@include translate(0px, -100%);
+				}
+				.tab-filter-content{
+					//@include transition-transform(0s linear 0s);
+					@include translate(0px, -100%);
+				}
+			}
+		}
+	}
+}
 
 #worksheetlist-view{
 	background-color: $crm-header-bar-bgcolor;
@@ -318,82 +481,12 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			//background-color: rgba(2, 2, 2, 0.36);
 			@include transition(background-color .4s linear 0s);
 		}
-		//为动画而生 : just for animation --- 哈哈哈  
-		.tab-sort-content, .tab-filter-content{
-			@include transition-transform(0.2s linear);
-			@include translate(0px, -100%);
+		&.platform-ios{
+			
 		}
-        &.sort-from-click{
-			.tab-sort-content{
-				@include translate(0px, 0px);
-			}
-			.tab-filter-content{
-				@include transition-transform(0s linear 0s); 
-				@include translate(100%, 0px);
-			}
-        }
-        &.sort-from-filter{
-			.tab-sort-content{
-				@include translate(0px, 0px);
-			}
-			.tab-filter-content{
-				@include translate(100%, 0px);
-			}
-        }
-        &.filter-from-click{
-			.tab-filter-content{
-				@include translate(0px, 0px);
-			}
-			.tab-sort-content{
-				@include transition-transform(0s linear 0s);
-				@include translate(-100%, 0px);
-			}
-        }
-        &.filter-from-sort{
-			.tab-sort-content{
-				@include translate(-100%, 0px);
-			}
-			.tab-filter-content{
-				@include translate(0px, 0px);
-			}
-        }
-		
-		&.sort-click-gone{
-			.tab-sort-content{
-				@include translate(0px, -100%);
-			}
-			.tab-filter-content{
-				@include transition-transform(0s linear 0s);
-				@include translate(0px, -100%);
-			}
+		&.platform-android{
+			
 		}
-		&.filter-click-gone{
-			.tab-sort-content{
-				@include translate(0px, -100%);
-			}
-			.tab-filter-content{
-				@include translate(0px, -100%);
-			}
-		} 
-		
-		&.filter-gone-bymodelclick{
-			.tab-sort-content{
-				@include transition-transform(0s linear 0s);
-				@include translate(0px, -100%);
-			}
-			.tab-filter-content{
-				@include translate(0px, -100%);
-			}
-		}
-		&.sorte-gone-bymodelclick{
-			.tab-sort-content{
-				@include translate(0px, -100%);
-			}
-			.tab-filter-content{
-				@include transition-transform(0s linear 0s);
-				@include translate(0px, -100%);
-			}
-		}  
 	}
 	
 	$divs-wrapper-z-index: 1;
@@ -1157,6 +1250,11 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 			&.E0010{ //回访
 
 			}
+        }
+        &.ZNCO{
+        	.chelianglicheng{
+        		display: none !important;
+        	}
         }
     }
 }

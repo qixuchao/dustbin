@@ -19,7 +19,7 @@ var customerWorkorderModule = angular.module('customerWorkorderModule', []);
 var customerContactsModule = angular.module('customerContactsModule', []);
 var customerModuleServive = angular.module('customerModuleServive', []);
 var spareModule = angular.module('spareModule',[]);
-var worksheetModule = angular.module('worksheetModule', []); // 工单模块
+var worksheetModule = angular.module('worksheetModule', ['ion-gallery']); // 工单模块
 var worksheetReportModule = angular.module('worksheetReportModule', []);
 var settingsModule = angular.module('settingsModule', []);  //我的模块
 
@@ -84,7 +84,13 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
         };
 })
 
-.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionGalleryConfigProvider) {
+    ionGalleryConfigProvider.setGalleryConfig({
+                          action_label: '关闭',
+                          toggle: false,
+                          row_size: 2,
+                          fixed_row_size: true
+  });
     // Turn off caching for demo simplicity's sake
     //$ionicConfigProvider.views.maxCache(0);
     $ionicConfigProvider.views.swipeBackEnabled(true);

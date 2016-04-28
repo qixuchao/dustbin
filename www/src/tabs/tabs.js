@@ -4,16 +4,23 @@
 
 'use strict';
 tabsModule
-    .controller('TabsCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache','$ionicSlideBoxDelegate','$ionicPlatform', 'ionicMaterialInk',
-        function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate,$ionicPlatform,ionicMaterialInk) {
-            
+    .controller('TabsCtrl', ['$scope', '$rootScope', '$state', '$ionicConfig', '$ionicHistory', '$templateCache',
+        '$ionicSlideBoxDelegate','$ionicPlatform', '$cordovaAppVersion','ionicMaterialInk','Prompter','LoginService',
+        function ($scope, $rootScope, $state, $ionicConfig, $ionicHistory, $templateCache, $ionicSlideBoxDelegate,
+                  $ionicPlatform,$cordovaAppVersion,ionicMaterialInk,Prompter,LoginService) {
+            if(Prompter.isATL()){
+                $rootScope.isATL = true;
+            }
+            //判断版本信息
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
                 if(fromState && toState && (fromState.name == 'login' || fromState.name == "changePass") && toState.name == 'tabs'){
                     /*$ionicConfig.views.swipeBackEnabled(true);
                     alert("set ok");*/
                     $ionicHistory.clearCache();
                     $ionicHistory.clearHistory();
-                    $scope.clickTab($scope.tabs[0]);
+                    if(fromState.name == "login"){
+                        $scope.clickTab($scope.tabs[0]);
+                    }
                 }
             });
 

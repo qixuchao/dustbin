@@ -18,9 +18,10 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         "$cordovaDatePicker",
         "worksheetHttpService",
         "Prompter",
+        "$ionicPlatform",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter) {
+                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter, $ionicPlatform) {
         
         //选择车辆返回的时候，获取车辆信息
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
@@ -504,7 +505,16 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             return dateTemp + " " + time;
         };
 
+        function __onHardwareBackButton(e){
+            //e.preventDefault();
+            //$scope.goBack();
+        };
+        $scope.$on("$destroy", function(){
+            //$ionicPlatform.offHardwareBackButton(__onHardwareBackButton);
+        });
         $scope.init = function(){
+            //$ionicPlatform.registerBackButtonAction(__onHardwareBackButton,1111);
+            //$ionicPlatform.onHardwareBackButton(__onHardwareBackButton);
             $scope.config.currentGuZhangMingCheng = null;
             $scope.config.currentGuZhangBuJian = null;
             $scope.config.currentChanPinLeiXing = null;
@@ -538,6 +548,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             __initResponse();
             __initGuZhangFeiLei();
             __initImpact();
+
         };
 
         function __initImpact(){

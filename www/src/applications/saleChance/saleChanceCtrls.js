@@ -303,7 +303,7 @@ salesModule
                         $scope.creaeSpinnerFlag = false;
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
-                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_TXT.split(' ')[1];
+                                response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
                                 if (response.ET_ORGMAN.item[i].SALES_GROUP && $scope.salesChanceGroup.indexOf(response.ET_ORGMAN.item[i]) == -1) {
                                     $scope.salesChanceGroup.push(response.ET_ORGMAN.item[i]);
                                 }
@@ -869,6 +869,10 @@ salesModule
                 if (!$scope.isEdit) {
                     return
                 }
+                if (x.PARTNER_FCT == "Z0000003" && !angular.isUndefined(x.mode)) {
+                    Prompter.alert(x.position+'不能删除或替换!');
+                    return
+                }
                 repTempIndex = $scope.relationArr.indexOf(x);
                 $ionicActionSheet.show({
                     buttons: [
@@ -880,11 +884,8 @@ salesModule
                     buttonClicked: function (index) {
                         switch (index) {
                             case 0:
-                                if (x.position == 'CATL销售' && !angular.isUndefined(x.mode)) {
-                                    Prompter.alert('CALTL销售不能删除!');
-                                    return
-                                }
-                                if (x.position == '客户') {
+
+                                if (x.PARTNER_FCT == "00000021") {
                                     $scope.chanceDetails.PARTNER_TXT = '';
                                     relationService.relationCustomer = {};
                                 }
@@ -902,10 +903,6 @@ salesModule
                                 $scope.relationArr.splice(repTempIndex, 1);
                                 break;
                             case 1:
-                                if (x.position == 'CATL销售' && !angular.isUndefined(x.mode)) {
-                                    Prompter.alert('CALTL销售不能修改!');
-                                    return
-                                }
                                 relationService.isReplace = true;
                                 relationService.myRelations = $scope.relationArr;
                                 relationService.replaceMan = x;
@@ -927,26 +924,26 @@ salesModule
             };
 
             $scope.goRelationDetail = function (x) {
-                switch (x.position) {
-                    case '客户':
+                switch (x.PARTNER_FCT) {
+                    case "00000021":
                         x.PARTNER_ROLE = 'CRM000';
                         customeService.set_customerListvalue(x);
                         $state.go('customerDetail');
                         break;
-                    case '竞争对手':
+                    case "00000023":
                         x.PARTNER_ROLE = 'Z00002';
                         customeService.set_customerListvalue(x);
                         $state.go('customerDetail');
                         break;
-                    case 'CATL销售':
+                    case 'Z0000003':
                         employeeService.set_employeeListvalue(x);
                         $state.go('userDetail');
                         break;
-                    case 'CATL销售2':
+                    case "Z0000004":
                         employeeService.set_employeeListvalue(x);
                         $state.go('userDetail');
                         break;
-                    case '联系人':
+                    case '00000015':
                         contactService.set_ContactsListvalue(x.PARTNER);
                         $state.go('ContactDetail');
                         break;

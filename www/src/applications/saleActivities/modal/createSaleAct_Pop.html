@@ -13,7 +13,7 @@
         <div class="row row-center" ng-if="salesGroup.length>1">
             <div>销售办公室</div>
             <div class="select">
-                <select ng-model="pop.saleOffice" ng-options="x as x.SALES_OFF_TXT for x in salesGroup">{{pop.text}}</select>
+                <select ng-model="pop.saleOffice" ng-options="x as x.SALES_OFF_SHORT for x in salesGroup">{{pop.text}}</select>
             </div>
         </div>
         <button ng-click="showCreateModal()" class="save">完成</button>
