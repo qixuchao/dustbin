@@ -15,6 +15,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             //document.getElementsByClassName('popover-arrow')[0].removeClass ="popover-arrow";.ET_OUT_RELATION.item
         };
         var fuze = customeService.get_customeFuZe().ET_OUT_RELATION.item;
+    console.log(fuze);
         $scope.infos = [];
         if(fuze == undefined){
             $cordovaToast.showShortBottom('暂无负责人信息');

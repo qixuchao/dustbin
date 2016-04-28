@@ -16,6 +16,9 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
         }
        var init = function(info){
            var worksheetDetail = worksheetDataService.wsDetailData;
+           console.log(worksheetDetail);
+           console.log(worksheetDetail.ET_MILEAGE)
+           console.log(worksheetDetail.ET_MILEAGE.item);
            if(worksheetDataService.wsDetailData.ET_MILEAGE.item == undefined){
                //$cordovaToast.showShortBottom('暂无车辆读数信息');
                $scope.carMile = '';
@@ -28,10 +31,11 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
                }
                $scope.carMile = worksheetDetail.ET_MILEAGE.item[info-1];
            }
-           if($scope.carMile.MILEAGE_VALUE == ""){
+           if($scope.carMile.MILEAGE_VALUE == "" || $scope.carMile.MILEAGE_VALUE == undefined || $scope.carMile.MILEAGE_VALUE == null){
                $scope.dateCar = ""
            }else{
-               $scope.dateCar = $scope.carMile.MILEAGE_DATE;
+               console.log($scope.carMile);
+               $scope.dateCar = $scope.carMile.MILEAGE_DATE.substring(0,10).replace('.','').replace('.','');
            }
            if($scope.carMile.MILEAGE_VALUE == "" && $scope.carMile.MILEAGE_DESC == ""){
                $scope.carEdit = true;
@@ -85,7 +89,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
         //$scope.carMile = worksheetDetail.ET_MILEAGE && worksheetDetail.ET_MILEAGE.item && worksheetDetail.ET_MILEAGE.item.length ? worksheetDetail.ET_MILEAGE.item[config.nowPage-1] : {};
         $scope.carMile = worksheetDetail.ET_MILEAGE.item[config.nowPage-1];
         $scope.update = {
-            readDate : $scope.carMile.MILEAGE_DATE,
+            readDate : $scope.carMile.MILEAGE_DATE.substring(0,10).replace('.','').replace('.',''),
             readValue : $scope.carMile.MILEAGE_VALUE,
             readDescription : $scope.carMile.MILEAGE_DESC
         };
