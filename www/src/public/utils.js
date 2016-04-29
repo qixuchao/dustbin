@@ -55,7 +55,10 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                     var respTime = new Date().getTime() - startTime;
                     //超时之后返回的方法
                     if(respTime >= config.timeout){
-                        console.log('HTTP timeout')
+                        console.log('HTTP timeout');
+                        if(ionic.Platform.isWebView()){
+                            $cordovaDialogs.alert('请求超时');
+                        }
                     }
                     $ionicLoading.hide();
                 });

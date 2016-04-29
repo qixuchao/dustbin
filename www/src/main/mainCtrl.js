@@ -27,7 +27,6 @@ mainModule
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location, $cordovaToast, $ionicModal,
                   ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService,
                   worksheetDataService, saleChanService) {
-            console.log('s')
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
                 ionicMaterialInk.displayEffect();
@@ -253,19 +252,17 @@ mainModule
                 d.setDate(d.getDate() + days);
                 var m = d.getMonth() + 1;
                 return new Date(d.getFullYear() + '/' + m + '/' + d.getDate());
-            }
+            };
             var tempDate = new Date();
             var nextDays = function (add, daysArr, nextDateObj) {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
-                //console.log($scope.days[page_index]);
                 var myTempMonth;
                 if (angular.isUndefined(page_index)) {
                     myTempMonth = $scope.days[0].month;
                 } else {
                     myTempMonth = $scope.days[page_index].month;
                 }
-                console.log(myTempMonth)
                 var arr = angular.copy(daysArr);
                 var nowLastDate = $scope.year + '/' + myTempMonth + '/' + arr[6].value;
                 tempDate = addDate(nowLastDate, add);
@@ -273,7 +270,7 @@ mainModule
                 nextDateObj.year = tempDate.getFullYear();
                 nextDateObj.month = tempDate.getMonth() + 1;
                 return getDays(nextDateObj.month, tempDate.getDate());
-            }
+            };
             //判断数组元素是否连续
             var isContinue = function (arr) {
                 for (var i = 1; i < arr.length; i++) {
@@ -282,7 +279,7 @@ mainModule
                     }
                 }
                 return true;
-            }
+            };
             $scope.doubleClick = function () {
             };
             //长按修改年月
@@ -310,9 +307,15 @@ mainModule
                 //当前在周视图
                 if (page_index != undefined) {
                     if (page_index == 0) {
-                        var temp = true;
+                        var temp = true,myTempMonth;
                         for (var i = 0; i < 7; i++) {
-                            if (($scope.year + '/' + $scope.month + '/' + $scope.days[0].arr[i].value) == todayDate) {
+                            if ($scope.days[page_index].arr[6].value < 7) {
+                                myTempMonth = $scope.days[page_index].month-1;
+                                if($scope.days[page_index].arr[i].value>0&&$scope.days[page_index].arr[i].value<7){
+                                    myTempMonth = $scope.days[page_index].month;
+                                }
+                            }
+                            if (($scope.year + '/' + myTempMonth + '/' + $scope.days[0].arr[i].value) == todayDate) {
                                 temp = false;
                             }
                         }
@@ -321,10 +324,10 @@ mainModule
                         }
                         selectDate = new Date().format('yyyy-MM-dd');
                         if (temp) {
-                            dayViewHandle.previous(300);
-                            $timeout(function () {
+                            //dayViewHandle.previous(300);
+                            //$timeout(function () {
                                 dayViewHandle.slide(0, 300);
-                            }, 100)
+                            //}, 100)
                         }
                         $scope.init();
 
@@ -366,7 +369,6 @@ mainModule
             $scope.selectDay = function (x, y) {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
-                console.log(page_index)
                 //当前在周视图
                 if (angular.isDefined(page_index)) {
                     if ($scope.days[page_index].arr[6].value < 7 && y.value > 7) {
@@ -608,6 +610,11 @@ mainModule
             };
             /*----------------------------月视图 end----------------------------*/
             /*-------------------------------------------日历 end-------------------------------------------*/
+
+            var getMarkDays = function (start,end) {
+
+            };
+
             $scope.marks = ['#cf021b', '#f5a623', '#4a90e2', '#f8e71c', '#417505'];
             $scope.loadMoreFlag = true;
             $scope.thingsToDo = [];

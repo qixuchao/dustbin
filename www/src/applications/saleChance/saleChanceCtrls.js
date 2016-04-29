@@ -136,7 +136,19 @@ salesModule
                             $scope.saleListNoMoreInfoFLag = true;
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
-                    }).finally(function () {
+                    }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if (respTime >= config.timeout) {
+                        console.log('HTTP timeout');
+                        if (ionic.Platform.isWebView()) {
+                            $scope.loadMoreFlag = false;
+                            $scope.saleListNoMoreInfoFLag = true;
+                            //Prompter.alert('请求超时');
+                        }
+                    }
+                    $ionicLoading.hide();
+                }).finally(function () {
                     // 停止广播ion-refresher
                     $scope.$broadcast('scroll.refreshComplete');
                 });
@@ -205,9 +217,9 @@ salesModule
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
                 var ele = angular.element('#saleActListFilterId');
-                if(Prompter.isAndroid()){
+                if (Prompter.isAndroid()) {
                     ele.css('display', 'none');
-                }else{
+                } else {
                     ele.css('display', 'block').removeClass('fadeInDown');
                     ele.css('display', 'block').addClass('slideOutUp');
                 }
@@ -253,16 +265,16 @@ salesModule
                 $scope.filterFlag = !$scope.filterFlag;
                 if ($scope.filterFlag) {
                     onceCilck = true;
-                    if(Prompter.isAndroid()){
+                    if (Prompter.isAndroid()) {
                         ele.css('display', 'block');
-                    }else{
+                    } else {
                         ele.css('display', 'block').removeClass('slideOutUp');
                         ele.css('display', 'block').addClass('fadeInDown');
                     }
                 } else {
-                    if(Prompter.isAndroid()){
+                    if (Prompter.isAndroid()) {
                         ele.css('display', 'none');
-                    }else{
+                    } else {
                         ele.css('display', 'block').removeClass('fadeInDown');
                         ele.css('display', 'block').addClass('slideOutUp');
                     }
@@ -384,9 +396,9 @@ salesModule
             ionicMaterialInk.displayEffect();
 
             $scope.statusArr = saleChanService.listStatusArr;
-            if(Prompter.isATL()){
+            if (Prompter.isATL()) {
                 $scope.relationsTypes = saleChanService.relationsTypes_ATL;
-            }else{
+            } else {
                 $scope.relationsTypes = saleChanService.relationsTypes;
             }
             $scope.chanceDetails = {
@@ -603,9 +615,9 @@ salesModule
 
             };
             /*---------------------------------选择弹窗-------------------------------------*/
-            if(Prompter.isATL()){
+            if (Prompter.isATL()) {
                 $scope.saleStages = saleChanService.saleStages.ATL;
-            }else{
+            } else {
                 $scope.saleStages = saleChanService.saleStages2;
             }
             $scope.pop = {
@@ -877,9 +889,9 @@ salesModule
                 });
                 relationService.isReplace = false;
                 relationService.myRelations = $scope.relationArr;
-                if(Prompter.isATL()){
+                if (Prompter.isATL()) {
                     relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd_ATL);
-                }else{
+                } else {
                     relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd);
                 }
                 $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {
@@ -896,7 +908,7 @@ salesModule
                     return
                 }
                 if (x.PARTNER_FCT == "Z0000003" && !angular.isUndefined(x.mode)) {
-                    Prompter.alert(x.position+'不能删除或替换!');
+                    Prompter.alert(x.position + '不能删除或替换!');
                     return
                 }
                 repTempIndex = $scope.relationArr.indexOf(x);
@@ -932,9 +944,9 @@ salesModule
                                 relationService.isReplace = true;
                                 relationService.myRelations = $scope.relationArr;
                                 relationService.replaceMan = x;
-                                if(Prompter.isATL()){
+                                if (Prompter.isATL()) {
                                     relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd_ATL);
-                                }else{
+                                } else {
                                     relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd);
                                 }
                                 relationService.repTempIndex = repTempIndex;
