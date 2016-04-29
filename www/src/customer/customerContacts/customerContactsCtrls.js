@@ -104,7 +104,9 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
         });
 
         $scope.relatedPopoverShow = function() {
-            $scope.relatedpopover.show();
+            customeService.goContacts.formCusttomer = true;
+            $state.go('ContactCreate');
+            //$scope.relatedpopover.show();
             //document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
         };
         $scope.relatedPopoverhide = function() {

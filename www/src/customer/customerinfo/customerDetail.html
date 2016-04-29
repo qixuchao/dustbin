@@ -70,9 +70,9 @@
         <div class="customer_detail_countentbasicline"></div>
         <div class="customer_detail_countentbasicclok"></div>
     </div>
-    <ion-content style="margin-top:235px;margin-bottom: 44px">
+    <ion-content style="margin-top:235px;margin-bottom: 0">
         <div class="customer_detail_countentlist">
-            <div class="row" style="padding:5px 5px">
+            <div class="row" style="padding:5px 5px" ng-if="remark">
                 <div class="col col-40" style="margin-left: 7px;">
                     注释
                 </div>
@@ -80,9 +80,10 @@
                     <!--<span ng-bind="customerdetails.TDLINE"></span>-->
                 <!--</div>-->
             </div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" ng-if="remark">{{customerdetails.TDLINE}}</div>
             <!--<textarea id="textareas" readonly placeholder="" style="width: 100%; padding: 0px 15px 15px 20px;resize: none;min-height: 47px;max-height: 300px;overflow-y: hidden;background-color: white;color:#909993" ng-bind="customerdetails.TDLINE"></textarea>-->
-            <textarea id="textareas" placeholder="" readonly style="width: 100%; padding: 0px 15px 0px 20px;resize: none;min-height: 33px;max-height: 300px;overflow-y: hidden;background-color: white;color: #A0A09F" ng-model="customerdetails.TDLINE"  ng-init="autoHeight()"></textarea>
-            <div class="employee_query_listline">
+            <!--<textarea id="textareas" placeholder="" ng-if="remark" readonly style="width: 100%; padding: 0px 15px 0px 20px;resize: none;min-height: 33px;max-height: 300px;overflow-y: hidden;background-color: white;color: #A0A09F" ng-model="customerdetails.TDLINE"  ng-init="autoHeight()"></textarea>-->
+            <div class="employee_query_listline" ng-if="remark">
             </div>
             <div class="row" style="padding:5px 5px">
                 <div class="col col-40" style="margin-left: 7px;">
@@ -99,7 +100,7 @@
                     付款方式
                 </div>
                 <div class="col col-60" style="color:#AEA3A3">
-                    <span ng-bind="customerdetails.ZZZLSCH"></span>
+                    <span ng-bind="customerdetails.TEXT2"></span>
                 </div>
             </div>
             <div class="employee_query_listline" ng-if="customerDetailplayway">
@@ -109,7 +110,7 @@
                     付款日历
                 </div>
                 <div class="col col-60" style="color:#AEA3A3">
-                    <span ng-bind="customerdetails.ZZPAY_CLD"></span>
+                    <span ng-bind="customerdetails.CLD_DSC"></span>
                 </div>
             </div>
             <div class="employee_query_listline" ng-if="customerDetailplaydate">
@@ -240,7 +241,7 @@
             </div>
             <div class="employee_query_listline">
             </div>
-            <div class="row" style="padding:5px 5px" ng-click="customeropenbrser(customerdetails.URI_SRCH)">
+            <div class="row" style="padding:5px 5px" ng-click="customeropenbrser(customerdetails.URI_SRCH)" ng-if="web">
                 <div class="col col-40">
                     <img src="img/customer/customerwangz@2x.png" class="customer_detail_countentlistimg"/>
                     网站
@@ -249,9 +250,9 @@
                     <span ng-bind="customerdetails.URI_SRCH"></span>
                 </div>
             </div>
-            <div class="employee_query_listline">
+            <div class="employee_query_listline" ng-if="web">
             </div>
-            <div class="row" style="padding:5px 5px">
+            <div class="row" style="padding:5px 5px" ng-if="fuzeEmp">
                 <div class="col col-40" style="margin-left: 7px;">
                     负责员工
                 </div>
@@ -259,7 +260,7 @@
                     <span ng-bind="customerdetails.PARTNER_AUTO_COMPLETE"></span><span style="padding-left: 1em" ng-bind="customerdetails.PARTNER_NO"></span>
                 </div>
             </div>
-            <div class="employee_query_listline">
+            <div class="employee_query_listline" ng-if="fuzeEmp">
             </div>
             <!--<div class="row" style="padding:5px 5px">
                 <div class="col col-40" style="margin-left: 7px;">
@@ -312,7 +313,7 @@
             </div>
             <div class="employee_query_listline">
             </div>
-            <!--<div class="row" style="padding:5px 5px">
+            <div class="row" style="padding:5px 5px" ng-if="menNum">
                 <div class="col col-40" style="margin-left: 7px;">
                     门牌号
                 </div>
@@ -320,8 +321,8 @@
                     <span ng-bind="customerdetails.HOUSE_NUM1"></span>
                 </div>
             </div>
-            <div class="employee_query_listline">
-            </div>-->
+            <div class="employee_query_listline" ng-if="menNum">
+            </div>
             <div class="row" style="padding:5px 5px">
                 <div class="col col-40" style="margin-left: 7px;">
                     邮编
@@ -345,9 +346,9 @@
             </div>
         </div>
     </ion-content>
-    <ion-footer-bar ng-if="customerdetails.ZEDIT_FLAG=='Y' && sedit" style="height:60px;background: transparent;">
-        <div class="customercontentbutton" ng-click="CustomerDeatilEditvalue()">
-            编辑
-        </div>
-    </ion-footer-bar>
+    <!--<ion-footer-bar ng-if="customerdetails.ZEDIT_FLAG=='Y' && sedit" style="height:60px;background: transparent;">-->
+        <!--<div class="customercontentbutton" ng-click="CustomerDeatilEditvalue()">-->
+            <!--编辑-->
+        <!--</div>-->
+    <!--</ion-footer-bar>-->
 </ion-view>

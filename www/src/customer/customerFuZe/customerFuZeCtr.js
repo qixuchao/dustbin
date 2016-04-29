@@ -1,5 +1,5 @@
 
-worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast){
+worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast','employeeService',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast,employeeService){
     $ionicPopover.fromTemplateUrl('src/customer/customerFuZe/customer_selectbyD.html', {
             scope: $scope
         }).then(function(popover) {
@@ -44,7 +44,11 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
 
             $scope.relatedPopoverhide();
         };
-
+        $scope.goDetail = function(i){
+            console.log(i);
+            employeeService.set_employeeListvalue(i);
+            $state.go('userDetail');
+        };
 
         $scope.deleteInfos = function(item){
                 Prompter.showLoading("正在删除");
