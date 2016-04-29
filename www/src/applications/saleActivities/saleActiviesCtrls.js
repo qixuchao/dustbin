@@ -711,11 +711,11 @@ salesModule
                 text: '测试2'
             }];
             $scope.chancePopArr = [{
-                text: '商机'
-            }, {
-                text: '线索'
-            }, {
-                text: '销售活动'
+                    text: '商机'
+                }, {
+                    text: '线索'
+                }, {
+                    text: '销售活动'
             }];
             $scope.selectPopText = '商机';
             $scope.referMoreflag = false;

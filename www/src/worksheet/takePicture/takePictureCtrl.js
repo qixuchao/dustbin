@@ -163,7 +163,8 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			};
 			//ROOTCONFIG.hempConfig.UploadImageUrl;			
 			// http://117.28.248.23:9388/test/api/bty/uploadImage
-			__uploadImage(item, ROOTCONFIG.hempConfig.UploadImageUrl, JSON.stringify(inbond));
+			var url = ROOTCONFIG.hempConfig.basePath + "uploadImage";
+			__uploadImage(item, url, JSON.stringify(inbond));
 		};
 
 		function __requestImageList(isRealod){
@@ -628,7 +629,8 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			var filepath = file.fileLocalPath;
 			//var url = encodeURI("http://192.168.31.101:8080/h5uploader/upload");
 			//var url = encodeURI("http://117.28.248.23:9388/test/api/bty/uploadImage");
-			var url = encodeURI(ROOTCONFIG.hempConfig.UploadImageUrl);
+			var uploadUrl = ROOTCONFIG.hempConfig.basePath + "uploadImage";
+			var url = encodeURI(uploadUrl);
 			var options = new FileUploadOptions();
 			options.fileKey = "image";
 			options.fileName = file.name;

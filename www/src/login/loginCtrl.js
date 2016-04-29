@@ -86,7 +86,8 @@ loginModule
             $scope.login = function () {
                 Prompter.showLoading();
                 //http://117.28.248.23:9388/test/api/bty/login
-                var url = ROOTCONFIG.hempConfig.LoginUrl; //"http://117.28.248.23:9388/test/api/bty/login";
+                //var url = ROOTCONFIG.hempConfig.LoginUrl; //"http://117.28.248.23:9388/test/api/bty/login";
+                var url = ROOTCONFIG.hempConfig.basePath + "login";
                 var data = {
                     "username": $scope.loginData.username,
                     "password": $scope.loginData.password,
@@ -117,11 +118,11 @@ loginModule
                               LoginService.setPassword("");
                               $scope.loginData.password = "";
                           }
-                          if(response.FIRST_LOGIN != "Y"){
-                            $state.go('changePass');
-                          }else{
+                          //if(response.FIRST_LOGIN != "Y"){
+                            //$state.go('changePass');
+                          //}else{
                             $state.go('tabs', {}, {location:"replace", reload:"true"});
-                          }
+                          //}
                     }
 
                 });

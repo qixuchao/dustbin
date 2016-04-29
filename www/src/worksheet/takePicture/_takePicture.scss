@@ -1,4 +1,4 @@
-#worksheet-takepicture-view{
+#worksheet-takepicture-view{ 
 	/*.back-left{
 		font-size: 2rem;
 		@include display-flex;
@@ -6,7 +6,7 @@
 		@include justify-content(center);
     	width: 1.8rem;
 	}*/
-	.selected-images{
+	.selected-images{ 	
 		width: 100%;
 		padding: .8rem 2vmin;
 		.selected-image{
@@ -19,7 +19,7 @@
 			    @include justify-content(center); 
 			    @include align-items(center);
 			    padding: .4rem;
-		    }
+		    } 
 		    img{
 				max-height: 100%;
 				max-width: 100%;

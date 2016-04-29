@@ -19,7 +19,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	}
 }	
 
-.platform-ios{
+.platform-ios{ 
 	#xbr-worksheet-list-content{
 		.search-box-wrapper.isSearchingMode{
 			//padding-top: 20px;
@@ -1172,7 +1172,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
         &.ZNCO, &.ZPLO, &.ZPRO{  //外服工单
         	&.E0001{  // 新建
-        		.paigong, .yiquxiao{
+        		.paigong, .yiquxiao, .jiedan, .judan{
         			display: block;
         		}
         	}

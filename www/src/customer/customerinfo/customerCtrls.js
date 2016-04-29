@@ -27,7 +27,7 @@ customerModule
         $scope.customer={
             customerfiledvalue:""
         };
-            $scope.customerQuery_list = [];
+            $scope.customerQuery_list = []; 
         //历史记录显示customer_usuaflag
         $scope.CustomerHisGetvaluehis = function(){
             $scope.customer_queryflag = false;
@@ -786,7 +786,10 @@ customerModule
                        typemane:'负责人',
                        imgurl:'img/customer/customerfuz@2x.png',
                        url:'customerFuZe'
-                   },{
+                   }];
+               }
+               /*
+                    ,{
                        typemane:'机会',
                        imgurl:'img/customer/customerjihui@2x.png',
                        url:'saleChanList'
@@ -794,14 +797,15 @@ customerModule
                        typemane:'活动',
                        imgurl:'img/customer/customerhuod.png',
                        url:'saleActList'
-                   }];
-               }
+                   }
+               */
            } else{
                $scope.customer_detailstypes = [{
                    typemane:'联系人',
                    imgurl:'img/customer/customerlianxir@2x.png',
                    url:'customerContactQuery'
-               },{
+               },
+               /*{
                    typemane:'机会',
                    imgurl:'img/customer/customerjihui@2x.png',
                    url:'saleChanList'
@@ -809,7 +813,8 @@ customerModule
                    typemane:'活动',
                    imgurl:'img/customer/customerhuod.png',
                    url:'saleActList'
-               },{
+               },*/
+               {
                    typemane:'工单',
                    imgurl:'img/customer/customergongd@2x.png',
                    url:'worksheetList'

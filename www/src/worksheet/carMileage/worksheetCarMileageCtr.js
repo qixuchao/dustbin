@@ -6,7 +6,7 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState.name == 'worksheetCarMileageEdit' && toState.name == 'worksheetCarMileage'){
                 var getconfig = worksheetHttpService.getWSCarMileage();
-                init(getconfig.nowPage);
+                init(getconfig.nowPage); 
             }
         });
         ionicMaterialInk.displayEffect();
@@ -16,9 +16,9 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
         }
        var init = function(info){
            var worksheetDetail = worksheetDataService.wsDetailData;
-           console.log(worksheetDetail);
-           console.log(worksheetDetail.ET_MILEAGE)
-           console.log(worksheetDetail.ET_MILEAGE.item);
+           //console.log(worksheetDetail);
+           //console.log(worksheetDetail.ET_MILEAGE)
+           //console.log(worksheetDetail.ET_MILEAGE.item);
            if(worksheetDataService.wsDetailData.ET_MILEAGE.item == undefined){
                //$cordovaToast.showShortBottom('暂无车辆读数信息');
                $scope.carMile = '';
@@ -35,7 +35,11 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
                $scope.dateCar = ""
            }else{
                console.log($scope.carMile);
-               $scope.dateCar = $scope.carMile.MILEAGE_DATE.substring(0,10).replace('.','').replace('.','');
+               if($scope.carMile.MILEAGE_DATE && $scope.carMile.MILEAGE_DATE.substring && $scope.carMile.MILEAGE_DATE != "" ){
+                    $scope.dateCar = $scope.carMile.MILEAGE_DATE.substring(0,10).replace('.','').replace('.','');
+               }else{
+                    $scope.dateCar = "";//new String($scope.carMile.MILEAGE_DATE).toString();
+               }
            }
            if($scope.carMile.MILEAGE_VALUE == "" && $scope.carMile.MILEAGE_DESC == ""){
                $scope.carEdit = true;
