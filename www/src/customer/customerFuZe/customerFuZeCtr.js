@@ -227,7 +227,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             console.log(response);
             if (response.ES_RESULT.ZFLAG === 'S') {
                 $scope.updateInfos();
-                $cordovaToast.showShortBottom('添加成功');
+                $cordovaToast.showShortBottom('客户与负责人的关系已添加');
             }else{
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 Prompter.hideLoading();

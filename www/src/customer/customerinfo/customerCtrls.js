@@ -155,9 +155,15 @@ customerModule
                     }
                 }
                 //$scope.config.queryResultScrollDelegate.resize();
-            }).error(function (response, status) {
-                $cordovaToast.showShortBottom('请检查你的网络设备');
-                $scope.customerisshow = false;
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         };
         //实时搜索
@@ -523,9 +529,15 @@ customerModule
                             }
                         }
                     }
-                }).error(function(){
-                    Prompter.hideLoading();
-                    $cordovaToast.showShortBottom('请检查你的网络设备');
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if(respTime >= config.timeout){
+                        if(ionic.Platform.isWebView()){
+                            $cordovaDialogs.alert('请求超时');
+                        }
+                    }
+                    $ionicLoading.hide();
                 });
             }
         });
