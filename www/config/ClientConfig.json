@@ -5,6 +5,6 @@
 	"LoginUrl": "http://117.28.248.23:9388/crmuat/api/bty/login",
 	"UploadImageUrl": "http://117.28.248.23:9388/crmuat/api/bty/uploadImage",
 
-	"baseEnvironment": "CATL"
+	"baseEnvironment": "ATL"
   }
 }
