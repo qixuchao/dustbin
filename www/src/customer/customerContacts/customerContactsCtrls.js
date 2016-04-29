@@ -9,7 +9,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             conpageNum = 1;
             $scope.updateInfos(x);
             if(x != undefined  && x != ""){
-                $cordovaToast.showShortBottom('添加成功');
+                $cordovaToast.showShortBottom('客户与关系人的关系已添加');
             }
         }
     });
@@ -104,7 +104,9 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
         });
 
         $scope.relatedPopoverShow = function() {
-            $scope.relatedpopover.show();
+            customeService.goContacts.formCusttomer = true;
+            $state.go('ContactCreate');
+            //$scope.relatedpopover.show();
             //document.getElementsByClassName('popover-arrow')[0].addClassName ="popover-arrow";
         };
         $scope.relatedPopoverhide = function() {

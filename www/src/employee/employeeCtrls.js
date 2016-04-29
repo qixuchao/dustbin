@@ -542,18 +542,18 @@ employeeModule
                     "MODE": "A"
                 }
             };
-            console.log(x.PARTNER);
+            //console.log(x.PARTNER);
             console.log(employeeService.get_employeeListvalue().PARTNER);
             HttpAppService.post(url,data).success(function(response){
                 if(response.ES_RESULT.ZFLAG=="E"){
-                    console.log(response.ES_RESULT.ZRESULT);
+                    //console.log(response.ES_RESULT.ZRESULT);
                   $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }else{
 
                     $scope.employcustomerlist=new Array;
                     $scope.updateCustomer();
                     console.log("添加成功");
-                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT)
+                    $cordovaToast.showShortBottom("员工与客户的关系添加成功")
                 }
             });
             //$scope.getCustomerArr();
@@ -587,8 +587,9 @@ employeeModule
                 }else {
                     $scope.employcustomerlist=new Array;
                     $scope.updateCustomer();
+                    $cordovaToast.showShortBottom("员工与客户的关系删除成功");
                     //$scope.employcustomerlist.splice(i,1);
-                    console.log("删除成功");
+                    //console.log("删除成功");
                 }
             })
         };

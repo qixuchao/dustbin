@@ -47,6 +47,7 @@
                              ng-class="(year+'/'+month+'/'+y.value)==myTodayDate?'today_text':''"
                              ng-click="selectDay(x.arr,y)">
                             <div ng-class="{'checked':y.checked,'back-today':y.isToday}">{{y.value}}</div>
+                            <div class="dot"></div>
                         </div>
                     </div>
                 </ion-slide>
@@ -140,7 +141,6 @@
                     <div class="border-bottom"></div>
                     <!--<div class="row row-center mark" ng-if="x.showMarks">-->
                     <!--<img src="img/main/mark.png" class="markImg">-->
-
                     <!--<div class="markText">标记:</div>-->
                     <!--<div class="col-48 markSelect">-->
                     <!--<div class="row">-->

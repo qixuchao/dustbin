@@ -105,6 +105,11 @@ customerModule
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
             HttpAppService.post(url, data).success(function (response) {
+                console.log($scope.customer.customerfiledvalue);
+                console.log(data.IS_SEARCH);
+                if($scope.customer.customerfiledvalue != data.IS_SEARCH.SEARCH){
+                    return;
+                }
                 console.log(response);
                 $scope.customer_queryflag = true;
                 if (response.ES_RESULT.ZFLAG == 'E') {
@@ -155,9 +160,15 @@ customerModule
                     }
                 }
                 //$scope.config.queryResultScrollDelegate.resize();
-            }).error(function (response, status) {
-                $cordovaToast.showShortBottom('请检查你的网络设备');
-                $scope.customerisshow = false;
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         };
         //实时搜索
@@ -197,7 +208,7 @@ customerModule
                 $scope.customer.customerfiledvalue = '';
                 $scope.customerPage = 0;
                 $scope.customerQuery_list = new Array;
-                Prompter.showLoading("正在加载")
+                Prompter.showLoading("正在加载");
                 $scope.customerLoadmore();
             }
         //清除历史记录
@@ -425,71 +436,6 @@ customerModule
     .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet','saleActService',
         function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet,saleActService){
 
-        //文本框自适应换行
-        var autoTextarea = function (elem, extra, maxHeight) {
-            extra = extra || 0;
-            var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
-                isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
-                addEvent = function (type, callback) {
-                    elem.addEventListener ?
-                        elem.addEventListener(type, callback, false) :
-                        elem.attachEvent('on' + type, callback);
-                },
-                getStyle = elem.currentStyle ? function (name) {
-                    var val = elem.currentStyle[name];
-
-                    if (name === 'height' && val.search(/px/i) !== 1) {
-                        var rect = elem.getBoundingClientRect();
-                        return rect.bottom - rect.top -
-                            parseFloat(getStyle('paddingTop')) -
-                            parseFloat(getStyle('paddingBottom')) + 'px';
-                    };
-
-                    return val;
-                } : function (name) {
-                    return getComputedStyle(elem, null)[name];
-                },
-                minHeight = parseFloat(getStyle('height'));
-
-            elem.style.resize = 'none';
-
-            var change = function () {
-                var scrollTop, height,
-                    padding = 0,
-                    style = elem.style;
-
-                if (elem._length === elem.value.length) return;
-                elem._length = elem.value.length;
-
-                if (!isFirefox && !isOpera) {
-                    padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
-                };
-                scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-
-                elem.style.height = minHeight + 'px';
-                if (elem.scrollHeight > minHeight) {
-                    if (maxHeight && elem.scrollHeight > maxHeight) {
-                        height = maxHeight - padding;
-                        style.overflowY = 'auto';
-                    } else {
-                        height = elem.scrollHeight - padding;
-                        style.overflowY = 'hidden';
-                    };
-                    style.height = height + extra + 'px';
-                    scrollTop += parseInt(style.height) - elem.currHeight;
-                    document.body.scrollTop = scrollTop;
-                    document.documentElement.scrollTop = scrollTop;
-                    elem.currHeight = parseInt(style.height);
-                };
-            };
-
-            addEvent('propertychange', change);
-            addEvent('input', change);
-            addEvent('focus', change);
-            change();
-        };
-        var text = document.getElementById("textareas");
-        autoTextarea(text);// 调用
         if(LoginService.getProfileType()=="APP_SERVICE"){
             $scope.sedit = true;
         }else if (LoginService.getProfileType()=="APP_SALE"){
@@ -523,9 +469,15 @@ customerModule
                             }
                         }
                     }
-                }).error(function(){
-                    Prompter.hideLoading();
-                    $cordovaToast.showShortBottom('请检查你的网络设备');
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if(respTime >= config.timeout){
+                        if(ionic.Platform.isWebView()){
+                            $cordovaDialogs.alert('请求超时');
+                        }
+                    }
+                    $ionicLoading.hide();
                 });
             }
         });
@@ -538,10 +490,6 @@ customerModule
         };
 
         //根据角色检查字段初始化
-        ////搜索项
-        //$scope.customerDetailsearcho = true;
-        ////搜索项2
-        //$scope.customerDetailsearcht = true;
         //付款方式
         $scope.customerDetailplayway = true;
         //付款日历
@@ -572,6 +520,14 @@ customerModule
         $scope.customerDetailstrret = true;
         //街道三
         $scope.customerDetailstrreth = true;
+            //网站
+            $scope.web = true;
+            //fuze
+            $scope.fuzeEmp = true;
+            //zhushi
+            $scope.remark = true;
+            //menpai
+            $scope.menNum = true;
         //初始化角色判断
         var customerDroletypeold = customeService.get_customerListvalue().PARTNER_ROLE;
 
@@ -714,9 +670,33 @@ customerModule
         }
             if(LoginService.getProfileType()=="APP_SERVICE"){
                 $scope.customerDetailmobilenum = true;
+                //竞争对手领域
+                $scope.customerDetailZzlyone = false;
+                //份额
+                $scope.customerDetailContains = false;
+                //价格
+                $scope.customerDetailPrice = false;
+                //助销伙伴领域
+                $scope.customerDetailZzlytwo = false;
+                //长项
+                $scope.customerDetailAdvatage = false;
+                //项目
+                $scope.customerDetailEvent = false;
+                $scope.web = false;
+                //付款方式
+                $scope.customerDetailplayway = false;
+                //付款日历
+                $scope.customerDetailplaydate = false;
+                //验收周期
+                $scope.customerDetailcheckdate = false;
+                //预验收周期
+                $scope.customerDetailwillcheckdate = false;
+                $scope.fuzeEmp = false;
+                $scope.remark = false;
             }
         else if (LoginService.getProfileType()=="APP_SALE"){
                 $scope.customerDetailmobilenum = false;
+                $scope.menNum = false;
             }
         Prompter.showLoading("数据加载中...");
         var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
@@ -1013,8 +993,8 @@ customerModule
             NAME_ORG2:customeService.get_customerEditServevalue().NAME_ORG2,
             NAME_ORG3:customeService.get_customerEditServevalue().NAME_ORG3,
             NAME_ORG4:customeService.get_customerEditServevalue().NAME_ORG4,
-            ZZZLSCH:customeService.get_customerEditServevalue().ZZZLSCH,
-            ZZPAY_CLD:customeService.get_customerEditServevalue().ZZPAY_CLD,
+            TEXT2:customeService.get_customerEditServevalue().TEXT2,
+            CLD_DSC:customeService.get_customerEditServevalue().CLD_DSC,
             ZZACCEPTPERIOD:customeService.get_customerEditServevalue().ZZACCEPTPERIOD,
             URI_SRCH:customeService.get_customerEditServevalue().URI_SRCH,
             PARTNER_AUTO_COMPLETE:customeService.get_customerEditServevalue().PARTNER_AUTO_COMPLETE,

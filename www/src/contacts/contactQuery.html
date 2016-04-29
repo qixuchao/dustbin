@@ -4,7 +4,9 @@
             <div class="row row-center">
                 <a class="col col-20 text-left goBack button button-clear"></a>
                 <div class="col col-60 text-center">联系人</div>
-                <div class="col col-20 add" style="text-align: right" ng-click="Contactsopenpopv()">
+                <!--显示poponver-->
+                <!--<div class="col col-20 add" style="text-align: right" ng-click="Contactsopenpopv()">-->
+                <div class="col col-20 add" style="text-align: right" ng-click="goEmpDetail()">
                     <img src="img/employee/increase@2x.png"/>
                 </div>
             </div>
@@ -41,9 +43,8 @@
                     <div class="col col-2"></div>
                 </div>
             </div>
-            <ion-infinite-scroll on-infinite="contactLoadmore()" ng-if="contactisshow"></ion-infinite-scroll>
         </ion-content>
-        <ion-content class="has-header search " has-bouncing="true" ng-show="searchFlag">
+        <ion-content class="has-header search " has-bouncing="false" ng-show="searchFlag" style="margin-bottom: 50px;">
             <div ng-hide="config.contactfiledvalue.length>0">
                 <div class="row row-center his-title" >
                     <i class="ion-android-time"></i>
@@ -54,23 +55,27 @@
                     <ion-item ng-click="search(x.name,$event)" ng-repeat="x in contact_query_historylists">{{x.name}}</ion-item>
                 </ion-list>
             </div>
-            <div class="contentType animated" ng-repeat="lists in contact_query_list" ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
-                <div class="row row-center rowType " >
-                    <div class="col col-6 col-center">
-                        <img ng-src="img/car/Oval.png" class="pointImg">
+            <!--<ion-scroll class="fill-parent" >-->
+                <div class="contentType" ng-repeat="lists in contact_query_list" ng-if="config.contactfiledvalue.length!=0">
+                    <div class="row row-center rowType " >
+                        <div class="col col-6 col-center">
+                            <img ng-src="img/car/Oval.png" class="pointImg">
+                        </div>
+                        <div class="col col-25" ng-click="Contacts_godetails(lists)">
+                            <span><div ng-bind-html="lists.NAME_LAST | highlight:config.contactfiledvalue"></div></span>
+                        </div>
+                        <div class="col col-55 col-center colType" ng-click="conatct_querynumber(lists)">
+                            <span>{{lists.MOB_NUMBER}}</span>
+                        </div>
+                        <div class="col col-12 col-center" ng-click="Contacts_godetails(lists)">
+                            <img ng-src="img/car/Shape.png" class="shapeImg" >
+                           </div>
+                        <div class="col col-2"></div>
                     </div>
-                    <div class="col col-25" ng-click="Contacts_godetails(lists)">
-                        <span><div ng-bind-html="lists.NAME_LAST | highlight:config.contactfiledvalue"></div></span>
-                    </div>
-                    <div class="col col-55 col-center colType" ng-click="conatct_querynumber(lists)">
-                        <span>{{lists.MOB_NUMBER}}</span>
-                    </div>
-                    <div class="col col-12 col-center" ng-click="Contacts_godetails(lists)">
-                        <img ng-src="img/car/Shape.png" class="shapeImg" >
-                    </div>
-                    <div class="col col-2"></div>
                 </div>
-                </div>
+                <ion-infinite-scroll distance="1%" on-infinite="contactLoadmore()" ng-if="contactisshow&&config.contactfiledvalue.length!=0"></ion-infinite-scroll>
+            <!--</ion-scroll>-->
+
         </ion-content>
     </ion-view>
     <!--<ion-content style="margin-top:44px" class="has-footer">-->

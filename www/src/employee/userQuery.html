@@ -43,7 +43,6 @@
                 <div class="col col-2"></div>
             </div>
         </div>
-        <ion-infinite-scroll on-infinite="employLoadmore()" ng-if="employisshow"></ion-infinite-scroll>
     </ion-content>
     <ion-content class="has-header search " has-bouncing="true" ng-show="searchFlag">
         <div ng-show="!employ.employeefiledvalue.length>0">
@@ -56,7 +55,7 @@
                 <ion-item ng-click="search(x.name,$event)" ng-repeat="x in employee_query_historylists">{{x.name}}</ion-item>
             </ion-list>
         </div>
-        <div class="contentType animated" ng-repeat="lists in employee_query_list"  ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
+        <div class="contentType" ng-repeat="lists in employee_query_list" ng-if="employ.employeefiledvalue.length>0">
             <div class="row row-center rowType " >
                 <div class="col col-5 col-center">
                     <img ng-src="img/car/Oval.png" class="pointImg">
@@ -71,6 +70,7 @@
                 <div class="col col-2"></div>
             </div>
         </div>
+        <ion-infinite-scroll on-infinite="employLoadmore()" ng-if="employisshow&&employ.employeefiledvalue.length>0"></ion-infinite-scroll>
     </ion-content>
 </ion-view>
 <!--<ion-nav-view class="employee_query">-->

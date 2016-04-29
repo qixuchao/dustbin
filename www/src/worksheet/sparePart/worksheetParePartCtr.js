@@ -91,8 +91,15 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     $scope.infos[i].checked = "NO";//是否默认
                 }
                 $scope.deletePro("");
-            }).error(function(err){
-
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
             });
 
@@ -172,8 +179,15 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         }
                         $scope.change($scope.config.warehouse);}
 
-                }).error(function(err){
-
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if(respTime >= config.timeout){
+                        if(ionic.Platform.isWebView()){
+                            $cordovaDialogs.alert('请求超时');
+                        }
+                    }
+                    $ionicLoading.hide();
                 });
             }
         }
@@ -218,8 +232,15 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     }
                     $scope.change($scope.config.warehouse);
                 }
-            }).error(function(err){
-
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         }
 
@@ -370,7 +391,15 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $state.go("worksheetSelect");
                 }
-            }).error(function(err){
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         }
         //暂存
@@ -469,8 +498,15 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
 
                 }
                 Prompter.hideLoading();
-            }).error(function(err){
-                Prompter.hideLoading();
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         }
         $scope.goCustomer = function(){
@@ -653,7 +689,15 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
-                }).error(function(err){
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if(respTime >= config.timeout){
+                        if(ionic.Platform.isWebView()){
+                            $cordovaDialogs.alert('请求超时');
+                        }
+                    }
+                    $ionicLoading.hide();
                 });
             }
 
@@ -686,8 +730,15 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
 
                 }
                 Prompter.hideLoading();
-            }).error(function(err){
-                Prompter.hideLoading();
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         }
     }]);
@@ -852,9 +903,15 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                         }
                     }
                 }
-            }).error(function (response, status) {
-                $cordovaToast.showShortBottom('请检查你的网络设备');
-                $scope.spareimisshow = false;
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         };
         //初始化本地数据库

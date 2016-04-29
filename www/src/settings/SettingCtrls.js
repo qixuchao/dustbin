@@ -85,8 +85,7 @@ settingsModule.controller("SettingCtrl", [
         //版本检查
         $scope.checkVersion = function () {
             Prompter.showLoading();
-            var url = ROOTCONFIG.hempConfig.basePath + 'version';
-            //var url = 'http://117.28.248.23:9388/crmuat/api/bty/version';
+            var url = ROOTCONFIG.hempConfig.basePath+'version';
             var data = {
                 "appname": "CRM",
                 "system": ROOTCONFIG.hempConfig.baseEnvironment,
