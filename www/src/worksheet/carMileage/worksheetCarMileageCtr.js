@@ -124,8 +124,15 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                     Prompter.hideLoading();
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }
-            }).error(function (err) {
-                Prompter.hideLoading();
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         }
         //
@@ -226,8 +233,15 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
 
                 }
                 Prompter.hideLoading();
-            }).error(function(err){
-                Prompter.hideLoading();
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         }
     }]);

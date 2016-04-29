@@ -96,7 +96,15 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
-                }).error(function(err){
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if(respTime >= config.timeout){
+                        if(ionic.Platform.isWebView()){
+                            $cordovaDialogs.alert('请求超时');
+                        }
+                    }
+                    $ionicLoading.hide();
                 });
             }
         }
@@ -143,7 +151,16 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                     //saleActService.customerArr = $scope.customerArr;
                     $rootScope.$broadcast('scroll.infiniteScrollComplete');
                 }
-            });
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
+            });;
     };
     //选择客户
     $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
@@ -208,8 +225,15 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 Prompter.hideLoading();
             }
-        }).error(function(err){
-            Prompter.hideLoading();
+        }).error(function (response, status, header, config) {
+            var respTime = new Date().getTime() - startTime;
+            //超时之后返回的方法
+            if(respTime >= config.timeout){
+                if(ionic.Platform.isWebView()){
+                    $cordovaDialogs.alert('请求超时');
+                }
+            }
+            $ionicLoading.hide();
         });
         $scope.contactSpinnerFLag = true;
         $scope.contactsLoadMoreFlag = true;
@@ -256,7 +280,16 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                     $ionicScrollDelegate.resize();
                     $rootScope.$broadcast('scroll.infiniteScrollComplete');
                 }
-            });
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
+            });;
     };
 
     $ionicModal.fromTemplateUrl('src/worksheet/relatedPart/selectContact_Modal.html', {
@@ -315,8 +348,15 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                 Prompter.hideLoading();
             }
 
-        }).error(function(err){
-            Prompter.hideLoading();
+        }).error(function (response, status, header, config) {
+            var respTime = new Date().getTime() - startTime;
+            //超时之后返回的方法
+            if(respTime >= config.timeout){
+                if(ionic.Platform.isWebView()){
+                    $cordovaDialogs.alert('请求超时');
+                }
+            }
+            $ionicLoading.hide();
         });
         $scope.selectContactModal.hide();
     };
@@ -344,7 +384,15 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             }else{
                 Prompter.hideLoading();
             }
-        }).error(function(err){
+        }).error(function (response, status, header, config) {
+            var respTime = new Date().getTime() - startTime;
+            //超时之后返回的方法
+            if(respTime >= config.timeout){
+                if(ionic.Platform.isWebView()){
+                    $cordovaDialogs.alert('请求超时');
+                }
+            }
+            $ionicLoading.hide();
         });
     }
     $scope.goDetail = function(item){

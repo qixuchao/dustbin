@@ -9,7 +9,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             conpageNum = 1;
             $scope.updateInfos(x);
             if(x != undefined  && x != ""){
-                $cordovaToast.showShortBottom('添加成功');
+                $cordovaToast.showShortBottom('客户与关系人的关系已添加');
             }
         }
     });
