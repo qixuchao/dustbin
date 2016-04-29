@@ -399,6 +399,16 @@ salesModule.factory('saleChanService', function () {
         text:'ATL销售2',
         code:'Z0000004'
     }];
+    var chanceTypes = [{
+        text:'EBUS',
+        code:'Z002'
+    },{
+        text:'ECAR',
+        code:'Z003'
+    },{
+        text:'ESS',
+        code:'Z004'
+    }];
     var chanListArr=[],
         listPage=1,
         obj_id,
@@ -426,6 +436,7 @@ salesModule.factory('saleChanService', function () {
         relationsTypesForAdd,
         relationsTypes_ATL,
         saleStages2,
-        relationsTypesForAdd_ATL
+        relationsTypesForAdd_ATL,
+        chanceTypes
         }
 });

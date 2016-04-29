@@ -20,16 +20,32 @@ salesModule
         'customeService',
         'LoginService',
         function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
-                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService,LoginService) {
+                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService) {
             $scope.role = LoginService.getProfileType();
             $scope.filters = saleChanService.filters;
             $scope.CustomerLoadMoreFlag = true;
-            if(Prompter.isATL()){
+            if (Prompter.isATL()) {
                 $scope.saleStages = saleChanService.saleStages.ATL;
-            }else{
+            } else {
                 $scope.saleStages = saleChanService.saleStages2;
             }
-
+            //机会类型
+            $scope.chanceTypes = saleChanService.chanceTypes;
+            $scope.changeChanceType = function (x) {
+                if(angular.isDefined(x)){
+                    switch (x.code) {
+                        case 'Z002':
+                            $scope.saleStages = saleChanService.saleStages.CATL.EBUS;
+                            break;
+                        case 'Z003':
+                            $scope.saleStages = saleChanService.saleStages.CATL.ECAR;
+                            break;
+                        case 'Z004':
+                            $scope.saleStages = saleChanService.saleStages.CATL.ESS;
+                            break;
+                    }
+                }
+            };
             $scope.create = {
                 description: '',
                 place: '',
@@ -52,16 +68,21 @@ salesModule
             };
 
             var getProcessType = function () {
-                if(Prompter.isATL()){
+                if (Prompter.isATL()) {
                     return 'ZO01'
                 }
-                for (var i = 0; i < $scope.filters.types.length; i++) {
-                    if ($scope.chancePop.saleOffice.SALES_OFF_SHORT.substring(0, 2) == $scope.filters.types[i].text.substring(0, 2)) {
-                        return $scope.filters.types[i].value;
-                    }
-                }
+                //for (var i = 0; i < $scope.filters.types.length; i++) {
+                //    if ($scope.chancePop.saleOffice.SALES_OFF_SHORT.substring(0, 2) == $scope.filters.types[i].text.substring(0, 2)) {
+                //        return $scope.filters.types[i].value;
+                //    }
+                //}
+                return $scope.create.stage.value;
             };
             $scope.saveCreateModal = function () {
+                if(angular.isUndefined($scope.create.chanceType)){
+                    Prompter.alert('请选择机会类型');
+                    return
+                }
                 if (!$scope.create.title) {
                     Prompter.alert('请填写描述');
                     return

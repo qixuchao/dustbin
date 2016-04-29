@@ -310,9 +310,15 @@ mainModule
                 //当前在周视图
                 if (page_index != undefined) {
                     if (page_index == 0) {
-                        var temp = true;
+                        var temp = true,myTempMonth;
                         for (var i = 0; i < 7; i++) {
-                            if (($scope.year + '/' + $scope.month + '/' + $scope.days[0].arr[i].value) == todayDate) {
+                            if ($scope.days[page_index].arr[6].value < 7) {
+                                myTempMonth = $scope.days[page_index].month-1;
+                                if($scope.days[page_index].arr[i].value>0&&$scope.days[page_index].arr[i].value<7){
+                                    myTempMonth = $scope.days[page_index].month;
+                                }
+                            }
+                            if (($scope.year + '/' + myTempMonth + '/' + $scope.days[0].arr[i].value) == todayDate) {
                                 temp = false;
                             }
                         }
@@ -321,10 +327,10 @@ mainModule
                         }
                         selectDate = new Date().format('yyyy-MM-dd');
                         if (temp) {
-                            dayViewHandle.previous(300);
-                            $timeout(function () {
+                            //dayViewHandle.previous(300);
+                            //$timeout(function () {
                                 dayViewHandle.slide(0, 300);
-                            }, 100)
+                            //}, 100)
                         }
                         $scope.init();
 
