@@ -22,6 +22,21 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$cordovaDatePicker,
 		HttpAppService, worksheetHttpService, worksheetDataService, customeService, CarService, $cordovaToast){
 	
+	$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
+        if(fromState && fromState.name == 'worksheetList' && toState && toState.name == "tabs"){
+            if(window.event && window.event.type == "popstate"){
+            	if($scope.config.__popstateFlag){
+                    $scope.config.__popstateFlag = false;
+                }else{
+                    event2.preventDefault();
+                    $scope.config.__popstateFlag = true;
+                    $scope.goBack();
+                }
+            }
+        }
+    });
+	
+
 	$scope.safeApply = function(fn){
 	   var phase = this.$root.$$phase;
 	   if (phase == '$apply' || phase == '$digest') {
@@ -917,7 +932,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 		// 默认:1 代表开始时间倒序:desc 	 2 是开始时间顺序:aes 	 3 是影响由高到低:
 		var sortedInt = $scope.config.sortedTypeTimeAes ? "2" : (
 				$scope.config.sortedTypeTimeDesc ? "1" : (
-						$scope.config.sortedTypeCompactDesc ? "3" : "1" 
+						$scope.config.sortedTypeCompactDesc ? "3" : "" 
 					)
 			);
 

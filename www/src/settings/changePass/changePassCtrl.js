@@ -25,7 +25,7 @@ settingsModule.controller("ChangePassCtrl", [
             	$scope.config.moduleCode = 'CHANGE_PASS';
             	$scope.config.changeBoxTitle = '修改密码';
             }
-        });
+        }); 
 		
 		$scope.config = {
 			moduleCode: '', //RESET_PASS 重置密码; CHANGE_PASS: 修改密码

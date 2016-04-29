@@ -23,6 +23,19 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter, $ionicPlatform) {
         
+        $scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
+            if(fromState && fromState.name == 'worksheetEdit'){
+                if(window.event && window.event.type == "popstate"){
+                    if($scope.config.__popstateFlag){
+                        $scope.config.__popstateFlag = false;
+                    }else{
+                        event2.preventDefault();
+                        $scope.config.__popstateFlag = true;
+                        $scope.goBack();
+                    }
+                }
+            }
+        }); 
         //选择车辆返回的时候，获取车辆信息
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
@@ -50,6 +63,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         var noneValueId = null;
         
         $scope.config = {
+            __popstateFlag: false,
             typeStr: '',
 
             detailTypeNewCar: false,
@@ -63,6 +77,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             currentChanPinLeiXing: null,  //{"KATALOGART": "F0", "COMP_TYPE": "eBus",}
             currentGuZhangBuJian: null,      //{ "CODEGRUPPE": "04", "COMPONENT": "电芯" }
             currentGuZhangMingCheng: null,   //{CODE: '', REASON: ''}
+            currentResultCategory: null,  // 原因分类
 
             isLoading_BujianReason: false,
             isLoading_response: false,
@@ -81,6 +96,9 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         };
         
         $scope.saveEdited = function(){
+            // if(!__checkCanUpdate()){
+            //     return;
+            // }
             var impact = $scope.config.currentImpact.IMPACT;
             var scenario = $scope.config.currentGuZhangChangJing.SCENARIO;
             var response = $scope.config.currentZeRenFang.RESPONSE;
@@ -88,7 +106,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var katalogart = $scope.config.currentChanPinLeiXing.KATALOGART;
             var codegrupper = $scope.config.currentGuZhangBuJian.CODEGRUPPE;
             var code = $scope.config.currentGuZhangMingCheng.CODE;
-        
+            
             var startStr = $scope.datas.detail.ES_OUT_LIST.START_TIME_STR;
             var startDateStr = new Date(startStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
             startDate = startDateStr.split(" ")[0];
@@ -119,7 +137,9 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
                 ZZBXR: $scope.datas.detail.ES_OUT_LIST.ZZBXR,
                 ZZBXDH: $scope.datas.detail.ES_OUT_LIST.ZZBXDH,
-                ZZXYHF: $scope.datas.detail.ES_OUT_LIST.ZZXYHF
+                ZZXYHF: $scope.datas.detail.ES_OUT_LIST.ZZXYHF,
+
+                ZZYYFL_1: $scope.config.currentResultCategory.ZZYYFL || ''
             };
             __requestUpdateWorksheet(header);
         };
@@ -142,9 +162,6 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             return true;
         }
         function __requestUpdateWorksheet(headerData){
-            if(!__checkCanUpdate()){
-                return;
-            }
             var url = worksheetHttpService.serviceDetailChange.url;
             var defaults = worksheetHttpService.serviceDetailChange.defaults;
             var postData = angular.extend(defaults, {
@@ -207,7 +224,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 {
                     IMPACT_DESC: pleaseChoose,
                     IMPACT: null
-                },
+                }/*,
                 {
                     IMPACT_DESC: '灾难',
                     IMPACT: '01'
@@ -227,7 +244,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 {
                     IMPACT_DESC: '无',
                     IMPACT: '99'
-                }
+                }*/
             ],
             guZhangChangJingS:[
                 {
@@ -266,6 +283,12 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                             ]
                         }
                     ]
+                }
+            ],
+            resultCategoryS: [
+                {
+                    ZZYYFL_DESC: pleaseChoose,
+                    ZZYYFL: null
                 }
             ]
         };
@@ -544,11 +567,12 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             //console.log($scope.datas.detail.ES_OUT_LIST.END_TIME_STR);
             //__initSelectDatas();
             __initBuJianReason();
+            __initImpactFromRemote();
+            __initResponseCategory();
             __initScenario();
             __initResponse();
             __initGuZhangFeiLei();
-            __initImpact();
-
+            //__initImpact();
         };
 
         function __initImpact(){
@@ -672,6 +696,63 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     $scope.config.isLoading_defect = false;
             });
         }
+
+        function __initImpactFromRemote(){
+            var url = worksheetHttpService.xialazhi.list_impact.url;
+            var defaults = worksheetHttpService.xialazhi.list_impact.defaults;
+            var promise = HttpAppService.post(url, defaults);
+            $scope.config.isLoading_impactFromRemote = true;
+            promise.success(function(successRes){
+                    var items = successRes.ET_IMPACT.item_out;
+                    for(var j =0; j < items.length; j++){
+                        $scope.datas.impactS.push({
+                            IMPACT: items[j].IMPACT,
+                            IMPACT_DESC: items[j].DESCRIPTION
+                        });
+                    }
+                    for(var i = 0; i < $scope.datas.impactS.length; i++){
+                        if($scope.datas.impactS[i].IMPACT == $scope.datas.detail.ES_OUT_LIST.IMPACT){
+                            $scope.config.currentImpact = $scope.datas.impactS[i];
+                        }
+                    }
+                    if($scope.config.currentImpact==null){
+                        $scope.config.currentImpact = $scope.datas.impactS[0];
+                    }
+                    $scope.config.isLoading_impactFromRemote = false;
+                })
+                .error(function(errorRes){
+                    $scope.config.isLoading_impactFromRemote = false;
+            });
+        }
+
+        function __initResponseCategory(){  
+            var url = worksheetHttpService.xialazhi.list_zzyyfl.url;
+            var defaults = worksheetHttpService.xialazhi.list_zzyyfl.defaults;
+            var promise = HttpAppService.post(url, defaults);
+            $scope.config.isLoading_responseCategory = true;
+            promise.success(function(successRes){
+                    var items = successRes.ET_YYFL.item_out;
+                    for(var j =0; j < items.length; j++){
+                        $scope.datas.resultCategoryS.push({
+                            ZZYYFL: items[j].ZZYYFL,
+                            ZZYYFL_DESC: items[j].ZZYYFL_DESC
+                        });
+                    }
+                    for(var i = 0; i < $scope.datas.resultCategoryS.length; i++){
+                        if($scope.datas.resultCategoryS[i].ZZYYFL == $scope.datas.detail.ES_OUT_LIST.ZZYYFL_1){
+                            $scope.config.currentResultCategory = $scope.datas.resultCategoryS[i];
+                        }
+                    }
+                    if($scope.config.currentResultCategory==null){
+                        $scope.config.currentResultCategory = $scope.datas.resultCategoryS[0];
+                    }
+                    $scope.config.isLoading_responseCategory = false;
+                })
+                .error(function(errorRes){
+                    $scope.config.isLoading_responseCategory = false;
+            });
+        }
+
 
         function __initSelectDatas(){
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " "+$scope.datas.detail.ES_OUT_LIST.END_TIME;

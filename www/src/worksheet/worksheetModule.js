@@ -152,7 +152,7 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
                   CREATED_FROM: "",
                   CREATED_TO: ""
                 },
-                IV_SORT: "1",
+                IV_SORT: "",
                 IT_IMPACT: {},
                 IT_PARTNER: {},
                 IT_PROCESS_TYPE: {},
@@ -285,6 +285,20 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
             defaults: {
               "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
               "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            }
+          },
+          list_zzyyfl: {
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_ZZYYFL",
+            defaults: {
+              "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") } 
+            }
+          },
+          list_impact: {
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_IMPACT",
+            defaults: {
+              "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") } 
             }
           }
         },
