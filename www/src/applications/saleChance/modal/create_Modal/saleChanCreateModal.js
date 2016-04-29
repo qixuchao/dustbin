@@ -79,7 +79,7 @@ salesModule
                 return $scope.create.stage.value;
             };
             $scope.saveCreateModal = function () {
-                if(angular.isUndefined($scope.create.chanceType)){
+                if(angular.isUndefined($scope.create.chanceType)&&!Prompter.isATL()){
                     Prompter.alert('请选择机会类型');
                     return
                 }
@@ -101,7 +101,7 @@ salesModule
                         "STARTDATE": $scope.create.de_startTime,
                         "EXPECT_END": $scope.create.de_endTime,
                         "PHASE": $scope.create.stage.value,
-                        "PROBABILITY": "",
+                        "PROBABILITY": $scope.create.stage.confidence,
                         "STATUS": "E0001",
                         "ZZXMBH": $scope.create.proNum,
                         "EXP_REVENUE": "",
@@ -193,7 +193,12 @@ salesModule
             $scope.customerArr = [];
             $scope.customerSearch = false;
             $scope.input = {customer: ''};
-            var customerType = 'Z00001';
+            var customerType;
+            if(Prompter.isATL()){
+                customerType = 'ZATL01';
+            }else{
+                customerType = 'Z00001';
+            }
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -290,10 +295,12 @@ salesModule
             });
             if ($scope.role == 'APP_SALE') {
                 $scope.customerModalArr = saleActService.getCustomerTypes();
+                $scope.selectCustomerText = '潜在客户';
             } else {
                 $scope.customerModalArr = saleActService.customerTypeArr_server;
+                $scope.selectCustomerText = '正式客户';
+                customerType = 'CRM000';
             }
-            $scope.selectCustomerText = '潜在客户';
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;
                 $scope.customerSearch = true;
@@ -339,6 +346,6 @@ salesModule
                 $scope.selectCustomerModal.remove();
             });
             //初始化
-            $scope.getCustomerArr();
+            $scope.getCustomerArr('search');
 
         }]);

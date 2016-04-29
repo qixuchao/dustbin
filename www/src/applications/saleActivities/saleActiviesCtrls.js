@@ -124,10 +124,7 @@ salesModule
                             $scope.loadMoreFlag = false;
                             $scope.saleListNoMoreInfoFLag = true;
                         }
-                    }).finally(function () {
-                    // 停止广播ion-refresher
-                    $scope.$broadcast('scroll.refreshComplete');
-                }).error(function (response, status, header, config) {
+                    }).error(function (response, status, header, config) {
                     var respTime = new Date().getTime() - startTime;
                     //超时之后返回的方法
                     if (respTime >= config.timeout) {
@@ -139,6 +136,9 @@ salesModule
                         }
                     }
                     $ionicLoading.hide();
+                }).finally(function () {
+                    // 停止广播ion-refresher
+                    $scope.$broadcast('scroll.refreshComplete');
                 });
             };
             if (storedb('saleActListHisArr').find().arrUniq() != undefined || storedb('saleActListHisArr').find().arrUniq() != null) {

@@ -48,6 +48,13 @@ $main-lineColor: #d2d2d2;
       width: 50%;
     }
   }
+  .dot {
+    background: #A2A795;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-left: 47.5%;
+  }
   .top-back {
     background: $main-backColor;
     width: 100%;
@@ -75,13 +82,7 @@ $main-lineColor: #d2d2d2;
         .col {
           padding: 0 5px;
           font-size:16px;
-          .dot {
-            background: $main-dotColor;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            margin-left: 47.5%;
-          }
+
         }
         .myDay {
           height: 29px;

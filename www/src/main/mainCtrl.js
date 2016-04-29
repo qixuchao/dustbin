@@ -270,7 +270,7 @@ mainModule
                 nextDateObj.year = tempDate.getFullYear();
                 nextDateObj.month = tempDate.getMonth() + 1;
                 return getDays(nextDateObj.month, tempDate.getDate());
-            }
+            };
             //判断数组元素是否连续
             var isContinue = function (arr) {
                 for (var i = 1; i < arr.length; i++) {
@@ -279,7 +279,7 @@ mainModule
                     }
                 }
                 return true;
-            }
+            };
             $scope.doubleClick = function () {
             };
             //长按修改年月
@@ -610,6 +610,11 @@ mainModule
             };
             /*----------------------------月视图 end----------------------------*/
             /*-------------------------------------------日历 end-------------------------------------------*/
+
+            var getMarkDays = function (start,end) {
+
+            };
+
             $scope.marks = ['#cf021b', '#f5a623', '#4a90e2', '#f8e71c', '#417505'];
             $scope.loadMoreFlag = true;
             $scope.thingsToDo = [];

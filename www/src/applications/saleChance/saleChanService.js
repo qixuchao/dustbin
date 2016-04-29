@@ -316,7 +316,7 @@ salesModule.factory('saleChanService', function () {
             confidence:0
         },{
             text:'技术交流及式样阶段',
-            value:'Z14',
+            value:'Z2',
             confidence:20
         },{
             text:'投标报价阶段',
