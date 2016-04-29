@@ -152,7 +152,7 @@ salesModule.factory('saleChanService', function () {
             value:''
         }]
     };
-    var saleStages = [{
+    var saleStages2 = [{
         text:'关系建立阶段',
         value:'Z01'
     },{
@@ -192,7 +192,7 @@ salesModule.factory('saleChanService', function () {
         text:'投标报价阶段',
         value:'Z13'
     }];
-    var saleStages2 = {
+    var saleStages = {
         CATL:{
             EBUS:[{
                 text:'关系建立阶段',
@@ -386,7 +386,19 @@ salesModule.factory('saleChanService', function () {
         text:'CATL销售2',
         code:'Z0000004'
     }];
-
+    var relationsTypesForAdd_ATL = [{
+        text:'竞争对手',
+        code:'00000023'
+    },{
+        text:'客户',
+        code:'00000021'
+    },{
+        text:'联系人',
+        code:'00000015'
+    },{
+        text:'ATL销售2',
+        code:'Z0000004'
+    }];
     var chanListArr=[],
         listPage=1,
         obj_id,
@@ -412,6 +424,8 @@ salesModule.factory('saleChanService', function () {
         relationsTypes,
         loadMoreFlag,
         relationsTypesForAdd,
-        relationsTypes_ATL
+        relationsTypes_ATL,
+        saleStages2,
+        relationsTypesForAdd_ATL
         }
 });

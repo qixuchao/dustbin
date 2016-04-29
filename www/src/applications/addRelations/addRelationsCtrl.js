@@ -49,10 +49,16 @@ salesModule
                     case 'CATL销售':
                         getStaff(search);
                         break;
+                    case 'ATL销售':
+                        getStaff(search);
+                        break;
                     case'竞争对手':
                         getFormalCustomer(search, true);
                         break;
                     case 'CATL销售2':
+                        getStaff(search);
+                        break
+                    case 'ATL销售2':
                         getStaff(search);
                         break
                 }
@@ -115,6 +121,12 @@ salesModule
                     $scope.relationrelationSpinnerFlag = true;
                 }
                 if (type) {
+                    var rltyp;
+                    if(Prompter.isATL()){
+                        rltyp = 'ZATL05';
+                    }else{
+                        rltyp = 'Z00002';
+                    }
                     var data = {
                         "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                         "IS_PAGE": {
@@ -123,7 +135,7 @@ salesModule
                         },
                         "IS_SEARCH": {"SEARCH": $scope.input.relation},
                         "IT_IN_ROLE": {
-                            "item1": {"RLTYP": "Z00002"}
+                            "item1": {"RLTYP": rltyp}
                         }
                     };
                 } else {
