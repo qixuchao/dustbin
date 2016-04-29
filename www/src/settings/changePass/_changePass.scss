@@ -1,0 +1,78 @@
+#my-changepass-content{
+	background-image: url(../../img/bg_changepass.png);
+	.changepass-box{
+		margin-top: 22.5%;
+		margin-left: 10.1%;
+		margin-right: 10.1%;
+		width: 79.7%;
+		//height: 281px;
+		//height: 320px;
+		background-color: white;
+		border-radius: 8px;
+	}
+	.cp-title{
+		height: 3rem;
+    	line-height: 3rem;
+	    text-align: center;
+	    display: block;
+	    width: 60%;
+	    border-bottom: 1px dashed #8E8D8D;
+	    border-bottom-style: dashed;
+	    margin: auto;
+	    color: #4170B6;
+	}
+	.row{
+		margin-left: 5%;
+	    margin-right: 5%;
+	    height: 2.5rem;
+	    line-height: 2.5rem;
+	    border-bottom: 1px solid #DFDFDF;
+	    width: 90%;
+	    margin-top: 0px;
+	    padding: 0px;
+	    input{
+	    	
+	    }
+	    div:nth-child(2){
+	    	@include display-flex;
+	    	@include align-items(center);
+	    	@include justify-content(center);
+	    }
+	}
+	.btn-valid-cellphone, .btn-confirm{
+		display: block;
+	    height: 30px;
+	    min-height: 30px;
+	    line-height: 30px;
+	    color: #4170B6;
+	    border: 1px solid #4170B6;
+	    border-radius: 25px;
+	    width: 113px;
+	    padding: 0px;
+	    margin: auto;
+	    margin-top: .6rem;
+    }
+    .btn-confirm{
+    	background-color: #4170B6;
+    	color: white;
+    }
+    .password-valid-tip{
+    	height: 2rem;
+	    line-height: 2rem;
+	    font-size: 10px;
+	    text-align: center;
+	    color: #B7B4B4;
+	    span:nth-child(1){
+	    	color: red;
+	    }
+    }
+    .return-button{
+        .cancel{
+            width: 50px;
+            position: absolute;
+            bottom: 45px;
+            left: 50%;
+            margin-left: -25px;
+        }
+    }
+}

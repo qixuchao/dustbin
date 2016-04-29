@@ -1,3 +1,4 @@
+
 worksheetModule.controller('worksheetDetailAllCtrl',[
         '$scope',
         '$state',
@@ -18,7 +19,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         "Prompter",
         "saleActService",
         "$rootScope",
-        "$filter",
+        "$filter", 
         "CarService",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
@@ -65,6 +66,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}, 100);
 			};
 			$scope.dibButtonClickHandler = function(type){
+				//alert(type);
 				switch(type){
 					case 'xiangGuanFang':
 						$scope.goState('worksheetRelatedPart');
@@ -73,7 +75,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 						$scope.goState('worksheetDetailHistoryList');
 						break;
 					case 'baoGongXinXi':
+						//alert(" ~ baoGongXinXi  费用结算 ~ ");
 						$scope.goState('worksheetBaoGonglist');
+						//$scope.goState('worksheetDetailHistoryList');
+						//alert(" ~ baoGongXinXi  费用结算 ~ 2");
 						break;
 				}
 			};
@@ -187,6 +192,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 			$scope.editDetail = function(){
 				//$rootScope.$viewHistory.currentView = $rootScope.$viewHistory.backView;
+
 				var params = $scope.config.requestParams;
 				if(params.IS_PROCESS_TYPE == 'ZNCO'){	//ZNCO 新车档案收集工单 
 					$state.go("worksheetEdit", {
@@ -519,7 +525,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
 
-		        	if(tempResponse.ES_OUT_LIST.EDIT_FLAG == "Y"){
+		        	if(tempResponse.ES_OUT_LIST && tempResponse.ES_OUT_LIST.EDIT_FLAG == "Y"){
 		        		$scope.config.canEdit = true;
 		        	}else{
 		        		$scope.config.canEdit = false;
@@ -578,6 +584,11 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG=="S"){
 		        		Prompter.showLoadingAutoHidden(changeOkStr, false, 1000);
 		        		__changeStatus(statusId, statusStr);
+		        		if(statusId == "E0002"){ //派工后，需要重新刷新数据
+		        			$timeout(function(){
+		        				__requestDetailDatas("正在刷新详情");
+		        			}, 1000);
+		        		}
 		        		//刷新数据
 		        		//__requestDetailDatas("刷新数据中!");
 		        	}else if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG == "E" && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!=""){

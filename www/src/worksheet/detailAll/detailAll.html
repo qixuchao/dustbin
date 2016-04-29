@@ -66,7 +66,7 @@
                         font-weight: bolder;
                     }
                 </style>
-            </div>
+            </div> 
             <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
                 <i class="ion-document-text" style="font-size: 1.8rem;line-height: 2.3rem;text-align: center;transform:rotate(180deg);-webkit-transform:rotate(180deg);"></i>
                 <span>费用结算</span>
@@ -120,10 +120,10 @@
                                             'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
                                             'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
                 </div>
-                <div class="row">
-                    <div class="col-40">影响&nbsp;:</div>
+                <!--div class="row">
+                    <div class="col-40">对车辆影响&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.IMPACT_DESC"></div>
-                </div>
+                </div-->
                 <div class="row">
                     <div class="col-40">上线项目&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
@@ -171,7 +171,7 @@
                     }
                 </style>
                 <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
-                    <div class="" style="margin-right:0px;">处理结果&nbsp;:</div>
+                    <div class="" style="margin-right:0px;">故障描述及处理结果&nbsp;:</div>
                     <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
                         <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
                             <span ng-bind="item.finalStr"></span>
@@ -244,8 +244,8 @@
                                             'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
                                             'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
                 </div>
-                <div class="row">
-                    <div class="col-40">影响&nbsp;:</div>
+                <div class="row" ng-if="config.detailTypeSiteRepair">
+                    <div class="col-40">车辆影响&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.IMPACT_DESC"></div>
                 </div>
                 <div class="row">
@@ -364,7 +364,7 @@
                     <span class="title-bottom"></span>
                 </div>
                 <div class="row">
-                    <div class="col-40">故障发生场景&nbsp;:</div>
+                    <div class="col-40">故障阶段&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.SCENARIO_DESC"></div>
                 </div>
                 <div class="row">
@@ -372,7 +372,7 @@
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.RESPONSE_DESC"></div>
                 </div>
                 <div class="row">
-                    <div class="col-40">故障分类&nbsp;:</div>
+                    <div class="col-40">对车辆影响&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.DEFECT_DESC"></div>
                 </div>
                 <div class="row">
@@ -406,7 +406,7 @@
                     }
                 </style>
                 <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
-                    <div class="" style="margin-right:0px;">处理结果&nbsp;:</div>
+                    <div class="" style="margin-right:0px;">故障描述及处理结果&nbsp;:</div>
                     <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
                         <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
                             <span ng-bind="item.finalStr"></span>

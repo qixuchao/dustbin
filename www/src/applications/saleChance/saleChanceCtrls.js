@@ -603,7 +603,11 @@ salesModule
 
             };
             /*---------------------------------选择弹窗-------------------------------------*/
-            $scope.saleStages = saleChanService.saleStages;
+            if(Prompter.isATL()){
+                $scope.saleStages = saleChanService.saleStages.ATL;
+            }else{
+                $scope.saleStages = saleChanService.saleStages2;
+            }
             $scope.pop = {
                 stage: '',
                 feel: '',
@@ -873,7 +877,11 @@ salesModule
                 });
                 relationService.isReplace = false;
                 relationService.myRelations = $scope.relationArr;
-                relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd);
+                if(Prompter.isATL()){
+                    relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd_ATL);
+                }else{
+                    relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd);
+                }
                 $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {
                     scope: $scope,
                     animation: 'slide-in-up'
@@ -924,7 +932,11 @@ salesModule
                                 relationService.isReplace = true;
                                 relationService.myRelations = $scope.relationArr;
                                 relationService.replaceMan = x;
-                                relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd);
+                                if(Prompter.isATL()){
+                                    relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd_ATL);
+                                }else{
+                                    relationService.saleActSelections = angular.copy(saleChanService.relationsTypesForAdd);
+                                }
                                 relationService.repTempIndex = repTempIndex;
                                 relationService.position = x.position;
                                 $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {

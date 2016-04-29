@@ -80,7 +80,7 @@ employeeModule
                                     }
                                     $scope.$broadcast('scroll.infiniteScrollComplete');
                                 } else {
-                                    console.log(angular.toJson((response.ET_EMPLOYEE.item)));
+                                    //console.log(angular.toJson((response.ET_EMPLOYEE.item)));
                                     $.each(response.ET_EMPLOYEE.item, function (n, value) {
                                         if($scope.employ.employeefiledvalue===""){
                                             $scope.employee_query_list=new Array;
@@ -553,7 +553,7 @@ employeeModule
                     $scope.employcustomerlist=new Array;
                     $scope.updateCustomer();
                     console.log("添加成功");
-                    $cordovaToast.showShortBottom("添加成功")
+                    $cordovaToast.showShortBottom("员工与客户的关系添加成功")
                 }
             });
             //$scope.getCustomerArr();
@@ -587,7 +587,7 @@ employeeModule
                 }else {
                     $scope.employcustomerlist=new Array;
                     $scope.updateCustomer();
-                    $cordovaToast.showShortBottom("删除成功");
+                    $cordovaToast.showShortBottom("员工与客户的关系删除成功");
                     //$scope.employcustomerlist.splice(i,1);
                     //console.log("删除成功");
                 }

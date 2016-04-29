@@ -97,9 +97,10 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
         var url = ROOTCONFIG.hempConfig.basePath + 'PRODUCT_LIST';
         var data = {
             "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_USER": { "BNAME": window.localStorage.crmUserName},
             "IS_PAGE": {
                 "CURRPAGE": page,
-                "ITEMS": "20"
+                "ITEMS": "10"
             },
             "IS_PRODMAS_INPUT": {"SHORT_TEXT": $scope.spareInfo}
         };
@@ -108,7 +109,6 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
             if (response.ES_RESULT.ZFLAG == 'S') {
                 //console.log("第4步");
                 Prompter.hideLoading();
-                $scope.spareimisshow = false;
                 if (response.ET_PRODMAS_OUTPUT.item.length == 0) {
                     if (page == 1) {
                         $cordovaToast.showShortBottom('数据为空');
@@ -128,23 +128,20 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
                         $scope.$broadcast('scroll.infiniteScrollComplete');
                     });
                 }
-                if (response.ET_PRODMAS_OUTPUT.item.length < 20) {
+                if (response.ET_PRODMAS_OUTPUT.item.length <10) {
                     $scope.spareimisshow = false;
                     if (page > 1) {
                         $cordovaToast.showShortBottom('没有更多数据了');
                     }
                 } else {
-                    if($scope.spareList.length===0){
-                        $scope.spareimisshow=false;
-                    }else{
-                        $scope.spareimisshow = true;
-                    }
+                    $scope.spareimisshow = true;
                 }
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             }else {
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             }
+            $ionicScrollDelegate.resize();
         }).error(function (response, status) {
             $cordovaToast.showShortBottom('请检查你的网络设备');
             $scope.spareimisshow = false;

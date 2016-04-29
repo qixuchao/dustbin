@@ -24,14 +24,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-crosswalk-webview": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-crosswalk-webview"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-device": {
         "source": {
             "type": "registry",
@@ -81,11 +73,28 @@
         "is_top_level": true,
         "variables": {}
     },
+    "cordova-plugin-console": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-console"
+            },
+        "is_top_level": true,
+        "variables": {}
+    },
     "cordova-plugin-inappbrowser": {
         "source": {
             "type": "registry",
             "id": "cordova-plugin-inappbrowser"
         },
+        "is_top_level": true,
+        "variables": {}
+    },
+
+    "cordova-plugin-crosswalk-webview": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-crosswalk-webview"
+            },
         "is_top_level": true,
         "variables": {}
     },

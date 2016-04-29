@@ -18,9 +18,10 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         "$cordovaDatePicker",
         "worksheetHttpService",
         "Prompter",
+        "$ionicPlatform",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
-                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter) {
+                  $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter, $ionicPlatform) {
         
         //选择车辆返回的时候，获取车辆信息
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
@@ -43,7 +44,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             }
         }); 
         
-        var pleaseChoose = '-- 请选择 --                                                         ';
+        var pleaseChoose = '-- 请选择 --';
         var pleaseChooseId = null;
         var noneValue = '空';
         var noneValueId = null;
@@ -65,13 +66,18 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
             isLoading_BujianReason: false,
             isLoading_response: false,
-
+            
             zhushi: '',
             chulijieguo: ''
         };
         
+        //$scope.$ionicHistory = $ionicHistory;
+        //$scope.$state = $state;
+        
         $scope.goBack = function(){
             Prompter.wsConfirm("提示","放弃本次编辑?","确定", "取消");
+            //$ionicHistory.goBack(-2);
+             //$ionicHistory.goBack(2);
         };
         
         $scope.saveEdited = function(){
@@ -117,8 +123,28 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             };
             __requestUpdateWorksheet(header);
         };
-        
+        function __checkCanUpdate(){
+            if($scope.config.detailTypeNewCar){
+                return true;
+            }
+            if(!$scope.config.currentChanPinLeiXing || !$scope.config.currentChanPinLeiXing.KATALOGART){
+                Prompter.alert("请选择部件分类!");
+                return false;
+            }
+            if(!$scope.config.currentGuZhangBuJian || !$scope.config.currentGuZhangBuJian.CODEGRUPPE){
+                Prompter.alert("请选择故障部件!");
+                return false;
+            }
+            if(!$scope.config.currentGuZhangMingCheng || !$scope.config.currentGuZhangMingCheng.CODE){
+                Prompter.alert("请选择故障名称!");
+                return false;
+            }
+            return true;
+        }
         function __requestUpdateWorksheet(headerData){
+            if(!__checkCanUpdate()){
+                return;
+            }
             var url = worksheetHttpService.serviceDetailChange.url;
             var defaults = worksheetHttpService.serviceDetailChange.defaults;
             var postData = angular.extend(defaults, {
@@ -349,9 +375,12 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 }
             }
             if($scope.config.currentChanPinLeiXing== null){
+                $scope.datas.guZhangBuJianS = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS;
+                $scope.datas.guZhangMingChengS = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0].guZhangMingChengS;
+
                 $scope.config.currentChanPinLeiXing = $scope.datas.chanPinLeiXingS[0];
-                $scope.config.currentGuZhangBuJian = $scope.datas.chanPinLeiXingS[0].guZhangBuJianS;
-                $scope.config.currentGuZhangMingCheng =  $scope.datas.chanPinLeiXingS[0].guZhangBuJianS[0].guZhangMingChengS;
+                $scope.config.currentGuZhangBuJian = $scope.datas.guZhangBuJianS[0];
+                $scope.config.currentGuZhangMingCheng =  $scope.datas.guZhangMingChengS[0];
                 return;
             }
         };
@@ -476,7 +505,24 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             return dateTemp + " " + time;
         };
 
+        function __onHardwareBackButton(e){
+            //e.preventDefault();
+            //$scope.goBack();
+        };
+        $scope.$on("$destroy", function(){
+            //$ionicPlatform.offHardwareBackButton(__onHardwareBackButton);
+        });
         $scope.init = function(){
+            //$ionicPlatform.registerBackButtonAction(__onHardwareBackButton,1111);
+            //$ionicPlatform.onHardwareBackButton(__onHardwareBackButton);
+            $scope.config.currentGuZhangMingCheng = null;
+            $scope.config.currentGuZhangBuJian = null;
+            $scope.config.currentChanPinLeiXing = null;
+            $scope.datas.guZhangMingChengS = null;
+            $scope.datas.guZhangBuJianS = null;
+            //$scope.datas.chanPinLeiXingS = null;
+
+
             $scope.config.typeStr = $stateParams.detailType;  // newCar  siteRepair  batchUpdate
             $scope.config.detailTypeNewCar =  $scope.config.typeStr == "newCar" ? true : false;
             $scope.config.detailTypeSiteRepair =  $scope.config.typeStr == "siteRepair" ? true : false;
@@ -502,6 +548,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             __initResponse();
             __initGuZhangFeiLei();
             __initImpact();
+
         };
 
         function __initImpact(){
@@ -543,7 +590,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var promise = HttpAppService.post(url, defaults);
             $scope.config.isLoading_scenario = true;
             promise.success(function(successRes){
-                    var items = successRes.MT_ListScenario_Res.ET_SCENARIO.item;
+                    var items = [];
+                    //if(successRes && successRes.MT_ListScenario_Res && successRes.MT_ListScenario_Res.item){
+                    if(successRes && successRes.ET_SCENARIO && successRes.ET_SCENARIO.item){
+                        items = successRes.ET_SCENARIO.item;
+                    }
                     //$scope.datas.guZhangChangJingS = $scope.datas.guZhangChangJingS.concat(items);
                     for(var j = 0; j < items.length; j++){
                         $scope.datas.guZhangChangJingS.push({

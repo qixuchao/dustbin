@@ -196,7 +196,6 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
             back :''
         },
         //产品
-
         serviceDetail: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL'   //工单详情接口
         },

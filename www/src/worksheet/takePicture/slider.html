@@ -1,0 +1,37 @@
+<ion-modal-view class="imageView">
+  <!--ion-header-bar class="headerView" ng-show="!hideAll">
+    <button class="button button-outline button-light close-btn" ng-click="closeModal()">{{::actionLabel}}</button>
+  </ion-header-bar-->
+    
+  <ion-content class="has-no-header" scroll="false" has-bouncing="false">
+    <ion-slide-box does-continue="false" active-slide="selectedSlide" show-pager="false" class="listContainer" on-slide-changed="slideChanged($index)">
+      <ion-slide ng-repeat="single in slides track by $index">
+        <ion-scroll direction="xy"
+                    locking="false" 
+                    zooming="true"
+                    min-zoom="1"
+                    scrollbar-x="false"
+                    scrollbar-y="false"
+                    ion-slide-action
+                    delegate-handle="slide-{{$index}}"
+                    overflow-scroll="false"
+                    has-bouncing="false"
+                    >
+        <div class="item item-image gallery-slide-view">
+          <img ng-src="{{single.src}}">
+        </div>
+        <!--div ng-if="single.sub.length > 0" class="image-subtitle" ng-show="!hideAll">
+            <span ng-bind-html='single.sub'></span>
+        </div-->
+        </ion-scroll>
+        <div class="image-subtitle">
+          <div class="buttons">
+            <div class="button button-clear" ng-click="xbrDeleteFromRemote(single);">删除</div>
+            <div class="button button-clear" ng-click="xbrSaveSelectedImage(single);">保存到本地</div>
+            <div ng-click="closeModal();" class="button button-clear button-return">返回</div>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+  </ion-content>
+</ion-modal-view>

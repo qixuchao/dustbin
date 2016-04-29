@@ -61,7 +61,8 @@
             </ion-list>
         </div>
         <!--<div ng-show="spareInfo.length">-->
-        <div class="contentType animated" ng-repeat="spare in spareList track by $index" ng-click="goDetail(spare)" ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]">
+        <!--ng-class="{true:'fadeInLeftBig',false:'fadeInRightBig'}[$index%2 == 0]"-->
+        <div class="contentType" ng-repeat="spare in spareList track by $index" ng-click="goDetail(spare)" ng-if="spareInfo.length>0" >
             <div class="row row-center rowType1">
                 <div class="col col-8 col-center">
                     <img ng-src="img/car/Oval.png" class="pointImg">
@@ -74,6 +75,6 @@
                 </div>
             </div>
         </div>
-        <ion-infinite-scroll distance="1%" on-infinite="spareLoadmoreIm()" ng-if="spareimisshow"></ion-infinite-scroll>
+        <ion-infinite-scroll distance="1%" on-infinite="spareLoadmoreIm()" ng-if="spareimisshow&&spareInfo.length>0"></ion-infinite-scroll>
     </ion-content>
 </ion-view>

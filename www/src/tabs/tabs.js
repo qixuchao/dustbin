@@ -17,12 +17,14 @@ tabsModule
             //判断版本信息
             LoginService.getNewVersion(LoginService.version);
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-                if(fromState && toState && fromState.name == 'login' && toState.name == 'tabs'){
+                if(fromState && toState && (fromState.name == 'login' || fromState.name == "changePass") && toState.name == 'tabs'){
                     /*$ionicConfig.views.swipeBackEnabled(true);
                     alert("set ok");*/
                     $ionicHistory.clearCache();
                     $ionicHistory.clearHistory();
-                    $scope.clickTab($scope.tabs[0]);
+                    if(fromState.name == "login"){
+                        $scope.clickTab($scope.tabs[0]);
+                    }
                 }
             });
 

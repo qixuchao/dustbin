@@ -1,0 +1,97 @@
+<div class="gallery-view">
+  <div class="row" ng-repeat="item in items track by $index" ion-row-height>
+    <div ng-repeat="photo in item track by $index"
+         class="col col-{{responsiveGrid}} image-container" style="border: 1px solid #D0CECE;padding: 0px;
+              display: -webkit-inline-box;
+              display: -webkit-inline-flex;
+              display: -moz-inline-flex;
+              display: -ms-inline-flexbox;
+              display: inline-flex;">
+      
+      <img ion-image-scale
+           ng-src="{{photo.thumb}}"
+           ng-click="customCallback ? ionItemCallback({item:photo}) : showImage(photo.position)"
+           style="max-width: 100%;
+              max-height: 100%;
+              position: initial;
+              margin: 0px;">
+		  <span ng-bind="photo.networkTip" ng-if="photo.isNetworking" style="position: absolute;bottom: 0px;left: 0px;right: 0px;text-align: center;background: rgba(10, 10, 10, 0.19);height: 2rem;line-height: 2rem;color: white;"></span>
+    </div>
+    <div ng-repeat-end ng-if="ionGalleryItems.length%2 == 1" ng-click="selectLocalImage();" class="selected-btn selected-image" style="font-size:3.5rem;border:0px;display: inline-block;width: 48%;height:48vmin;
+      display: -webkit-inline-box;
+      display: -webkit-inline-flex;
+      display: -moz-inline-flex;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      justify-content: center;
+      " ng-click="takePicture();" ng-if="!config.isLoading">
+        <div class="img-wrapper" style="border: 1px dashed #2B60AB;width:6rem;height:6rem;
+              display: -webkit-box;
+              display: -webkit-flex;
+              display: -moz-box;
+              display: -moz-flex;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-align: center;
+              -ms-flex-align: center;
+              -webkit-align-items: center;
+              -moz-align-items: center;
+              align-items: center;
+              -webkit-box-pack: center;
+              -ms-flex-pack: center;
+              -webkit-justify-content: center;
+              -moz-justify-content: center;
+              justify-content: center;">
+            <i class="ion-ios-plus-empty"></i>
+        </div>
+  </div>
+  </div>
+  <div ng-repeat-end ng-if="ionGalleryItems.length%2 == 0" ng-click="selectLocalImage();" class="selected-btn selected-image" style="font-size:3.5rem;border:0px;display: inline-block;width: 48%;    height: 48vmin;
+      display: -webkit-inline-box;
+      display: -webkit-inline-flex;
+      display: -moz-inline-flex;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      justify-content: center;
+      " ng-click="takePicture();" ng-if="!config.isLoading">
+        <div class="img-wrapper" style="border: 1px dashed #2B60AB;width:6rem;height:6rem;
+              display: -webkit-box;
+              display: -webkit-flex;
+              display: -moz-box;
+              display: -moz-flex;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-align: center;
+              -ms-flex-align: center;
+              -webkit-align-items: center;
+              -moz-align-items: center;
+              align-items: center;
+              -webkit-box-pack: center;
+              -ms-flex-pack: center;
+              -webkit-justify-content: center;
+              -moz-justify-content: center;
+              justify-content: center;">
+            <i class="ion-ios-plus-empty"></i>
+        </div>
+  </div>
+  <div ion-slider></div>
+</div>
+  

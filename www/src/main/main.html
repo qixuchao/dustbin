@@ -24,7 +24,6 @@
                             <div class="col text-center no-padding myDay" ng-repeat="y in x.arr"
                                  ng-class="{'edgeDay':(x.arr.indexOf(y)==0||x.arr.indexOf(y)==6),'checked':y.checked}"
                                  ng-click="selectDay(x.arr,y)">{{y.value}}<br>
-
                                 <div class="dot" ng-show="y.toDo"></div>
                             </div>
                         </div>

@@ -13,8 +13,9 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	"$ionicPopup",
 	"worksheetDataService",
 	"Prompter",
+	"$sce",
 	function($scope, $timeout, $ionicActionSheet, $ionicPosition,$ionicBackdrop, $ionicGesture, $ionicModal, $state,
-			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService, Prompter){
+			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService, Prompter, $sce){
 
 		function __initModal(){
 			var ele = angular.element(".modal-backdrop");
@@ -65,6 +66,9 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			isLoading: false,
 			loadingErrorMsg: null,
 
+			uploadingText: "正在上传中 ... #PROGRESS#",
+
+
 			fileItemDefaults: {
 				originServer: false,
 				originPhoto: false,
@@ -82,6 +86,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				uploading: false,
 				uploadOk: false,
 				uploadError: false,
+				uploadPercentDesc: "",
 
 				src: "",
 				fileLocalPath: ""
@@ -130,6 +135,9 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			__requestImageList();
 		};
 
+		$scope.deleteSelectedImage = function(){
+			$scope.deleteImage($scope.datas.showImageItem, $scope.datas.showImageItemIndex);
+		};
 		$scope.deleteImage = function(item, index){
 			__deleteImageInServer(item, index);
 		}; 
@@ -217,7 +225,13 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 					        src: item.LINE,
 					        OBJTYPELO: item.OBJTYPELO,
 					        isFromServer: true,
-					        isServerHolder: true
+					        isServerHolder: true,
+
+					        sub: '<div class="buttons">\
+						        	<div class="button button-clear">删除</div>\
+						        	<div class="button button-clear">保存到本地</div>\
+						        	<div ng-click="xbrCloseModal();" class="button button-clear button-return">返回</div>\
+					        	</div>'
 						});
 	        			$scope.datas.imageDatas.push(newFileItem);
 	        		}
@@ -225,16 +239,53 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	        })
 	        .error(function(errorResponse){
 	        	$scope.$broadcast('scroll.refreshComplete');
-	        	$scope.config.isLoading = false;		        	
+	        	$scope.config.isLoading = false;
 	        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
 	        	if($scope.config.pageNum <= 1){
 	        		$scope.config.isReloading = false;
 	        		$scope.$broadcast('scroll.refreshComplete');
-	        	}    	
+	        	}
 	        });
 		};
 		
+		//$scope.config.xbrObj = {};
+		/*$scope.xbrCloseModal = function(){
+			console.log("xbrCloseModal");
+			var eleJQ = angular.element(".modal-backdrop.active .modal-wrapper ion-header-bar");
+			eleJQ.scope().closeModal();
+		};*/
+		
+		$scope.ionGalleryClickCallback = function(item){
+			console.log("$scope.ionGalleryClickCallback    "+item);
+			var scope1 = angular.element("#takepicture-content .image-container").scope();
+			scope1.showImage(item.position);
+		};
+
+		$scope.saveSelectedImage = function(){
+			console.log("$scope.saveSelectedImage ");
+		};
+
+		$scope.deleteThisImage = function(item){
+			console.log("$scope.deleteThisImage:   "+item.position);
+			__deleteImageInServer(item, item.position);
+		};
+
+		$scope.saveThisImage = function(item){
+			console.log("$scope.saveThisImage:   "+item.position);
+			$cordovaToast.showShortBottom("已经保存成功! "+item.position);
+		};
+
+
+
+		
 		function __deleteImageInServer(fileItem, index){
+			//alert(JSON.stringify(fileItem));
+
+			/*var tempSrc = fileItem.src;
+    		fileItem.src = "";
+    		alert(JSON.stringify(fileItem));
+    		fileItem.str = tempSrc;*/
+
 			var loadingStr = "正在加载";
 	        var queryParams = {
 			    "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
@@ -322,21 +373,27 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		};
 
 		function __removeModalOpenClass(){
-
 		}
-
-		$scope.showImage = function($event, imageInfo){
+		/*
+			<div class='images-buttons buttons'>\
+				<div class=button button-clear ng-click='deleteImage();'>删除</div>\
+				<div class=button button-clear ng-click='saveImage();'>保存在本地</div>\
+			</div>\
+		*/
+		$scope.showImage = function($event, imageInfo, index){
 			angular.element("body").removeClass("modal-open");
 			// 创建并准备显示modal层dome元素
 			$scope.datas.showImageItem = imageInfo;
+			$scope.datas.showImageItemIndex = index;
 			//if($scope.config.imageModal == null){
-				$scope.config.imageModal = $ionicModal.fromTemplate("\
-						<div class='takePicture-image-modal-wrapper'>\
-							<div class='close-div'>\
-								<span ng-click='closeImageModal();'>关闭</span>\
-							</div>\
-							<img ng-src='{{datas.showImageItem.src}}' style='z-index:20;'></img>\
-						</div>", {
+				$scope.config.imageModal = $ionicModal.fromTemplate("<div class='takePicture-image-modal-wrapper'>" +
+							"<div class='close-div'> <span ng-click='closeImageModal();'>关闭</span> </div>" +
+							"<div class='modal-img-wrapper'><img ng-src='{{datas.showImageItem.src}}' style='z-index:20;'></img></div>" +
+							"<div class='images-buttons buttons'>" +
+								"<div class='button button-clear' ng-click='deleteSelectedImage();'>删        除</div>" +
+								"<div class='button button-clear' ng-click='saveSelectedImage();'>保存在本地</div>" +
+							"</div>" +
+							"</div>", {
 					scope: $scope,
 					animation: 'slide-in-up',
 					hardwareBackButtonClose: true,
@@ -424,11 +481,6 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			}
 		}
 
-
-
-
-
-
 		/*
 			默认参数：
 				{
@@ -448,6 +500,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 					uploading: false,
 					uploadOk: false,
 					uploadError: false,
+					uploadPercentDesc: '',
 
 					src: "",
 					fileLocalPath: ""
@@ -513,7 +566,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	            sourceType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
 	        }
 	        var options = {
-	            quality: 30,
+	            quality: 5,
 	            sourceType: sourceType,
 	            destinationType: Camera.DestinationType.FILE_URL, //1, //'FILE_URL',
 	            encodingType: Camera.EncodingType.JPEG, //0, //'JPEG',
@@ -556,10 +609,11 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				});
 
 				$scope.datas.imageDatas.push(newFileItem);
-
+				$scope.uploadImage(newFileItem);
 				if(!$scope.$$phase){
 					$scope.$apply();
 				}
+
 	        }, function(errorRes){
 	        	//$scope.alert("选择图片出错!");
 	            //alert("getBase64FromFilepath errorRes:    "+JSON.stringify(errorRes));
@@ -590,6 +644,22 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				file.uploading = true;
 				file.uploadOk = false;
 				file.uploadError = false;
+
+				/*ft.onprogress = function(progressEvent){
+					var percent = progressEvent.loaded / progressEvent.total;
+						//file.uploadPercentDesc = $scope.config.uploadingText + "" + percent;
+						file.networkTip = $scope.config.uploadingText + percent;
+						if(!$scope.$$phase){
+							$scope.$apply();
+						}
+					// uploadingText: "正在上传中 ... ",
+					if (progressEvent.lengthComputable) {
+						
+				      //loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+				    } else {
+				      //loadingStatus.increment();
+				    }
+				};*/
 				
 				file.isNetworking = true;
 	        	file.networkTip = "正在上传中...";
@@ -603,6 +673,21 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 
 					file.isNetworking = false;
 	        		file.networkTip = "";
+
+	        		//var response = (typeof winRes.response == "string") ? JSON.parse(winRes.response) : winRes.response;
+	        		var response = JSON.parse(winRes.response);
+	        		if(response.ES_OBJECT){
+	        			file.OBJECT_ID = $scope.config.OBJECT_ID;  //  "5200000315
+	        			file.PROCESS_TYPE = $scope.config.PROCESS_TYPE;// "ZPRO",;
+	        			file.OBJIDLO = response.ES_OBJECT.OBJID;
+	        			file.OBJTYPELO = response.ES_OBJECT.OBJTYPE;
+	        			file.CLASSLO = response.ES_OBJECT.CLASS;
+	        		}
+	        		
+	        		/*var tempSrc = file.src;
+	        		file.src = "";
+	        		alert(JSON.stringify(file));
+	        		file.str = tempSrc;*/
 
 					if(!$scope.$$phase){
 						$scope.$apply();

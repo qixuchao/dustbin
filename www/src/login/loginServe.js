@@ -5,11 +5,29 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
     var data;
     var data3;
     var type;
-    var menuList = [];
-    var author = {};
-    var version = {};
-    return {
-        setUserName: function (data4) {
+    var menuList=[]; 
+    var author={};
+    var version;
+    return{
+        setLoginerName: function(name){
+            window.localStorage.loginerName = name;
+        },
+        getLoginerName: function(){
+            return window.localStorage.loginerName;
+        },
+        setBupaTypeUser: function(bupaTypeUser){
+            window.localStorage.bupaTypeUser = bupaTypeUser;
+        },
+        getBupaTypeUser: function(){
+            return window.localStorage.bupaTypeUser;
+        },
+        setPassword: function(password){
+            window.localStorage.crmUserPassword = password;
+        },
+        getPassword: function(){
+            return window.localStorage.crmUserPassword;
+        },
+        setUserName:function(data4){
             window.localStorage.crmUserName = data4;
             data = data4;
             return data;

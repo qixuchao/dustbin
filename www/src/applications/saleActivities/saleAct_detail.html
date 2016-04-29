@@ -16,7 +16,7 @@
                 <div style="font-size: 10px">{{details.DESCRIPTION?details.DESCRIPTION:'&nbsp;'}}</div>
             </div>
             <div class="col col-15 text-right" ng-click="openFollow()"></div>
-        </div>
+        </div> 
         <div class="selector">
             <div class="detail" ng-class="{checked:select}" ng-click="changeStatus(true)">详细信息</div>
             <div class="relative" ng-class="{checked:!select}" ng-click="changeStatus(false)">相关方</div>
@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col col-15 text-right rewrite"><img src="img/saleDetail/Shape.png"></div>
+                        <div class="col col-15 text-right rewrite"><!--img src="img/saleDetail/Shape.png"--></div>
                     </div>
                 </div>
                 <div class="progress" ng-hide="isATL">

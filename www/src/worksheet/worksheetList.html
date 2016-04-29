@@ -19,7 +19,7 @@
     <div class="search-hearder-bar"></div-->
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
-            <div class="row row-center">
+            <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
                 <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
                 <div class="col col-70 text-center" ng-bind="config.titleText"></div>
                 <!--div class="col col-15 add"><img src="img/saleList/add.png"></div-->
@@ -81,8 +81,10 @@
         <!-- 'sort-model-show':config.isSorteMode,'filter-model-show':config.isFilterMode, -->
         <!--div class="divs-wrapper animate-fade-slide-in" ng-class="{'show-model':showXbrModel(),'sort-to-filter-ing':config.filterModeFromingSortMode,'filter-to-sort-ing':config.sortModeFromingFilterMode}" -->
         <!-- animate-fade-slide-in -->
-        <div class="divs-wrapper " ng-class="{
+        <div class="divs-wrapper" ng-class="{
             'show-model':showXbrModel(),
+            'platform-ios': isIosPlatform(),
+            'platform-android': isAndroidPlatform(),
             'sort-from-click ':(config.isSorteMode&& config.sortModeFromClick),
             'sort-from-filter':(config.isSorteMode&&config.sortModeFromFilterMode),
             'filter-from-sort':(config.isFilterMode&&config.filterModeFromSortMode),
@@ -123,8 +125,8 @@
                         <div canNotClickEnterListMode class="filter-worksheet-type">
                             <div class="filter-worksheet-type-title filter-title">工单类型</div>
                             <div class="filter-types">
-                                <div class="filter-type newcar-online" ng-click="selectFilterType('newcarOnline');" ng-class="{'selected':config.filterNewCarOnline}">新车上线工单</div>
-                                <div class="filter-type newcar-online-fws" ng-click="selectFilterType('newcarOnlineFWS');" ng-class="{'selected':config.filterNewCarOnlineFWS}">新车上线工单(服务商)</div>
+                                <div class="filter-type newcar-online" ng-click="selectFilterType('newcarOnline');" ng-class="{'selected':config.filterNewCarOnline}">新车档案收集工单</div>
+                                <div class="filter-type newcar-online-fws" ng-click="selectFilterType('newcarOnlineFWS');" ng-class="{'selected':config.filterNewCarOnlineFWS}">新车档案收集工单(服务商)</div>
                                 
                                 <div class="filter-type local-service" ng-click="selectFilterType('localService');" ng-class="{'selected':config.filterLocalService}">现场维修工单</div>
                                 <div class="filter-type local-service-fws" ng-click="selectFilterType('localServiceFWS');" ng-class="{'selected':config.filterLocalServiceFWS}">现场维修工单(服务商)</div>
@@ -170,7 +172,7 @@
                         </div>
                     </ion-scroll>
                 </div>
-                
+
                 <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
                     <ion-scroll class="fill-parent"  on-refresh="" delegate-handle="worksheetListResult" has-bouncing="false">
                         <ion-refresher ng-show="canReLoadData()" pulling-text="下拉刷新" on-refresh="reloadData();"></ion-refresher>

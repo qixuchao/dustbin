@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2016/3/14 0014.
  */
-carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootScope','$ionicScrollDelegate','$http','$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',
-    function($ionicHistory,worksheetDataService,$rootScope,$ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
+carModule.controller('CarCtrl',['$ionicLoading','$ionicHistory','worksheetDataService','$rootScope','$ionicScrollDelegate','$http','$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',
+    function($ionicLoading,$ionicHistory,worksheetDataService,$rootScope,$ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
     $scope.cars=[];
     $scope.searchFlag=false;
     $scope.isSearch=false;
@@ -53,12 +53,6 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
     };
     $scope.carListHistoryval();
 
-    //车辆列表接口
-        $scope.initLoad=function(){
-            page=0;
-            $scope.cars = new Array;
-            $scope.carLoadMore1Im();
-        };
 
         $scope.carLoadMore1Im = function() {
             //$scope.spareimisshow = false;
@@ -78,54 +72,63 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
             //console.log($scope.carInfo);
             HttpAppService.post(url, data).success(function (response) {
                 console.log(page);
-                if (response.ES_RESULT.ZFLAG == 'S') {
-                    //console.log("第4步");
-                    Prompter.hideLoading();
-                    $scope.carimisshow = false;
-                    if (response.ET_VEHICL_OUTPUT.item.length == 0) {
-                        if (page == 1) {
-                            $cordovaToast.showShortBottom('数据为空');
-                        } else {
-                            $cordovaToast.showShortBottom('没有更多数据了');
-                        }
-                        $scope.$broadcast('scroll.infiniteScrollComplete');
-                    } else {
-                        //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
-                        $.each(response.ET_VEHICL_OUTPUT.item, function (n, value) {
-                            if($scope.carInfo===""){
-                                $scope.cars=new Array;
-                            }else{
-                                $scope.cars.push(value);
-                            }
-                            //console.log("第5步");
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        });
-                    }
-                    if (response.ET_VEHICL_OUTPUT.item.length < 10) {
-                        $scope.carimisshow = false;
-                        if (page > 1) {
-                            $cordovaToast.showShortBottom('没有更多数据了');
-                        }
-                    } else {
-                        if($scope.carList.length===0){
-                            $scope.carimisshow=false;
-                        }else{
-                            $scope.carimisshow = true;
-                        }
-                    }
-                    $scope.$broadcast('scroll.infiniteScrollComplete');
-                }else {
-                    //console.log("第3步");
+                if(response.ES_RESULT.ZFLAG == 'E'){
                     $scope.carimisshow = false;
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
+                }else if (response.ES_RESULT.ZFLAG == 'S') {
+                    //console.log("第4步");
+                    $ionicLoading.hide();
+                    Prompter.hideLoading();
+                    if(response.ET_VEHICL_OUTPUT != ''){
+                        if (response.ET_VEHICL_OUTPUT.item.length == 0) {
+                            $scope.carimisshow = false;
+                            if (page == 1) {
+                                $cordovaToast.showShortBottom('数据为空');
+                            } else {
+                                $cordovaToast.showShortBottom('没有更多数据了');
+                            }
+                            $scope.$broadcast('scroll.infiniteScrollComplete');
+                        } else {
+                            //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
+                            $.each(response.ET_VEHICL_OUTPUT.item, function (n, value) {
+                                if ($scope.carInfo == "") {
+                                    $scope.cars = new Array;
+                                } else {
+                                    $scope.cars.push(value);
+                                }
+                            });
+                        }
+                        if (response.ET_VEHICL_OUTPUT.item.length < 10) {
+                            if (page > 1) {
+                                $cordovaToast.showShortBottom('没有更多数据了');
+                            }
+                        } else {
+                            $scope.carimisshow = true;
+                        }
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
+                    }
                 }
-            }).error(function (response, status) {
-                $cordovaToast.showShortBottom('请检查你的网络设备');
-                $scope.carimisshow = false;
+                $ionicScrollDelegate.resize();
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                Prompter.hideLoading();
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    //console.log('HTTP timeout');
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         };
-    //
+        //车辆列表接口
+        $scope.initLoad=function(){
+            page=0;
+            $scope.cars = new Array;
+            $scope.carLoadMore1Im();
+        };
     //页面跳转，并传递参数
     if (JSON.parse(localStorage.getItem("oftenCardb")) != null || JSON.parse(localStorage.getItem("oftenCardb")) != undefined) {
         $scope.oftenCarList = JSON.parse(localStorage.getItem("oftenCardb"));
@@ -1195,12 +1198,23 @@ carModule.controller('CarCtrl',['$ionicHistory','worksheetDataService','$rootSco
                         $scope.buttonShow=true;
                     }
                 } else {
+                    $ionicScrollDelegate.resize();
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 }
-            }).error(function (response, status) {
-                $cordovaToast.showShortBottom('请检查你的网络设备');
+            }).error(function (response, status, header, config) {
+                Prompter.hideLoading();
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    console.log('HTTP timeout');
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
+
         };
         Prompter.showLoading("正在加载");
         $scope.config={

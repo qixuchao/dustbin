@@ -3,11 +3,13 @@
  */
 'use strict';
 ContactsModule
-    .controller('contactQueryCtrl',['Prompter','$scope','$rootScope','$state','$http','HttpAppService','$timeout','$ionicPopover','$ionicActionSheet','$window','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',
-        function(Prompter,$scope,$rootScope,$state,$http,HttpAppService,$timeout,$ionicPopover,$ionicActionSheet,$window,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
+    .controller('contactQueryCtrl',['$cordovaDialogs','Prompter','$scope','$rootScope','$state','$http','HttpAppService','$timeout','$ionicPopover','$ionicActionSheet','$window','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',
+        function($cordovaDialogs,Prompter,$scope,$rootScope,$state,$http,HttpAppService,$timeout,$ionicPopover,$ionicActionSheet,$window,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
         $scope.searchFlag=false;
+        $scope.contactisshow=false;
         $scope.config={
-            contactfiledvalue:""
+            contactfiledvalue:"",
+            queryResultScrollDelegate:null
         };
         //历史记录显示
         $scope.ContactListHistoryval = function(){
@@ -30,7 +32,7 @@ ContactsModule
         };
         $scope.ContactListHistoryval();
         //广播修改界面显示flag
-        $rootScope.$on('contactdeatillist', function(event, data) {
+        //$rootScope.$on('contactdeatillist', function(event, data) {
             //数据初始化
 
             //删除请求
@@ -42,9 +44,7 @@ ContactsModule
             //$scope.contactisshow = false;
             //$scope.contactfiledvalue ='';
             //$scope.ContactListHistoryval();
-        });
-
-
+        //});
         $ionicPopover.fromTemplateUrl('src/contacts/model/contact_selec.html', {
             scope: $scope
         }).then(function(popover) {
@@ -52,6 +52,9 @@ ContactsModule
         });
         $scope.Contactsopenpopv = function() {
             $scope.Contactspopover.show();
+        };
+        $scope.goEmpDetail=function(){
+          $state.go('ContactCreate');
         };
         $scope.ContactsPopoverhide = function() {
             $scope.Contactspopover.hide();
@@ -71,7 +74,7 @@ ContactsModule
                 //从联系人进入创建联系人界面设置一个标记
                 if(type.url == "ContactCreate"){
                     contactService.set_ContactCreateflag();
-                };
+                }
             }
             $scope.Contactspopover.hide();
             $state.go('ContactCreate');
@@ -92,7 +95,7 @@ ContactsModule
                 },
                 "IS_PARTNER": { "PARTNER": "" },
                 "IS_SEARCH": { "SEARCH": $scope.config.contactfiledvalue}
-            }
+            };
             //console.log("data"+angular.toJson(data));
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
@@ -105,8 +108,7 @@ ContactsModule
                     //$cordovaToast.showShortCenter(response.ES_RESULT.ZRESULT);
                     $cordovaToast.showShortCenter("没有符合搜索条件的数据")
                     $scope.$broadcast('scroll.infiniteScrollComplete');
-                } else {
-                    if (response.ES_RESULT.ZFLAG == 'S') {
+                } else if (response.ES_RESULT.ZFLAG == 'S') {
                         Prompter.hideLoading();
                         if(response.ET_OUT_LIST != ''){
                             if (response.ET_OUT_LIST.item.length == 0) {
@@ -121,6 +123,8 @@ ContactsModule
                                 $.each(response.ET_OUT_LIST.item, function (n, value) {
                                     if($scope.config.contactfiledvalue===""){
                                         $scope.contact_query_list=new Array;
+                                        $scope.contactisshow=false;
+                                        console.log($scope.contactisshow);
                                     }else{
                                         $scope.contact_query_list.push(value);
                                     }
@@ -137,18 +141,33 @@ ContactsModule
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
                     }
+                $ionicScrollDelegate.resize();
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                Prompter.hideLoading();
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    //console.log('HTTP timeout');
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
                 }
-            }).error(function (response, status) {
-                $cordovaToast.showShortBottom('请检查你的网络设备');
-                $scope.contactisshow = false;
+                $ionicLoading.hide();
             });
+
         };
+
+        //$scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("contactListResult");
 
         $scope.initLoad=function(){
             //$http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST');
             $scope.conitemImPage = 0;
             $scope.contact_query_list=new Array;
             Prompter.showLoading("正在加载");
+            //if($scope.config.contactfiledvalue==""){
+            //    Prompter.hideLoading();
+            //    return;
+            //}
             $scope.contactLoadmore();
         };
             $scope.search = function (x, e){
@@ -177,7 +196,7 @@ ContactsModule
             });
             //清除输入框内的内容
             $scope.initSearch = function () {
-                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST')
+                $http['delete'](ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST');
                 $scope.config.contactfiledvalue = '';
                 $scope.conitemImPage=0;
                 $scope.contact_query_list=new Array;
@@ -394,7 +413,7 @@ ContactsModule
         ////返回回退
         $scope.peopleCode="";
         $scope.countryCode="";
-        $scope.showFlag=true;
+        $scope.showFlag=false;
         var flag=false;
         var flag1=false;
             //根据路由的地址改变状态
@@ -762,6 +781,8 @@ ContactsModule
             LANDX:"",
             BEZEI:"",
             CITY1:"",
+            ZZBYYX:"",
+            ZZJX:"",
             HOUSE_NUM1:"",
             REGION:"",
             POST_CODE1:"",
@@ -810,6 +831,8 @@ ContactsModule
                     "DPRTMNT": "",
                     "COUNTRY": "",
                     "LANDX":"",
+                    "ZZBYYX":"",
+                    "ZZJX":"",
                     "REGION": "",
                     "CITY1": "",
                     "POST_CODE1": "",
@@ -848,6 +871,8 @@ ContactsModule
             data.IS_CUSTOMER.LANDX =$scope.config.currentCountry;
             data.IS_CUSTOMER.REGION = $scope.config.currentProvence.REGION;
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
+            data.IS_CUSTOMER.ZZBYYX=$scope.contactcreat.ZZBYYX;
+            data.IS_CUSTOMER.ZZJX=$scope.contactcreat.ZZJX;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.POST_CODE1;
             data.IS_CUSTOMER.STREET = $scope.contactcreat.STREET;
             data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactcreat.HOUSE_NUM1;
@@ -1010,27 +1035,27 @@ ContactsModule
                 $scope.provence=new Array;
                 $scope.city=new Array;
             };
-        $scope.contactCreateDeleteListener = function(crid,crimgid){
-            setTimeout(function(){
-                document.getElementById(crid).addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
-                    if (this.value.length > 0) {
-                        document.getElementById(crimgid).style.display = "inline-block";
-                    } else {
-                        document.getElementById(crimgid).style.display = "none";
-                    }
-                });
-            },20)
-        };
-        $scope.contactCreateDeleteListener('concreatename','contcreatenameimg');
-        $scope.contactCreateDeleteListener('contcreatephonenumber','concreatetphonenumberimg');
-        $scope.contactCreateDeleteListener('contcreatemobilenumber','contcreatemobilenumberimg');
-        $scope.contactCreateDeleteListener('contcreateaddressname','contcreaaddressnameimg');
-        $scope.contactCreateDeleteListener('contcreanotename','contcreanotenameimg');
-        $scope.contactCreateDeleteListener('contcreatefax','contcreafaximg');
-        $scope.contactCreateDeleteListener('contcreafaxexit','contcreafaxexitimg');
-        $scope.contactCreateDeleteListener('contcreapartment','contcreapartmentimg');
-        $scope.contactCreateDeleteListener('contcreaatend','contcreaatendimg');
-        $scope.contactCreateDeleteListener('contcreapostm','contcreapostmimg');
+        //$scope.contactCreateDeleteListener = function(crid,crimgid){
+        //    setTimeout(function(){
+        //        document.getElementById(crid).addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
+        //            if (this.value.length > 0) {
+        //                document.getElementById(crimgid).style.display = "inline-block";
+        //            } else {
+        //                document.getElementById(crimgid).style.display = "none";
+        //            }
+        //        });
+        //    },20)
+        //};
+        //$scope.contactCreateDeleteListener('concreatename','contcreatenameimg');
+        //$scope.contactCreateDeleteListener('contcreatephonenumber','concreatetphonenumberimg');
+        //$scope.contactCreateDeleteListener('contcreatemobilenumber','contcreatemobilenumberimg');
+        //$scope.contactCreateDeleteListener('contcreateaddressname','contcreaaddressnameimg');
+        //$scope.contactCreateDeleteListener('contcreanotename','contcreanotenameimg');
+        //$scope.contactCreateDeleteListener('contcreatefax','contcreafaximg');
+        //$scope.contactCreateDeleteListener('contcreafaxexit','contcreafaxexitimg');
+        //$scope.contactCreateDeleteListener('contcreapartment','contcreapartmentimg');
+        //$scope.contactCreateDeleteListener('contcreaatend','contcreaatendimg');
+        //$scope.contactCreateDeleteListener('contcreapostm','contcreapostmimg');
 
         $scope.contactCreateDeletevalue = function(type) {
             switch (type) {

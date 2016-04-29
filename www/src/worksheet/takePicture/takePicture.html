@@ -4,7 +4,7 @@
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center" style="padding:5px;">
                 <a class="col col-15 text-left goBack" ng-click="goBackForPicture()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-70 text-center">服务拍照</div>
+                <div class="col col-70 text-center" >服务拍照</div>
                 <div class="col col-15 add"><!--img src="img/saleList/add.png"--></div>
             </div>
         </ion-header-bar>
@@ -12,7 +12,7 @@
     
     <ion-content id="takepicture-content" scroll="true" has-bouncing="false">
         
-        <ion-refresher ng-if="canReLoadData()" pulling-text="下拉刷新" on-refresh="reloadData();"></ion-refresher>
+        <!--ion-refresher ng-if="canReLoadData()" pulling-text="下拉刷新" on-refresh="reloadData();"></ion-refresher>
             
             <div class="is-loading xbr-tip-text-oneline" ng-if="config.isLoading && config.isReloading" style="margin-top:2rem;">
                 <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
@@ -21,12 +21,12 @@
             <div class="selected-images">
                 <div class="selected-image" ng-repeat="item in datas.imageDatas">
                     <div class="img-wrapper fill-parent">
-                        <img ng-src="{{item.src}}" ng-click="showImage($event,item);">
+                        <img ng-src="{{item.src}}" ng-click="showImage($event,item, index);">
                     </div>
                     <div class="img-handler-wrapper" ng-if="!item.isServerHolder">
-                        <span ng-if="!item.uploadError"></span>
-                        <span ng-click="uploadImage(item);" ng-if="!item.uploadError">上传</span>
-                        <span ng-bind="item.networkTip" ng-if="item.uploadError"></span>
+                        <!-span ng-click="deleteImage(item, $index);">删除</span->
+                        <span ng-click="uploadImage(item);" ng-if="!item.uploadError && !item.isDeleting && !item.isNetworking">上传</span>
+                        <span ng-bind="item.networkTip" ng-if="item.uploadError || item.isDeleting || item.isNetworking"></span>
                     </div>
                 </div>
                 <div class="selected-btn selected-image" style="font-size:3.5rem;border:0px;" ng-click="takePicture();" ng-if="!config.isLoading">
@@ -36,7 +36,29 @@
                 </div>
             </div>
             
-            <!--div class="selected-images">
+            
+            
+            <div class="loaind-tip-wrapper" style="display:none;">
+                <div class="images-click-for-moredatas xbr-tip-text-oneline" ng-click="loadMoreData();" ng-if="!config.isLoading && config.hasMoreData && (config.loadingErrorMsg ==null || config.loadingErrorMsg=='')">
+                    点击加载更多
+                </div>
+                
+                <div class="is-loading xbr-tip-text-oneline" ng-if="config.isLoading && !config.isReloading" style="margin-top:2rem;">
+                    <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+                </div>
+                
+                <div class="images-no-more-datas xbr-tip-text-oneline" ng-if="!config.hasMoreData">
+                    暂无更多数据
+                </div>
+                
+            </div-->
+         <ion-gallery ion-gallery-items="datas.imageDatas" ion-gallery-row="2" ion-gallery-toggle="true" ion-item-callback="ionGalleryClickCallback(item);"></ion-gallery>
+        
+    </ion-content>
+</ion-view>
+
+
+<!--div class="selected-images">
                 <div class="selected-image" ng-repeat="item in datas.imageDatas">
                     <div class="img-wrapper">
                         <img ng-src="{{item.displaySrc}}">
@@ -62,23 +84,8 @@
                     </div>
                 </div>
             </div-->
-            
-            <div class="loaind-tip-wrapper" style="display:none;">
-                <div class="images-click-for-moredatas xbr-tip-text-oneline" ng-click="loadMoreData();" ng-if="!config.isLoading && config.hasMoreData && (config.loadingErrorMsg ==null || config.loadingErrorMsg=='')">
-                    点击加载更多
-                </div>
-                
-                <div class="is-loading xbr-tip-text-oneline" ng-if="config.isLoading && !config.isReloading" style="margin-top:2rem;">
-                    <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
-                </div>
-                
-                <div class="images-no-more-datas xbr-tip-text-oneline" ng-if="!config.hasMoreData">
-                    暂无更多数据
-                </div>
-                
-            </div>
-        
-        <!--ion-scroll class="fill-parent" has-bouncing="false">
+
+<!--ion-scroll class="fill-parent" has-bouncing="false">
             
             <ion-refresher ng-if="canReLoadData()" pulling-text="下拉刷新" on-refresh="reloadData();"></ion-refresher>
             
@@ -157,6 +164,3 @@
             </div>
             
         </ion-scroll-->
-        
-    </ion-content>
-</ion-view>

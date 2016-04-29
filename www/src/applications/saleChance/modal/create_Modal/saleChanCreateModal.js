@@ -24,7 +24,12 @@ salesModule
             $scope.role = LoginService.getProfileType();
             $scope.filters = saleChanService.filters;
             $scope.CustomerLoadMoreFlag = true;
-            $scope.saleStages = saleChanService.saleStages;
+            if(Prompter.isATL()){
+                $scope.saleStages = saleChanService.saleStages.ATL;
+            }else{
+                $scope.saleStages = saleChanService.saleStages2;
+            }
+
             $scope.create = {
                 description: '',
                 place: '',

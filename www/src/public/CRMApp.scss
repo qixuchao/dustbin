@@ -11,7 +11,7 @@
     "../applications/apps.scss",
    "../employee/_employee.scss",
 	"../applications/saleActivities/_saleActivies.scss",
-    //服务工单模块 -- start
+    //服务工单模块 -- start   
     "../worksheet/worksheet",
     //"../worksheet/detailNewCar/detailNewCar",
     //"../worksheet/detailSiteRepair/detailSiteRepair",
@@ -21,9 +21,9 @@
     "../worksheet/dealHistoryList/dealHistoryList",
     "../worksheet/carMileage/_carMileage.scss",
 	"../worksheet/faultInfos/_faultInfo.scss",
-"../worksheet/sparePart/_sparePart.scss",
+    "../worksheet/sparePart/_sparePart.scss",
 	"../worksheet/relatedPart/_relatedPart.scss",
-	"../worksheet/takePicture/takePicture",    
+	"../worksheet/takePicture/takePicture",     
 	"../worksheet/selectStaff/selectStaff",
     //服务工单模块 -- end
     //"../worksheet/detail_newcar/detail_newcar",
@@ -50,6 +50,7 @@
 
   //个人中心模块：
     "../settings/settings",
+    "../settings/changePass/changePass",
 //第二登录
 "../loginSecond/loginSecond_Css"
 ;
