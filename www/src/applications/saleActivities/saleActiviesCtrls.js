@@ -19,7 +19,7 @@ salesModule
         'saleChanService',
         'customeService',
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService,customeService) {
+                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService) {
             $scope.saleTitleText = '销售活动';
             $scope.searchFlag = false;
             $scope.input = {search: '', customer: '', list: ''};
@@ -35,10 +35,10 @@ salesModule
             $scope.saleListNoMoreInfoFLag = false;
             var PARTNER_NO;
             $scope.isCanCreate = true;
-            if(angular.isObject(customeService.get_customerWorkordervalue())){
+            if (angular.isObject(customeService.get_customerWorkordervalue())) {
                 PARTNER_NO = customeService.get_customerWorkordervalue().PARTNER;
                 $scope.isCanCreate = false;
-            }else{
+            } else {
                 PARTNER_NO = "";
             }
             $scope.goBack = function () {
@@ -127,6 +127,18 @@ salesModule
                     }).finally(function () {
                     // 停止广播ion-refresher
                     $scope.$broadcast('scroll.refreshComplete');
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if (respTime >= config.timeout) {
+                        console.log('HTTP timeout');
+                        if (ionic.Platform.isWebView()) {
+                            $scope.loadMoreFlag = false;
+                            $scope.saleListNoMoreInfoFLag = true;
+                            //Prompter.alert('请求超时');
+                        }
+                    }
+                    $ionicLoading.hide();
                 });
             };
             if (storedb('saleActListHisArr').find().arrUniq() != undefined || storedb('saleActListHisArr').find().arrUniq() != null) {
@@ -182,9 +194,9 @@ salesModule
                 $scope.filterFlag = !$scope.filterFlag;
                 tempFilterArr = $scope.filters;
                 var ele = angular.element('#saleChanListFilterId');
-                if(Prompter.isAndroid()){
+                if (Prompter.isAndroid()) {
                     ele.css('display', 'none')
-                }else{
+                } else {
                     ele.css('display', 'block').removeClass('fadeInDown');
                     ele.css('display', 'block').addClass('slideOutUp');
                 }
@@ -223,17 +235,17 @@ salesModule
                 tempFilterArr = '';
                 $scope.filterFlag = !$scope.filterFlag;
                 if ($scope.filterFlag) {
-                    if(Prompter.isAndroid()){
+                    if (Prompter.isAndroid()) {
                         ele.css('display', 'block');
-                    }else{
+                    } else {
                         ele.css('display', 'block').removeClass('slideOutUp');
                         ele.css('display', 'block').addClass('fadeInDown');
                     }
                     onceCilck = true;
                 } else {
-                    if(Prompter.isAndroid()){
+                    if (Prompter.isAndroid()) {
                         ele.css('display', 'none');
-                    }else{
+                    } else {
                         ele.css('display', 'block').removeClass('fadeInDown');
                         ele.css('display', 'block').addClass('slideOutUp');
                     }
@@ -264,9 +276,9 @@ salesModule
                 e.stopPropagation();
             };
             /*-------------------------------Pop 新建-------------------------------------*/
-            if(Prompter.isATL()){
+            if (Prompter.isATL()) {
                 $scope.createPopTypes = saleActService.createPopTypes_ATL;
-            }else{
+            } else {
                 $scope.createPopTypes = saleActService.getCreatePopTypes();
             }
             $scope.createPopOrgs = saleActService.getCreatePopOrgs();
@@ -334,7 +346,6 @@ salesModule
             //};
 
 
-
             $scope.$on('$destroy', function () {
                 $scope.createPop.remove();
             });
@@ -369,10 +380,10 @@ salesModule
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $cordovaDatePicker, $ionicActionSheet, saleActService, saleChanService, Prompter
             , HttpAppService, relationService, customeService, contactService, employeeService) {
-            if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL"){
+            if (ROOTCONFIG.hempConfig.baseEnvironment == "CATL") {
                 //相关方类型值列表
                 $scope.relationPositionArr = saleActService.relationPositionArr.CATL;
-            }else{
+            } else {
                 $scope.relationPositionArr = saleActService.relationPositionArr.ATL;
                 $scope.isATL = true;
             }
@@ -408,9 +419,9 @@ salesModule
                 return 0;
             };
             var actTypes;
-            if(Prompter.isATL()){
+            if (Prompter.isATL()) {
                 actTypes = saleActService.createPopTypes_ATL;
-            }else{
+            } else {
                 actTypes = saleActService.createPopTypes;
             }
             var getActType = function (typeCode) {
@@ -460,7 +471,7 @@ salesModule
                             };
                             $scope.details.urgent = $scope.urgentDegreeArr[getUrgentIndex($scope.details.ZZHDJJD)];
                             $scope.details.actType = getActType($scope.details.PROCESS_TYPE);
-                            if($scope.details.PROCESS_TYPE=="ZA04"){
+                            if ($scope.details.PROCESS_TYPE == "ZA04") {
                                 $scope.isCanEditRelation = false;
                             }
                             $scope.relationArr = response.ET_PARTNERS.item;
@@ -572,9 +583,9 @@ salesModule
                     var promise = HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_CHANGE', data)
                         .success(function (response) {
                             if (response.ES_RESULT.ZFLAG === 'S') {
-                                makeConsensusModifyArr=[];
-                                followUpMatterModifyArr=[];
-                                policyDecodeModifyArr=[];
+                                makeConsensusModifyArr = [];
+                                followUpMatterModifyArr = [];
+                                policyDecodeModifyArr = [];
                                 if (angular.isUndefined(type)) {
                                     //Prompter.showShortToastBotton('修改成功');
                                 }
@@ -807,12 +818,12 @@ salesModule
                 if (!$scope.isEdit) {
                     return
                 }
-                if(!$scope.isCanEditRelation){
+                if (!$scope.isCanEditRelation) {
                     Prompter.alert('此类型相关方无法修改!');
                     return
                 }
                 if (x.PARTNER_FCT == "Z0000003" && !angular.isUndefined(x.mode)) {
-                    Prompter.alert(x.position+'不能删除或替换!');
+                    Prompter.alert(x.position + '不能删除或替换!');
                     return
                 }
                 repTempIndex = $scope.relationArr.indexOf(x);
@@ -1104,7 +1115,7 @@ salesModule
                 //$scope.editText = '保存';
                 var data;
                 var mode;
-                $scope.tempArr=[];
+                $scope.tempArr = [];
                 if (isProcessModify) {
                     mode = "U";
                     var arr = angular.element('.obj');
@@ -1119,7 +1130,7 @@ salesModule
                     case 'IT_SA0021':
                         data = {
                             "MODE": mode,
-                            "RECORD_ID":$scope.process.RECORD_ID,
+                            "RECORD_ID": $scope.process.RECORD_ID,
                             "ZZSXNR": $scope.process.content,  //事项内容
                             "ZZFLD0000BB": getProcessPosition(), //我司'客户
                             "ZZFZBM": $scope.process.department,  //部门
@@ -1139,7 +1150,7 @@ salesModule
                     case 'IT_SA0022':
                         data = {
                             "MODE": mode,
-                            "RECORD_ID":$scope.process.RECORD_ID,
+                            "RECORD_ID": $scope.process.RECORD_ID,
                             "ZZSXNR_1": $scope.process.content,
                             "ZZWSKH_1": getProcessPosition(),
                             "ZZFZBM_1": $scope.process.department,
@@ -1160,7 +1171,7 @@ salesModule
                     case 'IT_SA0023':
                         data = {
                             "MODE": mode,
-                            "RECORD_ID":$scope.process.RECORD_ID,
+                            "RECORD_ID": $scope.process.RECORD_ID,
                             "ZZSXNR_2": $scope.process.content,
                             "ZZZCYX": $scope.process.affect,
                             "ZZNOTE_3": ""
@@ -1186,10 +1197,10 @@ salesModule
                 Prompter.showLoading();
                 $scope.edit('process').success(function (response) {
                     if (response.ES_RESULT.ZFLAG === 'S') {
-                        if(!isProcessModify){
+                        if (!isProcessModify) {
                             $scope.tempArr.push(data);
-                        }else{
-                            switch ($scope.myProcess.code){
+                        } else {
+                            switch ($scope.myProcess.code) {
                                 case 'IT_SA0021':
                                     $scope.tempArr[processModifyIndex].ZZSXNR = data.ZZSXNR;
                                     break;
@@ -1303,7 +1314,7 @@ salesModule
                     case 'makeConsensus':
                         isProcessModify = true;
                         $scope.process = {
-                            "RECORD_ID":x.RECORD_ID,
+                            "RECORD_ID": x.RECORD_ID,
                             content: x.ZZSXNR,
                             position: x.ZZFLD0000BB,
                             status: '',
@@ -1316,7 +1327,7 @@ salesModule
                         break;
                     case 'followUpMatter':
                         $scope.process = {
-                            "RECORD_ID":x.RECORD_ID,
+                            "RECORD_ID": x.RECORD_ID,
                             content: x.ZZSXNR_1,
                             position: x.ZZWSKH_1,
                             status: x.ZZWCZK,
@@ -1330,7 +1341,7 @@ salesModule
                         break;
                     case 'policyDecode':
                         $scope.process = {
-                            "RECORD_ID":x.RECORD_ID,
+                            "RECORD_ID": x.RECORD_ID,
                             content: x.ZZSXNR_2,
                             position: '',
                             status: '',
@@ -1344,7 +1355,7 @@ salesModule
                         break;
                     default:
                         $scope.process = {
-                            "RECORD_ID":"",
+                            "RECORD_ID": "",
                             content: "",
                             position: '',
                             status: '',

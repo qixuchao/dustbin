@@ -27,7 +27,6 @@ mainModule
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location, $cordovaToast, $ionicModal,
                   ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService,
                   worksheetDataService, saleChanService) {
-            console.log('s')
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
                 ionicMaterialInk.displayEffect();
@@ -253,19 +252,17 @@ mainModule
                 d.setDate(d.getDate() + days);
                 var m = d.getMonth() + 1;
                 return new Date(d.getFullYear() + '/' + m + '/' + d.getDate());
-            }
+            };
             var tempDate = new Date();
             var nextDays = function (add, daysArr, nextDateObj) {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
-                //console.log($scope.days[page_index]);
                 var myTempMonth;
                 if (angular.isUndefined(page_index)) {
                     myTempMonth = $scope.days[0].month;
                 } else {
                     myTempMonth = $scope.days[page_index].month;
                 }
-                console.log(myTempMonth)
                 var arr = angular.copy(daysArr);
                 var nowLastDate = $scope.year + '/' + myTempMonth + '/' + arr[6].value;
                 tempDate = addDate(nowLastDate, add);
@@ -372,7 +369,6 @@ mainModule
             $scope.selectDay = function (x, y) {
                 var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('dayView-handle');
                 var page_index = dayViewHandle.currentIndex();
-                console.log(page_index)
                 //当前在周视图
                 if (angular.isDefined(page_index)) {
                     if ($scope.days[page_index].arr[6].value < 7 && y.value > 7) {
