@@ -44,7 +44,15 @@
                 </select>
             </div>
             </div>
-
+            <div class="row itemContent row-center">
+                <div class="col-3 col-center"><span style="color: red">*</span></div>
+                <div class="col-38 col-center">原因分类：</div>
+                <div class="col-59 col-center">
+                    <select ng-model="config.yyfl" class="selectC" ng-options="gzmc as gzmc.ZZYYFL_DESC for gzmc in yyflDetail">
+                        <option selected value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
             <div class="row itemContent row-center">
                 <div class="col-3 col-center"><span style="color: red">*</span></div>
                 <div class="col-38 col-center">产品类型：</div>

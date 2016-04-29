@@ -152,6 +152,14 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             }else {
                 var CODEGRUPPE = $scope.config.currentGuZhangBuJian.CODEGRUPPE
             }
+            if($scope.config.yyfl == null || $scope.config.yyfl ==undefined || $scope.config.yyfl ==""){
+                Prompter.hideLoading();
+                $cordovaToast.showShortBottom("请选择原因分类");
+                return;
+                //var DEFECT = '';
+            }else {
+                var yyfl = $scope.config.yyfl.ZZYYFL;
+            }
             if($scope.config.currentGuZhangMingCheng == null || $scope.config.currentGuZhangMingCheng ==undefined || $scope.config.currentGuZhangMingCheng ==""){
                 Prompter.hideLoading();
                 $cordovaToast.showShortBottom("请选择故障名称");
@@ -171,7 +179,8 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                         "DEFECT": DEFECT,
                         "COMP_TYPE": KATALOGART,
                         "COMPONENT": CODEGRUPPE,
-                        "REASON": CODE
+                        "REASON": CODE,
+                        "ZZYYFL_1" : yyfl
                 },
                     "IT_TEXT": {
                     "item": [
@@ -233,6 +242,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             scenarioItem : "",
             responseItem : "",
             defectItem : "",
+            yyfl : "",
             currentChanPinLeiXing: "",  //{"KATALOGART": "F0", "COMP_TYPE": "eBus",}
             currentGuZhangBuJian: "",      //{ "CODEGRUPPE": "04", "COMPONENT": "电芯" }
             currentGuZhangMingCheng: "",   //{CODE: '', REASON: ''}
@@ -316,6 +326,19 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 $scope.datas.chanPinLeiXingS.addItem(items[i]);
             }
             __initCurrentChangPinLeiXing();
+        }).error(function(err){
+        });
+        //原因分类
+
+        var urlYY = ROOTCONFIG.hempConfig.basePath + 'LIST_ZZYYFL';
+        HttpAppService.post(urlYY, data).success(function(response){
+            console.log(response);
+            $scope.yyflDetail = response.ET_YYFL.item_out;
+            for(var i=0;i<$scope.yyflDetail.length;i++){
+                if($scope.yyflDetail[i].ZZYYFL === $scope.faulInfos.ZZYYFL_1){
+                    $scope.config.yyfl = $scope.yyflDetail[i];
+                }
+            }
         }).error(function(err){
         });
         $scope.datas.chanPinLeiXingS.addItem = function(item){

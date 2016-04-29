@@ -34,8 +34,7 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
            if($scope.carMile.MILEAGE_VALUE == "" || $scope.carMile.MILEAGE_VALUE == undefined || $scope.carMile.MILEAGE_VALUE == null){
                $scope.dateCar = ""
            }else{
-               console.log($scope.carMile);
-               $scope.dateCar = $scope.carMile.MILEAGE_DATE.substring(0,10).replace('.','').replace('.','');
+                   $scope.dateCar = worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_DATE.replace('-','').replace('-','');
            }
            if($scope.carMile.MILEAGE_VALUE == "" && $scope.carMile.MILEAGE_DESC == ""){
                $scope.carEdit = true;
@@ -89,7 +88,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
         //$scope.carMile = worksheetDetail.ET_MILEAGE && worksheetDetail.ET_MILEAGE.item && worksheetDetail.ET_MILEAGE.item.length ? worksheetDetail.ET_MILEAGE.item[config.nowPage-1] : {};
         $scope.carMile = worksheetDetail.ET_MILEAGE.item[config.nowPage-1];
         $scope.update = {
-            readDate : $scope.carMile.MILEAGE_DATE.substring(0,10).replace('.','').replace('.',''),
+            readDate : worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_DATE.replace('-','').replace('-',''),
             readValue : $scope.carMile.MILEAGE_VALUE,
             readDescription : $scope.carMile.MILEAGE_DESC
         };
