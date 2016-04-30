@@ -1127,6 +1127,12 @@ ContactsModule
             $scope.customerSearch = false;
             $scope.input = {customer:''};
             var customerType = "";
+            if(LoginService.getProfileType()=="APP_SALE"){
+                customerType='CRM000';
+            }
+            if(LoginService.getProfileType()=="APP_SERVICE"){
+                customerType='Z00004';
+            }
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -1134,12 +1140,6 @@ ContactsModule
                     customerPage = 1;
                 } else {
                     $scope.spinnerFlag = true;
-                }
-                if(LoginService.getProfileType()=="APP_SALE"){
-                    customerType='CRM000';
-                }
-                if(LoginService.getProfileType()=="APP_SERVICE"){
-                    customerType='Z00004';
                 }
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
@@ -1153,7 +1153,7 @@ ContactsModule
                     }
                 };
                 //console.log(data);
-                console.log(customerType);
+                //console.log(customerType);
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
