@@ -57,12 +57,12 @@
   font-size: 16px;
 }
 
-/*.action-sheet-group {
+.action-sheet-group {
   .button {
     box-shadow: none;
     border-top: 1px solid #B7B7B7;
   }
-}*/
+}
 
 input[readonly]:not(.cloned-text-input) {
   background: none !important;
@@ -322,7 +322,7 @@ $button-crm-edit-text: white;
 }
 
 .action-sheet-group {
-  margin-bottom: 1px;
+  //margin-bottom: 1px;
   border-radius: 4px;
   background-color: #fff;
   overflow: hidden;
