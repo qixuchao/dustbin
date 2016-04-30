@@ -919,7 +919,7 @@ salesModule
                 if (!$scope.isEdit) {
                     return
                 }
-                if (x.PARTNER_FCT == "Z0000003" && !angular.isUndefined(x.mode)) {
+                if (x.PARTNER_FCT == "Z0000003" && angular.isUndefined(x.mode)) {
                     Prompter.alert(x.position + '不能删除或替换!');
                     return
                 }

@@ -35,8 +35,9 @@ salesModule
             var customerType = 'CRM000';
             $scope.input = {customer: ''};
             $scope.getCustomerArr = function (search) {
-                $scope.CustomerLoadMoreFlag = false;
+                $scope.isError = false;
                 if (search) {
+                    $scope.customerArr = [];
                     $scope.customerSearch = false;
                     customerPage = 1;
                 } else {
@@ -59,9 +60,6 @@ salesModule
                             return;
                         }
                         if (response.ES_RESULT.ZFLAG === 'S') {
-                            if (response.ET_OUT_LIST.item.length < 10) {
-                                $scope.CustomerLoadMoreFlag = false;
-                            }
                             if (search) {
                                 $scope.customerArr = response.ET_OUT_LIST.item;
                             } else {
@@ -70,13 +68,18 @@ salesModule
                             $scope.spinnerFlag = false;
                             $scope.customerSearch = true;
                             $scope.CustomerLoadMoreFlag = true;
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.spinnerFlag = false;
+                                $scope.customerSearch = false;
+                            }
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         } else {
-                            $scope.customerSearch = true;
-                            $scope.CustomerLoadMoreFlag = false;
-                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                            $scope.spinnerFlag = false;
+                            $scope.customerSearch = false;
+                            $scope.isError = true;
+                            Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
                     });
             };
@@ -102,14 +105,15 @@ salesModule
                     .success(function (response) {
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             $scope.contactsLoadMoreFlag = true;
-                            if (response.ET_OUT_LIST.item.length < 10) {
-                                $scope.contactsLoadMoreFlag = false;
-                            }
                             $scope.contacts = $scope.contacts.concat(response.ET_OUT_LIST.item);
                             if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
                             $scope.contactSpinnerFLag = false;
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.contactSpinnerFLag = false;
+                                $scope.contactsLoadMoreFlag = false;
+                            }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         } else {
                             if ($scope.contacts.length == 0) {
@@ -117,7 +121,7 @@ salesModule
                             }
                             $scope.contactSpinnerFLag = false;
                             $scope.contactsLoadMoreFlag = false;
-                            //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                            //Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
                     });
             };
@@ -294,7 +298,7 @@ salesModule
             };
             $scope.initCustomerSearch = function () {
                 $scope.input.customer = '';
-                //$scope.getCustomerArr();
+                $scope.getCustomerArr('search');
                 $timeout(function () {
                     document.getElementById('selectCustomerId').focus();
                 }, 1)

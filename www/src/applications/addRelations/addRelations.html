@@ -39,7 +39,7 @@
             </div>
         </div>
         <ion-scroll class="fill-parent">
-            <ion-spinner class="mySpinner" icon="ios" ng-if="!relationSearch"></ion-spinner>
+            <ion-spinner class="mySpinner" icon="ios" ng-if="!relationSearch&&relationArr.length==0&&!isError"></ion-spinner>
             <ion-list>
                 <ion-item class="selectItem" ng-repeat="x in relationArr | filter:input.relation"
                           ng-click="isReplace?replaceRelation(x):addRelationModal(x)">

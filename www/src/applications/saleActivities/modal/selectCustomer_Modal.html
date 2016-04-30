@@ -40,8 +40,8 @@
                 </ion-list>
             </div>
             <ion-scroll class="fill-parent">
-                <ion-spinner class="mySpinner" icon="ios" ng-if="!customerSearch"></ion-spinner>
-                <div ng-if="customerSearch">
+                <ion-spinner class="mySpinner" icon="ios" ng-if="!customerSearch&&customerArr.length==0&&!isError"></ion-spinner>
+                <div>
                     <ion-list>
                         <ion-item class="selectItem" ng-repeat="x in customerArr"
                                   ng-click="selectCustomer(x)">
