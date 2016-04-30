@@ -168,7 +168,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             }else {
                var CODE = $scope.config.currentGuZhangMingCheng.CODE
             }
-            var num = Math.ceil($scope.otherInfos.length/132);
+            var num = Math.ceil($scope.otherInfos.remark.length/132);
             var item = [];
             for(var i=0;i<num;i++){
                 item.push({
@@ -176,7 +176,13 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                     "TEXT": $scope.otherInfos.remark.substring(i*132,i*132+131)
                 });
             }
-console.log(item);
+            var numre = Math.ceil($scope.otherInfos.result.length/132);
+            for(var i=0;i<numre;i++){
+                item.push({
+                    "TDID": "Z005",
+                    "TEXT": $scope.otherInfos.result.substring(i*132,i*132+131)
+                });
+            }
             var updateEdit = {
                 "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
