@@ -1,5 +1,5 @@
 
-worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast','contactService',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast,contactService){
+worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast','contactService','$cordovaDialogs',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast,contactService,$cordovaDialogs){
 
     $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         console.log(fromState.name+toState.name);
@@ -83,16 +83,25 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
             if (response.ES_RESULT.ZFLAG === 'S') {
                 conpageNum = 1;
                 $scope.updateInfos(x);
-                $cordovaToast.showShortBottom('添加成功');
+                $cordovaToast.showShortBottom('客户和联系人关系已添加');
             }else{
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 Prompter.hideLoading();
             }
             console.log(angular.toJson(response));
 
-        }).error(function(err){
+        }).error(function (response, status, header, config) {
+            var respTime = new Date().getTime() - startTime;
+            //超时之后返回的方法
+            if(respTime >= config.timeout){
+                if(ionic.Platform.isWebView()){
+                    $cordovaDialogs.alert('请求超时');
+                }
+            }else{
+                $cordovaDialogs.alert('访问接口失败，请检查设备网络');
+            }
+            $ionicLoading.hide();
             Prompter.hideLoading();
-            console.log(angular.toJson(err));
         });
         $scope.selectContactModal.hide();
     };
@@ -145,19 +154,30 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
                     }};
                 console.log(angular.toJson(data));
                 var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
+                var startTime = new Date().getTime();
                 HttpAppService.post(url, data).success(function(response){
                     console.log(response);
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG === 'S') {
-                        $cordovaToast.showShortBottom('删除成功 ');
+                        $cordovaToast.showShortBottom('客户与联系人关系已添加 ');
                         conpageNum = 1;
                         $scope.updateInfos("");
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
                     console.log(angular.toJson(response));
-                }).error(function(err){
-                    console.log(angular.toJson(err));
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if(respTime >= config.timeout){
+                        if(ionic.Platform.isWebView()){
+                            $cordovaDialogs.alert('请求超时');
+                        }
+                    }else{
+                        $cordovaDialogs.alert('访问接口失败，请检查设备网络');
+                    }
+                    $ionicLoading.hide();
+                    Prompter.hideLoading();
                 });
         }
     $scope.phone = function(num){

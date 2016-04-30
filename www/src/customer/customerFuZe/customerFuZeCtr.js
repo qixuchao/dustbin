@@ -1,5 +1,5 @@
 
-worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast','employeeService',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast,employeeService){
+worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetDataService','worksheetHttpService','$rootScope','HttpAppService','$ionicModal','saleActService','$cordovaToast','employeeService','$cordovaDialogs',function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetDataService,worksheetHttpService,$rootScope,HttpAppService,$ionicModal,saleActService,$cordovaToast,employeeService,$cordovaDialogs){
     $ionicPopover.fromTemplateUrl('src/customer/customerFuZe/customer_selectbyD.html', {
             scope: $scope
         }).then(function(popover) {
@@ -67,18 +67,29 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
                     }};
                 console.log(angular.toJson(data));
                 var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
+                var startTime = new Date().getTime();
                 HttpAppService.post(url, data).success(function(response){
                     console.log(response);
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG === 'S') {
-                        $cordovaToast.showShortBottom('删除成功 ');
+                        $cordovaToast.showShortBottom('客户与负责人关系已删除 ');
                         $scope.updateInfos();
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
                     console.log(angular.toJson(response));
-                }).error(function(err){
-                    console.log(angular.toJson(err));
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if(respTime >= config.timeout){
+                        if(ionic.Platform.isWebView()){
+                            $cordovaDialogs.alert('请求超时');
+                        }
+                    }else{
+                        $cordovaDialogs.alert('访问接口失败，请检查设备网络');
+                    }
+                    Prompter.hideLoading();
+                    $ionicLoading.hide();
                 });
         }
     $scope.phone = function(num){
@@ -107,6 +118,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             "IT_IN_ROLE": {}
         };
         console.log(data);
+        var startTime = new Date().getTime();
         HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST', data)
             .success(function (response) {
                 if (response.ES_RESULT.ZFLAG === 'S') {
@@ -125,6 +137,18 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
                     //saleActService.customerArr = $scope.customerArr;
                     $rootScope.$broadcast('scroll.infiniteScrollComplete');
                 }
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }else{
+                    $cordovaDialogs.alert('访问接口失败，请检查设备网络');
+                }
+                Prompter.hideLoading();
+                $ionicLoading.hide();
             });
     };
 
@@ -152,6 +176,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             "IS_SEARCH": { "SEARCH": search }
         };
         console.log(data);
+        var startTime = new Date().getTime();
         HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST', data)
             .success(function (response) {
                 console.log(angular.toJson(response));
@@ -170,6 +195,18 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
                     $ionicScrollDelegate.resize();
                     $rootScope.$broadcast('scroll.infiniteScrollComplete');
                 }
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }else{
+                    $cordovaDialogs.alert('访问接口失败，请检查设备网络');
+                }
+                Prompter.hideLoading();
+                $ionicLoading.hide();
             });
     };
 
@@ -226,7 +263,8 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             }};
         console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
-        console.log(angular.toJson(url));
+        var startTime = new Date().getTime();
+        //console.log(angular.toJson(url));
         HttpAppService.post(url, data).success(function(response){
             console.log(response);
             if (response.ES_RESULT.ZFLAG === 'S') {
@@ -238,9 +276,18 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             }
             console.log(angular.toJson(response));
 
-        }).error(function(err){
+        }).error(function (response, status, header, config) {
+            var respTime = new Date().getTime() - startTime;
+            //超时之后返回的方法
+            if(respTime >= config.timeout){
+                if(ionic.Platform.isWebView()){
+                    $cordovaDialogs.alert('请求超时');
+                }
+            }else{
+                $cordovaDialogs.alert('访问接口失败，请检查设备网络');
+            }
             Prompter.hideLoading();
-            console.log(angular.toJson(err));
+            $ionicLoading.hide();
         });
         $scope.selectContactModal.hide();
     };
@@ -254,6 +301,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
         }
         console.log(angular.toJson(data));
         var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
+        var startTime = new Date().getTime();
         HttpAppService.post(url, data).success(function(response){
             //console.log(angular.toJson(response));
             if (response.ES_RESULT.ZFLAG === 'S') {
@@ -278,8 +326,18 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             }else{
                 Prompter.hideLoading();
             }
-        }).error(function(err){
-            console.log(angular.toJson(err));
+        }).error(function (response, status, header, config) {
+            var respTime = new Date().getTime() - startTime;
+            //超时之后返回的方法
+            if(respTime >= config.timeout){
+                if(ionic.Platform.isWebView()){
+                    $cordovaDialogs.alert('请求超时');
+                }
+            }else{
+                $cordovaDialogs.alert('访问接口失败，请检查设备网络');
+            }
+            Prompter.hideLoading();
+            $ionicLoading.hide();
         });
     }
 }]);
