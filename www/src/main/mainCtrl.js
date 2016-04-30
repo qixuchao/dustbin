@@ -159,7 +159,6 @@ mainModule
                     var dayViewHandle = $ionicSlideBoxDelegate.$getByHandle('monthView-handle');
                     var page_index = dayViewHandle.currentIndex();
                     var arr = $scope.monthView[page_index].arr;
-                    console.log(arr)
                     //默认为当月一号
                     var select_day = 1;
                     for (var i = 0; i < arr.length; i++) {
@@ -698,9 +697,10 @@ mainModule
                         Prompter.hideLoading();
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             var tempArr = response.ET_CALENDAR.item_out;
+                            console.log(monthArr)
                             angular.forEach(tempArr, function (x) {
                                 angular.forEach(monthArr, function (y) {
-                                    if (x.DATE == new Date($scope.year + '/' + $scope.month + '/' + y.value).format('yyyy-MM-dd')) {
+                                    if (y.value&&x.DATE == new Date($scope.year + '/' + $scope.month + '/' + y.value).format('yyyy-MM-dd')) {
                                         y.toDo = true;
                                     }
                                 })
