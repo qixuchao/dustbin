@@ -148,6 +148,8 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
                                 }
                             }
                         });
+                    }else{
+                        $cordovaToast.showShortBottom('当前是最新版本');
                     }
 
                 });
