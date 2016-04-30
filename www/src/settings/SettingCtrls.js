@@ -18,7 +18,7 @@ settingsModule.controller("SettingCtrl", [
 			userCode: "" //登录名:工号
 
 		};
-
+		
 		$scope.changePass = function(){
 			$state.go("changePass");
 		};

@@ -65,13 +65,14 @@ settingsModule.controller("ChangePassCtrl", [
 				$scope.config.btnGetCodeDisabled = true;
 			}
 		};
-
-		var total = 5;
+		
+		var total = 60;
 		var start = 0;
 		var automaticTimeout = null;
 		var intervalPromise;
 
 		function __automatic(){
+			//var showSec = total - start;
 			$scope.config.getValidBtnText = $scope.config.defaultText.replace("##", start+"秒");
 			start++;
 		}
@@ -171,11 +172,12 @@ settingsModule.controller("ChangePassCtrl", [
 	        	//Prompter.hideLoading();
 	        	if(response.ES_RESULT && response.ES_RESULT.ZFLAG == 'S'){
 	        		Prompter.showLoadingAutoHidden("密码重置成功!", false, 2000);
+	        		$timeout(function(){
+	        			$state.go("tabs");
+	        		}, 2000);
 	        	}else{
-
+	        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 	        	}
-	        	
-				
 	        })
 	        .error(function(errorResponse){
 	        	Prompter.showLoadingAutoHidden("密码重置失败!请检查网络", false, 2000);

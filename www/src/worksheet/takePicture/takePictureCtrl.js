@@ -13,7 +13,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	"$ionicPopup",
 	"worksheetDataService",
 	"Prompter",
-	"$sce",
+	"$sce", 
 	function($scope, $timeout, $ionicActionSheet, $ionicPosition,$ionicBackdrop, $ionicGesture, $ionicModal, $state,
 			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService, Prompter, $sce){
 
@@ -295,9 +295,28 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			__deleteImageInServer(item, item.position);
 		};
 
-		$scope.saveThisImage = function(item){
-			console.log("$scope.saveThisImage:   "+item.position);
-			$cordovaToast.showShortBottom("已经保存成功! "+item.position);
+		$scope.saveThisImage = function(item){ 
+			/*console.log("$scope.saveThisImage:   "+item.position);
+			var imgJQ = angular.element("#crm-pictures-"+item.position);//#takepicture-content
+			var imeEle = imgJQ[0];
+			var canvas = document.createElement('canvas');
+			canvas.width = imgEle.width;
+			canvas.height = imgEle.height;
+			var context = canvas.getContext('2d');
+        	context.drawImage(imeEle, 0, 0);
+        	var imageDataUrl = canvas.toDataURL('image/jpeg', 1.0);
+        	imageDataUrl = imageDataUrl.replace(/data:image\/jpeg;base64,/, '');
+
+			window.canvas2ImagePlugin.saveImageDataToLibrary(
+		        function(msg){
+		            console.log(msg);
+		        },
+		        function(err){
+		            console.log(err);
+		        },
+		        canvas
+		    );
+			$cordovaToast.showShortBottom("已经保存成功! "+item.position);*/
 		};
 
 

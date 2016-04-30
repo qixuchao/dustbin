@@ -51,7 +51,23 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlide
     "worksheetReportModule",
     "settingsModule"
 ]);
-CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
+CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
+
+        function __onHardwareBackButton(e){
+            //判断处于哪个页面时双击退出
+            if ($rootScope.backButtonPressedOnceToExit) {
+                ionic.Platform.exitApp();
+            } else {
+                $rootScope.backButtonPressedOnceToExit = true;
+                $cordovaToast.showShortBottom('再按一次退出系统');
+                setTimeout(function () {
+                    $rootScope.backButtonPressedOnceToExit = false;
+                }, 1500);
+            }
+            e.preventDefault();
+            return false;
+        };
+
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -64,17 +80,10 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
                 window.StatusBar.overlaysWebView(true);
             }
 
-            /*window.plugins.jPushPlugin.init();
-            window.plugins.jPushPlugin.init();
-            window.plugins.jPushPlugin.setDebugMode(true);
-            window.plugins.jPushPlugin.getRegistrationID(function(id){
-                //将获取到的id存入服务端
-                alert(id);
-            });
-            //点击通知栏的回调，在这里编写特定逻辑
-            window.plugins.jPushPlugin.openNotificationInAndroidCallback= function(data){  
-                alert(JSON.stringify(data));
-            }*/
+            $ionicPlatform.registerBackButtonAction(__onHardwareBackButton, 101);
+
+            
+            
         });
         $rootScope.goState = function(state){
             $state.go(state);
@@ -100,18 +109,18 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory) {
      */
     
     $stateProvider
-        .state('login', {
-           url: '/login',
-           //abstract: true,
-           templateUrl: 'src/login/login.html',
-           controller: 'LoginCtrl'
-        })
-
         // .state('login', {
-        //     url: '/login',
-        //     templateUrl: 'src/loginSecond/loginSecond.html',
-        //     controller: 'LoginCtrl'
+        //    url: '/login',
+        //    //abstract: true,
+        //    templateUrl: 'src/login/login.html',
+        //    controller: 'LoginCtrl'
         // })
+
+        .state('login', {
+            url: '/login',
+            templateUrl: 'src/loginSecond/loginSecond.html',
+            controller: 'LoginCtrl'
+        })
 
         .state('tabs', {
             url: '/tabs',

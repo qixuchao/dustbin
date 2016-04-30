@@ -25,6 +25,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         
         $scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
             if(fromState && fromState.name == 'worksheetEdit'){
+                /*if(!$scope.config.__clickCancelBtnFlag){
+                    event2.preventDefault();
+                    $scope.goBack();
+                    $scope.config.__clickCancelBtnFlag = true;
+                }*/
                 if(window.event && window.event.type == "popstate"){
                     if($scope.config.__popstateFlag){
                         $scope.config.__popstateFlag = false;
@@ -35,7 +40,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     }
                 }
             }
-        }); 
+        });
         //选择车辆返回的时候，获取车辆信息
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState && toState && fromState.name == 'car' && toState.name == 'worksheetEdit'){
@@ -64,6 +69,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         
         $scope.config = {
             __popstateFlag: false,
+            __clickCancelBtnFlag: false,
             typeStr: '',
 
             detailTypeNewCar: false,
@@ -89,8 +95,9 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         //$scope.$ionicHistory = $ionicHistory;
         //$scope.$state = $state;
         
-        $scope.goBack = function(){
+        $scope.goBack = function(){            
             Prompter.wsConfirm("提示","放弃本次编辑?","确定", "取消");
+            //$scope.config.__clickCancelBtnFlag = false;
             //$ionicHistory.goBack(-2);
              //$ionicHistory.goBack(2);
         };
@@ -559,7 +566,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             if(texts){
                 for(var i = 0; i < texts.length; i++){
                     if(texts[i].TDID == "Z005"){
-                        $scope.config.chulijieguo = texts[i].TDLINE;
+                        $scope.config.chulijieguo += texts[i].TDLINE;
                     }
                 }
             }

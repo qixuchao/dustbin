@@ -303,7 +303,7 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
           }
         },
         imageInfos: {  // 图片展示界面
-           listUrl: ROOTCONFIG.hempConfig.basePath + "URL_LIST",
+           listUrl: ROOTCONFIG.hempConfig.basePath + "downloadImageList", //downloadImageList URL_LIST
            listDefaults: null,
            deleteUrl: ROOTCONFIG.hempConfig.basePath + "URL_DELETE",
            deleteDefaults: null,

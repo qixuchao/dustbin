@@ -8,7 +8,31 @@ loginModule
         'HttpAppService','$scope','$state','ionicMaterialInk',
         '$ionicLoading','$timeout','$ionicPlatform',
         function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading,$timeout, $ionicPlatform){
-        
+            
+            $scope.saveThisImage = function(item){
+                console.log("$scope.saveThisImage:   "+item.position);
+                var imgJQ = angular.element("#xbr-test");//#takepicture-content
+                var imeEle = imgJQ[0];
+                var canvas = document.createElement('canvas');
+                canvas.width = imgEle.width;
+                canvas.height = imgEle.height;
+                var context = canvas.getContext('2d');
+                context.drawImage(imeEle, 0, 0);
+                var imageDataUrl = canvas.toDataURL('image/jpeg', 1.0);
+                imageDataUrl = imageDataUrl.replace(/data:image\/jpeg;base64,/, '');
+
+                window.canvas2ImagePlugin.saveImageDataToLibrary(
+                    function(msg){
+                        console.log(msg);
+                    },
+                    function(err){
+                        console.log(err);
+                    },
+                    canvas
+                );
+                $cordovaToast.showShortBottom("已经保存成功! "+item.position);
+            };
+
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
                 if(toState && toState.name == 'login'){
                     $ionicHistory.clearCache();
@@ -84,6 +108,8 @@ loginModule
             //var userName = "HANDLCX02";
             var userPassword = $scope.loginData.password;
             $scope.login = function () {
+                /*$scope.saveThisImage();
+                return;*/
                 Prompter.showLoading();
                 //http://117.28.248.23:9388/test/api/bty/login
                 //var url = ROOTCONFIG.hempConfig.LoginUrl; //"http://117.28.248.23:9388/test/api/bty/login";
@@ -118,11 +144,14 @@ loginModule
                               LoginService.setPassword("");
                               $scope.loginData.password = "";
                           }
-                          //if(response.FIRST_LOGIN != "Y"){
-                            //$state.go('changePass');
-                          //}else{
+                          if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL"){
+                                //__initJPushPlugin();
+                          }
+                          // if(response.FIRST_LOGIN == "Y"){
+                          //   $state.go('changePass');
+                          // }else{
                             $state.go('tabs', {}, {location:"replace", reload:"true"});
-                          //}
+                          // }
                     }
 
                 });
@@ -137,6 +166,7 @@ loginModule
                 //$state.go('tabs')
             };
 
+
             $scope.show = function () {
                 $ionicLoading.show({
                     template: '<ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>'
@@ -148,5 +178,83 @@ loginModule
             $scope.hide = function () {
                 $ionicLoading.hide();
             };
+
+
+            //$scope.config.deviceId
+            function __initJPushPlugin(){
+                //alert("  __initJPushPlugin  "+window.plugins.jPushPlugin);
+                try {
+                    window.plugins.jPushPlugin.init();
+                    window.plugins.jPushPlugin.getRegistrationID(function(data){
+                        alert("JPushPlugin:registrationID is " + data);
+                    });
+                    if (device.platform != "Android") {
+                        window.plugins.jPushPlugin.setDebugModeFromIos();
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
+                    } else {
+                        window.plugins.jPushPlugin.setDebugMode(true);
+                        window.plugins.jPushPlugin.setStatisticsOpen(true);
+                    }
+
+                    var tags = [ROOTCONFIG.hempConfig.baseEnvironment];
+                    // eg: CATL + 60000051 + deviceId
+                    var alias = ROOTCONFIG.hempConfig.baseEnvironment+ LoginService.getUserName() + $scope.config.deviceId;
+                    //alert(tags);
+                    //alert(alias);
+                    window.plugins.jPushPlugin.setTagsWithAlias(tags, alias);
+
+                } catch (exception) {
+                    console.log(exception);
+                }
+                
+                //document.addEventListener("jpush.setTagsWithAlias", onTagsWithAlias, false);
+                //document.addEventListener("deviceready", onDeviceReady, false);
+                document.addEventListener("jpush.openNotification", onOpenNotification, false);
+                document.addEventListener("jpush.receiveNotification", onReceiveNotification, false);
+                //document.addEventListener("jpush.receiveMessage", onReceiveMessage, false);
+                /*
+                    window.plugins.jPushPlugin.init();
+                    window.plugins.jPushPlugin.setDebugMode(true);
+                    window.plugins.jPushPlugin.getRegistrationID(function(id){
+                        //将获取到的id存入服务端
+                        alert(id);
+                    });
+                    //点击通知栏的回调，在这里编写特定逻辑
+                    window.plugins.jPushPlugin.openNotificationInAndroidCallback= function(data){  
+                        alert(JSON.stringify(data));
+                    }
+                */
+            }
+            function onReceiveNotification(event) {
+                //alert("onReceiveMessage");
+            }
+            function onOpenNotification(event) { // {isTrusted: false}
+                //alert("onOpenNotification");
+                //alert(JSON.stringify(event));
+                console.log(event);
+                try {
+                    var alertContent;
+                    var extrasParams;
+                    var title, extras, msgId, notificationId;
+                    if (device.platform == "Android") {
+                        var content = window.plugins.jPushPlugin.receiveNotification;
+                        title = content.title;  //ATL Test
+                        //alertContent = content.alert; //测试信息。。。
+                        var extras = content.extras;
+                        var msgId = extras["cn.jpush.android.MSG_ID"];
+                        var notificationId = extras["cn.jpush.android.NOTIFICATION_ID"];
+                        alertContent = extras["cn.jpush.android.ALERT"];
+                        extrasParams = extras["cn.jpush.android.EXTRA"];
+                        
+                    } else {
+                        alertContent = event.aps.alert;
+                    }
+                    alert("title: "+title+"\ncontent: "+alertContent+"\nmsgId:  "+msgId+"\nnotificationId: "+notificationId);
+                    alert("extras: "+JSON.stringify(extras));
+                } catch (exception) {
+                    console.log("JPushPlugin:onOpenNotification" + exception);
+                }
+            };
+
 
         }]);
