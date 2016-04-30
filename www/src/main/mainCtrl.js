@@ -168,6 +168,7 @@ mainModule
                         }
                     }
                     daysChangedInit(select_day);
+                    getWeekMarkDays($scope.days[0]);
                 }
             };
 
@@ -274,7 +275,7 @@ mainModule
             //判断数组元素是否连续
             var isContinue = function (arr) {
                 for (var i = 1; i < arr.length; i++) {
-                    if (Math.abs(arr[i]) - Math.abs(arr[i - 1]) != 1) {
+                    if (Math.abs(arr[i].value) - Math.abs(arr[i - 1].value) != 1) {
                         return false;
                     }
                 }
@@ -439,11 +440,14 @@ mainModule
                 //默认选中当天
                 $scope.days[0].arr[todayTemp].checked = true;
                 //模拟有代办事项
-                $scope.days[0].arr[todayTemp].toDo = true;
+                //$scope.days[0].arr[todayTemp].toDo = true;
                 //$scope.days[0].arr[todayTemp + 1].toDo = true;
                 $scope.year = addDateTemp.getFullYear();
                 $scope.month = new Date().getMonth() + 1;
                 isToday($scope.days[0].arr);
+                $timeout(function () {
+                    getWeekMarkDays($scope.days[0]);
+                },10);
                 $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
                 $scope.days[2].arr = nextDays(-7, $scope.days[0].arr, $scope.days[2]);
             };
@@ -465,17 +469,20 @@ mainModule
                 switch (page_now) {
                     case 0:
                         isToday($scope.days[0].arr);
+                        getWeekMarkDays($scope.days[0])
                         $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
                         $scope.days[2].arr = nextDays(-7, $scope.days[0].arr, $scope.days[2]);
                         break;
                     //中间的视图
                     case 1:
                         isToday($scope.days[1].arr);
+                        getWeekMarkDays($scope.days[1])
                         $scope.days[2].arr = nextDays(7, $scope.days[1].arr, $scope.days[2]);
                         $scope.days[0].arr = nextDays(-7, $scope.days[1].arr, $scope.days[0]);
                         break;
                     case 2:
                         isToday($scope.days[2].arr);
+                        getWeekMarkDays($scope.days[2])
                         $scope.days[0].arr = nextDays(7, $scope.days[2].arr, $scope.days[0]);
                         $scope.days[1].arr = nextDays(-7, $scope.days[2].arr, $scope.days[1]);
                         break;
@@ -611,8 +618,51 @@ mainModule
             /*----------------------------月视图 end----------------------------*/
             /*-------------------------------------------日历 end-------------------------------------------*/
 
-            var getMarkDays = function (start, end) {
-
+            var getWeekMarkDays = function (days) {
+                Prompter.showLoading();
+                var startTemp, endTemp, monthTemp,isContinueFlag = isContinue(days.arr);
+                //判断是否连续
+                if (isContinueFlag) {
+                    monthTemp = days.month;
+                } else {
+                    monthTemp = days.month - 1;
+                }
+                startTemp = $scope.year + '-' + monthTemp + '-' + days.arr[0].value;
+                endTemp = $scope.year + '-' + days.month + '-' + days.arr[6].value;
+                var data = {
+                    "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_DATE": {
+                        "DATE_FROM": startTemp,
+                        "DATE_TO": endTemp,
+                        "ESTAT": "E0001"
+                    },
+                    "IS_USER": { "BNAME": window.localStorage.crmUserName }
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_GET_CALENDAR', data)
+                    .success(function (response) {
+                        Prompter.hideLoading();
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            var tempArr = response.ET_CALENDAR.item_out;
+                            angular.forEach(tempArr, function (x) {
+                                if(isContinueFlag){
+                                    angular.forEach(days.arr, function (y) {
+                                        if(x.DATE == new Date($scope.year + '-' + days.month + '-' + y.value).format('yyyy-MM-dd')){
+                                            console.log(x.DATE+'checked');
+                                        }
+                                    })
+                                }else{
+                                    angular.forEach(days.arr, function (y) {
+                                        if(y.value<7){
+                                            monthTemp = days.month;
+                                        }
+                                        if(x.DATE == new Date($scope.year + '-' + monthTemp + '-' + y.value).format('yyyy-MM-dd')){
+                                            y.toDo = true;
+                                        }
+                                    })
+                                }
+                            });
+                        }
+                    })
             };
 
             $scope.marks = ['#cf021b', '#f5a623', '#4a90e2', '#f8e71c', '#417505'];
