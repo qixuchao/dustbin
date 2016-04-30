@@ -168,6 +168,7 @@ mainModule
                         }
                     }
                     daysChangedInit(select_day);
+                    getWeekMarkDays($scope.days[0]);
                 }
             };
 
