@@ -77,8 +77,8 @@ mainModule
                 var myTempMonth = $scope.days[page_index].month;
                 for (var i = 0; i < days.length; i++) {
                     if (days[6].value < 7) {
-                        myTempMonth = $scope.days[page_index].month-1;
-                        if(days[i].value>0&&days[i].value<7){
+                        myTempMonth = $scope.days[page_index].month - 1;
+                        if (days[i].value > 0 && days[i].value < 7) {
                             myTempMonth = $scope.days[page_index].month;
                         }
                     }
@@ -109,9 +109,9 @@ mainModule
                 }, 10)
                 //切换至月视图
                 if ($scope.viewFlag == false) {
-                    if(Prompter.isAndroid()){
+                    if (Prompter.isAndroid()) {
                         document.getElementById('monthViewId').className = 'monthView';
-                    }else{
+                    } else {
                         document.getElementById('monthViewId').className = 'monthView own-animated fadeInDown';
                     }
                     document.getElementById('dayViewId').className = 'dayView';
@@ -147,9 +147,9 @@ mainModule
                     }, 5);
                     $ionicSlideBoxDelegate.update();
                 } else {
-                    if(Prompter.isAndroid()){
+                    if (Prompter.isAndroid()) {
                         document.getElementById('dayViewId').className = 'dayView';
-                    }else{
+                    } else {
                         document.getElementById('dayViewId').className = 'dayView own-animated fadeInDown';
                     }
                     document.getElementById('monthViewId').className = 'monthView';
@@ -307,11 +307,11 @@ mainModule
                 //当前在周视图
                 if (page_index != undefined) {
                     if (page_index == 0) {
-                        var temp = true,myTempMonth;
+                        var temp = true, myTempMonth;
                         for (var i = 0; i < 7; i++) {
                             if ($scope.days[page_index].arr[6].value < 7) {
-                                myTempMonth = $scope.days[page_index].month-1;
-                                if($scope.days[page_index].arr[i].value>0&&$scope.days[page_index].arr[i].value<7){
+                                myTempMonth = $scope.days[page_index].month - 1;
+                                if ($scope.days[page_index].arr[i].value > 0 && $scope.days[page_index].arr[i].value < 7) {
                                     myTempMonth = $scope.days[page_index].month;
                                 }
                             }
@@ -326,7 +326,7 @@ mainModule
                         if (temp) {
                             //dayViewHandle.previous(300);
                             //$timeout(function () {
-                                dayViewHandle.slide(0, 300);
+                            dayViewHandle.slide(0, 300);
                             //}, 100)
                         }
                         $scope.init();
@@ -611,7 +611,7 @@ mainModule
             /*----------------------------月视图 end----------------------------*/
             /*-------------------------------------------日历 end-------------------------------------------*/
 
-            var getMarkDays = function (start,end) {
+            var getMarkDays = function (start, end) {
 
             };
 
@@ -653,6 +653,7 @@ mainModule
                     //"IS_USER": {"BNAME": window.localStorage.crmUserName}
                     "IS_USER": {"BNAME": window.localStorage.crmUserName}
                 };
+                var startTime = new Date().getTime();
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_ACTIVITY.DATE_FROM != selectDate ||
@@ -686,7 +687,19 @@ mainModule
                             //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
-                    });
+                    }).error(function (response, status, header, config) {
+                    $scope.loadMoreHasData = false;
+                    $scope.loadMoreFlag = false;
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if (respTime >= config.timeout) {
+                        console.log('HTTP timeout');
+                        if (ionic.Platform.isWebView()) {
+                            Prompter.alert('请求超时', '提示', '确定');
+                        }
+                    }
+                    $ionicLoading.hide();
+                });
             };
             var profile;
             var getOrdersArr = function (type) {
@@ -744,6 +757,7 @@ mainModule
                             }]
                         }
                     };
+                    var startTime = new Date().getTime();
                     HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST', data)
                         .success(function (response, status, headers, config) {
                             if (config.data.IS_SEARCH.CREATED_FROM != selectDate ||
@@ -777,7 +791,19 @@ mainModule
                                 //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                             }
-                        });
+                        }).error(function (response, status, header, config) {
+                        $scope.loadMoreHasData = false;
+                        $scope.loadMoreFlag = false;
+                        var respTime = new Date().getTime() - startTime;
+                        //超时之后返回的方法
+                        if (respTime >= config.timeout) {
+                            console.log('HTTP timeout');
+                            if (ionic.Platform.isWebView()) {
+                                Prompter.alert('请求超时', '提示', '确定');
+                            }
+                        }
+                        $ionicLoading.hide();
+                    });
                 }
                 ;
             $scope.getList = function (type) {

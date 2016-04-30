@@ -17,6 +17,20 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	function($scope, $timeout, $ionicActionSheet, $ionicPosition,$ionicBackdrop, $ionicGesture, $ionicModal, $state,
 			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService, Prompter, $sce){
 
+		$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
+            if(fromState && fromState.name == 'worksheetTakePicture'){
+                if(window.event && window.event.type == "popstate"){
+                    if($scope.config.__popstateFlag){
+                        $scope.config.__popstateFlag = false;
+                    }else{
+                        event2.preventDefault();
+                        $scope.config.__popstateFlag = true;
+                        $scope.goBackForPicture();
+                    }
+                }
+            }
+        }); 
+
 		function __initModal(){
 			var ele = angular.element(".modal-backdrop");
 		};
@@ -35,6 +49,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 					needUploadNum++;
 				}
 			}
+			
 			//console.log("----- goBackForPicture ----- 1");
 			if(isLoadingNum > 0){
 				Prompter.wsConfirm("提示",isLoadingNum+'张图片正在上传,确定放弃?',"确定", "取消");
@@ -163,8 +178,18 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			};
 			//ROOTCONFIG.hempConfig.UploadImageUrl;			
 			// http://117.28.248.23:9388/test/api/bty/uploadImage
-			__uploadImage(item, ROOTCONFIG.hempConfig.UploadImageUrl, JSON.stringify(inbond));
+			var url = ROOTCONFIG.hempConfig.basePath + "uploadImage";
+			__uploadImage(item, url, JSON.stringify(inbond));
 		};
+
+
+		$scope.reuploadItem = function(item){
+			$scope.uploadImage(item);
+		};   
+		$scope.cancelUploadItem = function(item){
+			__deleteItemInLocal(item);
+		};
+
 
 		function __requestImageList(isRealod){
 			var loadingStr = "正在加载";
@@ -334,6 +359,17 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	        	fileItem.deletedOk = false;
 	        	fileItem.deletedError = true;
 	        });
+		}
+
+		function __deleteItemInLocal(item){
+			for(var i = 0; i < $scope.datas.imageDatas.length; i++){
+    			if(item == $scope.datas.imageDatas[i]){
+    				$scope.datas.imageDatas.splice(i, 1);
+    				if(!$scope.$$phase){
+						$scope.$apply();
+					}
+    			}
+    		}
 		}
 
 		$scope.networkClickHandler = function(fileItem, index){
@@ -566,7 +602,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	            sourceType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
 	        }
 	        var options = {
-	            quality: 5,
+	            quality: 5, 
 	            sourceType: sourceType,
 	            destinationType: Camera.DestinationType.FILE_URL, //1, //'FILE_URL',
 	            encodingType: Camera.EncodingType.JPEG, //0, //'JPEG',
@@ -628,7 +664,8 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			var filepath = file.fileLocalPath;
 			//var url = encodeURI("http://192.168.31.101:8080/h5uploader/upload");
 			//var url = encodeURI("http://117.28.248.23:9388/test/api/bty/uploadImage");
-			var url = encodeURI(ROOTCONFIG.hempConfig.UploadImageUrl);
+			var uploadUrl = ROOTCONFIG.hempConfig.basePath + "uploadImage";
+			var url = encodeURI(uploadUrl);
 			var options = new FileUploadOptions();
 			options.fileKey = "image";
 			options.fileName = file.name;

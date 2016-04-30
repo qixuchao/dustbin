@@ -6,7 +6,7 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState.name == 'worksheetCarMileageEdit' && toState.name == 'worksheetCarMileage'){
                 var getconfig = worksheetHttpService.getWSCarMileage();
-                init(getconfig.nowPage);
+                init(getconfig.nowPage); 
             }
         });
         ionicMaterialInk.displayEffect();
@@ -16,9 +16,9 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
         }
        var init = function(info){
            var worksheetDetail = worksheetDataService.wsDetailData;
-           console.log(worksheetDetail);
-           console.log(worksheetDetail.ET_MILEAGE)
-           console.log(worksheetDetail.ET_MILEAGE.item);
+           //console.log(worksheetDetail);
+           //console.log(worksheetDetail.ET_MILEAGE)
+           //console.log(worksheetDetail.ET_MILEAGE.item);
            if(worksheetDataService.wsDetailData.ET_MILEAGE.item == undefined){
                //$cordovaToast.showShortBottom('暂无车辆读数信息');
                $scope.carMile = '';
@@ -35,7 +35,7 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
                $scope.dateCar = ""
            }else{
                    $scope.dateCar = worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_DATE.replace('-','').replace('-','');
-           }
+            }
            if($scope.carMile.MILEAGE_VALUE == "" && $scope.carMile.MILEAGE_DESC == ""){
                $scope.carEdit = true;
            }else{
@@ -68,7 +68,8 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
 worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
     "ionicMaterialInk",
     "ionicMaterialMotion",
-    "$ionicPopup", "$timeout","$state","worksheetDataService",'HttpAppService','Prompter','$cordovaToast','$cordovaDatePicker','worksheetHttpService', function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state,worksheetDataService,HttpAppService,Prompter,$cordovaToast,$cordovaDatePicker,worksheetHttpService){
+    "$ionicPopup", "$timeout","$state","worksheetDataService",'HttpAppService','Prompter','$cordovaToast','$cordovaDatePicker','worksheetHttpService','$cordovaDialogs',
+    function($scope, ionicMaterialInk,ionicMaterialMotion,$ionicPopup,$timeout,$state,worksheetDataService,HttpAppService,Prompter,$cordovaToast,$cordovaDatePicker,worksheetHttpService,$cordovaDialogs){
         ionicMaterialInk.displayEffect();
         $scope.goAlert = function(){
             Prompter.ContactCreateCancelvalue();
@@ -115,6 +116,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                 }
             };
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
+            var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function (response) {
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     $scope.updateInfos();
@@ -130,7 +132,10 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                     if(ionic.Platform.isWebView()){
                         $cordovaDialogs.alert('请求超时');
                     }
+                }else{
+                    $cordovaDialogs.alert('访问接口失败，请检查设备网络');
                 }
+                Prompter.hideLoading();
                 $ionicLoading.hide();
             });
         }
@@ -221,6 +226,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
             var id = worksheetDataService.wsDetailData.ydWorksheetNum;
             var wf = worksheetDataService.wsDetailData.waifuRenyuan;
             var name = worksheetDataService.wsDetailData.IS_PROCESS_TYPE;
+            var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function(response){
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     worksheetDataService.wsDetailData = response;
@@ -239,8 +245,11 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                     if(ionic.Platform.isWebView()){
                         $cordovaDialogs.alert('请求超时');
                     }
+                }else{
+                    $cordovaDialogs.alert('访问接口失败，请检查设备网络');
                 }
                 $ionicLoading.hide();
+                Prompter.hideLoading();
             });
         }
     }]);

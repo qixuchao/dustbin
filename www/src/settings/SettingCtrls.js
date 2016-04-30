@@ -85,7 +85,6 @@ settingsModule.controller("SettingCtrl", [
         //版本检查
         $scope.checkVersion = function () {
             Prompter.showLoading();
-            //var url = ROOTCONFIG.hempConfig.basePath + 'version';
             var url = ROOTCONFIG.hempConfig.basePath+'version';
             var data = {
                 "appname": "CRM",

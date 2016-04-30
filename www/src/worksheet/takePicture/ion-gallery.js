@@ -15,7 +15,7 @@
         ionGalleryItems: '=ionGalleryItems',
         ionGalleryRowSize: '=?ionGalleryRow',
         ionItemCallback: '&?ionItemCallback'
-      },
+      }, 
       controller: controller,
       link: link,
       replace: true,
@@ -496,8 +496,19 @@
         xbrScope.saveThisImage(item);
       };
 
+      scope.reuploadItem = function(item){
+        var xbrScope = angular.element("#worksheet-takepicture-view").scope();
+        xbrScope.uploadImage(item);
+      };
+
+      scope.cancelUploadItem = function(item){
+        var xbrScope = angular.element("#worksheet-takepicture-view").scope();
+        xbrScope.cancelUploadItem(item);
+      };
+
       scope.closeModal = function() {
         _modal.hide();
+        _modal.remove();
       };
 
       scope.$on('$destroy', function() {

@@ -2,7 +2,8 @@ settingsModule.service("SettingsService", [
 	function(){
 		return {
 			getCheckCode: {
-				url: ROOTCONFIG.hempConfig.basePathBty + 'getCheckCode',
+				//url: ROOTCONFIG.hempConfig.basePathBty + 'getCheckCode',
+				url: ROOTCONFIG.hempConfig.basePath + 'getCheckCode',
 				defaults: {
 					userName: "",
 					moduleCode: "",  //RESET_PASS 重置密码; CHANGE_PASS: 修改密码
@@ -11,7 +12,8 @@ settingsModule.service("SettingsService", [
 				}
 			},
 			changePwd: {
-				url: ROOTCONFIG.hempConfig.basePathBty + 'changePwd',  //修改密码接口
+				//url: ROOTCONFIG.hempConfig.basePathBty + 'changePwd',  //修改密码接口
+				url: ROOTCONFIG.hempConfig.basePath + 'changePwd',  //修改密码接口
 				defaults: {
 					userName: "",
 					oldPassword: "",
@@ -23,7 +25,8 @@ settingsModule.service("SettingsService", [
 				}
 			},
 			resetPwd: {
-				url: ROOTCONFIG.hempConfig.basePathBty + 'resetPwd',
+				//url: ROOTCONFIG.hempConfig.basePathBty + 'resetPwd',
+				url: ROOTCONFIG.hempConfig.basePath + 'resetPwd',
 				defaults: {
 					userName: "",
 					newPassword: "",

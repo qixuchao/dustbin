@@ -27,7 +27,7 @@ customerModule
         $scope.customer={
             customerfiledvalue:""
         };
-            $scope.customerQuery_list = [];
+            $scope.customerQuery_list = []; 
         //历史记录显示customer_usuaflag
         $scope.CustomerHisGetvaluehis = function(){
             $scope.customer_queryflag = false;
@@ -104,6 +104,7 @@ customerModule
             console.log("data"+angular.toJson(data));
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
+            var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function (response) {
                 console.log($scope.customer.customerfiledvalue);
                 console.log(data.IS_SEARCH);
@@ -167,6 +168,8 @@ customerModule
                     if(ionic.Platform.isWebView()){
                         $cordovaDialogs.alert('请求超时');
                     }
+                }else{
+                    $cordovaDialogs.alert('访问接口失败，请检查设备网络');
                 }
                 $ionicLoading.hide();
             });
@@ -433,8 +436,8 @@ customerModule
             $scope.customerPopoverhide();
         };
     }])
-    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet','saleActService',
-        function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet,saleActService){
+    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet','saleActService','$cordovaDialogs',
+        function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet,saleActService,$cordovaDialogs){
 
         if(LoginService.getProfileType()=="APP_SERVICE"){
             $scope.sedit = true;
@@ -451,6 +454,7 @@ customerModule
                     "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER},
                     "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
                 };
+                var startTime = new Date().getTime();
                 HttpAppService.post(url, data).success(function (response) {
                     console.log(response);
                     Prompter.hideLoading();
@@ -476,6 +480,8 @@ customerModule
                         if(ionic.Platform.isWebView()){
                             $cordovaDialogs.alert('请求超时');
                         }
+                    }else{
+                        $cordovaDialogs.alert('访问接口失败，请检查设备网络');
                     }
                     $ionicLoading.hide();
                 });
@@ -705,6 +711,7 @@ customerModule
             "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER},
             "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
         };
+            var startTime = new Date().getTime();
         HttpAppService.post(url, data).success(function (response) {
             console.log(angular.toJson(response));
             Prompter.hideLoading();
@@ -766,7 +773,10 @@ customerModule
                        typemane:'负责人',
                        imgurl:'img/customer/customerfuz@2x.png',
                        url:'customerFuZe'
-                   },{
+                   }];
+               }
+               /*
+                    ,{
                        typemane:'机会',
                        imgurl:'img/customer/customerjihui@2x.png',
                        url:'saleChanList'
@@ -774,14 +784,15 @@ customerModule
                        typemane:'活动',
                        imgurl:'img/customer/customerhuod.png',
                        url:'saleActList'
-                   }];
-               }
+                   }
+               */
            } else{
                $scope.customer_detailstypes = [{
                    typemane:'联系人',
                    imgurl:'img/customer/customerlianxir@2x.png',
                    url:'customerContactQuery'
-               },{
+               },
+               /*{
                    typemane:'机会',
                    imgurl:'img/customer/customerjihui@2x.png',
                    url:'saleChanList'
@@ -789,7 +800,8 @@ customerModule
                    typemane:'活动',
                    imgurl:'img/customer/customerhuod.png',
                    url:'saleActList'
-               },{
+               },*/
+               {
                    typemane:'工单',
                    imgurl:'img/customer/customergongd@2x.png',
                    url:'worksheetList'

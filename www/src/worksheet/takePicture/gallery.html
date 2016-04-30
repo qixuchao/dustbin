@@ -15,16 +15,24 @@
               max-height: 100%;
               position: initial;
               margin: 0px;">
-		  <span ng-bind="photo.networkTip" ng-if="photo.isNetworking" style="position: absolute;bottom: 0px;left: 0px;right: 0px;text-align: center;background: rgba(10, 10, 10, 0.19);height: 2rem;line-height: 2rem;color: white;"></span>
-    </div>
-    <div ng-repeat-end ng-if="ionGalleryItems.length%2 == 1" ng-click="selectLocalImage();" class="selected-btn selected-image" style="font-size:3.5rem;border:0px;display: inline-block;width: 48%;height:48vmin;
+      <span style="position: absolute;bottom: 0px;left: 0px;right: 0px;text-align: center;background: rgba(10, 10, 10, 0.19);height: 2rem;line-height: 2rem;color: white;" ng-if="photo.isNetworking || (!photo.isNetworking && !photo.isServerHolder)">
+        
+        <span ng-bind="photo.networkTip" ng-if="photo.isNetworking"></span>
+        
+        <span ng-click="reuploadItem(photo);" ng-if="!photo.isNetworking && !photo.isServerHolder" style="width:48%;display:inline-block;">重新上传</span>
+        <span ng-click="cancelUploadItem(photo);" ng-if="!photo.isNetworking && !photo.isServerHolder" style="width:48%;display:inline-block;">取消上传</span>
+        
+      </span>
+		  
+    </div>  
+    <div ng-repeat-end ng-if="ionGalleryItems.length%2 == 1 && $last" ng-click="selectLocalImage();" class="selected-btn selected-image" style="font-size:3.5rem;border:0px;display: inline-block;width: 48%;height:48vmin;
       display: -webkit-inline-box;
       display: -webkit-inline-flex;
       display: -moz-inline-flex;
       display: -ms-inline-flexbox;
       display: inline-flex;
       -webkit-box-align: center;
-      -ms-flex-align: center;
+      -ms-flex-align: center; 
       -webkit-align-items: center;
       -moz-align-items: center;
       align-items: center;

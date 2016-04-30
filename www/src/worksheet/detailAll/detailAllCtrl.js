@@ -26,6 +26,31 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter
                   , saleActService, $rootScope, $filter,CarService) {
 
+        	$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
+	            if(fromState && fromState.name == 'worksheetDetail' && toState && toState.name == "worksheetEdit"){
+	                if(window.event && window.event.type == "popstate"){
+	                	if($scope.config.__popstateFlag){
+		                    $scope.config.__popstateFlag = false;
+		                }else{
+		                    event2.preventDefault();
+		                    $scope.config.__popstateFlag = true;
+		                    $scope.goBack();
+		                }
+	                }
+	            }
+	            if(fromState && fromState.name == 'worksheetDetail' && toState && toState.name == "worksheetTakePicture"){
+	                if(window.event && window.event.type == "popstate"){
+	                	if($scope.config.__popstateFlag){
+		                    $scope.config.__popstateFlag = false;
+		                }else{
+		                    event2.preventDefault();
+		                    $scope.config.__popstateFlag = true;
+		                    $scope.goBack();
+		                }
+	                }
+	            }
+	        });
+
         	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         		//从编辑界面返回  故障详情   ( || fromState.name == 'worksheetFaultInfosEdit')
 		        if(fromState && toState && (fromState.name == 'worksheetEdit' || fromState.name == 'worksheetFaultInfos') && toState.name == 'worksheetDetail'){
@@ -358,7 +383,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			};
 
 			function __hasBeijianInfo(){
-				var beijian = $scope.datas.detail.ET_MAT_LIST;
+				//var beijian = $scope.datas.detail.ET_MAT_LIST;
+				var beijian = worksheetDataService.wsDetailData.ET_MAT_LIST;
 				if(beijian && beijian.item && beijian.item.length>0){
 					return true;
 				}

@@ -248,6 +248,10 @@
                     <div class="col-40">车辆影响&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.IMPACT_DESC"></div>
                 </div>
+                <div class="row" ng-if="config.detailTypeSiteRepair">
+                    <div class="col-40">原因分类&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZYYFL_1_DESC"></div>
+                </div>
                 <div class="row">
                     <div class="col-40">总金额&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.NET_VALUE"></div>

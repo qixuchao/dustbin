@@ -63,7 +63,7 @@
                     <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
                     <div class="num">{{'NO.'+details.OBJECT_ID}}</div>
-                    <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}
+                    <div class="edit" ng-click="edit()" ng-show="details.ZFLAG=='X'"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}
                     </div>
                 </div>
             </div>
@@ -110,13 +110,12 @@
                         <div class="col col-15 text-right rewrite"><!--img src="img/saleDetail/Shape.png"--></div>
                     </div>
                 </div>
-                <div class="progress" ng-hide="isATL">
+                <div class="progress" ng-hide="isATL||details.ZFLAG!='X'">
                     <div class="row">进展:</div>
-                    <div class="obj own-animated {{x.class?x.class:'zoomInRight'}}" ng-repeat="x in makeConsensus.item">
-                        <i class="ion-ios-close" ng-click="deleteProcess(x,makeConsensus.item,$index,'makeConsensus',$event)"></i>
+                    <div class="obj {{x.class?x.class:'zoomInRight'}}" ng-class="isAndroid?'':'own-animated'" ng-repeat="x in makeConsensus.item">
+                        <i ng-if="isEdit" class="ion-ios-close" ng-click="deleteProcess(x,makeConsensus.item,$index,'makeConsensus',$event)"></i>
                         <div class="row row-center" ng-click="openProcessModal(x,'makeConsensus',$index)">
                             <img class="oval" src="img/saleDetail/oval_green.png">
-
                             <div class="triAngle row row-center no-padding">
                                 <div class="textType green">达成共识</div>
                                 <div class="text">{{x.ZZSXNR}}</div>
@@ -128,7 +127,7 @@
                         </div>
                     </div>
                     <div class="obj own-animated {{x.class?x.class:'zoomInRight'}}" ng-repeat="x in followUpMatter.item">
-                        <i class="ion-ios-close" ng-click="deleteProcess(x,followUpMatter.item,$index,'followUpMatter',$event)"></i>
+                        <i ng-if="isEdit" class="ion-ios-close" ng-click="deleteProcess(x,followUpMatter.item,$index,'followUpMatter',$event)"></i>
                         <div class="row row-center" ng-click="openProcessModal(x,'followUpMatter',$index)">
                             <img class="oval" src="img/saleDetail/oval.png">
                             <div class="triAngle row row-center no-padding">
@@ -142,7 +141,7 @@
                         </div>
                     </div>
                     <div class="obj own-animated {{x.class?x.class:'zoomInRight'}}" ng-repeat="x in policyDecode.item">
-                        <i class="ion-ios-close" ng-click="deleteProcess(x,policyDecode.item,$index,'policyDecode',$event)"></i>
+                        <i ng-if="isEdit" class="ion-ios-close" ng-click="deleteProcess(x,policyDecode.item,$index,'policyDecode',$event)"></i>
                         <div class="row row-center" ng-click="openProcessModal(x,'policyDecode',$index)">
                             <img class="oval" src="img/saleDetail/oval_rose.png">
                             <div class="triAngle row row-center no-padding">
@@ -170,7 +169,7 @@
             </div>
         </div>
     </ion-content>
-    <div class="bar bar-footer content item-input-inset" keyboard-attach ng-hide="isATL">
+    <div class="bar bar-footer content item-input-inset" keyboard-attach ng-hide="isATL||details.ZFLAG!='X'">
         <form ng-submit="formTest()" style="width: 100%">
             <div class="submit">
                 <div class="row row-center">

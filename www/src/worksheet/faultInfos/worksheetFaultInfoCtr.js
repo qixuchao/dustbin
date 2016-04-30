@@ -168,6 +168,15 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             }else {
                var CODE = $scope.config.currentGuZhangMingCheng.CODE
             }
+            var num = Math.ceil($scope.otherInfos.length/132);
+            var item = [];
+            for(var i=0;i<num;i++){
+                item.push({
+                    "TDID": "Z002",
+                    "TEXT": $scope.otherInfos.remark.substring(i*132,i*132+131)
+                });
+            }
+console.log(item);
             var updateEdit = {
                 "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
@@ -183,19 +192,21 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                         "ZZYYFL_1" : yyfl
                 },
                     "IT_TEXT": {
-                    "item": [
-                        {
-                            "TDID": "Z002",
-                            "TEXT": $scope.otherInfos.remark
-                        },
-                        {
-                            "TDID": "Z005",
-                            "TEXT": $scope.otherInfos.result
-                        }
-                    ]
+                    "item": item
+                    //    [
+                    //    {
+                    //        "TDID": "Z002",
+                    //        "TEXT": $scope.otherInfos.remark
+                    //    },
+                    //    {
+                    //        "TDID": "Z005",
+                    //        "TEXT": $scope.otherInfos.result
+                    //    }
+                    //]
                 }
             }
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
+            var startTime = new Date().getTime();
             HttpAppService.post(url, updateEdit).success(function(response){
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     $scope.updateInfos();
@@ -211,7 +222,10 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 if(respTime >= config.timeout){
                     if(ionic.Platform.isWebView()){
                         $cordovaDialogs.alert('请求超时');
+                        Prompter.hideLoading();
                     }
+                }else{
+                    $cordovaDialogs.alert('访问接口失败，请检查设备网络');
                 }
                 $ionicLoading.hide();
             });
@@ -468,6 +482,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             var id = worksheetDataService.wsDetailData.ydWorksheetNum;
             var wf = worksheetDataService.wsDetailData.waifuRenyuan;
             var name = worksheetDataService.wsDetailData.IS_PROCESS_TYPE;
+            var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function(response){
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     worksheetDataService.wsDetailData = response;
@@ -486,8 +501,11 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                     if(ionic.Platform.isWebView()){
                         $cordovaDialogs.alert('请求超时');
                     }
+                }else{
+                    $cordovaDialogs.alert('访问接口失败，请检查设备网络');
                 }
                 $ionicLoading.hide();
+                Prompter.hideLoading();
             });
         }
     }]);

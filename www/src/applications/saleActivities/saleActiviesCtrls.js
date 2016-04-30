@@ -97,6 +97,7 @@ salesModule
                 };
                 tempHisPostData = data;
                 saleActService.listPage = pageNum;
+                var startTime = new Date().getTime();
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_ACTIVITY.DESCSEARCH != $scope.input.list) {
@@ -123,6 +124,7 @@ salesModule
                         } else {
                             $scope.loadMoreFlag = false;
                             $scope.saleListNoMoreInfoFLag = true;
+                            Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
                     }).error(function (response, status, header, config) {
                     var respTime = new Date().getTime() - startTime;
@@ -145,6 +147,9 @@ salesModule
                 $scope.hisArr = (storedb('saleActListHisArr').find().arrUniq());
             }
             $scope.filters = saleActService.filters;
+            if(Prompter.isATL()){
+                $scope.filters.type = saleActService.filterType_ATL;
+            }
             var tempFilterArr = angular.copy($scope.filters);
             var onceCilck = true;
             $scope.filterSelect = function (x, arr) {
@@ -722,11 +727,11 @@ salesModule
                 text: '测试2'
             }];
             $scope.chancePopArr = [{
-                text: '商机'
-            }, {
-                text: '线索'
-            }, {
-                text: '销售活动'
+                    text: '商机'
+                }, {
+                    text: '线索'
+                }, {
+                    text: '销售活动'
             }];
             $scope.selectPopText = '商机';
             $scope.referMoreflag = false;
@@ -908,188 +913,6 @@ salesModule
             $scope.input = {
                 progress: ''
             };
-            var getProcessModifyArr = function (type) {
-                var tempArr = [];
-                switch (type) {
-                    case 'makeConsensus':
-                        if ($scope.makeConsensusCopy.item.length == 0) {
-                            $scope.makeConsensusCopy.item.push("");
-                        }
-                        //先找删除
-                        angular.forEach($scope.makeConsensusCopy.item, function (x) {
-                            var isDelete = true;
-                            angular.forEach($scope.makeConsensus.item, function (y) {
-                                if (!angular.isUndefined(x.RECORD_ID) && x.RECORD_ID == y.RECORD_ID) {
-                                    isDelete = false;
-                                    //是否修改
-                                    if (!angular.isUndefined(y.MODE)) {
-                                        tempArr.push({
-                                            "RECORD_ID": y.RECORD_ID,
-                                            "MODE": "U",
-                                            "ZZSXNR": y.ZZSXNR,
-                                            "ZZFLD0000BB": y.ZZFLD0000BB,
-                                            "ZZFZBM": y.ZZFZBM,
-                                            "ZZFZR": y.ZZFZR,
-                                            "ZZSXSJ": y.ZZSXSJ,
-                                            "ZZNOTE_1": y.ZZNOTE_1
-                                        })
-                                    }
-                                }
-                                //新建
-                                if (!angular.isUndefined(y.MODE) && angular.isUndefined(y.RECORD_ID)) {
-                                    tempArr.push({
-                                        "MODE": "I",
-                                        "ZZSXNR": y.ZZSXNR,
-                                        "ZZFLD0000BB": y.ZZFLD0000BB,
-                                        "ZZFZBM": y.ZZFZBM,
-                                        "ZZFZR": y.ZZFZR,
-                                        "ZZSXSJ": y.ZZSXSJ,
-                                        "ZZNOTE_1": y.ZZNOTE_1
-                                    })
-                                }
-                            });
-                            if (isDelete) {
-                                tempArr.push({
-                                    "RECORD_ID": x.RECORD_ID,
-                                    "MODE": "D",
-                                    "ZZSXNR": "",
-                                    "ZZFLD0000BB": "",
-                                    "ZZFZBM": "",
-                                    "ZZFZR": "",
-                                    "ZZSXSJ": "",
-                                    "ZZNOTE_1": ""
-                                })
-                            }
-                        });
-                        angular.forEach($scope.makeConsensus.item, function (x) {
-                            //新建
-                            if (x.MODE == 'I') {
-                                tempArr.push({
-                                    "MODE": "I",
-                                    "ZZSXNR": x.ZZSXNR,
-                                    "ZZFLD0000BB": x.ZZFLD0000BB,
-                                    "ZZFZBM": x.ZZFZBM,
-                                    "ZZFZR": x.ZZFZR,
-                                    "ZZSXSJ": x.ZZSXSJ,
-                                    "ZZNOTE_1": x.ZZNOTE_1
-                                })
-                            }
-                        });
-                        break;
-                    case 'followUpMatter':
-                        if ($scope.followUpMatterCopy.item.length == 0) {
-                            $scope.followUpMatterCopy.item.push("");
-                        }
-                        angular.forEach($scope.followUpMatterCopy.item, function (x) {
-                            var isDelete = true;
-                            angular.forEach($scope.followUpMatter.item, function (y) {
-                                if (!angular.isUndefined(x.RECORD_ID) && x.RECORD_ID == y.RECORD_ID) {
-                                    isDelete = false;
-                                    //是否修改
-                                    if (!angular.isUndefined(y.MODE)) {
-                                        tempArr.push({
-                                            "RECORD_ID": y.RECORD_ID,
-                                            "MODE": "U",
-                                            "ZZSXNR_1": y.ZZSXNR_1,
-                                            "ZZWSKH_1": y.ZZWSKH_1,
-                                            "ZZFZBM_1": y.ZZFZBM_1,
-                                            "ZZFZR_1": y.ZZFZR_1,
-                                            "ZZGXSJ": y.ZZGXSJ,
-                                            "ZZWCZK": y.ZZWCZK,
-                                            "ZZNOTE_2": y.ZZNOTE_2
-                                        })
-                                    }
-                                }
-                                //新建
-                                if (!angular.isUndefined(y.MODE) && angular.isUndefined(y.RECORD_ID)) {
-                                    tempArr.push({
-                                        "MODE": "I",
-                                        "ZZSXNR_1": y.ZZSXNR_1,
-                                        "ZZWSKH_1": y.ZZWSKH_1,
-                                        "ZZFZBM_1": y.ZZFZBM_1,
-                                        "ZZFZR_1": y.ZZFZR_1,
-                                        "ZZGXSJ": y.ZZGXSJ,
-                                        "ZZWCZK": y.ZZWCZK,
-                                        "ZZNOTE_2": y.ZZNOTE_2
-                                    })
-                                }
-                            });
-                            if (isDelete) {
-                                tempArr.push({
-                                    "RECORD_ID": x.RECORD_ID,
-                                    "MODE": "D",
-                                    "ZZSXNR_1": "",
-                                    "ZZWSKH_1": "",
-                                    "ZZFZBM_1": "",
-                                    "ZZFZR_1": "",
-                                    "ZZGXSJ": "",
-                                    "ZZWCZK": "",
-                                    "ZZNOTE_2": ""
-                                })
-                            }
-                        });
-                        angular.forEach($scope.followUpMatter.item, function (x) {
-                            //新建
-                            if (x.MODE == 'I') {
-                                tempArr.push({
-                                    "MODE": "I",
-                                    "ZZSXNR_1": x.ZZSXNR_1,
-                                    "ZZWSKH_1": x.ZZWSKH_1,
-                                    "ZZFZBM_1": x.ZZFZBM_1,
-                                    "ZZFZR_1": x.ZZFZR_1,
-                                    "ZZGXSJ": x.ZZGXSJ,
-                                    "ZZWCZK": x.ZZWCZK,
-                                    "ZZNOTE_2": x.ZZNOTE_2
-                                })
-                            }
-                        });
-                        break;
-                    case 'policyDecode':
-                        if ($scope.policyDecodeCopy.item.length == 0) {
-                            $scope.policyDecodeCopy.item.push("");
-                        }
-                        angular.forEach($scope.policyDecodeCopy.item, function (x) {
-                            var isDelete = true;
-                            angular.forEach($scope.policyDecode.item, function (y) {
-                                if (!angular.isUndefined(x.RECORD_ID) && x.RECORD_ID == y.RECORD_ID) {
-                                    isDelete = false;
-                                    //是否修改
-                                    if (!angular.isUndefined(y.MODE)) {
-                                        tempArr.push({
-                                            "RECORD_ID": y.RECORD_ID,
-                                            "MODE": "U",
-                                            "ZZSXNR_2": y.ZZSXNR_2,
-                                            "ZZZCYX": y.ZZZCYX,
-                                            "ZZNOTE_3": y.ZZNOTE_3
-                                        })
-                                    }
-                                }
-                            });
-                            if (isDelete) {
-                                tempArr.push({
-                                    "RECORD_ID": x.RECORD_ID,
-                                    "MODE": "D",
-                                    "ZZSXNR_2": "",
-                                    "ZZZCYX": "",
-                                    "ZZNOTE_3": ""
-                                })
-                            }
-                        });
-                        angular.forEach($scope.policyDecode.item, function (x) {
-                            //新建
-                            if (x.MODE == 'I') {
-                                tempArr.push({
-                                    "MODE": "I",
-                                    "ZZSXNR_2": x.ZZSXNR_2,
-                                    "ZZZCYX": x.ZZZCYX,
-                                    "ZZNOTE_3": x.ZZNOTE_3
-                                })
-                            }
-                        });
-                        break;
-                }
-                return tempArr;
-            };
             //获取我司 客户
             var getProcessPosition = function () {
                 for (var i = 0; i < $scope.positonArr.length; i++) {
@@ -1125,6 +948,7 @@ salesModule
                 } else {
                     mode = "I"
                 }
+                console.log(mode)
                 switch ($scope.myProcess.code) {
                     //达成共识
                     case 'IT_SA0021':
@@ -1198,19 +1022,21 @@ salesModule
                 $scope.edit('process').success(function (response) {
                     if (response.ES_RESULT.ZFLAG === 'S') {
                         if (!isProcessModify) {
+                            data.RECORD_ID = response.ES_GUID.GUID;
                             $scope.tempArr.push(data);
                         } else {
-                            switch ($scope.myProcess.code) {
-                                case 'IT_SA0021':
-                                    $scope.tempArr[processModifyIndex].ZZSXNR = data.ZZSXNR;
-                                    break;
-                                case 'IT_SA0022':
-                                    $scope.tempArr[processModifyIndex].ZZSXNR_1 = data.ZZSXNR_1;
-                                    break;
-                                case 'IT_SA0023':
-                                    $scope.tempArr[processModifyIndex].ZZSXNR_2 = data.ZZSXNR_2;
-                                    break;
-                            }
+                            $scope.tempArr[processModifyIndex] = data;
+                            //switch ($scope.myProcess.code) {
+                            //    case 'IT_SA0021':
+                            //        $scope.tempArr[processModifyIndex].ZZSXNR = data.ZZSXNR;
+                            //        break;
+                            //    case 'IT_SA0022':
+                            //        $scope.tempArr[processModifyIndex].ZZSXNR_1 = data.ZZSXNR_1;
+                            //        break;
+                            //    case 'IT_SA0023':
+                            //        $scope.tempArr[processModifyIndex].ZZSXNR_2 = data.ZZSXNR_2;
+                            //        break;
+                            //}
                         }
                         $scope.changeProcessDropFlag();
                         $ionicScrollDelegate.resize();
@@ -1225,58 +1051,57 @@ salesModule
             };
             //删除
             $scope.deleteProcess = function (x, arr, index, type, e) {
-                //if (!$scope.isEdit) {
-                //    return;
-                //}
-                //$scope.isEdit = true;
-                //$scope.editText = '保存';
-                switch (type) {
-                    case 'makeConsensus':
-                        makeConsensusModifyArr.push({
-                            "RECORD_ID": x.RECORD_ID,
-                            "MODE": "D",
-                            "ZZSXNR": "",
-                            "ZZFLD0000BB": "",
-                            "ZZFZBM": "",
-                            "ZZFZR": "",
-                            "ZZSXSJ": "",
-                            "ZZNOTE_1": ""
-                        });
-                        break;
-                    case 'followUpMatter':
-                        followUpMatterModifyArr.push({
-                            "RECORD_ID": x.RECORD_ID,
-                            "MODE": "D",
-                            "ZZSXNR_1": "",
-                            "ZZWSKH_1": "",
-                            "ZZFZBM_1": "",
-                            "ZZFZR_1": "",
-                            "ZZGXSJ": "",
-                            "ZZWCZK": "",
-                            "ZZNOTE_2": ""
-                        });
-                        break;
-                    case 'policyDecode':
-                        policyDecodeModifyArr.push({
-                            "RECORD_ID": x.RECORD_ID,
-                            "MODE": "D",
-                            "ZZSXNR_2": "",
-                            "ZZZCYX": "",
-                            "ZZNOTE_3": ""
-                        });
-                        break
-                }
-                Prompter.showLoading();
-                $scope.edit('process').success(function (response) {
-                    if (response.ES_RESULT.ZFLAG === 'S') {
-                        x.class = 'zoomOutRight';
-                        $timeout(function () {
-                            arr.splice(index, 1);
-                            //$scope.edit('process');
-                        }, 10);
-                    }
-                });
-
+                $cordovaDialogs.confirm('是否确认删除', '提示', ['确定', '取消'])
+                    .then(function (buttonIndex) {
+                        if (buttonIndex == 1) {
+                            switch (type) {
+                                case 'makeConsensus':
+                                    makeConsensusModifyArr.push({
+                                        "RECORD_ID": x.RECORD_ID,
+                                        "MODE": "D",
+                                        "ZZSXNR": "",
+                                        "ZZFLD0000BB": "",
+                                        "ZZFZBM": "",
+                                        "ZZFZR": "",
+                                        "ZZSXSJ": "",
+                                        "ZZNOTE_1": ""
+                                    });
+                                    break;
+                                case 'followUpMatter':
+                                    followUpMatterModifyArr.push({
+                                        "RECORD_ID": x.RECORD_ID,
+                                        "MODE": "D",
+                                        "ZZSXNR_1": "",
+                                        "ZZWSKH_1": "",
+                                        "ZZFZBM_1": "",
+                                        "ZZFZR_1": "",
+                                        "ZZGXSJ": "",
+                                        "ZZWCZK": "",
+                                        "ZZNOTE_2": ""
+                                    });
+                                    break;
+                                case 'policyDecode':
+                                    policyDecodeModifyArr.push({
+                                        "RECORD_ID": x.RECORD_ID,
+                                        "MODE": "D",
+                                        "ZZSXNR_2": "",
+                                        "ZZZCYX": "",
+                                        "ZZNOTE_3": ""
+                                    });
+                                    break
+                            }
+                            Prompter.showLoading();
+                            $scope.edit('process').success(function (response) {
+                                if (response.ES_RESULT.ZFLAG === 'S') {
+                                    x.class = 'zoomOutRight';
+                                    $timeout(function () {
+                                        arr.splice(index, 1);
+                                        //$scope.edit('process');
+                                    }, 10);
+                                }
+                            });
+                        }
+                    });
                 e.stopPropagation();
             };
             //
