@@ -60,10 +60,9 @@
             <span class="item item-input">出生日期：
                 <input type="text" class="contact_editinputsty"   ng-model="contactedit.BIRTHDT" readonly ng-click="selectCreateTime1()" style="background-color:white">
             </span>
-             <span class="item item-input">语言：
-                <select style="background:none;width: 65%;margin-left: 60px;color:#9B9B9B; border: none;padding-right: 4px;height: 40px;"  ng-model="config.currentLanguage" ng-options="a.typeId as a.name for a in contactlistvaluesel" ng-change="chang1()">
-                    <option value="">语言</option>
-                </select>
+             <span class="item item-input" ng-show="!showFlag">毕业院校：
+                <input type="text" id="school" placeholder="请输入毕业院校" class="contact_editinputsty" ng-model="contactedit.ZZBYYX">
+                <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-if="contactedit.ZZBYYX" ng-click="contactDeletevalue('ZZBYYX')"/>
             </span>
             <div class="row" style="border-bottom: 1px solid rgba(155, 155, 155, 0.36);">
                 <div class="col col-20" style="font-size: 14px;padding-left: 9px;color:#9B9B9B;">
@@ -96,22 +95,24 @@
                 <input type="text" id="contpostm" placeholder="请输入部门邮编" class="contact_editinputsty" style="margin-left: 32px;" ng-model="contactedit.POST_CODE1">
                 <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-if="contactedit.POST_CODE1" ng-click="contactDeletevalue('POST_CODE1')"/>
             </span>
-            <span class="item item-input" ng-show="!showFlag">毕业院校：
-                <input type="text" id="school" placeholder="请输入毕业院校" class="contact_editinputsty" ng-model="contactedit.ZZBYYX">
-                <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-if="contactedit.ZZBYYX" ng-click="contactDeletevalue('ZZBYYX')"/>
-            </span>
             <span class="item item-input">家乡：
                 <input type="text" id="jiaxiang" placeholder="请输入部门邮编" class="contact_editinputsty" style="margin-left: 32px;" ng-model="contactedit.ZZJX">
                 <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-if="contactedit.ZZJX" ng-click="contactDeletevalue('ZZJX')"/>
             </span>
-             <span class="item item-input">地址：
-                 <textarea id="textarea4" placeholder="请输入地址" style="position:relative;left: 65px;width: 100%;background-color:white;max-height: 300px;overflow-y: hidden;padding: 20px 15px 15px 0;" ng-model="contactedit.STREET" ng-init="autoHeight1()"></textarea>
+             <span class="item item-input">
+                 <div style="width:170px;text-align: left;">地址：</div>：
+                 <textarea id="textarea4" placeholder="请输入地址" style="position:relative;width: 100%;background-color:white;max-height: 300px;overflow-y: hidden;padding: 20px 15px 15px 0;" ng-model="contactedit.STREET" ng-init="autoHeight1()"></textarea>
                 <!--<input type="text" style="margin-left: 32px;" id="contaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactedit.STREET">-->
-                <img id="contaddressnameimg" class="contacts_editlistimg" ng-if="contactedit.STREET" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('STREET')"/>
+                <!--<img id="contaddressnameimg" class="contacts_editlistimg" ng-if="contactedit.STREET" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('STREET')"/>-->
             </span>
             <span class="item item-input" ng-show="showFlag">门牌号：
                 <input type="text" style="margin-left: 15px;" id="contcreateaddressname1" class="contact_editinputsty" placeholder="请输入门牌号" ng-model="contactedit.HOUSE_NUM1">
                 <img id="contcreaaddressnameimg1" class="contacts_editlistimg" ng-if="contactedit.HOUSE_NUM1" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('HOUSE')"/>
+            </span>
+             <span class="item item-input">语言：
+                <select style="background:none;width: 65%;margin-left: 60px;color:#9B9B9B; border: none;padding-right: 4px;height: 40px;"  ng-model="config.currentLanguage" ng-options="a.typeId as a.name for a in contactlistvaluesel" ng-change="chang1()">
+                    <option value="">语言</option>
+                </select>
             </span>
         </div>
     </ion-content>
