@@ -26,7 +26,7 @@ settingsModule.controller("ChangePassCtrl", [
             	$scope.config.changeBoxTitle = '修改密码';
             }
         }); 
-		 
+		
 		$scope.config = {
 			moduleCode: '', //RESET_PASS 重置密码; CHANGE_PASS: 修改密码
 			changeBoxTitle: '请修改初始密码',
@@ -196,13 +196,13 @@ settingsModule.controller("ChangePassCtrl", [
 	        
 	        //Prompter.showLoading("正在获取");
 	        //Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
-	        
+
 	        promise.success(function(response){
-	        	//alert(JSON.parse(response));
 	        	if(response.ES_RESULT && response.ES_RESULT.ZFLAG == 'E'){//ES_RESULT.ZFLAG ZRESULT
 	        		$scope.config.getValidBtnText = "重新获取";
 	        		$scope.config.btnGetCodeDisabled = false;
-	        		$cordovaToast.toast(response.ES_RESULT.ZRESULT);
+	        		//alert(response.ES_RESULT.ZRESULT);
+	        		$cordovaToast.showLongBottom(response.ES_RESULT.ZRESULT);
 	        		return;
 	        	}
 	        	intervalPromise = $interval(__automatic, 1000, total+2);
@@ -219,7 +219,7 @@ settingsModule.controller("ChangePassCtrl", [
 	        .error(function(errorResponse){
 	        	$scope.config.getValidBtnText = "重新获取";
 	        	$scope.config.btnGetCodeDisabled = false;
-	        	$cordovaToast.toast("请求失败!");
+	        	$cordovaToast.showLongBotton("请求失败!");
 	        });
 		};
 		

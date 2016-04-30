@@ -16,10 +16,10 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	"$sce", 
 	function($scope, $timeout, $ionicActionSheet, $ionicPosition,$ionicBackdrop, $ionicGesture, $ionicModal, $state,
 			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService, Prompter, $sce){
-
+		
 		$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
             if(fromState && fromState.name == 'worksheetTakePicture'){
-                if(window.event && window.event.type == "popstate"){
+                /*if(window.event && window.event.type == "popstate"){
                     if($scope.config.__popstateFlag){
                         $scope.config.__popstateFlag = false;
                     }else{
@@ -27,7 +27,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
                         $scope.config.__popstateFlag = true;
                         $scope.goBackForPicture();
                     }
-                }
+                }*/
             }
         }); 
 

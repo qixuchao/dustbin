@@ -145,16 +145,16 @@ loginModule
                               LoginService.setPassword("");
                               $scope.loginData.password = "";
                           }
-                          /*if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL"){
-                                //__initJPushPlugin();
-                          }*/
+                          if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL" && ionic.Platform.isAndroid()){
+                                __initJPushPlugin();
+                            }
+                          }
                           if(response.FIRST_LOGIN == "Y"){
                             $state.go('changePass');
                           }else{
                             $state.go('tabs', {}, {location:"replace", reload:"true"});
                           }
                     }
-
                 });
 
                 //if($scope.loginData.username === "" || $scope.loginData.username === undefined || $scope.loginData.password === "" || $scope.loginData.password === undefined){
@@ -179,15 +179,15 @@ loginModule
             $scope.hide = function () {
                 $ionicLoading.hide();
             };
-            
-            
+
+
             //$scope.config.deviceId
             function __initJPushPlugin(){
                 //alert("  __initJPushPlugin  "+window.plugins.jPushPlugin);
                 try {
                     window.plugins.jPushPlugin.init();
                     window.plugins.jPushPlugin.getRegistrationID(function(data){
-                        alert("JPushPlugin:registrationID is " + data);
+                        //alert("JPushPlugin:registrationID is " + data);
                     });
                     if (device.platform != "Android") {
                         window.plugins.jPushPlugin.setDebugModeFromIos();
@@ -246,12 +246,13 @@ loginModule
                         var notificationId = extras["cn.jpush.android.NOTIFICATION_ID"];
                         alertContent = extras["cn.jpush.android.ALERT"];
                         extrasParams = extras["cn.jpush.android.EXTRA"];
-                        
                     } else {
                         alertContent = event.aps.alert;
+                        alert(JSON.stringify(window.plugins.jPushPlugin.receiveNotification));
                     }
-                    alert("title: "+title+"\ncontent: "+alertContent+"\nmsgId:  "+msgId+"\nnotificationId: "+notificationId);
-                    alert("extras: "+JSON.stringify(extras));
+                    Prompter.showPopupAlert("消息推送",alertContent);
+                    //alert("title: "+title+"\ncontent: "+alertContent+"\nmsgId:  "+msgId+"\nnotificationId: "+notificationId);
+                    //alert("extras: "+JSON.stringify(extras));
                 } catch (exception) {
                     console.log("JPushPlugin:onOpenNotification" + exception);
                 }

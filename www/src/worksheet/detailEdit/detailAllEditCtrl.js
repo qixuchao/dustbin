@@ -30,7 +30,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     $scope.goBack();
                     $scope.config.__clickCancelBtnFlag = true;
                 }*/
-                if(window.event && window.event.type == "popstate"){
+                /*if(window.event && window.event.type == "popstate"){
                     if($scope.config.__popstateFlag){
                         $scope.config.__popstateFlag = false;
                     }else{
@@ -38,7 +38,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                         $scope.config.__popstateFlag = true;
                         $scope.goBack();
                     }
-                }
+                }*/
             }
         });
         //选择车辆返回的时候，获取车辆信息
