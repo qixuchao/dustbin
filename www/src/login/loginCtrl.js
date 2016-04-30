@@ -147,7 +147,6 @@ loginModule
                           }
                           if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL" && ionic.Platform.isAndroid()){
                                 __initJPushPlugin();
-                            }
                           }
                           if(response.FIRST_LOGIN == "Y"){
                             $state.go('changePass');
