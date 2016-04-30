@@ -179,8 +179,8 @@ loginModule
             $scope.hide = function () {
                 $ionicLoading.hide();
             };
-
-
+            
+            
             //$scope.config.deviceId
             function __initJPushPlugin(){
                 //alert("  __initJPushPlugin  "+window.plugins.jPushPlugin);
