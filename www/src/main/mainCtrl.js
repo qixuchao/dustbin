@@ -199,6 +199,7 @@ mainModule
                 var addDateTemp = addDate($scope.year + '/' + $scope.month + '/' + day, last_day);
                 $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
                 $scope.days[0].month = addDateTemp.getMonth() + 1;
+                $scope.days[0].year = addDateTemp.getFullYear();
                 //if(day!=1){
                 var countTem;
                 for (var i = 0; i < $scope.days[0].arr.length; i++) {
@@ -428,6 +429,7 @@ mainModule
                 }
                 var addDateTemp = addDate(todayDate, last_day);
                 $scope.days[0].month = addDateTemp.getMonth() + 1;
+                $scope.days[0].year = addDateTemp.getFullYear();
                 $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
                 var todayTemp = angular.copy(today);
                 if (todayTemp == 0) {
@@ -447,7 +449,7 @@ mainModule
                 isToday($scope.days[0].arr);
                 $timeout(function () {
                     getWeekMarkDays($scope.days[0]);
-                },10);
+                }, 10);
                 $scope.days[1].arr = nextDays(7, $scope.days[0].arr, $scope.days[1]);
                 $scope.days[2].arr = nextDays(-7, $scope.days[0].arr, $scope.days[2]);
             };
@@ -574,6 +576,7 @@ mainModule
                     decTemp = 2;
                 }
                 $scope.monthView[month_page_now] = getMonthView(year, month);
+                getMonthMarkDays($scope.monthView[month_page_now].arr);
                 initFirstMonth(day);
                 $scope.monthView[addTemp] = getMonthView(year, month + 1);
                 $scope.monthView[decTemp] = getMonthView(year, month - 1);
@@ -600,6 +603,7 @@ mainModule
                 } else {
                     months[2] = 28;
                 }
+                getMonthMarkDays($scope.monthView[page_now].arr);
                 switch (page_now) {
                     case 0:
                         $scope.monthView[1] = getMonthView($scope.year, $scope.month + 1);
@@ -620,23 +624,29 @@ mainModule
 
             var getWeekMarkDays = function (days) {
                 Prompter.showLoading();
-                var startTemp, endTemp, monthTemp,isContinueFlag = isContinue(days.arr);
+                var startTemp, endTemp, monthTemp, isContinueFlag = isContinue(days.arr), yearTemp = days.year;
                 //判断是否连续
                 if (isContinueFlag) {
                     monthTemp = days.month;
                 } else {
+                    if (days.month == 1) {
+                        yearTemp = days.year - 1;
+                    }
                     monthTemp = days.month - 1;
+                    if (monthTemp == 0) {
+                        monthTemp = 12;
+                    }
                 }
-                startTemp = $scope.year + '-' + monthTemp + '-' + days.arr[0].value;
+                startTemp = yearTemp + '-' + monthTemp + '-' + days.arr[0].value;
                 endTemp = $scope.year + '-' + days.month + '-' + days.arr[6].value;
                 var data = {
-                    "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_DATE": {
                         "DATE_FROM": startTemp,
                         "DATE_TO": endTemp,
                         "ESTAT": "E0001"
                     },
-                    "IS_USER": { "BNAME": window.localStorage.crmUserName }
+                    "IS_USER": {"BNAME": window.localStorage.crmUserName}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_GET_CALENDAR', data)
                     .success(function (response) {
@@ -644,18 +654,19 @@ mainModule
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             var tempArr = response.ET_CALENDAR.item_out;
                             angular.forEach(tempArr, function (x) {
-                                if(isContinueFlag){
+                                if (isContinueFlag) {
                                     angular.forEach(days.arr, function (y) {
-                                        if(x.DATE == new Date($scope.year + '-' + days.month + '-' + y.value).format('yyyy-MM-dd')){
-                                            console.log(x.DATE+'checked');
+                                        if (x.DATE == new Date($scope.year + '-' + days.month + '-' + y.value).format('yyyy-MM-dd')) {
+                                            console.log(x.DATE + 'checked');
                                         }
                                     })
-                                }else{
+                                } else {
                                     angular.forEach(days.arr, function (y) {
-                                        if(y.value<7){
+                                        if (y.value < 7) {
                                             monthTemp = days.month;
+                                            yearTemp = days.year;
                                         }
-                                        if(x.DATE == new Date($scope.year + '-' + monthTemp + '-' + y.value).format('yyyy-MM-dd')){
+                                        if (x.DATE == new Date(yearTemp + '-' + monthTemp + '-' + y.value).format('yyyy-MM-dd')) {
                                             y.toDo = true;
                                         }
                                     })
@@ -664,7 +675,32 @@ mainModule
                         }
                     })
             };
-
+            var getMonthMarkDays = function (monthArr) {
+                Prompter.showLoading();
+                var data = {
+                    "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_DATE": {
+                        "DATE_FROM": $scope.year +'-'+ $scope.month +'-'+ '1',
+                        "DATE_TO": $scope.year+'-' + $scope.month+'-' + months[$scope.month],
+                        "ESTAT": "E0001"
+                    },
+                    "IS_USER": {"BNAME": window.localStorage.crmUserName}
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_GET_CALENDAR', data)
+                    .success(function (response) {
+                        Prompter.hideLoading();
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            var tempArr = response.ET_CALENDAR.item_out;
+                            angular.forEach(tempArr, function (x) {
+                                angular.forEach(monthArr, function (y) {
+                                    if (x.DATE == new Date($scope.year + '-' + $scope.month + '-' + y.value).format('yyyy-MM-dd')) {
+                                        y.toDo = true;
+                                    }
+                                })
+                            })
+                        }
+                    })
+            };
             $scope.marks = ['#cf021b', '#f5a623', '#4a90e2', '#f8e71c', '#417505'];
             $scope.loadMoreFlag = true;
             $scope.thingsToDo = [];

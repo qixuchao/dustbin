@@ -110,7 +110,7 @@
                         <div class="col col-15 text-right rewrite"><!--img src="img/saleDetail/Shape.png"--></div>
                     </div>
                 </div>
-                <div class="progress" ng-hide="isATL||details.ZFLAG!='X'">
+                <div class="progress" ng-hide="isATL">
                     <div class="row">进展:</div>
                     <div class="obj {{x.class?x.class:'zoomInRight'}}" ng-class="isAndroid?'':'own-animated'" ng-repeat="x in makeConsensus.item">
                         <i ng-if="isEdit" class="ion-ios-close" ng-click="deleteProcess(x,makeConsensus.item,$index,'makeConsensus',$event)"></i>
