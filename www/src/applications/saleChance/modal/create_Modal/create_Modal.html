@@ -12,7 +12,11 @@
     <ion-content class="content">
         <div class="row row-center" ng-hide="isATL">
             <div class="col col-41">机会类型:</div>
-            <div class="col col-59"><select style="width: 100%" ng-model="create.chanceType" ng-selected="changeChanceType(create.chanceType)" ng-options="x as x.text for x in chanceTypes">{{create.chanceType.text}}</select></div>
+            <div class="col col-59">
+                <select style="width: 100%" ng-model="create.chanceType" ng-options="x as x.text for x in chanceTypes">
+                    {{create.chanceType.text}}
+                </select>
+            </div>
         </div>
         <div class="row row-center">
             <div class="col col-41">描述:</div>
@@ -30,7 +34,11 @@
         </div>
         <div class="row row-center">
             <div class="col col-41">销售阶段:</div>
-            <div class="col col-59"><select style="width: 100%" ng-model="create.stage" ng-options="x as x.text for x in saleStages">{{create.stage.text}}</select></div>
+            <div class="col col-59">
+                <select style="width: 100%" ng-model="create.stage" ng-options="x as x.text for x in saleStages">
+                    {{create.stage.text}}
+                </select>
+            </div>
         </div>
         <div class="row row-center">
             <div class="col col-41">项目编号:</div>

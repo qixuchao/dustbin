@@ -11,6 +11,7 @@ salesModule
         '$ionicModal',
         '$ionicScrollDelegate',
         '$ionicHistory',
+        '$cordovaDialogs',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'saleActService',
@@ -19,7 +20,7 @@ salesModule
         'saleChanService',
         'customeService',
         'LoginService',
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, $cordovaDialogs,ionicMaterialInk,
                   ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService) {
             $scope.role = LoginService.getProfileType();
             $scope.filters = saleChanService.filters;
@@ -31,21 +32,23 @@ salesModule
             }
             //机会类型
             $scope.chanceTypes = saleChanService.chanceTypes;
-            $scope.changeChanceType = function (x) {
-                if(angular.isDefined(x)){
-                    switch (x.code) {
-                        case 'Z002':
-                            $scope.saleStages = saleChanService.saleStages.CATL.EBUS;
-                            break;
-                        case 'Z003':
-                            $scope.saleStages = saleChanService.saleStages.CATL.ECAR;
-                            break;
-                        case 'Z004':
-                            $scope.saleStages = saleChanService.saleStages.CATL.ESS;
-                            break;
-                    }
+            $scope.$watch('create.chanceType', function () {
+                //console.log($scope.create.chanceType);
+                switch ($scope.create.chanceType.code) {
+                    case 'ZO02':
+                        $scope.saleStages = saleChanService.saleStages.CATL.EBUS;
+                        break;
+                    case 'ZO03':
+                        $scope.saleStages = saleChanService.saleStages.CATL.ECAR;
+                        break;
+                    case 'ZO04':
+                        $scope.saleStages = saleChanService.saleStages.CATL.ESS;
+                        break;
+                    default:
+                        $scope.saleStages = [];
+                        break;
                 }
-            };
+            });
             $scope.create = {
                 description: '',
                 place: '',
@@ -54,7 +57,8 @@ salesModule
                 stage: $scope.saleStages[0],
                 de_startTime: new Date().format('yyyy-MM-dd'),
                 de_endTime: '',
-                annotate: '测试'
+                annotate: '测试',
+                chanceType:$scope.chanceTypes[0]
             };
             $scope.selectPersonflag = false;
             //选择时间
@@ -76,10 +80,10 @@ salesModule
                 //        return $scope.filters.types[i].value;
                 //    }
                 //}
-                return $scope.create.stage.value;
+                return $scope.create.chanceType.code;
             };
             $scope.saveCreateModal = function () {
-                if(angular.isUndefined($scope.create.chanceType)&&!Prompter.isATL()){
+                if(angular.isUndefined($scope.create.chanceType.code)&&!Prompter.isATL()){
                     Prompter.alert('请选择机会类型');
                     return
                 }
@@ -90,7 +94,6 @@ salesModule
                     Prompter.alert('请选择客户');
                     return
                 }
-                Prompter.showLoading('正在保存');
                 var data = {
                     "I_SYSNAME": {
                         "SysName": ROOTCONFIG.hempConfig.baseEnvironment
@@ -144,20 +147,27 @@ salesModule
                         }]
                     }
                 };
-                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_CREAT', data)
-                    .success(function (response) {
-                        if (response.ES_RESULT.ZFLAG === 'S') {
-                            $scope.createChanceModal.remove();
-                            Prompter.showShortToastBotton('创建成功');
-                            saleChanService.obj_id = response.ES_RESULT.ZRESULT;
-                            $state.go('saleChanDetail');
-                            Prompter.hideLoading();
-                        } else {
-                            Prompter.showShortToastBotton('创建失败');
-                            Prompter.hideLoading();
-                            $scope.createChanceModal.remove();
+                $cordovaDialogs.confirm('是否确认提交', '提示', ['确定', '取消'])
+                    .then(function (buttonIndex) {
+                        if (buttonIndex == 1) {
+                            Prompter.showLoading('正在提交');
+                            HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_CREAT', data)
+                                .success(function (response) {
+                                    if (response.ES_RESULT.ZFLAG === 'S') {
+                                        $scope.createChanceModal.remove();
+                                        Prompter.showShortToastBotton('创建成功');
+                                        saleChanService.obj_id = response.ES_RESULT.ZRESULT;
+                                        $state.go('saleChanDetail');
+                                        Prompter.hideLoading();
+                                    } else {
+                                        Prompter.showShortToastBotton('创建失败');
+                                        Prompter.hideLoading();
+                                        $scope.createChanceModal.remove();
+                                    }
+                                });
                         }
                     });
+
             };
 
             //选择人
@@ -281,7 +291,7 @@ salesModule
                             }
                             $scope.contactSpinnerFLag = false;
                             $scope.contactsLoadMoreFlag = false;
-                            Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
+                            //Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
                     });
             };
@@ -304,6 +314,7 @@ salesModule
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;
                 $scope.customerSearch = true;
+                $scope.getCustomerArr('search');
                 $scope.selectCustomerModal.show();
             };
             $scope.closeSelectCustomer = function () {
@@ -346,6 +357,6 @@ salesModule
                 $scope.selectCustomerModal.remove();
             });
             //初始化
-            $scope.getCustomerArr('search');
+            //$scope.getCustomerArr('search');
 
         }]);

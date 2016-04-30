@@ -3,31 +3,31 @@
  */
 'use strict';
 loginModule
-    .controller('LoginCtrl',[
-        '$ionicHistory', 'LoginService','Prompter','$cordovaToast',
-        'HttpAppService','$scope','$state','ionicMaterialInk',
-        '$ionicLoading','$timeout','$ionicPlatform',
-        function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading,$timeout, $ionicPlatform){
-        
-            $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-                if(toState && toState.name == 'login'){
+    .controller('LoginCtrl', [
+        '$ionicHistory', 'LoginService', 'Prompter', '$cordovaToast',
+        'HttpAppService', '$scope', '$state', 'ionicMaterialInk',
+        '$ionicLoading', '$timeout', '$ionicPlatform',
+        function ($ionicHistory, LoginService, Prompter, $cordovaToast, HttpAppService, $scope, $state, ionicMaterialInk, $ionicLoading, $timeout, $ionicPlatform) {
+
+            $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam) {
+                if (toState && toState.name == 'login') {
                     $ionicHistory.clearCache();
                     $ionicHistory.clearHistory();
                     $timeout(function () {
                         angular.element('#myTabId').remove();
-                    },500);
+                    }, 500);
                     $ionicPlatform.ready(function () {
-                        if(window.device){
+                        if (window.device) {
                             $scope.config.deviceId = device.uuid;
                             $scope.config.deviceIdOk = true;
-                            if(!$scope.$$phase){
+                            if (!$scope.$$phase) {
                                 $scope.$apply();
                             }
                         }
                     });
                 }
             });
-            
+
             $scope.config = {
                 deviceId: null,
                 deviceIdOk: false
@@ -37,11 +37,11 @@ loginModule
             $scope.loginData = {
                 username: window.localStorage.crmUserName,
                 password: window.localStorage.crmUserPassword
-            }; 
+            };
             $scope.loginradioimgflag = true;
-            $scope.loginradioSele = function(){
+            $scope.loginradioSele = function () {
                 $scope.loginradioimgflag = !$scope.loginradioimgflag;
-                if($scope.loginradioimgflag){
+                if ($scope.loginradioimgflag) {
 
                 }
             };
@@ -96,33 +96,34 @@ loginModule
                     "deviceId": $scope.config.deviceId
                 };//ROOTCONFIG.hempConfig.baseEnvironment
 
-                HttpAppService.post(url,data).success(function(response){
+                HttpAppService.post(url, data).success(function (response) {
                     //alert("请求成功："+JSON.stringify(response));
-                    if(response.ES_RESULT.ZFLAG == 'E') {
-                         //Prompter.showPopupAlert("登录失败","用户名或密码错误");
-                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                         $scope.$broadcast('scroll.infiniteScrollComplete');
+                    if (response.ES_RESULT.ZFLAG == 'E') {
+                        //Prompter.showPopupAlert("登录失败","用户名或密码错误");
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
                     } else if (response.ES_RESULT.ZFLAG == 'S') {
-                          LoginService.setProfile(response.PROFILE);
-                          LoginService.setProfileType(response.PROFILE_TYPE);
-                          LoginService.setMenulist(response.MENULIST);
-                          LoginService.setAuth(response.AUTH);
-                          LoginService.setUserName($scope.loginData.username);
-                          if(LoginService.getBupaTypeUser() != response.BUPA_TYPE_USER){
+                        LoginService.setProfile(response.PROFILE);
+                        LoginService.setProfileType(response.PROFILE_TYPE);
+                        LoginService.setMenulist(response.MENULIST);
+                        LoginService.setAuth(response.AUTH);
+                        LoginService.setUserName($scope.loginData.username);
+                        LoginService.version = response.VERSION;
+                        if (LoginService.getBupaTypeUser() != response.BUPA_TYPE_USER) {
                             LoginService.setBupaTypeUser(response.BUPA_TYPE_USER);
                             LoginService.setLoginerName("");
-                          }
-                          if(!$scope.loginradioimgflag){ //记住密码
-                              LoginService.setPassword($scope.loginData.password);
-                          }else{
-                              LoginService.setPassword("");
-                              $scope.loginData.password = "";
-                          }
-                          //if(response.FIRST_LOGIN != "Y"){
-                            //$state.go('changePass');
-                          //}else{
-                            $state.go('tabs', {}, {location:"replace", reload:"true"});
-                          //}
+                        }
+                        if (!$scope.loginradioimgflag) { //记住密码
+                            LoginService.setPassword($scope.loginData.password);
+                        } else {
+                            LoginService.setPassword("");
+                            $scope.loginData.password = "";
+                        }
+                        //if(response.FIRST_LOGIN != "Y"){
+                        //$state.go('changePass');
+                        //}else{
+                        $state.go('tabs', {}, {location: "replace", reload: "true"});
+                        //}
                     }
 
                 });

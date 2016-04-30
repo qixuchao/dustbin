@@ -103,6 +103,7 @@ salesModule
                         }
                     }
                 };
+                var startTime = new Date().getTime();
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_SEARCH.ZSRTING != $scope.input.list) {
@@ -446,6 +447,22 @@ salesModule
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             detailResponse = response;
                             $scope.chanceDetails = response.ES_OPPORT_H;
+                            //销售阶段
+                            if (Prompter.isATL()) {
+                                $scope.saleStages = saleChanService.saleStages.ATL;
+                            } else {
+                                switch ($scope.chanceDetails.PROCESS_TYPE) {
+                                    case 'ZO02':
+                                        $scope.saleStages = saleChanService.saleStages.CATL.EBUS;
+                                        break;
+                                    case 'ZO03':
+                                        $scope.saleStages = saleChanService.saleStages.CATL.ECAR;
+                                        break;
+                                    case 'ZO04':
+                                        $scope.saleStages = saleChanService.saleStages.CATL.ESS;
+                                        break;
+                                }
+                            }
                             $scope.relationArr = response.ET_RELEATION.item;
                             relationService.chanceDetailPartner = $scope.chanceDetails;
                             angular.forEach($scope.relationArr, function (x) {
@@ -615,11 +632,6 @@ salesModule
 
             };
             /*---------------------------------选择弹窗-------------------------------------*/
-            if (Prompter.isATL()) {
-                $scope.saleStages = saleChanService.saleStages.ATL;
-            } else {
-                $scope.saleStages = saleChanService.saleStages2;
-            }
             $scope.pop = {
                 stage: '',
                 feel: '',
@@ -645,7 +657,7 @@ salesModule
                 $scope.popover.show($event);
             };
             $scope.savePop = function () {
-                if ($scope.saleStages.indexOf($scope.pop.stage) >= 3) {
+                if ($scope.saleStages.indexOf($scope.pop.stage) >= 3&&!Prompter.isATL()) {
                     if (!$scope.pop.proNum) {
                         Prompter.alert('请输入项目编号');
                         return
