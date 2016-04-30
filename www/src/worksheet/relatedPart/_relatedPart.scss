@@ -48,7 +48,14 @@
     .item-content{
       padding: 0;
     }
-
+    .item-options .button{
+      padding:10px 10px 10px 16px;
+      margin-top:1px;
+      //height:52px;
+    }
+    .button .icon:before{
+      font-size:35px;
+    }
   }
 
   .relatedPart_listline{

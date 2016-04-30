@@ -383,6 +383,9 @@ salesModule.factory('saleActService', function () {
         getServiceCustomer:function(){
             return customerTypeArr_server;
         },
+        getATLCustomer:function(){
+            return customerTypeArr_ATL;
+        },
         getCustomer: function () {
             return customer;
         },
