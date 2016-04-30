@@ -449,17 +449,17 @@ salesModule
                             $scope.chanceDetails = response.ES_OPPORT_H;
                             //销售阶段
                             if (Prompter.isATL()) {
-                                $scope.saleStages = saleChanService.saleStages.ATL;
+                                $scope.saleStages = angular.copy(saleChanService.saleStages.ATL);
                             } else {
                                 switch ($scope.chanceDetails.PROCESS_TYPE) {
                                     case 'ZO02':
-                                        $scope.saleStages = saleChanService.saleStages.CATL.EBUS;
+                                        $scope.saleStages = angular.copy(saleChanService.saleStages.CATL.EBUS);
                                         break;
                                     case 'ZO03':
-                                        $scope.saleStages = saleChanService.saleStages.CATL.ECAR;
+                                        $scope.saleStages = angular.copy(saleChanService.saleStages.CATL.ECAR);
                                         break;
                                     case 'ZO04':
-                                        $scope.saleStages = saleChanService.saleStages.CATL.ESS;
+                                        $scope.saleStages = angular.copy(saleChanService.saleStages.CATL.ESS);
                                         break;
                                 }
                             }
@@ -652,7 +652,7 @@ salesModule
             });
             $scope.openPopover = function ($event) {
                 getInitStage();
-                $scope.pop.feel = $scope.chanceDetails.PROBABILITY;
+                $scope.pop.stage.confidence = $scope.chanceDetails.PROBABILITY;
                 $scope.pop.proNum = $scope.chanceDetails.ZZXMBH;
                 $scope.popover.show($event);
             };
@@ -665,7 +665,7 @@ salesModule
                 }
                 $scope.chanceDetails.PHASE = $scope.pop.stage;
                 //getInitStatus();
-                $scope.chanceDetails.PROBABILITY = $scope.pop.feel;
+                $scope.chanceDetails.PROBABILITY = $scope.pop.stage.confidence;
                 $scope.chanceDetails.ZZXMBH = $scope.pop.proNum;
                 $scope.popover.hide();
             };
