@@ -642,12 +642,6 @@ customerModule
             $scope.customerDetailcheckdate = false;
             //预验收周期
             $scope.customerDetailwillcheckdate = false;
-            //代收人
-            $scope.customerDetailnameco = false;
-            //街道二
-            $scope.customerDetailstrret = false;
-            //街道三
-            $scope.customerDetailstrreth = false;
         };
         if(ROOTCONFIG.hempConfig.baseEnvironment == 'ATL'){
             //竞争对手领域
@@ -699,8 +693,20 @@ customerModule
                 $scope.customerDetailwillcheckdate = false;
                 $scope.fuzeEmp = false;
                 $scope.remark = false;
+                //代收人
+                $scope.customerDetailnameco = false;
+                //街道二
+                $scope.customerDetailstrret = false;
+                //街道三
+                $scope.customerDetailstrreth = false;
             }
         else if (LoginService.getProfileType()=="APP_SALE"){
+                //代收人
+                $scope.customerDetailnameco = true;
+                //街道二
+                $scope.customerDetailstrret = true;
+                //街道三
+                $scope.customerDetailstrreth = true;
                 $scope.customerDetailmobilenum = false;
                 $scope.menNum = false;
             }
@@ -773,10 +779,7 @@ customerModule
                        typemane:'负责人',
                        imgurl:'img/customer/customerfuz@2x.png',
                        url:'customerFuZe'
-                   }];
-               }
-               /*
-                    ,{
+                   },{
                        typemane:'机会',
                        imgurl:'img/customer/customerjihui@2x.png',
                        url:'saleChanList'
@@ -785,6 +788,10 @@ customerModule
                        imgurl:'img/customer/customerhuod.png',
                        url:'saleActList'
                    }
+                   ];
+               }
+               /*
+
                */
            } else{
                $scope.customer_detailstypes = [{
@@ -792,7 +799,7 @@ customerModule
                    imgurl:'img/customer/customerlianxir@2x.png',
                    url:'customerContactQuery'
                },
-               /*{
+               {
                    typemane:'机会',
                    imgurl:'img/customer/customerjihui@2x.png',
                    url:'saleChanList'
@@ -800,7 +807,7 @@ customerModule
                    typemane:'活动',
                    imgurl:'img/customer/customerhuod.png',
                    url:'saleActList'
-               },*/
+               },
                {
                    typemane:'工单',
                    imgurl:'img/customer/customergongd@2x.png',
