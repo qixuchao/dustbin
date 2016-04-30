@@ -12,7 +12,7 @@
         <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="customer.customerfiledvalue.length>0" ng-click="initSearch()"></i>
-            <input type="text" placeholder="请输入联系人信息" ng-model="customer.customerfiledvalue" ng-click="changePage()" ng-change="initLoad()">
+            <input type="text" placeholder="请输入客户信息" ng-model="customer.customerfiledvalue" ng-click="changePage()" ng-change="initLoad()">
             <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
         </div>
     </ion-header-bar>
