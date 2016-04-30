@@ -521,12 +521,14 @@ employeeModule
                 "IS_EMPLOYEE": { "PARTNER": employeeService.get_employeeListvalue().PARTNER}
             };
             HttpAppService.post(url, data).success(function (response) {
-                if (response.ES_RESULT.ZFLAG == 'E') {
-                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                } else if(response.ET_RELATIONSHIP != ''){
-                    //console.log(angular.toJson(response.ET_RELATIONSHIP));
-                    $scope.employcustomerlist=response.ET_RELATIONSHIP.item;
+                if (response.ES_RESULT.ZFLAG == 'S') {
+                    if (response.ET_RELATIONSHIP != '') {
+                        //console.log(angular.toJson(response.ET_RELATIONSHIP));
+                        $scope.employcustomerlist = response.ET_RELATIONSHIP.item;
                     }
+                }else{
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                }
                 Prompter.hideLoading();
             }).error(function(){
                 Prompter.hideLoading();
@@ -553,16 +555,18 @@ employeeModule
             //console.log(x.PARTNER);
             //console.log(employeeService.get_employeeListvalue().PARTNER);
             HttpAppService.post(url,data).success(function(response){
-                if(response.ES_RESULT.ZFLAG=="E"){
+                if(response.ES_RESULT.ZFLAG=="S"){
                     //console.log(response.ES_RESULT.ZRESULT);
-                  $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                }else{
-
                     $scope.employcustomerlist=new Array;
                     $scope.updateCustomer();
                     console.log("员工与客户的关系添加成功");
-                    $cordovaToast.showShortBottom("员工与客户的关系添加成功")
+                    $cordovaToast.showShortBottom("员工与客户的关系添加成功");
+                }else{
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }
+            }).error(function(){
+                Prompter.hideLoading();
+                $cordovaToast.showShortBottom('请检查你的网络设备');
             });
             //$scope.getCustomerArr();
             $scope.contactsLoadMoreFlag = true;
@@ -571,7 +575,7 @@ employeeModule
         };
         //删除客户信息
         $scope.deleteCustomer=function(customer){
-            console.log(customer);
+            //console.log(customer);
             var url=ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
             var data={
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
@@ -589,18 +593,20 @@ employeeModule
             //console.log(customer.PARTNER);
             //console.log(customer.PARTNER);
             HttpAppService.post(url,data).success(function(response) {
-                if (response.ES_RESULT.ZFLAG == "E") {
-                    //console.log(response.ES_RESULT.ZRESULT);
-                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                }else {
+                if(response.ES_RESULT.ZFLAG =='S'){
                     $scope.employcustomerlist=new Array;
                     $scope.updateCustomer();
                     console.log("员工与客户的关系删除成功");
-
                     $cordovaToast.showShortBottom("员工与客户的关系删除成功");
                     //$scope.employcustomerlist.splice(i,1);
+                }else {
+                    //console.log(response.ES_RESULT.ZRESULT);
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }
-            })
+            }).error(function(){
+                Prompter.hideLoading();
+                $cordovaToast.showShortBottom('请检查你的网络设备');
+            });
         };
         $scope.$on('$destroy', function () {
             //$scope.createPop.remove();
