@@ -3,7 +3,7 @@
  */
 'use strict';
 customerVehicleModule
-    .controller('customerVehicleQueryCtrl',['$scope','$state','$http','HttpAppService','CarService','$timeout','$ionicPopover','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',function($scope,$state,$http,HttpAppService,CarService,$timeout,$ionicPopover,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading) {
+    .controller('customerVehicleQueryCtrl',['$scope','$state','$http','HttpAppService','CarService','$timeout','$ionicPopover','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','$cordovaDialogs',function($scope,$state,$http,HttpAppService,CarService,$timeout,$ionicPopover,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,$cordovaDialogs) {
         //获取数据列表函数
         $scope.customerVehicleisshow = true;
         $scope.customerVehiclelists = new Array();
@@ -24,7 +24,7 @@ customerVehicleModule
                 },
                 "IS_PARTNER_INPUT": { "PARTNER": customeService.get_customerListvalue().PARTNER}
             }
-
+            var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function (response) {
                 console.log(response);
                 if (response.ES_RESULT.ZFLAG == 'E') {
@@ -61,9 +61,18 @@ customerVehicleModule
 
                     }
                 }
-            }).error(function (response, status) {
-                $cordovaToast.showShortBottom('请检查你的网络设备');
-                $scope.customerVehicleisshow = false;
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }else{
+                    $cordovaDialogs.alert('访问接口失败，请检查设备网络');
+                }
+                //Prompter.hideLoading();
+                $ionicLoading.hide();
             });
         }
 

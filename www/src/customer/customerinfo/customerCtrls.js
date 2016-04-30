@@ -2,8 +2,8 @@
  * Created by zhangren on 16/3/7.
  */
 customerModule
-    .controller('customerQueryCtrl',['Prompter','$scope','$rootScope','$state','$http','HttpAppService','LoginService','$timeout','$cordovaToast','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',
-        function(Prompter,$scope,$rootScope,$state,$http,HttpAppService,LoginService,$timeout,$cordovaToast,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+    .controller('customerQueryCtrl',['Prompter','$scope','$rootScope','$state','$http','HttpAppService','LoginService','$timeout','$cordovaToast','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','$cordovaDialogs',
+        function(Prompter,$scope,$rootScope,$state,$http,HttpAppService,LoginService,$timeout,$cordovaToast,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,$cordovaDialogs){
         $ionicPopover.fromTemplateUrl('src/customer/model/customer_selec.html', {
             scope: $scope
         }).then(function(popover) {
@@ -104,6 +104,7 @@ customerModule
             console.log("data"+angular.toJson(data));
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
+            var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function (response) {
                 console.log($scope.customer.customerfiledvalue);
                 console.log(data.IS_SEARCH);
@@ -167,6 +168,8 @@ customerModule
                     if(ionic.Platform.isWebView()){
                         $cordovaDialogs.alert('请求超时');
                     }
+                }else{
+                    $cordovaDialogs.alert('访问接口失败，请检查设备网络');
                 }
                 $ionicLoading.hide();
             });
@@ -433,8 +436,8 @@ customerModule
             $scope.customerPopoverhide();
         };
     }])
-    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet','saleActService',
-        function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet,saleActService){
+    .controller('customerDetailCtrl',['$scope','$rootScope','$ionicHistory','$state','$cordovaToast','$ionicSlideBoxDelegate','Prompter','LoginService','HttpAppService','$timeout','$ionicLoading','$cordovaInAppBrowser','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','customeService','$window','$ionicActionSheet','saleActService','$cordovaDialogs',
+        function($scope,$rootScope,$ionicHistory,$state,$cordovaToast,$ionicSlideBoxDelegate,Prompter,LoginService,HttpAppService,$timeout,$ionicLoading,$cordovaInAppBrowser,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,customeService,$window,$ionicActionSheet,saleActService,$cordovaDialogs){
 
         if(LoginService.getProfileType()=="APP_SERVICE"){
             $scope.sedit = true;
@@ -451,6 +454,7 @@ customerModule
                     "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER},
                     "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
                 };
+                var startTime = new Date().getTime();
                 HttpAppService.post(url, data).success(function (response) {
                     console.log(response);
                     Prompter.hideLoading();
@@ -476,6 +480,8 @@ customerModule
                         if(ionic.Platform.isWebView()){
                             $cordovaDialogs.alert('请求超时');
                         }
+                    }else{
+                        $cordovaDialogs.alert('访问接口失败，请检查设备网络');
                     }
                     $ionicLoading.hide();
                 });
@@ -705,6 +711,7 @@ customerModule
             "IS_PARTNER": { "PARTNER": customeService.get_customerListvalue().PARTNER},
             "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
         };
+            var startTime = new Date().getTime();
         HttpAppService.post(url, data).success(function (response) {
             console.log(angular.toJson(response));
             Prompter.hideLoading();
