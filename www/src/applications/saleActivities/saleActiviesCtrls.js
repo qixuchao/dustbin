@@ -1206,6 +1206,9 @@ salesModule
                 $scope.processModal.hide()
             };
             $scope.changeProcessSelectFlag = function (x, type) {
+                if($scope.details.ZFLAG!='X'){
+                    return
+                }
                 var flag = x.flag;
                 if (type == 'position') {
                     angular.forEach($scope.positonArr, function (data) {

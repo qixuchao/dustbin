@@ -17,20 +17,20 @@
             <div ng-if="myProcess.code != 'IT_SA0023'">
                 <div class="row row-center">
                     <div class="col col-35">部门</div>
-                    <div class="col col-65"><input type="text" ng-model="process.department" placeholder="请输入"></div>
+                    <div class="col col-65"><input type="text" ng-readonly="details.ZFLAG!='X'" ng-model="process.department" placeholder="请输入"></div>
                 </div>
                 <div class="row row-center">
                     <div class="col col-35">负责人</div>
-                    <div class="col col-65"><input type="text" ng-model="process.chargeMan" placeholder="请输入"></div>
+                    <div class="col col-65"><input type="text" ng-readonly="details.ZFLAG!='X'" ng-model="process.chargeMan" placeholder="请输入"></div>
                 </div>
                 <div class="row row-center">
                     <div class="col col-35">{{myProcess.code == 'IT_SA0021'?'生效时间':'更新时间'}}</div>
-                    <div class="col col-65"><input type="text" ng-model="process.time" placeholder="请输入"></div>
+                    <div class="col col-65"><input type="text" ng-readonly="details.ZFLAG!='X'" ng-model="process.time" placeholder="请输入"></div>
                 </div>
             </div>
             <div class="row row-center" ng-if="myProcess.code == 'IT_SA0023'">
                 <div class="col col-20 text-center">影响</div>
-                <div class="col col-80"><input type="text" ng-model="process.affect" placeholder="请输入"></div>
+                <div class="col col-80"><input type="text" ng-readonly="details.ZFLAG!='X'" ng-model="process.affect" placeholder="请输入"></div>
             </div>
 
         </div>
