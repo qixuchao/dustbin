@@ -42,8 +42,8 @@ loginModule
                     }, 500);
                     $ionicPlatform.ready(function () {
                         if (window.device) {
-                            $scope.config.deviceId = device.uuid;
-                            $scope.config.deviceIdOk = true;
+                            //$scope.config.deviceId = device.uuid;
+                            //$scope.config.deviceIdOk = true;
                             if (!$scope.$$phase) {
                                 $scope.$apply();
                             }
@@ -121,7 +121,7 @@ loginModule
                     "platform": ionic.Platform.platform(),
                     "deviceId": $scope.config.deviceId
                 };//ROOTCONFIG.hempConfig.baseEnvironment
-
+                
                 HttpAppService.post(url, data).success(function (response) {
                     //alert("请求成功："+JSON.stringify(response));
                     if (response.ES_RESULT.ZFLAG == 'E') {
@@ -145,7 +145,7 @@ loginModule
                               LoginService.setPassword("");
                               $scope.loginData.password = "";
                           }
-                          if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL" && ionic.Platform.isAndroid()){
+                          if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL"){
                                 __initJPushPlugin();
                           }
                           if(response.FIRST_LOGIN == "Y"){
@@ -154,6 +154,8 @@ loginModule
                             $state.go('tabs', {}, {location:"replace", reload:"true"});
                           }
                     }
+                }).error(function(errorResponse){
+                    Prompter.showLoadingAutoHidden(errorResponse.ES_RESULT.ZRESULT, false, 1500);
                 });
 
                 //if($scope.loginData.username === "" || $scope.loginData.username === undefined || $scope.loginData.password === "" || $scope.loginData.password === undefined){
@@ -180,13 +182,34 @@ loginModule
             };
 
 
+
+            $ionicPlatform.ready(function () {
+                if(window.plugins && window.plugins.jPushPlugin){
+                    window.plugins.jPushPlugin.init();
+                    window.plugins.jPushPlugin.getRegistrationID(function(data){
+                        $scope.config.deviceId = data;
+                        $scope.config.deviceIdOk = true;
+                        console.log("JPushPlugin:registrationID is-----: " + data);
+                    });
+                }
+                if (!$scope.$$phase) {
+                    $scope.$apply();
+                }
+            });
+            
             //$scope.config.deviceId
             function __initJPushPlugin(){
                 //alert("  __initJPushPlugin  "+window.plugins.jPushPlugin);
                 try {
-                    window.plugins.jPushPlugin.init();
                     window.plugins.jPushPlugin.getRegistrationID(function(data){
-                        //alert("JPushPlugin:registrationID is " + data);
+                        console.log("JPushPlugin:registrationID is: " + data);
+                        var tags = [ROOTCONFIG.hempConfig.baseEnvironment];
+                        // eg: CATL + 60000051 + deviceId     1114a89792aa79e6ef2
+                        var alias = ROOTCONFIG.hempConfig.baseEnvironment+ LoginService.getUserName() + data;// + $scope.config.deviceId;
+                        //alert(tags);
+                        //alert(alias);
+                        console.log("setTagsWithAlias:   tags:"+tags+"    alias:"+alias);
+                        window.plugins.jPushPlugin.setTagsWithAlias(tags, alias);
                     });
                     if (device.platform != "Android") {
                         window.plugins.jPushPlugin.setDebugModeFromIos();
@@ -194,15 +217,8 @@ loginModule
                     } else {
                         window.plugins.jPushPlugin.setDebugMode(true);
                         window.plugins.jPushPlugin.setStatisticsOpen(true);
+                        window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
                     }
-
-                    var tags = [ROOTCONFIG.hempConfig.baseEnvironment];
-                    // eg: CATL + 60000051 + deviceId
-                    var alias = ROOTCONFIG.hempConfig.baseEnvironment+ LoginService.getUserName() + $scope.config.deviceId;
-                    //alert(tags);
-                    //alert(alias);
-                    window.plugins.jPushPlugin.setTagsWithAlias(tags, alias);
-
                 } catch (exception) {
                     console.log(exception);
                 }
@@ -210,6 +226,7 @@ loginModule
                 //document.addEventListener("jpush.setTagsWithAlias", onTagsWithAlias, false);
                 //document.addEventListener("deviceready", onDeviceReady, false);
                 document.addEventListener("jpush.openNotification", onOpenNotification, false);
+                document.addEventListener("jpush.backgroundNotification", onBackgroundNotification, false);
                 document.addEventListener("jpush.receiveNotification", onReceiveNotification, false);
                 //document.addEventListener("jpush.receiveMessage", onReceiveMessage, false);
                 /*
@@ -226,12 +243,22 @@ loginModule
                 */
             }
             function onReceiveNotification(event) {
-                //alert("onReceiveMessage");
+                //alert("onReceiveNotification    event: "+JSON.stringify(event));
+                if(device.platform != "Android"){
+                    var alertContent = event.aps.alert;
+                    //Prompter.showPopupAlert("消息推送",alertContent);
+                    Prompter.alertWithTitle("消息推送", alertContent);
+                }
+                //alert(event.content);
+                //alert(JSON.stringify(event.extras));
+            }
+            function onBackgroundNotification(event){
+                console.log("onBackgroundNotification  evnet: "+event);
             }
             function onOpenNotification(event) { // {isTrusted: false}
                 //alert("onOpenNotification");
                 //alert(JSON.stringify(event));
-                console.log(event);
+                console.log("onOpenNotification   event: "+event);
                 try {
                     var alertContent;
                     var extrasParams;
@@ -247,9 +274,11 @@ loginModule
                         extrasParams = extras["cn.jpush.android.EXTRA"];
                     } else {
                         alertContent = event.aps.alert;
-                        alert(JSON.stringify(window.plugins.jPushPlugin.receiveNotification));
+                        //alert(JSON.stringify(window.plugins.jPushPlugin.receiveNotification));
                     }
-                    Prompter.showPopupAlert("消息推送",alertContent);
+                    window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
+                    Prompter.alertWithTitle("消息推送", alertContent);
+                    //Prompter.showPopupAlert("消息推送2",alertContent);
                     //alert("title: "+title+"\ncontent: "+alertContent+"\nmsgId:  "+msgId+"\nnotificationId: "+notificationId);
                     //alert("extras: "+JSON.stringify(extras));
                 } catch (exception) {

@@ -123,7 +123,7 @@ settingsModule.controller("ChangePassCtrl", [
 				intervalPromise = undefined;
 			}
 	    });
-
+		
 	    function __requestChangePass(){
 	    	var queryParams = {
 			    userName: worksheetDataService.getStoredByKey("userName"),
@@ -139,12 +139,17 @@ settingsModule.controller("ChangePassCtrl", [
 	        
 	        Prompter.showLoading("正在修改密码");
 
-
 	        promise.success(function(response){
 	        	//Prompter.hideLoading();
+	        	//alert(response);
+	        	//alert(JSON.stringfy(response));
+	        	//alert(response.ES_RESULT);
 	        	if(response.ES_RESULT && response.ES_RESULT.ZFLAG == 'S'){
 	        		Prompter.showLoadingAutoHidden("密码修改成功!", false, 1000);
-	        	}else if(response.ES_RESULT){
+	        		$timeout(function(){
+	        			$state.go("tabs");
+	        		}, 1000);
+	        	}else{
 	        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 1000);
 	        	}
 	        })
@@ -171,10 +176,10 @@ settingsModule.controller("ChangePassCtrl", [
 	        promise.success(function(response){
 	        	//Prompter.hideLoading();
 	        	if(response.ES_RESULT && response.ES_RESULT.ZFLAG == 'S'){
-	        		Prompter.showLoadingAutoHidden("密码重置成功!", false, 2000);
+	        		Prompter.showLoadingAutoHidden("密码重置成功!", false, 1500);
 	        		$timeout(function(){
 	        			$state.go("tabs");
-	        		}, 2000);
+	        		}, 1500);
 	        	}else{
 	        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 	        	}

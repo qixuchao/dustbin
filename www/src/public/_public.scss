@@ -309,9 +309,7 @@ $button-crm-edit-text: white;
     left: 2%;
     z-index: 1;
   }
-}
-
-;
+};
 //popover public
 .platform-android .popover-backdrop, .platform-android .popover-backdrop.active {
   background-color: rgba(0, 0, 0, .38);
@@ -322,7 +320,7 @@ $button-crm-edit-text: white;
 }
 
 .action-sheet-group {
-  margin-bottom: 1px;
+  //margin-bottom: 1px;
   border-radius: 4px;
   background-color: #fff;
   overflow: hidden;

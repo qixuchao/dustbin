@@ -10,7 +10,7 @@
         </ion-header-bar>
     </div>
      
-    <ion-content id="worksheet-detail-edit-content" has-bouncing="false" scrollbar-y="false" style="margin-top: 0px;">
+    <ion-content id="worksheet-detail-edit-content" has-bouncing="false" scrollbar-y="false" style="margin-top: 0px;"> 
         
         <div ng-if="config.detailTypeNewCar">
             <div class="basic-info first-line commment-info-lines">
@@ -259,7 +259,7 @@
                          </select>
                     </div>
                 </div>
-                <div class="row" ng-if="config.detailTypeSiteRepair">
+                <div class="row">
                     <div class="col-40">原因分类&nbsp;:</div>
                     <div class="col-60">
                         <select ng-model="config.currentResultCategory" ng-options="ZZYYFLObj as ZZYYFLObj.ZZYYFL_DESC for ZZYYFLObj in datas.resultCategoryS">
@@ -267,7 +267,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-40">部件分类&nbsp;:</div> <!-- 部件分类 -->
+                    <div class="col-40">产品类型&nbsp;:</div> <!-- 部件分类 -->
                     <div class="col-60">
                         <select ng-change="buJianFeiLenChanged();" ng-model="config.currentChanPinLeiXing" ng-options="cplx as cplx.COMP_TYPE for cplx in datas.chanPinLeiXingS">
                          </select>
