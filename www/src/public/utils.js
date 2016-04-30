@@ -34,7 +34,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                     headers: {
                         'Content-Type': 'application/json;charset=UTF-8'
                     },
-                    timeout: 300000
+                    timeout: 30000
                 };
                 var startTime = new Date().getTime();
                 var post = $http.post(url,paramter,config).success(function (response) {
@@ -57,7 +57,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                     if(respTime >= config.timeout){
                         console.log('HTTP timeout');
                         if(ionic.Platform.isWebView()){
-                            $cordovaDialogs.alert('请求超时');
+                            $cordovaDialogs.alert('请求超时','提示','确定');
                         }
                     }
                     $ionicLoading.hide();

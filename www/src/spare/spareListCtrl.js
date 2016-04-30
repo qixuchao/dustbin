@@ -1,9 +1,9 @@
 /**
  * Created by Administrator on 2016/3/22 0022.
  */
-spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$cordovaToast','worksheetDataService','HttpAppService','$http','SpareListService','$state','$scope','Prompter','$timeout',
+spareModule.controller('SpareListCtrl',['$cordovaDialogs','$ionicScrollDelegate','$rootScope','$cordovaToast','worksheetDataService','HttpAppService','$http','SpareListService','$state','$scope','Prompter','$timeout',
     "$ionicHistory",
-    function ($ionicScrollDelegate,$rootScope,$cordovaToast,worksheetDataService,HttpAppService,$http,SpareListService,$state,$scope,Prompter,$timeout, $ionicHistory){
+    function ($cordovaDialogs,$ionicScrollDelegate,$rootScope,$cordovaToast,worksheetDataService,HttpAppService,$http,SpareListService,$state,$scope,Prompter,$timeout, $ionicHistory){
     var page=0;
     $scope.spareList=[];
     $scope.spareList1=[];
@@ -142,10 +142,19 @@ spareModule.controller('SpareListCtrl',['$ionicScrollDelegate','$rootScope','$co
                 $scope.$broadcast('scroll.infiniteScrollComplete');
             }
             $ionicScrollDelegate.resize();
-        }).error(function (response, status) {
-            $cordovaToast.showShortBottom('请检查你的网络设备');
-            $scope.spareimisshow = false;
-        });
+        }).error(function (response, status, header, config) {
+                Prompter.hideLoading();
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    console.log('HTTP timeout');
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
+            });
+
     };
     //初始化本地数据库
     if (JSON.parse(localStorage.getItem("oftenSparedb")) != null || JSON.parse(localStorage.getItem("oftenSparedb")) != undefined) {

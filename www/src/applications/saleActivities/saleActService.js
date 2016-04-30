@@ -148,7 +148,7 @@ salesModule.factory('saleActService', function () {
         text: '竞争对手',
         code: 'Z00002'
     }, {
-        text: '注销伙伴',
+        text: '助销伙伴',
         code: 'Z00003'
     }];
     var customerTypeArr_server = [{
@@ -171,7 +171,7 @@ salesModule.factory('saleActService', function () {
         text: '竞争对手',
         code: 'ZATL05'
     }, {
-        text: '注销伙伴',
+        text: '助销伙伴',
         code: 'ZATL06'
     }];
     var customer = [{
@@ -212,7 +212,7 @@ salesModule.factory('saleActService', function () {
     }, {
         text: '竞争对手'
     }, {
-        text: '注销伙伴'
+        text: '助销伙伴'
     }];
     var relationSelections = [{
         name: '马云',
@@ -350,6 +350,19 @@ salesModule.factory('saleActService', function () {
             value: '05'
         }]
     };
+    var filterType_ATL = [{
+        text:'技术交流',
+        value:'ZA01'
+    },{
+        text:'业务交流',
+        value:'ZA02'
+    },{
+        text:'关系维护',
+        value:'ZA03'
+    },{
+        text:'事务性活动',
+        value:'ZA04'
+    }];
     var customerArr = [];
     var listPage = 1;
     var saleListArr = [];
@@ -397,6 +410,7 @@ salesModule.factory('saleActService', function () {
         customerTypeArr_server,
         customerTypeArr_ATL,
         isFromRelation,
-        createPopTypes_ATL
+        createPopTypes_ATL,
+        filterType_ATL
     };
 });

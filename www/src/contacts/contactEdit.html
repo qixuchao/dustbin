@@ -71,7 +71,7 @@
                 </div>
                 <div class="col col-80">
                     <div class="row" style="padding: 5px;">
-                        <select style="background:none;border:none;color:#9B9B9B;height: 40px;padding: 5px -webkit-appearance:none;width: 85%;margin-left:25px ;" ng-model="config.currentCountry" ng-options="a.COUNTRY as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
+                        <select style="background:none;border:none;color:#9B9B9B;height: 40px;padding: 5px -webkit-appearance:none;width: 85%;margin-left:35px ;" ng-model="config.currentCountry" ng-options="a.COUNTRY as a.COUNTRY_NAME for a in country" ng-change="changCountry()">
                            <option value="">请输入国家</option>
                         </select>
                     </div>
@@ -96,8 +96,16 @@
                 <input type="text" id="contpostm" placeholder="请输入部门邮编" class="contact_editinputsty" style="margin-left: 32px;" ng-model="contactedit.POST_CODE1">
                 <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-if="contactedit.POST_CODE1" ng-click="contactDeletevalue('POST_CODE1')"/>
             </span>
+            <span class="item item-input" ng-show="!showFlag">毕业院校：
+                <input type="text" id="school" placeholder="请输入毕业院校" class="contact_editinputsty" ng-model="contactedit.ZZBYYX">
+                <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-if="contactedit.ZZBYYX" ng-click="contactDeletevalue('ZZBYYX')"/>
+            </span>
+            <span class="item item-input">家乡：
+                <input type="text" id="jiaxiang" placeholder="请输入部门邮编" class="contact_editinputsty" style="margin-left: 32px;" ng-model="contactedit.ZZJX">
+                <img id="contpostmimg" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-if="contactedit.ZZJX" ng-click="contactDeletevalue('ZZJX')"/>
+            </span>
              <span class="item item-input">地址：
-                 <textarea id="textarea4" placeholder="请输入地址" style="width: 100%;background-color:white;max-height: 300px;overflow-y: hidden;padding: 20px 15px 15px 64px;" ng-model="contactedit.STREET" ng-init="autoHeight1()"></textarea>
+                 <textarea id="textarea4" placeholder="请输入地址" style="position:relative;left: 65px;width: 100%;background-color:white;max-height: 300px;overflow-y: hidden;padding: 20px 15px 15px 0;" ng-model="contactedit.STREET" ng-init="autoHeight1()"></textarea>
                 <!--<input type="text" style="margin-left: 32px;" id="contaddressname" class="contact_editinputsty" placeholder="请输入地址" ng-model="contactedit.STREET">-->
                 <img id="contaddressnameimg" class="contacts_editlistimg" ng-if="contactedit.STREET" src="img/contact/delete@2x.png" ng-click="contactDeletevalue('STREET')"/>
             </span>

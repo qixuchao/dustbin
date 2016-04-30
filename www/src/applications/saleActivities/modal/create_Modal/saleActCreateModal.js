@@ -10,6 +10,7 @@ salesModule
         '$ionicModal',
         '$cordovaToast',
         '$ionicScrollDelegate',
+        '$cordovaDialogs',
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'saleActService',
@@ -18,11 +19,11 @@ salesModule
         'relationService',
         'LoginService',
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService,LoginService) {
-            if(ROOTCONFIG.hempConfig.baseEnvironment=="ATL"){
+                  $cordovaDialogs, ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService, LoginService) {
+            if (ROOTCONFIG.hempConfig.baseEnvironment == "ATL") {
                 $scope.isHideUrgent = true;
             }
-            if($scope.pop.type.value == 'ZA04'){
+            if ($scope.pop.type.value == 'ZA04') {
                 $scope.isHideCustomer = true;
             }
             $scope.role = LoginService.getProfileType();
@@ -32,10 +33,10 @@ salesModule
             $scope.customerSearch = false;
             $scope.urgentDegreeArr = saleActService.urgentDegreeArr;
             var customerType = 'CRM000';
-            $scope.input = {customer:''};
+            $scope.input = {customer: ''};
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
-               if (search) {
+                if (search) {
                     $scope.customerSearch = false;
                     customerPage = 1;
                 } else {
@@ -49,7 +50,7 @@ salesModule
                     },
                     "IS_SEARCH": {"SEARCH": $scope.input.customer},
                     "IT_IN_ROLE": {
-                        "item1": { "RLTYP": customerType }
+                        "item1": {"RLTYP": customerType}
                     }
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
@@ -72,7 +73,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        }else{
+                        } else {
                             $scope.customerSearch = true;
                             $scope.CustomerLoadMoreFlag = false;
                             $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -116,8 +117,7 @@ salesModule
                             }
                             $scope.contactSpinnerFLag = false;
                             $scope.contactsLoadMoreFlag = false;
-                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                            $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                            //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         }
                     });
             };
@@ -130,7 +130,7 @@ salesModule
                 if (!$scope.create.title) {
                     Prompter.alert('请填写描述');
                     return
-                } else if (!$scope.create.urgent&&ROOTCONFIG.hempConfig.baseEnvironment=="CATL") {
+                } else if (!$scope.create.urgent && ROOTCONFIG.hempConfig.baseEnvironment == "CATL") {
                     Prompter.alert('请选择紧急程度');
                     return
                 } else if (!$scope.create.de_startTime) {
@@ -142,16 +142,16 @@ salesModule
                     Prompter.alert('结束时间过小');
                     return
                 }
-                if(angular.isUndefined($scope.create.customer)){
+                if (angular.isUndefined($scope.create.customer)) {
                     $scope.create.customer = {PARTNER: ""}
                 }
-                if(angular.isUndefined($scope.create.contact)){
-                    $scope.create.contact = {PARTNER : ""}
+                if (angular.isUndefined($scope.create.contact)) {
+                    $scope.create.contact = {PARTNER: ""}
                 }
-                if(angular.isUndefined($scope.create.urgent)){
-                    $scope.create.urgent = {value:""};
+                if (angular.isUndefined($scope.create.urgent)) {
+                    $scope.create.urgent = {value: ""};
                 }
-                Prompter.showLoading('正在保存');
+
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_DATE": {
@@ -194,21 +194,27 @@ salesModule
                         }]
                     }
                 };
-                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_CREATE', data)
-                    .success(function (response) {
-                        if (response.ES_RESULT.ZFLAG === 'S') {
-                            $scope.createModal.remove();
-                            Prompter.showShortToastBotton('创建成功');
-                            saleActService.actDetail = {
-                                OBJECT_ID: response.EV_OBJECT_ID,
-                                CUSTNAME: $scope.create.customer.NAME_ORG1
-                            };
-                            $state.go('saleActDetail');
-                            Prompter.hideLoading();
-                        } else {
-                            Prompter.showShortToastBotton('创建失败');
-                            Prompter.hideLoading();
-                            $scope.createModal.remove();
+                $cordovaDialogs.confirm('是否确认提交', '提示', ['确定', '取消'])
+                    .then(function (buttonIndex) {
+                        if (buttonIndex == 1) {
+                            Prompter.showLoading('正在提交');
+                            HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_CREATE', data)
+                                .success(function (response) {
+                                    if (response.ES_RESULT.ZFLAG === 'S') {
+                                        $scope.createModal.remove();
+                                        Prompter.showShortToastBotton('创建成功');
+                                        saleActService.actDetail = {
+                                            OBJECT_ID: response.EV_OBJECT_ID,
+                                            CUSTNAME: $scope.create.customer.NAME_ORG1
+                                        };
+                                        $state.go('saleActDetail');
+                                        Prompter.hideLoading();
+                                    } else {
+                                        Prompter.showShortToastBotton('创建失败');
+                                        Prompter.hideLoading();
+                                        $scope.createModal.remove();
+                                    }
+                                });
                         }
                     });
             };
@@ -260,13 +266,14 @@ salesModule
             } else {
                 $scope.customerModalArr = saleActService.customerTypeArr_server;
             }
-            if(Prompter.isATL()){
+            if (Prompter.isATL()) {
                 $scope.customerModalArr = saleActService.customerTypeArr_ATL;
             }
             $scope.selectCustomerText = '正式客户';
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;
                 $scope.customerSearch = true;
+                $scope.getCustomerArr('search');
                 $scope.selectCustomerModal.show();
             };
             $scope.closeSelectCustomer = function () {
@@ -303,7 +310,7 @@ salesModule
                 $scope.selectCustomerModal.hide();
             };
             //初始化
-            $scope.getCustomerArr();
+
             $scope.create = {
                 de_startTime: new Date().format('yyyy-MM-dd hh:mm'),
                 de_endTime: getDefultStartTime()
