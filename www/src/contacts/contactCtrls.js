@@ -876,8 +876,8 @@ ContactsModule
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
             data.IS_CUSTOMER.ZZBYYX=$scope.contactcreat.ZZBYYX;
             data.IS_CUSTOMER.ZZJX=$scope.contactcreat.ZZJX;
-            data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.PT;
-            data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactcreat.HOUOST_CODE1;
+            data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.POST_CODE1;
+            data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactcreat.HOUOST_NUM1;
             data.IS_CUSTOMER.STREET = $scope.contactcreat.STREET;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactcreat.TEL_NUMBER;
             data.IS_CUSTOMER.TEL_EXTENS = $scope.contactcreat.TEL_EXTENS;
@@ -1127,12 +1127,17 @@ ContactsModule
             $scope.customerSearch = false;
             $scope.input = {customer:''};
             var customerType = "";
-            if(LoginService.getProfileType()=="APP_SALE"){
+            if(ROOTCONFIG.hempConfig.baseEnvironment=='CATL'){
+                if(LoginService.getProfileType()=="APP_SALE"){
+                    customerType='CRM000';
+                }
+                if(LoginService.getProfileType()=="APP_SERVICE"){
+                    customerType='Z00004';
+                }
+            }else{
                 customerType='CRM000';
             }
-            if(LoginService.getProfileType()=="APP_SERVICE"){
-                customerType='Z00004';
-            }
+
             $scope.getCustomerArr = function (search) {
                 $scope.CustomerLoadMoreFlag = false;
                 if (search) {
@@ -1152,8 +1157,8 @@ ContactsModule
                         "item1": { "RLTYP": customerType }
                     }
                 };
-                //console.log(data);
-                //console.log(customerType);
+                console.log(LoginService.getProfileType());
+                console.log(customerType+'客户类型');
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
@@ -1228,17 +1233,24 @@ ContactsModule
             }).then(function (modal) {
                 $scope.selectCustomerModal = modal;
             });
-
-            if(LoginService.getProfileType()=="APP_SALE"){
-                $scope.customerModalArr=new Array();
-                $scope.customerModalArr = saleActService.getCustomerTypes();
+            if(ROOTCONFIG.hempConfig.baseEnvironment=='CATL') {
+                if (LoginService.getProfileType() == "APP_SALE") {
+                    $scope.customerModalArr = new Array();
+                    $scope.customerModalArr = saleActService.getCustomerTypes();
+                    $scope.selectCustomerText = '正式客户';
+                }
+                if (LoginService.getProfileType() == "APP_SERVICE") {
+                    $scope.customerModalArr = new Array();
+                    $scope.customerModalArr = saleActService.getServiceCustomer();
+                    $scope.selectCustomerText = '终端客户';
+                }
+            }
+            if(ROOTCONFIG.hempConfig.baseEnvironment=='ATL'){
+                $scope.customerModalArr = new Array();
+                $scope.customerModalArr=saleActService.getATLCustomer();
                 $scope.selectCustomerText = '正式客户';
             }
-            if(LoginService.getProfileType()=="APP_SERVICE"){
-                $scope.customerModalArr=new Array();
-                $scope.customerModalArr = saleActService.getServiceCustomer();
-                $scope.selectCustomerText = '终端客户';
-            }
+
             $scope.openSelectCustomer = function () {
                 $scope.isDropShow = true;
                 $scope.customerSearch = true;

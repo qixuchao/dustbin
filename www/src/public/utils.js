@@ -325,10 +325,9 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
                 return $cordovaDialogs.confirm('是否退出'+type+'界面', '提示', ['确定', '取消'])
                     .then(function (buttonIndex) {
                         // no button = 0, 'OK' = 1, 'Cancel' = 2
-                        var btnIndex = buttonIndex;
-                        if (btnIndex == 1) {
-                            //$ionicHistory.goBack();
-                            $rootScope.goBack();
+                        if (buttonIndex == 1) {
+                            $ionicHistory.goBack();
+                            //$rootScope.goBack();
                         }
                     });
             },

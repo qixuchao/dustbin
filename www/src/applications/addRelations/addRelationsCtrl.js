@@ -64,8 +64,9 @@ salesModule
                 }
             };
             var getContacts = function (search) {
-                $scope.relationLoadMoreFlag = false;
+                $scope.isError = false;
                 if (search) {
+                    $scope.relationArr = [];
                     $scope.relationSearch = false;
                     relationPage = 1;
                 } else {
@@ -90,9 +91,6 @@ salesModule
                             angular.forEach(response.ET_OUT_LIST.item, function (data) {
                                 data.NAME = data.NAME_LAST + "";
                             });
-                            if (response.ET_OUT_LIST.item.length < 10) {
-                                $scope.relationLoadMoreFlag = false;
-                            }
                             if (search) {
                                 $scope.relationArr = response.ET_OUT_LIST.item;
                             } else {
@@ -101,20 +99,25 @@ salesModule
                             initSelect();
                             $scope.relationSpinnerFlag = false;
                             $scope.relationSearch = true;
-                            $scope.relationLoadMoreFlag = true;
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.relationSpinnerFlag = false;
+                                $scope.relationSearch = false;
+                            }
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         } else {
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
-                            $scope.relationSpinnerFlag = true;
-                            $scope.relationSearch = true;
+                            $scope.relationSpinnerFlag = false;
+                            $scope.relationSearch = false;
+                            $scope.isError = true;
                         }
                     });
             };
             var getFormalCustomer = function (search, type) {
-                $scope.relationLoadMoreFlag = false;
+                $scope.isError = false;
                 if (search) {
+                    $scope.relationArr = [];
                     $scope.relationSearch = false;
                     relationPage = 1;
                 } else {
@@ -158,9 +161,6 @@ salesModule
                             angular.forEach(response.ET_OUT_LIST.item, function (data) {
                                 data.NAME = data.NAME_ORG1 + "";
                             });
-                            if (response.ET_OUT_LIST.item.length < 10) {
-                                $scope.relationLoadMoreFlag = false;
-                            }
                             if (search) {
                                 $scope.relationArr = response.ET_OUT_LIST.item;
                             } else {
@@ -169,20 +169,25 @@ salesModule
                             initSelect();
                             $scope.relationSpinnerFlag = false;
                             $scope.relationSearch = true;
-                            $scope.relationLoadMoreFlag = true;
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.relationSpinnerFlag = false;
+                                $scope.relationSearch = false;
+                            }
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         } else {
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
-                            $scope.relationSpinnerFlag = true;
-                            $scope.relationSearch = true;
+                            $scope.relationSpinnerFlag = false;
+                            $scope.relationSearch = false;
+                            $scope.isError = true;
                         }
                     });
             };
             var getStaff = function (search) {
-                $scope.relationLoadMoreFlag = false;
+                $scope.isError = false;
                 if (search) {
+                    $scope.relationArr = [];
                     $scope.relationSearch = false;
                     relationPage = 1;
                 } else {
@@ -205,9 +210,6 @@ salesModule
                             angular.forEach(response.ET_EMPLOYEE.item, function (data) {
                                 data.NAME = data.NAME_LAST + "";
                             });
-                            if (response.ET_EMPLOYEE.item.length < 10) {
-                                $scope.relationLoadMoreFlag = false;
-                            }
                             if (search) {
                                 $scope.relationArr = response.ET_EMPLOYEE.item;
                             } else {
@@ -216,13 +218,17 @@ salesModule
                             initSelect();
                             $scope.relationSpinnerFlag = false;
                             $scope.relationSearch = true;
-                            $scope.relationLoadMoreFlag = true;
+                            if (response.ET_EMPLOYEE.item.length < 10) {
+                                $scope.relationSpinnerFlag = false;
+                                $scope.relationSearch = false;
+                            }
                             $ionicScrollDelegate.resize();
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         } else {
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
-                            $scope.relationSpinnerFlag = true;
-                            $scope.relationSearch = true;
+                            $scope.relationSpinnerFlag = false;
+                            $scope.relationSearch = false;
+                            $scope.isError = true;
                         }
                     });
             };

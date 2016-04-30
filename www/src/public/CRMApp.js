@@ -181,13 +181,14 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             controller: 'contactQueryCtrl'
         })
         .state('ContactDetail', {
+            cache:false,
             url: '/contactDetail',
             templateUrl: 'src/contacts/contactDetail.html',
             controller: 'contactDetailCtrl'
         })
         //联系人-联系人创建+客户联系人创建界面
         .state('ContactCreate', {
-            cache:false,
+            //cache:false,
             url: '/contactsCreate',
             templateUrl: 'src/contacts/contactCreate.html',
             controller: 'contactCreateCtrl'
