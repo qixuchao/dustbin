@@ -517,8 +517,11 @@ ContactsModule
             addEvent('focus', change);
             change();
         };
-        var text = document.getElementById("textarea");
-            autoTextarea(text);// 调用
+            $scope.autoHeight=function(){
+                var text = document.getElementById("textarea");
+                autoTextarea(text);// 调用
+            };
+
         //var textresult = document.getElementById("textareare");
         //autoTextarea(textresult);
         //邮箱
@@ -873,9 +876,9 @@ ContactsModule
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
             data.IS_CUSTOMER.ZZBYYX=$scope.contactcreat.ZZBYYX;
             data.IS_CUSTOMER.ZZJX=$scope.contactcreat.ZZJX;
-            data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.POST_CODE1;
-            data.IS_CUSTOMER.STREET = $scope.contactcreat.STREET;
-            data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactcreat.HOUSE_NUM1;
+            data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.PT;
+            data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactcreat.HOUOST_CODE1;
+            data.IS_CUSTOMER.STREET = $scope.contactcreat.STREESE_NUM1;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactcreat.TEL_NUMBER;
             data.IS_CUSTOMER.TEL_EXTENS = $scope.contactcreat.TEL_EXTENS;
             data.IS_CUSTOMER.MOB_NUMBER = $scope.contactcreat.MOB_NUMBER;
@@ -1097,6 +1100,22 @@ ContactsModule
                     break;
                 case 'POST_CODE1':
                     $scope.contactcreat.POST_CODE1 = '';
+                    document.getElementById('contcreapostmimg').style.display = "none";
+                    break;
+                case 'SMTP_ADDR':
+                    $scope.contactcreat.SMTP_ADDR = '';
+                    document.getElementById('contcreapostmimg').style.display = "none";
+                    break;
+                case 'ZZBYYX':
+                    $scope.contactcreat.ZZBYYX = '';
+                    document.getElementById('contcreapostmimg').style.display = "none";
+                    break;
+                case 'ZZJX':
+                    $scope.contactcreat.ZZJX = '';
+                    document.getElementById('contcreapostmimg').style.display = "none";
+                    break;
+                case 'HOUSE_NUM1':
+                    $scope.contactcreat.HOUSE_NUM1 = '';
                     document.getElementById('contcreapostmimg').style.display = "none";
                     break;
             }
@@ -1519,8 +1538,8 @@ ContactsModule
             data.IS_CUSTOMER.REGION = $scope.config.currentProvence;
             data.IS_CUSTOMER.CITY1 = $scope.config.currentCity.CITY_NAME;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactedit.POST_CODE1;
-            data.IS_CUSTOMER.JX=$scope.contactedit.ZZJX;
-            data.IS_CUSTOMER.BYYX=$scope.contactedit.ZZBYYX;
+            data.IS_CUSTOMER.ZZJX=$scope.contactedit.ZZJX;
+            data.IS_CUSTOMER.ZZBYYX=$scope.contactedit.ZZBYYX;
             data.IS_CUSTOMER.STREET = $scope.contactedit.STREET;
             data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactedit.HOUSE_NUM1;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactedit.MOB_NUMBER;
@@ -1563,68 +1582,87 @@ ContactsModule
                 });
             }
         };
-        $scope.contactDeleteListener = function(id,imgid){
-            setTimeout(function(){
-                document.getElementById(id).addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
-                    if (this.value.length > 0) {
-                       document.getElementById(imgid).style.display = "inline-block";
-                    } else {
-                        document.getElementById(imgid).style.display = "none";
-                    }
-                });
-            },20)
-        };
-        $scope.contactDeleteListener('contname','contnameimg');
-        $scope.contactDeleteListener('contphonenumber','contphonenumberimg');
-        $scope.contactDeleteListener('contmobilenumber','contmobilenumberimg');
-        $scope.contactDeleteListener('contaddressname','contaddressnameimg');
-        $scope.contactDeleteListener('contmobilenumber','contmobilenumberimg');
-
-        $scope.contactDeleteListener('contnotename','contnotenameimg');
-        $scope.contactDeleteListener('contfax','contfaximg');
-        $scope.contactDeleteListener('contfaxexit','contfaxexitimg');
-        $scope.contactDeleteListener('contpartment','contpartmentimg');
-        $scope.contactDeleteListener('contatend','contatendimg');
-        $scope.contactDeleteListener('contpostm','contpostmimg');
+        //$scope.contactDeleteListener = function(id,imgid){
+        //    setTimeout(function(){
+        //        document.getElementById(id).addEventListener("keyup", function () {//监听密码输入框，如果有值显示一键清除按钮
+        //            if (this.value.length > 0) {
+        //               document.getElementById(imgid).style.display = "inline-block";
+        //            } else {
+        //                document.getElementById(imgid).style.display = "none";
+        //            }
+        //        });
+        //    },20)
+        //};
+        //$scope.contactDeleteListener('contname','contnameimg');
+        //$scope.contactDeleteListener('contphonenumber','contphonenumberimg');
+        //$scope.contactDeleteListener('contmobilenumber','contmobilenumberimg');
+        //$scope.contactDeleteListener('contaddressname','contaddressnameimg');
+        //$scope.contactDeleteListener('contmobilenumber','contmobilenumberimg');
+        //
+        //$scope.contactDeleteListener('contnotename','contnotenameimg');
+        //$scope.contactDeleteListener('contfax','contfaximg');
+        //$scope.contactDeleteListener('contfaxexit','contfaxexitimg');
+        //$scope.contactDeleteListener('contpartment','contpartmentimg');
+        //$scope.contactDeleteListener('contatend','contatendimg');
+        //$scope.contactDeleteListener('contpostm','contpostmimg');
         //delete
         $scope.contactDeletevalue = function(type){
             switch (type) {
                 case 'NAME_LAST':
                     $scope.contactedit.NAME_LAST = '';
-                    document.getElementById('contnameimg').style.display = "none";
+                    document.getElementById('contcreatenameimg').style.display = "none";
                     break;
                 case 'TEL_NUMBER':
                     $scope.contactedit.TEL_NUMBER = '';
-                    document.getElementById('contphonenumberimg').style.display = "none";
+                    document.getElementById('concreatetphonenumberimg').style.display = "none";
                     break;
                 case 'MOB_NUMBER':
                     $scope.contactedit.MOB_NUMBER = '';
-                    document.getElementById('contmobilenumberimg').style.display = "none";
+                    document.getElementById('contcreatemobilenumberimg').style.display = "none";
                     break;
                 case 'STREET':
                     $scope.contactedit.STREET = '';
-                    document.getElementById('contaddressnameimg').style.display = "none";
+                    document.getElementById('contcreaaddressnameimg').style.display = "none";
+                    break;
+                case 'conatctdeatilnote':
+                    $scope.contactedit.conatctdeatilnote = '';
+                    document.getElementById('contcreanotenameimg').style.display = "none";
                     break;
                 case 'FAX_NUMBER':
                     $scope.contactedit.FAX_NUMBER = '';
-                    document.getElementById('contfaximg').style.display = "none";
+                    document.getElementById('contcreafaximg').style.display = "none";
                     break;
                 case 'FAX_EXTENS':
                     $scope.contactedit.FAX_EXTENS = '';
-                    document.getElementById('contfaxexitimg').style.display = "none";
+                    document.getElementById('contcreafaxexitimg').style.display = "none";
                     break;
                 case 'DPRTMNT':
                     $scope.contactedit.DPRTMNT = '';
-                    document.getElementById('contpartmentimg').style.display = "none";
+                    document.getElementById('contcreapartmentimg').style.display = "none";
                     break;
                 case 'FNCTN':
-                    $scope.contactedit.FNCTN = '';
-                    document.getElementById('contatendimg').style.display = "none";
+                    $scope.contactedit.POST_CODE1 = '';
+                    document.getElementById('contcreaatendimg').style.display = "none";
                     break;
-
                 case 'POST_CODE1':
                     $scope.contactedit.POST_CODE1 = '';
-                    document.getElementById('contpostmimg').style.display = "none";
+                    document.getElementById('contcreapostmimg').style.display = "none";
+                    break;
+                case 'SMTP_ADDR':
+                    $scope.contactedit.SMTP_ADDR = '';
+                    document.getElementById('contcreapostmimg').style.display = "none";
+                    break;
+                case 'ZZBYYX':
+                    $scope.contactedit.ZZBYYX = '';
+                    document.getElementById('contcreapostmimg').style.display = "none";
+                    break;
+                case 'ZZJX':
+                    $scope.contactedit.ZZJX = '';
+                    document.getElementById('contcreapostmimg').style.display = "none";
+                    break;
+                case 'HOUSE_NUM1':
+                    $scope.contactedit.HOUSE_NUM1 = '';
+                    document.getElementById('contcreapostmimg').style.display = "none";
                     break;
             }
         };

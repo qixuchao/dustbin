@@ -16,7 +16,7 @@
             <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
         </div>
     </ion-header-bar>
-    <ion-content ng-show="!searchFlag" style="margin-bottom: 50px">
+    <ion-content ng-show="!searchFlag">
         <!--<img ng-src="img/car/oftenCar.png" class="textImg">-->
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">常用客户</div>
@@ -40,7 +40,7 @@
 
     </ion-content>
     <ion-content class="has-header search " has-bouncing="true" ng-show="searchFlag">
-        <div ng-hide="customer.customerfiledvalue.length>0 || !customerselecttyperole">
+        <div ng-hide="customer.customerfiledvalue.length>0 || customerselecttyperole">
             <div class="row row-center his-title" >
                 <i class="ion-android-time"></i>
                 <div class="hisText">历史记录</div>
@@ -50,7 +50,7 @@
                 <ion-item ng-click="search(x.name,$event)" ng-repeat="x in customer_query_historylists">{{x.name}}</ion-item>
             </ion-list>
         </div>
-        <div class="contentType" ng-repeat="lists in customerQuery_list" ng-if="customer.customerfiledvalue.length>0" >
+        <div class="contentType" ng-repeat="lists in customerQuery_list" ng-if="customer.customerfiledvalue.length>0||customerselecttyperole" >
             <div class="row row-center rowType " ng-click="customergodeatil(lists)">
                 <div class="col col-6 col-center">
                     <img ng-src="img/car/Oval.png" class="pointImg">

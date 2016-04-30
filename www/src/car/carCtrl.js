@@ -1,8 +1,8 @@
 /**
  * Created by Administrator on 2016/3/14 0014.
  */
-carModule.controller('CarCtrl',['$ionicLoading','$ionicHistory','worksheetDataService','$rootScope','$ionicScrollDelegate','$http','$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',
-    function($ionicLoading,$ionicHistory,worksheetDataService,$rootScope,$ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
+carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory','worksheetDataService','$rootScope','$ionicScrollDelegate','$http','$cordovaToast','HttpAppService','$scope','CarService','$timeout','$state','Prompter',
+    function($cordovaDialogs,$ionicLoading,$ionicHistory,worksheetDataService,$rootScope,$ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
     $scope.cars=[];
     $scope.searchFlag=false;
     $scope.isSearch=false;
@@ -1026,13 +1026,15 @@ carModule.controller('CarCtrl',['$ionicLoading','$ionicHistory','worksheetDataSe
 
         }])
 
-.controller('SpareCtrl',['$ionicScrollDelegate','$cordovaToast','HttpAppService','$scope','CarService','Prompter','$timeout',
-        function($ionicScrollDelegate,$cordovaToast,HttpAppService,$scope,CarService,Prompter,$timeout){
+.controller('SpareCtrl',['$ionicLoading','$cordovaDialogs','$ionicScrollDelegate','$cordovaToast','HttpAppService','$scope','CarService','Prompter','$timeout',
+        function($ionicLoading,$cordovaDialogs,$ionicScrollDelegate,$cordovaToast,HttpAppService,$scope,CarService,Prompter,$timeout){
         $scope.spareList=[];
         $scope.searchFlag=false;
         $scope.spareDesc="";
         $scope.buttonShow=false;
         var sparelist=[];
+        var page=0;
+        var page1=0;
         $scope.cancelSearch=function(){
             $scope.searchFlag=false;
             $scope.spareDesc="";
@@ -1064,7 +1066,6 @@ carModule.controller('CarCtrl',['$ionicLoading','$ionicHistory','worksheetDataSe
             }
             return date;
         };
-        var page=0;
         $scope.spare=function(){
 
             page+=1;
@@ -1129,15 +1130,24 @@ carModule.controller('CarCtrl',['$ionicLoading','$ionicHistory','worksheetDataSe
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 }
-                $scope.config.queryResultScrollDelegate.resize();
-            }).error(function (response, status) {
-                $cordovaToast.showShortBottom('请检查你的网络设备');
+                $ionicScrollDelegate.resize();
+            }).error(function (response, status, header, config) {
+                var respTime = new Date().getTime() - startTime;
+                Prompter.hideLoading();
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    //console.log('HTTP timeout');
+                    if(ionic.Platform.isWebView()){
+                        $cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
             });
         };
 
 
         $scope.spare1=function(){
-            page+=1;
+            page1+=1;
             //console.log(page);
             Prompter.showLoading("正在加载");
             var url=ROOTCONFIG.hempConfig.basePath+'ATTACHMENT_LIST';
@@ -1145,7 +1155,7 @@ carModule.controller('CarCtrl',['$ionicLoading','$ionicHistory','worksheetDataSe
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_USER": { "BNAME": window.localStorage.crmUserName },
                 "IS_PAGE": {
-                    "CURRPAGE": "1",
+                    "CURRPAGE": page1,
                     "ITEMS": "10"
                 },
                 "IS_VEHICLID": {
@@ -1159,7 +1169,7 @@ carModule.controller('CarCtrl',['$ionicLoading','$ionicHistory','worksheetDataSe
                 if (response.ES_RESULT.ZFLAG == 'S') {
                     Prompter.hideLoading();
                     if (response.ET_COMM_LIST.Item.length == 0) {
-                        if (page == 1) {
+                        if (page1 == 1) {
                             //Prompter.showPopupAlert("加载失败","暂无数据")
                         } else {
                             //Prompter.showPopupAlert("加载失败","没有更多数据");
@@ -1191,7 +1201,7 @@ carModule.controller('CarCtrl',['$ionicLoading','$ionicHistory','worksheetDataSe
                         });
                     }
                     if (response.ET_COMM_LIST.Item.length < 10) {
-                        if (page >= 1) {
+                        if (page1 > 1) {
                             $scope.buttonShow=false;
                         }
                     }else{
@@ -1202,6 +1212,7 @@ carModule.controller('CarCtrl',['$ionicLoading','$ionicHistory','worksheetDataSe
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 }
+                $ionicScrollDelegate.resize();
             }).error(function (response, status, header, config) {
                 Prompter.hideLoading();
                 var respTime = new Date().getTime() - startTime;
@@ -1217,13 +1228,10 @@ carModule.controller('CarCtrl',['$ionicLoading','$ionicHistory','worksheetDataSe
 
         };
         Prompter.showLoading("正在加载");
-        $scope.config={
-            queryResultScrollDelegate:null
-        };
-        $scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("spareListResult");
+
         $scope.spare();
         $scope.initLoad=function(){
-            page=0;
+            page1=0;
             $scope.spareList1 = new Array;
             $scope.buttonShow=false;
             $scope.spare1();

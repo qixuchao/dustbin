@@ -148,7 +148,7 @@ salesModule.factory('saleActService', function () {
         text: '竞争对手',
         code: 'Z00002'
     }, {
-        text: '注销伙伴',
+        text: '助销伙伴',
         code: 'Z00003'
     }];
     var customerTypeArr_server = [{
@@ -171,7 +171,7 @@ salesModule.factory('saleActService', function () {
         text: '竞争对手',
         code: 'ZATL05'
     }, {
-        text: '注销伙伴',
+        text: '助销伙伴',
         code: 'ZATL06'
     }];
     var customer = [{

@@ -3,8 +3,8 @@
  */
 'use strict';
 employeeModule
-    .controller('userQueryCtrl',['$ionicActionSheet','$window','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading',
-        function($ionicActionSheet,$window,$scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading){
+    .controller('userQueryCtrl',['$cordovaDialogs','$ionicActionSheet','$window','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading',
+        function($cordovaDialogs,$ionicActionSheet,$window,$scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading){
         $scope.searchFlag=false;
         $scope.employ={
             employeefiledvalue:''
@@ -23,10 +23,10 @@ employeeModule
                 $scope.usuaemployee_query_list = JSON.parse(localStorage.getItem("usuaemploydb"));
                 if ($scope.usuaemployee_query_list.length > 15) {
                     $scope.usuaemployee_query_list = $scope.usuaemployee_query_list.slice(0, 15);
-                };
+                }
             } else {
                 $scope.usuaemployee_query_list = [];
-            };
+            }
         };
         $scope.EmployeeListHistoryval();
 
@@ -106,11 +106,19 @@ employeeModule
 
                         };
                     }
-                }).error(function (response, status) {
-                    $cordovaToast.showShortBottom('请检查你的网络设备');
-                    $scope.employisshow = false;
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    Prompter.hideLoading();
+                    //超时之后返回的方法
+                    if(respTime >= config.timeout){
+                        //console.log('HTTP timeout');
+                        if(ionic.Platform.isWebView()){
+                            $cordovaDialogs.alert('请求超时');
+                        }
+                    }
+                    $ionicLoading.hide();
                 });
-            }
+            };
         //input输入框监听
         //实时搜索
         $scope.initLoad=function(){
@@ -139,7 +147,7 @@ employeeModule
             $scope.searchFlag=true;
         };
         $rootScope.$on('employeeBack',function(event, data) {
-            console.log("接收成功" + data);
+            //console.log("接收成功" + data);
             $scope.searchFlag = data;
             $scope.employ.employeefiledvalue = "";
             $scope.cancelSearch();
@@ -357,7 +365,7 @@ employeeModule
         function($scope,$state,$rootScope,$ionicHistory,Prompter,HttpAppService,$cordovaInAppBrowser,$ionicLoading,$cordovaToast,$cordovaClipboard,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,employeeService,$window,$ionicActionSheet){
         ////返回回退
         $scope.employgoBack = function() {
-            console.log("返回成功")
+            //console.log("返回成功")
             $rootScope.$broadcast('employeeBack','false');
             $rootScope.$broadcast('employeedeatillist');
             $ionicHistory.goBack();
@@ -413,7 +421,7 @@ employeeModule
     .controller('customerListCtrl',['Prompter','$scope','$rootScope','$state','$cordovaToast','$ionicModal','HttpAppService','saleActService','$ionicScrollDelegate','ionicMaterialInk','employeeService',
         function(Prompter,$scope,$rootScope,$state,$cordovaToast,$ionicModal,HttpAppService,saleActService,$ionicScrollDelegate,ionicMaterialInk,employeeService){
         ionicMaterialInk.displayEffect();
-        console.log(employeeService.get_employeecustomerlist());
+        //console.log(employeeService.get_employeecustomerlist());
         $scope.employcustomerlist = new Array;
         if(employeeService.get_employeecustomerlist() == undefined){
             $scope.employcustomerlist = [];
@@ -516,7 +524,7 @@ employeeModule
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 } else if(response.ET_RELATIONSHIP != ''){
-                    console.log(angular.toJson(response.ET_RELATIONSHIP));
+                    //console.log(angular.toJson(response.ET_RELATIONSHIP));
                     $scope.employcustomerlist=response.ET_RELATIONSHIP.item;
                     }
                 Prompter.hideLoading();
@@ -527,7 +535,7 @@ employeeModule
         };
         //添加客户
         $scope.selectCustomer = function (x) {
-             console.log(x);
+             //console.log(x);
             var url=ROOTCONFIG.hempConfig.basePath + 'STAFF_EDIT';
             var data={
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
@@ -543,7 +551,7 @@ employeeModule
                 }
             };
             //console.log(x.PARTNER);
-            console.log(employeeService.get_employeeListvalue().PARTNER);
+            //console.log(employeeService.get_employeeListvalue().PARTNER);
             HttpAppService.post(url,data).success(function(response){
                 if(response.ES_RESULT.ZFLAG=="E"){
                     //console.log(response.ES_RESULT.ZRESULT);
@@ -552,7 +560,7 @@ employeeModule
 
                     $scope.employcustomerlist=new Array;
                     $scope.updateCustomer();
-                    console.log("添加成功");
+                    console.log("员工与客户的关系添加成功");
                     $cordovaToast.showShortBottom("员工与客户的关系添加成功")
                 }
             });
@@ -578,18 +586,19 @@ employeeModule
                     "MODE": "D"
                 }
             };
-            console.log(customer.PARTNER);
-            console.log(customer.PARTNER);
+            //console.log(customer.PARTNER);
+            //console.log(customer.PARTNER);
             HttpAppService.post(url,data).success(function(response) {
                 if (response.ES_RESULT.ZFLAG == "E") {
-                    console.log(response.ES_RESULT.ZRESULT);
+                    //console.log(response.ES_RESULT.ZRESULT);
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }else {
                     $scope.employcustomerlist=new Array;
                     $scope.updateCustomer();
+                    console.log("员工与客户的关系删除成功");
+
                     $cordovaToast.showShortBottom("员工与客户的关系删除成功");
                     //$scope.employcustomerlist.splice(i,1);
-                    //console.log("删除成功");
                 }
             })
         };

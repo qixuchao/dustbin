@@ -2,8 +2,8 @@
  * Created by zhangren on 16/3/7.
  */
 customerModule
-    .controller('customerQueryCtrl',['Prompter','$scope','$rootScope','$state','$http','HttpAppService','LoginService','$timeout','$cordovaToast','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',
-        function(Prompter,$scope,$rootScope,$state,$http,HttpAppService,LoginService,$timeout,$cordovaToast,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+    .controller('customerQueryCtrl',['$cordovaDialogs','Prompter','$scope','$rootScope','$state','$http','HttpAppService','LoginService','$timeout','$cordovaToast','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',
+        function($cordovaDialogs,Prompter,$scope,$rootScope,$state,$http,HttpAppService,LoginService,$timeout,$cordovaToast,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
         $ionicPopover.fromTemplateUrl('src/customer/model/customer_selec.html', {
             scope: $scope
         }).then(function(popover) {

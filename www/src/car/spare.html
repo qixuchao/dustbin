@@ -16,7 +16,6 @@
         </div>
     </ion-header-bar>
     <ion-content class="has-header search " ng-show="searchFlag">
-        <ion-scroll delegate-handle="spareListResult" has-bouncing="false">
         <div class="divContent" ng-repeat="x in spareList1">
              <div class="row row-center ">
                 <div class="col col-5">
@@ -55,9 +54,8 @@
                 <span ng-hide="buttonShow">无更多数据显示</span>
             </div>
         </div>
-        </ion-scroll>
     </ion-content>
-    <ion-content has-bouncing="false"  ng-show="!searchFlag">
+    <ion-content  ng-show="!searchFlag">
         <div class="divContent" ng-repeat="spare in spareList">
             <div class="row row-center">
                 <div class="col col-5">
