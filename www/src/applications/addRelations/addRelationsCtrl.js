@@ -106,7 +106,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        } else if{
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                             $scope.relationSpinnerFlag = false;
                             $scope.relationSearch = false;
@@ -178,7 +178,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                             $scope.relationSpinnerFlag = false;
                             $scope.relationSearch = false;
@@ -226,7 +226,7 @@ salesModule
                             }
                             $ionicScrollDelegate.resize();
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                             $scope.relationSpinnerFlag = false;
                             $scope.relationSearch = false;

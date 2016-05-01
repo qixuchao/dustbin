@@ -76,7 +76,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             $scope.spinnerFlag = false;
                             $scope.customerSearch = false;
                             $scope.isError = true;
@@ -116,7 +116,7 @@ salesModule
                                 $scope.contactsLoadMoreFlag = false;
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
@@ -214,7 +214,7 @@ salesModule
                                         };
                                         $state.go('saleActDetail');
                                         Prompter.hideLoading();
-                                    } else {
+                                    } else if(response.ES_RESULT.ZFLAG === 'E'){
                                         Prompter.showShortToastBotton('创建失败');
                                         Prompter.hideLoading();
                                         $scope.createModal.remove();

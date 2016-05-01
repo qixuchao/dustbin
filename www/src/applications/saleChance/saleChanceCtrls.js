@@ -137,7 +137,7 @@ salesModule
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $scope.saleListArr = $scope.saleListArr.concat(response.ET_OPPORT.item);
                             $ionicScrollDelegate.resize();
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             $scope.loadMoreFlag = false;
                             $scope.saleListNoMoreInfoFLag = true;
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
@@ -351,7 +351,7 @@ salesModule
                                 $scope.chancePop.saleOffice = $scope.salesChanceGroup[0];
                                 $scope.showCreateChanceModal();
                             }
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             Prompter.showShortToastBotton('无法创建');
                         }
                     });

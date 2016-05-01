@@ -156,7 +156,7 @@ salesModule
                                         saleChanService.obj_id = response.ES_RESULT.ZRESULT;
                                         $state.go('saleChanDetail');
                                         Prompter.hideLoading();
-                                    } else {
+                                    } else if(response.ES_RESULT.ZFLAG === 'E'){
                                         Prompter.showShortToastBotton('创建失败');
                                         Prompter.hideLoading();
                                         $scope.createChanceModal.remove();
@@ -247,7 +247,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             $scope.spinnerFlag = false;
                             $scope.customerSearch = false;
                             $scope.isError = true;
@@ -288,7 +288,7 @@ salesModule
                                 $scope.contactsLoadMoreFlag = false;
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
