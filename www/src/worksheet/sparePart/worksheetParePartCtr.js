@@ -7,15 +7,17 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         //    searchInfos : ""
         //}
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-            if(fromState.name == 'worksheetSelect' && toState.name == 'worksheetSparepart' && worksheetHttpService.goWhere.go == true){
+            if(fromState.name == 'worksheetSelect' && toState.name == 'worksheetSparepart' && worksheetHttpService.goWhere.go == true && worksheetHttpService.goWhere.cun == false){
                 worksheetHttpService.goWhere.go = false;
                  //worksheetHttpService.goWhere.back = false;
                 $ionicHistory.goBack();
+                worksheetHttpService.setSparePart("");
             }
             var proInfos =  worksheetHttpService.addPro.proInfos;
                 $scope.config = {
                     warehouse : "",
-                    searchInfos : ""
+                    searchInfos : "",
+                    queryResultScrollDelegate : $ionicScrollDelegate.$getByHandle("worksheetListResult")
                 }
                 var str=document.getElementsByName("selectSparePart");
                 for (var i=0;i<str.length;i++) {
@@ -183,7 +185,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                             $scope.infos[i].checked = "NO";
                         }
                         $scope.change($scope.config.warehouse);}
-
+                    $scope.config.queryResultScrollDelegate.resize();
                 }).error(function (response, status, header, config) {
                     var respTime = new Date().getTime() - startTime;
                     //超时之后返回的方法
@@ -601,29 +603,20 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         changeArr();
         //返回详情页
         $scope.goDetail = function(){
-            var local = 1;
-            for(var i=0;i<worksheetDetail.length;i++){
-                if(worksheetDetail[i].showPic === false){
-                    local = 0 ;
-                }
-            }
-            if(local === 0 ){
-                $cordovaDialogs.confirm('部分数据未上传，是否退出？', '提示', ['确定', '取消'])
-                    .then(function (buttonIndex) {
-                        // no button = 0, 'OK' = 1, 'Cancel' = 2
-                        var btnIndex = buttonIndex;
-                        if (btnIndex == 1) {
-                            worksheetHttpService.setSparePart("");
-                            worksheetHttpService.addPro.proInfos = "";
-                            $ionicHistory.goBack();
-                        }
-                    });
-            }else{
-                worksheetHttpService.setSparePart("");
-                    $ionicHistory.goBack();
-            }
+            $cordovaDialogs.confirm('是否需要退出？', '提示', ['确定', '取消'])
+                .then(function (buttonIndex) {
+                    // no button = 0, 'OK' = 1, 'Cancel' = 2
+                    var btnIndex = buttonIndex;
+                    if (btnIndex == 1) {
+                        worksheetHttpService.goWhere.cun = false;
+                        worksheetHttpService.setSparePart("");
+                        worksheetHttpService.addPro.proInfos = "";
+                        $ionicHistory.goBack();
+                    }
+                });
         }
         $scope.goUpdateSelect = function(){
+            worksheetHttpService.goWhere.cun = true;
             $state.go("worksheetSparepart");
         }
         $scope.upDown = true;

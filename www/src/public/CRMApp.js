@@ -111,6 +111,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
      */
     
     $stateProvider
+
         // .state('login', {
         //    url: '/login',
         //    //abstract: true,
@@ -123,7 +124,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl: 'src/loginSecond/loginSecond.html',
             controller: 'LoginCtrl'
         })
-        
+
         .state('tabs', {
             url: '/tabs',
             templateUrl: 'src/tabs/tabs.html',
