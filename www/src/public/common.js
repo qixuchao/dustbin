@@ -13,13 +13,13 @@ var UTILITIES = new Object();
     }
     object.getToken = function () {
         var token = '-1';
-        if (window.localStorage.token) {
-            token = window.localStorage.token;
+        if (window.localStorage.crmToken) {
+            token = window.localStorage.crmToken;
         }
         return token;
     };
     object.setToken = function (token) {
-        window.localStorage.token = token;
+        window.localStorage.crmToken = token;
     }
 })(UTILITIES);
 function detectOS() {

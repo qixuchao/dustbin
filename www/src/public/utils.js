@@ -2,8 +2,8 @@
  * Created by Gusenlin on 2015/10/16.
  */
 'use strict';
-utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 'Prompter', '$ionicLoading', '$timeout', '$cordovaToast',
-    function ($log, $http, $rootScope, $state, Prompter, $ionicLoading, $timeout, $cordovaToast) {
+utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 'Prompter', '$ionicLoading', '$timeout', '$cordovaToast','$ionicHistory',
+    function ($log, $http, $rootScope, $state, Prompter, $ionicLoading, $timeout, $cordovaToast,$ionicHistory) {
         var debug = function (text) {
             $log.debug(procedure + " success");
         };
@@ -60,7 +60,14 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                     //flag = true;
                     $ionicLoading.hide();
                     try {
-                        if (response.status === 'ETOKEN') {
+                        if (response.ES_RESULT.ZFLAG === 'ETOKEN') {
+                            $timeout(function() {
+                                $ionicHistory.clearHistory();
+                                $ionicHistory.clearCache();
+                            }, 1000);
+                            $cordovaToast.showShortBottom('你的账户在另一地点登录');
+                            window.localStorage.crmToken = '';
+                            $state.go('login');
                             $ionicLoading.hide();
                         }
                         if (response.ES_RESULT.ZFLAG === 'E') {
