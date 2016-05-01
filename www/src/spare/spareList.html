@@ -11,7 +11,7 @@
         <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
-            <input type="text" placeholder="输入产品信息" ng-model="spareInfo" ng-click="changePage()" ng-change="initLoad()">
+            <input type="text" placeholder="输入物料信息" ng-model="spareInfo" ng-click="changePage()" ng-change="initLoad()">
             <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
         </div>
         <!--<div class="search2" ng-show="searchFlag">-->
@@ -31,7 +31,7 @@
     <!--</div>-->
     <ion-content ng-show="!searchFlag">
         <div class="Car_countentbasic" >
-            <div class="Car_countentbasicinfo">常用产品</div>
+            <div class="Car_countentbasicinfo">常用物料</div>
             <div class="Car_countentbasicline"></div>
             <div class="Car_countentbasicclok"></div>
         </div>
