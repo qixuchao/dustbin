@@ -51,7 +51,6 @@
             </ion-list>
         </div>
         <div class="contentType" ng-repeat="lists in customerQuery_list" ng-if="customer.customerfiledvalue.length>0||customerselecttyperole" >
-
             <div class="row row-center rowType " ng-click="customergodeatil(lists)">
                 <div class="col col-6 col-center">
                     <img ng-src="img/car/Oval.png" class="pointImg">
@@ -65,7 +64,7 @@
                 <div class="col col-2"></div>
             </div>
         </div>
-        <ion-infinite-scroll on-infinite="customerLoadmore()" ng-if="(customerisshow  && customer.customerfiledvalue.length>0) || (customerselecttyperole  && customer.customerfiledvalue.length == 0)"></ion-infinite-scroll>
+        <ion-infinite-scroll on-infinite="customerLoadmore()" ng-if="(customerisshow  && customer.customerfiledvalue.length>0) || (customerisshow  && customerselecttyperole  && customer.customerfiledvalue.length == 0)"></ion-infinite-scroll>
     </ion-content>
 </ion-view>
 

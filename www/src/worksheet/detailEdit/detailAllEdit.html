@@ -3,15 +3,15 @@
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
-                <span class="col col-20 text-left goBack" ng-click="goBack()">取消</span>
+                <span class="col col-20 text-left goBack" ng-click="config.__clickCancelBtnFlag=true;goBack();">取消</span>
                 <div class="col col-60 text-center">编辑工单</div>
                 <div class="col col-20 add" ng-click="saveEdited();">保存</div>
             </div>
         </ion-header-bar>
     </div>
      
-    <ion-content id="worksheet-detail-edit-content" has-bouncing="false" scrollbar-y="false" style="margin-top: 0px;">
-    
+    <ion-content id="worksheet-detail-edit-content" has-bouncing="false" scrollbar-y="false" style="margin-top: 0px;"> 
+        
         <div ng-if="config.detailTypeNewCar">
             <div class="basic-info first-line commment-info-lines">
                 <div class="crm-line-title">
@@ -143,13 +143,6 @@
                          </select>
                     </div>
                 </div>
-                <div class="row" ng-if="config.detailTypeSiteRepair">
-                    <div class="col-40">原因分类&nbsp;:</div>
-                    <div class="col-60">
-                        <select ng-model="config.currentResultCategory" ng-options="ZZYYFLObj as ZZYYFLObj.ZZYYFL_DESC for ZZYYFLObj in datas.resultCategoryS">
-                         </select>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-40">
                         需要回访:
@@ -236,8 +229,8 @@
                 </div>
             </div>
 
-                
-            <div class="guzhang-info commment-info-lines">
+            
+            <div class="guzhang-info commment-info-lines" style="padding-bottom: 2rem;">
                 <div class="crm-line-title">
                     <div class="title-top">
                         <span >故障信息</span>
@@ -267,7 +260,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-40">部件分类&nbsp;:</div> <!-- 部件分类 -->
+                    <div class="col-40">原因分类&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentResultCategory" ng-options="ZZYYFLObj as ZZYYFLObj.ZZYYFL_DESC for ZZYYFLObj in datas.resultCategoryS">
+                         </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">产品类型&nbsp;:</div> <!-- 部件分类 -->
                     <div class="col-60">
                         <select ng-change="buJianFeiLenChanged();" ng-model="config.currentChanPinLeiXing" ng-options="cplx as cplx.COMP_TYPE for cplx in datas.chanPinLeiXingS">
                          </select>

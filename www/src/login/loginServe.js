@@ -79,12 +79,8 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
          }
          */
         getAuthInfoByFunction: function (functionName) {
-            var obj = data3;
-            if (!obj) {
-                return null;
-            }
-            var auth = obj.AUTH;
-            if (!auth) {
+            var objs = author;
+            if (!objs || objs == "" || objs == null) {
                 return null;
             }
             var returnObj = {
@@ -92,20 +88,19 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
                 EDIT: false,
                 CREATE: false
             };
-            for (var i = 0; i < auth.length; i++) {
-                if (auth[i].FUNCTION == functionName) {
-                    if (auth[i].EDIT == 'TRUE') {
+            for (var i = 0; i < objs.length; i++) {
+                if (objs[i].FUNCTION == functionName) {
+                    if (objs[i].EDIT == 'TRUE') {
                         returnObj.EDIT = true;
                     }
-                    if (auth[i].VIEW == 'TRUE') {
+                    if (objs[i].VIEW == 'TRUE') {
                         returnObj.VIEW = true;
                     }
-                    if (auth[i].CRTEAT == 'TRUE') {
+                    if (objs[i].CREATE == 'TRUE') { 
                         returnObj.CREATE = true;
                     }
                     return returnObj;
-                }
-                ;
+                };
             }
             return null;
         },

@@ -42,7 +42,7 @@ worksheetModule.controller("customerContactCtrl",['$scope','$state','$http','$ti
                 console.log(angular.toJson(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST'));
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     //if(item == ""){
-                        $scope.infos = (response.ET_OUT_LIST.item);
+                        $scope.infos = $scope.infos.concat(response.ET_OUT_LIST.item);
                     //}else{
                     //    $scope.infos = response.ET_OUT_LIST.item.concat($scope.infos);
                     //}
