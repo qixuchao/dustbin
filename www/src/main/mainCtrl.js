@@ -197,6 +197,7 @@ mainModule
                     last_day = init_day;
                 }
                 var addDateTemp = addDate($scope.year + '/' + $scope.month + '/' + day, last_day);
+                console.log(addDateTemp);
                 $scope.days[0].arr = getDays(addDateTemp.getMonth() + 1, addDateTemp.getDate());
                 $scope.days[0].month = addDateTemp.getMonth() + 1;
                 $scope.days[0].year = addDateTemp.getFullYear();
@@ -623,6 +624,9 @@ mainModule
             /*-------------------------------------------日历 end-------------------------------------------*/
 
             var getWeekMarkDays = function (days) {
+                if($scope.role == 'APP_SERVICE'){
+                    return
+                }
                 Prompter.showLoading();
                 var startTemp, endTemp, monthTemp, isContinueFlag = isContinue(days.arr), yearTemp = days.year;
                 //判断是否连续
@@ -656,8 +660,8 @@ mainModule
                             angular.forEach(tempArr, function (x) {
                                 if (isContinueFlag) {
                                     angular.forEach(days.arr, function (y) {
-                                        if (x.DATE == new Date($scope.year + '-' + days.month + '-' + y.value).format('yyyy-MM-dd')) {
-                                            console.log(x.DATE + 'checked');
+                                        if (x.DATE == new Date($scope.year + '/' + days.month + '/' + y.value).format('yyyy-MM-dd')) {
+                                            y.toDo = true;
                                         }
                                     })
                                 } else {
@@ -665,8 +669,13 @@ mainModule
                                         if (y.value < 7) {
                                             monthTemp = days.month;
                                             yearTemp = days.year;
+                                        }else {
+                                            if (days.month == 1) {
+                                                yearTemp = days.year - 1;
+                                            }
+                                            monthTemp = days.month-1;
                                         }
-                                        if (x.DATE == new Date(yearTemp + '-' + monthTemp + '-' + y.value).format('yyyy-MM-dd')) {
+                                        if (x.DATE == new Date(yearTemp + '/' + monthTemp + '/' + y.value).format('yyyy-MM-dd')) {
                                             y.toDo = true;
                                         }
                                     })
@@ -676,6 +685,9 @@ mainModule
                     })
             };
             var getMonthMarkDays = function (monthArr) {
+                if($scope.role == 'APP_SERVICE'){
+                    return
+                }
                 Prompter.showLoading();
                 var data = {
                     "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
@@ -691,9 +703,10 @@ mainModule
                         Prompter.hideLoading();
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             var tempArr = response.ET_CALENDAR.item_out;
+                            console.log(monthArr)
                             angular.forEach(tempArr, function (x) {
                                 angular.forEach(monthArr, function (y) {
-                                    if (x.DATE == new Date($scope.year + '-' + $scope.month + '-' + y.value).format('yyyy-MM-dd')) {
+                                    if (y.value&&x.DATE == new Date($scope.year + '/' + $scope.month + '/' + y.value).format('yyyy-MM-dd')) {
                                         y.toDo = true;
                                     }
                                 })
@@ -861,7 +874,7 @@ mainModule
                                 angular.forEach(tempArr, function (x) {
                                     x.CHANGED_AT = x.CHANGED_AT + "";
                                     x.title = x.DESCRIPTION;
-                                    x.date = new Date(x.CHANGED_AT.substring(0, 4) + '-' + x.CHANGED_AT.substring(4, 6) + '-' + x.CHANGED_AT.substring(6, 8));
+                                    x.date = new Date(x.CHANGED_AT.substring(0, 4) + '/' + x.CHANGED_AT.substring(4, 6) + '/' + x.CHANGED_AT.substring(6, 8));
                                     x.startTime = x.CHANGED_AT.substring(8, 10) + ':' + x.CHANGED_AT.substring(10, 12);
                                 });
                                 if (type === 'init') {

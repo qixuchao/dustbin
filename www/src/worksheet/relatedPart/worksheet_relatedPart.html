@@ -15,31 +15,31 @@
         </div>
     </ion-header-bar>
     <ion-content>
-        <!--<div  class="relatedPart_list" ng-repeat="i in infos" >-->
-            <!--<div class="row row-center" style="padding: 0 0 0 0" >-->
-                <!--<div class="col col-6 col-center" style="margin-left:5px">-->
-                    <!--<div class="relatedPart_listcicle" ng-class="{relatedPart_listcicleA: !$odd, relatedPart_listcicleB: !$even}"></div>-->
+        <!--<ion-list class="employee_customer">-->
+            <!--<ion-item class="employee_customerlist" style="border-bottom: 1px solid #ddd;margin-top:1px;height: 60px" ng-repeat="i in infos track by $index">-->
+                <!--<div class="row row-center" style="padding: 0;z-index: 999" >-->
+                    <!--<div class="col col-6 col-center" style="margin-left:5px">-->
+                        <!--<div class="employee_customerlistcicle" ng-class="{relatedPart_listcicleA: !$odd, relatedPart_listcicleB: !$even}"></div>-->
+                    <!--</div>-->
+                    <!--<div class="col col-84 col-center" style="text-align: left;padding-left:0px">-->
+                        <!--<div class="row row-center"><span style="vertical-align: middle">{{i.NAME1}}</span></div>-->
+                        <!--<div class="row row-center"><span style="vertical-align: middle;font-size: 13px;color:#D2D2D2">{{i.FCT_DESCRIPTION}}</span></div>-->
+                    <!--</div>-->
+                    <!--<div class="col col-10 col-center">-->
+                        <!--<img class="employee_customerlist_listfor" src="img/employee/Shape@2x.png">-->
+                    <!--</div>-->
                 <!--</div>-->
-                <!--<div class="col col-38 col-center" style="text-align: left;padding-left:0px">-->
-                    <!--<div class="row row-center"><span style="vertical-align: middle">{{i.name}}</span></div>-->
-                    <!--<div class="row row-center"><span style="vertical-align: middle;font-size: 13px;color:#D2D2D2">{{i.position}}</span></div>-->
-                <!--</div>-->
-                <!--<div class="col col-47 col-center" style="text-align: left">-->
-                    <!--<span style="vertical-align: middle;color:#D2D2D2" ng-click="Prompter.showphone(i.phone)">{{i.phone}}</span>-->
-                <!--</div>-->
-                <!--<div class="col col-10 col-center">-->
-                    <!--<img class="relatedPart_listfor" src="img/employee/Shape@2x.png">-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="relatedPart_listline">-->
-            <!--</div>-->
-        <!--</div>-->
+                <!--<ion-option-button style="width:30px;height:60px;text-align: center" class="button-assertive" ng-click="deleteInfos(i)" ng-show="deleteButton">-->
+                    <!--<i class="icon ion-ios-trash-outline" style="font-size: 50px;"></i>-->
+                <!--</ion-option-button>-->
+            <!--</ion-item>-->
+        <!--</ion-list>-->
 
         <ion-list>
-            <ion-item class="relatedPart_list" style="border-bottom: 1px solid #ddd;margin-top:1px;padding:0" ng-repeat="i in infos" on-swipe-right="RelaotinHidd()" ng-click="goDetail(i)">
-                <div class="row row-center" style="padding: 0" >
+            <ion-item class="employee_customerlist" style="border-bottom: 1px solid #ddd;margin-top:1px;padding:0" ng-repeat="i in infos track by $index"  ng-click="goDetail(i)">
+                <div class="row row-center" style="padding: 0;z-index: 999" >
                     <div class="col col-6 col-center" style="margin-left:5px">
-                        <div class="relatedPart_listcicle" ng-class="{relatedPart_listcicleA: !$odd, relatedPart_listcicleB: !$even}"></div>
+                        <div class="employee_customerlistcicle" ng-class="{relatedPart_listcicleA: !$odd, relatedPart_listcicleB: !$even}"></div>
                     </div>
                     <div class="col col-38 col-center" style="text-align: left;padding-left:0px">
                         <div class="row row-center"><span style="vertical-align: middle">{{i.NAME1}}</span></div>
@@ -49,10 +49,10 @@
 
                     </div>
                     <div class="col col-10 col-center">
-                        <img class="relatedPart_listfor" src="img/employee/Shape@2x.png">
+                        <img class="employee_customerlist_listfor" src="img/employee/Shape@2x.png">
                     </div>
                 </div>
-                <ion-option-button style="width:30px;text-align: center;z-index: 999" class="button-assertive" ng-click="deleteInfos(i)" ng-show="deleteButton">
+                <ion-option-button style="width:30px;height:60px;text-align: center;" class="button-assertive" ng-click="deleteInfos(i)" ng-show="deleteButton">
                     <i class="icon ion-ios-trash-outline" style="font-size: 50px;"></i>
                 </ion-option-button>
             </ion-item>
