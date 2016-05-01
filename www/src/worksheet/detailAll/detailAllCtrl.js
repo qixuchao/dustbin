@@ -710,6 +710,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                 }
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                     "IS_PAGE": {
                         "CURRPAGE": customerPage++,
                         "ITEMS": "10"

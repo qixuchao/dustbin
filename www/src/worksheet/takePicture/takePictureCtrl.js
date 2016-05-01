@@ -14,8 +14,9 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	"worksheetDataService",
 	"Prompter",
 	"$sce", 
+	"$cordovaToast",
 	function($scope, $timeout, $ionicActionSheet, $ionicPosition,$ionicBackdrop, $ionicGesture, $ionicModal, $state,
-			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService, Prompter, $sce){
+			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService, Prompter, $sce, $cordovaToast){
 		
 		$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
             if(fromState && fromState.name == 'worksheetTakePicture'){
@@ -159,7 +160,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		};
 		$scope.deleteImage = function(item, index){
 			__deleteImageInServer(item, index);
-		}; 
+		};
 
 		$scope.saveImage = function(item){
 		};
@@ -209,7 +210,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			    	"OBJECT_ID": $scope.config.OBJECT_ID,//'5200000315',
 			    	"PROCESS_TYPE": $scope.config.PROCESS_TYPE,//"ZPRO"
 			    }
-			} 
+			}
 	        //var promise = HttpAppService.post(worksheetHttpService.imageInfos.listUrl,queryParams);
 	        var promise = HttpAppService.post(worksheetHttpService.imageInfos.listUrl,queryParams);
 	        $scope.config.isLoading = true;
@@ -244,7 +245,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	        		for(var i = 0; i < response.ET_OUT_LIST.item.length; i++){
 	        			var item = response.ET_OUT_LIST.item[i];
 	        			var newFileItem = angular.copy($scope.config.fileItemDefaults);
-						angular.extend(newFileItem, {
+	        			angular.extend(newFileItem, {
 							OBJECT_ID: item.OBJECT_ID,
 							PROCESS_TYPE: item.PROCESS_TYPE,
 							KW_RELATIVE_URL: item.KW_RELATIVE_URL,
@@ -252,6 +253,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 							CLASSLO: item.CLASSLO,
 
 					        src: item.LINE,
+					        imgObj: new Image(),
 					        OBJTYPELO: item.OBJTYPELO,
 					        isFromServer: true,
 					        isServerHolder: true,
@@ -262,6 +264,12 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 						        	<div ng-click="xbrCloseModal();" class="button button-clear button-return">返回</div>\
 					        	</div>'
 						});
+	        			newFileItem.imgObj.src = item.LINE;
+	        			newFileItem.imgObj.onload = function(xbrEvent){
+	        				this.xbrRealWidth = xbrEvent.currentTarget.width;
+	        				this.xbrRealHeight = xbrEvent.currentTarget.height;
+	        				//img.imgObj.complete
+	        			};
 	        			$scope.datas.imageDatas.push(newFileItem);
 	        		}
 	        	}
@@ -301,7 +309,15 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 
 		$scope.saveThisImage = function(item){
 			if(item.isSaved){
-				$cordovaToast.showShortBottom("该图片已保存过! "+item.position);
+				$cordovaToast.showShortBottom("该图片已保存过!");
+				return;
+			}
+			if(angular.isUndefined(item.imgObj)){// 本地照片
+				$cordovaToast.showShortBottom("本地图片,无须保存!");
+				return;
+			}
+			if(item.imgObj && !item.imgObj.complete){
+				$cordovaToast.showShortBottom("该图片还未加载完成，请稍候再试!");
 				return;
 			}
 			item.isSaving = true;
@@ -316,21 +332,25 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				imageDataUrl = imgEle.src;
 			}else{
 			}*/
+			
+			var tempImage = item.imgObj;
+			//tempImage.src = imgEle.src;
+			//alert(tempImage.src);
 			var canvas = document.createElement('canvas');
-			canvas.width = imgEle.width;
-			canvas.height = imgEle.height;
+			canvas.width = tempImage.width;
+			canvas.height = tempImage.height;
+			//alert(tempImage.width+"     "+tempImage.height);
 			var context = canvas.getContext('2d');
         	context.drawImage(imgEle, 0, 0);
         	imageDataUrl = canvas.toDataURL('image/jpeg', 1.0);
 			imageDataUrl = imageDataUrl.replace(/data:image\/jpeg;base64,/, '');
-
 			window.canvas2ImagePlugin.saveImageDataToLibrary(
 		        function(msg){
 		            console.log(msg);
 		            item.isSaving = false;
 					item.saveTip = "已保存成功!";
 					item.isSaved = true;
-		            $cordovaToast.showShortBottom("已经保存成功! "+item.position);
+		            $cordovaToast.showShortBottom("已经保存成功!");
 		        },
 		        function(err){
 		            console.log(err);
@@ -340,14 +360,12 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 					$timeout(function(){
 						item.saveTip = "重新保存";
 					});
+					$cordovaToast.showShortBottom("保存失败,请重试!");
 		        },
 		        canvas
 		    );
 			
 		};
-
-
-
 		
 		function __deleteImageInServer(fileItem, index){
 			//alert(JSON.stringify(fileItem));

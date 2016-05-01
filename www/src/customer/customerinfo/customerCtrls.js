@@ -892,7 +892,6 @@ customerModule
             }else{
                 Prompter.showpcopy(valuecopy)
             }
-
         };
         //打开浏览器
         $scope.customeropenbrser = function(Url){

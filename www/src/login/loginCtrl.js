@@ -86,36 +86,10 @@ loginModule
                     })
                 }
             });
-            $scope.saveThisImage = function(){
-                console.log("$scope.saveThisImage:   ");
-                var imgJQ = angular.element("#xbr-test");//#takepicture-content
-                var imgEle = imgJQ[0];
-                var canvas = document.createElement('canvas');
-                canvas.width = imgEle.width;
-                canvas.height = imgEle.height;
-                var context = canvas.getContext('2d');
-                context.drawImage(imgEle, 0, 0);
-                var imageDataUrl = canvas.toDataURL('image/jpeg', 1.0);
-                console.log(imageDataUrl);
-                imageDataUrl = imageDataUrl.replace(/data:image\/jpeg;base64,/, '');
-                console.log(imageDataUrl);
-                console.log(window.canvas2ImagePlugin);
-                console.log(window.canvas2ImagePlugin.saveImageDataToLibrary);
-                window.canvas2ImagePlugin.saveImageDataToLibrary(
-                    function(msg){
-                        console.log(msg);
-                    },
-                    function(err){
-                        console.log(err);
-                    },
-                    canvas
-                );
-            };
+
             //var userName = "HANDLCX02";
             var userPassword = $scope.loginData.password;
             $scope.login = function () {
-                // $scope.saveThisImage();
-                // return;
                 Prompter.showLoading();
                 //http://117.28.248.23:9388/test/api/bty/login
                 //var url = ROOTCONFIG.hempConfig.LoginUrl; //"http://117.28.248.23:9388/test/api/bty/login";
@@ -175,7 +149,6 @@ loginModule
                 //$state.go('tabs')
             };
 
-
             $scope.show = function () {
                 $ionicLoading.show({
                     template: '<ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>'
@@ -188,6 +161,26 @@ loginModule
                 $ionicLoading.hide();
             };
 
+
+            var  times__registerJpushId = 10;
+            function __registerJpushId(){
+                times__registerJpushId--;
+                window.plugins.jPushPlugin.getRegistrationID(function(data){
+                    alert("getRegistrationID   id: "+data);
+                    if(angular.isUndefined(data) || data == null || data == ""){
+                        if(times__registerJpushId > 0){
+                            __registerJpushId();
+                        }
+                    }else{
+                        if(ionic.Platform.isIOS()){
+                            window.localStorage.deviceId = data;
+                            $scope.config.deviceId = data;
+                            $scope.config.deviceIdOk = true;
+                            console.log("JPushPlugin:registrationID is-----: " + data);
+                        }
+                    }
+                });
+            };
             
             $ionicPlatform.ready(function () {
                 //如果是android则使用 device插件获取deviceId
@@ -201,16 +194,9 @@ loginModule
                 //如果是ios则使用 jpush插件获取deviceId
                 if(window.plugins && window.plugins.jPushPlugin){
                     window.plugins.jPushPlugin.init();
-                    window.plugins.jPushPlugin.getRegistrationID(function(data){
-                        if(ionic.Platform.isIOS()){
-                            window.localStorage.deviceId = data;
-                            $scope.config.deviceId = data;
-                            $scope.config.deviceIdOk = true;
-                            console.log("JPushPlugin:registrationID is-----: " + data);
-                        }
-                    });
+                    __registerJpushId();
                 }
-                if (!$scope.$$phase) {
+                if(!$scope.$$phase) {
                     $scope.$apply();
                 }
             });
@@ -220,7 +206,7 @@ loginModule
                 //alert("  __initJPushPlugin  "+window.plugins.jPushPlugin);
                 try {
                     window.plugins.jPushPlugin.getRegistrationID(function(data){
-                        console.log("JPushPlugin:registrationID is: " + data);
+                        console.log("22222   JPushPlugin:registrationID is: " + data);
                         var tags = [ROOTCONFIG.hempConfig.baseEnvironment];
                         // eg: CATL + 60000051 + deviceId     1114a89792aa79e6ef2
                         var deviceId = ionic.Platform.isIOS ? data : $scope.config.deviceId;

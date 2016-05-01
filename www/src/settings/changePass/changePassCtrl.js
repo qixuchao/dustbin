@@ -13,6 +13,9 @@ settingsModule.controller("ChangePassCtrl", [
 	function($scope, $state, $ionicHistory, $timeout, $interval, $cordovaToast, HttpAppService, SettingsService, worksheetDataService, Prompter, $rootScope){
 
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            if(toState.name == "changePass" || fromState.name=="changePass"){
+            	__initConfig();
+            }
             if(fromState && toState && fromState.name == 'login' && toState.name == 'changePass'){
                 $ionicHistory.clearCache();
                 $ionicHistory.clearHistory();
@@ -33,6 +36,28 @@ settingsModule.controller("ChangePassCtrl", [
             	$scope.config.changeBoxTitle = '修改密码';
             }
         }); 
+
+        function __initConfig(){
+        	$scope.config = {
+        		moduleCode: '', //RESET_PASS 重置密码; CHANGE_PASS: 修改密码   CHANGE_DEVICE:更换设备，重置密码
+				changeBoxTitle: '请修改初始密码',
+				getValidBtnText: '获取验证码',
+				defaultText: '已发送##',
+				isReset: false,
+
+				btnConfirmDisabled: true,
+				btnGetCodeDisabled: true,
+				sendValidCodeOk: false,
+
+				oldPassWord: '',
+				newPassWord: '',
+				newPassWord2: '',
+				cellphone: '',
+				valideCode: '',
+
+				remoteValideCode: null
+        	};
+        }
 		
 		$scope.config = {
 			moduleCode: '', //RESET_PASS 重置密码; CHANGE_PASS: 修改密码   CHANGE_DEVICE:更换设备，重置密码
