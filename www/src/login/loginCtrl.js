@@ -103,6 +103,7 @@ loginModule
                 };//ROOTCONFIG.hempConfig.baseEnvironment
 
                 HttpAppService.noAuthorPost(url, data).success(function (response) {
+                    Prompter.hideLoading();
                     //alert("请求成功："+JSON.stringify(response));
                     if (response.ES_RESULT.ZFLAG == 'E') {
                         //Prompter.showPopupAlert("登录失败","用户名或密码错误");
