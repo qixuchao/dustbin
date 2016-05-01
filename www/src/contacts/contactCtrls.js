@@ -669,8 +669,8 @@ ContactsModule
             }
         }
     }])
-    .controller('contactCreateCtrl',['$scope','$rootScope','$ionicHistory','$state','Prompter','$cordovaDatePicker','customeService','LoginService','saleActService','HttpAppService','$cordovaToast','$ionicModal','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',
-        function($scope,$rootScope,$ionicHistory,$state,Prompter,$cordovaDatePicker,customeService,LoginService,saleActService,HttpAppService,$cordovaToast,$ionicModal,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+    .controller('contactCreateCtrl',['$cordovaDialogs','$scope','$rootScope','$ionicHistory','$state','Prompter','$cordovaDatePicker','customeService','LoginService','saleActService','HttpAppService','$cordovaToast','$ionicModal','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',
+        function($cordovaDialogs,$scope,$rootScope,$ionicHistory,$state,Prompter,$cordovaDatePicker,customeService,LoginService,saleActService,HttpAppService,$cordovaToast,$ionicModal,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
         //初始化数据
         $scope.contactlistvaluesel = [{
             typeId:'1',
@@ -1139,8 +1139,9 @@ ContactsModule
             }
 
             $scope.getCustomerArr = function (search) {
-                $scope.CustomerLoadMoreFlag = false;
+                $scope.isError = false;
                 if (search) {
+                    $scope.customerArr = [];
                     $scope.customerSearch = false;
                     customerPage = 1;
                 } else {
@@ -1154,20 +1155,15 @@ ContactsModule
                     },
                     "IS_SEARCH": {"SEARCH": $scope.input.customer},
                     "IT_IN_ROLE": {
-                        "item1": { "RLTYP": customerType }
+                        "item1": {"RLTYP": customerType}
                     }
                 };
-                console.log(LoginService.getProfileType());
-                console.log(customerType+'客户类型');
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
                             return;
                         }
                         if (response.ES_RESULT.ZFLAG === 'S') {
-                            if (response.ET_OUT_LIST.item.length < 10) {
-                                $scope.CustomerLoadMoreFlag = false;
-                            }
                             if (search) {
                                 $scope.customerArr = response.ET_OUT_LIST.item;
                             } else {
@@ -1176,13 +1172,30 @@ ContactsModule
                             $scope.spinnerFlag = false;
                             $scope.customerSearch = true;
                             $scope.CustomerLoadMoreFlag = true;
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.spinnerFlag = false;
+                                $scope.customerSearch = false;
+                            }
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        }else{
-                            $scope.CustomerLoadMoreFlag = false;
+                            $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                        } else {
+                            $scope.spinnerFlag = false;
+                            $scope.customerSearch = false;
+                            $scope.isError = true;
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
+                    }).error(function (response, status, header, config) {
+                        var respTime = new Date().getTime() - startTime;
+                        Prompter.hideLoading();
+                        //超时之后返回的方法
+                        if(respTime >= config.timeout){
+                            //console.log('HTTP timeout');
+                            if(ionic.Platform.isWebView()){
+                                $cordovaDialogs.alert('请求超时');
+                            }
+                        }
+                        $ionicLoading.hide();
                     });
             };
         $scope.getCustomerArr();
@@ -1283,7 +1296,7 @@ ContactsModule
                    console.log(x);
                     $scope.contactcreat.PARTNER2VALUE = x.NAME_ORG1;
                     $scope.contactcreat.PARTNER2 = x.PARTNER;
-                    console.log(x.PARTNER);
+                    //console.log(x.PARTNER);
 
                     //$scope.create.contact='';
                     //contactPage = 1;
