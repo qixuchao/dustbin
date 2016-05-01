@@ -44,9 +44,6 @@ salesModule
                     case 'ZO04':
                         $scope.saleStages = saleChanService.saleStages.CATL.ESS;
                         break;
-                    default:
-                        $scope.saleStages = [];
-                        break;
                 }
             });
             $scope.create = {
@@ -227,7 +224,8 @@ salesModule
                     "IS_SEARCH": {"SEARCH": $scope.input.customer},
                     "IT_IN_ROLE": {
                         "item1": {"RLTYP": customerType}
-                    }
+                    },
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {

@@ -159,7 +159,7 @@ salesModule.factory('saleActService', function () {
         code: 'Z00004'
     }, {
         text: '服务商',
-        code: 'BUP000'
+        code: 'BBP000'
     }];
     var customerTypeArr_ATL = [{
         text: '正式客户',

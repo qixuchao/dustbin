@@ -18,8 +18,14 @@ salesModule
         'HttpAppService',
         'saleChanService',
         'customeService',
+        'LoginService',
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService) {
+                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService) {
+            //console.log(LoginService.getAuthInfoByFunction('ACTIVITY'))
+            $scope.showCreateFlag = true;
+            if (ionic.Platform.isWebView()) {
+                $scope.showCreateFlag = LoginService.getAuthInfoByFunction('ACTIVITY').CREATE;
+            }
             $scope.saleTitleText = '销售活动';
             $scope.searchFlag = false;
             $scope.input = {search: '', customer: '', list: ''};
@@ -147,7 +153,7 @@ salesModule
                 $scope.hisArr = (storedb('saleActListHisArr').find().arrUniq());
             }
             $scope.filters = saleActService.filters;
-            if(Prompter.isATL()){
+            if (Prompter.isATL()) {
                 $scope.filters.type = saleActService.filterType_ATL;
             }
             var tempFilterArr = angular.copy($scope.filters);
@@ -296,6 +302,9 @@ salesModule
                 $scope.createPop = popover;
             });
             $scope.openCreatePop = function () {
+                if (!$scope.showCreateFlag || !$scope.isCanCreate) {
+                    return
+                }
                 $scope.pop.type = $scope.createPopTypes[0];
                 $scope.salesGroup = [];
                 $scope.creaeSpinnerFlag = true;
@@ -727,11 +736,11 @@ salesModule
                 text: '测试2'
             }];
             $scope.chancePopArr = [{
-                    text: '商机'
-                }, {
-                    text: '线索'
-                }, {
-                    text: '销售活动'
+                text: '商机'
+            }, {
+                text: '线索'
+            }, {
+                text: '销售活动'
             }];
             $scope.selectPopText = '商机';
             $scope.referMoreflag = false;
@@ -1206,7 +1215,7 @@ salesModule
                 $scope.processModal.hide()
             };
             $scope.changeProcessSelectFlag = function (x, type) {
-                if($scope.details.ZFLAG!='X'){
+                if ($scope.details.ZFLAG != 'X') {
                     return
                 }
                 var flag = x.flag;

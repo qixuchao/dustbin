@@ -328,18 +328,142 @@ salesModule.factory('saleChanService', function () {
             confidence: 90
         }]
     };
-    var saleUnits = [{
-        value: 'AH',
-        text: '安时'
-    }, {
+    var saleUnits = [ {
         value: 'KWH',
         text: '千瓦时'
+    },{
+        value: 'GWH',
+        text: '百万千瓦时'
     }, {
         value: 'PCS',
         text: '个、件'
     }, {
+        value: 'AH',
+        text: '安时'
+    },{
         value: 'SET',
         text: '套、台'
+    }];
+    var saleChanceUnits_ATL = [{
+        text:'安时',
+        value:'AH'
+    },{
+        text:'作业单位',
+        value:'AU'
+    },{
+        text:'带',
+        value:'BAG'
+    },{
+        text:'批',
+        value:'BAT'
+    },{
+        text:'本',
+        value:'BEN'
+    },{
+        text:'瓶',
+        value:'BOT'
+    },{
+        text:'罐',
+        value:'CAN'
+    },{
+        text:'箱',
+        value:'CAR'
+    },{
+        text:'盒',
+        value:'CAS'
+    },{
+        text:'人民币',
+        value:'CNY'
+    },{
+        text:'板条箱',
+        value:'CRT'
+    },{
+        text:'案例',
+        value:'CV'
+    },{
+        text:'度',
+        value:'DEG'
+    },{
+        text:'鼓',
+        value:'DR'
+    },{
+        text:'一打',
+        value:'DZ'
+    },{
+        text:'个',
+        value:'EA'
+    },{
+        text:'酶单位/毫升',
+        value:'EML'
+    },{
+        text:'酶单位',
+        value:'EU'
+    },{
+        text:'克 act.ingrd /公升',
+        value:'G\L'
+    },{
+        text:'克 act. ingrd.',
+        value:'GAI'
+    },{
+        text:'黄金克',
+        value:'GAU'
+    },{
+        text:'总',
+        value:'GRO'
+    },{
+        text:'件',
+        value:'JIA'
+    },{
+        text:'千克作用 ingrd.',
+        value:'KAI'
+    },{
+        text:'kg act.ingrd. / kg',
+        value:'KIK'
+    },{
+        text:'毫升 act. ingr.',
+        value:'MLI'
+    },{
+        text:'对/双',
+        value:'PAA'
+    },{
+        text:'包',
+        value:'PAC'
+    },{
+        text:'货盘',
+        value:'PAL'
+    },{
+        text:'件',
+        value:'PC'
+    },{
+        text:'个',
+        value:'PCS'
+    },{
+        text:'片',
+        value:'PIE'
+    },{
+        text:'组比例分配',
+        value:'PRC'
+    },{
+        text:'人员编号',
+        value:'PRS'
+    },{
+        text:'卷',
+        value:'ROL'
+    },{
+        text:'套',
+        value:'SET'
+    },{
+        text:'台',
+        value:'TAI'
+    },{
+        text:'条',
+        value:'TIA'
+    },{
+        text:'数千',
+        value:'TS'
+    },{
+        text:'仅有值的物料',
+        value:'VAL'
     }];
     var relationsTypes = [{
         text: '竞争对手',
@@ -439,6 +563,7 @@ salesModule.factory('saleChanService', function () {
         relationsTypes_ATL,
         saleStages2,
         relationsTypesForAdd_ATL,
-        chanceTypes
+        chanceTypes,
+        saleChanceUnits_ATL
     }
 });

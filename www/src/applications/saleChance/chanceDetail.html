@@ -113,6 +113,15 @@
                             -{{chanceDetails.ZZYQXSLDW?chanceDetails.ZZYQXSLDW:'单位'}}-</div>
                     </div>
                 </div>
+                <div class="row no-padding-right" ng-show="isATL">
+                    <div class="row row-center">
+                        <div class="col col-30 text-left">目标发货量:</div>
+                        <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
+                                                 ng-model="chanceDetails.ZZMBCP"></div>
+                        <div class="col col-30 text-left money" ng-click="openMoneyModal('unit2')">
+                            -{{chanceDetails.ZZFLD00002E?chanceDetails.ZZFLD00002E:'单位'}}-</div>
+                    </div>
+                </div>
             </div>
             <!--相关方-->
             <div id="relativeId" class="relative" ng-if="!select">

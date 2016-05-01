@@ -96,7 +96,7 @@ loginModule
                     "deviceId": $scope.config.deviceId
                 };//ROOTCONFIG.hempConfig.baseEnvironment
 
-                HttpAppService.post(url, data).success(function (response) {
+                HttpAppService.noAuthorPost(url, data).success(function (response) {
                     //alert("请求成功："+JSON.stringify(response));
                     if (response.ES_RESULT.ZFLAG == 'E') {
                         //Prompter.showPopupAlert("登录失败","用户名或密码错误");
@@ -109,6 +109,7 @@ loginModule
                         LoginService.setAuth(response.AUTH);
                         LoginService.setUserName($scope.loginData.username);
                         LoginService.version = response.VERSION;
+                        UTILITIES.setToken(response.TOKEN.pre_token + "" + response.TOKEN.token_key);
                         if (LoginService.getBupaTypeUser() != response.BUPA_TYPE_USER) {
                             LoginService.setBupaTypeUser(response.BUPA_TYPE_USER);
                             LoginService.setLoginerName("");

@@ -18,15 +18,17 @@ salesModule
         'HttpAppService',
         'saleChanService',
         'customeService',
+        'LoginService',
         function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
-                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService) {
+                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService) {
+            $scope.showCreateFlag = true;
+            if (ionic.Platform.isWebView()) {
+                $scope.showCreateFlag = LoginService.getAuthInfoByFunction('ACTIVITY').CREATE;
+            }
             ionicMaterialInk.displayEffect();
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.saleTitleText = '销售机会';
             $scope.sysName = ROOTCONFIG.hempConfig.baseEnvironment;
-            $timeout(function () {
-                ionicMaterialInk.displayEffect();
-            }, 100);
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.searchFlag = false;
             $scope.input = {search: '', list: ''};
@@ -129,6 +131,9 @@ salesModule
                             angular.forEach(response.ET_OPPORT.item, function (data) {
                                 data.status = getStatusObj(data.STATUS);
                             });
+                            $timeout(function () {
+                                ionicMaterialInk.displayEffect();
+                            }, 100);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $scope.saleListArr = $scope.saleListArr.concat(response.ET_OPPORT.item);
                             $ionicScrollDelegate.resize();
@@ -317,6 +322,9 @@ salesModule
                 $scope.createChancePop = popover;
             });
             $scope.openCreateChancePop = function () {
+                if(!$scope.showCreateFlag||!$scope.isCanCreate){
+                    return
+                }
                 $scope.salesChanceGroup = [];
                 $scope.creaeSpinnerFlag = true;
                 var data = {
@@ -434,6 +442,12 @@ salesModule
                 }
                 return {};
             };
+            var getNotDefined = function (obj) {
+                if(angular.isUndefined(obj)){
+                    return "";
+                }
+                return obj;
+            };
             var detailResponse;
             var getDetails = function () {
                 Prompter.showLoading();
@@ -501,12 +515,12 @@ salesModule
                             "PROBABILITY": $scope.chanceDetails.PROBABILITY,
                             "STATUS": $scope.mySelect.status.value,
                             "ZZXMBH": $scope.chanceDetails.ZZXMBH,
-                            "EXP_REVENUE": $scope.chanceDetails.EXP_REVENUE,
+                            "EXP_REVENUE": getNotDefined($scope.chanceDetails.EXP_REVENUE),
                             "CURRENCY": $scope.chanceDetails.CURRENCY,
                             "ZZXSYXL": $scope.chanceDetails.ZZXSYXL,
-                            "ZZYQXSLDW": $scope.chanceDetails.ZZYQXSLDW,
-                            "ZZMBCP": "",
-                            "ZZFLD00002E": "",
+                            "ZZYQXSLDW": getNotDefined($scope.chanceDetails.ZZYQXSLDW),
+                            "ZZMBCP": getNotDefined($scope.chanceDetails.ZZMBCP),
+                            "ZZFLD00002E": getNotDefined($scope.chanceDetails.ZZFLD00002E),
                             "ZTEXT": $scope.chanceDetails.CRM_ORDERH_T
                         },
                         "IS_USER": {"BNAME": window.localStorage.crmUserName},
@@ -657,7 +671,7 @@ salesModule
                 $scope.popover.show($event);
             };
             $scope.savePop = function () {
-                if ($scope.saleStages.indexOf($scope.pop.stage) >= 3&&!Prompter.isATL()) {
+                if ($scope.saleStages.indexOf($scope.pop.stage) >= 3 && !Prompter.isATL()) {
                     if (!$scope.pop.proNum) {
                         Prompter.alert('请输入项目编号');
                         return
@@ -691,8 +705,9 @@ salesModule
             }).then(function (modal) {
                 $scope.moneyTypesModal = modal;
             });
-
+            var moneyModalType;
             $scope.openMoneyModal = function (type) {
+                moneyModalType = type;
                 if (!$scope.isEdit) {
                     return
                 }
@@ -701,17 +716,25 @@ salesModule
                     $scope.moneyTypesArr = saleChanService.getMoneyTypesArr();
                 } else {
                     $scope.unitTitle = '销量单位';
-                    $scope.moneyTypesArr = saleChanService.saleUnits;
+                    if (Prompter.isATL()) {
+                        $scope.moneyTypesArr = saleChanService.saleChanceUnits_ATL;
+                    }
+
                 }
                 $scope.moneyTypesModal.show();
             };
             $scope.selectMoneyType = function (x) {
-                if ($scope.unitTitle == '币种') {
-                    $scope.chanceDetails.CURRENCY = x.value;
-                } else {
-                    $scope.chanceDetails.ZZYQXSLDW = x.value;
+                switch (moneyModalType){
+                    case 'money':
+                        $scope.chanceDetails.CURRENCY = x.value;
+                        break;
+                    case 'unit':
+                        $scope.chanceDetails.ZZYQXSLDW = x.value;
+                        break;
+                    case 'unit2':
+                        $scope.chanceDetails.ZZFLD00002E = x.value;
+                        break;
                 }
-
                 $scope.moneyTypesModal.hide();
             };
             /*-------------------------------币种 end-----------------------------------*/
@@ -735,7 +758,8 @@ salesModule
                         "ITEMS": "10"
                     },
                     "IS_SEARCH": {"SEARCH": $scope.input.customer},
-                    "IT_IN_ROLE": {}
+                    "IT_IN_ROLE": {},
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {
