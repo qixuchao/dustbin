@@ -65,7 +65,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                                 $ionicHistory.clearHistory();
                                 $ionicHistory.clearCache();
                             }, 1000);
-                            $cordovaDialogs.alert('你的账户在另一地点登录','提示','确定');
+                            $cordovaToast.showLongBottom('你的账户在另一地点登录');
                             window.localStorage.crmToken = '';
                             $state.go('login');
                             $ionicLoading.hide();

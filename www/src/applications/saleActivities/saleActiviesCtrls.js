@@ -127,7 +127,7 @@ salesModule
                                 ionicMaterialInk.displayEffect();
                             }, 100);
                             //saleActService.saleListArr = $scope.saleListArr;
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             $scope.loadMoreFlag = false;
                             $scope.saleListNoMoreInfoFLag = true;
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
@@ -326,7 +326,7 @@ salesModule
                             $scope.pop.saleOffice = $scope.salesGroup[0];
                             $scope.createPop.show();
                             //}
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             Prompter.showShortToastBotton('无法创建');
                         }
                     });
