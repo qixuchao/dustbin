@@ -1,8 +1,9 @@
 /**
  * Created by gongke on 2016/3/18.
  */
-
-(function () {
+var ROOTCONFIG;
+var UTILITIES = new Object();
+(function (object) {
     var loadConfigRequest = new XMLHttpRequest();
     loadConfigRequest.open('GET', 'config/ClientConfig.json',false);
     loadConfigRequest.send(null);
@@ -10,8 +11,17 @@
         ROOTCONFIG = JSON.parse(loadConfigRequest.responseText);
         //console.log(typeof (ROOTCONFIG));
     }
-})();
-
+    object.getToken = function () {
+        var token = '-1';
+        if (window.localStorage.token) {
+            token = window.localStorage.token;
+        }
+        return token;
+    };
+    object.setToken = function (token) {
+        window.localStorage.token = token;
+    }
+})(UTILITIES);
 function detectOS() {
     var sUserAgent = navigator.userAgent;
 

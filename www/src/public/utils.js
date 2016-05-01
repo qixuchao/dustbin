@@ -7,7 +7,15 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
         var debug = function (text) {
             $log.debug(procedure + " success");
         };
-        
+        var getToken = function() {
+            var timestamp = new Date().getTime();
+            var token = CryptoJS.MD5(UTILITIES.getToken() + "" + timestamp);
+            return {
+                "token": token,
+                "timestamp": timestamp,
+                "userKey": window.localStorage.crmUserName
+            };
+        };
         var request = {
             isSuccessfull: function (status) {
                 if (status == "S" || status == "SW") {
@@ -18,8 +26,21 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                 }
             },
             noAuthorPost: function (url, paramter) {
-                var noAuthorPost = $http.post(url, paramter).success(function (response) {
-                }).error(function (response, status) {
+                var config = {
+                    timeout: 30000
+                };
+                var startTime = new Date().getTime();
+                var noAuthorPost = $http.post(url, paramter,config).success(function (response) {
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    //超时之后返回的方法
+                    if(respTime >= config.timeout){
+                        console.log('HTTP timeout');
+                        if(ionic.Platform.isWebView()){
+                            $cordovaDialogs.alert('请求超时','提示','确定');
+                        }
+                    }
+                    $ionicLoading.hide();
                 });
                 return noAuthorPost;
             },
@@ -31,9 +52,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
             },
             post: function (url, paramter) {
                 var config = {
-                    headers: {
-                        'Content-Type': 'application/json;charset=UTF-8'
-                    },
+                    headers: getToken(),
                     timeout: 30000
                 };
                 var startTime = new Date().getTime();

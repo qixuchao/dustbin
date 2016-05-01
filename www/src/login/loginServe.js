@@ -96,7 +96,7 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
                     if (objs[i].VIEW == 'TRUE') {
                         returnObj.VIEW = true;
                     }
-                    if (objs[i].CREATE == 'TRUE') { 
+                    if (objs[i].CREATE == 'TRUE') {
                         returnObj.CREATE = true;
                     }
                     return returnObj;

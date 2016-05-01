@@ -6,8 +6,8 @@
                         class="ion-chevron-left"></i></a>
 
                 <div class="col col-60 text-center">{{saleTitleText}}</div>
-                <div class="col col-20 add button-clear button preVentScrollTop" ng-disabled="!isCanCreate" ng-click="openCreatePop($event)">
-                    <img src="img/saleList/add.png" ng-if="!creaeSpinnerFlag&&isCanCreate">
+                <div class="col col-20 add button-clear button preVentScrollTop"  ng-click="openCreatePop($event)">
+                    <img src="img/saleList/add.png" ng-if="!creaeSpinnerFlag&&isCanCreate&&showCreateFlag">
                     <ion-spinner class="mySpinner" icon="ios" ng-if="creaeSpinnerFlag"></ion-spinner>
                 </div>
             </div>

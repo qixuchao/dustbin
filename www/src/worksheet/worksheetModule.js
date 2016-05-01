@@ -193,6 +193,7 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
         },
         goWhere : {
             go : '',
+            cun : '',
             back :''
         },
         //产品

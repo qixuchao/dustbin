@@ -418,8 +418,8 @@ employeeModule
         }
 
     }])
-    .controller('customerListCtrl',['Prompter','$scope','$rootScope','$state','$cordovaToast','$ionicModal','HttpAppService','saleActService','$ionicScrollDelegate','ionicMaterialInk','employeeService',
-        function(Prompter,$scope,$rootScope,$state,$cordovaToast,$ionicModal,HttpAppService,saleActService,$ionicScrollDelegate,ionicMaterialInk,employeeService){
+    .controller('customerListCtrl',['LoginService','Prompter','$scope','$rootScope','$state','$cordovaToast','$ionicModal','HttpAppService','saleActService','$ionicScrollDelegate','ionicMaterialInk','employeeService',
+        function(LoginService,Prompter,$scope,$rootScope,$state,$cordovaToast,$ionicModal,HttpAppService,saleActService,$ionicScrollDelegate,ionicMaterialInk,employeeService){
         ionicMaterialInk.displayEffect();
         //console.log(employeeService.get_employeecustomerlist());
         $scope.employcustomerlist = new Array;
@@ -435,47 +435,80 @@ employeeModule
         //增加客戶
         //选择客户
 
-        var customerPage = 1;
-        $scope.customerArr = [];
-        $scope.customerSearch = false;
-        $scope.getCustomerArr = function (search) {
-            $scope.CustomerLoadMoreFlag = false;
-            if (search) {
-                $scope.customerSearch = false;
-                customerPage = 1;
-            } else {
-                $scope.spinnerFlag = true;
-            }
-            var data = {
-                "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                "IS_PAGE": {
-                    "CURRPAGE": customerPage++,
-                    "ITEMS": "10"
-                },
-                "IS_SEARCH": {"SEARCH": search},
-                "IT_IN_ROLE": {}
-            };
-            HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
-                .success(function (response) {
-                    if (response.ES_RESULT.ZFLAG === 'S') {
-                        if (response.ET_OUT_LIST.item.length < 10) {
-                            $scope.CustomerLoadMoreFlag = false;
-                        }
-                        if (search) {
-                            $scope.customerArr = response.ET_OUT_LIST.item;
-                        } else {
-                            $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
-                        }
-                        $scope.spinnerFlag = false;
-                        $scope.customerSearch = true;
-                        $scope.CustomerLoadMoreFlag = true;
-                        $ionicScrollDelegate.resize();
-                        //saleActService.customerArr = $scope.customerArr;
-                        $rootScope.$broadcast('scroll.infiniteScrollComplete');
+            var customerPage = 1;
+            $scope.customerArr = [];
+            $scope.customerSearch = false;
+            $scope.input = {customer:''};
+            var customerType = "";
+            $scope.showFlag=false;
+                if(LoginService.getProfileType()=="APP_SALE"){
+                    $scope.showFlag=false;
+                }
+                if(LoginService.getProfileType()=="APP_SERVICE"){
+                    $scope.showFlag=true;
+                }
+            customerType='Z00004';
+            $scope.getCustomerArr = function (search) {
+                $scope.isError = false;
+                if (search) {
+                    $scope.customerArr = [];
+                    $scope.customerSearch = false;
+                    customerPage = 1;
+                } else {
+                    $scope.spinnerFlag = true;
+                }
+                var data = {
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_PAGE": {
+                        "CURRPAGE": customerPage++,
+                        "ITEMS": "10"
+                    },
+                    "IS_SEARCH": {"SEARCH": $scope.input.customer},
+                    "IT_IN_ROLE": {
+                        "item1": {"RLTYP": customerType}
                     }
-                });
-        };
-        $scope.getCustomerArr();
+                };
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
+                    .success(function (response, status, headers, config) {
+                        if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
+                            return;
+                        }
+                        if (response.ES_RESULT.ZFLAG === 'S') {
+                            if (search) {
+                                $scope.customerArr = response.ET_OUT_LIST.item;
+                            } else {
+                                $scope.customerArr = $scope.customerArr.concat(response.ET_OUT_LIST.item);
+                            }
+                            $scope.spinnerFlag = false;
+                            $scope.customerSearch = true;
+                            $scope.CustomerLoadMoreFlag = true;
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.spinnerFlag = false;
+                                $scope.customerSearch = false;
+                            }
+                            $ionicScrollDelegate.resize();
+                            //saleActService.customerArr = $scope.customerArr;
+                            $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                        } else {
+                            $scope.spinnerFlag = false;
+                            $scope.customerSearch = false;
+                            $scope.isError = true;
+                            Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
+                        }
+                    }).error(function (response, status, header, config) {
+                        var respTime = new Date().getTime() - startTime;
+                        Prompter.hideLoading();
+                        //超时之后返回的方法
+                        if(respTime >= config.timeout){
+                            //console.log('HTTP timeout');
+                            if(ionic.Platform.isWebView()){
+                                $cordovaDialogs.alert('信息提示：','请求超时');
+                            }
+                        }
+                        $ionicLoading.hide();
+                    });
+            };
+            $scope.getCustomerArr();
 
         //选择客户
         $ionicModal.fromTemplateUrl('src/applications/saleActivities/modal/selectCustomer_Modal.html', {
@@ -485,8 +518,7 @@ employeeModule
         }).then(function (modal) {
             $scope.selectCustomerModal = modal;
         });
-        $scope.customerModalArr = saleActService.getCustomerTypes();
-        $scope.selectCustomerText = '竞争对手';
+        $scope.customerModalArr = saleActService.getServiceCustomer();
         $scope.employeeselectCustomer = function () {
             $scope.isDropShow = true;
             $scope.customerSearch = true;
@@ -495,8 +527,11 @@ employeeModule
         $scope.closeSelectCustomer = function () {
             $scope.selectCustomerModal.hide();
         };
+        $scope.selectCustomerText="潜在客户";
         $scope.selectPop = function (x) {
             $scope.selectCustomerText = x.text;
+            customerType = x.code;
+            $scope.getCustomerArr('search');
             $scope.referMoreflag = !$scope.referMoreflag;
         };
         $scope.changeReferMoreflag = function () {

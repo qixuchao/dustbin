@@ -877,7 +877,7 @@ ContactsModule
             data.IS_CUSTOMER.ZZBYYX=$scope.contactcreat.ZZBYYX;
             data.IS_CUSTOMER.ZZJX=$scope.contactcreat.ZZJX;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.POST_CODE1;
-            data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactcreat.HOUOST_NUM1;
+            data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactcreat.HOUSE_NUM1;
             data.IS_CUSTOMER.STREET = $scope.contactcreat.STREET;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactcreat.TEL_NUMBER;
             data.IS_CUSTOMER.TEL_EXTENS = $scope.contactcreat.TEL_EXTENS;
@@ -1154,6 +1154,7 @@ ContactsModule
                         "ITEMS": "10"
                     },
                     "IS_SEARCH": {"SEARCH": $scope.input.customer},
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                     "IT_IN_ROLE": {
                         "item1": {"RLTYP": customerType}
                     }

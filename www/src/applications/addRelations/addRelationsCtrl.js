@@ -139,7 +139,8 @@ salesModule
                         "IS_SEARCH": {"SEARCH": $scope.input.relation},
                         "IT_IN_ROLE": {
                             "item1": {"RLTYP": rltyp}
-                        }
+                        },
+                        "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
                     };
                 } else {
                     var data = {
@@ -149,7 +150,8 @@ salesModule
                             "ITEMS": "10"
                         },
                         "IS_SEARCH": {"SEARCH": $scope.input.relation},
-                        "IT_IN_ROLE": {}
+                        "IT_IN_ROLE": {},
+                        "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
                     };
                 }
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)

@@ -436,7 +436,7 @@ mainModule
                 if (todayTemp == 0) {
                     // xueboren change this line.
                     //todayTemp = 6;
-                    todayTemp = 5;
+                    todayTemp = 6;
                 } else {
                     todayTemp = todayTemp - 1;
                 }
@@ -797,7 +797,7 @@ mainModule
                             Prompter.alert('请求超时', '提示', '确定');
                         }
                     }
-                    $ionicLoading.hide();
+                    Prompter.hideLoading();
                 });
             };
             var profile;
