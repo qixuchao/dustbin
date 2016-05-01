@@ -3,7 +3,7 @@
         <ion-header-bar align-title="center" class="head pub-head ">
             <div class="row row-center">
                 <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-60 text-center">产品信息</div>
+                <div class="col col-60 text-center">物料清单</div>
                 <div class="col col-20 text-right" ng-click="addPro()">确定</div>
             </div>
         </ion-header-bar>
@@ -12,7 +12,7 @@
         <div class="search3">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
-            <input type="text" placeholder="输入产品信息" ng-model="spareInfo"  ng-change="initLoad()">
+            <input type="text" placeholder="输入物料信息" ng-model="spareInfo"  ng-change="initLoad()">
         </div>
     </ion-header-bar>
     <ion-content has-bouncing="true" class="has-header search " ng-show="true" >
