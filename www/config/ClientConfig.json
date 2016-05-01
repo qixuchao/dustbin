@@ -2,6 +2,6 @@
   "hempConfig": {
 	"basePath":"http://117.28.248.23:9388/test/api/CRMAPP/",
 
-	"baseEnvironment": "ATL"
+	"baseEnvironment": "CATL"
   }
 }
