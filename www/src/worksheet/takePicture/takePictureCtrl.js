@@ -98,6 +98,10 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				deletedError: false,
 				deletedOk: false,
 
+				isSaving: false,
+				isSaved: false,
+				saveTip: '',
+
 				uploading: false,
 				uploadOk: false,
 				uploadError: false,
@@ -295,28 +299,51 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			__deleteImageInServer(item, item.position);
 		};
 
-		$scope.saveThisImage = function(item){ 
-			/*console.log("$scope.saveThisImage:   "+item.position);
+		$scope.saveThisImage = function(item){
+			if(item.isSaved){
+				$cordovaToast.showShortBottom("该图片已保存过! "+item.position);
+				return;
+			}
+			item.isSaving = true;
+			item.saveTip = "正在保存...";
+			item.isSaved = true;
+			var imageDataUrl = "";
+			
+			console.log("$scope.saveThisImage:   "+item.position);
 			var imgJQ = angular.element("#crm-pictures-"+item.position);//#takepicture-content
-			var imeEle = imgJQ[0];
+			var imgEle = imgJQ[0];
+			/*if(imgEle.src.startsWith("http")){
+				imageDataUrl = imgEle.src;
+			}else{
+			}*/
 			var canvas = document.createElement('canvas');
 			canvas.width = imgEle.width;
 			canvas.height = imgEle.height;
 			var context = canvas.getContext('2d');
-        	context.drawImage(imeEle, 0, 0);
-        	var imageDataUrl = canvas.toDataURL('image/jpeg', 1.0);
-        	imageDataUrl = imageDataUrl.replace(/data:image\/jpeg;base64,/, '');
+        	context.drawImage(imgEle, 0, 0);
+        	imageDataUrl = canvas.toDataURL('image/jpeg', 1.0);
+			imageDataUrl = imageDataUrl.replace(/data:image\/jpeg;base64,/, '');
 
 			window.canvas2ImagePlugin.saveImageDataToLibrary(
 		        function(msg){
 		            console.log(msg);
+		            item.isSaving = false;
+					item.saveTip = "已保存成功!";
+					item.isSaved = true;
+		            $cordovaToast.showShortBottom("已经保存成功! "+item.position);
 		        },
 		        function(err){
 		            console.log(err);
+		            item.isSaving = false;
+					item.saveTip = "保存失败!";
+					item.isSaved = false;
+					$timeout(function(){
+						item.saveTip = "重新保存";
+					});
 		        },
 		        canvas
 		    );
-			$cordovaToast.showShortBottom("已经保存成功! "+item.position);*/
+			
 		};
 
 

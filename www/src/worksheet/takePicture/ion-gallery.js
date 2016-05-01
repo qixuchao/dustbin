@@ -6,7 +6,7 @@
     .directive('ionGallery', ionGallery);
 
   ionGallery.$inject = ['$ionicPlatform', 'ionGalleryHelper', 'ionGalleryConfig'];
-
+  
   function ionGallery($ionicPlatform, ionGalleryHelper, ionGalleryConfig) {
     controller.$inject = ["$scope"];
     return {

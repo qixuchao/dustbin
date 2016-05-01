@@ -7,31 +7,10 @@ loginModule
         '$ionicHistory', 'LoginService','Prompter','$cordovaToast',
         'HttpAppService','$scope','$state','ionicMaterialInk',
         '$ionicLoading','$timeout','$ionicPlatform',
-        function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading,$timeout, $ionicPlatform){
+        '$rootScope',
+        function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading,$timeout, $ionicPlatform, $rootScope){
             
-            $scope.saveThisImage = function(item){
-                console.log("$scope.saveThisImage:   "+item.position);
-                var imgJQ = angular.element("#xbr-test");//#takepicture-content
-                var imeEle = imgJQ[0];
-                var canvas = document.createElement('canvas');
-                canvas.width = imgEle.width;
-                canvas.height = imgEle.height;
-                var context = canvas.getContext('2d');
-                context.drawImage(imeEle, 0, 0);
-                var imageDataUrl = canvas.toDataURL('image/jpeg', 1.0);
-                imageDataUrl = imageDataUrl.replace(/data:image\/jpeg;base64,/, '');
-
-                window.canvas2ImagePlugin.saveImageDataToLibrary(
-                    function(msg){
-                        console.log(msg);
-                    },
-                    function(err){
-                        console.log(err);
-                    },
-                    canvas
-                );
-                $cordovaToast.showShortBottom("已经保存成功! "+item.position);
-            };
+            
 
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
                 if(toState && toState.name == 'login'){
@@ -83,7 +62,9 @@ loginModule
             };
             $scope.watchloginvalue('username');
             $scope.watchloginvalue('password');
-
+            // alert(JSON.stringify(ionic.Platform.platforms));
+            // alert(JSON.stringify(ionic.Platform.platform()));
+            // alert(JSON.stringify(ionic.Platform.isWebView()));
             //监听password
             $scope.deletepass = function () {
                 $scope.loginData.password = "";
@@ -105,11 +86,36 @@ loginModule
                     })
                 }
             });
+            $scope.saveThisImage = function(){
+                console.log("$scope.saveThisImage:   ");
+                var imgJQ = angular.element("#xbr-test");//#takepicture-content
+                var imgEle = imgJQ[0];
+                var canvas = document.createElement('canvas');
+                canvas.width = imgEle.width;
+                canvas.height = imgEle.height;
+                var context = canvas.getContext('2d');
+                context.drawImage(imgEle, 0, 0);
+                var imageDataUrl = canvas.toDataURL('image/jpeg', 1.0);
+                console.log(imageDataUrl);
+                imageDataUrl = imageDataUrl.replace(/data:image\/jpeg;base64,/, '');
+                console.log(imageDataUrl);
+                console.log(window.canvas2ImagePlugin);
+                console.log(window.canvas2ImagePlugin.saveImageDataToLibrary);
+                window.canvas2ImagePlugin.saveImageDataToLibrary(
+                    function(msg){
+                        console.log(msg);
+                    },
+                    function(err){
+                        console.log(err);
+                    },
+                    canvas
+                );
+            };
             //var userName = "HANDLCX02";
             var userPassword = $scope.loginData.password;
             $scope.login = function () {
-                /*$scope.saveThisImage();
-                return;*/
+                // $scope.saveThisImage();
+                // return;
                 Prompter.showLoading();
                 //http://117.28.248.23:9388/test/api/bty/login
                 //var url = ROOTCONFIG.hempConfig.LoginUrl; //"http://117.28.248.23:9388/test/api/bty/login";
@@ -118,10 +124,10 @@ loginModule
                     "username": $scope.loginData.username,
                     "password": $scope.loginData.password,
                     "system": ROOTCONFIG.hempConfig.baseEnvironment,
-                    "platform": ionic.Platform.platform(),
+                    "platform": ionic.Platform.isWebView() ? ionic.Platform.platform() : 'browser',
                     "deviceId": $scope.config.deviceId
                 };//ROOTCONFIG.hempConfig.baseEnvironment
-                
+
                 HttpAppService.post(url, data).success(function (response) {
                     //alert("请求成功："+JSON.stringify(response));
                     if (response.ES_RESULT.ZFLAG == 'E') {
@@ -148,8 +154,9 @@ loginModule
                           if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL"){
                                 __initJPushPlugin();
                           }
-                          if(response.FIRST_LOGIN == "Y"){
+                          if(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D"){
                             $state.go('changePass');
+                            $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
                           }else{
                             $state.go('tabs', {}, {location:"replace", reload:"true"});
                           }
@@ -181,15 +188,26 @@ loginModule
                 $ionicLoading.hide();
             };
 
-
-
+            
             $ionicPlatform.ready(function () {
+                //如果是android则使用 device插件获取deviceId
+                if(ionic.Platform.isAndroid()){
+                    if(!window.localStorage.deviceId || window.localStorage.deviceId==null || window.localStorage.deviceId==""){
+                        window.localStorage.deviceId = window.device ? window.device.uuid : undefined;
+                    }
+                    $scope.config.deviceId = window.localStorage.deviceId;
+                    $scope.config.deviceIdOk = false;
+                }
+                //如果是ios则使用 jpush插件获取deviceId
                 if(window.plugins && window.plugins.jPushPlugin){
                     window.plugins.jPushPlugin.init();
                     window.plugins.jPushPlugin.getRegistrationID(function(data){
-                        $scope.config.deviceId = data;
-                        $scope.config.deviceIdOk = true;
-                        console.log("JPushPlugin:registrationID is-----: " + data);
+                        if(ionic.Platform.isIOS()){
+                            window.localStorage.deviceId = data;
+                            $scope.config.deviceId = data;
+                            $scope.config.deviceIdOk = true;
+                            console.log("JPushPlugin:registrationID is-----: " + data);
+                        }
                     });
                 }
                 if (!$scope.$$phase) {
@@ -205,7 +223,8 @@ loginModule
                         console.log("JPushPlugin:registrationID is: " + data);
                         var tags = [ROOTCONFIG.hempConfig.baseEnvironment];
                         // eg: CATL + 60000051 + deviceId     1114a89792aa79e6ef2
-                        var alias = ROOTCONFIG.hempConfig.baseEnvironment+ LoginService.getUserName() + data;// + $scope.config.deviceId;
+                        var deviceId = ionic.Platform.isIOS ? data : $scope.config.deviceId;
+                        var alias = ROOTCONFIG.hempConfig.baseEnvironment+ LoginService.getUserName() + deviceId;// + $scope.config.deviceId;
                         //alert(tags);
                         //alert(alias);
                         console.log("setTagsWithAlias:   tags:"+tags+"    alias:"+alias);

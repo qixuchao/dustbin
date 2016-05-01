@@ -9,7 +9,8 @@ settingsModule.controller("ChangePassCtrl", [
 	'SettingsService',
 	'worksheetDataService',
 	'Prompter',
-	function($scope, $state, $ionicHistory, $timeout, $interval, $cordovaToast, HttpAppService, SettingsService, worksheetDataService, Prompter){
+	'$rootScope',
+	function($scope, $state, $ionicHistory, $timeout, $interval, $cordovaToast, HttpAppService, SettingsService, worksheetDataService, Prompter, $rootScope){
 
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState && toState && fromState.name == 'login' && toState.name == 'changePass'){
@@ -17,9 +18,15 @@ settingsModule.controller("ChangePassCtrl", [
                 $ionicHistory.clearHistory();
             }
             if(toState.name == 'changePass' && fromState && fromState.name=='login'){
-            	$scope.config.moduleCode = 'RESET_PASS';
-            	$scope.config.changeBoxTitle = '请修改初始密码';
-            	$scope.config.isReset = true;
+            	if($rootScope.FIRST_LOGIN == "Y"){
+            		$scope.config.moduleCode = 'RESET_PASS';
+	            	$scope.config.changeBoxTitle = '请修改初始密码';
+	            	$scope.config.isReset = true;
+            	}else if($rootScope.FIRST_LOGIN == "D"){
+            		$scope.config.moduleCode = 'CHANGE_DEVICE';
+	            	$scope.config.changeBoxTitle = '设备已更换,请重置密码';
+	            	$scope.config.isReset = true;
+            	}
             }
             if(toState.name == 'changePass' && fromState && fromState.name=='tabs'){
             	$scope.config.moduleCode = 'CHANGE_PASS';
@@ -28,7 +35,7 @@ settingsModule.controller("ChangePassCtrl", [
         }); 
 		
 		$scope.config = {
-			moduleCode: '', //RESET_PASS 重置密码; CHANGE_PASS: 修改密码
+			moduleCode: '', //RESET_PASS 重置密码; CHANGE_PASS: 修改密码   CHANGE_DEVICE:更换设备，重置密码
 			changeBoxTitle: '请修改初始密码',
 			getValidBtnText: '获取验证码',
 			defaultText: '已发送##',
@@ -81,7 +88,8 @@ settingsModule.controller("ChangePassCtrl", [
 			$scope.config.getValidBtnText = "正在获取...";
 			$scope.config.btnGetCodeDisabled = true;
 			start = 0;
-			__requestGetCheckCode("RESET_PASS");
+			//__requestGetCheckCode("RESET_PASS");
+			__requestGetCheckCode($scope.config.moduleCode);
 			//已发送成功
 			/*automaticTimeout = $timeout(function(){
 				intervalPromise = $interval(__automatic, 1000, total+2);
@@ -123,7 +131,7 @@ settingsModule.controller("ChangePassCtrl", [
 				intervalPromise = undefined;
 			}
 	    });
-		
+
 	    function __requestChangePass(){
 	    	var queryParams = {
 			    userName: worksheetDataService.getStoredByKey("userName"),
@@ -149,6 +157,7 @@ settingsModule.controller("ChangePassCtrl", [
 	        		$timeout(function(){
 	        			$state.go("tabs");
 	        		}, 1000);
+	        		window.localStorage.crmUserPassword = '';
 	        	}else{
 	        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 1000);
 	        	}
@@ -163,15 +172,16 @@ settingsModule.controller("ChangePassCtrl", [
 			    userName: worksheetDataService.getStoredByKey("userName"),
 			    newPassword: $scope.config.newPassWord,
 			    newPassword2: $scope.config.newPassWord2,
-			    moduleCode: 'RESET_PASS',
+			    moduleCode: $scope.config.moduleCode, // 'RESET_PASS',
 			    checkcode: $scope.config.valideCode,
-			    system: worksheetDataService.getStoredByKey("sysName")
+			    system: worksheetDataService.getStoredByKey("sysName"),
+			    platform: ionic.Platform.isWebView() ? ionic.Platform.platform() : 'browser',
+                deviceId: window.localStorage.deviceId
 			};
 	        //var promise = HttpAppService.post(worksheetHttpService.imageInfos.listUrl,queryParams);
 	        var promise = HttpAppService.post(SettingsService.resetPwd.url,queryParams);
 	        
 	        Prompter.showLoading("正在重置密码");
-
 
 	        promise.success(function(response){
 	        	//Prompter.hideLoading();
@@ -180,6 +190,7 @@ settingsModule.controller("ChangePassCtrl", [
 	        		$timeout(function(){
 	        			$state.go("tabs");
 	        		}, 1500);
+	        		window.localStorage.crmUserPassword = '';
 	        	}else{
 	        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 	        	}
@@ -212,7 +223,7 @@ settingsModule.controller("ChangePassCtrl", [
 	        	}
 	        	intervalPromise = $interval(__automatic, 1000, total+2);
 				intervalPromise.then(function(){
-					$scope.config.getValidBtnText = "获取验证码";
+					$scope.config.getValidBtnText = "重新获取";
 					$scope.config.btnGetCodeDisabled = false;
 				}, 1000);
 				$scope.config.remoteValideCode = "1234";

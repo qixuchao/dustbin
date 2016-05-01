@@ -5,6 +5,18 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <meta name="format-detection" content="telephone=no">
     <title></title>
+    <script>
+        document.addEventListener("deviceready", deviceReadyInitPlugins, false);
+        function deviceReadyInitPlugins() {
+            if(navigator.splashscreen && navigator.splashscreen.hide){
+                console.log("----- splashscreen ----- hide start");
+                navigator.splashscreen.hide();
+                navigator.splashscreen.hide();
+                navigator.splashscreen.hide();
+                console.log("----- splashscreen ----- hide end");
+            }
+        }
+    </script>
 	
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="src/worksheet/takePicture/ionGallery.css">
@@ -13,7 +25,7 @@
     <link href="css/col.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/dev/CRMApp.css"/>
     <!--link rel="stylesheet" href="css/animate.css"/-->
-
+    
     <!--end-->
     <script src="scripts/jquery-1.9.1.min.js"></script>
     <script src="lib/ionic/js/ionic.bundle.js"></script>
