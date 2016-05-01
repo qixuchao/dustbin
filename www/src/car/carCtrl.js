@@ -308,6 +308,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
             var data =
             {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "IS_USER": { "BNAME": window.localStorage.crmUserName},
                 "IT_VEHICLID": { "ZZ0010": codeId }
             };
 
