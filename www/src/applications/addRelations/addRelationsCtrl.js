@@ -106,7 +106,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        } else {
+                        } else if{
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                             $scope.relationSpinnerFlag = false;
                             $scope.relationSearch = false;
