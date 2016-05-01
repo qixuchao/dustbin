@@ -53,7 +53,10 @@
                 </div>
                 <div class="loadMore" ng-click="getCustomerArr()" ng-if="customerSearch&&!spinnerFlag">
                     <span>点击加载更多...</span></div>
-                <div class="loadMore" ng-click="getCustomerArr()" ng-if="spinnerFlag">
+                <div class="loadMore" ng-hide="customerSearch">
+                    <span>无更多数据显示...</span>
+                </div>
+                    <div class="loadMore" ng-click="getCustomerArr()" ng-if="spinnerFlag">
                     <ion-spinner icon="ios" ng-if="customerArr.length>0"></ion-spinner>
                 </div>
             </ion-scroll>

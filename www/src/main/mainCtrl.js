@@ -624,6 +624,9 @@ mainModule
             /*-------------------------------------------日历 end-------------------------------------------*/
 
             var getWeekMarkDays = function (days) {
+                if($scope.role == 'APP_SERVICE'){
+                    return
+                }
                 Prompter.showLoading();
                 var startTemp, endTemp, monthTemp, isContinueFlag = isContinue(days.arr), yearTemp = days.year;
                 //判断是否连续
@@ -682,6 +685,9 @@ mainModule
                     })
             };
             var getMonthMarkDays = function (monthArr) {
+                if($scope.role == 'APP_SERVICE'){
+                    return
+                }
                 Prompter.showLoading();
                 var data = {
                     "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
