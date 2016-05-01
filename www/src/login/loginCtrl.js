@@ -11,7 +11,7 @@ loginModule
         function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading,$timeout, $ionicPlatform, $rootScope){
             
             
-
+            
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
                 if(toState && toState.name == 'login'){
                     $ionicHistory.clearCache();
@@ -86,7 +86,7 @@ loginModule
                     })
                 }
             });
-
+            
             //var userName = "HANDLCX02";
             var userPassword = $scope.loginData.password;
             $scope.login = function () {
@@ -148,7 +148,7 @@ loginModule
                 //};
                 //$state.go('tabs')
             };
-
+            
             $scope.show = function () {
                 $ionicLoading.show({
                     template: '<ion-spinner icon="bubbles" class="spinner-balanced"></ion-spinner>'
@@ -160,13 +160,13 @@ loginModule
             $scope.hide = function () {
                 $ionicLoading.hide();
             };
-
-
+            
+            
             var  times__registerJpushId = 10;
             function __registerJpushId(){
                 times__registerJpushId--;
                 window.plugins.jPushPlugin.getRegistrationID(function(data){
-                    alert("getRegistrationID   id: "+data);
+                    //alert("getRegistrationID   id: "+data);
                     if(angular.isUndefined(data) || data == null || data == ""){
                         if(times__registerJpushId > 0){
                             __registerJpushId();
