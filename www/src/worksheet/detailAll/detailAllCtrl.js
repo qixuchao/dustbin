@@ -28,7 +28,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
         	$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
 	            if(fromState && fromState.name == 'worksheetDetail' && toState && toState.name == "worksheetEdit"){
-	                if(window.event && window.event.type == "popstate"){
+	                /*if(window.event && window.event.type == "popstate"){
 	                	if($scope.config.__popstateFlag){
 		                    $scope.config.__popstateFlag = false;
 		                }else{
@@ -36,10 +36,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		                    $scope.config.__popstateFlag = true;
 		                    $scope.goBack();
 		                }
-	                }
+	                }*/
 	            }
 	            if(fromState && fromState.name == 'worksheetDetail' && toState && toState.name == "worksheetTakePicture"){
-	                if(window.event && window.event.type == "popstate"){
+	                /*if(window.event && window.event.type == "popstate"){
 	                	if($scope.config.__popstateFlag){
 		                    $scope.config.__popstateFlag = false;
 		                }else{
@@ -47,7 +47,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		                    $scope.config.__popstateFlag = true;
 		                    $scope.goBack();
 		                }
-	                }
+	                }*/
 	            }
 	        });
 
@@ -710,6 +710,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                 }
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                     "IS_PAGE": {
                         "CURRPAGE": customerPage++,
                         "ITEMS": "10"

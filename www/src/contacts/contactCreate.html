@@ -24,11 +24,11 @@
                     </div>
                 </div>
             </span>
-              <span class="item item-input">部门：
+              <span class="item item-input" ng-show="!showFlag">部门：
                 <input type="text" style="margin-left: 32px;" id="contcreapartment" placeholder="请输入部门" class="contact_editinputsty" ng-model="contactcreat.DPRTMNT">
                 <img id="contcreapartmentimg" class="contacts_editlistimg" ng-if="contactcreat.DPRTMNT" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('DPRTMNT')"/>
             </span>
-                <span class="item item-input">职能：
+                <span class="item item-input" ng-show="!showFlag">职能：
                 <input type="text" style="margin-left: 32px;" id="contcreaatend" placeholder="请输入职能" class="contact_editinputsty" ng-model="contactcreat.FNCTN">
                 <img id="contcreaatendimg" class="contacts_editlistimg" ng-if="contactcreat.FNCTN" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('FNCTN')"/>
             </span>
@@ -93,11 +93,7 @@
                     </div>
                 </div>
             </div>
-           <span class="item item-input" ng-show="showFlag">邮编：
-                <input type="text" style="margin-left: 32px;" id="contcreapostm" placeholder="请输入部门邮编" class="contact_editinputsty"  ng-model="contactcreat.POST_CODE1">
-                <img id="contcreapostmimg" class="contacts_editlistimg" ng-if="contactcreat.POST_CODE1" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('POST_CODE1')"/>
-            </span>
-            <span class="item item-input">家乡：
+            <span class="item item-input" ng-show="!showFlag">家乡：
                 <input type="text" id="jiaxiang" placeholder="请输入部门邮编" class="contact_editinputsty" style="margin-left: 32px;" ng-model="contactcreat.ZZJX">
                 <img id="contpostmimg1" class="contacts_editlistimg" src="img/contact/delete@2x.png" ng-if="contactcreat.ZZJX" ng-click="contactCreateDeletevalue('ZZJX')"/>
             </span>
@@ -109,6 +105,10 @@
             <span class="item item-input" ng-show="showFlag">门牌号：
                 <input type="text" style="margin-left: 15px;" id="contcreateaddressname2" class="contact_editinputsty" placeholder="请输入门牌号" ng-model="contactcreat.HOUSE_NUM1">
                 <img id="contcreaaddressnameimg2" class="contacts_editlistimg" ng-if="contactcreat.HOUSE_NUM1" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('HOUSE_NUM1')"/>
+            </span>
+             <span class="item item-input" ng-show="showFlag">邮编：
+                <input type="text" style="margin-left: 32px;" id="contcreapostm" placeholder="请输入部门邮编" class="contact_editinputsty"  ng-model="contactcreat.POST_CODE1">
+                <img id="contcreapostmimg" class="contacts_editlistimg" ng-if="contactcreat.POST_CODE1" src="img/contact/delete@2x.png" ng-click="contactCreateDeletevalue('POST_CODE1')"/>
             </span>
             <span class="item item-input">语言：
                 <select style="width: 65%;margin-left: 60px;color:#9B9B9B; background:none;border: none;padding-right: 4px;height: 40px;"  ng-model="config.currentLanguage" ng-options="a.typeId as a.name for a in contactlistvaluesel">

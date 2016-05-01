@@ -100,7 +100,7 @@ ContactsModule
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
             HttpAppService.post(url, data).success(function (response) {
-                console.log($scope.config.contactfiledvalue);
+                //console.log($scope.config.contactfiledvalue);
                 //console.log(angular.toJson(response.ET_EMPLOYEE));
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.contactisshow = false;
@@ -124,7 +124,7 @@ ContactsModule
                                     if($scope.config.contactfiledvalue===""){
                                         $scope.contact_query_list=new Array;
                                         $scope.contactisshow=false;
-                                        console.log($scope.contactisshow);
+                                        //console.log($scope.contactisshow);
                                     }else{
                                         $scope.contact_query_list.push(value);
                                     }
@@ -189,7 +189,7 @@ ContactsModule
                 $scope.searchFlag=true;
             };
             $rootScope.$on('contactBack',function(event, data) {
-                console.log("接收成功" + data);
+                //console.log("接收成功" + data);
                 $scope.searchFlag = data;
                 $scope.config.contactfiledvalue = "";
                 $scope.cancelSearch();
@@ -374,7 +374,7 @@ ContactsModule
 
         //拨打电话手机
         $scope.conatct_querynumber = function(data){
-            console.log(data);
+            //console.log(data);
             if(data.TEL_NUMBER == undefined && data.MOB_NUMBER == undefind){
                 $cordovaToast.showShortBottom('没有数据');
             }else{
@@ -387,7 +387,7 @@ ContactsModule
                     number.push({text:data.MOB_NUMBER});
                     //console.log(data.MOB_NUMBER);
                 }
-                console.log(angular.toJson(number));
+                //console.log(angular.toJson(number));
                 $ionicActionSheet.show({
                     buttons:number,
                     titleText: '拨打电话',
@@ -533,7 +533,7 @@ ContactsModule
             }
         };
        //获取数据
-            console.log(contactService.get_ContactsListvalue()+"ccc");
+       //     console.log(contactService.get_ContactsListvalue()+"ccc");
         Prompter.showLoading("数据加载中...");
         var loadData=function() {
             var url = ROOTCONFIG.hempConfig.basePath + 'CONTACT_DETAIL';
@@ -544,7 +544,7 @@ ContactsModule
                 //contactService.get_ContactsListvalue()
                 //"IS_PARTNER": { "PARTNER":'6000000385'}
             };
-            console.log(contactService.get_ContactsListvalue());
+            //console.log(contactService.get_ContactsListvalue());
             HttpAppService.post(url, data).success(function (response) {
                 Prompter.hideLoading();
                 if (response.ES_RESULT.ZFLAG == 'E') {
@@ -669,8 +669,8 @@ ContactsModule
             }
         }
     }])
-    .controller('contactCreateCtrl',['$scope','$rootScope','$ionicHistory','$state','Prompter','$cordovaDatePicker','customeService','LoginService','saleActService','HttpAppService','$cordovaToast','$ionicModal','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',
-        function($scope,$rootScope,$ionicHistory,$state,Prompter,$cordovaDatePicker,customeService,LoginService,saleActService,HttpAppService,$cordovaToast,$ionicModal,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+    .controller('contactCreateCtrl',['$cordovaDialogs','$scope','$rootScope','$ionicHistory','$state','Prompter','$cordovaDatePicker','customeService','LoginService','saleActService','HttpAppService','$cordovaToast','$ionicModal','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',
+        function($cordovaDialogs,$scope,$rootScope,$ionicHistory,$state,Prompter,$cordovaDatePicker,customeService,LoginService,saleActService,HttpAppService,$cordovaToast,$ionicModal,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
         //初始化数据
         $scope.contactlistvaluesel = [{
             typeId:'1',
@@ -803,9 +803,9 @@ ContactsModule
             //PARTNER:"",
         };
             $scope.showCustomer=customeService.goContacts.formCusttomer;
-            console.log(angular.toJson(customeService.get_customerEditServevalue()));
+            //console.log(angular.toJson(customeService.get_customerEditServevalue()));
 
-            console.log(customeService.goContacts.formCusttomer);
+            //console.log(customeService.goContacts.formCusttomer);
             if($scope.showCustomer==true){
                 $scope.contactcreat.PARTNER2VALUE= customeService.get_customerEditServevalue().NAME_ORG1;
                 $scope.contactcreat.PARTNER2=customeService.get_customerEditServevalue().PARTNER;
@@ -877,7 +877,7 @@ ContactsModule
             data.IS_CUSTOMER.ZZBYYX=$scope.contactcreat.ZZBYYX;
             data.IS_CUSTOMER.ZZJX=$scope.contactcreat.ZZJX;
             data.IS_CUSTOMER.POST_CODE1 = $scope.contactcreat.POST_CODE1;
-            data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactcreat.HOUOST_NUM1;
+            data.IS_CUSTOMER.HOUSE_NUM1=$scope.contactcreat.HOUSE_NUM1;
             data.IS_CUSTOMER.STREET = $scope.contactcreat.STREET;
             data.IS_CUSTOMER.TEL_NUMBER = $scope.contactcreat.TEL_NUMBER;
             data.IS_CUSTOMER.TEL_EXTENS = $scope.contactcreat.TEL_EXTENS;
@@ -889,7 +889,7 @@ ContactsModule
 
             //根据登陆接口来判断 角色字段的类型
             var rolevalue = LoginService.getProfileType();
-            console.log(rolevalue);
+            //console.log(rolevalue);
             if(rolevalue == 'APP_SALE'){
                 data.IS_CUSTOMER.PARTNERROLE = 'BUP001';
             }else{
@@ -899,9 +899,9 @@ ContactsModule
                 || data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined
                 || $scope.config.currentCountry == '' || $scope.config.currentCountry == undefined){
 
-                console.log("data.IS_CUSTOMER.PARTNE2"+data.IS_CUSTOMER.PARTNER2);
-                console.log("data.IS_CUSTOMER.NAME_LAST"+data.IS_CUSTOMER.NAME_LAST);
-                console.log("data.IS_CUSTOMER.COUNTRY"+ $scope.config.currentCountry);
+                //console.log("data.IS_CUSTOMER.PARTNE2"+data.IS_CUSTOMER.PARTNER2);
+                //console.log("data.IS_CUSTOMER.NAME_LAST"+data.IS_CUSTOMER.NAME_LAST);
+                //console.log("data.IS_CUSTOMER.COUNTRY"+ $scope.config.currentCountry);
                 $cordovaToast.showShortCenter('请输入客户姓名,标识或国家');
                 //console.log("请输入客户姓名,标识或国家");
                 Prompter.hideLoading();
@@ -911,12 +911,12 @@ ContactsModule
                 HttpAppService.post(url, data).success(function (response) {
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG == 'E') {
-                        console.log(response.ES_RESULT.ZRESULT);
+                        //console.log(response.ES_RESULT.ZRESULT);
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         //$state.go('ContactDetail');
                     } else {
                         //$cordovaToast.showShortCenter('保存数据成功');
-                        console.log('保存数据成功');
+                        //console.log('保存数据成功');
 
                         //contactService.set_ContactCreateflagfalse();
                         //$rootScope.$broadcast('contactCreatevalue');
@@ -927,7 +927,7 @@ ContactsModule
                             $scope.showCustomer=false;
                             $ionicHistory.goBack();
                         }else{
-                            console.log('跳转成功--xbr');
+                            //console.log('跳转成功--xbr');
                             $state.go('ContactDetail',{},{
                                 location: "replace"
                             });
@@ -956,7 +956,7 @@ ContactsModule
                 currentTitle:"0002",
                 currentLanguage:"1"
             };
-            console.log(angular.toJson($scope.config)+"create");
+            //console.log(angular.toJson($scope.config)+"create");
             $scope.cascade=function(){
                 //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
                 var url=ROOTCONFIG.hempConfig.basePath +'LIST_CITY';
@@ -1025,7 +1025,7 @@ ContactsModule
                 $scope.provence=new Array;
                 $scope.city=new Array;
                 $scope.countryCode= $scope.config.currentCountry;
-                console.log($scope.countryCode);
+                //console.log($scope.countryCode);
                 $scope.cascade1();
             };
             $scope.changProvence=function(){
@@ -1139,8 +1139,9 @@ ContactsModule
             }
 
             $scope.getCustomerArr = function (search) {
-                $scope.CustomerLoadMoreFlag = false;
+                $scope.isError = false;
                 if (search) {
+                    $scope.customerArr = [];
                     $scope.customerSearch = false;
                     customerPage = 1;
                 } else {
@@ -1153,21 +1154,17 @@ ContactsModule
                         "ITEMS": "10"
                     },
                     "IS_SEARCH": {"SEARCH": $scope.input.customer},
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                     "IT_IN_ROLE": {
-                        "item1": { "RLTYP": customerType }
+                        "item1": {"RLTYP": customerType}
                     }
                 };
-                console.log(LoginService.getProfileType());
-                console.log(customerType+'客户类型');
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
                             return;
                         }
                         if (response.ES_RESULT.ZFLAG === 'S') {
-                            if (response.ET_OUT_LIST.item.length < 10) {
-                                $scope.CustomerLoadMoreFlag = false;
-                            }
                             if (search) {
                                 $scope.customerArr = response.ET_OUT_LIST.item;
                             } else {
@@ -1176,13 +1173,30 @@ ContactsModule
                             $scope.spinnerFlag = false;
                             $scope.customerSearch = true;
                             $scope.CustomerLoadMoreFlag = true;
+                            if (response.ET_OUT_LIST.item.length < 10) {
+                                $scope.spinnerFlag = false;
+                                $scope.customerSearch = false;
+                            }
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
-                            $scope.$broadcast('scroll.infiniteScrollComplete');
-                        }else{
-                            $scope.CustomerLoadMoreFlag = false;
+                            $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                        } else {
+                            $scope.spinnerFlag = false;
+                            $scope.customerSearch = false;
+                            $scope.isError = true;
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                         }
+                    }).error(function (response, status, header, config) {
+                        var respTime = new Date().getTime() - startTime;
+                        Prompter.hideLoading();
+                        //超时之后返回的方法
+                        if(respTime >= config.timeout){
+                            //console.log('HTTP timeout');
+                            if(ionic.Platform.isWebView()){
+                                $cordovaDialogs.alert('请求超时');
+                            }
+                        }
+                        $ionicLoading.hide();
                     });
             };
         $scope.getCustomerArr();
@@ -1280,10 +1294,10 @@ ContactsModule
                 }, 1)
             };
             $scope.selectCustomer = function (x) {
-                   console.log(x);
+                   //console.log(x);
                     $scope.contactcreat.PARTNER2VALUE = x.NAME_ORG1;
                     $scope.contactcreat.PARTNER2 = x.PARTNER;
-                    console.log(x.PARTNER);
+                    //console.log(x.PARTNER);
 
                     //$scope.create.contact='';
                     //contactPage = 1;
@@ -1352,7 +1366,7 @@ ContactsModule
             };
 
             $scope.contactedit = contactService.get_Contactsdetailvalue();
-             console.log(angular.toJson($scope.contactedit));
+             //console.log(angular.toJson($scope.contactedit));
         ////点击取消事件
         $scope.EditCancel = function(){
            Prompter.ContactCreateCancelvalue1("编辑");
@@ -1533,7 +1547,7 @@ ContactsModule
                     }
                 }
             };
-            console.log(window.localStorage.crmUserName);
+            //console.log(window.localStorage.crmUserName);
             data.IS_CUSTOMER.PARTNER = $scope.contactedit.PARTNER;
             data.IS_CUSTOMER.PARTNER2 = contactService.get_Contactsdetailvalue().PARTNER2;
             //data.IS_CUSTOMER.PARTNER = '2284';
@@ -1561,7 +1575,7 @@ ContactsModule
             data.IS_CUSTOMER.FAX_EXTENS = $scope.contactedit.FAX_EXTENS;
             data.IS_CUSTOMER.SMTP_ADDR = $scope.contactedit.SMTP_ADDR;
             data.IS_CUSTOMER.MODE = "U";
-            data.IS_CUSTOMER.TITLE_MEDI=$scope.config.currentTitile.name;
+            data.IS_CUSTOMER.TITLE_MEDI=$scope.config.currentTitile;
             data.IT_LINES.item.TDLINE=$scope.contactedit.conatctdeatilnote;
             //if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined || data.IS_CUSTOMER.PARTNER == ''|| data.IS_CUSTOMER.PARTNER == undefined){
             if(data.IS_CUSTOMER.NAME_LAST == ''|| data.IS_CUSTOMER.NAME_LAST == undefined
@@ -1571,16 +1585,16 @@ ContactsModule
                 Prompter.hideLoading();
             }else{
                 HttpAppService.post(url, data).success(function (response) {
-                    console.log($scope.contactedit.BIRTHDT+'sheng ri');
+                    //console.log($scope.contactedit.BIRTHDT+'sheng ri');
 
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG == 'E') {
-                        console.log(response.ES_RESULT.ZRESULT);
+                        //console.log(response.ES_RESULT.ZRESULT);
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         //$state.go('ContactDetail');
                     } else {
                         //$cordovaToast.showShortCenter('保存数据成功');
-                        console.log("保存数据成功");
+                        //console.log("保存数据成功");
 
                         //广播修改详细信息界面的数据
                         $rootScope.$broadcast('contactEditvalue');
@@ -1689,10 +1703,11 @@ ContactsModule
             currentCountry:$scope.contactedit.COUNTRY,
             currentProvence:$scope.contactedit.REGION,
             currentCity:$scope.contactedit.CITY1,
-            currentLanguage:$scope.contactedit.LANGU,
+            currentLanguage:$scope.contactedit.LANGU.toString(),
             currentTitile:$scope.contactedit.TITLE
         };
             //console.log(angular.toJson($scope.config)+"sdsdsd");
+            //console.log($scope.contactedit.LANGU);
         $scope.cascade=function(){
             //http://117.28.248.23:9388/test/api/CRMAPP/LIST_CITY
             var url=ROOTCONFIG.hempConfig.basePath + "LIST_CITY";
@@ -1771,7 +1786,7 @@ ContactsModule
                 $scope.cascade1();
             }
             if($scope.config.currentProvence!=undefined){
-                console.log($scope.config.currentProvence+"省份标识");
+                //console.log($scope.config.currentProvence+"省份标识");
                 $scope.provenceCode=$scope.config.currentProvence;
                 $scope.city=new Array;
                 $scope.cascade2();
@@ -1780,16 +1795,16 @@ ContactsModule
             $scope.changCountry=function(){
                 $scope.provence=new Array;
                 $scope.city=new Array;
-                console.log($scope.config.currentCountry);
+                //console.log($scope.config.currentCountry);
                 $scope.countryCode= $scope.config.currentCountry;
                 $scope.cascade1();
             };
             $scope.chang2=function(){
-                console.log(angular.toJson($scope.config)+'城市');
+                //console.log(angular.toJson($scope.config)+'城市');
             };
             $scope.changProvence=function(){
                 $scope.city=new Array;
-                console.log($scope.config);
+                //console.log($scope.config);
                 $scope.provenceCode=$scope.config.currentProvence;
                 $scope.cascade2();
             };

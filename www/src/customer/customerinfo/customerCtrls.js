@@ -101,17 +101,17 @@ customerModule
             }
 
             //var data = data2;
-            console.log("data"+angular.toJson(data));
+            //console.log("data"+angular.toJson(data));
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
             var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function (response) {
-                console.log($scope.customer.customerfiledvalue);
-                console.log(data.IS_SEARCH);
+                //console.log($scope.customer.customerfiledvalue);
+                //console.log(data.IS_SEARCH);
                 if($scope.customer.customerfiledvalue != data.IS_SEARCH.SEARCH){
                     return;
                 }
-                console.log(response);
+                //console.log(response);
                 $scope.customer_queryflag = true;
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.customerisshow = false;
@@ -200,7 +200,7 @@ customerModule
             $scope.searchFlag=true;
         };
             $rootScope.$on('customerCreatevalue',function(event, data) {
-                console.log("接收成功" + data);
+                //console.log("接收成功" + data);
                 $scope.searchFlag = data;
                 $scope.customer.customerfiledvalue = "";
                 $scope.cancelSearch();
@@ -274,7 +274,7 @@ customerModule
         $scope.customergodeatil = function(x){
             $scope.customerisshow = false;
             $scope.usuallycustomerlist = x;
-            console.log(x) 
+            //console.log(x)
             //存储历史记录
             if($scope.customer.customerfiledvalue != ''){
                 if(storedb('customerdb').find() != undefined || storedb('contactdb').find() != null){
@@ -311,7 +311,7 @@ customerModule
                 }else{
                     storedb('customerdb').insert({"name": $scope.customer.customerfiledvalue}, function (err) {
                         if (!err) {
-                            console.log('历史记录保存成功')
+                            //console.log('历史记录保存成功')
                         } else {
                             $cordovaToast.showShortBottom('历史记录保存失败');
                         }
@@ -371,7 +371,7 @@ customerModule
             }
             type.color1 = true;
             type.color2 = false;
-            console.log($scope.customer_types);
+            //console.log($scope.customer_types);
             $scope.customer.customerfiledvalue ='';
             $scope.customerqueryTypeunit = type.name;
             if(type == "服务供应商"){
@@ -445,7 +445,7 @@ customerModule
             $scope.sedit = false;
         }
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-            console.log(fromState.name+toState.name);
+            //console.log(fromState.name+toState.name);
             if(fromState.name == 'customerEdit' && toState.name == 'customerDetail'){
                 Prompter.showLoading("数据加载中...");
                 var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
@@ -456,15 +456,22 @@ customerModule
                 };
                 var startTime = new Date().getTime();
                 HttpAppService.post(url, data).success(function (response) {
-                    console.log(response);
-                    Prompter.hideLoading();
+                    //console.log(response);
+                    //Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG == 'E') {
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     } else {
                         customeService.set_customeFuZe(response);
                         if(response.ET_OUT_DETAIL != ''){
                             $scope.customerdetails = response.ET_OUT_DETAIL.item[0];
-                            $scope.customerdetails.PARTNER_ID = parseInt($scope.customerdetails.PARTNER);
+                            var arr = $scope.customerdetails.PARTNER;
+                            for(var i =0;i<arr.length;i++){
+                                if(arr[i] != "0"){
+                                    $scope.customerdetails.PARTNER_ID = arr.substring(i,arr.length);
+                                }
+                            }
+                            //$scope.customerdetails.PARTNER_ID = parseInt($scope.customerdetails.PARTNER);
+                            //console.log($scope.customerdetails.PARTNER_ID);
                         }
                         if(response.ET_LINES != '' && response.ET_LINES.item){
                             $scope.customerdetails.TDLINE = "";
@@ -719,7 +726,7 @@ customerModule
         };
             var startTime = new Date().getTime();
         HttpAppService.post(url, data).success(function (response) {
-            console.log(angular.toJson(response));
+            //console.log(angular.toJson(response));
             Prompter.hideLoading();
             if (response.ES_RESULT.ZFLAG == 'E') {
                 $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -727,8 +734,16 @@ customerModule
                 customeService.set_customeFuZe(response);
                 if(response.ET_OUT_DETAIL != ''){
                     $scope.customerdetails = response.ET_OUT_DETAIL.item[0];
-                    $scope.customerdetails.PARTNER_ID = parseInt($scope.customerdetails.PARTNER);
-                }
+                    var arr = $scope.customerdetails.PARTNER;
+                    for(var i =0;i<arr.length;i++){
+                        if(arr[i] != "0"){
+                            $scope.customerdetails.PARTNER_ID = arr.substring(i,arr.length);
+                            break;
+                        }
+                    }
+                    //$scope.customerdetails.PARTNER_ID = parseInt($scope.customerdetails.PARTNER);
+                    //console.log($scope.customerdetails.PARTNER_ID);
+                     }
                 if(response.ET_LINES != '' && response.ET_LINES.item){
                     $scope.customerdetails.TDLINE = response.ET_LINES.item[0].TDLINE;
                 }
@@ -834,6 +849,17 @@ customerModule
                }];
 
            }
+            if(ROOTCONFIG.hempConfig.baseEnvironment == 'ATL' && (LoginService.getProfileType()=="APP_SALE")){
+                $scope.customer_detailstypes = [{
+                    typemane:'联系人',
+                    imgurl:'img/customer/customerlianxir@2x.png',
+                    url:'customerContactQuery'
+                },{
+                    typemane:'负责人',
+                    imgurl:'img/customer/customerfuz@2x.png',
+                    url:'customerFuZe'
+                }];
+            }
 
         $scope.gocustomerLists = function(cusvalue){
             if(cusvalue.url == "worksheetList" || cusvalue.url == "saleChanList" || cusvalue.url == "saleActList"){
@@ -892,7 +918,6 @@ customerModule
             }else{
                 Prompter.showpcopy(valuecopy)
             }
-
         };
         //打开浏览器
         $scope.customeropenbrser = function(Url){
@@ -988,7 +1013,7 @@ customerModule
         $scope.autoHeight = function(){
             var text = document.getElementById("textarea1");
             autoTextarea(text);// 调用
-            console.log('1');
+            //console.log('1');
         }
         //位置级联
         $scope.customereditcontry = [
@@ -1033,7 +1058,7 @@ customerModule
             POST_CODE1:customeService.get_customerEditServevalue().POST_CODE1,
             TDLINE:customeService.get_customerEditServevalue().TDLINE
         };
-        console.log(customeService.get_customerEditServevalue());
+        //console.log(customeService.get_customerEditServevalue());
         $scope.country=[];
         $scope.provence=[];
         $scope.city=[];
@@ -1076,7 +1101,7 @@ customerModule
                 "I_REGION": ""
             };
             HttpAppService.post(url,data).success(function(response){
-                console.log(response);
+                //console.log(response);
                 $.each(response.ET_CITY.item, function (n, value) {
                     $scope.provence.push(value);
                 })
@@ -1095,7 +1120,7 @@ customerModule
                 "I_REGION": $scope.provenceCode
             };
             HttpAppService.post(url,data).success(function(response){
-                console.log(response);
+                //console.log(response);
                 if(response.ET_CITY.item.length===undefined){
                     $scope.city=new Array;
                 }else{
@@ -1107,7 +1132,7 @@ customerModule
                             $scope.config.currentCity = $scope.city[i];
                         }
                     }
-                    console.log($scope.config.currentCity);
+                    //console.log($scope.config.currentCity);
                 }
             }).error(function (response, status) {
                 $cordovaToast.showShortBottom('请检查你的网络设备');
@@ -1221,17 +1246,17 @@ customerModule
                 //console.log("请输入客户姓名或标识");
                 Prompter.hideLoading();
             } else{
-                console.log(angular.toJson(data));
-                console.log(angular.toJson(url));
+                //console.log(angular.toJson(data));
+                //console.log(angular.toJson(url));
                 HttpAppService.post(url, data).success(function (response) {
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG == 'E') {
-                        console.log(response.ES_RESULT.ZRESULT);
+                        //console.log(response.ES_RESULT.ZRESULT);
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                         //$state.go('ContactDetail');
                     } else {
                         //$cordovaToast.showShortCenter('保存数据成功');
-                        console.log("保存数据成功")
+                        //console.log("保存数据成功")
                         //广播修改详细信息界面的数据
                         customeService.set_customerEditServevalue($scope.customeredit);
                         //$rootScope.$broadcast('customerEditvalue');

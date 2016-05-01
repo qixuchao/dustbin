@@ -160,6 +160,9 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
             alert: function (text) {
                 $cordovaDialogs.alert(text,'提示','确定');
             },
+            alertWithTitle: function(title, text){
+                $cordovaDialogs.alert(text,title ,'确定');  
+            },
             selectTime: function (scope, name, date, mode, title) {
                 if (!date || isNaN(date.split('/')[0])) {
                     if (mode == 'date') {
