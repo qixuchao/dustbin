@@ -538,12 +538,12 @@
           margin-left: 2.5%;
           button {
             height: 29px;
-            min-width: 90%;
+            min-width: 100%;
             border-radius: 10px;
             background: #9ec92a;
             color: white;
-            font-size: 14px;
             border: none;
+            white-space:nowrap;
           }
         }
         .input {
@@ -884,7 +884,7 @@
     background-color: transparent;
   }
   .content {
-    padding: 10px;
+    padding:  10px;
     margin-top: 10%;
     width: 245px;
     left: 50%;
