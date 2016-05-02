@@ -321,6 +321,11 @@
     bottom: 0;
   }
 
+  .hideCustomer{
+    position: relative;
+    padding-bottom: 20px;
+    top: 20px;
+  }
 
   .employee_backtop{
     background: url("../../img/employee/BAR-BG@2x.png") no-repeat center;
@@ -382,7 +387,7 @@
     }
 
   .employee_detail_countentbu{
-    margin-top: 10px;
+    margin-top: 5px;
     margin-left: 15px;
     position: relative;
     //height:50px;

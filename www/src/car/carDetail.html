@@ -12,12 +12,12 @@
         <!--</div>-->
     <!--</div>-->
         <div class="top-back">
-            <div class="row row-center title " ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+            <div class="row row-center title ">
                 <div class="col col-15" ng-click="back()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-69 text-center">车辆信息详情</div>
             </div>
             <div class="mainInfo">
-                <div class="row row1 row-center" ng-class="titleFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="row row1 row-center">
                     <div class="col col-center col-5">
                         <img ng-src="img/car/Oval.png" class="pointImg">
                     </div>
@@ -25,9 +25,9 @@
                         {{carInfo1.describe}}
                     </div>
                 </div>
-                <div class="row row2 row-center" ng-class="qualityFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="row row2 row-center">
                     质保:&nbsp;&nbsp;{{carInfo1.productionDate1}}</div>
-                <div class="row row2 row-center" ng-class="projectFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="row row2 row-center">
                     {{projectName}}&nbsp;&nbsp;{{carInfo1.projectName}}</div>
             </div>
         </div>
@@ -80,14 +80,14 @@
                 <div class="col col-center col-40">
                     车牌号码
                 </div>
-                <div class="col col-center col-56">{{carInfo1.carCode}}</div>
+                <div class="col col-center col-56">{{carInfo1.carNumber}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
                 <div class="col col-center col-40">
                     车工号
                 </div>
-                <div class="col col-center col-56">{{carInfo1.carNumber}}</div>
+                <div class="col col-center col-56">{{carInfo1.carCode}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">
@@ -120,7 +120,7 @@
                 <div class="col col-center col-40">
                     质保开始日期
                 </div>
-                <div class="col col-center col-56">{{carInfo1.productionDate}}</div>
+                <div class="col col-center col-56">{{carInfo1.startDate}}</div>
             </div>
             <div class="lineType1"></div>
             <div class="row row-center rowType">

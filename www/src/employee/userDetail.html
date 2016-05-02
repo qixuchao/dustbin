@@ -14,21 +14,21 @@
                 <span class="employee_detailcontentspan" ng-bind="userdetailval.NAME_FIRST" style="padding-left: 44px;font-size: 14px;"></span>
                 <span style="font-size: 14px;">-销售人员</span>
             </div>
-            <div class="employee_detailcontentphone" ng-click="employeeshowphone(userdetailval.TELEPHONE)">
+            <div class="employee_detailcontentphone" ng-click="employeeshowphone1(userdetailval.TELEPHONE)">
                 <i class="icon ion-ios-telephone-outline employee_detailcontentphonei"></i>
                 <span style="margin-left: 4px;" ng-bind="userdetailval.TELEPHONE"></span>
             </div>
         </div>
     </div>
 
-    <ion-content has-bouncing="false" style="position: fixed;margin-top: 115px;" >
-        <div class="employee_detail_countentbu" ng-click="gocustomerList()">
+    <ion-content has-bouncing="false" style="position: fixed;margin-top: 125px;" >
+        <div class="employee_detail_countentbu" ng-click="gocustomerList()" ng-show="showFlag">
             <img style="width:40px;height:40px" src="img/employee/employee_cus@2x1.png" alt=""/>
             <div class="employee_detail_countentimgbase">
                 负责客户
             </div>
         </div>
-        <div class="employee_detail_countentbasic">
+        <div class="employee_detail_countentbasic" ng-class="showFlag?'':'hideCustomer'">
             <div class="employee_detail_countentbasicinfo">基本信息</div>
             <div class="employee_detail_countentbasicline"></div>
             <div class="employee_detail_countentbasicclok"></div>
@@ -64,7 +64,7 @@
             </div>
             <div class="employee_query_listline">
             </div>
-            <div class="row" style="padding:5px 5px" ng-click="employeeshowphone(userdetailval.TEL_NUMBER)">
+            <div class="row" style="padding:5px 5px" ng-click="employeeshowphone1(userdetailval.TEL_NUMBER)">
                 <div class="col col-40">
                     <img src="img/employee/ephone@2x.png" style="width:18px;height:15px;float: left;margin-top:2px;margin-left:8px;margin-right: 5px"/>
                     电话/分机
