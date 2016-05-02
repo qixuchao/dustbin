@@ -23,6 +23,9 @@ customerModule
             $scope.sale = true;
             $scope.ser = false;
         }
+            $scope.CustomerListgoBack = function() {
+                $ionicHistory.goBack();
+            };
         $scope.searchFlag=false;
         $scope.customer={
             customerfiledvalue:""
@@ -146,7 +149,7 @@ customerModule
                                     }
 
                                 });
-
+                                console.log($scope.customerQuery_list);
                             }
                             if (response.ET_OUT_LIST.item.length < 10) {
                                 $scope.customerisshow = false;

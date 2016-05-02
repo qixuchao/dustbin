@@ -23,7 +23,7 @@
                 <input type="checkbox" name="selectSparePart"  ng-true-value="'YES'" ng-false-value="'NO'" ng-model="spare.checkedP">
             </label>
             <div class="col col-80 col-center colType" style="padding-left: 40px">
-                <span class="car2"><div ng-bind-html="spare.SHORT_TEXT | highlight:spareInfo"></div></span>
+                <span class="car2"><div ng-bind-html="spare.SHORT_TEXT.toString() | highlight:spareInfo"></div></span>
             </div>
          </div>
         <ion-infinite-scroll distance="1%" on-infinite="spareLoadmoreIm()" ng-if="spareimisshow"></ion-infinite-scroll>

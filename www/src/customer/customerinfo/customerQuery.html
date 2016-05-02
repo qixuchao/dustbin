@@ -2,7 +2,7 @@
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head ">
             <div class="row row-center">
-                <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <a class="col col-20 text-left goBack button button-clear" ng-click="CustomerListgoBack()"><i class="ion-chevron-left"></i></a>
                 <div class="col col-60 text-center">客户列表</div>
                 <div class="col col-20 add" ng-click="customerPopover($event)" style="text-align: right">筛选</div>
             </div>
@@ -56,7 +56,7 @@
                     <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
                 <div class="col col-80 col-center colType">
-                    <span><div ng-bind-html="lists.NAME_ORG1 |highlight:customer.customerfiledvalue"></div></span>
+                    <span><div ng-bind-html="lists.NAME_ORG1.toString() | highlight:customer.customerfiledvalue"></div></span>
                 </div>
                 <div class="col col-12 col-center">
                     <img ng-src="img/car/Shape.png" class="shapeImg" >
