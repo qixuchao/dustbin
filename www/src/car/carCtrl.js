@@ -19,10 +19,11 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
         $scope.searchFlag=true;
         page=0;
         $scope.carInfo = x;
+        $scope.cars=new Array();
         $scope.carLoadMore1Im();
     };
     $rootScope.$on('carCreatevalue1', function(event, data) {
-        console.log("接收成功"+data);
+        //console.log("接收成功"+data);
         $scope.searchFlag =data;
         $scope.carInfo="";
         $scope.cancelSearch();
@@ -72,11 +73,10 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
             //console.log($scope.carInfo);
             HttpAppService.post(url, data).success(function (response) {
                 console.log(page);
-                if(response.ES_RESULT.ZFLAG == 'E'){
-                    $scope.carimisshow = false;
-                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                    $scope.$broadcast('scroll.infiniteScrollComplete');
-                }else if (response.ES_RESULT.ZFLAG == 'S') {
+                if (data.IS_VEHICL_INPUT.SHORT_TEXT!== $scope.carInfo) {
+                    return;
+                }
+                 if (response.ES_RESULT.ZFLAG == 'S') {
                     //console.log("第4步");
                     $ionicLoading.hide();
                     Prompter.hideLoading();
@@ -108,7 +108,11 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                         }
                         $scope.$broadcast('scroll.infiniteScrollComplete');
                     }
-                }
+                }else if(response.ES_RESULT.ZFLAG == 'E'){
+                     $scope.carimisshow = false;
+                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                     $scope.$broadcast('scroll.infiniteScrollComplete');
+                 }
                 $ionicScrollDelegate.resize();
             }).error(function (response, status, header, config) {
                 var respTime = new Date().getTime() - startTime;
@@ -125,10 +129,12 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
         };
         //车辆列表接口
         $scope.initLoad=function(){
-            page=0;
-            $scope.cars = new Array;
-            $scope.carLoadMore1Im();
+                page=0;
+                $scope.cars = new Array;
+                $scope.carLoadMore1Im();
         };
+
+
     //页面跳转，并传递参数
     if (JSON.parse(localStorage.getItem("oftenCardb")) != null || JSON.parse(localStorage.getItem("oftenCardb")) != undefined) {
         $scope.oftenCarList = JSON.parse(localStorage.getItem("oftenCardb"));
@@ -174,7 +180,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
             //判断是否有相同的值
             var carIsIn=true;
             for (var i = 0; i < $scope.oftenCarList.length; i++) {
-                console.log($scope.oftenCarList.length+'car');
+                //console.log($scope.oftenCarList.length+'car');
 
                 if ($scope.oftenCarList[i].ZBAR_CODE == value.ZBAR_CODE) {
                     //删除原有的，重新插入
@@ -314,87 +320,93 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
 
             HttpAppService.post(url,data).success(function(response){
                 Prompter.hideLoading();
-                if(response.ES_VEHICL_OUTPUT!=undefined) {
-                    var carInfoData = response.ES_VEHICL_OUTPUT;
-                    //console.log(carInfoData);
-                    //console.log(carInfoData.ZZ0011);
-                    var carInfo = {
-                        describe: "",
-                        carNumber: "",
-                        projectName: "",
-                        productionDate1: "",
-                        productionDate: "",
-                        endDate: "",
-                        buyDate: "",
-                        newDate: "",
-                        operationDate: "",
-                        point: "",
-                        code: "",
-                        code1: "",
-                        barCode: "",
-                        carCode: "",
-                        driver: "",
-                        phoneNum: "",
-                        BMU_V1: "",
-                        BMU_V2: "",
-                        CSC_V1: "",
-                        SCS_V2: "",
-                        directCustomer: "",
-                        directCustomerId: "",
-                        terminal: "",
-                        terminalId: "",
-                        version: "",
-                        quality: ""
-                    };
-                    //console.log(carInfoData.IBASE.length);
-                    for (var i = 0; i < carInfoData.IBASE.length; i++) {
-                        if (carInfoData.IBASE[i] !== "0") {
-                            //console.log(i);
-                            var point = carInfoData.IBASE.substr(i, carInfoData.IBASE.length - i);
-                            break;
-                        }
-                    }
-                    for (var a = 0; a < carInfoData.PRODUCT_ID.length; a++) {
-                        if (carInfoData.PRODUCT_ID[a] !== "0") {
-                            //console.log(a);
-                            var code = carInfoData.PRODUCT_ID.substr(a, carInfoData.PRODUCT_ID.length - a);
-                            break;
-                        }
-                    }
-                    carInfo.describe = carInfoData.SHORT_TEXT;
-                    carInfo.carNumber = carInfoData.ZZ0012;
-                    carInfo.projectName = carInfoData.ZZ0017;
-                    carInfo.productionDate1 = (carInfoData.ZZ0018[0] !== '0' && carInfoData.END_DATE !== '0') ? Date1(carInfoData.ZZ0019) + "-" + Date1(carInfoData.END_DATE) : "";
-                    carInfo.productionDate = Date2(carInfoData.ZZ0018);
-                    carInfo.endDate = Date2(carInfoData.END_DATE);
-                    carInfo.buyDate = Date2(carInfoData.ZZ0019);
-                    carInfo.operationDate = Date2(carInfoData.ZZ0020);
-                    carInfo.newDate = carInfoData.ZZ0021;
-                    carInfo.point = point;
-                    carInfo.code = code;
-                    carInfo.code1 = carInfoData.PRODUCT_ID;
-                    carInfo.barCode = carInfoData.ZZ0010;
-                    carInfo.carCode = carInfoData.ZZ0011;
-                    carInfo.driver = carInfoData.ZZ0015;
-                    carInfo.phoneNum = carInfoData.ZZ0016;
-                    carInfo.BMU_V1 = carInfoData.ZZ0022;
-                    carInfo.BMU_V2 = carInfoData.ZZ0023;
-                    carInfo.CSC_V1 = carInfoData.ZZ0024;
-                    carInfo.SCS_V2 = carInfoData.ZZ0025;
-                    carInfo.version = carInfoData.ZZ0013;
-                    carInfo.directCustomer = carInfoData.ZDIR_PARTN_NAME;
-                    carInfo.directCustomerId = carInfoData.ZDIR_PARTNER;
-                    carInfo.terminal = carInfoData.ZSRV_REP_TEXT;
-                    carInfo.terminalId = carInfoData.ZSRV_REPRENT;
-                    carInfo.quality = carInfoData.Z_SHORT_TEXT;
+                if(response.ES_RESULT.ZFLAG==='S') {
 
-                    //console.log(carInfo.describe);
+                    if (response.ES_VEHICL_OUTPUT != undefined) {
+                        var carInfoData = response.ES_VEHICL_OUTPUT;
+                        //console.log(carInfoData);
+                        //console.log(carInfoData.ZZ0011);
+                        var carInfo = {
+                            describe: "",
+                            carNumber: "",
+                            projectName: "",
+                            productionDate1: "",
+                            productionDate: "",
+                            startDate: "",
+                            endDate: "",
+                            buyDate: "",
+                            newDate: "",
+                            operationDate: "",
+                            point: "",
+                            code: "",
+                            code1: "",
+                            barCode: "",
+                            carCode: "",
+                            driver: "",
+                            phoneNum: "",
+                            BMU_V1: "",
+                            BMU_V2: "",
+                            CSC_V1: "",
+                            SCS_V2: "",
+                            directCustomer: "",
+                            directCustomerId: "",
+                            terminal: "",
+                            terminalId: "",
+                            version: "",
+                            quality: ""
+                        };
+                        //console.log(carInfoData.IBASE.length);
+                        for (var i = 0; i < carInfoData.IBASE.length; i++) {
+                            if (carInfoData.IBASE[i] !== "0") {
+                                //console.log(i);
+                                var point = carInfoData.IBASE.substr(i, carInfoData.IBASE.length - i);
+                                break;
+                            }
+                        }
+                        for (var a = 0; a < carInfoData.PRODUCT_ID.length; a++) {
+                            if (carInfoData.PRODUCT_ID[a] !== "0") {
+                                //console.log(a);
+                                var code = carInfoData.PRODUCT_ID.substr(a, carInfoData.PRODUCT_ID.length - a);
+                                break;
+                            }
+                        }
+                        carInfo.describe = carInfoData.SHORT_TEXT;
+                        console.log(carInfo.describe);
+                        carInfo.carNumber = carInfoData.ZZ0012;
+                        carInfo.projectName = carInfoData.ZZ0017;
+                        carInfo.productionDate1 = (carInfoData.START_DATE[0] !== '0' && carInfoData.END_DATE !== '0') ? Date1(carInfoData.START_DATE) + "-" + Date1(carInfoData.END_DATE) : "";
+                        carInfo.productionDate = Date2(carInfoData.ZZ0018);
+                        carInfo.startDate = Date2(carInfoData.START_DATE);
+                        carInfo.endDate = Date2(carInfoData.END_DATE);
+                        carInfo.buyDate = Date2(carInfoData.ZZ0019);
+                        carInfo.operationDate = Date2(carInfoData.ZZ0020);
+                        carInfo.newDate = carInfoData.ZZ0021;
+                        carInfo.point = point;
+                        carInfo.code = code;
+                        carInfo.code1 = carInfoData.PRODUCT_ID;
+                        carInfo.barCode = carInfoData.ZZ0010;
+                        carInfo.carCode = carInfoData.ZZ0011;
+                        carInfo.driver = carInfoData.ZZ0015;
+                        carInfo.phoneNum = carInfoData.ZZ0016;
+                        carInfo.BMU_V1 = carInfoData.ZZ0022;
+                        carInfo.BMU_V2 = carInfoData.ZZ0023;
+                        carInfo.CSC_V1 = carInfoData.ZZ0024;
+                        carInfo.SCS_V2 = carInfoData.ZZ0025;
+                        carInfo.version = carInfoData.ZZ0013;
+                        carInfo.directCustomer = carInfoData.ZDIR_PARTN_NAME;
+                        carInfo.directCustomerId = carInfoData.ZDIR_PARTNER;
+                        carInfo.terminal = carInfoData.ZSRV_REP_TEXT;
+                        carInfo.terminalId = carInfoData.ZSRV_REPRENT;
+                        carInfo.quality = carInfoData.Z_SHORT_TEXT;
 
-                    $scope.carInfo1 = carInfo;
-                    //console.log($scope.carInfo1.describe);
-                }else{
-                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                        //console.log(carInfo.describe);
+
+                        $scope.carInfo1 = carInfo;
+                        //console.log($scope.carInfo1.describe);
+                    }
+                }else if(response.ES_RESULT.ZFLAG==='E'){
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
                 }
             }).error(function (response, status) {
                     $cordovaToast.showShortBottom('请检查你的网络设备');
@@ -1167,6 +1179,9 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
             HttpAppService.post(url,data).success(function(response) {
                 //console.log(code+'spare1');
                 //console.log(response.ET_COMM_LIST.Item.length);
+                if($scope.spareDesc!==data.IS_VEHICLID.PRODUCT_TEXT){
+                    return;
+                }
                 if (response.ES_RESULT.ZFLAG == 'S') {
                     Prompter.hideLoading();
                     if (response.ET_COMM_LIST.Item.length == 0) {
@@ -1208,8 +1223,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                     }else{
                         $scope.buttonShow=true;
                     }
-                } else {
-                    $ionicScrollDelegate.resize();
+                } else if(response.ES_RESULT.ZFLAG==='E') {
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 }

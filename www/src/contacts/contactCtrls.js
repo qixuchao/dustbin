@@ -100,15 +100,10 @@ ContactsModule
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
             //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
             HttpAppService.post(url, data).success(function (response) {
-                //console.log($scope.config.contactfiledvalue);
-                //console.log(angular.toJson(response.ET_EMPLOYEE));
-                if (response.ES_RESULT.ZFLAG == 'E') {
-                    $scope.contactisshow = false;
-                    Prompter.hideLoading();
-                    //$cordovaToast.showShortCenter(response.ES_RESULT.ZRESULT);
-                    $cordovaToast.showShortCenter("没有符合搜索条件的数据")
-                    $scope.$broadcast('scroll.infiniteScrollComplete');
-                } else if (response.ES_RESULT.ZFLAG == 'S') {
+                if(data.IS_SEARCH.SEARCH!==$scope.config.contactfiledvalue){
+                    return ;
+                }
+                 if (response.ES_RESULT.ZFLAG == 'S') {
                         Prompter.hideLoading();
                         if(response.ET_OUT_LIST != ''){
                             if (response.ET_OUT_LIST.item.length == 0) {
@@ -140,6 +135,12 @@ ContactsModule
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                         }
+                    }else if (response.ES_RESULT.ZFLAG == 'E') {
+                        $scope.contactisshow = false;
+                        Prompter.hideLoading();
+                        //$cordovaToast.showShortCenter(response.ES_RESULT.ZRESULT);
+                        $cordovaToast.showShortCenter("没有符合搜索条件的数据")
+                        $scope.$broadcast('scroll.infiniteScrollComplete');
                     }
                 $ionicScrollDelegate.resize();
             }).error(function (response, status, header, config) {
@@ -174,6 +175,7 @@ ContactsModule
                 Prompter.showLoading('正在搜索');
                 $scope.searchFlag=true;
                 $scope.config.contactfiledvalue = x;
+                $scope.conitemImPage = 0;
                 $scope.initLoad();
             };
             $scope.cancelSearch=function(){
@@ -278,7 +280,7 @@ ContactsModule
             $scope.contactisshow = true;
             if(!$scope.$$phase) {
                 $scope.$apply();
-            };
+            }
         };
 
         //初始化本地数据
