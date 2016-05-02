@@ -11,7 +11,6 @@ loginModule
         function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading,$timeout, $ionicPlatform, $rootScope){
             
             
-            
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
                 if(toState && toState.name == 'login'){
                     $ionicHistory.clearCache();
@@ -41,7 +40,7 @@ loginModule
                 username: window.localStorage.crmUserName,
                 password: window.localStorage.crmUserPassword
             };
-            $scope.loginradioimgflag = true;
+            $scope.loginradioimgflag = false;
             $scope.loginradioSele = function () {
                 $scope.loginradioimgflag = !$scope.loginradioimgflag;
                 if ($scope.loginradioimgflag) {
@@ -89,8 +88,25 @@ loginModule
             
             //var userName = "HANDLCX02";
             var userPassword = $scope.loginData.password;
-            $scope.login = function () {
-                Prompter.showLoading();
+            var timeForGetDeviceId = 3000;
+            $scope.login = function(isNotFirst){
+                if(!isNotFirst){
+                    Prompter.showLoading();
+                }
+                timeForGetDeviceId -= 300;
+                if($scope.config.deviceId == null || $scope.config.deviceId==""){
+                    if(timeForGetDeviceId >= 0){
+                        $scope.login(true);
+                    }else{
+                        Prompter.hideLoading();
+                        $cordovaToast.showShortBottom('获取设备ID失败,请重试!');
+                    }
+                }else{
+                    timeForGetDeviceId = 5000;
+                    $scope.loginReal();
+                }
+            };
+            $scope.loginReal = function () {
                 //http://117.28.248.23:9388/test/api/bty/login
                 //var url = ROOTCONFIG.hempConfig.LoginUrl; //"http://117.28.248.23:9388/test/api/bty/login";
                 var url = ROOTCONFIG.hempConfig.basePath + "login";
@@ -163,10 +179,11 @@ loginModule
                 $ionicLoading.hide();
             };
             
-            
-            var  times__registerJpushId = 10;
+
+            var  times__registerJpushId = 20;
             function __registerJpushId(){
                 times__registerJpushId--;
+                getMyDeviceId();
                 window.plugins.jPushPlugin.getRegistrationID(function(data){
                     //alert("getRegistrationID   id: "+data);
                     if(angular.isUndefined(data) || data == null || data == ""){
@@ -175,15 +192,25 @@ loginModule
                         }
                     }else{
                         if(ionic.Platform.isIOS()){
-                            window.localStorage.deviceId = data;
-                            $scope.config.deviceId = data;
-                            $scope.config.deviceIdOk = true;
+                            //window.localStorage.deviceId = data;
+                            //$scope.config.deviceId = data;
+                            //$scope.config.deviceIdOk = true;
                             console.log("JPushPlugin:registrationID is-----: " + data);
                         }
                     }
                 });
             };
-            
+            function getMyDeviceId(){
+                if(device && device.uuid && device.uuid.replace){
+                    var tempDeviceId = device.uuid.replace("-","");
+                    while(tempDeviceId.indexOf("-") >= 0){
+                        tempDeviceId = tempDeviceId.replace("-","");
+                    }
+                    tempDeviceId = tempDeviceId.substring(0,24);
+                    $scope.config.deviceId = tempDeviceId;
+                    window.localStorage.deviceId = tempDeviceId;
+                }
+            };
             $ionicPlatform.ready(function () {
                 //如果是android则使用 device插件获取deviceId
                 if(ionic.Platform.isAndroid()){
@@ -193,6 +220,7 @@ loginModule
                     $scope.config.deviceId = window.localStorage.deviceId;
                     $scope.config.deviceIdOk = false;
                 }
+                getMyDeviceId();
                 //如果是ios则使用 jpush插件获取deviceId
                 if(window.plugins && window.plugins.jPushPlugin){
                     window.plugins.jPushPlugin.init();
@@ -211,7 +239,7 @@ loginModule
                         console.log("22222   JPushPlugin:registrationID is: " + data);
                         var tags = [ROOTCONFIG.hempConfig.baseEnvironment];
                         // eg: CATL + 60000051 + deviceId     1114a89792aa79e6ef2
-                        var deviceId = ionic.Platform.isIOS ? data : $scope.config.deviceId;
+                        var deviceId = $scope.config.deviceId; //ionic.Platform.isIOS ? data : $scope.config.deviceId;
                         var alias = ROOTCONFIG.hempConfig.baseEnvironment+ LoginService.getUserName() + deviceId;// + $scope.config.deviceId;
                         //alert(tags);
                         //alert(alias);

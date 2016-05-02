@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.crmEnergy.catl" version="0.2.5" android-versionCode="41" ios-CFBundleVersion="41" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.crmEnergy.catl" version="0.2.7" android-versionCode="43" ios-CFBundleVersion="43" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>CATL UAT</name>
     <description>
         新能源CRM应用
@@ -12,6 +12,8 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-intent href="http:*" />
+    <allow-intent href="https:*" />
     <access origin="*" />
     <access launch-external="yes" origin="tel:*" />
     <access launch-external="yes" origin="geo:*" />

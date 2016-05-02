@@ -94,7 +94,6 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             $ionicHistory.goBack();
         };
 })
-
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionGalleryConfigProvider) {
     ionGalleryConfigProvider.setGalleryConfig({
                           action_label: '关闭',
