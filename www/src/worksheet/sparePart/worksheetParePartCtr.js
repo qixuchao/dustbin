@@ -562,14 +562,17 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 worksheetDetail[k].addNum = true;//新加的备件
             }
         }
+        console.log(worksheetDetail);
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState.name == 'worksheetSparepart' && toState.name == 'worksheetSelect'){
                 var localInfos = worksheetHttpService.getSparePart();
-                if(localInfos === '' || localInfos === undefined){
+                console.log(localInfos);
+                if(localInfos == '' || localInfos == undefined){
 
                 }else{
                     //worksheetDetail = worksheetDetail.concat(localInfos);
                     worksheetDetail =  localInfos;
+                    console.log(worksheetDetail);
                     changeArr();
                 }
             }
@@ -603,17 +606,33 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         changeArr();
         //返回详情页
         $scope.goDetail = function(){
-            $cordovaDialogs.confirm('是否需要退出？', '提示', ['确定', '取消'])
-                .then(function (buttonIndex) {
-                    // no button = 0, 'OK' = 1, 'Cancel' = 2
-                    var btnIndex = buttonIndex;
-                    if (btnIndex == 1) {
-                        worksheetHttpService.goWhere.cun = false;
-                        worksheetHttpService.setSparePart("");
-                        worksheetHttpService.addPro.proInfos = "";
-                        $ionicHistory.goBack();
-                    }
-                });
+            var local = 1;
+            for(var i=0;i<worksheetDetail.length;i++){
+                if(worksheetDetail[i].showPic == false || worksheetDetail[i].addNum == false){
+                    local = 0;
+                }
+            }
+            if(local == 0){
+                $cordovaDialogs.confirm('部分数据未上传，是否需要退出？', '提示', ['确定', '取消'])
+                    .then(function (buttonIndex) {
+                        // no button = 0, 'OK' = 1, 'Cancel' = 2
+                        var btnIndex = buttonIndex;
+                        if (btnIndex == 1) {
+                            worksheetHttpService.goWhere.cun = false;
+                            worksheetHttpService.setSparePart("");
+                            worksheetHttpService.addPro.proInfos = "";
+                            $scope.updateInfos();
+                            $ionicHistory.goBack();
+                        }
+                    });
+            }else{
+                worksheetHttpService.goWhere.cun = false;
+                worksheetHttpService.setSparePart("");
+                worksheetHttpService.addPro.proInfos = "";
+                $scope.updateInfos();
+                $ionicHistory.goBack();
+            }
+
         }
         $scope.goUpdateSelect = function(){
             worksheetHttpService.goWhere.cun = true;
