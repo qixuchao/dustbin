@@ -403,7 +403,6 @@ salesModule
                   saleChanService, Prompter, HttpAppService, saleActService, relationService, customeService, contactService,
                   employeeService) {
             ionicMaterialInk.displayEffect();
-
             $scope.statusArr = saleChanService.listStatusArr;
             if (Prompter.isATL()) {
                 $scope.relationsTypes = saleChanService.relationsTypes_ATL;
@@ -671,7 +670,7 @@ salesModule
                 $scope.popover.show($event);
             };
             $scope.savePop = function () {
-                if ($scope.saleStages.indexOf($scope.pop.stage) >= 3 && !Prompter.isATL()) {
+                if (Number($scope.pop.stage.value.substring($scope.pop.stage.value.length-2,$scope.pop.stage.value.length))>=4 && !Prompter.isATL()) {
                     if (!$scope.pop.proNum) {
                         Prompter.alert('请输入项目编号');
                         return
@@ -718,8 +717,9 @@ salesModule
                     $scope.unitTitle = '销量单位';
                     if (Prompter.isATL()) {
                         $scope.moneyTypesArr = saleChanService.saleChanceUnits_ATL;
+                    }else{
+                        $scope.moneyTypesArr = saleChanService.saleUnits;
                     }
-
                 }
                 $scope.moneyTypesModal.show();
             };

@@ -780,7 +780,7 @@ mainModule
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $ionicScrollDelegate.resize();
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             $scope.loadMoreHasData = false;
                             $scope.loadMoreFlag = false;
                             //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -884,7 +884,7 @@ mainModule
                                 }
                                 $scope.$broadcast('scroll.infiniteScrollComplete');
                                 $ionicScrollDelegate.resize();
-                            } else {
+                            } else if(response.ES_RESULT.ZFLAG === 'E'){
                                 $scope.loadMoreHasData = false;
                                 $scope.loadMoreFlag = false;
                                 //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -1024,7 +1024,7 @@ mainModule
                             Prompter.hideLoading();
                             $scope.createPop.show();
                             //}
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             Prompter.showShortToastBotton('无法创建');
                         }
                     });
@@ -1080,7 +1080,7 @@ mainModule
                                 $scope.chancePop.saleOffice = $scope.salesChanceGroup[0];
                                 $scope.showCreateChanceModal();
                             }
-                        } else {
+                        } else if(response.ES_RESULT.ZFLAG === 'E'){
                             Prompter.showShortToastBotton('无法创建');
                         }
                     });
