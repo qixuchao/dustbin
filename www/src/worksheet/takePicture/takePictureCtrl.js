@@ -14,7 +14,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	"worksheetDataService",
 	"Prompter",
 	"$sce", 
-	"$cordovaToast",
+	"$cordovaToast", 
 	function($scope, $timeout, $ionicActionSheet, $ionicPosition,$ionicBackdrop, $ionicGesture, $ionicModal, $state,
 			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService, Prompter, $sce, $cordovaToast){
 		
@@ -112,7 +112,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				fileLocalPath: ""
 			}
 		};
-
+		
 		$scope.datas = {
 			imageDatas: [],
 			showImageItem: {},
@@ -297,16 +297,16 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			var scope1 = angular.element("#takepicture-content .image-container").scope();
 			scope1.showImage(item.position);
 		};
-
+		
 		$scope.saveSelectedImage = function(){
 			console.log("$scope.saveSelectedImage ");
 		};
-
+		
 		$scope.deleteThisImage = function(item){
 			console.log("$scope.deleteThisImage:   "+item.position);
 			__deleteImageInServer(item, item.position);
 		};
-
+		
 		$scope.saveThisImage = function(item){
 			if(item.isSaved){
 				$cordovaToast.showShortBottom("该图片已保存过!");
