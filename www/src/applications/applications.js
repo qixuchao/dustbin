@@ -25,7 +25,7 @@ appModule
         },{
             name:'',
             url:'img/apps/saleClue.png',
-            go:'worksheetReportedList'
+            go:'saleClueList'
         },{
             name:'SERVICE',
             url:'img/apps/saleQuote.png',

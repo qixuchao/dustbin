@@ -1,10 +1,222 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<ion-view class="saleActDetail saleClueDetail">
+    <div class="top-back absolute " style="height: 75px;background: none"
+         ng-class="!TitleFlag&&!isAndroid?'animated fadeOut':isAndroid?'':'animated fadeIn'" ng-show="TitleFlag">
+        <div class="row row-center title">
+            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+            <div class="col col-70 text-center">线索详情
+                <div style="font-size: 10px">{{details.DESCRIPTION?details.DESCRIPTION:'&nbsp;'}}</div>
+            </div>
+            <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
+        </div>
+    </div>
+    <div class="top-back absolute top-back2" ng-show="showTitleStatus">
+        <div class="row row-center title" style="padding-bottom: 0">
+            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+            <div class="col col-70 text-center">线索详情
+                <div style="font-size: 10px">{{details.DESCRIPTION?details.DESCRIPTION:'&nbsp;'}}</div>
+            </div>
+            <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
+        </div>
+        <div class="selector">
+            <div class="detail" ng-class="{checked:selects[0]}" ng-click="changeStatus(0)">详细信息</div>
+            <div class="product" ng-class="{checked:selects[1]}" ng-click="changeStatus(1)">产品信息</div>
+            <div class="relative" ng-class="{checked:selects[2]}" ng-click="changeStatus(2)">相关方</div>
+        </div>
+    </div>
+    <ion-content has-bouncing="true" on-scroll="onScroll()" scrollbar-y="false">
+        <div class="addRelationsModal">
+            <div ng-class="processDropflag?'own-backDrop-on':'own-backDrop-off'"
+                 ng-click="changeProcessDropFlag()"></div>
+        </div>
+        <div id="saleTopBackId" class="top-back">
+            <div class="row row-center title"
+                 ng-class="TitleFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
+                <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+                <div class="col col-70 text-center">线索详情</div>
+                <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
+            </div>
+            <div class="mainInfo">
+                <div class="row row-center"
+                     ng-class="TitleFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
+                    <img class="title_oval" src="img/saleDetail/title_oval.png">
+                    <input type="text" ng-model="details.DESCRIPTION" ng-readonly="!isEdit"
+                           ng-class="{'border-bottom-white':isEdit}">
+                </div>
+                <div class="row row-center"
+                     ng-class="customerFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
+                    <div class="col col-16">客户:</div>
+                    <input type="text" ng-model="details.customerName" readonly
+                           ng-class="{'border-bottom-white':isEdit}">
+                </div>
+                <div class="row row-center"
+                     ng-class="placeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
+                    <div class="col col-16">日期:</div>
+                    <input type="text" ng-model="details.ACT_LOCATION" ng-readonly="!isEdit"
+                           ng-class="{'border-bottom-white':isEdit}">
+                </div>
+                <div class="row row-center"
+                     ng-class="typeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
+                    <div class="col col-16">类型:</div>
+                    <input type="text" ng-model="details.actType" style="border: none;" readonly>
+                </div>
+                <div class="row row-center"
+                     ng-class="statusFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
+                    <div>状态:</div>
+                    <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit"
+                            ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
 
-</body>
-</html>
+                    <div class="num">{{'NO.'+details.OBJECT_ID}}</div>
+                    <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png"
+                                                                                          ng-if="!isEdit">{{editText}}
+                    </div>
+                </div>
+            </div>
+            <div class="selector">
+                <div class="detail" ng-class="{checked:selects[0]}" ng-click="changeStatus(0)">详细信息</div>
+                <div class="product" ng-class="{checked:selects[1]}" ng-click="changeStatus(1)">产品信息</div>
+                <div class="relative" ng-class="{checked:selects[2]}" ng-click="changeStatus(2)">相关方</div>
+            </div>
+        </div>
+
+        <div class="content" id="saleContentId">
+            <!--详细信息-->
+            <div ng-show="selects[0]">
+                <div class="row">
+                    <div class="col-15">注释:</div>
+                    <textarea rows="3" ng-readonly="!isEdit" ng-model="details.TEXT"></textarea>
+                </div>
+                <div class="row row-center">
+                    <div class="col no-padding">客户类型:</div>
+                    <div class="col text no-padding">PACK长</div>
+                </div>
+                <div class="row row-center">
+                    <div class="col no-padding">联系人:</div>
+                    <div class="col text no-padding">FAN**</div>
+                </div>
+                <div class="row row-center">
+                    <div class="col no-padding">联系电话:</div>
+                    <div class="col text no-padding">18516766333</div>
+                </div>
+                <div class="row row-center">
+                    <div class="col no-padding">客户年度需求总量:</div>
+                    <div class="col text no-padding">50000 PC</div>
+                </div>
+                <div class="row row-center">
+                    <div class="col no-padding">客户月度需求总量:</div>
+                    <div class="col text no-padding">50000 PC</div>
+                </div>
+                <div class="row row-center">
+                    <div class="col no-padding">样品需求量:</div>
+                    <div class="col text no-padding">50000 PC</div>
+                </div>
+                <div class="row row-center">
+                    <div class="col no-padding">目标价格:</div>
+                    <div class="col text no-padding">$999</div>
+                </div>
+                <div class="row row-center">
+                    <div class="col no-padding">当前竞争对手信息:</div>
+                    <div class="col text no-padding">力神,1.2/KWH</div>
+                </div>
+            </div>
+            <!--产品信息-->
+            <div ng-show="selects[1]">
+                <div ng-show="!isATL">
+                    <div class="row row-center">
+                        <div class="col no-padding">产品线:</div>
+                        <div class="col text no-padding">CE</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">应用领域:</div>
+                        <div class="col text no-padding">NBP</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">应用类型:</div>
+                        <div class="col text no-padding">CELL</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">产品类型:</div>
+                        <div class="col text no-padding">100</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">产品总能量:</div>
+                        <div class="col text no-padding">380</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">电芯容量:</div>
+                        <div class="col text no-padding">800/-50</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">电芯材料类型:</div>
+                        <div class="col text no-padding">5M</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">续航里程:</div>
+                        <div class="col text no-padding">5M</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">循环寿命:</div>
+                        <div class="col text no-padding">5M</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">重量:</div>
+                        <div class="col text no-padding">5M</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">防水等级:</div>
+                        <div class="col text no-padding">5M</div>
+                    </div>
+                </div>
+                <div ng-show="isATL">
+                    <div class="row row-center">
+                        <div class="col no-padding">应用类别:</div>
+                        <div class="col text no-padding">CE</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">产品应用:</div>
+                        <div class="col text no-padding">NBP</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">产品类型:</div>
+                        <div class="col text no-padding">CELL</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">容量:</div>
+                        <div class="col text no-padding">100</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">电压规格:</div>
+                        <div class="col text no-padding">380</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">高低温要求:</div>
+                        <div class="col text no-padding">800/-50</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">长:</div>
+                        <div class="col text no-padding">5M</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">宽:</div>
+                        <div class="col text no-padding">5M</div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">厚:</div>
+                        <div class="col text no-padding">5M</div>
+                    </div>
+                </div>
+            </div>
+            <!--相关方-->
+            <div id="relativeId" class="relative" ng-show="selects[2]">
+                <div class="row" ng-repeat="x in relationArr" ng-click="goRelationDetail(x)"
+                     on-hold="showActionSheet(x)">
+                    <div class="col col-60 col-center">{{x.NAME}}</div>
+                    <div class="col position col-center text-center">{{x.position}}</div>
+                </div>
+                <div class="row row-center add" ng-if="isEdit&&isCanEditRelation">
+                    <div class="col" ng-click="openRelations()"><i class="ion-ios-plus-outline"></i>添加相关方</div>
+                </div>
+            </div>
+
+        </div>
+    </ion-content>
+</ion-view>
