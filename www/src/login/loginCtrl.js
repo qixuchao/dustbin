@@ -101,10 +101,8 @@ loginModule
                     "platform": ionic.Platform.isWebView() ? ionic.Platform.platform() : 'browser',
                     "deviceId": $scope.config.deviceId
                 };//ROOTCONFIG.hempConfig.baseEnvironment
-
                 HttpAppService.noAuthorPost(url, data).success(function (response) {
                     Prompter.hideLoading();
-                    //alert("请求成功："+JSON.stringify(response));
                     if (response.ES_RESULT.ZFLAG == 'E') {
                         //Prompter.showPopupAlert("登录失败","用户名或密码错误");
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -130,14 +128,19 @@ loginModule
                           if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL"){
                                 __initJPushPlugin();
                           }
-                          if(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D"){
-                            $state.go('changePass');
-                            $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
-                          }else{
+                        console.log(angular.toJson(response));
+                        //if(response.PROFILE == "*"){
+                        //    $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
+                        //  $state.go('changeChar');
+                        //}else if(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D"){
+                        //    $state.go('changePass');
+                        //    $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
+                        //}else{
                             $state.go('tabs', {}, {location:"replace", reload:"true"});
-                          }
+                        //}
                     }
                 }).error(function(errorResponse){
+                    Prompter.hideLoading();
                     Prompter.showLoadingAutoHidden(errorResponse.ES_RESULT.ZRESULT, false, 1500);
                 });
 

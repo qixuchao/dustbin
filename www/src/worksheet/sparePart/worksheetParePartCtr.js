@@ -317,6 +317,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         "PROD": item.PRODUCT_ID,
                         "PROD_DESC":item.SHORT_TEXT,
                         "APPLY_NUM": item.APPLY_NUM,
+                        "ALWAY_NUM" : "",
                         "SEND_NUM":"",
                         "RETURN_NUM":"",
                         "OLDNUM":"",
@@ -347,6 +348,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                             "PROD": item.PRODUCT_ID,
                             "PROD_DESC":item.SHORT_TEXT,
                             "APPLY_NUM": item.APPLY_NUM,
+                            "ALWAY_NUM" : "",
                             "SEND_NUM":"",
                             "RETURN_NUM":"",
                             "OLDNUM":"",
@@ -454,13 +456,15 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         //    //numChange(item);
         //}
         var numChange = function(item){
+            //console.log(item);
+            //console.log($scope.goSAPInfos)
             for(var n=0;n<$scope.goSAPInfos.length;n++){
                 if(item.PRODUCT_ID === $scope.goSAPInfos[n].PROD && $scope.config.warehouse.ZZSTORAGE === $scope.goSAPInfos[n].STORAGE){
                     if($scope.goSAPInfos[n].showPic === true){
-                        if(item.APPLY_NUM > $scope.goSAPInfos[n].APPLY_NUM){
+                        if(item.APPLY_NUM > $scope.goSAPInfos[n].ALWAY_NUM){
                             $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
                             $scope.goSAPInfos[n].addNum = false;
-                        }else if(item.APPLY_NUM === $scope.goSAPInfos[n].APPLY_NUM){
+                        }else if(item.APPLY_NUM === $scope.goSAPInfos[n].ALWAY_NUM){
                             $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
                             $scope.goSAPInfos[n].addNum = true;
                         }else{
@@ -474,6 +478,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     }
                 }
             }
+            //console.log($scope.goSAPInfos)
         }
         $scope.cancleInfos = function(){
                 $cordovaDialogs.confirm('是否退出？', '提示', ['确定', '取消'])
@@ -511,6 +516,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     for(var k=0;k<worksheetDetail.length;k++){
                         worksheetDetail[k].showPic = true;
                         worksheetDetail[k].addNum = true;
+                        worksheetDetail[k].ALWAY_NUM = worksheetDetail[k].APPLY_NUM;
                     }
                     $scope.goSAPInfos = worksheetDetail;
                     worksheetHttpService.setSparePart($scope.goSAPInfos);
@@ -555,20 +561,21 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         ionicMaterialInk.displayEffect();
         //工单详情
         var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
-        console.log(worksheetDetail);
+        //console.log(worksheetDetail);
         if(worksheetDetail === undefined){
             worksheetDetail = [];
         }else{
             for(var k=0;k<worksheetDetail.length;k++){
                 worksheetDetail[k].showPic = true;//是否已存在，只是加数量
                 worksheetDetail[k].addNum = true;//新加的备件
+                worksheetDetail[k].ALWAY_NUM = worksheetDetail[k].APPLY_NUM; //原始数量
             }
         }
         console.log(worksheetDetail);
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState.name == 'worksheetSparepart' && toState.name == 'worksheetSelect'){
                 var localInfos = worksheetHttpService.getSparePart();
-                console.log(localInfos);
+                //console.log(localInfos);
                 if(localInfos == '' || localInfos == undefined){
 
                 }else{
@@ -764,6 +771,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                     for(var k=0;k<worksheetDetail.length;k++){
                         worksheetDetail[k].showPic = true;
                         worksheetDetail[k].addNum = true;
+                        worksheetDetail[k].ALWAY_NUM = worksheetDetail[k].APPLY_NUM;
                     }
                     changeArr();
                 }else{

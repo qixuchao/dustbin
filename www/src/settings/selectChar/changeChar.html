@@ -1,0 +1,22 @@
+<ion-view id="my-changepass-view" align-title="center" >
+    <ion-content id="my-changepass-content" scroll="false" has-bouncing="false">
+        
+        <div class="changepass-box">
+            <div class="cp-title">请选择身份</div>
+
+
+            <div>
+                <select class="selectC"  ng-model="config.char" ng-options="impact as impact.name for impact in charDetail">
+                    <option selected value="">--请选择--</option>
+                </select>
+            </div>
+            <div class="btn-confirm button" style="margin-bottom: 15px" ng-click="confirmChangeChar();">确认</div>
+            <div style="height: 20px"></div>
+        </div>
+        
+        <div class="return-button" >
+            <img class="cancel" src="img/apps/cancel.png" ng-click="$ionicGoBack();">
+        </div>
+        
+    </ion-content>
+</ion-view>
