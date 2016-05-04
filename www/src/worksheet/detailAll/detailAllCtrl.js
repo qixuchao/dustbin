@@ -241,7 +241,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				var type = $scope.config.typeStr;
 				var status = $scope.config.statusStr;
 				if(type == 'ZPRO' || type =='ZPLO' || type == 'ZNCO'){
-					if(status == "E0006" || status == "E0010" || status == "E0007"){ //已完工、已回访、已审核
+					if(status == "E0006" || status == "E0010" || status == "E0007" || status == "E009"){ //已完工、已回访、已审核、已取消
 						return false;
 					}
 					return true;

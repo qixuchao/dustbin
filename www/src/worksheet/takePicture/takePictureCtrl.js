@@ -65,7 +65,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			$scope.$ionicGoBack();
 			console.log("----- goBackForPicture ----- end");
 		};
-
+		
 		
 		$scope.config = {
 			actionSheet: null,
@@ -146,7 +146,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				}
 			]
 		};
-
+		
 		$scope.loadMoreData = function(){
 			__requestImageList();
 		};
@@ -309,12 +309,12 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		
 		$scope.saveThisImage = function(item){
 			if(item.isSaved){
-				$cordovaToast.showShortBottom("该图片已保存过!");
-				return;
+				// $cordovaToast.showShortBottom("该图片已保存过!");
+				// return;
 			}
 			if(angular.isUndefined(item.imgObj)){// 本地照片
-				$cordovaToast.showShortBottom("本地图片,无须保存!");
-				return;
+				// $cordovaToast.showShortBottom("本地图片,无须保存!");
+				// return;
 			}
 			if(item.imgObj && !item.imgObj.complete){
 				$cordovaToast.showShortBottom("该图片还未加载完成，请稍候再试!");

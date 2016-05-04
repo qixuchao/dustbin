@@ -28,7 +28,7 @@ loginModule
                         }
                     });
                 }
-            });
+            }); 
 
             $scope.config = {
                 deviceId: null,
@@ -119,6 +119,7 @@ loginModule
                 };//ROOTCONFIG.hempConfig.baseEnvironment
 
                 HttpAppService.noAuthorPost(url, data).success(function (response) {
+                    alert("loginReal ... success  ~ ");
                     Prompter.hideLoading();
                     //alert("请求成功："+JSON.stringify(response));
                     if (response.ES_RESULT.ZFLAG == 'E') {
@@ -154,7 +155,11 @@ loginModule
                           }
                     }
                 }).error(function(errorResponse){
-                    Prompter.showLoadingAutoHidden(errorResponse.ES_RESULT.ZRESULT, false, 1500);
+                    if(!errorResponse || errorResponse == null){
+                        Prompter.showLoadingAutoHidden("请求超时,请检查网络", false, 1500);
+                    }else{
+                        Prompter.showLoadingAutoHidden(errorResponse.ES_RESULT.ZRESULT, false, 1500);
+                    }
                 });
 
                 //if($scope.loginData.username === "" || $scope.loginData.username === undefined || $scope.loginData.password === "" || $scope.loginData.password === undefined){
@@ -201,7 +206,7 @@ loginModule
                 });
             };
             function getMyDeviceId(){
-                if(device && device.uuid && device.uuid.replace){
+                if(window.device && window.device.uuid && device.uuid.replace){
                     var tempDeviceId = device.uuid.replace("-","");
                     while(tempDeviceId.indexOf("-") >= 0){
                         tempDeviceId = tempDeviceId.replace("-","");
@@ -247,10 +252,10 @@ loginModule
                         window.plugins.jPushPlugin.setTagsWithAlias(tags, alias);
                     });
                     if (device.platform != "Android") {
-                        window.plugins.jPushPlugin.setDebugModeFromIos();
+                        //window.plugins.jPushPlugin.setDebugModeFromIos();
                         window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
                     } else {
-                        window.plugins.jPushPlugin.setDebugMode(true);
+                        //window.plugins.jPushPlugin.setDebugMode(true);
                         window.plugins.jPushPlugin.setStatisticsOpen(true);
                         window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
                     }

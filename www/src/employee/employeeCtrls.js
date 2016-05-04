@@ -40,7 +40,6 @@ employeeModule
             $scope.employisshow = false;
             $scope.employee_query_list = [];
             $scope.empitemPage = 0;
-
             $scope.employ.employeefiledvalue ='';
             $scope.EmployeeListHistoryval();
         });
@@ -62,10 +61,9 @@ employeeModule
                 //console.log("name"+angular.toJson(data.IS_EMPLOYEE.NAME));
                 //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
                 HttpAppService.post(url, data).success(function (response) {
-                    if (response.ES_RESULT.ZFLAG == 'E') {
-                        $scope.employisshow = false;
-                        $cordovaToast.showShortCenter('无符合条件数据');
-                    } else {
+                    if(data.IS_EMPLOYEE.NAME!==$scope.employ.employeefiledvalue){
+                            return ;
+                    }
                         if (response.ES_RESULT.ZFLAG == 'S') {
 
                             if(response.ET_EMPLOYEE != '') {
@@ -104,7 +102,9 @@ employeeModule
                                 $cordovaToast.showShortBottom('搜索数据为空');
                             }
 
-                        };
+                        }else if (response.ES_RESULT.ZFLAG == 'E') {
+                            $scope.employisshow = false;
+                            $cordovaToast.showShortCenter('无符合条件数据');
                     }
                 }).error(function (response, status, header, config) {
                     var respTime = new Date().getTime() - startTime;
@@ -132,6 +132,7 @@ employeeModule
             Prompter.showLoading('正在搜索');
             $scope.searchFlag=true;
             $scope.employ.employeefiledvalue = x;
+            $scope.empitemPage = 0;
             $scope.initLoad();
         };
         $scope.cancelSearch=function(){
@@ -361,16 +362,22 @@ employeeModule
             $state.go('userDetail');
         }
     }])
-    .controller('userDetailCtrl',['$scope','$state','$rootScope','$ionicHistory','Prompter','HttpAppService','$cordovaInAppBrowser','$ionicLoading','$cordovaToast','$cordovaClipboard','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','employeeService','$window','$ionicActionSheet',
-        function($scope,$state,$rootScope,$ionicHistory,Prompter,HttpAppService,$cordovaInAppBrowser,$ionicLoading,$cordovaToast,$cordovaClipboard,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,employeeService,$window,$ionicActionSheet){
+    .controller('userDetailCtrl',['LoginService','$scope','$state','$rootScope','$ionicHistory','Prompter','HttpAppService','$cordovaInAppBrowser','$ionicLoading','$cordovaToast','$cordovaClipboard','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','employeeService','$window','$ionicActionSheet',
+        function(LoginService,$scope,$state,$rootScope,$ionicHistory,Prompter,HttpAppService,$cordovaInAppBrowser,$ionicLoading,$cordovaToast,$cordovaClipboard,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,employeeService,$window,$ionicActionSheet){
         ////返回回退
         $scope.employgoBack = function() {
             //console.log("返回成功")
             $rootScope.$broadcast('employeeBack','false');
             $rootScope.$broadcast('employeedeatillist');
             $ionicHistory.goBack();
-        }
-
+        };
+            $scope.showFlag=false;
+            if(LoginService.getProfileType()=="APP_SALE"){
+                $scope.showFlag=false;
+            }
+            if(LoginService.getProfileType()=="APP_SERVICE"){
+                $scope.showFlag=true;
+            }
 
         Prompter.showLoading("数据加载中...");
         $scope.updateCustomer=function(){
@@ -397,11 +404,35 @@ employeeModule
             });
         };
         $scope.updateCustomer();
+            //拨打电话
+            //$scope.employeeshowphone1 = function(data){
+            //
+            //    if((data==undefined)){
+            //        $cordovaToast.showShortBottom('无号码');
+            //    }else{
+            //        var number={
+            //            text:data
+            //        };
+            //        $ionicActionSheet.show({
+            //            buttons:{text:data},
+            //            titleText: '拨打电话',
+            //            cancelText: '取消',
+            //            buttonClicked: function (index) {
+            //                console.log(data+'1');
+            //                if (index == 0) {
+            //                    $window.location.href = "tel:" + data;
+            //                    return true;
+            //                }
+            //            }
+            //        })
+            //    }
+            //};
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
                 if(fromState && toState && fromState.name == 'customerList'){
                     $scope.updateCustomer();
                 }
             });
+
         $scope.gocustomerList = function(){
             employeeService.set_employeecustomerlist($scope.userdetailcustomerlist);
             $state.go('customerList');
@@ -440,13 +471,6 @@ employeeModule
             $scope.customerSearch = false;
             $scope.input = {customer:''};
             var customerType = "";
-            $scope.showFlag=false;
-                if(LoginService.getProfileType()=="APP_SALE"){
-                    $scope.showFlag=false;
-                }
-                if(LoginService.getProfileType()=="APP_SERVICE"){
-                    $scope.showFlag=true;
-                }
             customerType='Z00004';
             $scope.getCustomerArr = function (search) {
                 $scope.isError = false;

@@ -88,6 +88,8 @@ spareModule.controller('SpareListCtrl',['$cordovaDialogs','$ionicScrollDelegate'
         Prompter.showLoading('正在搜索');
         $scope.searchFlag=true;
         $scope.spareInfo = x;
+        page=0;
+        $scope.spareList=new Array;
         $scope.spareLoadmoreIm();
     };
     $scope.spareLoadmoreIm = function() {
@@ -106,6 +108,9 @@ spareModule.controller('SpareListCtrl',['$cordovaDialogs','$ionicScrollDelegate'
         };
         HttpAppService.post(url, data).success(function (response) {
             //console.log(page);
+            if($scope.spareInfo!==data.IS_PRODMAS_INPUT.SHORT_TEXT){
+                return;
+            }
             if (response.ES_RESULT.ZFLAG == 'S') {
                 //console.log("第4步");
                 Prompter.hideLoading();

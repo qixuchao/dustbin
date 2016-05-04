@@ -2,8 +2,8 @@
  * Created by zhangren on 16/3/7.
  */
 customerModule
-    .controller('customerQueryCtrl',['$cordovaDialogs','Prompter','$scope','$rootScope','$state','$http','HttpAppService','LoginService','$timeout','$cordovaToast','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading',
-        function($cordovaDialogs,Prompter,$scope,$rootScope,$state,$http,HttpAppService,LoginService,$timeout,$cordovaToast,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading){
+    .controller('customerQueryCtrl',['$cordovaDialogs','Prompter','$scope','$rootScope','$state','$http','HttpAppService','LoginService','$timeout','$cordovaToast','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','$ionicHistory',
+        function($cordovaDialogs,Prompter,$scope,$rootScope,$state,$http,HttpAppService,LoginService,$timeout,$cordovaToast,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,$ionicHistory){
         $ionicPopover.fromTemplateUrl('src/customer/model/customer_selec.html', {
             scope: $scope
         }).then(function(popover) {
@@ -499,6 +499,7 @@ customerModule
         });
 
         $scope.CustomergoBack = function() {
+            console.log(saleActService.isFromRelation);
             saleActService.isFromRelation = false;
             $rootScope.$broadcast('customerCreatevalue', 'false');
             //window.history.back(-1);
@@ -755,7 +756,7 @@ customerModule
             Prompter.hideLoading();
             $cordovaToast.showShortBottom('请检查你的网络设备');
         });
-
+            $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
            if(LoginService.getProfileType()=="APP_SERVICE"){
                    $scope.customer_detailstypes = [
                        {
@@ -778,6 +779,7 @@ customerModule
                        }
                    ]
            }else if (LoginService.getProfileType()=="APP_SALE"){
+               console.log(saleActService.isFromRelation);
                if(saleActService.isFromRelation == true){
                    $scope.customer_detailstypes = [{
                        typemane:'联系人',
@@ -852,17 +854,18 @@ customerModule
                }];
 
            }
-            if(ROOTCONFIG.hempConfig.baseEnvironment == 'ATL' && (LoginService.getProfileType()=="APP_SALE")){
-                $scope.customer_detailstypes = [{
-                    typemane:'联系人',
-                    imgurl:'img/customer/customerlianxir@2x.png',
-                    url:'customerContactQuery'
-                },{
-                    typemane:'负责人',
-                    imgurl:'img/customer/customerfuz@2x.png',
-                    url:'customerFuZe'
-                }];
-            }
+            });
+            //if(ROOTCONFIG.hempConfig.baseEnvironment == 'ATL' && (LoginService.getProfileType()=="APP_SALE")){
+            //    $scope.customer_detailstypes = [{
+            //        typemane:'联系人',
+            //        imgurl:'img/customer/customerlianxir@2x.png',
+            //        url:'customerContactQuery'
+            //    },{
+            //        typemane:'负责人',
+            //        imgurl:'img/customer/customerfuz@2x.png',
+            //        url:'customerFuZe'
+            //    }];
+            //}
 
         $scope.gocustomerLists = function(cusvalue){
             if(cusvalue.url == "worksheetList" || cusvalue.url == "saleChanList" || cusvalue.url == "saleActList"){
