@@ -472,6 +472,13 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             controller: 'activityPlanCreateCtrl'
         })
         //活动计划模块 end-------
+        //选择销售或服务 start-------
+        .state('changeChar', {
+            url: '/changeChar',
+            templateUrl: 'src/settings/selectChar/changeChar.html',
+            controller: 'ChangeCharCtrl'
+        })
+        //选择销售或服务 end-------
     ;
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider  // /home/login

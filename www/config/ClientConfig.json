@@ -1,17 +1,8 @@
 {
   "hempConfig": {
-<<<<<<< HEAD
-  	"basePath":"http://crmmp.atlbattery.com:9388/crmuat/api/CRMAPP/",
+  	"basePath":"https://crmmp.atlbattery.com:9343/crmuat/api/CRMAPP/",
 	"basePathOld":"http://117.28.248.23:9388/crmuat/api/CRMAPP/",
 
 	"baseEnvironment": "CATL"
-=======
-
-  	"basePath":"http://crmmp.atlbattery.com:9388/test/api/CRMAPP/",
-	"basePathOld":"http://117.28.248.23:9388/test/api/CRMAPP/",
-
-
-	"baseEnvironment": "ATL"
->>>>>>> f2deb2536649636d1d997243528572a110dee79b
   }
 }

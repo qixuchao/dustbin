@@ -1,5 +1,17 @@
 #my-changepass-content{
 	background-image: url(../../img/bg_changepass.png);
+
+  .selectC {
+	border: solid 0px white;
+	appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
+	width: 80%;
+	background: url("../../img/worksheetReported/sanjiao.png") no-repeat scroll right center transparent;
+	position:relative;left:0px;top:-2px;font-size:15px;line-height:24px;border:0px;color:#909993;
+	padding-right: 14px;
+	margin: 20px 10% 20px 10%;
+  }
 	.changepass-box{
 		margin-top: 22.5%;
 		margin-left: 10.1%;
