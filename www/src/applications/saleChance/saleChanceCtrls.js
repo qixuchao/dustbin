@@ -670,7 +670,7 @@ salesModule
                 $scope.popover.show($event);
             };
             $scope.savePop = function () {
-                if (Number($scope.pop.stage.value.substring($scope.pop.stage.value.length-2,$scope.pop.stage.value.length))>=4 && !Prompter.isATL()) {
+                if (Number($scope.pop.stage.value.substring(1,3))>=4 && !Prompter.isATL()) {
                     if (!$scope.pop.proNum) {
                         Prompter.alert('请输入项目编号');
                         return

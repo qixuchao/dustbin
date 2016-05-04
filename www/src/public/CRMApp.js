@@ -437,6 +437,41 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
         })
 
         //报工单模块 end-------
+
+    //销售线索
+        .state('saleClueDetail', {
+            url: '/saleClueList/saleClueDetail',
+            templateUrl: 'src/applications/saleClue/detail/saleClueDetail.html',
+            controller: 'saleClueDetailCtrl'
+        })
+        .state('saleClueList', {
+            url: '/saleClueList',
+            templateUrl: 'src/applications/saleClue/list/saleClueList.html',
+            controller: 'saleClueListCtrl'
+        })
+
+        //活动计划模块 start-------
+        .state('activityPlanList', {
+            url: '/activityPlanList',
+            templateUrl: 'src/activityPlan/activityPlan_List.html',
+            controller: 'activityPlanListCtrl'
+        })
+        .state('activityPlanDetail', {
+            url: '/activityPlanDetail',
+            templateUrl: 'src/activityPlan/activityPlan_Detail.html',
+            controller: 'activityPlanDetailCtrl'
+        })
+        .state('activityPlanEdit', {
+            url: '/activityPlanEdit',
+            templateUrl: 'src/activityPlan/activityPlan_edit.html',
+            controller: 'activityPlanEditCtrl'
+        })
+        .state('activityPlanCreate', {
+            url: '/activityPlanCreate',
+            templateUrl: 'src/activityPlan/activityPlan_create.html',
+            controller: 'activityPlanCreateCtrl'
+        })
+        //活动计划模块 end-------
     ;
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider  // /home/login

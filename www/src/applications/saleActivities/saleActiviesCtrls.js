@@ -401,11 +401,7 @@ salesModule
                 $scope.relationPositionArr = saleActService.relationPositionArr.ATL;
                 $scope.isATL = true;
             }
-            $scope.formTest = function () {
-                Prompter.alert('提交');
-            };
             $scope.details = {relations: []};
-
             ionicMaterialInk.displayEffect();
             $scope.urgentDegreeArr = saleActService.urgentDegreeArr;
             var getRelationPosition = function (data) {

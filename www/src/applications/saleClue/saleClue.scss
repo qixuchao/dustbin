@@ -1,0 +1,29 @@
+.saleClueDetail{
+  .top-back {
+    .selector{
+      .detail{
+        width: 33%;
+      }
+      .product{
+        width: 33%;
+        float: left;
+        text-align: center;
+        height: 100%;
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        padding-top: 1px;
+        background: transparent;
+        color: white;
+        border-right:1px solid white;
+        border-left:1px solid white;
+      }
+      .relative{
+        width: 34%;
+      }
+      .checked{
+        background: #c0d1e7;
+        color: #3f6eb2;
+      }
+    }
+  }
+}

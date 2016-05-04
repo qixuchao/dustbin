@@ -376,6 +376,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         "STORAGE": $scope.goSAPInfos[i].STORAGE,
                         "PROD": $scope.goSAPInfos[i].PROD,
                         "APPLY_NUM": $scope.goSAPInfos[i].APPLY_NUM,
+                        "RECORD_ID" : $scope.goSAPInfos[i].RECORD_ID,
                         "ZMODE": "U"
                     });
                 }
@@ -388,6 +389,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 "IT_MAT_LIST": {
                     "item": item
                 }};
+            //console.log(data);
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function(response){
@@ -687,6 +689,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                         "STORAGE": worksheetDetail[i].STORAGE,
                         "PROD": worksheetDetail[i].PROD,
                         "APPLY_NUM": worksheetDetail[i].APPLY_NUM,
+                        "RECORD_ID" : worksheetDetail[i].RECORD_ID,
                         "ZMODE": "U"
                     });
                 }
