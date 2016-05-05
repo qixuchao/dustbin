@@ -30,7 +30,6 @@ tabsModule
 
             //ionicMaterialInk.displayEffect();
             $rootScope.goBack = function () {
-                console.log('goback')
                 $ionicHistory.goBack();
             };
             $scope.tabs = [{
