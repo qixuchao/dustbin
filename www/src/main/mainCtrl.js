@@ -1101,7 +1101,11 @@ mainModule
             };
             //联系人
             $scope.createContact = function () {
-                $state.go('ContactCreate');
+                if(LoginService.getAuthInfoByFunction('EMPLOYEE').CREATE == false){
+                    Prompter.alert('您没有创建权限!');
+                }else{
+                    $state.go('ContactCreate');
+                }
             };
             //拜访
             $scope.openCreateVisit = function () {

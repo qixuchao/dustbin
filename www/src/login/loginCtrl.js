@@ -148,6 +148,7 @@ loginModule
                                 __initJPushPlugin();
                           }
                         console.log(angular.toJson(response));
+<<<<<<< HEAD
                         // if(response.PROFILE == "*"){
                         //    $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
                         //  $state.go('changeChar');
@@ -168,6 +169,17 @@ loginModule
                         }
                     }else{
                         Prompter.showLoadingAutoHidden(errorResponse.ES_RESULT.ZRESULT, false, 1500);
+=======
+                        if(response.PROFILE == "*"){
+                            $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
+                          $state.go('changeChar');
+                        }else if(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D"){
+                            $state.go('changePass');
+                            $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
+                        }else{
+                            $state.go('tabs', {}, {location:"replace", reload:"true"});
+                        }
+>>>>>>> backup
                     }
                 });
 
