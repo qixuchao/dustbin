@@ -1,7 +1,7 @@
 {
   "hempConfig": {
 
-  	"basePath":"https://crmmp.atlbattery.com:9343/crmuat/api/CRMAPP/",
+  	"basePath":"http://117.28.248.23:9388/test/api/CRMAPP/",
 	"basePathOld":"http://117.28.248.23:9388/test/api/CRMAPP/",
 
 

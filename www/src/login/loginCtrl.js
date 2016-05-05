@@ -99,7 +99,7 @@ loginModule
                     "password": $scope.loginData.password,
                     "system": ROOTCONFIG.hempConfig.baseEnvironment,
                     "platform": ionic.Platform.isWebView() ? ionic.Platform.platform() : 'browser',
-                    "deviceId": $scope.config.deviceId
+                        "deviceId": $scope.config.deviceId
                 };//ROOTCONFIG.hempConfig.baseEnvironment
                 HttpAppService.noAuthorPost(url, data).success(function (response) {
                     Prompter.hideLoading();
