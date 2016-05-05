@@ -1,4 +1,4 @@
-/**
+/*
  * Created by gongke on 2016/3/14.
  */
 loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialogs, $cordovaNetwork, $cordovaInAppBrowser) {
@@ -8,6 +8,22 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
     var menuList=[]; 
     var author={};
     var version;
+    function newVersionGreaterThanOld(newVersion, oldVersion){  //判断oldVersion是不是最新version。。oldVersion=newVersion
+        var newVs = newVersion.split(".");
+        var oldVs = oldVersion.split(".");
+        if(window.parseInt(newVs[0]) > window.parseInt(oldVs[0])){
+            return true;
+        }else if(newVs[0] == oldVs[0]){
+            if(window.parseInt(newVs[1]) > window.parseInt(oldVs[1])){
+                return true;
+            }else if(newVs[1]==oldVs[1]){
+                if(window.parseInt(newVs[2]) > window.parseInt(oldVs[2])){
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
     return{
         setLoginerName: function(name){
             window.localStorage.loginerName = name;
@@ -106,11 +122,17 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
         },
         version,
         getNewVersion: function (app) {
+            if(!app || app == null){
+                return;
+            }
             if (ionic.Platform.isWebView()) {
                 $cordovaAppVersion.getVersionNumber().then(function (version) {
                     var appVersion = version;
-                    //强制更新
-                    if (app.minVersion > appVersion) {
+
+                    if(appVersion == app.newVersion){
+                        $cordovaToast.showShortBottom('当前是最新版本');
+                    }else if(newVersionGreaterThanOld(app.minVersion, version)){  //强制更新  app.minVersion > appVersion
+                        // alert("程序有了新版本,请确认更新!");
                         $cordovaDialogs.alert('程序有了新版本,请确认更新!', '提示', '确定').then(function () {
                             if ($cordovaNetwork.getNetwork() != 'wifi') {
                                 $cordovaDialogs.confirm('当前正在使用流量上网,是否继续下载?', '提示', ['确定', '取消']).then(function (buttonIndex) {
@@ -128,7 +150,8 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
                                 $cordovaInAppBrowser.open(app.downloadUrl, '_system', {location: 'yes'});
                             }
                         });
-                    } else if (app.newVersion > appVersion) {
+                    }else if(newVersionGreaterThanOld(app.newVersion > appVersion)){   // app.newVersion > appVersion
+                        //alert("程序有了新版本,请确认更新!222");
                         $cordovaDialogs.confirm('程序有了新版本,请确认更新!', '提示', ['确定', '取消']).then(function (versionIndex) {
                             if (versionIndex == 1) {
                                 if ($cordovaNetwork.getNetwork() != 'wifi') {
@@ -143,9 +166,8 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
                                 }
                             }
                         });
-                    }else{
-                        $cordovaToast.showShortBottom('当前是最新版本');
                     }
+
 
                 });
             }

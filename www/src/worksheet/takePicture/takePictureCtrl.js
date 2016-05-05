@@ -24,7 +24,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
                     if($scope.config.__popstateFlag){
                         $scope.config.__popstateFlag = false;
                     }else{
-                        event2.preventDefault();
+                        event2.preventDefault(); 
                         $scope.config.__popstateFlag = true;
                         $scope.goBackForPicture();
                     }
@@ -734,6 +734,15 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			options.fileKey = "image";
 			options.fileName = file.name;
 			options.mimeType = "image/jpeg";
+			var tokens = HttpAppService.getToken();
+			options.headers = {
+				token: tokens.token+"",
+				timestamp: tokens.timestamp,
+				userKey: tokens.userKey,
+				timeout: 100000
+			};
+			// alert(JSON.stringify(tokens));
+			// alert(JSON.stringify(options));
 			options.params = {
 				inbond: inbond
 			};
@@ -745,7 +754,6 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				file.uploading = true;
 				file.uploadOk = false;
 				file.uploadError = false;
-
 				/*ft.onprogress = function(progressEvent){
 					var percent = progressEvent.loaded / progressEvent.total;
 						//file.uploadPercentDesc = $scope.config.uploadingText + "" + percent;
@@ -764,6 +772,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				
 				file.isNetworking = true;
 	        	file.networkTip = "正在上传中...";
+	        	//var startTime = new Date();
 				//alert("开始上传了。。。");
 				ft.upload(filepath, url, function (winRes){
 					//alert("上传成功:   "+JSON.stringify(winRes));
@@ -771,10 +780,10 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 					file.uploading = false;
 					file.uploadOk = true;
 					file.uploadError = false;
-
+					
 					file.isNetworking = false;
 	        		file.networkTip = "";
-
+	        		
 	        		//var response = (typeof winRes.response == "string") ? JSON.parse(winRes.response) : winRes.response;
 	        		var response = JSON.parse(winRes.response);
 	        		if(response.ES_OBJECT){
@@ -794,15 +803,21 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 						$scope.$apply();
 					}
 				}, function (errorRes){
+					//var endTime = new Date();
 					file.isServerHolder = false;
 					file.uploading = false;
 					file.uploadOk = false;
 					file.uploadError = true;
 					file.isNetworking = false;
 	        		file.networkTip = "";
+	        		var desc = "";
+	        		//var  endTime - startTime >= config.timeout;
+	        		if(!errorRes || errorRes == null){
+	        			desc = ": 请检查网络!";
+	        		}
 					$ionicPopup.alert({
 						title: '提示',
-						template: "上传失败:   "+JSON.stringify(errorRes)
+						template: "上传失败"+desc
 					});
 				}, options);
 				//alert(filepath+"   "+url+"   "+JSON.stringify(options));

@@ -1,6 +1,6 @@
 /**
  * Created by Gusenlin on 2015/10/16.
- */
+ */  
 'use strict';
 utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 'Prompter', '$ionicLoading', '$timeout', '$cordovaToast','$ionicHistory',
     function ($log, $http, $rootScope, $state, Prompter, $ionicLoading, $timeout, $cordovaToast,$ionicHistory) {
@@ -17,6 +17,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
             };
         };
         var request = {
+            getToken: getToken,
             isSuccessfull: function (status) {
                 if (status == "S" || status == "SW") {
                     return true;
@@ -55,6 +56,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                     headers: getToken(),
                     timeout: 30000
                 };
+                //console.log(config.headers.token);
                 var startTime = new Date().getTime();
                 var post = $http.post(url,paramter,config).success(function (response) {
                     //flag = true;

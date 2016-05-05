@@ -2,7 +2,7 @@ var utilsModule = angular.module('utilsModule', []);
 var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
-var appModule = angular.module('appModule', []);
+var appModule = angular.module('appModule', []); 
 var carModule = angular.module('carModule',[]);
 var salesModule = angular.module('salesModule', []);
 var employeeModule = angular.module('employeeModule', []);
@@ -123,7 +123,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
         //     templateUrl: 'src/loginSecond/loginSecond.html',
         //     controller: 'LoginCtrl'
         // })
-
+        
         .state('tabs', {
             url: '/tabs',
             templateUrl: 'src/tabs/tabs.html',
