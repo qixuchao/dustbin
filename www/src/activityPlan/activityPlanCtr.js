@@ -123,7 +123,7 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
                 if (respTime >= config.timeout) {
                     //console.log('HTTP timeout');
                     if (ionic.Platform.isWebView()) {
-                        $cordovaDialogs.alert('请求超时');
+                        //$cordovaDialogs.alert('请求超时');
                     }
                 }
                 $ionicLoading.hide();
@@ -260,7 +260,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
             if (respTime >= config.timeout) {
                 //console.log('HTTP timeout');
                 if (ionic.Platform.isWebView()) {
-                    $cordovaDialogs.alert('请求超时');
+                    //$cordovaDialogs.alert('请求超时');
                 }
             } else {
                 $cordovaToast.showShortBottom("访问失败");
@@ -357,7 +357,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                     if (respTime >= config.timeout) {
                         //console.log('HTTP timeout');
                         if (ionic.Platform.isWebView()) {
-                            $cordovaDialogs.alert('请求超时');
+                            //$cordovaDialogs.alert('请求超时');
                         }
                     }
                     $ionicLoading.hide();
@@ -477,7 +477,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                     //超时之后返回的方法
                     if (respTime >= config.timeout) {
                         if (ionic.Platform.isWebView()) {
-                            $cordovaDialogs.alert('请求超时');
+                            //$cordovaDialogs.alert('请求超时');
                         }
                     } else {
                         $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -673,7 +673,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             if (respTime >= config.timeout) {
                 //console.log('HTTP timeout');
                 if (ionic.Platform.isWebView()) {
-                    $cordovaDialogs.alert('请求超时');
+                    //$cordovaDialogs.alert('请求超时');
                 }
             } else {
                 $cordovaToast.showShortBottom("访问失败");

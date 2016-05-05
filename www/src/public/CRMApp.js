@@ -26,7 +26,7 @@ var activityPlanModule = angular.module('activityPlanModule', []);  //活动计�
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlideBox', 'ngCordova',
     'ionic-material',
-    'utilsModule',
+    'utilsModule',  
     'loginModule', 
     'mainModule',
     'tabsModule',
@@ -407,6 +407,16 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             url: '/changePass',
             templateUrl: 'src/settings/changePass/changePass.html',
             controller: 'ChangePassCtrl'
+        })
+        .state('about',{
+            url:'/about',
+            templateUrl:'src/settings/about.html',
+            controller:'AboutCtrl'
+        })
+        .state('aboutapp',{
+            url:'/aboutapp',
+            templateUrl:'src/settings/aboutApp.html',
+            controller:'AboutAppCtrl'
         })
         //报工单模块 start-----
         .state('worksheetReportedList', {

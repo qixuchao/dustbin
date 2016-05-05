@@ -324,8 +324,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			item.saveTip = "正在保存...";
 			item.isSaved = true;
 			var imageDataUrl = "";
-			
-			console.log("$scope.saveThisImage:   "+item.position); 
+			console.log("$scope.saveThisImage:   "+item.position);
 			var imgJQ = angular.element("#crm-pictures-"+item.position);//#takepicture-content
 			var imgEle = imgJQ[0];
 			/*if(imgEle.src.startsWith("http")){
@@ -334,8 +333,11 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			}*/
 			
 			var tempImage = item.imgObj;
+			if(!tempImage || tempImage == null){
+				tempImage = new Image();
+				tempImage.src = imgEle.src
+			}
 			//tempImage.src = imgEle.src;
-			//alert(tempImage.src);
 			var canvas = document.createElement('canvas');
 			canvas.width = tempImage.width;
 			canvas.height = tempImage.height;

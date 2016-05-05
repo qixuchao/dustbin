@@ -18,7 +18,7 @@ mainModule
         'ionicMaterialInk',
         'ionicMaterialMotion',
         'Prompter',
-        'HttpAppService',
+        'HttpAppService', 
         'LoginService',
         'saleActService',
         'worksheetDataService',
@@ -794,7 +794,7 @@ mainModule
                     if (respTime >= config.timeout) {
                         console.log('HTTP timeout');
                         if (ionic.Platform.isWebView()) {
-                            Prompter.alert('请求超时', '提示', '确定');
+                            //Prompter.alert('请求超时', '提示', '确定');
                         }
                     }
                     Prompter.hideLoading();
@@ -898,7 +898,7 @@ mainModule
                         if (respTime >= config.timeout) {
                             console.log('HTTP timeout');
                             if (ionic.Platform.isWebView()) {
-                                Prompter.alert('请求超时', '提示', '确定');
+                                //Prompter.alert('请求超时', '提示', '确定');
                             }
                         }
                         $ionicLoading.hide();
