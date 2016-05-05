@@ -16,11 +16,12 @@ worksheetModule.controller("WorksheetListCtrl",[
 	"customeService",
 	"CarService",
 	"$cordovaToast",
+	"$ionicHistory",
 	function($scope, $ionicScrollDelegate,
 		ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,
 		$ionicPosition, $state, 
 		$cordovaDatePicker,
-		HttpAppService, worksheetHttpService, worksheetDataService, customeService, CarService, $cordovaToast){
+		HttpAppService, worksheetHttpService, worksheetDataService, customeService, CarService, $cordovaToast, $ionicHistory){
 	
 	$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
         if(fromState && fromState.name == 'worksheetList' && toState && toState.name == "tabs"){
@@ -36,6 +37,10 @@ worksheetModule.controller("WorksheetListCtrl",[
         }
     });
 	
+	$scope.goBack = function(){
+		//$ionicHistory.goBack();
+		$ionicHistory.goBack();
+	};
 
 	$scope.safeApply = function(fn){
 	   var phase = this.$root.$$phase;

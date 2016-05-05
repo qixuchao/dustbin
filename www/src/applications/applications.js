@@ -33,7 +33,7 @@ appModule
             go:'worksheetList'
         },{
             name:'PRODUCT',
-            url:'img/apps/proInfo.png',
+            url:'img/apps/material.png',
             go:'spareList'
         },{
             name:'EMPLOYEE',

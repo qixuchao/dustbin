@@ -3,14 +3,18 @@
  */
 'use strict';
 ContactsModule
-    .controller('contactQueryCtrl',['$cordovaDialogs','Prompter','$scope','$rootScope','$state','$http','HttpAppService','$timeout','$ionicPopover','$ionicActionSheet','$window','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading',
-        function($cordovaDialogs,Prompter,$scope,$rootScope,$state,$http,HttpAppService,$timeout,$ionicPopover,$ionicActionSheet,$window,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading){
+    .controller('contactQueryCtrl',['$cordovaDialogs','Prompter','$scope','$rootScope','$state','$http','HttpAppService','$timeout','$ionicPopover','$ionicActionSheet','$window','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading','LoginService',
+        function($cordovaDialogs,Prompter,$scope,$rootScope,$state,$http,HttpAppService,$timeout,$ionicPopover,$ionicActionSheet,$window,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading,LoginService){
         $scope.searchFlag=false;
         $scope.contactisshow=false;
         $scope.config={
             contactfiledvalue:"",
-            queryResultScrollDelegate:null
+            queryResultScrollDelegate:null,
+            create : true
         };
+            if(LoginService.getAuthInfoByFunction('EMPLOYEE').CREATE == false){
+                $scope.config.create = false;
+            }
         //历史记录显示
         $scope.ContactListHistoryval = function(){
             //$scope.contacts_userqueryflag = false;
@@ -600,7 +604,12 @@ ContactsModule
             //$scope.customer_detailstypes=new Array;
             $scope.showFlag=true;
         }else{
-            $scope.showFlag=false;
+            if(LoginService.getAuthInfoByFunction('EMPLOYEE').EDIT == false){
+                $scope.showFlag=true;
+            }else{
+                $scope.showFlag=false;
+            }
+
             //$scope.customer_detailstypes = [{
             //    typemane:'活动',
             //    imgurl:'img/customer/customerhuod.png',

@@ -2,7 +2,7 @@ var utilsModule = angular.module('utilsModule', []);
 var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
-var appModule = angular.module('appModule', []);
+var appModule = angular.module('appModule', []); 
 var carModule = angular.module('carModule',[]);
 var salesModule = angular.module('salesModule', []);
 var employeeModule = angular.module('employeeModule', []);
@@ -94,7 +94,6 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             $ionicHistory.goBack();
         };
 })
-
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionGalleryConfigProvider) {
     ionGalleryConfigProvider.setGalleryConfig({
                           action_label: '关闭',
@@ -111,20 +110,20 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
      */
     
     $stateProvider
-
-        // .state('login', {
-        //    url: '/login',
-        //    //abstract: true,
-        //    templateUrl: 'src/login/login.html',
-        //    controller: 'LoginCtrl'
-        // })
         
         .state('login', {
-            url: '/login',
-            templateUrl: 'src/loginSecond/loginSecond.html',
-            controller: 'LoginCtrl'
+           url: '/login',
+           //abstract: true,
+           templateUrl: 'src/login/login.html',
+           controller: 'LoginCtrl'
         })
-
+        
+        // .state('login', {
+        //     url: '/login',
+        //     templateUrl: 'src/loginSecond/loginSecond.html',
+        //     controller: 'LoginCtrl'
+        // })
+        
         .state('tabs', {
             url: '/tabs',
             templateUrl: 'src/tabs/tabs.html',

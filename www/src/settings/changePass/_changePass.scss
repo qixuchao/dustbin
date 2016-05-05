@@ -79,7 +79,18 @@
 	    }
     }
     .return-button{
+        position: absolute;
+        top: 85%;
+        text-align: center;
+        left: 0px;
+        right: 0px;
+        height: 3rem;
         .cancel{
+            height: 3.7rem;
+        }
+    }
+    .return-buttonOld{
+        .cancelOld{
             width: 50px;
             position: absolute;
             bottom: 45px;
