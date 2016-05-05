@@ -16,7 +16,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
         }
     //ZPRV ZPLV  ZNCV
         if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCV"){
-            $scope.add = false;
+            $scope.add = false; 
             $scope.deleteButton = false;
 
         }

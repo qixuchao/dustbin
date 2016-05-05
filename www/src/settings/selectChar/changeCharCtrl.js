@@ -21,8 +21,10 @@ settingsModule.controller("ChangeCharCtrl", [
 			{
 				name : "销售",
 				code : "APP_SALE"
-			},]
+			},];
+		console.log($rootScope.FIRST_LOGIN);
 		$scope.confirmChangeChar = function(){
+			$state.go('tabs', {}, {location:"replace", reload:"true"});
 			if($scope.config.char == ""){
 				$cordovaToast.showShortBottom("请选择角色");
 				return;
@@ -32,7 +34,10 @@ settingsModule.controller("ChangeCharCtrl", [
 				LoginService.setMenulist(list);
 				if($rootScope.FIRST_LOGIN == "Y" || $rootScope.FIRST_LOGIN == "D"){
 					$state.go('changePass');
+<<<<<<< HEAD
 					// $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
+=======
+>>>>>>> backup
 				}else{
 					$state.go('tabs', {}, {location:"replace", reload:"true"});
 				}
