@@ -308,14 +308,14 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		};
 		
 		$scope.saveThisImage = function(item){
-			if(item.isSaved){
-				// $cordovaToast.showShortBottom("该图片已保存过!");
-				// return;
-			}
-			if(angular.isUndefined(item.imgObj)){// 本地照片
+			// if(item.isSaved){
+			// 	// $cordovaToast.showShortBottom("该图片已保存过!");
+			// 	// return;
+			// }
+			//if(angular.isUndefined(item.imgObj)){// 本地照片
 				// $cordovaToast.showShortBottom("本地图片,无须保存!");
 				// return;
-			}
+			//}
 			if(item.imgObj && !item.imgObj.complete){
 				$cordovaToast.showShortBottom("该图片还未加载完成，请稍候再试!");
 				return;
@@ -325,7 +325,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			item.isSaved = true;
 			var imageDataUrl = "";
 			
-			console.log("$scope.saveThisImage:   "+item.position);
+			console.log("$scope.saveThisImage:   "+item.position); 
 			var imgJQ = angular.element("#crm-pictures-"+item.position);//#takepicture-content
 			var imgEle = imgJQ[0];
 			/*if(imgEle.src.startsWith("http")){
