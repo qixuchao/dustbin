@@ -1238,6 +1238,9 @@ salesModule
             if (!search) {
                 return $sce.trustAsHtml(text);
             }
+            if(angular.isUndefined(text)){
+                return ""
+            }
             text = text.toString();
             if (text.indexOf(search) == -1) {
                 return text;

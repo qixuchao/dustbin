@@ -24,11 +24,31 @@ salesModule.controller('saleClueDetailCtrl', [
     'customeService',
     'contactService',
     'employeeService',
+    'saleClueService',
     function ($scope, $rootScope, $state, ionicMaterialInk, ionicMaterialMotion, $timeout, $ionicScrollDelegate,
               $ionicPopover, $ionicModal, $cordovaDialogs, $cordovaToast, $cordovaDatePicker, $ionicActionSheet,
               saleChanService, Prompter, HttpAppService, saleActService, relationService, customeService, contactService,
-              employeeService) {
+              employeeService,saleClueService) {
         console.log('线索详情');
+        $scope.listInfo = saleActService.actDetail;
+        var getDetails = function () {
+            Prompter.showLoading('正在查询');
+            var data = {
+                "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
+                "IS_OBJECTID": {"PARTNER":$scope.listInfo.OBJECT_ID}
+            };
+            var promise = HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'LEAD_GET_DETAIL', data)
+                .success(function (response) {
+                    if (response.ES_RESULT.ZFLAG === 'S') {
+                        Prompter.hideLoading();
+                    }
+                });
+            return promise;
+        };
+        if (saleActService.actDetail) {
+            getDetails();
+        }
         $scope.statusArr = saleChanService.getStatusArr();
         $scope.isEdit = false;
         $scope.editText = "编辑";
