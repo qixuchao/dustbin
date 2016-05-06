@@ -92,8 +92,6 @@ loginModule
             $scope.login = function(isNotFirst){
                 // alert("login");
                 if(ionic.Platform.isWebView()){
-                    $scope.loginReal();
-                }else{
                     if(!isNotFirst){
                         Prompter.showLoading();
                     }
@@ -109,6 +107,9 @@ loginModule
                         timeForGetDeviceId = 5000;
                         $scope.loginReal();
                     }
+                }else{
+                    Prompter.showLoading();
+                    $scope.loginReal();
                 }
             };
             $scope.loginReal = function () {
