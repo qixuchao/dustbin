@@ -91,21 +91,24 @@ loginModule
             var timeForGetDeviceId = 3000;
             $scope.login = function(isNotFirst){
                 // alert("login");
-                // $scope.loginReal();
-                if(!isNotFirst){
-                    Prompter.showLoading();
-                }
-                timeForGetDeviceId -= 300;
-                if($scope.config.deviceId == null || $scope.config.deviceId==""){
-                    if(timeForGetDeviceId >= 0){
-                        $scope.login(true);
-                    }else{
-                        Prompter.hideLoading();
-                        $cordovaToast.showShortBottom('获取设备ID失败,请重试!');
-                    }
-                }else{
-                    timeForGetDeviceId = 5000;
+                if(ionic.Platform.isWebView()){
                     $scope.loginReal();
+                }else{
+                    if(!isNotFirst){
+                        Prompter.showLoading();
+                    }
+                    timeForGetDeviceId -= 300;
+                    if($scope.config.deviceId == null || $scope.config.deviceId==""){
+                        if(timeForGetDeviceId >= 0){
+                            $scope.login(true);
+                        }else{
+                            Prompter.hideLoading();
+                            $cordovaToast.showShortBottom('获取设备ID失败,请重试!');
+                        }
+                    }else{
+                        timeForGetDeviceId = 5000;
+                        $scope.loginReal();
+                    }
                 }
             };
             $scope.loginReal = function () {
@@ -150,10 +153,10 @@ loginModule
                           }
                         console.log(angular.toJson(response));
                         
-                        if(response.PROFILE == "*"){
+                        if(response.PROFILE == "*"&&ionic.Platform.isWebView()){
                             $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
                             $state.go('changeChar');
-                        }else if(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D"){
+                        }else if(ionic.Platform.isWebView()&&(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D")){
                             $state.go('changePass');
                             $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
                         }else{

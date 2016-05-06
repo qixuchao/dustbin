@@ -85,21 +85,12 @@ salesModule
                     Prompter.alert('请选择机会类型');
                     return
                 }
-
                 if (Number($scope.create.stage.value.substring(1,3))>=4 && !Prompter.isATL()) {
                     if (!$scope.create.proNum) {
                         Prompter.alert('请输入项目编号');
                         return
                     }
                 }
-                
-                // if (Number($scope.create.chanceType.code.substring(1,3))>=4 && !Prompter.isATL()) {
-                //     if (!$scope.create.proNum) {
-                //         Prompter.alert('请输入项目编号');
-                //         return
-                //     }
-                // }
-                
                 if (!$scope.create.title) {
                     Prompter.alert('请填写描述');
                     return
