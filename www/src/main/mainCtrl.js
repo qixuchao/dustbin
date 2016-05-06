@@ -1100,8 +1100,8 @@ mainModule
                 });
             };
             //联系人
-            $scope.createContact = function () {
-                if(LoginService.getAuthInfoByFunction('EMPLOYEE').CREATE == false){
+            $scope.createContact = function () { //EMPLOYEE
+                if(LoginService.getAuthInfoByFunction('LINKMAN').CREATE == false){
                     Prompter.alert('您没有创建权限!');
                 }else{
                     $state.go('ContactCreate');

@@ -90,6 +90,7 @@ loginModule
             var userPassword = $scope.loginData.password;
             var timeForGetDeviceId = 3000;
             $scope.login = function(isNotFirst){
+                // alert("login");
                 // $scope.loginReal();
                 if(!isNotFirst){
                     Prompter.showLoading();

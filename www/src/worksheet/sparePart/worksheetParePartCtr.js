@@ -26,6 +26,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
 
                 $scope.goSAPInfos = [];
                 var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
+            console.log(worksheetDetail);
                 if(worksheetDataService.wsDetailData.ET_MAT_LIST == ''){
                     worksheetHttpService.goWhere.go = true;
                 }
@@ -33,11 +34,13 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     worksheetDetail = [];
                 }
                 var localInfos = worksheetHttpService.getSparePart();
+            console.log(localInfos);
                 if(localInfos !== undefined && localInfos !== ''){
                     $scope.goSAPInfos = $scope.goSAPInfos.concat(localInfos);
                 }else{
                     $scope.goSAPInfos = $scope.goSAPInfos.concat(worksheetDetail);
                 }
+            console.log($scope.goSAPInfos);
             $scope.goMore = false;//等待更多
             $scope.goNo = false;//没有
             $scope.goLoad = true;//加载
@@ -99,7 +102,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 //超时之后返回的方法
                 if(respTime >= config.timeout){
                     if(ionic.Platform.isWebView()){
-                        ////$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }else{
                     $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -191,7 +194,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     //超时之后返回的方法
                     if(respTime >= config.timeout){
                         if(ionic.Platform.isWebView()){
-                            //$cordovaDialogs.alert('请求超时');
+                            $cordovaDialogs.alert('请求超时');
                         }
                     }else{
                         $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -248,7 +251,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 //超时之后返回的方法
                 if(respTime >= config.timeout){
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }else{
                     $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -391,7 +394,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 "IT_MAT_LIST": {
                     "item": item
                 }};
-            //console.log(data);
+            console.log(data);
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function(response){
@@ -415,7 +418,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 //超时之后返回的方法
                 if(respTime >= config.timeout){
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }else{
                     $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -426,6 +429,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
         }
         //暂存
         $scope.goDetailList = function(){
+            //console.log($scope.goSAPInfos);
             worksheetHttpService.setSparePart($scope.goSAPInfos);
             $state.go("worksheetSelect");
         }
@@ -460,11 +464,11 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             //console.log($scope.goSAPInfos)
             for(var n=0;n<$scope.goSAPInfos.length;n++){
                 if(item.PRODUCT_ID === $scope.goSAPInfos[n].PROD && $scope.config.warehouse.ZZSTORAGE === $scope.goSAPInfos[n].STORAGE){
-                    if($scope.goSAPInfos[n].showPic === true){
+                    if($scope.goSAPInfos[n].showPic == true){
                         if(item.APPLY_NUM > $scope.goSAPInfos[n].ALWAY_NUM){
                             $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
                             $scope.goSAPInfos[n].addNum = false;
-                        }else if(item.APPLY_NUM === $scope.goSAPInfos[n].ALWAY_NUM){
+                        }else if(item.APPLY_NUM == $scope.goSAPInfos[n].ALWAY_NUM){
                             $scope.goSAPInfos[n].APPLY_NUM = item.APPLY_NUM;
                             $scope.goSAPInfos[n].addNum = true;
                         }else{
@@ -478,7 +482,6 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     }
                 }
             }
-            //console.log($scope.goSAPInfos)
         }
         $scope.cancleInfos = function(){
                 $cordovaDialogs.confirm('是否退出？', '提示', ['确定', '取消'])
@@ -487,6 +490,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         var btnIndex = buttonIndex;
                         if (btnIndex == 1) {
                             worksheetHttpService.setSparePart("");
+                            console.log( worksheetHttpService.getSparePart());
                             worksheetHttpService.addPro.proInfos = "";
                             $ionicHistory.goBack();
                         }
@@ -530,7 +534,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 //超时之后返回的方法
                 if(respTime >= config.timeout){
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }else{
                     $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -561,21 +565,26 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         ionicMaterialInk.displayEffect();
         //工单详情
         var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
-        //console.log(worksheetDetail);
-        if(worksheetDetail === undefined){
-            worksheetDetail = [];
-        }else{
-            for(var k=0;k<worksheetDetail.length;k++){
-                worksheetDetail[k].showPic = true;//是否已存在，只是加数量
-                worksheetDetail[k].addNum = true;//新加的备件
-                worksheetDetail[k].ALWAY_NUM = worksheetDetail[k].APPLY_NUM; //原始数量
+        console.log(worksheetDetail);
+            if(worksheetDetail === undefined){
+                worksheetDetail = [];
+            }else{
+                if(worksheetHttpService.goWhere.go == true ){
+
+                }else{
+                    for(var k=0;k<worksheetDetail.length;k++){
+                        worksheetDetail[k].showPic = true;//是否已存在，只是加数量
+                        worksheetDetail[k].addNum = true;//新加的备件
+                        worksheetDetail[k].ALWAY_NUM = worksheetDetail[k].APPLY_NUM; //原始数量
+                    }
+                }
             }
-        }
+
         console.log(worksheetDetail);
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState.name == 'worksheetSparepart' && toState.name == 'worksheetSelect'){
                 var localInfos = worksheetHttpService.getSparePart();
-                //console.log(localInfos);
+                console.log(localInfos);
                 if(localInfos == '' || localInfos == undefined){
 
                 }else{
@@ -629,16 +638,18 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                         if (btnIndex == 1) {
                             worksheetHttpService.goWhere.cun = false;
                             worksheetHttpService.setSparePart("");
+                            console.log( worksheetHttpService.getSparePart());
                             worksheetHttpService.addPro.proInfos = "";
-                            $scope.updateInfos();
+                            $scope.updateInfos("1");
                             $ionicHistory.goBack();
                         }
                     });
             }else{
                 worksheetHttpService.goWhere.cun = false;
                 worksheetHttpService.setSparePart("");
+                console.log( worksheetHttpService.getSparePart());
                 worksheetHttpService.addPro.proInfos = "";
-                $scope.updateInfos();
+                $scope.updateInfos("1");
                 $ionicHistory.goBack();
             }
 
@@ -709,6 +720,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 "IT_MAT_LIST": {
                     "item": item
                 }};
+            console.log(data);
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             if(item.length<1){
                 $cordovaToast.showShortBottom("暂无信息需要传输");
@@ -726,7 +738,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                         //    worksheetDetail[i].addNum = true;
                         //    worksheetDetail[i].showPic = true;
                         //}
-                        $scope.updateInfos();
+                        $scope.updateInfos("2");
                         //worksheetDataService.wsDetailToList.needReload = true;
                         $cordovaToast.showShortBottom("数据已传输至SAP");
                     }else{
@@ -737,7 +749,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                     //超时之后返回的方法
                     if(respTime >= config.timeout){
                         if(ionic.Platform.isWebView()){
-                            //$cordovaDialogs.alert('请求超时');
+                            $cordovaDialogs.alert('请求超时');
                         }
                     }else{
                         $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -749,7 +761,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
 
         }
         //数据刷新
-        $scope.updateInfos = function(){
+        $scope.updateInfos = function(item){
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
@@ -773,6 +785,11 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                         worksheetDetail[k].addNum = true;
                         worksheetDetail[k].ALWAY_NUM = worksheetDetail[k].APPLY_NUM;
                     }
+                    if(item == '1'){
+
+                    }else{
+                        worksheetHttpService.setSparePart(worksheetDetail);
+                    }
                     changeArr();
                 }else{
 
@@ -783,7 +800,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 //超时之后返回的方法
                 if(respTime >= config.timeout){
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }else{
                     $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -960,7 +977,7 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
                 //超时之后返回的方法
                 if(respTime >= config.timeout){
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }else{
                     $cordovaDialogs.alert('访问接口失败，请检查设备网络');

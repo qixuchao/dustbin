@@ -1,7 +1,7 @@
 /**
  * Created by zhangren on 16/3/7.
  */
-'use strict';
+'use strict'; 
 ContactsModule
     .controller('contactQueryCtrl',['$cordovaDialogs','Prompter','$scope','$rootScope','$state','$http','HttpAppService','$timeout','$ionicPopover','$ionicActionSheet','$window','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading','LoginService',
         function($cordovaDialogs,Prompter,$scope,$rootScope,$state,$http,HttpAppService,$timeout,$ionicPopover,$ionicActionSheet,$window,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading,LoginService){
@@ -12,9 +12,13 @@ ContactsModule
             queryResultScrollDelegate:null,
             create : true
         };
-            if(LoginService.getAuthInfoByFunction('EMPLOYEE').CREATE == false){
-                $scope.config.create = false;
-            }
+        
+        if(LoginService.getAuthInfoByFunction('LINKMAN').CREATE == false){
+            $scope.config.create = false;
+        }
+        // if(LoginService.getAuthInfoByFunction('EMPLOYEE').CREATE == false){
+        //     $scope.config.create = false;
+        // }
         //历史记录显示
         $scope.ContactListHistoryval = function(){
             //$scope.contacts_userqueryflag = false;
@@ -517,7 +521,7 @@ ContactsModule
                     elem.currHeight = parseInt(style.height);
                 };
             };
-
+            
             addEvent('propertychange', change);
             addEvent('input', change);
             addEvent('focus', change);
@@ -600,11 +604,18 @@ ContactsModule
                     url:'ContactsRelationship'
             }];
 
+
+        // if(LoginService.getAuthInfoByFunction('LINKMAN').EDIT == false){
+        //     $scope.showFlag=true;
+        // }else{
+        //     $scope.showFlag=false;
+        // }
+        
         if(LoginService.getProfileType()=="APP_SERVICE"){
             //$scope.customer_detailstypes=new Array;
             $scope.showFlag=true;
         }else{
-            if(LoginService.getAuthInfoByFunction('EMPLOYEE').EDIT == false){
+            if(LoginService.getAuthInfoByFunction('LINKMAN').EDIT == false){
                 $scope.showFlag=true;
             }else{
                 $scope.showFlag=false;
