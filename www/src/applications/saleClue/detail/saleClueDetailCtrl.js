@@ -42,6 +42,13 @@ salesModule.controller('saleClueDetailCtrl', [
                 .success(function (response) {
                     if (response.ES_RESULT.ZFLAG === 'S') {
                         Prompter.hideLoading();
+                        $scope.details = response.ES_OUT_DETAIL;
+                        $scope.productInfo = response.ES_OUT_PROD;
+                        $scope.relationArr = response.ET_OUT_REAL.item_out;
+                        angular.forEach($scope.relationArr, function (data) {
+                            data.NAME = data.NAME_LAST;
+                            data.position = data.DESCRIPTION;
+                        })
                     }
                 });
             return promise;
@@ -160,5 +167,137 @@ salesModule.controller('saleClueDetailCtrl', [
                 $scope.$apply();
             }
 
+        };
+
+        //相关方
+        var modifyRelationsArr = [];//修改相关方
+        var deleteArr = []; //存储被删除的相关方
+        var getModifyRelationsArr = function () {
+            angular.forEach($scope.relationArr, function (data) {
+                switch (data.mode) {
+                    case "U":
+                        modifyRelationsArr.push({
+                            "MODE": "U",
+                            "PARTNER_FCT": data.PARTNER_FCT,
+                            "PARTNER": data.PARTNER,
+                            "MAINPARTNER": "",
+                            "OLD_FCT": data.old.PARTNER_FCT,
+                            "OLD_PARTNER": data.old.PARTNER,
+                            "RELATION_PARTNER": ""
+                        });
+                        break;
+                    case "I":
+                        modifyRelationsArr.push({
+                            "MODE": "I",
+                            "PARTNER_FCT": data.PARTNER_FCT,
+                            "PARTNER": data.PARTNER,
+                            "MAINPARTNER": "",
+                            "OLD_FCT": "",
+                            "OLD_PARTNER": "",
+                            "RELATION_PARTNER": ""
+                        });
+                        break
+                }
+            });
+            modifyRelationsArr = deleteArr.concat(modifyRelationsArr);
+            return modifyRelationsArr;
+        };
+        $scope.openRelations = function () {
+            //获取相关方列表中的客户
+            angular.forEach($scope.relationArr, function (data) {
+                if (data.PARTNER_FCT == "00000009") {
+                    relationService.relationCustomer = data;
+                }
+            });
+            relationService.isReplace = false;
+            relationService.myRelations = $scope.relationArr;
+            relationService.saleActSelections = angular.copy(saleActService.relationPositionForAdd);
+            $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.addReleModal = modal;
+                modal.show();
+            });
+        };
+        var repTempIndex;
+        $scope.showActionSheet = function (x) {
+            if (!$scope.isEdit) {
+                return
+            }
+            if (!$scope.isCanEditRelation) {
+                Prompter.alert('此类型相关方无法修改!');
+                return
+            }
+            if (x.PARTNER_FCT == "Z0000003" && angular.isUndefined(x.mode)) {
+                Prompter.alert(x.position + '不能删除或替换!');
+                return
+            }
+            repTempIndex = $scope.relationArr.indexOf(x);
+            $ionicActionSheet.show({
+                buttons: [
+                    {text: '删除'},
+                    {text: '替换'}
+                ],
+                titleText: '请选择操作',
+                cancelText: '取消',
+                buttonClicked: function (index) {
+                    switch (index) {
+                        case 0:
+                            if (x.PARTNER_FCT == '00000009') {
+                                $scope.details.customerName = '';
+                                relationService.relationCustomer = {};
+                            }
+                            if (angular.isUndefined(x.mode)) {
+                                deleteArr.push({
+                                    "MODE": "D",
+                                    "PARTNER_FCT": "",
+                                    "PARTNER": "",
+                                    "MAINPARTNER": "",
+                                    "OLD_FCT": x.PARTNER_FCT,
+                                    "OLD_PARTNER": x.PARTNER_NO,
+                                    "RELATION_PARTNER": ""
+                                });
+                            }
+                            $scope.relationArr.splice(repTempIndex, 1);
+                            break;
+                        case 1:
+                            relationService.isReplace = true;
+                            relationService.saleActSelections = angular.copy(saleActService.relationPositionForAdd);
+                            relationService.myRelations = $scope.relationArr;
+                            relationService.replaceMan = x;
+                            relationService.repTempIndex = repTempIndex;
+                            relationService.position = x.position;
+                            $ionicModal.fromTemplateUrl('src/applications/addRelations/addRelations.html', {
+                                scope: $scope,
+                                animation: 'slide-in-up'
+                            }).then(function (modal) {
+                                $scope.addReleModal = modal;
+                                modal.show();
+                            });
+                            break;
+                    }
+                    return true;
+                }
+            });
+        };
+        //跳转详情界面
+        $scope.goRelationDetail = function (x) {
+            switch (x.PARTNER_FCT) {
+                case '00000009':
+                    x.PARTNER_ROLE = 'CRM000';
+                    customeService.set_customerListvalue(x);
+                    saleActService.isFromRelation = true;
+                    $state.go('customerDetail');
+                    break;
+                case 'Z0000003':
+                    employeeService.set_employeeListvalue(x);
+                    $state.go('userDetail');
+                    break;
+                case '00000015':
+                    contactService.set_ContactsListvalue(x.PARTNER);
+                    $state.go('ContactDetail');
+                    break;
+            }
         };
     }]);
