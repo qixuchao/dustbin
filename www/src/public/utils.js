@@ -210,6 +210,9 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
                             case 'chanDetailEnd':
                                 scope.chanceDetails.EXPECT_END = time;
                                 break;
+                            case 'clueDetailStart':
+                                scope.details.DATE_START = time;
+                                break;
                         }
                     });
                 }, false);

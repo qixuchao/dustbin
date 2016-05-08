@@ -1,0 +1,17 @@
+<ion-modal-view class="moneyTypesModal">
+    <div class="saleList">
+        <ion-header-bar no-tap-scroll="true" align-title="center" class="head pub-head no-padding">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="selectionsModal.hide()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">{{unitTitle}}</div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <ion-content class="content has-header">
+        <div class="selectItem" ng-repeat="x in selectionArr" ng-click="selectType(x)">
+            <div class="row">
+                <div class="col" ng-class="{'selected':selectText==x.text}">{{x.text}}</div>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

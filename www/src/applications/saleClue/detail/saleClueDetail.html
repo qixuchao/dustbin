@@ -51,7 +51,7 @@
                 <div class="row row-center"
                      ng-class="placeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div class="col col-16">日期:</div>
-                    <input type="text" ng-model="details.DATE_START" ng-readonly="!isEdit"
+                    <input type="text" ng-model="details.DATE_START" readonly ng-click="selectTime()"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center"
@@ -163,32 +163,32 @@
                     <div class="row row-center">
                         <div class="col no-padding">产品线:</div>
                         <div class="col text no-padding saleChanDetail">
-                            <div class="money" ng-click="openMoneyModal('unit2')">
-                                -{{productInfo.ZZFLD00004O?productInfo.ZZFLD00004O:'单位'}}-
+                            <div class="money" ng-click="openSelectionsModal('productLine',productInfo.ZZFLD00004O)">
+                                -{{productInfo.ZZFLD00004O?productInfo.ZZFLD00004O:'请选择'}}-
                             </div>
                         </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">应用领域:</div>
                         <div class="col text no-padding saleChanDetail">
-                            <div class="money" ng-click="openMoneyModal('unit2')">
-                                -{{productInfo.ZZFLD00004Q?productInfo.ZZFLD00004Q:'单位'}}-
+                            <div class="money" ng-click="openSelectionsModal('applyField',productInfo.ZZFLD00004Q)">
+                                -{{productInfo.ZZFLD00004Q?productInfo.ZZFLD00004Q:'请选择'}}-
                             </div>
                         </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">应用类型:</div>
                         <div class="col text no-padding saleChanDetail">
-                            <div class="money" ng-click="openMoneyModal('unit2')">
-                                -{{productInfo.ZZFLD00004R?productInfo.ZZFLD00004R:'单位'}}-
+                            <div class="money" ng-click="openSelectionsModal('applyType',productInfo.ZZFLD00004R)">
+                                -{{productInfo.ZZFLD00004R?productInfo.ZZFLD00004R:'请选择'}}-
                             </div>
                         </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">产品类型:</div>
                         <div class="col text no-padding saleChanDetail">
-                            <div class="money" ng-click="openMoneyModal('unit2')">
-                                -{{productInfo.ZZFLD00004S?productInfo.ZZFLD00004S:'单位'}}-
+                            <div class="money" ng-click="openSelectionsModal('productType',productInfo.ZZFLD00004S)">
+                                -{{productInfo.ZZFLD00004S?productInfo.ZZFLD00004S:'请选择'}}-
                             </div>
                         </div>
                     </div>
@@ -233,7 +233,7 @@
                             <div class="row saleChanDetail">
                                 <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
                                                          ng-model="productInfo.ZZFLD00004W"></div>
-                                <div class="col money" ng-click="openMoneyModal('unit2')">
+                                <div class="col money" ng-click="openSelectionsModal('weight')">
                                     -{{productInfo.ZZZLDW?productInfo.ZZZLDW:'单位'}}-
                                 </div>
                             </div>
