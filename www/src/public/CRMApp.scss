@@ -18,7 +18,6 @@
     //"../worksheet/detailSiteRepair/detailSiteRepair",
     "../worksheet/detailAll/detailAll",
     "../worksheet/detailEdit/detailAllEdit",
-    "../worksheet/baoGong/baoGongList",
     "../worksheet/dealHistoryList/dealHistoryList",
     "../worksheet/carMileage/_carMileage.scss",
 	"../worksheet/faultInfos/_faultInfo.scss",
@@ -27,6 +26,11 @@
 	"../worksheet/takePicture/takePicture",     
 	"../worksheet/selectStaff/selectStaff",
     //服务工单模块 -- end
+    //报工单模块 -- start
+    "../worksheet/baoGong/create/create",
+    "../worksheet/baoGong/detailAll/detailAll",
+    "../worksheet/baoGong/infos/infoList",
+    //报工单模块 -- end
     //"../worksheet/detail_newcar/detail_newcar",
     //"../worksheet/detail_siterepair/detail_siterepair", "../activityPlan/car",
      "../car/car.scss",

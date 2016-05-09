@@ -19,7 +19,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	}
 }	
 
-.platform-ios{ 
+.platform-ios{  
 	#xbr-worksheet-list-content{
 		.search-box-wrapper.isSearchingMode{
 			//padding-top: 20px;
@@ -1177,17 +1177,17 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         		}
         	}
         	&.E0002{  // 派工  .baogong
-				.jiedan, .judan, .yiquxiao{
+				.jiedan, .judan, .yiquxiao, .baogong{
 					display: block;
 				}
 			}
-			&.E0003{ //拒绝  .baogong,
-				.paigong, .jiedan,  .yiquxiao{
+			&.E0003{ //拒绝  .baogong
+				.paigong, .jiedan,  .yiquxiao, .baogong{
 					display: block;
 				}
 			}
-			&.E0004{ //处理中  .baogong,
-				.paigong, .judan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao,  .yiquxiao{
+			&.E0004{ //处理中  .baogong
+				.paigong, .judan, .beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao,  .yiquxiao, .baogong{
 					display: block;
 				}
 			}
@@ -1206,7 +1206,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				
 			}
 			&.E0008{  //打回   .baogong：一期先不展示
-				 .guzhangxinxi, .chelianglicheng, .fuwupaizhao, .beijian{ 
+				 .guzhangxinxi, .chelianglicheng, .fuwupaizhao, .beijian, .baogong{ 
 					display: block; 
 				}
 			}

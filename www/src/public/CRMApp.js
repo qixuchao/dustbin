@@ -19,8 +19,9 @@ var customerWorkorderModule = angular.module('customerWorkorderModule', []);
 var customerContactsModule = angular.module('customerContactsModule', []);
 var customerModuleServive = angular.module('customerModuleServive', []);
 var spareModule = angular.module('spareModule',[]);
-var worksheetModule = angular.module('worksheetModule', ['ion-gallery']); // 工单模块
+
 var worksheetReportModule = angular.module('worksheetReportModule', []);
+var worksheetModule = angular.module('worksheetModule', ['ion-gallery', 'worksheetReportModule']); // 工单模块
 var settingsModule = angular.module('settingsModule', []);  //我的模块
 var activityPlanModule = angular.module('activityPlanModule', []);  //活动计划模块
 
@@ -49,7 +50,6 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlide
     'customerkeyModule',
     'customerActivityModule',
     'customerWorkorderModule',
-    "worksheetReportModule",
     "settingsModule",
     'activityPlanModule'
 ]);
@@ -401,6 +401,23 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             url: '/staffSelect',
             templateUrl: 'src/worksheet/selectStaff/selectStaff.html',
             controller: 'selectStaffCtrl'
+        })
+        // 工单模块相关： end ------------------------
+        // 报工单模块相关： start ------------------------
+        .state('baoGongCreate', {
+            url: '/baoGongCreate',
+            templateUrl: 'src/worksheet/baoGong/create/create.html',
+            controller: 'baoGongCreateCtrl'
+        })
+        .state('baoGongDetail', {
+            url: '/baoGongDetail',
+            templateUrl: 'src/worksheet/baoGong/detailAll/detailAll.html',
+            controller: 'baoGongDetailAllCtrl'
+        })
+        .state('baoGongInfosList', {
+            url: '/baoGongInfosList',
+            templateUrl: 'src/worksheet/baoGong/infos/infoList.html',
+            controller: 'baoGongInfoListCtrl'
         })
         // 工单模块相关： end ------------------------
         .state('changePass', {
