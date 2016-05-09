@@ -121,7 +121,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                 if(respTime >= config.timeout){
                     //console.log('HTTP timeout');
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }
                 $ionicLoading.hide();
@@ -1151,7 +1151,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                 if(respTime >= config.timeout){
                     //console.log('HTTP timeout');
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }
                 $ionicLoading.hide();
@@ -1235,7 +1235,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                 if(respTime >= config.timeout){
                     console.log('HTTP timeout');
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }
                 $ionicLoading.hide();

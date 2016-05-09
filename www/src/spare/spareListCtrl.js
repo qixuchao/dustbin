@@ -22,7 +22,7 @@ spareModule.controller('SpareListCtrl',['$cordovaDialogs','$ionicScrollDelegate'
             if ($scope.data.length > 5) {
                 $scope.data = $scope.data.slice(0, 5);
             }
-        } 
+        }
 
         //if(storedb('sparedb1').find().arrUniq() != undefined || storedb('sparedb1').find().arrUniq() != null){
         //    $scope.spareList1 = (storedb('sparedb1').find().arrUniq());
@@ -106,7 +106,6 @@ spareModule.controller('SpareListCtrl',['$cordovaDialogs','$ionicScrollDelegate'
             },
             "IS_PRODMAS_INPUT": {"SHORT_TEXT": $scope.spareInfo}
         };
-        var startTime=new Date().getTime();
         HttpAppService.post(url, data).success(function (response) {
             //console.log(page);
             if($scope.spareInfo!==data.IS_PRODMAS_INPUT.SHORT_TEXT){
@@ -155,7 +154,7 @@ spareModule.controller('SpareListCtrl',['$cordovaDialogs','$ionicScrollDelegate'
                 if(respTime >= config.timeout){
                     console.log('HTTP timeout');
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }
                 $ionicLoading.hide();
