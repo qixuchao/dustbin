@@ -157,7 +157,7 @@ salesModule.controller('saleClueDetailCtrl', [
                     },
                     "IT_LINES": {
                         "item_in": {
-                            "TDFORMAT": "aa",
+                            "TDFORMAT": "",
                             "TDLINE": ""
                         }
                     },
