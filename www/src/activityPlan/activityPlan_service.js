@@ -3,6 +3,7 @@
  */
 activityPlanModule.factory('activityPlanService',function(){
     return{
-        activityList : ""
+        activityList : "",
+        pageFlag : ""
     }
 });

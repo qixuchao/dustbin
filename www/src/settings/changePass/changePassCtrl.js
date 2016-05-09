@@ -20,7 +20,7 @@ settingsModule.controller("ChangePassCtrl", [
                 $ionicHistory.clearCache();
                 $ionicHistory.clearHistory();
             }
-            if(toState.name == 'changePass' && fromState && (fromState.name=='login' || fromState.name == 'changeChar')){
+            if(toState.name == 'changePass' && fromState && fromState.name=='login'){
             	if($rootScope.FIRST_LOGIN == "Y"){
             		$scope.config.moduleCode = 'RESET_PASS';
 	            	$scope.config.changeBoxTitle = '请修改初始密码';

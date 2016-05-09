@@ -18,13 +18,13 @@ salesModule
         'HttpAppService',
         'saleChanService',
         'customeService',
-        'LoginService', 
+        'LoginService',
         function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
                   ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService) {
             $scope.showCreateFlag = true;
-            if (ionic.Platform.isWebView()) { 
+            if (ionic.Platform.isWebView()) {
                 $scope.showCreateFlag = LoginService.getAuthInfoByFunction('ACTIVITY').CREATE;
-            } 
+            }
             ionicMaterialInk.displayEffect();
             //ionicMaterialMotion.fadeSlideInRight();
             $scope.saleTitleText = '销售机会';
@@ -944,7 +944,7 @@ salesModule
                     return
                 }
                 if (x.PARTNER_FCT == "Z0000003" && angular.isUndefined(x.mode)) {
-                    Prompter.alert(x.position + '不能修改!');
+                    Prompter.alert(x.position + '不能删除或替换!');
                     return
                 }
                 repTempIndex = $scope.relationArr.indexOf(x);

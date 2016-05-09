@@ -83,7 +83,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
                     //超时之后返回的方法
                     if(respTime >= config.timeout){
                         if(ionic.Platform.isWebView()){
-                            //$cordovaDialogs.alert('请求超时');
+                            $cordovaDialogs.alert('请求超时');
                         }
                     }else{
                         $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -142,7 +142,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
                 //超时之后返回的方法
                 if(respTime >= config.timeout){
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }else{
                     $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -200,7 +200,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
                 //超时之后返回的方法
                 if(respTime >= config.timeout){
                     if(ionic.Platform.isWebView()){
-                        //$cordovaDialogs.alert('请求超时');
+                        $cordovaDialogs.alert('请求超时');
                     }
                 }else{
                     $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -281,7 +281,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             //超时之后返回的方法
             if(respTime >= config.timeout){
                 if(ionic.Platform.isWebView()){
-                    //$cordovaDialogs.alert('请求超时');
+                    $cordovaDialogs.alert('请求超时');
                 }
             }else{
                 $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -331,7 +331,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             //超时之后返回的方法
             if(respTime >= config.timeout){
                 if(ionic.Platform.isWebView()){
-                    //$cordovaDialogs.alert('请求超时');
+                    $cordovaDialogs.alert('请求超时');
                 }
             }else{
                 $cordovaDialogs.alert('访问接口失败，请检查设备网络');

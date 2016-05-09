@@ -153,44 +153,44 @@ salesModule.factory('saleChanService', function () {
         }]
     };
     var saleStages2 = [{
-            text: '关系建立阶段',
-            value: 'Z01'
-        }, {
-            text: '技术交流及式样阶段',
-            value: 'Z02'
-        }, {
-            text: '方案沟通确认',
-            value: 'Z03' 
-        }, {
-            text: '样品合同签订',
-            value: 'Z04'
-        }, {
-            text: '样品设计',
-            value: 'Z05'
-        }, {
-            text: '样品试制',
-            value: 'Z06'
-        }, {
-            text: '样品测试',
-            value: 'Z07'
-        }, {
-            text: 'A样',
-            value: 'Z08'
-        }, {
-            text: 'B样',
-            value: 'Z09'
-        }, {
-            text: 'C样',
-            value: 'Z10'
-        }, {
-            text: 'D样',
-            value: 'Z11'
-        }, {
-            text: 'SOP阶段',
-            value: 'Z12'
-        }, {
-            text: '投标报价阶段',
-            value: 'Z13'
+        text: '关系建立阶段',
+        value: 'Z01'
+    }, {
+        text: '技术交流及式样阶段',
+        value: 'Z02'
+    }, {
+        text: '方案沟通确认',
+        value: 'Z03'
+    }, {
+        text: '样品合同签订',
+        value: 'Z04'
+    }, {
+        text: '样品设计',
+        value: 'Z05'
+    }, {
+        text: '样品试制',
+        value: 'Z06'
+    }, {
+        text: '样品测试',
+        value: 'Z07'
+    }, {
+        text: 'A样',
+        value: 'Z08'
+    }, {
+        text: 'B样',
+        value: 'Z09'
+    }, {
+        text: 'C样',
+        value: 'Z10'
+    }, {
+        text: 'D样',
+        value: 'Z11'
+    }, {
+        text: 'SOP阶段',
+        value: 'Z12'
+    }, {
+        text: '投标报价阶段',
+        value: 'Z13'
     }];
     var saleStages = {
         CATL: {
@@ -549,21 +549,21 @@ salesModule.factory('saleChanService', function () {
         getMoneyTypesArr: function () {
             return moneyTypes;
         },
-        chanListArr,
-        listPage,
-        obj_id,
-        filters,
-        createPop,
-        saleStages,
-        saleUnits,
-        listStatusArr,
-        relationsTypes,
-        loadMoreFlag,
-        relationsTypesForAdd,
-        relationsTypes_ATL,
-        saleStages2,
-        relationsTypesForAdd_ATL,
-        chanceTypes,
-        saleChanceUnits_ATL
+        chanListArr : "",
+        listPage : "",
+        obj_id : "",
+        filters : "",
+        createPop : "",
+        saleStages : "",
+        saleUnits : "",
+        listStatusArr : "",
+        relationsTypes : "",
+        loadMoreFlag : "",
+        relationsTypesForAdd : "",
+        relationsTypes_ATL : "",
+        saleStages2 : "",
+        relationsTypesForAdd_ATL : "",
+        chanceTypes : "",
+        saleChanceUnits_ATL : ""
     }
 });

@@ -488,7 +488,7 @@
         var xbrScope = angular.element("#worksheet-takepicture-view").scope();
         //xbrScope.deleteSelectedImage(item);
         xbrScope.deleteThisImage(item);
-      }; 
+      };
 
       scope.xbrSaveSelectedImage = function(item){
         var xbrScope = angular.element("#worksheet-takepicture-view").scope();

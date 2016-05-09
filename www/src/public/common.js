@@ -13,7 +13,7 @@ var UTILITIES = new Object();
     }
     object.getToken = function () {
         var token = '-1';
-        if (window.localStorage.crmToken) { 
+        if (window.localStorage.crmToken) {
             token = window.localStorage.crmToken;
         }
         return token;

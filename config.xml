@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.crmEnergy.catlpro" version="1.0.0" android-versionCode="50" ios-CFBundleVersion="50" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>CATL CRM</name>
+<widget id="com.crmEnergy.catl" version="0.2.9" android-versionCode="46" ios-CFBundleVersion="46" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>CATL UAT</name> 
     <description>
         新能源CRM应用
     </description>
@@ -16,8 +16,6 @@
     <allow-intent href="geo:*" />
     <allow-intent href="http:*" />
     <allow-intent href="https:*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
     <access origin="*" />
     <access launch-external="yes" origin="https:*"/>
     <access launch-external="yes" origin="tel:*" />
@@ -32,9 +30,8 @@
     <preference name="DisallowOverscroll" value="true" />
     <preference name="BackupWebStorage" value="none" />
     <preference name="SplashScreen" value="screen" />
-    <preference name="Orientation" value="portrait" />
     <preference name="auto-hide-splash-screen" value="false" />
-    <preference name="SplashScreenDelay" value="5000" />
+    <preference name="SplashScreenDelay" value="2000" />
     
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <plugin name="Contacts" value="org.apache.cordova.ContactManager" />

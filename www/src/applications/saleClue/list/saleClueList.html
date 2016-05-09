@@ -45,11 +45,11 @@
                     <div class="col text-right"><img class="shape" src="img/saleDetail/Shape.png"></div>
                 </div>
                 <div class="row row-center sub-title">
-                    <div class="startText">客户名称:&nbsp;&nbsp;</div>
-                    <div class="startDate">{{x.ZZKHMC}}</div>
-                    <!--<div class="type">类型:&nbsp;&nbsp;</div>-->
-                    <!--<div class="typeValue">{{x.PROT_TXT}}</div>-->
-                    <div class="col status" ng-class="{'waitStatus':x.STATUS=='未处理'}">{{x.TXT30}}</div>
+                    <div class="startText">开始日期:&nbsp;&nbsp;</div>
+                    <div class="startDate">{{x.DATE_FROM}}</div>
+                    <div class="type">类型:&nbsp;&nbsp;</div>
+                    <div class="typeValue">{{x.PROT_TXT}}</div>
+                    <div class="col status" ng-class="{'waitStatus':x.STATUS_TXT=='未处理'}">{{x.STATUS_TXT}}</div>
                 </div>
             </a>
         </div>
@@ -64,10 +64,23 @@
             <div id="saleClueListFilterId" class="listFilter selectionsDown refer-selectionsDown"
                  ng-class="isAndroid?'':'pushDown-animated'"
                  ng-click="filterPrevent($event)">
+                <div class="type">类型</div>
+                <div class="row typeRow row-wrap">
+                    <div class="typeSelections" ng-class="{'selected':x.flag}"
+                         ng-click="filterSelect(x,filters.type)"
+                         ng-repeat="x in filters.type">{{x.text}}
+                    </div>
+                </div>
                 <div class="status">状态</div>
                 <div class="row row-wrap statusSecond">
                     <div class="typeSelections" ng-class="{'selected':x.flag}" ng-click="filterSelect(x,filters.status)"
                          ng-repeat="x in filters.status">{{x.text}}
+                    </div>
+                </div>
+                <div class="status" ng-hide="isATL">紧急程度</div>
+                <div class="row row-wrap statusSecond" ng-hide="isATL">
+                    <div class="typeSelections" ng-class="{'selected':x.flag}" ng-click="filterSelect(x,filters.urgentDegree)"
+                         ng-repeat="x in filters.urgentDegree">{{x.text}}
                     </div>
                 </div>
                 <div class="bottomButton row">
@@ -95,12 +108,12 @@
                             <div class="col text-right"><img class="shape" src="img/saleDetail/Shape.png"></div>
                         </div>
                         <div class="row row-center sub-title">
-                            <div class="startText">客户名称:&nbsp;&nbsp;</div>
-                            <div class="startDate">{{x.ZZKHMC}}</div>
-                            <!--<div class="type">类型:&nbsp;&nbsp;</div>-->
-                            <!--<div class="typeValue" ng-bind-html="x.PROT_TXT"></div>-->
-                            <div class="col status" ng-class="{'waitStatus':x.STATUS=='未处理'}"
-                                 ng-bind-html="x.TXT30 | highlight:input.list"></div>
+                            <div class="startText">开始日期:&nbsp;&nbsp;</div>
+                            <div class="startDate" ng-bind-html="x.DATE_FROM"></div>
+                            <div class="type">类型:&nbsp;&nbsp;</div>
+                            <div class="typeValue" ng-bind-html="x.PROT_TXT"></div>
+                            <div class="col status" ng-class="{'waitStatus':x.STATUS_TXT=='未处理'}"
+                                 ng-bind-html="x.STATUS_TXT | highlight:input.list"></div>
                         </div>
                     </a>
                 </div>

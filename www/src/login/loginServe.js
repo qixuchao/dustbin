@@ -1,7 +1,7 @@
 /*
  * Created by gongke on 2016/3/14.
  */
-loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialogs, $cordovaNetwork, $cordovaInAppBrowser, $cordovaToast) {
+loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialogs, $cordovaNetwork, $cordovaInAppBrowser) {
     var data;
     var data3;
     var type;
@@ -9,9 +9,6 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
     var author={};
     var version;
     function newVersionGreaterThanOld(newVersion, oldVersion){  //判断oldVersion是不是最新version。。oldVersion=newVersion
-        if(!newVersion || !oldVersion){
-            return false;
-        }
         var newVs = newVersion.split(".");
         var oldVs = oldVersion.split(".");
         if(window.parseInt(newVs[0]) > window.parseInt(oldVs[0])){
@@ -28,7 +25,6 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
         return false;
     };
     return{
-        newVersionGreaterThanOld: newVersionGreaterThanOld,
         setLoginerName: function(name){
             window.localStorage.loginerName = name;
         },
@@ -124,20 +120,11 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
             }
             return null;
         },
-        version,
-        versionInfo: {
-            currentVersion: '',
-            newVersion: '',
-            minVersion: ''
-        },
-        getNewVersion: function (app) { // 50130
+        version : "",
+        getNewVersion: function (app) {
             if(!app || app == null){
                 return;
             }
-            this.versionInfo.currentVersion = app.newVersion;
-            this.versionInfo.newVersion = app.newVersion;
-            this.versionInfo.minVersion = app.minVersion;
-
             if (ionic.Platform.isWebView()) {
                 $cordovaAppVersion.getVersionNumber().then(function (version) {
                     var appVersion = version;

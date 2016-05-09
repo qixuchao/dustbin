@@ -23,13 +23,10 @@ worksheetModule.directive('crmToast', function() {
 
 
 worksheetModule.filter('xbrParseInt', function(){
-  return function (str) {
-      var returnStr = str;
-      if(str && str!=null && str != "" && str.startsWith && str.startsWith("0")){
-        returnStr = window.parseInt(str);
-      }
-      return returnStr;
+  var fn = function (str) {
+      return window.parseInt(str);
   };
+  return fn;
 });
 
 // $filter('date')(date, format, timezone)
