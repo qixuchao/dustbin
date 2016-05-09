@@ -1,15 +1,49 @@
-<ion-view canClickEnterListMode id="worksheetlist-view" class="worksheet-view-public" ng-class="{'is-from-customer':(config.isFromCustomer),'is-from-cardetail':(config.isFromCarDetail)}"  align-title="center">
+<ion-view canClickEnterListMode id="ws-baogong-create-view" class="ws-baogong-view"  align-title="center">
 	
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
                 <a class="col col-15 text-left goBack" ng-click="goBack()">取消</a><!--i class="ion-chevron-left"></i-->
-                <div class="col col-70 text-center" ng-bind="创建报工单"></div>
+                <div class="col col-70 text-center">创建报工单</div>
                 <div class="col col-15"><span>确定</span></div>
             </div>
         </ion-header-bar>
     </div>
+    
     <ion-content id="ws-baogong-create-content"  class="has-header" scroll="false" has-bouncing="false">
-
+        <div class="time-info commment-info-lines">
+                <div class="crm-line-title word-2">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">报工单类型:</div>
+                    <div class="col-60" ng-bind="datas.defaultDetail.TYPE_DESC"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述:</div>
+                    <div class="col-60" ng-bind="datas.defaultDetail.DESCRIPTION"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">备注:</div>
+                    <div class="col-60" ng-bind="datas.defaultDetail.DESCRIPTION"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">状态:</div>
+                    <div class="col-60" ng-bind="datas.defaultDetail.STATU_DESC"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述:</div>
+                    <div class="col-60" ng-bind="datas.defaultDetail.DESCRIPTION"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述:</div>
+                    <div class="col-60" ng-bind="datas.defaultDetail.DESCRIPTION"></div>
+                </div>
+            </div>
     </ion-content>
+    
 </ion-view>
