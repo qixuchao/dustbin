@@ -45,25 +45,27 @@
                 <div class="row row-center"
                      ng-class="customerFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div class="col col-16">客户:</div>
-                    <input type="text" ng-model="details.ZZKHMC" readonly
+                    <input type="text" ng-model="details.ZZKHMC" maxlength="40" ng-readonly="!isEdit"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center"
                      ng-class="placeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div class="col col-16">日期:</div>
-                    <input type="text" ng-model="details.DATE_START" readonly ng-click="selectTime()"
+                    <input type="text" ng-model="details.DATE_START" maxlength="40" readonly ng-click="selectTime()"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center"
                      ng-class="typeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
-                    <div class="col no-padding">线索来源:</div>
-                    <input type="text" ng-model="details.SOURCE" style="border: none;" readonly>
+                    <div>线索来源:</div>
+                    <!--<input type="text" ng-model="details.SOURCE" maxlength="40" style="border: none;" readonly>-->
+                    <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.source" ng-disabled="!isEdit"
+                            ng-options="x as x.text for x in sourceArr" style="{{'color:'+mySelect.status.color}}"></select>
                 </div>
                 <div class="row row-center"
                      ng-class="statusFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
-                    <div>状态:</div>
+                    <div style="white-space: nowrap">状态:</div>
                     <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit"
-                            ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
+                            ng-options="x as x.text for x in statusArr" style="{{'color:'+mySelect.status.color}}"></select>
 
                     <div class="num">{{'NO.'+details.OBJECT_ID}}</div>
                     <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png"
@@ -112,7 +114,7 @@
                         <div class="row saleChanDetail">
                             <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
                                                      ng-model="details.ZZKHNDXQZL"></div>
-                            <div class="col money" ng-click="openMoneyModal('unit2')">
+                            <div class="col money text-right" ng-click="openUnitSelections('yearNeed',details.ZZFLD00005H)">
                                 -{{details.ZZFLD00005H?details.ZZFLD00005H:'单位'}}-
                             </div>
                         </div>
@@ -124,7 +126,7 @@
                         <div class="row saleChanDetail">
                             <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
                                                      ng-model="details.ZZKHYDXQL"></div>
-                            <div class="col money" ng-click="openMoneyModal('unit2')">
+                            <div class="col money text-right" ng-click="openUnitSelections('monthNeed',details.ZZFLD00005I)">
                                 -{{details.ZZFLD00005I?details.ZZFLD00005I:'单位'}}-
                             </div>
                         </div>
@@ -136,7 +138,7 @@
                         <div class="row saleChanDetail">
                             <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
                                                      ng-model="details.ZZYPXQL"></div>
-                            <div class="col money" ng-click="openMoneyModal('unit2')">
+                            <div class="col money text-right" ng-click="openUnitSelections('sampleNeed',details.ZZFLD00005K)">
                                 -{{details.ZZFLD00005K?details.ZZFLD00005K:'单位'}}-
                             </div>
                         </div>

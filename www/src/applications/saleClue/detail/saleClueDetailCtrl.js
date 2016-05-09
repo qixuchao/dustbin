@@ -31,7 +31,25 @@ salesModule.controller('saleClueDetailCtrl', [
               employeeService, saleClueService) {
         console.log('线索详情');
         $scope.listInfo = saleActService.actDetail;
+        $scope.statusArr = saleClueService.saleClueStatus.status;
+        $scope.sourceArr = saleClueService.clueSource;
         $scope.relationArr = [];
+        var getStatusIndex = function (data) {
+            for (var i = 0; i < $scope.statusArr.length; i++) {
+                if ($scope.statusArr[i].value == data) {
+                    return i;
+                }
+            }
+            return "";
+        };
+        var getSourceIndex = function (data) {
+            for (var i = 0; i < $scope.sourceArr.length; i++) {
+                if ($scope.sourceArr[i].code == data) {
+                    return i;
+                }
+            }
+            return "";
+        };
         var getDetails = function () {
             Prompter.showLoading('正在查询');
             var data = {
@@ -44,6 +62,10 @@ salesModule.controller('saleClueDetailCtrl', [
                     if (response.ES_RESULT.ZFLAG === 'S') {
                         Prompter.hideLoading();
                         $scope.details = response.ES_OUT_DETAIL;
+                        $scope.mySelect = {
+                            status: $scope.statusArr[getStatusIndex($scope.details.STATUS)],
+                            source: $scope.sourceArr[getSourceIndex($scope.details.SOURCE)]
+                        };
                         $scope.productInfo = response.ES_OUT_PROD;
                         $scope.relationArr = response.ET_OUT_REAL.item_out;
                         angular.forEach($scope.relationArr, function (data) {
@@ -57,7 +79,6 @@ salesModule.controller('saleClueDetailCtrl', [
         if (saleActService.actDetail) {
             getDetails();
         }
-        $scope.statusArr = saleChanService.getStatusArr();
         $scope.isEdit = false;
         $scope.editText = "编辑";
         $scope.goBack = function () {
@@ -101,15 +122,15 @@ salesModule.controller('saleClueDetailCtrl', [
                 //执行保存操作
                 Prompter.showLoading('正在保存');
                 var data = {
-                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
+                    "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                    "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                     "IS_IN_DETAIL": {
                         "OBJECT_ID": $scope.details.OBJECT_ID,
-                        "DESCRIPTION": $scope.details.OBJECT_ID,
-                        "SOURCE": "aaa",
-                        "DATE_START": "",
-                        "DATE_END": "",
-                        "STATUS": "aaaaa",
+                        "DESCRIPTION": $scope.details.DESCRIPTION,
+                        "SOURCE": $scope.mySelect.source.code,
+                        "DATE_START": $scope.details.DATE_START,
+                        "DATE_END": $scope.details.DATE_END,
+                        "STATUS": $scope.mySelect.status.value,
                         "QUAL_LEVEL_MAN": $scope.details.QUAL_LEVEL_MAN,
                         "ZZKHMC": $scope.details.ZZKHMC,
                         "ZZLXR": $scope.details.ZZLXR,
@@ -136,28 +157,28 @@ salesModule.controller('saleClueDetailCtrl', [
                         "ZZFLD00004Q": $scope.productInfo.ZZFLD00004Q,
                         "ZZFLD00004R": $scope.productInfo.ZZFLD00004R,
                         "ZZFLD00004S": $scope.productInfo.ZZFLD00004S,
-                        "ZZCPZNL": "aaaaaaaaaa",
-                        "ZZRL": "aaaaaaaaaa",
-                        "ZZFLD00005A": "aaaaaaaaaa",
-                        "ZZJZDSSZHY": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "ZZCC": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-                        "ZZFLD00004W": "1234567891.123",
-                        "ZZZLDW": "aaaaaaaaaa",
-                        "ZZFLD000050": "aaaaaaaaaa",
-                        "IMPORTANCE": "a",
-                        "LEAD_TYPE": "aaaa",
-                        "ZZDYGG": "aaaaaaaaaa",
-                        "ZZGDWYQ": "aaaaaaaaaa",
-                        "ZZLONG": "1234567891.123",
-                        "ZZFLD000040": "aaa",
-                        "ZZWIDE": "1234567891.123",
-                        "ZZFLD00003Z": "aaa",
-                        "ZZTHICK": "1234567891.123",
-                        "ZZFLD00003Y": "aaa"
+                        "ZZCPZNL": $scope.productInfo.ZZCPZNL,
+                        "ZZRL": $scope.productInfo.ZZRL,
+                        "ZZFLD00005A": $scope.productInfo.ZZFLD00005A,
+                        "ZZJZDSSZHY": $scope.productInfo.ZZJZDSSZHY,
+                        "ZZCC": $scope.productInfo.ZZCC,
+                        "ZZFLD00004W": $scope.productInfo.ZZFLD00004W,
+                        "ZZZLDW": $scope.productInfo.ZZZLDW,
+                        "ZZFLD000050": $scope.productInfo.ZZFLD000050,
+                        "IMPORTANCE": $scope.productInfo.IMPORTANCE,
+                        "LEAD_TYPE": $scope.productInfo.LEAD_TYPE,
+                        "ZZDYGG": $scope.productInfo.ZZDYGG,
+                        "ZZGDWYQ": $scope.productInfo.ZZGDWYQ,
+                        "ZZLONG": $scope.productInfo.ZZLONG,
+                        "ZZFLD000040": $scope.productInfo.ZZFLD000040,
+                        "ZZWIDE": $scope.productInfo.ZZWIDE,
+                        "ZZFLD00003Z": $scope.productInfo.ZZFLD00003Z,
+                        "ZZTHICK": $scope.productInfo.ZZTHICK,
+                        "ZZFLD00003Y": $scope.productInfo.ZZFLD00003Y
                     },
                     "IT_LINES": {
                         "item_in": {
-                            "TDFORMAT": "",
+                            "TDFORMAT": "*",
                             "TDLINE": ""
                         }
                     },
@@ -253,6 +274,52 @@ salesModule.controller('saleClueDetailCtrl', [
             }
 
         };
+        //需求总量
+        $ionicModal.fromTemplateUrl('src/applications/saleClue/detail/modal/unitSelections.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.unitSelectionsModal = modal;
+        });
+        if (Prompter.isATL()) {
+            $scope.unitsArr = saleChanService.saleChanceUnits_ATL;
+        }else{
+            $scope.unitsArr = saleChanService.saleUnits;
+        }
+        var unitType;
+        $scope.openUnitSelections = function (type,text) {
+            if(!$scope.isEdit){
+                return;
+            }
+            unitType = type;
+            switch (type){
+                case 'yearNeed':
+                    $scope.unitTitle = '客户年度需求总量';
+                    break;
+                case 'monthNeed':
+                    $scope.unitTitle = '客户月度需求总量';
+                    break;
+                case 'sampleNeed':
+                    $scope.unitTitle = '样品需求量';
+                    break;
+            }
+            $scope.unitText = text;
+            $scope.unitSelectionsModal.show();
+        };
+        $scope.selectUnit = function (x) {
+            switch (unitType){
+                case 'yearNeed':
+                    $scope.details.ZZFLD00005H = x.value;
+                    break;
+                case 'monthNeed':
+                    $scope.details.ZZFLD00005I = x.value;
+                    break;
+                case 'sampleNeed':
+                    $scope.details.ZZFLD00005K = x.value;
+                    break;
+            }
+            $scope.unitSelectionsModal.hide();
+        };
         //选择"值列表"
         $ionicModal.fromTemplateUrl('src/applications/saleClue/detail/modal/selections.html', {
             scope: $scope,
@@ -261,7 +328,7 @@ salesModule.controller('saleClueDetailCtrl', [
             $scope.selectionsModal = modal;
         });
         $scope.openSelectionsModal = function (type, text) {
-            if(!$scope.isEdit){
+            if (!$scope.isEdit) {
                 return
             }
             switch (type) {
@@ -453,5 +520,6 @@ salesModule.controller('saleClueDetailCtrl', [
         };
         $scope.$on('$destroy', function () {
             $scope.selectionsModal.remove();
+            $scope.unitSelectionsModal.remove();
         });
     }]);
