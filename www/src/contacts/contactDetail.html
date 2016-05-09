@@ -7,7 +7,7 @@
             <span class="Contactsdeatil_headtitlespan">联系人详细信息</span>
         </div>
         <div class="Contacts_detailcontent">
-            <div class="Contacts_detailcontentname">
+            <div class="Contacts_detailcontentname" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
                 <div class="Contacts_detailcontentcicle"></div><span ng-bind="contactdetails.NAME_LAST"></span>
             </div>
             <div class="Contacts_detailcontentphone" ng-click="contactshowphone(contactdetails.TEL_NUMBER)">
@@ -18,7 +18,7 @@
             <div class="Contacts_detailcontentmobile" ng-click="contactshowphone(contactdetails.MOB_NUMBER)">
                 <img src="img/contact/tel@2x.png" style="width:15px;height:15px" class="Contacts_detailcontentmobilei">
                 <span style="margin-left: 4px;" ng-bind="contactdetails.MOB_NUMBER"></span>
-            </div>
+            </div> 
             <div style="position: fixed;top: 145px;left: 24px;" ng-hide="showFlag">
                 <span>销售员工&nbsp;:</span>
                 <span ng-bind="contactdetails.relationsalsname"></span>
@@ -52,7 +52,9 @@
                 </div>
                 <div class="col col-25"></div>
             </div>
-            <div id="textarea" readonly style="width: 100%; padding: 0 15px 15px 20px;resize: none;color:#AEA3A3;max-height: 300px;overflow-y: hidden;background-color: white;" ng-bind="contactdetails.conatctdeatilnote" ng-init="autoHeight()"></div>
+            <!--div id="textarea" readonly style="width: 100%; padding: 0 15px 15px 20px;resize: none;color:#AEA3A3;max-height: 300px;overflow-y: hidden;background-color: white;" ng-bind="contactdetails.conatctdeatilnote" ng-init="autoHeight()"></div-->
+            <div readonly style="width: 100%; padding: 0 15px 15px 20px;resize: none;color:#AEA3A3;max-height: 300px;overflow-y: hidden;background-color: white;" ng-bind="contactdetails.conatctdeatilnote"></div>
+            
             <div class="employee_query_listline">
             </div>
         </div>
@@ -237,7 +239,7 @@
         </div>
         <div class="employee_query_listline">
         </div>
-    </ion-content>
+    </ion-content> 
     <ion-footer-bar style="height:60px;box-shadow:none;background: transparent;" ng-show="!showFlag">
         <div class="customercontentbutton" ng-click="contact_deatilgoedit()">
             编辑

@@ -19,8 +19,10 @@ salesModule
         'saleChanService',
         'customeService',
         'LoginService',
+        'saleClueService',
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService) {
+                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService,
+                  LoginService,saleClueService) {
             $scope.saleTitleText = '销售线索';
             $scope.searchFlag = false;
             $scope.input = {search: '', customer: '', list: ''};
@@ -78,44 +80,38 @@ salesModule
                         break
                 }
                 var data = {
-                    "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
-                    "IS_ACTIVITY": {
-                        "OBJECT_ID": "",
-                        "DESCSEARCH": $scope.input.list,
-                        "PROCESS_TYPE": getFilterType(),
-                        "ZZHDJJD": getFilterUrgent(),
-                        "CUSTOMER": PARTNER_NO,
-                        "DATE_FROM": "",
-                        "DATE_TO": "",
-                        "ESTAT": getFilterStatus(),
-                        "SALESNO": ""
-                    },
+                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName},
                     "IS_PAGE": {
                         "CURRPAGE": pageNum++,
                         "ITEMS": "10"
                     },
-                    "IS_USER": {"BNAME": window.localStorage.crmUserName}
+                    "IS_SEARCH": {
+                        "SEARCH": $scope.input.list,
+                        "BEGDA": "",
+                        "STATUS": getFilterStatus()
+                    }
                 };
                 tempHisPostData = data;
                 saleActService.listPage = pageNum;
                 var startTime = new Date().getTime();
-                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_LIST', data)
+                HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'LEAD_GET_LIST', data)
                     .success(function (response, status, headers, config) {
-                        if (config.data.IS_ACTIVITY.DESCSEARCH != $scope.input.list) {
+                        if (config.data.IS_SEARCH.SEARCH != $scope.input.list) {
                             return;
                         }
                         $scope.isloading = false;
                         if (response.ES_RESULT.ZFLAG === 'S') {
                             if (type == 'refresh') {
-                                $scope.saleListArr = response.ET_LIST.item;
+                                $scope.saleListArr = response.ET_OUT_LEAD.item_in;
                                 //saleActService.saleListArr = $scope.saleListArr;
                                 $ionicScrollDelegate.resize();
                                 return
                             }
-                            if (response.ET_LIST.item.length < 10) {
+                            if (response.ET_OUT_LEAD.item_in.length < 10) {
                                 $scope.loadMoreFlag = false;
                             }
-                            $scope.saleListArr = $scope.saleListArr.concat(response.ET_LIST.item);
+                            $scope.saleListArr = $scope.saleListArr.concat(response.ET_OUT_LEAD.item_in);
                             $scope.$broadcast('scroll.infiniteScrollComplete');
                             $ionicScrollDelegate.resize();
                             $timeout(function () {
@@ -147,10 +143,7 @@ salesModule
             if (storedb('saleClueListHisArr').find().arrUniq() != undefined || storedb('saleClueListHisArr').find().arrUniq() != null) {
                 $scope.hisArr = (storedb('saleClueListHisArr').find().arrUniq());
             }
-            $scope.filters = saleActService.filters;
-            if (Prompter.isATL()) {
-                $scope.filters.type = saleActService.filterType_ATL;
-            }
+            $scope.filters = saleClueService.saleClueStatus;
             var tempFilterArr = angular.copy($scope.filters);
             var onceCilck = true;
             $scope.filterSelect = function (x, arr) {
@@ -171,26 +164,10 @@ salesModule
                     })
                 });
             };
-            var getFilterType = function () {
-                for (var i = 0; i < $scope.filters.type.length; i++) {
-                    if ($scope.filters.type[i].flag) {
-                        return $scope.filters.type[i].value;
-                    }
-                }
-                return "";
-            };
             var getFilterStatus = function () {
                 for (var i = 0; i < $scope.filters.status.length; i++) {
                     if ($scope.filters.status[i].flag) {
                         return $scope.filters.status[i].value;
-                    }
-                }
-                return "";
-            };
-            var getFilterUrgent = function () {
-                for (var i = 0; i < $scope.filters.urgentDegree.length; i++) {
-                    if ($scope.filters.urgentDegree[i].flag) {
-                        return $scope.filters.urgentDegree[i].value;
                     }
                 }
                 return "";

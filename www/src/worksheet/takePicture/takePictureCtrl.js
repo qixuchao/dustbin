@@ -308,14 +308,14 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		};
 		
 		$scope.saveThisImage = function(item){
-			if(item.isSaved){
-				// $cordovaToast.showShortBottom("该图片已保存过!");
-				// return;
-			}
-			if(angular.isUndefined(item.imgObj)){// 本地照片
+			// if(item.isSaved){
+			// 	// $cordovaToast.showShortBottom("该图片已保存过!");
+			// 	// return;
+			// }
+			//if(angular.isUndefined(item.imgObj)){// 本地照片
 				// $cordovaToast.showShortBottom("本地图片,无须保存!");
 				// return;
-			}
+			//}
 			if(item.imgObj && !item.imgObj.complete){
 				$cordovaToast.showShortBottom("该图片还未加载完成，请稍候再试!");
 				return;
@@ -324,7 +324,6 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			item.saveTip = "正在保存...";
 			item.isSaved = true;
 			var imageDataUrl = "";
-			
 			console.log("$scope.saveThisImage:   "+item.position);
 			var imgJQ = angular.element("#crm-pictures-"+item.position);//#takepicture-content
 			var imgEle = imgJQ[0];
@@ -334,8 +333,11 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			}*/
 			
 			var tempImage = item.imgObj;
+			if(!tempImage || tempImage == null){
+				tempImage = new Image();
+				tempImage.src = imgEle.src
+			}
 			//tempImage.src = imgEle.src;
-			//alert(tempImage.src);
 			var canvas = document.createElement('canvas');
 			canvas.width = tempImage.width;
 			canvas.height = tempImage.height;

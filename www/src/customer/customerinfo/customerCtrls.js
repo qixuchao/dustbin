@@ -102,6 +102,7 @@ customerModule
             if ($scope.customerselecttyperole){
                 data.IT_IN_ROLE = {"item1": [{"RLTYP": $scope.customerselecttyperole}]}
             }
+
             //var data = data2;
             //console.log("data"+angular.toJson(data));
             //console.log("name"+angular.toJson(data.IS_SEARCH.SEARCH));
@@ -168,7 +169,7 @@ customerModule
                 //超时之后返回的方法
                 if(respTime >= config.timeout){
                     if(ionic.Platform.isWebView()){
-                        $cordovaDialogs.alert('请求超时');
+                        //$cordovaDialogs.alert('请求超时');
                     }
                 }else{
                     $cordovaDialogs.alert('访问接口失败，请检查设备网络');
@@ -487,7 +488,7 @@ customerModule
                     //超时之后返回的方法
                     if(respTime >= config.timeout){
                         if(ionic.Platform.isWebView()){
-                            $cordovaDialogs.alert('请求超时');
+                            //$cordovaDialogs.alert('请求超时');
                         }
                     }else{
                         $cordovaDialogs.alert('访问接口失败，请检查设备网络');

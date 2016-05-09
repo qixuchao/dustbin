@@ -1,73 +1,25 @@
 /**
  * Created by admin on 16/5/1.
  */
-<ion-view class="CarDetail">
-    <div class="top-back">
-        <div class="row row-center title ">
-            <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
-            <div class="col col-65 text-center">活动计划详情信息</div>
-            <div class="col" style="white-space:nowrap;">生成活动</div>
+<ion-view>
+    <ion-header-bar align-title="center" class="head pub-head ">
+        <div class="col-15 col-center" ng-click="goBack()">返回</div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="row row-center">
+            <div class="col col-center" ng-click="">{{activityDetail.TOURNUMBER}}</div>
         </div>
-        <div class="mainInfo">
-            <div class="row row1 row-center">
-                <div class="col col-center col-5">
-                    <img ng-src="img/car/Oval.png" class="pointImg">
-                </div>
-                <div class="col col-60 col-center colText" >
-                    {{activityDetail.ES_VISIT_PLAN.TOURDESCRIPTION}}
-                </div>
-                <div class="col col-30 text-right">NO：{{PARTNER_ID}}</div>
-            </div>
-            <div class="row row2 row-center">
-                有效期：{{activityDetail.ES_VISIT_PLAN.VALIDFROM}}--{{activityDetail.ES_VISIT_PLAN.VALIDTO}}</div>
-            <div class="row row2 row-center" style="margin-top: 5px">
-                <div class="col-70"></div>
-                <div class="col-25 text-right" ng-click="edit()"><img src="img/saleDetail/edit.png" style='height: 14px'>&nbsp;编辑</div>
-            </div>
+        <div class="row row-center">
+            <div class="col col-center" ng-click="">{{activityDetail.TOURDESCRIPTION}}</div>
         </div>
-    </div>
-    <ion-content has-bouncing="false">
-        <ion-list class="">
-            <div  style="border-bottom: 1px solid #ddd;margin-top:1px;" ng-repeat="i in  details track by $index"  ng-click="showOther(i)">
-                <ion-item class="">
-                    <div class="row row-center" style="padding:3px 15px 3px 15px" >
-                        <div class="col col-center col-90">
-                            <div class="row row-center">
-                                <div class="col col-center col-7"> <img ng-src="img/car/Oval.png" style="height:14px"></div>
-                                <div class="col col-center col-90">客户：{{i.CUSNAME}}</div>
-                            </div>
-                            <div class="row row-center fontcolor" style="color:#888282 ;">联系人：{{i.CONNAME}}</div>
-                            <div class="row row-center fontcolor" style="color:#888282 ;">开始时间：{{i.ZZBEGDA}}</div>
-                            <div class="row row-center fontcolor" style="color:#888282 ;">活动描述：{{i.ZZACTDESC}}</div>
-                        </div>
-                        <div class="col col-center col-10">
-                            <img class="imgGO" src="img/employee/Shape@2x.png">
-                        </div>
-                    </div>
-                    <div class="row row-center text-center">
-                        <div class="col col-center text-center">
-                            <i class="ion-ios-arrow-down" ng-hide="i.otherInfos"></i>
-                            <i class="ion-ios-arrow-up" ng-show="i.otherInfos"></i>
-                        </div>
-                    </div>
-                    <ion-option-button style="width:30px;height:110px;text-align: center" class="button-assertive" ng-click="deleteInfos(i)">
-                        <i class="icon ion-ios-trash-outline" style="font-size: 90px;"></i>
-                    </ion-option-button>
-                </ion-item>
-                <div align="center" ng-show="i.otherInfos" style="height: 1px;border: 1px dashed #ddd;margin: 0 15px 0 15px "></div>
-                <div class="row row-center" style="padding:3px 15px 3px 15px;" ng-show="i.otherInfos" >
-                    <div class="col">
-                        <div class="row row-center fontcolor" style="color:#888282 ;">商机：{{i.OPPTDESC}}</div>
-                        <div class="row row-center fontcolor" style="color:#888282 ;">类型：{{i.ZZACTTYPE}}</div>
-                        <div class="row row-center fontcolor" style="color:#888282 ;">活动编号：{{i.ZZACTID}}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="row row-center" >
-                <div class="col col-center text-center" ng-click="creatActivityGo()">
-                    <i class="ion-ios-plus-outline" style="font-size:18px;color:#ddd">&nbsp;添加活动</i>
-                </div>
-            </div>
-        </ion-list>
+        <div class="row row-center">
+            <div class="col col-center" ng-click="">{{activityDetail.VALIDFROM}}</div>
+        </div>
+        <div class="row row-center">
+            <div class="col col-center" ng-click="">{{activityDetail.VALIDTO}}</div>
+        </div>
+        <div class="row row-center">
+            <div class="col col-center" ng-click="">{{activityDetail.TOUROWNER_NAME}}</div>
+        </div>
     </ion-content>
 </ion-view>

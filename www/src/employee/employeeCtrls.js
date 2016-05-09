@@ -2,7 +2,7 @@
  * Created by zhangren on 16/3/7.
  */
 'use strict';
-employeeModule
+employeeModule 
     .controller('userQueryCtrl',['$cordovaDialogs','$ionicActionSheet','$window','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading',
         function($cordovaDialogs,$ionicActionSheet,$window,$scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading){
         $scope.searchFlag=false;
@@ -60,6 +60,7 @@ employeeModule
                 //console.log("data"+angular.toJson(data));
                 //console.log("name"+angular.toJson(data.IS_EMPLOYEE.NAME));
                 //console.log("number"+angular.toJson(data.IS_PAGE.CURRPAGE));
+                var startTime=new Date().getTime();
                 HttpAppService.post(url, data).success(function (response) {
                     if(data.IS_EMPLOYEE.NAME!==$scope.employ.employeefiledvalue){
                             return ;
@@ -113,7 +114,7 @@ employeeModule
                     if(respTime >= config.timeout){
                         //console.log('HTTP timeout');
                         if(ionic.Platform.isWebView()){
-                            $cordovaDialogs.alert('请求超时');
+                            //$cordovaDialogs.alert('请求超时');
                         }
                     }
                     $ionicLoading.hide();
@@ -449,8 +450,10 @@ employeeModule
         }
 
     }])
-    .controller('customerListCtrl',['LoginService','Prompter','$scope','$rootScope','$state','$cordovaToast','$ionicModal','HttpAppService','saleActService','$ionicScrollDelegate','ionicMaterialInk','employeeService',
-        function(LoginService,Prompter,$scope,$rootScope,$state,$cordovaToast,$ionicModal,HttpAppService,saleActService,$ionicScrollDelegate,ionicMaterialInk,employeeService){
+    .controller('customerListCtrl',['$cordovaDialogs', 'LoginService','Prompter','$scope','$rootScope','$state',
+                '$cordovaToast','$ionicModal','HttpAppService','saleActService',
+                '$ionicScrollDelegate','ionicMaterialInk','employeeService',
+        function($cordovaDialogs, LoginService,Prompter,$scope,$rootScope,$state,$cordovaToast,$ionicModal,HttpAppService,saleActService,$ionicScrollDelegate,ionicMaterialInk,employeeService){
         ionicMaterialInk.displayEffect();
         //console.log(employeeService.get_employeecustomerlist());
         $scope.employcustomerlist = new Array;
@@ -492,6 +495,7 @@ employeeModule
                         "item1": {"RLTYP": customerType}
                     }
                 };
+                var startTime=new Date().getTime();
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {
                         if (config.data.IS_SEARCH.SEARCH != $scope.input.customer) {
@@ -526,7 +530,7 @@ employeeModule
                         if(respTime >= config.timeout){
                             //console.log('HTTP timeout');
                             if(ionic.Platform.isWebView()){
-                                $cordovaDialogs.alert('信息提示：','请求超时');
+                                //$cordovaDialogs.alert('信息提示：','请求超时');
                             }
                         }
                         $ionicLoading.hide();

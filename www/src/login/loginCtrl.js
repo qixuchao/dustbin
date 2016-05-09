@@ -90,22 +90,27 @@ loginModule
             var userPassword = $scope.loginData.password;
             var timeForGetDeviceId = 3000;
             $scope.login = function(isNotFirst){
-                $scope.loginReal();
-                // if(!isNotFirst){
-                //     Prompter.showLoading();
-                // }
-                // timeForGetDeviceId -= 300;
-                // if($scope.config.deviceId == null || $scope.config.deviceId==""){
-                //     if(timeForGetDeviceId >= 0){
-                //         $scope.login(true);
-                //     }else{
-                //         Prompter.hideLoading();
-                //         $cordovaToast.showShortBottom('获取设备ID失败,请重试!');
-                //     }
-                // }else{
-                //     timeForGetDeviceId = 5000;
-                //     $scope.loginReal();
-                // }
+                // alert("login");
+                if(ionic.Platform.isWebView()){
+                    if(!isNotFirst){
+                        Prompter.showLoading();
+                    }
+                    timeForGetDeviceId -= 300;
+                    if($scope.config.deviceId == null || $scope.config.deviceId==""){
+                        if(timeForGetDeviceId >= 0){
+                            $scope.login(true);
+                        }else{
+                            Prompter.hideLoading();
+                            $cordovaToast.showShortBottom('获取设备ID失败,请重试!');
+                        }
+                    }else{
+                        timeForGetDeviceId = 5000;
+                        $scope.loginReal();
+                    }
+                }else{
+                    Prompter.showLoading();
+                    $scope.loginReal();
+                }
             };
             $scope.loginReal = function () {
                 //http://117.28.248.23:9388/test/api/bty/login
@@ -116,7 +121,7 @@ loginModule
                     "password": $scope.loginData.password,
                     "system": ROOTCONFIG.hempConfig.baseEnvironment,
                     "platform": ionic.Platform.isWebView() ? ionic.Platform.platform() : 'browser',
-                    "deviceId": $scope.config.deviceId
+                        "deviceId": $scope.config.deviceId
                 };//ROOTCONFIG.hempConfig.baseEnvironment
                 var startTime = new Date();
                 HttpAppService.noAuthorPost(url, data).success(function (response) {
@@ -148,24 +153,25 @@ loginModule
                                 __initJPushPlugin();
                           }
                         console.log(angular.toJson(response));
-
-                        //if(response.PROFILE == "*"){
-                        //    $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
-                        //  $state.go('changeChar');
-                        //}else if(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D"){
-                        //    $state.go('changePass');
-                        //    $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
-                        //}else{
+                        
+                        if(response.PROFILE == "*"&&ionic.Platform.isWebView()){
+                            $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
+                            $state.go('changeChar');
+                        }else if(ionic.Platform.isWebView()&&(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D")){
+                            $state.go('changePass');
+                            $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
+                        }else{
                             $state.go('tabs', {}, {location:"replace", reload:"true"});
-                        //}
+                        }
                     }
                 }).error(function(errorResponse, status, header, config){
+                    Prompter.hideLoading();
                     var endTime = new Date();
                     if(!errorResponse || errorResponse == null){
                         if(endTime - startTime >= config.timeout){
-                            Prompter.showLoadingAutoHidden("请求超时,请检查网络", false, 1500);
+                            //Prompter.showLoadingAutoHidden("请求超时,请检查网络", false, 1500);
                         }else{
-                            Prompter.showLoadingAutoHidden("登录失败,请检查网络", false, 1500);
+                            //Prompter.showLoadingAutoHidden("登录失败,请检查网络", false, 1500);
                         }
                     }else{
                         Prompter.showLoadingAutoHidden(errorResponse.ES_RESULT.ZRESULT, false, 1500);
@@ -262,10 +268,10 @@ loginModule
                         window.plugins.jPushPlugin.setTagsWithAlias(tags, alias);
                     });
                     if (device.platform != "Android") {
-                        //window.plugins.jPushPlugin.setDebugModeFromIos();
+                        //window.plugins.jPushPlugin.setDebugModeFromIos(false);
                         window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
                     } else {
-                        //window.plugins.jPushPlugin.setDebugMode(true);
+                        window.plugins.jPushPlugin.setDebugMode(false);
                         window.plugins.jPushPlugin.setStatisticsOpen(true);
                         window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
                     }

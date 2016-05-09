@@ -57,10 +57,19 @@ salesModule
                         break;
                     case 'CATL销售2':
                         getStaff(search);
-                        break
+                        break;
                     case 'ATL销售2':
                         getStaff(search);
-                        break
+                        break;
+                    case 'ATL BO':
+                        getStaff(search);
+                        break;
+                    case 'CATL BO':
+                        getStaff(search);
+                        break;
+                    case 'ATL销售经理':
+                        getStaff(search);
+                        break;
                 }
             };
             var getContacts = function (search) {

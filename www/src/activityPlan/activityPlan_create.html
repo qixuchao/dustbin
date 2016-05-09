@@ -1,58 +1,26 @@
 
-<ion-view  id="activity_create"  align-title="center">
-    <ion-header-bar align-title="center" class="bar-positive" >
-        <div class="row row-center title rowTitle">
-            <div class="col col-15 text-left"  ng-click="goBack()"><i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px"></i></div>
-            <div class="col col-70 text-center">活动
-            </div>
-            <div class="col col-15 text-right" ng-click="keep()">保存</div>
-        </div>
+<ion-view>
+    <ion-header-bar align-title="center" class="head pub-head ">
+        <div class="col-15 col-center" ng-click="goBack()">返回</div>
     </ion-header-bar>
     <ion-content>
-        <div class="contentAll">
-            <div class="row itemContent row-center" ng-click="openSelectCustomer()">
-                <div class="col-30 col-center">客户：</div>
-                <div class="col-60 col-center text-right fontColor">
-                    {{dataDetail.customer.NAME_ORG1}}
-                </div>
-                <div class="col-10 col-center text-left">
-                    <img ng-src="img/car/Shape.png" class="shapeImg" >
-                </div>
-            </div>
-
-            <div class="row itemContent row-center" ng-click="openSelectCon()">
-                <div class="col-30 col-center">联系人：</div>
-                <div class="col-60 col-center text-right fontColor">
-                    {{dataDetail.contact.NAME_LAST}}
-                </div>
-                <div class="col-10 col-center text-left"><img ng-src="img/car/Shape.png" class="shapeImg" ></div>
-            </div>
-
-            <div class="row itemContent row-center" ng-click="openSelectChange()">
-                <div class="col-30 col-center" >商机：</div>
-                <div class="col-60 col-center text-right fontColor">
-                    {{dataDetail.business.DESCRIPTION}}
-                </div>
-                <div class="col-10 col-center text-left"><img ng-src="img/car/Shape.png" class="shapeImg" ></div>
-            </div>
-            <div class="row itemContent row-center">
-                <div class="col-30 col-center">活动类型：</div>
-                <div class="col-60 col-center text-right fontColor">
-                    {{dataDetail.acttype.type}}
-                </div>
-                <div class="col-10 col-center text-left"><img ng-src="img/car/Shape.png" class="shapeImg" ></div>
-            </div>
-            <div class="row itemContent row-center" ng-click="pickDate('instart')">
-                <div class="col-30 col-center">开始时间：</div>
-                <div class="col-60 col-center text-right fontColor">
-                    {{dataDetail.instart}}
-                </div>
-                <div class="col-10 col-center text-left"><img ng-src="img/car/Shape.png" class="shapeImg" ></div>
-            </div>
-            <div class="row itemContentS row-center">
-                <div class="col-38 ">活动描述：</div>
-            </div>
-            <textarea id="textarea" placeholder="请输入活动描述" style="width: 100%;padding: 15px;border-bottom: 1px solid #D6D3CE;color:#A0A09F" ng-model="dataDetail.remark"></textarea>
+        <div class="row row-center">
+            <div class="col-50 col-center"></div><div class="col-50 col-center" ng-click="">{{dataDetail.customer}}</div>
+        </div>
+        <div class="row row-center">
+            <div class="col-50 col-center"></div><div class="col-50 col-center" ng-click="">{{dataDetail.contact}}</div>
+        </div>
+        <div class="row row-center">
+            <div class="col-50 col-center"></div><div class="col-50 col-center" ng-click="">{{dataDetail.business}}</div>
+        </div>
+        <div class="row row-center">
+            <div class="col-50 col-center"></div><div class="col-50 col-center" ng-click="">{{dataDetail.acttype}}</div>
+        </div>
+        <div class="row row-center">
+            <div class="col-50 col-center"></div><div class="col-50 col-center" ng-click="pickDate('instart')">{{dataDetail.instart}}</div>
+        </div>
+        <div class="row row-center">
+            <div class="col-50 col-center"></div><div class="col-50 col-center" ng-click="">{{dataDetail.desc}}</div>
         </div>
     </ion-content>
 </ion-view>

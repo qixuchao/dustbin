@@ -1,7 +1,7 @@
 /**
  * Created by zhangren on 16/3/7.
  */
-'use strict';
+'use strict'; 
 ContactsModule
     .controller('contactQueryCtrl',['$cordovaDialogs','Prompter','$scope','$rootScope','$state','$http','HttpAppService','$timeout','$ionicPopover','$ionicActionSheet','$window','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','contactService','$ionicLoading','LoginService',
         function($cordovaDialogs,Prompter,$scope,$rootScope,$state,$http,HttpAppService,$timeout,$ionicPopover,$ionicActionSheet,$window,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,contactService,$ionicLoading,LoginService){
@@ -12,9 +12,13 @@ ContactsModule
             queryResultScrollDelegate:null,
             create : true
         };
-            if(LoginService.getAuthInfoByFunction('EMPLOYEE').CREATE == false){
-                $scope.config.create = false;
-            }
+        
+        if(LoginService.getAuthInfoByFunction('LINKMAN').CREATE == false){
+            $scope.config.create = false;
+        }
+        // if(LoginService.getAuthInfoByFunction('EMPLOYEE').CREATE == false){
+        //     $scope.config.create = false;
+        // }
         //历史记录显示
         $scope.ContactListHistoryval = function(){
             //$scope.contacts_userqueryflag = false;
@@ -23,7 +27,7 @@ ContactsModule
                 if ($scope.contact_query_historylists.length > 5) {
                     $scope.contact_query_historylists = $scope.contact_query_historylists.slice(0, 5);
                 };
-            }
+            } 
             //常用联系人显示
             if (JSON.parse(localStorage.getItem("usuacontactdb")) != null || JSON.parse(localStorage.getItem("usuacontactdb")) != undefined) {
                 $scope.usuallycontactQuery_list = JSON.parse(localStorage.getItem("usuacontactdb"));
@@ -154,7 +158,7 @@ ContactsModule
                 if(respTime >= config.timeout){
                     //console.log('HTTP timeout');
                     if(ionic.Platform.isWebView()){
-                        $cordovaDialogs.alert('请求超时');
+                        //$cordovaDialogs.alert('请求超时');
                     }
                 }
                 $ionicLoading.hide();
@@ -517,15 +521,15 @@ ContactsModule
                     elem.currHeight = parseInt(style.height);
                 };
             };
-
+            
             addEvent('propertychange', change);
             addEvent('input', change);
             addEvent('focus', change);
             change();
         };
             $scope.autoHeight=function(){
-                var text = document.getElementById("textarea");
-                autoTextarea(text);// 调用
+                // var text = document.getElementById("textarea");
+                // autoTextarea(text);// 调用
             };
 
         //var textresult = document.getElementById("textareare");
@@ -600,11 +604,18 @@ ContactsModule
                     url:'ContactsRelationship'
             }];
 
+
+        // if(LoginService.getAuthInfoByFunction('LINKMAN').EDIT == false){
+        //     $scope.showFlag=true;
+        // }else{
+        //     $scope.showFlag=false;
+        // }
+        
         if(LoginService.getProfileType()=="APP_SERVICE"){
             //$scope.customer_detailstypes=new Array;
             $scope.showFlag=true;
         }else{
-            if(LoginService.getAuthInfoByFunction('EMPLOYEE').EDIT == false){
+            if(LoginService.getAuthInfoByFunction('LINKMAN').EDIT == false){
                 $scope.showFlag=true;
             }else{
                 $scope.showFlag=false;
@@ -1204,7 +1215,7 @@ ContactsModule
                         if(respTime >= config.timeout){
                             //console.log('HTTP timeout');
                             if(ionic.Platform.isWebView()){
-                                $cordovaDialogs.alert('请求超时');
+                                //$cordovaDialogs.alert('请求超时');
                             }
                         }
                         $ionicLoading.hide();

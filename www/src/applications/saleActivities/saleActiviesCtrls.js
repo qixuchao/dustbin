@@ -833,7 +833,7 @@ salesModule
                     return
                 }
                 if (x.PARTNER_FCT == "Z0000003" && angular.isUndefined(x.mode)) {
-                    Prompter.alert(x.position + '不能删除或替换!');
+                    Prompter.alert(x.position + '不能修改!');
                     return
                 }
                 repTempIndex = $scope.relationArr.indexOf(x);
@@ -1237,6 +1237,9 @@ salesModule
         var fn = function (text, search) {
             if (!search) {
                 return $sce.trustAsHtml(text);
+            }
+            if(angular.isUndefined(text)){
+                return ""
             }
             text = text.toString();
             if (text.indexOf(search) == -1) {

@@ -33,12 +33,14 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                 var startTime = new Date().getTime();
                 var noAuthorPost = $http.post(url, paramter,config).success(function (response) {
                 }).error(function (response, status, header, config) {
+
                     var respTime = new Date().getTime() - startTime;
                     //超时之后返回的方法
                     if(respTime >= config.timeout){
                         console.log('HTTP timeout');
                         if(ionic.Platform.isWebView()){
-                            $cordovaDialogs.alert('请求超时','提示','确定');
+                            //$cordovaDialogs.alert('请求超时','提示','确定');
+                            $cordovaToast.showShortBottom("请求超时, 请重试!");
                         }
                     }
                     $ionicLoading.hide();
@@ -55,7 +57,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                 var config = {
                     headers: getToken(),
                     timeout: 30000
-                };
+                }; 
                 //console.log(config.headers.token);
                 var startTime = new Date().getTime();
                 var post = $http.post(url,paramter,config).success(function (response) {
@@ -85,7 +87,8 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                     if(respTime >= config.timeout){
                         console.log('HTTP timeout');
                         if(ionic.Platform.isWebView()){
-                            $cordovaDialogs.alert('请求超时','提示','确定');
+                            //$cordovaDialogs.alert('请求超时','提示','确定');
+                            $cordovaToast.showShortBottom("请求超时, 请重试!");
                         }
                     }
                     $ionicLoading.hide();
@@ -206,6 +209,9 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
                                 break;
                             case 'chanDetailEnd':
                                 scope.chanceDetails.EXPECT_END = time;
+                                break;
+                            case 'clueDetailStart':
+                                scope.details.DATE_START = time;
                                 break;
                         }
                     });

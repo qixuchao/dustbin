@@ -98,3 +98,19 @@ ion-content#my-settings-content{
         border-bottom-right-radius: 8px;
     }
 }
+
+.AboutClass{
+    ion-content{
+        span{
+            font-size: 14px;
+        }
+        .imgClass{
+            position: relative;
+            width: 98%;
+            height: 100%;
+            left: 1%;
+        }
+    }
+}
+
+
