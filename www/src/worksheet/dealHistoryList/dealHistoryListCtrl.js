@@ -42,7 +42,7 @@ worksheetModule.controller("dealHistoryListCtrl",[
         };
         $state.go("baoGongDetail");
     };
-
+    
     $scope.datas = {
         history: [],
     	testDates: [
