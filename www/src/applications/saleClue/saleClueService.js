@@ -7,19 +7,19 @@ salesModule.factory('saleClueService', function () {
         status: [
             {
                 text: '未处理',
-                value: 'Z001'
+                value: 'E0001'
             }, {
                 text: '分配给BO',
-                value: 'Z002'
+                value: 'E0002'
             }, {
                 text: '分配给销售',
-                value: 'Z003'
+                value: 'E0003'
             }, {
                 text: '转为商机',
-                value: 'Z004'
+                value: 'E0004'
             }, {
                 text: '关闭',
-                value: 'Z005'
+                value: 'E0005'
             }]
     };
     var relationPositionArr = {
@@ -171,7 +171,23 @@ salesModule.factory('saleClueService', function () {
     },{
         text:'千克'
     }];
-
+    //客户类型
+    var customerType = [{
+        text:'PACK厂',
+        code:'01'
+    },{
+        text:'代理商',
+        code:'02'
+    },{
+        text:'OEM',
+        code:'03'
+    },{
+        text:'ODM',
+        code:'04'
+    },{
+        text:'终端客户',
+        code:'05'
+    }];
     return {
         saleClueStatus,
         relationPositionArr,
@@ -180,6 +196,7 @@ salesModule.factory('saleClueService', function () {
         applyType,
         productLine,
         productType,
-        weight
+        weight,
+        customerType
     }
 });
