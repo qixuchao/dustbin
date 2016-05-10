@@ -4,7 +4,9 @@ worksheetModule.controller("dealHistoryListCtrl",[
     "ionicMaterialMotion",
     "worksheetDataService",
     "$timeout",
-    function($scope, ionicMaterialInk, ionicMaterialMotion, worksheetDataService, $timeout){
+    "$state",
+    "baoGongService",
+    function($scope, ionicMaterialInk, ionicMaterialMotion, worksheetDataService, $timeout, $state, baoGongService){
     
     $scope.config = {
 
@@ -33,6 +35,12 @@ worksheetModule.controller("dealHistoryListCtrl",[
                 detailType: 'batchUpdate'
             });
         }*/
+        baoGongService.detailFromWSHistory = {
+            PROCESS_TYPE: item.PROCESS_TYPE,
+            OBJECT_ID: item.OBJECT_ID,
+            WS_DETAIL: item.DESCRIPTION
+        };
+        $state.go("baoGongDetail");
     };
 
     $scope.datas = {

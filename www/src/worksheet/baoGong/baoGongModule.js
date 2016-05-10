@@ -1,8 +1,11 @@
-worksheetReportModule.service("baoGongService", [function(){
+worksheetReportModule.service("baoGongService", [
+	"worksheetDataService",
+	function(worksheetDataService){
 	
 	return {
 
-		detailFromWSDetail: {}, /*{
+		createFromWSDetail: {},
+		/*{
 			IS_OBJECT_ID: ,
 			IS_PROCESS_TYPE: ,
 			TYPE_DESC: ,
@@ -16,6 +19,19 @@ worksheetReportModule.service("baoGongService", [function(){
 				PARTNER_NO : "E060000878"
 			}
 		}*/
+		detailFromWSHistory: {},
+		/*{
+			OBJECT_ID: '',
+			PROCESS_TYPE: ''
+		}*/
+
+		BAOWS_CREATE: {
+			url: ROOTCONFIG.hempConfig.basePath + 'CONFIRM_CREATE',
+			defaults: {
+				I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
+			    IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
+			}
+		}
 
 	};
 

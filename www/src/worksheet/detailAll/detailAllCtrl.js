@@ -185,14 +185,14 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			function __goBaoGongCreatePage(){
 				var waifuRenyuan = {};
 				var ets = $scope.datas.detail.ET_PARTNER;
-				if(!angular.isUndefined(ets) && ets!= null && ets!="" && !!ets.length){
-					for(var i = 0; i < ets.length; i++){
-						if(ets[i].PARTNER_FCT == "ZSRVEMPL"){
-							waifuRenyuan == angular.copy(ets[i]);
+				if(!angular.isUndefined(ets) && ets!= null && ets!="" && !angular.isUndefined(ets.item) && !angular.isUndefined(ets.item.length)){
+					for(var i = 0; i < ets.item.length; i++){
+						if(ets.item[i].PARTNER_FCT == "ZSRVEMPL"){
+							waifuRenyuan = angular.copy(ets.item[i]);
 						}
 					}
 				}
-				baoGongService.detailFromWSDetail = {
+				baoGongService.createFromWSDetail = {
 					IS_OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
 					IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE,
 					TYPE_DESC: $scope.datas.detail.ES_OUT_LIST.TYPE_DESC,
@@ -203,7 +203,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				};
 				$state.go("baoGongCreate");
 			}
-
+			
 			$scope.showRequestModel = function(){
 				if($scope.cofnig.requestModal == null){
 					$scope.config.requestModal = $ionicModal.fromTemplate("<div class='show-request-modal-content worksheet-detail'>"+

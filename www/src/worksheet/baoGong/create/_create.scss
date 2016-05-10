@@ -1,0 +1,68 @@
+#ws-baogong-create-content{
+	.commment-info-lines{
+		margin-top: .8rem;
+		&.first-line{
+			margin-top: .6rem;
+		}
+		.row{
+            border-bottom: 1px solid #eee;
+            height: 2.5rem;
+            line-height: 2.5rem;
+            padding: 0px;
+			margin-top: 0px;
+            div:first-child{
+                padding-left: 1rem;
+            }
+            div:nth-child(2){
+                color: #8E8B8B;
+                @include single-line-ellipsis;
+                padding-right: .2rem;
+            }
+            &.line-right-icon{
+            	font-size: 1.2rem;
+    			color: #969393;
+            }
+            textarea{
+            	padding: 15px;
+            	color: black;
+            }
+        }
+        .text-row{
+            line-height: 1.2rem;
+            @include display-flex;
+            font-size: 1rem;
+            padding: .6rem 0px;
+            border-bottom: 1px solid #eee;            
+            div:first-child{
+                padding-left: 1rem;
+                //width: 4.5rem;
+                width: 6rem;
+                margin-right: .4rem;
+            }
+            div:nth-child(2){
+                @include flex(5);
+                color: #8E8B8B;
+                padding-right: .2rem;
+                overflow: hidden;
+                margin-right: .4rem;
+            }
+            &.has-right-icon{
+            	.line-right-icon{
+            		//@include flex(1);
+            		width: 2rem;
+            	}
+            }
+        }
+        .row-input{
+        	div:nth-child(2){
+				@include display-flex;
+	        	@include align-items(center);
+	        	padding-right: 10px;
+        	}
+        	input{
+        		height: 2.2rem;
+    			width: 100%;
+        	}
+        }
+	}
+}
