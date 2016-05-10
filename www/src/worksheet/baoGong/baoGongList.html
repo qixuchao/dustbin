@@ -1,0 +1,69 @@
+<!--ion-view  align-title="center">
+    <ion-header-bar align-title="center" class="head pub-head">
+        <div class="row row-center">
+            <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+            <div class="col col-70 text-center">费用结算</div>
+            <div class="col col-15 add"></div>
+        </div>
+    </ion-header-bar>
+    <ion-content scroll="false" has-bouncing="false">
+            
+            <div>
+                报工列表 。。。       
+            </div>
+    </ion-content>
+    
+</ion-view-->
+
+
+
+
+<ion-view  id="worksheet-baogong-list-view"  align-title="center">
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">费用结算</div>
+                <div class="col col-15 add"></div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <ion-content scroll="true" has-bouncing="false"> 
+            <style>
+                .baogong-list .bu-shou-fen{
+                    color: red;
+                    min-width: 4rem;
+                }
+                .baogong-list .shou-fen{
+                    color: green;
+                    min-width: 4rem;
+                }
+            </style>
+            <div class="no-datas-tip" style="font-size:.8rem;height:3rem;line-height:3rem;text-align:center;color:#A79E9E;" ng-if="config.noDatas">
+                <span ng-bind="config.currentTip"></span>
+            </div>
+            
+            <div class="baogong-list">
+                <div class="baogong-item" ng-class="{'animated flipInX':itemAnimatedShow}" ng-init="itemAnimatedShow=true" ng-repeat="item in datas.baogongDatas">
+                    <div class="title-top">
+                        <div class="title-icon"></div>
+                        <span ng-bind="item.DESCRIPTION"></span>
+                    </div>
+                    <div class="desc">
+                        <div class="col-50">
+                            产品编码:<span ng-bind="item.ORDERED_PROD"></span>
+                        </div>
+                        <div class="col-15">
+                            <span ng-bind="item.ACIND_DESCR_20" ng-class="{'shou-fen':(item.AC_INDICATOR=='D2'),'bu-shou-fen':(item.AC_INDICATOR=='D1')}"></span>
+                        </div>
+                        
+                        <div class="col-35">
+                            数量: <span ng-bind="item.QUANTITY"></span>
+                        </div>
+                    </div>
+                </div>         
+            </div>
+            
+    </ion-content>
+
+</ion-view>

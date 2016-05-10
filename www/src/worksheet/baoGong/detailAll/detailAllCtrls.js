@@ -131,6 +131,9 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 		$scope.canShowEditBtn = function(){
 			return true;
 		};
+		$scope.editDetail = function(){
+			$scope.config.editMode = !$scope.config.editMode;
+		};
 		
     	$scope.config = {
     		typeStr: '',
@@ -139,6 +142,7 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
     		PROCESS_TYPE: '',
         	OBJECT_ID: '',
         	WS_DETAIL: '',
+        	editMode: false, //编辑模式
 
 			scrollDelegateHandler: null,
 			contentDetegateHandler: null,

@@ -1,4 +1,4 @@
-<ion-view id="bao-ws-detailall-view" class="saleActDetail worksheet-detail-view-public">
+<ion-view id="bao-ws-detailall-view" class="saleActDetail worksheet-detail-view-public" ng-class="{'edit-mode':config.editMode}">
     <div id="saleTopBackId" class="top-back bar">
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'" style="margin-left:0px;padding-left:0px;padding-top:20px;margin-top:15px;">
                 <div class="col col-10" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
                     <span class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.kyhuMingCheng"></span>
-                </div> 
+                </div>
                 <div class="row row-center detail-last-line" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="detail-customer">
                         <div>外服人员:</div>
@@ -43,40 +43,21 @@
             </div>
     </div>
     
-    <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false" style="padding-top:.4rem;height: 40px;background:white;z-index: 1;top: 185px;margin-top: 0px;">
+    <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
         <div class="fill-height line-inner">
-            <!--div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
-                <i class="ion-link" style="font-size:2.1rem;line-height:2.4rem;"></i>                             
-                <style>
-                    .history-info-relation-line .ion-link:before{
-                        transform: rotate(140deg);
-                        -webkit-transform: rotate(140deg);
-                        font-size: 2rem;
-                        line-height: 2.2rem;
-                        text-align: center;
-                    }
-                </style>
-                <span>相关方</span>
-            </div-->
-            <!--div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
-                <i class="ion-ios-clock-outline" style="font-size:1.8rem;font-weight: bold;line-height: 2.2rem;text-align: center;"></i>                               
-                <span>交易历史</span>
-                <style>
-                    .history-box .ion-ios-clock-outline:before{
-                        font-weight: bolder;
-                    }
-                </style>
-            </div-->
-            <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
-                <i class="ion-document-text" style="font-size: 1.8rem;line-height: 2.3rem;text-align: center;transform:rotate(180deg);-webkit-transform:rotate(180deg);"></i>
+            <div class="info-box left-1" ng-click="dibButtonClickHandler('baoGongXinXi');">
+                <i class="ion-document-text"></i>
                 <span>费用结算</span>
             </div>
         </div>
     </ion-scroll>
-    
+
     <div class="fixed-buttons buttons" ng-if="canShowEditBtn();" style="z-index:1;">
-        <div class="button button-crm-edit button-crm-edit-public" ng-click="editDetail();">
+        <div class="button button-crm-edit button-crm-edit-public" ng-class="{'btn-hide':config.editMode,'btn-show':!config.editMode}" ng-click="editDetail();" style="margin-left:auto;margin-right:auto;">
             编辑
+        </div>
+        <div class="button button-crm-edit button-crm-edit-public" ng-class="{'btn-show':config.editMode,'btn-hide':!config.editMode}" ng-click="editDetail();" style="margin-left:auto;margin-right:auto;">
+            完成
         </div>
     </div>
     

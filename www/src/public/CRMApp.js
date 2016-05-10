@@ -396,7 +396,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl: 'src/worksheet/takePicture/takePicture.html',
             controller: 'worksheetTakePictureCtrl'
         })
-
+        
         .state('staffSelect', {
             url: '/staffSelect',
             templateUrl: 'src/worksheet/selectStaff/selectStaff.html',
@@ -441,7 +441,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl: 'src/worksheetReported/worksheetReportedList.html',
             controller: 'WorksheetListReportedCtrl'
         })
-
+        
         .state('worksheetReportedDetail', {
             url: '/worksheetReportedDetail',
             templateUrl: 'src/worksheetReported/worksheetReportedDetail/worksheetReporteDetail.html',

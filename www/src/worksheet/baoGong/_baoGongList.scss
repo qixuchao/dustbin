@@ -1,0 +1,41 @@
+ #worksheet-baogong-list-view{
+ 	.left-back{
+ 		font-size: 2rem;
+ 		@include display-flex;
+ 		@include align-items(center);
+ 		@include justify-content(center);
+ 		width: 2rem;
+ 	} 
+ 	.baogong-list{
+		.baogong-item{
+			display: block;
+			width: 100%;
+			padding: .6rem .8rem;
+			border-bottom: 1px solid rgb(202,202,202);
+			.title-top{
+				display: block;
+				width: 100%;				
+				span{
+					margin-left: .4rem;
+					font-size: 1rem;
+				}
+			}
+			.title-icon{
+				display: inline-block;
+				height: 12px;
+				width: 12px;
+				border: 2px solid rgb(154,199,54);
+				border-radius: 12px;
+			}
+			.desc{
+				@include display-flex;
+				width: 100%;
+				color: rgb(202,202,202);
+				font-size: .8rem;
+				span{
+					margin-left: .4rem;
+				}
+			}
+		}
+	}
+ }
