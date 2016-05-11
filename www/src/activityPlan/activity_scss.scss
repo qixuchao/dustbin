@@ -196,6 +196,7 @@
 
 //活动计划详情
 .CarDetail {
+
   .row .col {
     padding: 0;
     margin: 0;
@@ -258,6 +259,20 @@
   }
 
   .mainInfo {
+    input {
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: white !important;
+      height: 28px;
+      position: relative;
+      padding: 0;
+      //border-bottom: 1px solid white;
+      width: 70%;
+    }
+    .border-bottom-white {
+      border-bottom: 1px solid white;
+    }
     .row {
       .status {
         color: #9fca17;

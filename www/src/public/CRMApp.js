@@ -19,15 +19,14 @@ var customerWorkorderModule = angular.module('customerWorkorderModule', []);
 var customerContactsModule = angular.module('customerContactsModule', []);
 var customerModuleServive = angular.module('customerModuleServive', []);
 var spareModule = angular.module('spareModule',[]);
-
+var worksheetModule = angular.module('worksheetModule', ['ion-gallery']); // 工单模块
 var worksheetReportModule = angular.module('worksheetReportModule', []);
-var worksheetModule = angular.module('worksheetModule', ['ion-gallery', 'worksheetReportModule']); // 工单模块
 var settingsModule = angular.module('settingsModule', []);  //我的模块
 var activityPlanModule = angular.module('activityPlanModule', []);  //活动计划模块
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlideBox', 'ngCordova',
     'ionic-material',
-    'utilsModule',  
+    'utilsModule',
     'loginModule', 
     'mainModule',
     'tabsModule',
@@ -50,6 +49,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlide
     'customerkeyModule',
     'customerActivityModule',
     'customerWorkorderModule',
+    "worksheetReportModule",
     "settingsModule",
     'activityPlanModule'
 ]);
@@ -396,28 +396,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl: 'src/worksheet/takePicture/takePicture.html',
             controller: 'worksheetTakePictureCtrl'
         })
-        
+
         .state('staffSelect', {
             url: '/staffSelect',
             templateUrl: 'src/worksheet/selectStaff/selectStaff.html',
             controller: 'selectStaffCtrl'
-        })
-        // 工单模块相关： end ------------------------
-        // 报工单模块相关： start ------------------------
-        .state('baoGongCreate', {
-            url: '/baoGongCreate',
-            templateUrl: 'src/worksheet/baoGong/create/create.html',
-            controller: 'baoGongCreateCtrl'
-        })
-        .state('baoGongDetail', {
-            url: '/baoGongDetail',
-            templateUrl: 'src/worksheet/baoGong/detailAll/detailAll.html',
-            controller: 'baoGongDetailAllCtrl'
-        })
-        .state('baoGongInfosList', {
-            url: '/baoGongInfosList',
-            templateUrl: 'src/worksheet/baoGong/infos/infoList.html',
-            controller: 'baoGongInfoListCtrl'
         })
         // 工单模块相关： end ------------------------
         .state('changePass', {
@@ -425,23 +408,13 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl: 'src/settings/changePass/changePass.html',
             controller: 'ChangePassCtrl'
         })
-        .state('about',{
-            url:'/about',
-            templateUrl:'src/settings/about.html',
-            controller:'AboutCtrl'
-        })
-        .state('aboutapp',{
-            url:'/aboutapp',
-            templateUrl:'src/settings/aboutApp.html',
-            controller:'AboutAppCtrl'
-        })
         //报工单模块 start-----
         .state('worksheetReportedList', {
             url: '/worksheetReportedList',
             templateUrl: 'src/worksheetReported/worksheetReportedList.html',
             controller: 'WorksheetListReportedCtrl'
         })
-        
+
         .state('worksheetReportedDetail', {
             url: '/worksheetReportedDetail',
             templateUrl: 'src/worksheetReported/worksheetReportedDetail/worksheetReporteDetail.html',
@@ -488,10 +461,10 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl: 'src/activityPlan/activityPlan_Detail.html',
             controller: 'activityPlanDetailCtrl'
         })
-        .state('activityPlanEdit', {
-            url: '/activityPlanEdit',
-            templateUrl: 'src/activityPlan/activityPlan_edit.html',
-            controller: 'activityPlanEditCtrl'
+        .state('activityPlanCreateHead', {
+            url: '/activityPlanCreateHead',
+            templateUrl: 'src/activityPlan/activityPlan_Head.html',
+            controller: 'activityPlanCreateHeadCtrl'
         })
         .state('activityPlanCreate', {
             url: '/activityPlanCreate',
