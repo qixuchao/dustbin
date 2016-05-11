@@ -1,0 +1,52 @@
+#bao-ws-detailall-view{
+    .btn-hide{
+        display: none;
+    }
+    .btn-show{
+        display: block;
+    }
+    &.edit-mode{
+        .detail-all-more-button{
+            display: none;
+        }
+    }
+    &>ion-scroll{
+        padding-top:.4rem;
+        height: 40px;
+        background:white;
+        z-index: 1;
+        top: 185px;
+        margin-top: 0px;
+        .info-box{
+            top: .15rem;
+            i{
+                font-size: 1.8rem;
+                line-height: 2.3rem;
+                text-align: center;
+                transform:rotate(180deg);
+                -webkit-transform:rotate(180deg);
+            }
+        }
+    }
+    .basic-info{
+        margin-top: 1.5rem;
+        .row{
+            margin-top: 0px;
+        }
+        .row-input{
+            input{
+                width: 100%;
+                height: 2.2rem;
+                margin-right: 5px;
+            }
+        }
+    }
+    .detail-all-more-button, .fixed-buttons{
+        display: none;
+        &.E0001{
+            display: block;
+        }
+    }
+
+    
+}

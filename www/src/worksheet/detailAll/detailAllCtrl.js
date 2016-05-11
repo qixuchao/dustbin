@@ -21,10 +21,12 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         "$rootScope",
         "$filter", 
         "CarService",
+        "$ionicActionSheet",
+        "baoGongService",
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter
-                  , saleActService, $rootScope, $filter,CarService) {
+                  , saleActService, $rootScope, $filter,CarService, $ionicActionSheet, baoGongService) {
 
         	$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
 	            if(fromState && fromState.name == 'worksheetDetail' && toState && toState.name == "worksheetEdit"){
@@ -136,7 +138,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					}; 
 					$scope.goState("worksheetTakePicture");
 				}else if(type == 'baogong'){
-					$scope.goState("worksheetbaogonglist");
+					//$scope.goState("worksheetbaogonglist");
+					__baoGongHandler();
 				}else if(type == 'wangong'){
 					requestChangeStatus("E0006", "已完工", "正在完工", "完工成功", "完工失败，请检查网络");
 				}else if(type == 'yiquxiao'){
@@ -148,6 +151,59 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}
 			};
 
+			function __baoGongHandler(){
+				var history = $scope.datas.detail.ET_HISTORY;
+				if(angular.isUndefined(history) || history == null || history == "" || !history.item || history.item.length ==0){
+					//直接跳转到报工单创建界面
+					__goBaoGongCreatePage();
+				}else{
+					$scope.config.baoGongActionSheet = $ionicActionSheet.show({
+						buttons: [
+							{text: '新建报工'},
+							{text: '修改工单状态'}
+						],
+						//destructiveText: 'Delete',
+					    titleText: '报工操作',
+					    cancelText: '取消',
+					    cssClass: 'image-take-actionsheet',
+					    cancel: function(){
+					    	//$scope.config.baoGongActionSheet();
+					    },
+					    buttonClicked: function(index){
+					    	if(index == 0){ //新建报工
+								__goBaoGongCreatePage();
+					    		return true;
+					    	}else if(index == 1){ //修改工单状态
+					    		requestChangeStatus("E0005", "已报工", "正在报工", "报工完成", "报工失败，请检查网络");
+					    		return true;
+					    	}
+					    	//return false;
+					    }
+					});
+				}
+			}
+			function __goBaoGongCreatePage(){
+				var waifuRenyuan = {};
+				var ets = $scope.datas.detail.ET_PARTNER;
+				if(!angular.isUndefined(ets) && ets!= null && ets!="" && !angular.isUndefined(ets.item) && !angular.isUndefined(ets.item.length)){
+					for(var i = 0; i < ets.item.length; i++){
+						if(ets.item[i].PARTNER_FCT == "ZSRVEMPL"){
+							waifuRenyuan = angular.copy(ets.item[i]);
+						}
+					}
+				}
+				baoGongService.createFromWSDetail = {
+					IS_OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
+					IS_PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE,
+					TYPE_DESC: $scope.datas.detail.ES_OUT_LIST.TYPE_DESC,
+					DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION,
+					STATU: $scope.datas.detail.ES_OUT_LIST.STATU,
+					STATU_DESC: $scope.datas.detail.ES_OUT_LIST.STATU_DESC,
+					WAIFU_EMP: angular.copy(waifuRenyuan)
+				};
+				$state.go("baoGongCreate");
+			}
+			
 			$scope.showRequestModel = function(){
 				if($scope.cofnig.requestModal == null){
 					$scope.config.requestModal = $ionicModal.fromTemplate("<div class='show-request-modal-content worksheet-detail'>"+
@@ -551,7 +607,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
 
-		        	if(tempResponse.ES_OUT_LIST && tempResponse.ES_OUT_LIST.EDIT_FLAG == "Y"){
+		        	if(tempResponse.ES_OUT_LIST && tempResponse.ES_OUT_LIST.EDIT_FLAG == "X"){
 		        		$scope.config.canEdit = true;
 		        	}else{
 		        		$scope.config.canEdit = false;

@@ -26,7 +26,7 @@ var activityPlanModule = angular.module('activityPlanModule', []);  //活动计�
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlideBox', 'ngCordova',
     'ionic-material',
-    'utilsModule',  
+    'utilsModule',
     'loginModule', 
     'mainModule',
     'tabsModule',
@@ -448,7 +448,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
 
         //报工单模块 end-------
 
-    //销售线索
+        //销售线索
         .state('saleClueDetail', {
             url: '/saleClueList/saleClueDetail',
             templateUrl: 'src/applications/saleClue/detail/saleClueDetail.html',
@@ -471,10 +471,10 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl: 'src/activityPlan/activityPlan_Detail.html',
             controller: 'activityPlanDetailCtrl'
         })
-        .state('activityPlanEdit', {
-            url: '/activityPlanEdit',
-            templateUrl: 'src/activityPlan/activityPlan_edit.html',
-            controller: 'activityPlanEditCtrl'
+        .state('activityPlanCreateHead', {
+            url: '/activityPlanCreateHead',
+            templateUrl: 'src/activityPlan/activityPlan_Head.html',
+            controller: 'activityPlanCreateHeadCtrl'
         })
         .state('activityPlanCreate', {
             url: '/activityPlanCreate',
