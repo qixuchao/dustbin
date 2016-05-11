@@ -4,8 +4,16 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
 	"$timeout",
 	"Prompter",
 	"HttpAppService",
-	function ($scope, baoGongService, $timeout, Prompter, HttpAppService) {
+    "$state",
+    "$ionicHistory",
+	function ($scope, baoGongService, $timeout, Prompter, HttpAppService, $state, $ionicHistory) {
 	
+    $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+        if(toState && fromState && toState.name == "baoGongCreate" && fromState.name == "baoGongDetail"){
+            $ionicHistory.goBack();
+        }
+    });
+
 	$scope.config = {
 
 	};
@@ -27,7 +35,7 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
 			}*/
 		}
 	};
-
+    
 	$scope.goBack = function(){
 		Prompter.wsConfirm("提示","放弃本次编辑?","确定", "取消");
 	};
@@ -36,14 +44,16 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
 		var params = {
 			IV_OBJECT_ID: $scope.datas.defaultDetail.IS_OBJECT_ID,
 			IV_PROCESS_TYPE: $scope.datas.defaultDetail.IS_PROCESS_TYPE,
-			IV_DESCRIPTION: $scope.datas.defaultDetail.DESCRIPTION,
+			IV_DESCRIPTION: $scope.datas.defaultDetail.BAO_DESCRIPTION,
 			IV_PROCESS_TYPE_CONF: $scope.datas.defaultDetail.IS_PROCESS_TYPE_BAO
 		};
 		var beizhu = $scope.datas.defaultDetail.BAO_BEIZHU;
 		if(!angular.isUndefined(beizhu) && beizhu!=null && beizhu.trim && beizhu.trim()!=""){
 			params.IT_TEXT = {
-				TDID: "Z002",
-				TEXT: beizhu
+                item_in: {
+                    TDID: "Z002",
+                    TEXT: beizhu
+                }
 			};
 		}
 		params = angular.extend(params, baoGongService.BAOWS_CREATE.defaults);
@@ -76,8 +86,14 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
             if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "S"){
                 Prompter.showLoadingAutoHidden("报工单创建成功!", false, 1000);
                 $timeout(function(){                        
-                    //$scope.$ionicGoBack();
-                },1200);
+                    baoGongService.detailFromWSHistory = {
+                        PROCESS_TYPE: $scope.datas.defaultDetail.IS_PROCESS_TYPE_BAO,
+                        //OBJECT_ID: $scope.datas.defaultDetail.IS_OBJECT_ID,
+                        OBJECT_ID: response.EV_OBJECT_ID,
+                        WS_DETAIL: $scope.datas.defaultDetail.BAO_DESCRIPTION
+                    };
+                    $state.go("baoGongDetail");
+                },1000);
             }else if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "E" && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!=""){
                 Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
             }else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!="" ){

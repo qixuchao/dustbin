@@ -465,7 +465,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
 
         //报工单模块 end-------
 
-    //销售线索
+        //销售线索
         .state('saleClueDetail', {
             url: '/saleClueList/saleClueDetail',
             templateUrl: 'src/applications/saleClue/detail/saleClueDetail.html',

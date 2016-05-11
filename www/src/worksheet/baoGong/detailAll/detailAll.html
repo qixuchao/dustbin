@@ -4,7 +4,7 @@
                 <div class="col col-10" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-75 text-center">报工单详细信息</div>
                 <div class="col-15 show-more-modal-content-source3 " ng-if="canShowMoreBtn();"  ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
-                    <span class="detail-all-more-button {{config.statusStr}} {{config.typeStr}}"><i class="ion-ios-more"></i></span>
+                    <span class="detail-all-more-button {{config.statusStr}}"><i class="ion-ios-more"></i></span>
                 </div>
             </div>
             <div class="mainInfo" style="width:100%;top:60px;position:relative;height:125px;padding-left: 1rem;">
@@ -51,12 +51,12 @@
             </div>
         </div>
     </ion-scroll>
-
-    <div class="fixed-buttons buttons" ng-if="canShowEditBtn();" style="z-index:1;">
+    
+    <div class="fixed-buttons buttons {{config.statusStr}}" ng-if="canShowEditBtn();" style="z-index:1;">
         <div class="button button-crm-edit button-crm-edit-public" ng-class="{'btn-hide':config.editMode,'btn-show':!config.editMode}" ng-click="editDetail();" style="margin-left:auto;margin-right:auto;">
             编辑
         </div>
-        <div class="button button-crm-edit button-crm-edit-public" ng-class="{'btn-show':config.editMode,'btn-hide':!config.editMode}" ng-click="editDetail();" style="margin-left:auto;margin-right:auto;">
+        <div class="button button-crm-edit button-crm-edit-public" ng-class="{'btn-show':config.editMode,'btn-hide':!config.editMode}" ng-click="saveChange();" style="margin-left:auto;margin-right:auto;">
             完成
         </div>
     </div>
@@ -80,16 +80,22 @@
                     <div class="col-40">工单单号&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ydWorksheetNum"></div>
                 </div>
-                <div class="row">
+                <div class="row row-input">
                     <div class="col-40">简单描述&nbsp;:</div>
-                    <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                    <ion-scroll ng-if="!config.editMode" class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
                         <div ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
                     </ion-scroll>
+                    <div class="col-60" ng-if="config.editMode">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.DESCRIPTION_EDIT">
+                    </div>
                 </div>
                 <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
                     <div class="" style="margin-right:0px;">备注&nbsp;:</div>
-                    <div class="" style="line-height:.9rem;padding: 0rem 1rem;font-size: .8rem;color: #7B7878;">
-                        <div ng-repeat="item in datas.detail.XBRCHULIJIEGUOS"></div><!-- ng-bind="item.finalStr" -->
+                    <div ng-if="!config.editMode" class="" style="line-height:.9rem;padding: 0rem 1rem;font-size: .8rem;color: #7B7878;">
+                        <div ng-repeat="item in datas.detail.XBRZHUSHIS" ng-bind="item.finalStr"></div><!--  -->
+                    </div>
+                    <div ng-if="config.editMode">
+                        <textarea id="textarea_bao_beizhu_detail" placeholder="请添加备注" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.BAO_BEIZHU" class="ng-pristine ng-valid ng-touched"></textarea>
                     </div>
                 </div>
                 <div class="row">
@@ -107,10 +113,10 @@
                                             'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
                                             'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
                 </div>
-                <div class="row">
+                <!--div class="row">
                     <div class="col-40">服务工单&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ydWorksheetNum"></div>
-                </div>
+                </div-->
                 <div class="row">
                     <div class="col-40">外服人员&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.waifuRenyuan"></div>

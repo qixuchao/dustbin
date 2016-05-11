@@ -89,18 +89,25 @@ worksheetModule.service('worksheetDataService', [function(){
     },
     wsDetailToPaiZHao: null,
     getStoredByKey: function(key){
-      if(key == "userName"){
-        return window.localStorage.crmUserName;
-      }else if(key == "sysName"){
-        //return "CATL";
-        return ROOTCONFIG.hempConfig.baseEnvironment;
-      }else{
-        return window.localStorage[key];
-      }
+        if(key == "userName"){
+          return window.localStorage.crmUserName;
+        }else if(key == "sysName"){
+          //return "CATL";
+          return ROOTCONFIG.hempConfig.baseEnvironment;
+        }else{
+          return window.localStorage[key];
+        }
     },
     setStored: function(key, value){
       window.localStorage[key] = value;
-    }
+    },
+    baoWsToWsHistory: {
+      needReload: true
+    },
+    //报工相关
+    wsBaoDetailData: null,
+    wsBaoDetailToFYJS: false,
+
     /*{
       ydWorksheetNum: 
     }*/
@@ -199,7 +206,7 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
             cun : '',
             back :''
         },
-        //产品
+        //产品  
         serviceDetail: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL'   //工单详情接口
         },

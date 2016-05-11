@@ -9,7 +9,7 @@ worksheetModule.controller("dealHistoryListCtrl",[
     function($scope, ionicMaterialInk, ionicMaterialMotion, worksheetDataService, $timeout, $state, baoGongService){
     
     $scope.config = {
-
+        
     };
 
     $scope.enterDetail = function(item){
@@ -42,7 +42,7 @@ worksheetModule.controller("dealHistoryListCtrl",[
         };
         $state.go("baoGongDetail");
     };
-    
+
     $scope.datas = {
         history: [],
     	testDates: [

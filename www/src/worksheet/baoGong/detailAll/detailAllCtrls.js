@@ -37,6 +37,14 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 			__destroyMoreModal();
 		});
 
+		$scope.goBack = function(){
+			if($scope.config.editMode){
+				Prompter.wsConfirm("提示","放弃本次编辑?","确定", "取消");
+			}else{
+				$ionicHistory.goBack();
+			}
+		};
+
 		function __destroyMoreModal(){
 			if($scope.config.moreModal != null){			
 				$scope.config.moreModal.remove();
@@ -57,6 +65,8 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 		$scope.dibButtonClickHandler = function(type){
 			switch(type){
 				case 'baoGongXinXi':
+					worksheetDataService.wsBaoDetailToFYJS = true;
+					worksheetDataService.wsBaoDetailData = $scope.datas.detail;
 					$scope.goState('worksheetBaoGonglist');
 					break;
 			}
@@ -65,9 +75,9 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 			console.log(type);
 			$scope.config.moreModal.hide();
 			if(type == 'baogong'){
-				requestChangeStatus("E0005", "已报工", "正在报工", "报工完成", "报工失败，请检查网络");
+				requestChangeStatus("E0002", "已报工", "正在报工", "报工完成", "报工失败，请检查网络");
 			}else if(type == 'yiquxiao'){
-				requestChangeStatus("E0009", "已取消", "正在取消", "取消成功", "取消失败，请检查网络");
+				requestChangeStatus("E0006", "已取消", "正在取消", "取消成功", "取消失败，请检查网络");
 			}
 		};
 		
@@ -81,10 +91,8 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 			}
 		};
 		$scope.canShowMoreBtn = function(){
-			if($scope.config.canEdit){
-				return true;
-			}
-			return false;
+			//if($scope.config.canEdit){
+			return !$scope.config.editMode;
 		};
 		$scope.showMoreModel = function($event, sourceClassName){
 		    if($scope.config.moreModal == null){
@@ -134,6 +142,33 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 		$scope.editDetail = function(){
 			$scope.config.editMode = !$scope.config.editMode;
 		};
+		$scope.saveChange = function(){
+			var oldDesc = $scope.datas.detail.ES_OUT_LIST.DESCRIPTION;
+			var newDesc = $scope.datas.detail.ES_OUT_LIST.DESCRIPTION_EDIT;
+			if(oldDesc == newDesc && ($scope.config.BAO_BEIZHU=="" || ($scope.config.BAO_BEIZHU.trim && $scope.config.BAO_BEIZHU.trim()=="")) ){
+				Prompter.showLoadingAutoHidden("报工单未修改!", false, 800);
+				$timeout(function(){
+					$scope.config.editMode = !$scope.config.editMode;
+				}, 800);
+				return;
+			}
+			var header = {
+				DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION
+			};
+			var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
+			params.IS_HEAD_DATA = header;
+			params.IV_PROCESS_TYPE = $scope.config.PROCESS_TYPE;
+			params.IV_OBJECT_ID = $scope.config.OBJECT_ID;
+			if($scope.config.BAO_BEIZHU && $scope.config.BAO_BEIZHU != "" && $scope.config.BAO_BEIZHU.trim && $scope.config.BAO_BEIZHU.trim()!=""){
+				params.IT_TEXT = {
+					item_in: {
+						TDID: 'Z002',
+						TEXT: $scope.config.BAO_BEIZHU
+					}
+				};
+			}
+			__requestChangeBaoWS(baoGongService.BAOWS_EDIT.url, params);
+		};
 		
     	$scope.config = {
     		typeStr: '',
@@ -143,6 +178,7 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
         	OBJECT_ID: '',
         	WS_DETAIL: '',
         	editMode: false, //编辑模式
+        	BAO_BEIZHU: '',
 
 			scrollDelegateHandler: null,
 			contentDetegateHandler: null,
@@ -200,6 +236,30 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
         	}
         }
         
+        function __requestChangeBaoWS(url, params){
+			Prompter.showLoading("正在修改报工单");
+	        var promise = HttpAppService.post(url,params);
+	        promise.success(function(response){
+	        	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "S"){
+	        		Prompter.showLoadingAutoHidden("修改成功", false, 1000);
+	        		$timeout(function(){
+	        			$scope.config.editMode = !$scope.config.editMode;
+	        			__requestBaoDetailDatas("正在刷新数据", {
+			        		IS_OBJECT_ID: $scope.config.OBJECT_ID,
+			        		IS_PROCESS_TYPE: $scope.config.PROCESS_TYPE
+			        	});
+	        		},1000);
+	        	}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT != ""){
+	        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
+	        	}else{
+	        		Prompter.showLoadingAutoHidden(response, false, 2000);
+	        	}
+	        })
+	        .error(function(errorResponse){
+	        	Prompter.showLoadingAutoHidden("修改失败,请检查网络!", false, 2000);
+	        });
+        }
+
         function __requestBaoDetailDatas(loadStr, params){
         	var loadingStr = loadStr ? loadStr : "正在加载" ;
 	        var queryParams = {
@@ -210,7 +270,6 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 			}
 
 			Prompter.showLoading(loadingStr);
-
 	        var promise = HttpAppService.post(worksheetHttpService.serviceDetail.url,queryParams);
 	        promise.success(function(response){
 	        	if(response && !response.ES_RESULT){
@@ -224,6 +283,8 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 	        		$scope.datas.serviceListDatas = [];
 	        	}
 	        	var tempResponse = response;
+	        	var kyhuMingCheng = "";
+	        	var waifuRenyuan = "";
 
 	        	if(tempResponse && tempResponse.ET_PARTNER){
 	        		var items = tempResponse.ET_PARTNER.item;
@@ -270,10 +331,13 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 	        	tempResponse.waifuRenyuan = waifuRenyuan;
 	        	tempResponse.ydWorksheetNum = params.IS_OBJECT_ID;
 	        	tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
-	        	$scope.datas.detail = tempResponse;
-	        	worksheetDataService.wsDetailData = tempResponse;
+	        	tempResponse.ES_OUT_LIST.DESCRIPTION_EDIT = tempResponse.ES_OUT_LIST.DESCRIPTION;
 
-	        	if(tempResponse.ES_OUT_LIST && tempResponse.ES_OUT_LIST.EDIT_FLAG == "Y"){
+	        	$scope.datas.detail = tempResponse;
+	        	$scope.config.statusStr = tempResponse.ES_OUT_LIST.STATU;
+	        	//worksheetDataService.wsDetailData = tempResponse;
+
+	        	if(tempResponse.ES_OUT_LIST && tempResponse.ES_OUT_LIST.EDIT_FLAG == "X"){
 	        		$scope.config.canEdit = true;
 	        	}else{
 	        		$scope.config.canEdit = false;
@@ -291,22 +355,22 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 	        var queryParams = {
 			    "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
 			    "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") },
-			    "IS_OBJECT_ID": $scope.config.OBJECT_ID+"",
-			    "IS_PROCESS_TYPE": $scope.config.PROCESS_TYPE,
+			    "IV_OBJECT_ID": $scope.config.OBJECT_ID+"",
+			    "IV_PROCESS_TYPE": $scope.config.PROCESS_TYPE,
 			    "IS_HEAD_DATA": {
 			    	"STATUS": statusId
 			    }
 			}
-			Prompter.showLoading(statucChangingStr);
-	        var promise = HttpAppService.post(worksheetHttpService.serviceDetailChange.url,queryParams);
+			Prompter.showLoading(statucChangingStr); //baoGongService.BAOWS_EDIT     worksheetHttpService.serviceDetailChange
+	        var promise = HttpAppService.post(baoGongService.BAOWS_EDIT.url,queryParams);
 	        promise.success(function(response){
 	        	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG=="S"){
 	        		Prompter.showLoadingAutoHidden(changeOkStr, false, 1000);
 	        		__changeStatus(statusId, statusStr);
 	        		//if(statusId == "E0002"){ //派工后，需要重新刷新数据
-	        			$timeout(function(){
-	        				__requestDetailDatas("正在刷新详情");
-	        			}, 1000);
+	        			// $timeout(function(){
+	        			// 	__requestDetailDatas("正在刷新详情");
+	        			// }, 1000);
 	        		//}
 	        		//刷新数据
 	        		//__requestDetailDatas("刷新数据中!");

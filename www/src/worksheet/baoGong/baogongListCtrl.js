@@ -9,7 +9,21 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     
     $scope.config = {
         currentTip: "暂无数据",
-        noDatas: false
+        noDatas: false,
+
+        isBaoWS: false,
+        isEditPrice: false,   //报工价格维护
+        isEditDetail: false  //完工详情维护
+    };
+
+    $scope.enterPriceEditMode = function(){
+        $scope.config.isEditPrice = true;
+        $scope.config.isEditDetail = false;
+    };
+
+    $scope.enterDetailEditMode = function(){
+        $scope.config.isEditPrice = false;
+        $scope.config.isEditDetail = true;
     };
     
     $scope.datas = {
@@ -38,17 +52,29 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     		}
     	]
     };
+
     
     $scope.init = function(){
-        //alert("init");
-        //alert(JSON.stringify(worksheetDataService.wsDetailData));
-        $scope.datas.baogongDatas = worksheetDataService.wsDetailData.ET_DETAIL.item;
-        
-        console.log($scope.datas.baogongDatas);
-        if(!$scope.datas.baogongDatas ||$scope.datas.baogongDatas.length <=0){
-            $scope.config.currentTip = "该工单暂无费用结算信息!";
-            $scope.config.noDatas = true;
+        if(worksheetDataService.wsBaoDetailToFYJS){
+            $scope.config.isBaoWS = true;
+            worksheetDataService.wsBaoDetailToFYJS = false;
+            var bao = worksheetDataService.wsBaoDetailData;
+            if(!angular.isUndefined(bao) && bao!= null && bao != ""){
+                $scope.datas.baogongDatas = worksheetDataService.wsBaoDetailData.ET_DETAIL.item;
+                if(!$scope.datas.baogongDatas ||$scope.datas.baogongDatas.length <=0){
+                    $scope.config.currentTip = "该报工单暂无费用结算信息!";
+                    $scope.config.noDatas = true;
+                }
+            }
+        }else{
+            $scope.datas.baogongDatas = worksheetDataService.wsDetailData.ET_DETAIL.item;
+            if(!$scope.datas.baogongDatas ||$scope.datas.baogongDatas.length <=0){
+                $scope.config.currentTip = "该工单暂无费用结算信息!";
+                $scope.config.noDatas = true;
+            }
         }
+        
+        
     };
     $scope.init();
     

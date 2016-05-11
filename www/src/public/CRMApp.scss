@@ -4,7 +4,7 @@
 	//"../../css/animate.css",
 	"ionic_sass/_mixins.scss",
 	"ionic_sass/_variables.scss",
-	"public",
+	"public", 
 	"../main/main.scss",
 	"../tabs/tabs.scss",
     "../login/login_Css.scss",
@@ -22,42 +22,43 @@
     "../worksheet/carMileage/_carMileage.scss",
 	"../worksheet/faultInfos/_faultInfo.scss",
     "../worksheet/sparePart/_sparePart.scss",
-	"../worksheet/relatedPart/_relatedPart.scss",
-	"../worksheet/takePicture/takePicture",     
-	"../worksheet/selectStaff/selectStaff",
+  	"../worksheet/relatedPart/_relatedPart.scss",
+  	"../worksheet/takePicture/takePicture",     
+  	"../worksheet/selectStaff/selectStaff",
     //服务工单模块 -- end
     //报工单模块 -- start
+    "../worksheet/baoGong/baoGongList",
     "../worksheet/baoGong/create/create",
     "../worksheet/baoGong/detailAll/detailAll",
     "../worksheet/baoGong/infos/infoList",
+    "../worksheet/baoGong/infoChange/infoChange",
     //报工单模块 -- end
-    //"../worksheet/detail_newcar/detail_newcar",
-    //"../worksheet/detail_siterepair/detail_siterepair", "../activityPlan/car",
-     "../car/car.scss",
-	"../spare/spare.scss",
-	"../applications/saleChance/_saleChances.scss",
-"../contacts/contact.scss",
-"../customer/_customer.scss",
-"../customer/customerContacts",
-"../customer/customerVehicle",
-'../customer/customerChance.scss',
-'../customer/customerActivity.scss',
-'../customer/customerKey.scss',
-'../customer/customerWorkorder.scss',
-"../contacts/relationship/Relationship.scss",
-"../contacts/relationship/Relationship.scss",
-  //报工单模块 -- start
-"../worksheetReported/_worksheetReported.scss",
-"../worksheetReported/worksheetReportedDetail/_worksheetReportedDetail.scss",
-"../worksheetReported/worksheetReportedInfos/_worksheetReportedInfos.scss",
-  //报工单模块 -- end
 
-  //个人中心模块：
-    "../settings/settings",
-    "../settings/changePass/changePass",
-//第二登录
-"../loginSecond/loginSecond_Css",
-  //活动计划
-"../activityPlan/activity_scss"
+     "../car/car.scss",
+    	"../spare/spare.scss",
+    	"../applications/saleChance/_saleChances.scss",
+      "../contacts/contact.scss",
+      "../customer/_customer.scss",
+      "../customer/customerContacts",
+      "../customer/customerVehicle",
+      '../customer/customerChance.scss',
+      '../customer/customerActivity.scss',
+      '../customer/customerKey.scss',
+      '../customer/customerWorkorder.scss',
+      "../contacts/relationship/Relationship.scss",
+      "../contacts/relationship/Relationship.scss",
+        //报工单模块 -- start
+      "../worksheetReported/_worksheetReported.scss",
+      "../worksheetReported/worksheetReportedDetail/_worksheetReportedDetail.scss",
+      "../worksheetReported/worksheetReportedInfos/_worksheetReportedInfos.scss",
+    //报工单模块 -- end
+
+    //个人中心模块：
+      "../settings/settings",
+      "../settings/changePass/changePass",
+  //第二登录
+  "../loginSecond/loginSecond_Css",
+    //活动计划
+  "../activityPlan/activity_scss"
 ;
 

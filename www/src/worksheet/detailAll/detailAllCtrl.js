@@ -607,7 +607,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
 
-		        	if(tempResponse.ES_OUT_LIST && tempResponse.ES_OUT_LIST.EDIT_FLAG == "Y"){
+		        	if(tempResponse.ES_OUT_LIST && tempResponse.ES_OUT_LIST.EDIT_FLAG == "X"){
 		        		$scope.config.canEdit = true;
 		        	}else{
 		        		$scope.config.canEdit = false;
