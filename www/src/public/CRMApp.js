@@ -408,6 +408,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl: 'src/settings/changePass/changePass.html',
             controller: 'ChangePassCtrl'
         })
+        
         //报工单模块 start-----
         .state('worksheetReportedList', {
             url: '/worksheetReportedList',

@@ -567,8 +567,8 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
             Prompter.ContactCreateCancelvalue();
         }
         $scope.dataDetail = {
-            instart : "2013-11-11",
-            inend : "2016-11-11",
+            instart : "",
+            inend : "",
             saleOffice :{
                 flag : "N",
                 SALES_OFF_TXT : "请选择销售办事处"
