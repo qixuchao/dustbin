@@ -418,35 +418,49 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl:'src/settings/aboutApp.html',
             controller:'AboutAppCtrl'
         })
-        //报工单模块 start-----
-        .state('worksheetReportedList', {
-            url: '/worksheetReportedList',
-            templateUrl: 'src/worksheetReported/worksheetReportedList.html',
-            controller: 'WorksheetListReportedCtrl'
+        // 报工单模块相关： start ------------------------
+        .state('baoGongCreate', {
+            url: '/baoGongCreate',
+            templateUrl: 'src/worksheet/baoGong/create/create.html',
+            controller: 'baoGongCreateCtrl'
         })
+        .state('baoGongDetail', {
+            url: '/baoGongDetail',
+            templateUrl: 'src/worksheet/baoGong/detailAll/detailAll.html',
+            controller: 'baoGongDetailAllCtrl'
+        })
+        .state('baoGongInfosList', {
+            url: '/baoGongInfosList',
+            templateUrl: 'src/worksheet/baoGong/infos/infoList.html',
+            controller: 'baoGongInfoListCtrl'
+        })
+        // 报工单模块相关： end ------------------------
+        // .state('worksheetReportedList', {
+        //     url: '/worksheetReportedList',
+        //     templateUrl: 'src/worksheetReported/worksheetReportedList.html',
+        //     controller: 'WorksheetListReportedCtrl'
+        // })
 
-        .state('worksheetReportedDetail', {
-            url: '/worksheetReportedDetail',
-            templateUrl: 'src/worksheetReported/worksheetReportedDetail/worksheetReporteDetail.html',
-            controller: 'WorksheetListReportedDetailCtrl'
-        })
-        .state('worksheetReportedInfosList', {
-            url: '/worksheetReportedInfosList',
-            templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
-            controller: 'WorksheetReportedListCtrl'
-        })
-        .state('worksheetReportedCreate', {
-            url: '/worksheetReportedCreate',
-            templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedCreate.html',
-            controller: 'WorksheetReportedCreateCtrl'
-        })
-        .state('worksheetReportedMaintain', {
-            url: '/worksheetReportedMaintain',
-            templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedMaintain.html',
-            controller: 'WorksheetReportedMaintainCtrl'
-        })
-
-        //报工单模块 end-------
+        // .state('worksheetReportedDetail', {
+        //     url: '/worksheetReportedDetail',
+        //     templateUrl: 'src/worksheetReported/worksheetReportedDetail/worksheetReporteDetail.html',
+        //     controller: 'WorksheetListReportedDetailCtrl'
+        // })
+        // .state('worksheetReportedInfosList', {
+        //     url: '/worksheetReportedInfosList',
+        //     templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
+        //     controller: 'WorksheetReportedListCtrl'
+        // })
+        // .state('worksheetReportedCreate', {
+        //     url: '/worksheetReportedCreate',
+        //     templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedCreate.html',
+        //     controller: 'WorksheetReportedCreateCtrl'
+        // })
+        // .state('worksheetReportedMaintain', {
+        //     url: '/worksheetReportedMaintain',
+        //     templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedMaintain.html',
+        //     controller: 'WorksheetReportedMaintainCtrl'
+        // })
 
         //销售线索
         .state('saleClueDetail', {
