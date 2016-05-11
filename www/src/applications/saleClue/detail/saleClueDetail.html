@@ -49,23 +49,34 @@
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center"
+                     style="padding-left: 0px;"
                      ng-class="placeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
-                    <div class="col col-16">日期:</div>
+                    <div class="col col-30">开始日期:</div>
                     <input type="text" ng-model="details.DATE_START" maxlength="40" readonly ng-click="selectTime()"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
+                <!--<div class="row row-center"-->
+                <!--ng-show="isATL"-->
+                <!--style="padding-left: 0px;"-->
+                <!--ng-class="placeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">-->
+                <!--<div class="col col-30">结束日期:</div>-->
+                <!--<input type="text" ng-model="details.DATE_END" maxlength="40" readonly ng-click="selectTime()"-->
+                <!--ng-class="{'border-bottom-white':isEdit}">-->
+                <!--</div>-->
                 <div class="row row-center"
                      ng-class="typeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div>线索来源:</div>
                     <!--<input type="text" ng-model="details.SOURCE" maxlength="40" style="border: none;" readonly>-->
                     <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.source" ng-disabled="!isEdit"
-                            ng-options="x as x.text for x in sourceArr" style="{{'color:'+mySelect.status.color}}"></select>
+                            ng-options="x as x.text for x in sourceArr"
+                            style="{{'color:'+mySelect.status.color}}"></select>
                 </div>
                 <div class="row row-center"
                      ng-class="statusFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div style="white-space: nowrap">状态:</div>
                     <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit"
-                            ng-options="x as x.text for x in statusArr" style="{{'color:'+mySelect.status.color}}"></select>
+                            ng-options="x as x.text for x in statusArr"
+                            style="{{'color:'+mySelect.status.color}}"></select>
 
                     <div class="num">{{'NO.'+details.OBJECT_ID}}</div>
                     <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png"
@@ -85,13 +96,21 @@
             <div ng-show="selects[0]">
                 <div class="row">
                     <div class="col-15">注释:</div>
-                    <textarea rows="3" ng-readonly="!isEdit" ng-model="details.TEXT"></textarea>
+                    <textarea rows="3" ng-readonly="!isEdit" ng-model="commentText.text"></textarea>
                 </div>
-                <div class="row row-center">
+                <div class="row row-center" ng-show="isATL">
                     <div class="col no-padding">客户类型:</div>
+                    <div class="col text no-padding saleChanDetail">
+                        <div class="money" ng-click="openSelectionsModal('customerType',details.QUAL_LEVEL_MAN)">
+                            -{{details.QUAL_LEVEL_MAN?details.QUAL_LEVEL_MAN:'请选择'}}-
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-center" ng-show="!isATL">
+                    <div class="col no-padding">客户地址:</div>
                     <div class="col text no-padding">
                         <input type="text" class="saleClueInput" ng-readonly="!isEdit"
-                               ng-model="details.QUAL_LEVEL_MAN">
+                               ng-model="details.ZZFLD00004D">
                     </div>
                 </div>
                 <div class="row row-center">
@@ -108,38 +127,98 @@
                                ng-model="details.ZZLXDH">
                     </div>
                 </div>
-                <div class="row row-center">
-                    <div class="col no-padding">客户年度需求总量:</div>
-                    <div class="col text no-padding">
-                        <div class="row saleChanDetail">
-                            <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
-                                                     ng-model="details.ZZKHNDXQZL"></div>
-                            <div class="col money text-right" ng-click="openUnitSelections('yearNeed',details.ZZFLD00005H)">
-                                -{{details.ZZFLD00005H?details.ZZFLD00005H:'单位'}}-
+                <div ng-show="isATL">
+                    <div class="row row-center">
+                        <div class="col no-padding">客户年度需求总量:</div>
+                        <div class="col text no-padding">
+                            <div class="row saleChanDetail">
+                                <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
+                                                         ng-model="details.ZZKHNDXQZL"></div>
+                                <div class="col money text-right"
+                                     ng-click="openUnitSelections('yearNeed',details.ZZFLD00005H)">
+                                    -{{details.ZZFLD00005H?details.ZZFLD00005H:'单位'}}-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">客户月度需求总量:</div>
+                        <div class="col text no-padding">
+                            <div class="row saleChanDetail">
+                                <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
+                                                         ng-model="details.ZZKHYDXQL"></div>
+                                <div class="col money text-right"
+                                     ng-click="openUnitSelections('monthNeed',details.ZZFLD00005I)">
+                                    -{{details.ZZFLD00005I?details.ZZFLD00005I:'单位'}}-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">样品需求量:</div>
+                        <div class="col text no-padding">
+                            <div class="row saleChanDetail">
+                                <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
+                                                         ng-model="details.ZZYPXQL"></div>
+                                <div class="col money text-right"
+                                     ng-click="openUnitSelections('sampleNeed',details.ZZFLD00005K)">
+                                    -{{details.ZZFLD00005K?details.ZZFLD00005K:'单位'}}-
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row row-center">
-                    <div class="col no-padding">客户月度需求总量:</div>
-                    <div class="col text no-padding">
-                        <div class="row saleChanDetail">
-                            <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
-                                                     ng-model="details.ZZKHYDXQL"></div>
-                            <div class="col money text-right" ng-click="openUnitSelections('monthNeed',details.ZZFLD00005I)">
-                                -{{details.ZZFLD00005I?details.ZZFLD00005I:'单位'}}-
+                <div ng-show="!isATL">
+                    <div class="row row-center">
+                        <div class="col no-padding">生命周期需求量:</div>
+                        <div class="col text no-padding">
+                            <div class="row saleChanDetail">
+                                <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
+                                                         ng-model="details.ZZFLD00004T"></div>
+                                <div class="col money text-right"
+                                     ng-click="openUnitSelections('lifeCycle',details.ZZXQLDW)">
+                                    -{{details.ZZXQLDW?details.ZZXQLDW:'单位'}}-
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row row-center">
-                    <div class="col no-padding">样品需求量:</div>
-                    <div class="col text no-padding">
-                        <div class="row saleChanDetail">
-                            <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
-                                                     ng-model="details.ZZYPXQL"></div>
-                            <div class="col money text-right" ng-click="openUnitSelections('sampleNeed',details.ZZFLD00005K)">
-                                -{{details.ZZFLD00005K?details.ZZFLD00005K:'单位'}}-
+                    <div class="row row-center">
+                        <div class="col no-padding">样品需求开始时间:</div>
+                        <div class="col text no-padding">
+                            <input type="text" class="saleClueInput" maxlength="40" readonly
+                                   ng-model="details.ZZFLD000051" ng-click="selectTime()">
+                        </div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">样品需求周期:</div>
+                        <div class="col text no-padding">
+                            <div class="row saleChanDetail">
+                                <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
+                                                         ng-model="details.ZZFLD000052"></div>
+                                <div class="col money text-right"
+                                     ng-click="openUnitRequerySelections('simpleRequery',details.ZZZQDW)">
+                                    -{{details.ZZZQDW?details.ZZZQDW:'单位'}}-
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">需求量产开始时间:</div>
+                        <div class="col text no-padding">
+                            <input type="text" class="saleClueInput" maxlength="40" readonly
+                                   ng-model="details.ZZFLD000054" ng-click="selectTime()">
+                        </div>
+                    </div>
+                    <div class="row row-center">
+                        <div class="col no-padding">需求量产周期:</div>
+                        <div class="col text no-padding">
+                            <div class="row saleChanDetail">
+                                <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
+                                                         ng-model="details.ZZFLD000055"></div>
+                                <div class="col money text-right"
+                                     ng-click="openUnitRequerySelections('requeryMP',details.ZZZQDW1)">
+                                    -{{details.ZZZQDW1?details.ZZZQDW1:'单位'}}-
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -252,39 +331,84 @@
                 <div ng-show="isATL">
                     <div class="row row-center">
                         <div class="col no-padding">应用类别:</div>
-                        <div class="col text no-padding">CE</div>
+                        <div class="col text no-padding saleChanDetail">
+                            <div class="money" ng-click="openSelectionsModal('applyClass',productInfo.DESCRIPTION1)">
+                                -{{productInfo.DESCRIPTION1?productInfo.DESCRIPTION1:'请选择'}}-
+                            </div>
+                        </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">产品应用:</div>
-                        <div class="col text no-padding">NBP</div>
+                        <div class="col text no-padding saleChanDetail">
+                            <div class="money" ng-click="openSelectionsModal('productApply',productInfo.DESCRIPTION2)">
+                                -{{productInfo.DESCRIPTION2?productInfo.DESCRIPTION2:'请选择'}}-
+                            </div>
+                        </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">产品类型:</div>
-                        <div class="col text no-padding">CELL</div>
+                        <div class="col text no-padding saleChanDetail">
+                            <div class="money" ng-click="openSelectionsModal('productType',productInfo.ZZFLD00004S)">
+                                -{{productInfo.ZZFLD00004S?productInfo.ZZFLD00004S:'请选择'}}-
+                            </div>
+                        </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">容量:</div>
-                        <div class="col text no-padding">100</div>
+                        <div class="col text no-padding">
+                            <input type="text" class="saleClueInput" ng-readonly="!isEdit"
+                                   ng-model="productInfo.ZZRL">
+                        </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">电压规格:</div>
-                        <div class="col text no-padding">380</div>
+                        <div class="col text no-padding">
+                            <input type="text" class="saleClueInput" ng-readonly="!isEdit"
+                                   ng-model="productInfo.ZZDYGG">
+                        </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">高低温要求:</div>
-                        <div class="col text no-padding">800/-50</div>
+                        <div class="col text no-padding">
+                            <input type="text" class="saleClueInput" ng-readonly="!isEdit"
+                                   ng-model="productInfo.ZZGDWYQ">
+                        </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">长:</div>
-                        <div class="col text no-padding">5M</div>
+                        <div class="col text no-padding">
+                            <div class="row saleChanDetail">
+                                <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
+                                                         ng-model="productInfo.ZZLONG"></div>
+                                <div class="col money" ng-click="openSelectionsModal('long',productInfo.ZZFLD000040)">
+                                    -{{productInfo.ZZFLD000040?productInfo.ZZFLD000040:'单位'}}-
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">宽:</div>
-                        <div class="col text no-padding">5M</div>
+                        <div class="col text no-padding">
+                            <div class="row saleChanDetail">
+                                <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
+                                                         ng-model="productInfo.ZZWIDE"></div>
+                                <div class="col money" ng-click="openSelectionsModal('width',productInfo.ZZFLD00003Z)">
+                                    -{{productInfo.ZZFLD00003Z?productInfo.ZZFLD00003Z:'单位'}}-
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="row row-center">
                         <div class="col no-padding">厚:</div>
-                        <div class="col text no-padding">5M</div>
+                        <div class="col text no-padding">
+                            <div class="row saleChanDetail">
+                                <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
+                                                         ng-model="productInfo.ZZTHICK"></div>
+                                <div class="col money" ng-click="openSelectionsModal('deep',productInfo.ZZFLD00003Y)">
+                                    -{{productInfo.ZZFLD00003Y?productInfo.ZZFLD00003Y:'单位'}}-
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
