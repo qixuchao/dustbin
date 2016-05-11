@@ -28,6 +28,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter
                   , saleActService, $rootScope, $filter,CarService, $ionicActionSheet, baoGongService) {
 
+        	alert("...");
+
         	$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
 	            if(fromState && fromState.name == 'worksheetDetail' && toState && toState.name == "worksheetEdit"){
 	                /*if(window.event && window.event.type == "popstate"){
@@ -505,11 +507,12 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	}else{
             		throw "type 不在预期范围内!";
             	}
-
+            	//alert("init");
             	$scope.config.requestParams = worksheetDataService.worksheetList.toDetail;
             	$scope.config.ydStatusNum = worksheetDataService.worksheetList.toDetail.ydStatusNum;
             	$scope.config.typeStr = worksheetDataService.worksheetList.toDetail.IS_PROCESS_TYPE;
             	$scope.config.statusStr = worksheetDataService.worksheetList.toDetail.ydStatusNum;
+            	//alert("init --2");
             	__requestDetailDatas();
             };
 

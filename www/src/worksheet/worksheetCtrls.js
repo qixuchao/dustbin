@@ -495,10 +495,10 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.timeEnd = $scope.config.timeEndDefault;
 		//
 		//__remeberCurrentFilters();
-
+		
 	};
 	
-	$scope.goDetailState = function(item, i){
+	$scope.goDetailState = function(item, i){ 
 		//工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
 		//			  filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV		   filterBatchUpdateFWS: ZPLV
 		__addHistoryStr($scope.config.searchText);
@@ -508,10 +508,14 @@ worksheetModule.controller("WorksheetListCtrl",[
     		"ydWorksheetNum": item.SOLDTO_NAME,
     		'ydStatusNum': item.STAT
 		};
+		//alert(JSON.stringify(worksheetDataService.worksheetList.toDetail));
+		//alert(JSON.stringify(item));
 		if(item.PROCESS_TYPE == "ZNCO" || item.PROCESS_TYPE == "ZNCV"){
+			//alert("state.go ... newCar");
 			$state.go("worksheetDetail", {
 				detailType: 'newCar'
 			});
+			//alert("state.go ... newCarf ...end");
 		}else if(item.PROCESS_TYPE == "ZPRO" || item.PROCESS_TYPE == "ZPRV"){
 			$state.go("worksheetDetail",{
 				detailType: 'siteRepair'
