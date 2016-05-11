@@ -2,8 +2,8 @@
 <ion-view  id="activity_create"  align-title="center">
     <ion-header-bar align-title="center" class="bar-positive" >
         <div class="row row-center title rowTitle">
-            <div class="col col-15 text-left"  ng-click="goBack()"><i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px"></i></div>
-            <div class="col col-70 text-center">活动
+            <div class="col col-15 text-left"  ng-click="goEditBack()"><i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px"></i></div>
+            <div class="col col-70 text-center">活动草稿
             </div>
             <div class="col col-15 text-right" ng-click="confirm()">保存</div>
         </div>
@@ -43,8 +43,8 @@
                 <div class="col-10 col-center text-left"><img ng-src="img/car/Shape.png" class="shapeImg" ></div>
             </div>
             <div class="row itemContent row-center" ng-click="openSelectUrgency()" ng-if="urgency">
-                <div class="col-30 col-center">活动紧急度：</div>
-                <div class="col-60 col-center text-right fontColor">
+                <div class="col-33 col-center">活动紧急度：</div>
+                <div class="col-57 col-center text-right fontColor">
                     {{dataDetail.urgency.desc}}
                 </div>
                 <div class="col-10 col-center text-left"><img ng-src="img/car/Shape.png" class="shapeImg" ></div>
