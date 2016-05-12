@@ -1,15 +1,15 @@
 /**
  * Created by admin on 16/5/1.
  */
-<ion-view class="CarDetail">
+<ion-view class="ActPlanDetail">
     <div class="top-back">
-        <div class="row row-center title " style="padding-top: 20px;padding-bottom: 0px">
+        <div class="row row-center title " style="padding-top: 30px;padding-bottom: 0px">
             <div class="col col-15" ng-click="goEditBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-65 text-center">活动计划详情信息</div>
             <div class="col" style="white-space:nowrap;" ng-click="generatingAct()">生成活动</div>
         </div>
         <div class="mainInfo">
-            <div class="row row1 row-center" style="padding: 0">
+            <div class="row row1 row-center" style="">
                 <div class="col col-center col-5">
                     <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="col col-30 text-right">NO：{{PARTNER_ID}}</div>
             </div>
-            <div class="row row2 row-center" style="padding: 0">
+            <div class="row row2 row-center" style="">
                 有效期：<div  ng-class="{'border-bottom-white':isEdit}" ng-click="pickDate('')">{{activityDetail.ES_VISIT_PLAN.VALIDFROM}}</div>--
                 <div ng-class="{'border-bottom-white':isEdit}" ng-click="pickDate('')">{{activityDetail.ES_VISIT_PLAN.VALIDTO}}</div>
             </div>
@@ -37,10 +37,10 @@
             </div>
         </div>
     </div>
-    <ion-content has-bouncing="false">
+    <ion-content has-bouncing="false" delegate-handle="worksheetListResult">
         <ion-list class="">
-            <div  style="border-bottom: 1px solid #ddd;margin-top:1px;" ng-repeat="i in  details track by $index"  >
-                <ion-item class="">
+            <div  style="margin-top:1px;border-bottom: 1px solid #ddd;" ng-repeat="i in  details track by $index"  >
+                <ion-item  >
                     <div class="row row-center" style="padding:3px 15px 3px 15px" >
                         <div class="col col-center col-90">
                             <div class="row row-center">
@@ -65,7 +65,7 @@
                         <i class="icon ion-ios-trash-outline" style="font-size: 90px;"></i>
                     </ion-option-button>
                 </ion-item>
-                <div align="center" ng-show="i.otherInfos" style="height: 1px;border: 1px dashed #ddd;margin: 0 15px 0 15px "></div>
+                <div align="center" ng-show="i.otherInfos" style="height: 1px;border: 1px dashed #ddd;margin: 0 15px 0 15px; "></div>
                 <div class="row row-center" style="padding:3px 15px 3px 15px;" ng-show="i.otherInfos" >
                     <div class="col">
                         <div class="row row-center fontcolor" style="color:#888282 ;">商机：{{i.OPPTDESC}}</div>
