@@ -39,4 +39,34 @@
 			}
 		}
 	}
+	.baogong-btns-col{
+		width: 9rem;
+	    font-size: .9rem;
+	    margin-top: -4px;
+	    @include display-flex;
+	    @include flex-direction(column);
+		@include justify-content(space-between);
+		@include align-items(center);
+	}
+	.price-edit-box{
+		@include display-flex;
+		@include justify-content(center);
+		@include align-items(center);
+        height: 2rem;
+        width: 6rem;
+        .left, .right{
+            width: 1.5rem;
+            min-width: 1.5rem;
+    		text-align: center;
+    		font-size: 1.3rem;
+    		color: #2B60AB;
+        }
+        .center{
+            //@include flex(1);
+            input{
+            	width: 5rem;
+    			text-align: center;
+            }
+        }
+    }
  }
