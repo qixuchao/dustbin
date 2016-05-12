@@ -72,14 +72,14 @@
                     </div>
                     <span class="title-bottom"></span>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-40">工单类型&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TYPE_DESC"></div>
-                </div>
-                <div class="row">
+                </div> -->
+                <!-- <div class="row">
                     <div class="col-40">工单单号&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ydWorksheetNum"></div>
-                </div>
+                </div> -->
                 <div class="row row-input">
                     <div class="col-40">简单描述&nbsp;:</div>
                     <ion-scroll ng-if="!config.editMode" class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
@@ -98,7 +98,7 @@
                         <textarea id="textarea_bao_beizhu_detail" placeholder="请添加备注" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.BAO_BEIZHU" class="ng-pristine ng-valid ng-touched"></textarea>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-40">状态&nbsp;:</div>
                     <div class="col-60 status-not-handle" ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
                                             'stat-new':(datas.detail.ES_OUT_LIST.STATU=='E0001'),
@@ -112,15 +112,15 @@
                                             'stat-returned':(datas.detail.ES_OUT_LIST.STATU=='E0008'),
                                             'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
                                             'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
-                </div>
+                </div> -->
                 <!--div class="row">
                     <div class="col-40">服务工单&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ydWorksheetNum"></div>
                 </div-->
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-40">外服人员&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.waifuRenyuan"></div>
-                </div>
+                </div> -->
             </div>
         </div>
         

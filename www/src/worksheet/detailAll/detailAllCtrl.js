@@ -1,4 +1,3 @@
-
 worksheetModule.controller('worksheetDetailAllCtrl',[
         '$scope',
         '$state',
@@ -27,8 +26,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter
                   , saleActService, $rootScope, $filter,CarService, $ionicActionSheet, baoGongService) {
-
-        	alert("...");
 
         	$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
 	            if(fromState && fromState.name == 'worksheetDetail' && toState && toState.name == "worksheetEdit"){
