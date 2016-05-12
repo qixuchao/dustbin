@@ -245,6 +245,8 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
             }
         });
         $scope.isEdit = false;
+        $scope.lineshow = true;
+        $scope.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("worksheetListResult")
         //添加活动
         $scope.creatActivityGo = function () {
             activityPlanService.status = "I";
@@ -252,6 +254,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
             $state.go("activityPlanCreate");
         };
         $scope.showOther = function(item){
+            $scope.lineshow = !$scope.lineshow;
             item.otherInfos = ! item.otherInfos;
         };
         $scope.edit = function(item){
@@ -355,6 +358,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                     for(vari=0;i<$scope.details.length;i++){
                         $scope.details.otherInfos = false;
                     }
+                    $scope.queryResultScrollDelegate.resize();
                 } else if (response.ES_RESULT.ZFLAG == 'E') {
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 } else {
@@ -741,7 +745,7 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
                 $scope.dataDetail.instart = dateTime;
             }
             if ("inend" === type) {
-                $scope.dataDetail.dateEnd = dateTime;
+                $scope.dataDetail.inend = dateTime;
             }
 
             if (!$scope.$$phrese) {
