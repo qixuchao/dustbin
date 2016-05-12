@@ -38,6 +38,75 @@
 				}
 			}
 		}
+		&.edit-price-mode{
+            .baogong-item{
+                @include display-flex;
+                // @include align-items(center);
+                // @include justify-content(center);
+                height: 6.4rem;
+                .left-outer{
+                	@include flex(3);
+	                .top-from-left{
+						height: 2rem;
+					    font-size: 1rem;
+					    line-height: 2rem;
+					    font-weight: bolder;
+					    @include single-line-ellipsis;
+	                }
+	                .center-from-left{
+						height: 1.5rem;
+    					line-height: 1.5rem;
+    					color: #A29D9D;
+    					@include single-line-ellipsis;
+	                }
+	                .bottom-from-left{
+	                	height: 1.5rem;
+    					line-height: 1.5rem;
+    					color: #A29D9D;
+    					@include single-line-ellipsis;
+	                }
+	            }
+	            .right-outer{
+	            	//@include flex(2);
+	            	width: 10rem;
+    				min-width: 10rem;
+	                .top-from-right{
+						height: 2.5rem;
+    					line-height: 2.5rem;
+    					.right-inner{
+    						position: absolute;
+    						display: inline-block;
+    					}
+    					.left-inner{
+    						display: inline-block;
+    					}
+	                }
+	                .bottom-from-right{
+	                	height: 2.5rem;
+    					line-height: 2.5rem;
+	                }
+	                .item-toggle{
+	                	top: 0px;
+					    right: 0px;
+					    left: 0px;
+					    position: inherit;
+	                }
+	            }
+            }
+        }
+	}
+	.xbr-my-ion-toggle{
+		padding-top: 3px;
+	    min-width: 1rem;
+	    width: 1rem;
+	    overflow: hidden;
+	    border: 0px;
+	    display: inline-block;
+	    padding-bottom: 0px;
+	    padding-left: 5px;
+	    padding-right: 40px;
+	    position: relative;
+    	top: .6rem;
 	}
 	.baogong-btns-col{
 		width: 9rem;
