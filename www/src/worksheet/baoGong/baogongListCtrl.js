@@ -108,7 +108,32 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     $scope.init();
 
 
-    //baoGongService.BAOWS_EDIT.
+    function __requestConfirmFill(){
+        // baoGongService.BAOWS_CONFIRM_FILL.url
+        var url = baoGongService.BAOWS_CONFIRM_FILL.url;
+        var params = baoGongService.BAOWS_CONFIRM_FILL.defaults;
+        Prompter.showLoading("正在加载");
+        var promise = HttpAppService.post(url,params);
+        promise.success(function(response){
+            if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "S"){
+                Prompter.hideLoading();
+                Prompter.showLoadingAutoHidden("修改成功", false, 1000);
+                $timeout(function(){
+                    $scope.config.isEditPrice = false;
+                    $scope.config.isEditDetail = false;
+                }, 1000);
+            }else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT != ""){
+                Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
+            }else{
+                Prompter.showLoadingAutoHidden(response, false, 2000);
+            }
+        })
+        .error(function(errorResponse){
+            Prompter.showLoadingAutoHidden("修改失败,请检查网络!", false, 2000);
+        });
+    }
+
+    //baoGongService.baoGongService.BAOWS_EDIT.
     function __requestSaveDetail(){
         var url = baoGongService.BAOWS_EDIT.url;
         var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
@@ -122,7 +147,15 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             var tempItem = $scope.datas.baogongDatas[i];
             if(tempItem.NUMBER_INT_XBR != Number(tempItem.NUMBER_INT)){
                 itemIns.push({
-
+                    NUMBER_INT: tempItem.NUMBER_INT_XBR,   
+                    ORDERED_PROD: tempItem.ORDERED_PROD,
+                    DESCRIPTION: tempItem.DESCRIPTION,
+                    ITM_TYPE: tempItem.ITM_TYPE,
+                    QUANTITY: tempItem.QUANTITY,
+                    PROCESS_QTY_UNIT: tempItem.PROCESS_QTY_UNIT,
+                    INSTANCE_GUID: //tempItem.,
+                    AC_INDICATOR: tempItem.AC_INDICATOR,  // D1/D2 免费/收费
+                    ZMODE: 'U'      //  I 新建/U 更改
                 });
             }
         }
