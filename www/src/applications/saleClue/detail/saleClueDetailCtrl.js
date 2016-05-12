@@ -142,16 +142,17 @@ salesModule.controller('saleClueDetailCtrl', [
             } else {
                 //执行保存操作
                 Prompter.showLoading('正在保存');
+                //console.error("9090 " + angular.isUndefined($scope.mySelect.source));
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                     "IS_IN_DETAIL": {
                         "OBJECT_ID": $scope.details.OBJECT_ID,
                         "DESCRIPTION": $scope.details.DESCRIPTION,
-                        "SOURCE": $scope.mySelect.source.code,
+                        "SOURCE": angular.isUndefined($scope.mySelect.source)?"":$scope.mySelect.source.code,
                         "DATE_START": $scope.details.DATE_START,
                         "DATE_END": $scope.details.DATE_END,
-                        "STATUS": $scope.mySelect.status.value,
+                        "STATUS": angular.isUndefined($scope.mySelect.status)?"":$scope.mySelect.status.value,
                         "QUAL_LEVEL_MAN": $scope.details.QUAL_LEVEL_MAN,
                         "ZZKHMC": $scope.details.ZZKHMC,
                         "ZZLXR": $scope.details.ZZLXR,

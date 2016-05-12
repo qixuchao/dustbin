@@ -79,7 +79,7 @@
                             style="{{'color:'+mySelect.status.color}}"></select>
 
                     <div class="num">{{'NO.'+details.OBJECT_ID}}</div>
-                    <div class="edit" ng-click="edit()"><img src="img/saleDetail/edit.png"
+                    <div class="edit" ng-click="edit()" ng-show="details.EDIT_FLAG == 'X'"><img src="img/saleDetail/edit.png"
                                                              ng-if="!isEdit">{{editText}}
                     </div>
                 </div>
