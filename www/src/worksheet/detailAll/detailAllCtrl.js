@@ -198,7 +198,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION,
 					STATU: $scope.datas.detail.ES_OUT_LIST.STATU,
 					STATU_DESC: $scope.datas.detail.ES_OUT_LIST.STATU_DESC,
-					WAIFU_EMP: angular.copy(waifuRenyuan)
+					WAIFU_EMP: angular.copy(waifuRenyuan),
+					ET_DETAIL: $scope.datas.detail.ET_DETAIL
 				};
 				$state.go("baoGongCreate");
 			}

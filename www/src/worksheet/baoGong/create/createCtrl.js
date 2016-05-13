@@ -85,14 +85,14 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
         promise.success(function(response){ // response.EV_OBJECT_ID
             if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "S"){
                 Prompter.showLoadingAutoHidden("报工单创建成功!", false, 1000);
-                $timeout(function(){                        
+                $timeout(function(){
                     baoGongService.detailFromWSHistory = {
                         PROCESS_TYPE: $scope.datas.defaultDetail.IS_PROCESS_TYPE_BAO,
                         //OBJECT_ID: $scope.datas.defaultDetail.IS_OBJECT_ID,
                         OBJECT_ID: response.EV_OBJECT_ID,
                         WS_DETAIL: $scope.datas.defaultDetail.BAO_DESCRIPTION
                     };
-                    $state.go("baoGongDetail");
+                    __goBaoGongDetail();
                 },1000);
             }else if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "E" && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!=""){
                 Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
@@ -108,6 +108,17 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
             Prompter.showLoadingAutoHidden("保存失败,请检查网络状况!", false, 2000);
         });
 	}
+
+    function __goBaoGongDetail(){
+        var detail = $scope.datas.defaultDetail.ET_DETAIL;
+        if(!angular.isUndefined(detail) && !!detail && detail.item && !!detail.item.length){
+            baoGongService.detailFromWSHistory.isEmptyDetail = false;
+            $state.go("baoGongDetail");
+        }else{
+            baoGongService.detailFromWSHistory.isEmptyDetail = true;
+            $state.go("baoGongDetail");
+        }
+    }
 
 	//文本框自适应换行
     var autoTextarea = function (elem, extra, maxHeight) {

@@ -75,7 +75,10 @@
     					line-height: 2.5rem;
     					.right-inner{
     						position: absolute;
-    						display: inline-block;
+    						@include display-inline-flex;
+    						@include align-items(center);
+    						@include justify-content(center);
+    						margin-left: .8rem;
     					}
     					.left-inner{
     						display: inline-block;
@@ -84,6 +87,7 @@
 	                .bottom-from-right{
 	                	height: 2.5rem;
     					line-height: 2.5rem;
+    					float: right;
 	                }
 	                .item-toggle{
 	                	top: 0px;
@@ -92,6 +96,14 @@
 					    position: inherit;
 	                }
 	            }
+            }
+            .price-edit-box{
+            	width: 8rem;
+            }
+            .price-edit-box{
+            	width: 8rem;
+            	height: 2.5rem;
+    			line-height: 2.5rem;
             }
         }
 	}
@@ -137,5 +149,21 @@
     			text-align: center;
             }
         }
+    }
+    label.xbr-toggle-2.toggle{
+    	height: 2rem;
+    	margin-left: 2px;
+		.track{
+			width: 2.2rem;
+    		height: 1.4rem;
+		}
+		.handle{
+			width: 1.15rem;
+    		height: 1.15rem;
+    		top: 6.5px;
+		}
+		input:checked + .track .handle{
+			transform: translate3d(.9rem, 0, 0);
+		}
     }
  }
