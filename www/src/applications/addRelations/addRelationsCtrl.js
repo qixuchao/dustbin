@@ -291,6 +291,7 @@ salesModule
                     Prompter.alert('已存在客户!');
                     return
                 }
+
                 x.flag = true;
                 x.PARTNER_FCT = getRelationFCT();
                 //console.log(angular.toJson(x, true));

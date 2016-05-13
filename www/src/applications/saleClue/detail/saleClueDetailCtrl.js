@@ -89,6 +89,7 @@ salesModule.controller('saleClueDetailCtrl', [
                         }
                         $scope.productInfo = response.ES_OUT_PROD;
                         $scope.relationArr = response.ET_OUT_REAL.item_out;
+
                         angular.forEach($scope.relationArr, function (data) {
                             if (data.PARTNER_FCT == "00000023") { //竞争对手
                                 data.NAME = data.NAME_ORG1;
