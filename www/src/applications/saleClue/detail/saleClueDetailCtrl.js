@@ -90,7 +90,11 @@ salesModule.controller('saleClueDetailCtrl', [
                         $scope.productInfo = response.ES_OUT_PROD;
                         $scope.relationArr = response.ET_OUT_REAL.item_out;
                         angular.forEach($scope.relationArr, function (data) {
-                            data.NAME = data.NAME_LAST;
+                            if (data.PARTNER_FCT == "00000023") { //竞争对手
+                                data.NAME = data.NAME_ORG1;
+                            } else {
+                                data.NAME = data.NAME_LAST;
+                            }
                             data.position = data.DESCRIPTION;
                         })
                     }
@@ -149,10 +153,10 @@ salesModule.controller('saleClueDetailCtrl', [
                     "IS_IN_DETAIL": {
                         "OBJECT_ID": $scope.details.OBJECT_ID,
                         "DESCRIPTION": $scope.details.DESCRIPTION,
-                        "SOURCE": angular.isUndefined($scope.mySelect.source)?"":$scope.mySelect.source.code,
+                        "SOURCE": angular.isUndefined($scope.mySelect.source) ? "" : $scope.mySelect.source.code,
                         "DATE_START": $scope.details.DATE_START,
                         "DATE_END": $scope.details.DATE_END,
-                        "STATUS": angular.isUndefined($scope.mySelect.status)?"":$scope.mySelect.status.value,
+                        "STATUS": angular.isUndefined($scope.mySelect.status) ? "" : $scope.mySelect.status.value,
                         "QUAL_LEVEL_MAN": $scope.details.QUAL_LEVEL_MAN,
                         "ZZKHMC": $scope.details.ZZKHMC,
                         "ZZLXR": $scope.details.ZZLXR,
@@ -633,5 +637,6 @@ salesModule.controller('saleClueDetailCtrl', [
         $scope.$on('$destroy', function () {
             $scope.selectionsModal.remove();
             $scope.unitSelectionsModal.remove();
+            $scope.unitRequerySelectionsModal.remove();
         });
     }]);
