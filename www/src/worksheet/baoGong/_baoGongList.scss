@@ -38,5 +38,132 @@
 				}
 			}
 		}
+		&.edit-price-mode{
+            .baogong-item{
+                @include display-flex;
+                // @include align-items(center);
+                // @include justify-content(center);
+                height: 6.4rem;
+                .left-outer{
+                	@include flex(3);
+	                .top-from-left{
+						height: 2rem;
+					    font-size: 1rem;
+					    line-height: 2rem;
+					    font-weight: bolder;
+					    @include single-line-ellipsis;
+	                }
+	                .center-from-left{
+						height: 1.5rem;
+    					line-height: 1.5rem;
+    					color: #A29D9D;
+    					@include single-line-ellipsis;
+	                }
+	                .bottom-from-left{
+	                	height: 1.5rem;
+    					line-height: 1.5rem;
+    					color: #A29D9D;
+    					@include single-line-ellipsis;
+	                }
+	            }
+	            .right-outer{
+	            	//@include flex(2);
+	            	width: 10rem;
+    				min-width: 10rem;
+	                .top-from-right{
+						height: 2.5rem;
+    					line-height: 2.5rem;
+    					.right-inner{
+    						position: absolute;
+    						@include display-inline-flex;
+    						@include align-items(center);
+    						@include justify-content(center);
+    						margin-left: .8rem;
+    					}
+    					.left-inner{
+    						display: inline-block;
+    					}
+	                }
+	                .bottom-from-right{
+	                	height: 2.5rem;
+    					line-height: 2.5rem;
+    					float: right;
+	                }
+	                .item-toggle{
+	                	top: 0px;
+					    right: 0px;
+					    left: 0px;
+					    position: inherit;
+	                }
+	            }
+            }
+            .price-edit-box{
+            	width: 8rem;
+            }
+            .price-edit-box{
+            	width: 8rem;
+            	height: 2.5rem;
+    			line-height: 2.5rem;
+            }
+        }
 	}
+	.xbr-my-ion-toggle{
+		padding-top: 3px;
+	    min-width: 1rem;
+	    width: 1rem;
+	    overflow: hidden;
+	    border: 0px;
+	    display: inline-block;
+	    padding-bottom: 0px;
+	    padding-left: 5px;
+	    padding-right: 40px;
+	    position: relative;
+    	top: .6rem;
+	}
+	.baogong-btns-col{
+		width: 9rem;
+	    font-size: .9rem;
+	    margin-top: -4px;
+	    @include display-flex;
+	    @include flex-direction(column);
+		@include justify-content(space-between);
+		@include align-items(center);
+	}
+	.price-edit-box{
+		@include display-flex;
+		@include justify-content(center);
+		@include align-items(center);
+        height: 2rem;
+        width: 6rem;
+        .left, .right{
+            width: 1.5rem;
+            min-width: 1.5rem;
+    		text-align: center;
+    		font-size: 1.3rem;
+    		color: #2B60AB;
+        }
+        .center{
+            //@include flex(1);
+            input{
+            	width: 5rem;
+    			text-align: center;
+            }
+        }
+    }
+    label.xbr-toggle-2.toggle{
+    	height: 2rem;
+    	margin-left: 2px;
+		.track{
+			width: 2.2rem;
+    		height: 1.4rem;
+		}
+		.handle{
+			width: 1.15rem;
+    		height: 1.15rem;
+    		top: 6.5px;
+		}
+		input:checked + .track .handle{
+			transform: translate3d(.9rem, 0, 0);
+		}
+    }
  }

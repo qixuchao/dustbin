@@ -24,7 +24,7 @@ appModule
             url:'img/apps/saleChance.png',
             go:'saleChanList'
         },{
-            name:'',
+            name:'SALECLUE',
             url:'img/apps/saleClue.png',
             go:'saleClueList'
         },{
@@ -54,7 +54,7 @@ appModule
                 }
             }
         }
-        $scope.imgs1.push($scope.imgs[2]);
+        //$scope.imgs1.push($scope.imgs[2]);
         $timeout(function(){
             ionicMaterialMotion.fadeSlideInRight({
                 selector: '.animate-fade-slide-in .col-33'

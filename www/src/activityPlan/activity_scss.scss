@@ -195,7 +195,7 @@
 }
 
 //活动计划详情
-.CarDetail {
+.ActPlanDetail {
 
   .row .col {
     padding: 0;
@@ -225,11 +225,11 @@
     }
   }
   .top-back {
-    background: url("../../img/car/headerBg.png") no-repeat;
+    background: url("../../img/saleDetail/BG1.png") no-repeat;
     background-size: 100% 100%;
     color: white;
     font-size: 16px;
-    height: 161px;
+    height: 186px;
     .title {
       padding-top: 30px;
       color: white;
@@ -331,12 +331,14 @@
     font-size: 14px;
   }
   ion-content{
-
+    .borderLine{
+      border-bottom: 1px solid #ddd;
+    }
     .line{
       width: 95%;
       margin: 0;
     }
-    margin-top: 160px;
+    margin-top: 186px;
     .imgGO{
       width:20px;
       height: 20px;

@@ -15,7 +15,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
                 "timestamp": timestamp,
                 "userKey": window.localStorage.crmUserName
             };
-        };
+        };  
         var request = {
             getToken: getToken,
             isSuccessfull: function (status) {
@@ -396,7 +396,18 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
                     title,           // title
                     [okText, cancelText]     // buttonLabels
                 );*/
-            }
+            },
+            wsConfirmFuc: function (title, text, okText, cancelText, okFunc, cancelFunc) {
+                $cordovaDialogs.confirm(text, title, [okText, cancelText])
+                    .then(function (buttonIndex) {
+                        // no button = 0, 'OK' = 1, 'Cancel' = 2
+                        console.log("wsConfirm   buttonIndex: "+buttonIndex);
+                        var btnIndex = buttonIndex;
+                        if (btnIndex == 1) {
+                            okFunc();
+                        }
+                    });
+            },
         }
     }])
 

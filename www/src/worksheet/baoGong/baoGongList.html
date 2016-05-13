@@ -1,33 +1,21 @@
-<!--ion-view  align-title="center">
-    <ion-header-bar align-title="center" class="head pub-head">
-        <div class="row row-center">
-            <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-            <div class="col col-70 text-center">费用结算</div>
-            <div class="col col-15 add"></div>
-        </div>
-    </ion-header-bar>
-    <ion-content scroll="false" has-bouncing="false">
-            
-            <div>
-                报工列表 。。。       
-            </div>
-    </ion-content>
-    
-</ion-view-->
-
-
-
-
 <ion-view  id="worksheet-baogong-list-view" class="ws-baogong-view-public" align-title="center">
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
-                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-70 text-center">费用结算</div>
+                <a class="col col-15 text-left goBack" ng-click="goBack()" ng-if="!config.isEditPrice && !config.isEditDetail">
+                    <i class="ion-chevron-left"></i>
+                </a>
+                <a class="col col-15 text-left goBack" ng-click="editCancel()" ng-if="config.isEditPrice || config.isEditDetail">
+                    <span>取消</span>
+                </a>
+                <div class="col col-60 text-center">费用结算</div>
                 <div class="col col-15 add" ng-if="!config.isBaoWS"><span></span></div>
-                <div class="col col-15 add" ng-if="config.isBaoWS">
-                    <!--span ng-click="enterDetailEditMode();">重新维护</span>
-                    <span ng-click="enterPriceEditMode();">维护价格</span-->
+                <div class="col col-15 add" ng-click="editOk();" ng-if="config.isEditPrice || config.isEditDetail">
+                    <span>确定</span>
+                </div>
+                <div class="baogong-btns-col" ng-if="config.isBaoWS && !config.isEditPrice && !config.isEditDetail">
+                    <span ng-click="enterDetailEditMode();" ng-if="canShowEditBtns();">重新维护</span>
+                    <span ng-click="enterPriceEditMode();" ng-if="canShowEditBtns();">维护价格</span>
                 </div>
             </div>
         </ion-header-bar>
@@ -47,8 +35,8 @@
                 <span ng-bind="config.currentTip"></span>
             </div>
             
-            <div class="baogong-list">
-                <div class="baogong-item" ng-class="{'animated flipInX':itemAnimatedShow}" ng-init="itemAnimatedShow=true" ng-repeat="item in datas.baogongDatas">
+            <div class="baogong-list" ng-if="!config.isEditPrice && !config.isEditDetail">
+                <div class="baogong-item price-edit" ng-class="{'animated flipInX':itemAnimatedShow}" ng-init="itemAnimatedShow=true" ng-repeat="item in datas.baogongDatas">
                     <div class="title-top">
                         <div class="title-icon"></div>
                         <span ng-bind="item.DESCRIPTION"></span>
@@ -65,31 +53,56 @@
                             数量: <span ng-bind="item.QUANTITY"></span>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="baogong-list edit-price-mode" ng-if="config.isEditPrice && config.isBaoWS">
+                <div class="baogong-item" ng-class="{'animated flipInX':itemAnimatedShow}" ng-init="itemAnimatedShow=true" ng-repeat="item in datas.baogongDatas">
+                    <div class="left-outer">
+                        <div class="top-from-left">
+                            <div class="title-icon"></div>
+                            <span ng-bind="item.DESCRIPTION"></span>
+                        </div>
+                        <div class="center-from-left">
+                            产品编码:<span ng-bind="item.ORDERED_PROD"></span>
+                        </div>
+                        <div class="bottom-from-left">
+                            标准价格:<span ng-bind="item.XBR_ZPR1"></span>
+                            客户折扣:<span ng-bind="item.XBR_ZPD2"></span>
+                        </div>
+                    </div>
+                    <div class="right-outer">
+                        <div class="top-from-right">
+                            <div class="left-inner">数量<span ng-bind="item.QUANTITY"></span></div>
+                            <div class="right-inner">
+                                收费
+                                <label class="toggle xbr-toggle-2 toggle-calm disable-user-behavior">
+                                    <input type="checkbox" ng-model="item.AC_INDICATOR_XBR" ng-true-value="'D2'" ng-false-value="'D1'" class="ng-pristine ng-untouched ng-valid">
+                                    <div class="track">
+                                        <div class="handle"></div>
+                                    </div>
+                                </label>
+                                <!--ion-toggle class="xbr-my-ion-toggle" ng-model="item.AC_INDICATOR" toggle-class="toggle-calm" ng-true-value="D1" ng-false-value="D2" style="padding-left: 6px;padding-top: 3px;"></ion-toggle-->
+                            </div>
+                        </div>
+                        <div class="bottom-from-right">
+                            <div class="price-edit-box">
+                                <div class="left" ng-click="detailLowerOne(item);">
+                                    <i class="ion-ios-minus-outline"></i>
+                                </div>
+                                <div class="center">
+                                    <input type="number" ng-model="item.XBR_NEW">
+                                </div>
+                                <div class="right" ng-click="detailAddOne(item);">
+                                    <i class="ion-ios-plus-outline"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>         
             </div>
             
-            <div class="baogong-list" ng-if="config.isEditPrice && config.isBaoWS">
-                <div class="baogong-item" ng-class="{'animated flipInX':itemAnimatedShow}" ng-init="itemAnimatedShow=true" ng-repeat="item in datas.baogongDatas">
-                    <div class="title-top">
-                        <div class="title-icon"></div>
-                        <span ng-bind="item.DESCRIPTION"></span>
-                    </div>
-                    <div class="desc">
-                        <div class="col-50">
-                            产品编码:<span ng-bind="item.ORDERED_PROD"></span>
-                        </div>
-                        <div class="col-15">
-                            <span ng-bind="item.ACIND_DESCR_20" ng-class="{'shou-fen':(item.AC_INDICATOR=='D2'),'bu-shou-fen':(item.AC_INDICATOR=='D1')}"></span>
-                        </div>
-                        
-                        <div class="col-35">
-                            数量ww: <span ng-bind="item.QUANTITY"></span>
-                        </div>
-                    </div>
-                </div>         
-            </div>
-
-            <div class="baogong-list" ng-if="config.isEditDetail && config.isBaoWS">
+            <div class="baogong-list edit-detail-mode" ng-if="config.isEditDetail && config.isBaoWS">
                 <div class="baogong-item" ng-class="{'animated flipInX':itemAnimatedShow}" ng-init="itemAnimatedShow=true" ng-repeat="item in datas.baogongDatas">
                     <div class="title-top">
                         <div class="title-icon"></div>
@@ -102,17 +115,19 @@
                         </div>
                         <div class="col-35">
                             <div class="price-edit-box">
-                                <div class="left">
-                                    -
+                                <div class="left" ng-click="detailLowerOne(item);">
+                                    <i class="ion-ios-minus-outline"></i>
                                 </div>
                                 <div class="center">
-                                    <span ng-bind="item.NUMBER_INT | number"></span>
+                                    <input type="number" ng-model="item.QUANTITY_XBR">
                                 </div>
-                                <div class="right">+</div>
+                                <div class="right" ng-click="detailAddOne(item);">
+                                    <i class="ion-ios-plus-outline"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>         
+                </div>    
             </div>
             
     </ion-content>
