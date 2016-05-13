@@ -15,6 +15,8 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         currentTip: "暂无数据",
         noDatas: false,
 
+        needInsert: false,
+
         isBaoWS: false,
         isEditPrice: false,   //报工价格维护
         isEditDetail: false  //完工详情维护
@@ -109,9 +111,10 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     };
     
     $scope.init = function(){ //NUMBER_INT_XBR
-        if(baoGongService.detailFromWSHistory.isEmptyDetail){  //报工单新建+费用结算数据
+        if(baoGongService.detailFromWSHistory.isEmptyDetail){  //报工单新建+费用结算数据为空
             __requestConfirmFill(baoGongService.detailFromWSHistory.OBJECT_ID, baoGongService.detailFromWSHistory.PROCESS_TYPE);
             baoGongService.detailFromWSHistory.isEmptyDetail = false;
+            $scope.config.needInsert = true;
             return;
         }
 
@@ -229,10 +232,12 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
         params.IV_OBJECT_ID = worksheetDataService.wsBaoDetailData.ydWorksheetNum;
         params.IV_PROCESS_TYPE = worksheetDataService.wsBaoDetailData. IS_PROCESS_TYPE;
+        var zmode = $scope.config.needInsert ? 'I' : 'U';
+        
         var itemIns = [];
         for(var i = 0; i < $scope.datas.baogongDatas.length; i++){
             var tempItem = $scope.datas.baogongDatas[i];
-            if(tempItem.QUANTITY_XBR != window.parseFloat(tempItem.QUANTITY)){
+            if($scope.config.needInsert){
                 itemIns.push({
                     NUMBER_INT: tempItem.NUMBER_INT,
                     ORDERED_PROD: tempItem.ORDERED_PROD,
@@ -242,7 +247,19 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
                     PROCESS_QTY_UNIT: tempItem.PROCESS_QTY_UNIT,
                     INSTANCE_GUID: tempItem.INSTANCE_GUID,//tempItem.,
                     AC_INDICATOR: tempItem.AC_INDICATOR,  // D1/D2 免费/收费
-                    ZMODE: 'U'      //  I 新建/U 更改
+                    ZMODE: zmode      //  I 新建/U 更改
+                });
+            }else if(tempItem.QUANTITY_XBR != window.parseFloat(tempItem.QUANTITY)){
+                itemIns.push({
+                    NUMBER_INT: tempItem.NUMBER_INT,
+                    ORDERED_PROD: tempItem.ORDERED_PROD,
+                    DESCRIPTION: tempItem.DESCRIPTION,
+                    ITM_TYPE: tempItem.ITM_TYPE,
+                    QUANTITY: tempItem.QUANTITY_XBR,
+                    PROCESS_QTY_UNIT: tempItem.PROCESS_QTY_UNIT,
+                    INSTANCE_GUID: tempItem.INSTANCE_GUID,//tempItem.,
+                    AC_INDICATOR: tempItem.AC_INDICATOR,  // D1/D2 免费/收费
+                    ZMODE: zmode      //  I 新建/U 更改
                 });
             }
         }
@@ -253,6 +270,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         var promise = HttpAppService.post(url,params);
         promise.success(function(response){
             if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "S"){
+                $scope.config.needInsert = false;
                 Prompter.showLoadingAutoHidden("修改成功", false, 1000);
                 $timeout(function(){
                     $scope.config.isEditPrice = false;
