@@ -554,7 +554,8 @@ salesModule.factory('saleChanService', function () {
     var chanListArr = [],
         listPage = 1,
         obj_id,
-        loadMoreFlag = true;
+        loadMoreFlag = true,
+        isFromClue=false;
     return {
         getStatusArr: function () {
             return statusArr;
@@ -581,6 +582,7 @@ salesModule.factory('saleChanService', function () {
         relationsTypesForAdd_ATL,
         chanceTypes,
         saleChanceUnits_ATL,
-        timeDate
+        timeDate,
+        isFromClue
     }
 });

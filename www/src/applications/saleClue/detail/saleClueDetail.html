@@ -6,7 +6,7 @@
             <div class="col col-70 text-center">线索详情
                 <div style="font-size: 10px">{{details.DESCRIPTION?details.DESCRIPTION:'&nbsp;'}}</div>
             </div>
-            <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
+            <div class="col col-15 text-right" ng-click="openCreateChancePop()">后续</div>
         </div>
     </div>
     <div class="top-back absolute top-back2" ng-show="showTitleStatus">
@@ -15,7 +15,7 @@
             <div class="col col-70 text-center">线索详情
                 <div style="font-size: 10px">{{details.DESCRIPTION?details.DESCRIPTION:'&nbsp;'}}</div>
             </div>
-            <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
+            <div class="col col-15 text-right" ng-click="openCreateChancePop()">后续</div>
         </div>
         <div class="selector">
             <div class="detail" ng-class="{checked:selects[0]}" ng-click="changeStatus(0)">详细信息</div>
@@ -33,7 +33,7 @@
                  ng-class="TitleFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                 <div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
                 <div class="col col-70 text-center">线索详情</div>
-                <div class="col col-15 text-right" ng-click="openFollow()">后续</div>
+                <div class="col col-15 text-right" ng-click="openCreateChancePop()">后续</div>
             </div>
             <div class="mainInfo">
                 <div class="row row-center"
@@ -52,7 +52,7 @@
                      style="padding-left: 0px;"
                      ng-class="placeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div class="col col-30">开始日期:</div>
-                    <input type="text" ng-model="details.DATE_START" maxlength="40" readonly ng-click="selectTime()"
+                    <input type="text" ng-model="details.DATE_START" maxlength="40" readonly ng-click="selectTime('statTime')"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <!--<div class="row row-center"-->
@@ -187,7 +187,7 @@
                         <div class="col no-padding">样品需求开始时间:</div>
                         <div class="col text no-padding">
                             <input type="text" class="saleClueInput" maxlength="40" readonly
-                                   ng-model="details.ZZFLD000051" ng-click="selectTime()">
+                                   ng-model="details.ZZFLD000051" ng-click="selectTime('tempNeed')">
                         </div>
                     </div>
                     <div class="row row-center">
@@ -207,7 +207,7 @@
                         <div class="col no-padding">需求量产开始时间:</div>
                         <div class="col text no-padding">
                             <input type="text" class="saleClueInput" maxlength="40" readonly
-                                   ng-model="details.ZZFLD000054" ng-click="selectTime()">
+                                   ng-model="details.ZZFLD000054" ng-click="selectTime('masProduced')">
                         </div>
                     </div>
                     <div class="row row-center">
