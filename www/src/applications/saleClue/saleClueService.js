@@ -170,7 +170,7 @@ salesModule.factory('saleClueService', function () {
         text:'吨'
     },{
         text:'千克'
-    }];
+    }];  
     //客户类型
     var customerType = [{
         text:'PACK厂',
