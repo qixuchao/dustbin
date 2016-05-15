@@ -1,0 +1,128 @@
+<ion-view id="bao-ws-detailall-view" class="saleActDetail worksheet-detail-view-public" ng-class="{'edit-mode':config.editMode}">
+    <div id="saleTopBackId" class="top-back bar">
+            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'" style="margin-left:0px;padding-left:0px;padding-top:20px;margin-top:15px;">
+                <div class="col col-10" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+                <div class="col col-75 text-center">报工单详细信息</div>
+                <div class="col-15 show-more-modal-content-source3 " ng-if="canShowMoreBtn();"  ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
+                    <span class="detail-all-more-button {{config.statusStr}}"><i class="ion-ios-more"></i></span>
+                </div>
+            </div>
+            <div class="mainInfo" style="width:100%;top:60px;position:relative;height:125px;padding-left: 1rem;">
+                <div class="row row-center">
+                    <span class="crm-line-text" ng-bind-template="{{datas.detail.ES_OUT_LIST.TYPE_DESC}}&nbsp;-&nbsp;{{datas.detail.ydWorksheetNum}}"></span>
+                </div>
+                <div class="row row-center">
+                    <i class="ion-android-radio-button-off"></i>
+                    <div class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
+                </div>
+                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
+                    <span class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.kyhuMingCheng"></span>
+                </div>
+                <div class="row row-center detail-last-line" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
+                    <div class="detail-customer">
+                        <div>外服人员:</div>
+                        <span ng-bind="datas.detail.waifuRenyuan"></span>
+                    </div>
+                    <!--select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select--> 
+                    <div class="detail-status">
+                        <div class="num" style="color:white;">状态:</div>
+                        <div ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
+                                            'stat-new':(datas.detail.ES_OUT_LIST.STATU=='E0001'),
+                                            'stat-sendedworker':(datas.detail.ES_OUT_LIST.STATU=='E0002'),
+                                            'stat-refused':(datas.detail.ES_OUT_LIST.STATU=='E0003'),
+                                            'stat-handing':(datas.detail.ES_OUT_LIST.STATU=='E0004'),
+                                            'stat-reported':(datas.detail.ES_OUT_LIST.STATU=='E0005'),
+                                            'stat-finished':(datas.detail.ES_OUT_LIST.STATU=='E0006'),
+                                            'stat-revisited':(datas.detail.ES_OUT_LIST.STATU=='E0010'),
+                                            'stat-audited':(datas.detail.ES_OUT_LIST.STATU=='E0007'),
+                                            'stat-returned':(datas.detail.ES_OUT_LIST.STATU=='E0008'),
+                                            'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
+                                            'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div> 
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+    <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false">
+        <div class="fill-height line-inner">
+            <div class="info-box left-1" ng-click="dibButtonClickHandler('baoGongXinXi');">
+                <i class="ion-document-text"></i>
+                <span>费用结算</span>
+            </div>
+        </div>
+    </ion-scroll>
+    
+    <div class="fixed-buttons buttons {{config.statusStr}}" ng-if="canShowEditBtn();" style="z-index:1;">
+        <div class="button button-crm-edit button-crm-edit-public" ng-class="{'btn-hide':config.editMode,'btn-show':!config.editMode}" ng-click="editDetail();" style="margin-left:auto;margin-right:auto;">
+            编辑
+        </div>
+        <div class="button button-crm-edit button-crm-edit-public" ng-class="{'btn-show':config.editMode,'btn-hide':!config.editMode}" ng-click="saveChange();" style="margin-left:auto;margin-right:auto;">
+            完成
+        </div>
+    </div>
+    
+    <ion-content id="bao-ws-detailall-content" class="has-header {{config.typeStr}} ws-detail-all-content" has-bouncing="false" delegate-handle="xbrDelegateContent"  scrollbar-y="true" ng-class="{'can-not-editor-detail':!canShowEditBtn()}">
+        
+        <div>
+            <div class="basic-info first-line commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-40">工单类型&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TYPE_DESC"></div>
+                </div> -->
+                <!-- <div class="row">
+                    <div class="col-40">工单单号&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ydWorksheetNum"></div>
+                </div> -->
+                <div class="row row-input">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <ion-scroll ng-if="!config.editMode" class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                        <div ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
+                    </ion-scroll>
+                    <div class="col-60" ng-if="config.editMode">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.DESCRIPTION_EDIT">
+                    </div>
+                </div>
+                <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
+                    <div class="" style="margin-right:0px;">备注&nbsp;:</div>
+                    <div ng-if="!config.editMode" class="" style="line-height:.9rem;padding: 0rem 1rem;font-size: .8rem;color: #7B7878;">
+                        <div ng-repeat="item in datas.detail.XBRZHUSHIS" ng-bind="item.finalStr"></div><!--  -->
+                    </div>
+                    <div ng-if="config.editMode">
+                        <textarea id="textarea_bao_beizhu_detail" placeholder="请添加备注" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.BAO_BEIZHU" class="ng-pristine ng-valid ng-touched"></textarea>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-40">状态&nbsp;:</div>
+                    <div class="col-60 status-not-handle" ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
+                                            'stat-new':(datas.detail.ES_OUT_LIST.STATU=='E0001'),
+                                            'stat-sendedworker':(datas.detail.ES_OUT_LIST.STATU=='E0002'),
+                                            'stat-refused':(datas.detail.ES_OUT_LIST.STATU=='E0003'),
+                                            'stat-handing':(datas.detail.ES_OUT_LIST.STATU=='E0004'),
+                                            'stat-reported':(datas.detail.ES_OUT_LIST.STATU=='E0005'),
+                                            'stat-finished':(datas.detail.ES_OUT_LIST.STATU=='E0006'),
+                                            'stat-revisited':(datas.detail.ES_OUT_LIST.STATU=='E0010'),
+                                            'stat-audited':(datas.detail.ES_OUT_LIST.STATU=='E0007'),
+                                            'stat-returned':(datas.detail.ES_OUT_LIST.STATU=='E0008'),
+                                            'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
+                                            'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
+                </div> -->
+                <!--div class="row">
+                    <div class="col-40">服务工单&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ydWorksheetNum"></div>
+                </div-->
+                <!-- <div class="row">
+                    <div class="col-40">外服人员&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.waifuRenyuan"></div>
+                </div> -->
+            </div>
+        </div>
+        
+    </ion-content>
+</ion-view>

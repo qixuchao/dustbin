@@ -18,7 +18,7 @@ salesModule
         'relationService',
         'LoginService',
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService,LoginService) {
+                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService, LoginService) {
             $scope.role = LoginService.getProfileType();
             //是否单选
             $scope.isReplace = relationService.isReplace;
@@ -34,7 +34,7 @@ salesModule
             $scope.moreflag = false;
             $scope.relationsPopArr = relationService.saleActSelections;
             $scope.relationArr = [];
-            $scope.input = {relation:''};
+            $scope.input = {relation: ''};
             //相关方里面的客户,用来查联系人
             var relationCustomer = relationService.relationCustomer;
             var relationPage = 1;
@@ -115,7 +115,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        } else if(response.ES_RESULT.ZFLAG === 'E'){
+                        } else if (response.ES_RESULT.ZFLAG === 'E') {
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                             $scope.relationSpinnerFlag = false;
                             $scope.relationSearch = false;
@@ -134,9 +134,9 @@ salesModule
                 }
                 if (type) {
                     var rltyp;
-                    if(Prompter.isATL()){
+                    if (Prompter.isATL()) {
                         rltyp = 'ZATL05';
-                    }else{
+                    } else {
                         rltyp = 'Z00002';
                     }
                     var data = {
@@ -149,7 +149,7 @@ salesModule
                         "IT_IN_ROLE": {
                             "item1": {"RLTYP": rltyp}
                         },
-                        "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
+                        "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName}
                     };
                 } else {
                     var data = {
@@ -160,7 +160,7 @@ salesModule
                         },
                         "IS_SEARCH": {"SEARCH": $scope.input.relation},
                         "IT_IN_ROLE": {},
-                        "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
+                        "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName}
                     };
                 }
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
@@ -187,7 +187,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        } else if(response.ES_RESULT.ZFLAG === 'E'){
+                        } else if (response.ES_RESULT.ZFLAG === 'E') {
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                             $scope.relationSpinnerFlag = false;
                             $scope.relationSearch = false;
@@ -235,7 +235,7 @@ salesModule
                             }
                             $ionicScrollDelegate.resize();
                             $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        } else if(response.ES_RESULT.ZFLAG === 'E'){
+                        } else if (response.ES_RESULT.ZFLAG === 'E') {
                             Prompter.showShortToastBotton(response.ES_RESULT.ZRESULT);
                             $scope.relationSpinnerFlag = false;
                             $scope.relationSearch = false;
@@ -291,7 +291,15 @@ salesModule
                     Prompter.alert('已存在客户!');
                     return
                 }
+
                 x.flag = true;
+                x.PARTNER_FCT = getRelationFCT();
+                //console.log(angular.toJson(x, true));
+                if (x.flag && x.PARTNER_FCT != '00000023') { //竞争对手可以添加多项
+                    Prompter.alert('已有此类型相关方,无法再次添加!');
+                    $scope.hideRelations();
+                    return;
+                }
                 //已选的人不要再添加
                 angular.forEach($scope.relationArr, function (data) {
                     if (data.flag) {

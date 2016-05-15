@@ -26,7 +26,7 @@ var activityPlanModule = angular.module('activityPlanModule', []);  //活动计�
 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlideBox', 'ngCordova',
     'ionic-material',
-    'utilsModule',  
+    'utilsModule',
     'loginModule', 
     'mainModule',
     'tabsModule',
@@ -418,37 +418,51 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl:'src/settings/aboutApp.html',
             controller:'AboutAppCtrl'
         })
-        //报工单模块 start-----
-        .state('worksheetReportedList', {
-            url: '/worksheetReportedList',
-            templateUrl: 'src/worksheetReported/worksheetReportedList.html',
-            controller: 'WorksheetListReportedCtrl'
+        // 报工单模块相关： start ------------------------
+        .state('baoGongCreate', {
+            url: '/baoGongCreate',
+            templateUrl: 'src/worksheet/baoGong/create/create.html',
+            controller: 'baoGongCreateCtrl'
         })
+        .state('baoGongDetail', {
+            url: '/baoGongDetail',
+            templateUrl: 'src/worksheet/baoGong/detailAll/detailAll.html',
+            controller: 'baoGongDetailAllCtrl'
+        })
+        .state('baoGongInfosList', {
+            url: '/baoGongInfosList',
+            templateUrl: 'src/worksheet/baoGong/infos/infoList.html',
+            controller: 'baoGongInfoListCtrl'
+        })
+        // 报工单模块相关： end ------------------------
+        // .state('worksheetReportedList', {
+        //     url: '/worksheetReportedList',
+        //     templateUrl: 'src/worksheetReported/worksheetReportedList.html',
+        //     controller: 'WorksheetListReportedCtrl'
+        // })
 
-        .state('worksheetReportedDetail', {
-            url: '/worksheetReportedDetail',
-            templateUrl: 'src/worksheetReported/worksheetReportedDetail/worksheetReporteDetail.html',
-            controller: 'WorksheetListReportedDetailCtrl'
-        })
-        .state('worksheetReportedInfosList', {
-            url: '/worksheetReportedInfosList',
-            templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
-            controller: 'WorksheetReportedListCtrl'
-        })
-        .state('worksheetReportedCreate', {
-            url: '/worksheetReportedCreate',
-            templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedCreate.html',
-            controller: 'WorksheetReportedCreateCtrl'
-        })
-        .state('worksheetReportedMaintain', {
-            url: '/worksheetReportedMaintain',
-            templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedMaintain.html',
-            controller: 'WorksheetReportedMaintainCtrl'
-        })
+        // .state('worksheetReportedDetail', {
+        //     url: '/worksheetReportedDetail',
+        //     templateUrl: 'src/worksheetReported/worksheetReportedDetail/worksheetReporteDetail.html',
+        //     controller: 'WorksheetListReportedDetailCtrl'
+        // })
+        // .state('worksheetReportedInfosList', {
+        //     url: '/worksheetReportedInfosList',
+        //     templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
+        //     controller: 'WorksheetReportedListCtrl'
+        // })
+        // .state('worksheetReportedCreate', {
+        //     url: '/worksheetReportedCreate',
+        //     templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedCreate.html',
+        //     controller: 'WorksheetReportedCreateCtrl'
+        // })
+        // .state('worksheetReportedMaintain', {
+        //     url: '/worksheetReportedMaintain',
+        //     templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedMaintain.html',
+        //     controller: 'WorksheetReportedMaintainCtrl'
+        // })
 
-        //报工单模块 end-------
-
-    //销售线索
+        //销售线索
         .state('saleClueDetail', {
             url: '/saleClueList/saleClueDetail',
             templateUrl: 'src/applications/saleClue/detail/saleClueDetail.html',
@@ -471,10 +485,10 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             templateUrl: 'src/activityPlan/activityPlan_Detail.html',
             controller: 'activityPlanDetailCtrl'
         })
-        .state('activityPlanEdit', {
-            url: '/activityPlanEdit',
-            templateUrl: 'src/activityPlan/activityPlan_edit.html',
-            controller: 'activityPlanEditCtrl'
+        .state('activityPlanCreateHead', {
+            url: '/activityPlanCreateHead',
+            templateUrl: 'src/activityPlan/activityPlan_Head.html',
+            controller: 'activityPlanCreateHeadCtrl'
         })
         .state('activityPlanCreate', {
             url: '/activityPlanCreate',

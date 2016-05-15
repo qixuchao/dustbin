@@ -9,11 +9,8 @@
 
 
     <list default="true" id="02c04fcf-9192-4b6a-aba4-616bd27df0e2" name="Default" comment="">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
       <change type="DELETED" beforePath="$PROJECT_DIR$/www/src/main/tab-animate.html" afterPath="" />
-=======
 
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/car/BMU.png" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/img/car/CSC.png" />

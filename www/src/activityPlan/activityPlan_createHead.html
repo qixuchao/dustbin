@@ -1,0 +1,49 @@
+
+<ion-view  id="activity_create"  align-title="center">
+    <ion-header-bar align-title="center" class="bar-positive" >
+        <div class="row row-center title rowTitle">
+            <div class="col col-15 text-left"  ng-click="goBack()"><i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px"></i></div>
+            <div class="col col-70 text-center">新建计划
+            </div>
+            <div class="col col-15 text-right" ng-click="keepData()">保存</div>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div class="contentAll">
+            <div class="row itemContent row-center"  ng-click="pickDate('instart')">
+                <div class="col-30 col-center">有效期自：</div>
+                <div class="col-60 col-center text-right fontColor">
+                    {{dataDetail.instart}}
+                </div>
+                <div class="col-10 col-center text-left"><img ng-src="img/car/Shape.png" class="shapeImg" ></div>
+            </div>
+
+            <div class="row itemContent row-center" ng-click="pickDate('inend')">
+                <div class="col-30 col-center">有效期至：</div>
+                <div class="col-60 col-center text-right fontColor">
+                    {{dataDetail.inend}}
+                </div>
+                <div class="col-10 col-center text-left"><img ng-src="img/car/Shape.png" class="shapeImg" ></div>
+            </div>
+
+            <div class="row itemContent row-center" ng-click="openSelectCon()">
+                <div class="col-33 col-center">销售办事处：</div>
+                <div class="col-57 col-center text-right fontColor">
+                    {{dataDetail.saleOffice.SALES_OFF_SHORT}}
+                </div>
+                <div class="col-10 col-center text-left"><img ng-src="img/car/Shape.png" class="shapeImg" ></div>
+            </div>
+            <div class="row itemContent row-center">
+                <div class="col-30 col-center">销售组：</div>
+                <div class="col-60 col-center text-right fontColor">
+                    {{dataDetail.saleOffice.SALES_GRP_TXT}}
+                </div>
+                <!--<div class="col-10 col-center text-left"><img ng-src="img/car/Shape.png" class="shapeImg" ></div>-->
+            </div>
+            <div class="row itemContentS row-center">
+                <div class="col-38 ">计划描述：</div>
+            </div>
+            <textarea id="textarea" placeholder="请输入计划描述" style="width: 100%;padding: 15px;border-bottom: 1px solid #D6D3CE;color:#A0A09F" ng-model="dataDetail.remark" ng-change="contentLength(dataDetail.remark)" maxlength="40"></textarea>
+        </div>
+    </ion-content>
+</ion-view>

@@ -66,10 +66,36 @@ salesModule.controller('saleClueDetailCtrl', [
                             status: $scope.statusArr[getStatusIndex($scope.details.STATUS)],
                             source: $scope.sourceArr[getSourceIndex($scope.details.SOURCE)]
                         };
+                        $scope.commentText = {};
+                        $scope.commentText.text = ""; //注释字段对应
+                        var comment = response.ET_LINES.item_out
+                        try {
+                            for (var k = 0; k < comment.length; k++) {
+                                if (k == 0) {
+                                    $scope.commentText.text = comment[0].TDLINE;
+                                }
+                                if (k > 0) {
+                                    if (comment[k].TDFORMAT == '*') {
+                                        $scope.commentText.text += "\n\r" + comment[k].TDLINE;
+                                    } else {
+                                        $scope.commentText.text += +comment[k].TDLINE;
+                                    }
+                                }
+                                console.log($scope.commentText.text);
+                            }
+                            console.log($scope.commentText.text);
+                        } catch (e) {
+                            $scope.commentText.text = "";
+                        }
                         $scope.productInfo = response.ES_OUT_PROD;
                         $scope.relationArr = response.ET_OUT_REAL.item_out;
+
                         angular.forEach($scope.relationArr, function (data) {
-                            data.NAME = data.NAME_LAST;
+                            if (data.PARTNER_FCT == "00000023") { //竞争对手
+                                data.NAME = data.NAME_ORG1;
+                            } else {
+                                data.NAME = data.NAME_LAST;
+                            }
                             data.position = data.DESCRIPTION;
                         })
                     }
@@ -121,16 +147,17 @@ salesModule.controller('saleClueDetailCtrl', [
             } else {
                 //执行保存操作
                 Prompter.showLoading('正在保存');
+                //console.error("9090 " + angular.isUndefined($scope.mySelect.source));
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                     "IS_IN_DETAIL": {
                         "OBJECT_ID": $scope.details.OBJECT_ID,
                         "DESCRIPTION": $scope.details.DESCRIPTION,
-                        "SOURCE": $scope.mySelect.source.code,
+                        "SOURCE": angular.isUndefined($scope.mySelect.source) ? "" : $scope.mySelect.source.code,
                         "DATE_START": $scope.details.DATE_START,
                         "DATE_END": $scope.details.DATE_END,
-                        "STATUS": $scope.mySelect.status.value,
+                        "STATUS": angular.isUndefined($scope.mySelect.status) ? "" : $scope.mySelect.status.value,
                         "QUAL_LEVEL_MAN": $scope.details.QUAL_LEVEL_MAN,
                         "ZZKHMC": $scope.details.ZZKHMC,
                         "ZZLXR": $scope.details.ZZLXR,
@@ -283,16 +310,16 @@ salesModule.controller('saleClueDetailCtrl', [
         });
         if (Prompter.isATL()) {
             $scope.unitsArr = saleChanService.saleChanceUnits_ATL;
-        }else{
+        } else {
             $scope.unitsArr = saleChanService.saleUnits;
         }
         var unitType;
-        $scope.openUnitSelections = function (type,text) {
-            if(!$scope.isEdit){
+        $scope.openUnitSelections = function (type, text) {
+            if (!$scope.isEdit) {
                 return;
             }
             unitType = type;
-            switch (type){
+            switch (type) {
                 case 'yearNeed':
                     $scope.unitTitle = '客户年度需求总量';
                     break;
@@ -302,12 +329,15 @@ salesModule.controller('saleClueDetailCtrl', [
                 case 'sampleNeed':
                     $scope.unitTitle = '样品需求量';
                     break;
+                case 'lifeCycle':
+                    $scope.unitTitle = '生命周期需求量';
+                    break;
             }
             $scope.unitText = text;
             $scope.unitSelectionsModal.show();
         };
         $scope.selectUnit = function (x) {
-            switch (unitType){
+            switch (unitType) {
                 case 'yearNeed':
                     $scope.details.ZZFLD00005H = x.value;
                     break;
@@ -317,9 +347,53 @@ salesModule.controller('saleClueDetailCtrl', [
                 case 'sampleNeed':
                     $scope.details.ZZFLD00005K = x.value;
                     break;
+                case 'lifeCycle':
+                    $scope.details.ZZXQLDW = x.value;
+                    break;
             }
             $scope.unitSelectionsModal.hide();
         };
+
+        //样品需求周期/需求量产
+        $ionicModal.fromTemplateUrl('src/applications/saleClue/detail/modal/simpleRequire.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.unitRequerySelectionsModal = modal;
+        });
+        if (Prompter.isATL()) {
+        } else {
+            $scope.unitsRequeryArr = saleChanService.timeDate
+        }
+        var unitRequeryType;
+        $scope.openUnitRequerySelections = function (type, text) {
+            if (!$scope.isEdit) {
+                return;
+            }
+            unitRequeryType = type;
+            switch (type) {
+                case 'simpleRequery':
+                    $scope.unitRequeryTitle = '样品需求周期';
+                    break;
+                case 'requeryMP':
+                    $scope.unitRequeryTitle = '需求量产周期';
+                    break;
+            }
+            $scope.unitRequeryText = text;
+            $scope.unitRequerySelectionsModal.show();
+        };
+        $scope.selectUnitRequery = function (x) {
+            switch (unitRequeryType) {
+                case 'simpleRequery':
+                    $scope.details.ZZZQDW = x.value;
+                    break;
+                case 'requeryMP':
+                    $scope.details.ZZZQDW1 = x.value;
+                    break;
+            }
+            $scope.unitRequerySelectionsModal.hide();
+        };
+
         //选择"值列表"
         $ionicModal.fromTemplateUrl('src/applications/saleClue/detail/modal/selections.html', {
             scope: $scope,
@@ -352,6 +426,31 @@ salesModule.controller('saleClueDetailCtrl', [
                     $scope.unitTitle = "重量";
                     $scope.selectionArr = saleClueService.weight;
                     break;
+                case 'applyClass':
+                    $scope.unitTitle = "应用类别";
+                    $scope.selectionArr = saleClueService.applyClass;
+                    break;
+                case 'productApply':
+                    $scope.unitTitle = "产品应用";
+                    $scope.selectionArr = saleClueService.productApply;
+                    break;
+                case 'long':
+                    $scope.unitTitle = "长";
+                    $scope.selectionArr = saleClueService.linearMeasure;
+                    break;
+                case 'width':
+                    $scope.unitTitle = "宽";
+                    $scope.selectionArr = saleClueService.linearMeasure;
+                    break;
+                case 'deep':
+                    $scope.unitTitle = "厚";
+                    $scope.selectionArr = saleClueService.linearMeasure;
+                    break;
+                case 'customerType':
+                    $scope.unitTitle = "客户类型";
+                    $scope.selectionArr = saleClueService.customerType;
+                    break;
+
             }
             $scope.selectText = text;
             $scope.selectionsModal.show();
@@ -372,6 +471,24 @@ salesModule.controller('saleClueDetailCtrl', [
                     break;
                 case '重量':
                     $scope.productInfo.ZZZLDW = x.text;
+                    break;
+                case '应用类别':
+                    $scope.productInfo.DESCRIPTION1 = x.text;
+                    break;
+                case '产品应用':
+                    $scope.productInfo.DESCRIPTION2 = x.text;
+                    break;
+                case '长':
+                    $scope.productInfo.ZZFLD000040 = x.text;
+                    break;
+                case '宽':
+                    $scope.productInfo.ZZFLD00003Z = x.text;
+                    break;
+                case '厚':
+                    $scope.productInfo.ZZFLD00003Y = x.text;
+                    break;
+                case '客户类型':
+                    $scope.details.QUAL_LEVEL_MAN = x.text;
                     break;
             }
             $scope.selectionsModal.hide();
@@ -521,5 +638,6 @@ salesModule.controller('saleClueDetailCtrl', [
         $scope.$on('$destroy', function () {
             $scope.selectionsModal.remove();
             $scope.unitSelectionsModal.remove();
+            $scope.unitRequerySelectionsModal.remove();
         });
     }]);
