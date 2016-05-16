@@ -154,7 +154,7 @@ loginModule
                           }
                         console.log(angular.toJson(response));
                         
-                        if(response.PROFILE == "*"&&ionic.Platform.isWebView()){
+                        if(response.PROFILE == "*"){
                             $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
                             $state.go('changeChar');
                         }else if(ionic.Platform.isWebView()&&(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D")){

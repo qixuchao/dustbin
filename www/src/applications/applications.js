@@ -17,7 +17,7 @@ appModule
         },{
             name:'ACTPLAN',
             url:'img/apps/acPlan.png',
-           go : "activityPlanList"
+            go : "activityPlanList"
             //go:'saleActDetail'
         },{
             name:'OPPORT',

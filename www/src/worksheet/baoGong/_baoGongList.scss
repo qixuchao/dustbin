@@ -6,8 +6,8 @@
  		@include align-items(center);
  		@include justify-content(center);
  		width: 2rem;
- 	} 
- 	.baogong-list{ 
+ 	}
+ 	.baogong-list{
 		.baogong-item{
 			display: block;
 			width: 100%;
@@ -142,6 +142,12 @@
     		font-size: 1.3rem;
     		color: #2B60AB;
         }
+        input{
+        	background-color: #ECF0F0;
+		    border-radius: 5px;
+		    height: 1.6rem;
+		    line-height: 1.6rem;
+        }
         .center{
             //@include flex(1);
             input{
@@ -166,4 +172,34 @@
 			transform: translate3d(.9rem, 0, 0);
 		}
     }
- }
+}
+
+
+#worksheet-baogong-list-view{
+	ion-header-bar{
+		height: 84px;
+		.baogong-btns-col{
+			height: 84px;
+    		font-size: 1rem;
+    		span{
+    			line-height: 42px;
+    		}
+		}
+	}
+	ion-content{
+		top: 84px;
+	}
+}
+.platform-ios{
+	#worksheet-baogong-list-view{
+		ion-header-bar{
+			.baogong-btns-col{
+				height: 64px;
+	    		font-size: 1rem;
+	    		span{
+	    			line-height: 32px;
+	    		}
+			}
+		}
+	}
+}

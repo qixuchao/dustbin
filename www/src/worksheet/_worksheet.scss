@@ -1258,7 +1258,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         }
         //二阶段新增
         //新车档案收集工单
-        .ZNCO{
+        &.ZNCO{
 			&.E0006, &.E0010, &.E0007{  
         		.fuwupaizhao{
 					display: block;
@@ -1266,7 +1266,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         	}
         }
         //现场维修工单和批量改进工单
-        .ZPRO, .ZPLO{			//E0006 已完工        E0010 回访        E0007 审核
+        &.ZPRO, &.ZPLO{			//E0006 已完工        E0010 回访        E0007 审核
         	&.E0006, &.E0010, &.E0007{
         		.beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao{
 					display: block;
@@ -1291,13 +1291,13 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 //二阶段:拍照界面"+"
 .ZNCO, .ZPRO, .ZPLO{
 	&.E0006, &.E0010, &.E0007{
-		.paizhao-add-picture{
+		#takepicture-content .selected-btn{
 			display: none !important;
 		}
 	}
 }
 .ZPRV, .ZPLV, .ZNCV{
-	.paizhao-add-picture{
+	#takepicture-content .paizhao-add-picture, .selected-btn{
 		display: none !important;
 	}
 }
@@ -1306,8 +1306,8 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 .worksheet-detail-view-public .detail-all-more-button{
 	&.ZNCO, &.ZPLO, &.ZPRO{
 		//二阶段修改之前： &.E0006, &.E0007, &.E0010, &.E0009{...}
-		&.E0009{ //已完工  //回访  // 审核      //&.E0008:已打回  //E0009:已取消
-			display: none !important;
+		&.E0006, &.E0007, &.E0010, &.E0009{ //已完工  //回访  // 审核      //&.E0008:已打回  //E0009:已取消
+			//display: none !important;
 		}
 	}
 	//二阶段新需求:服务商工单，任何状态下都要显示”更多按钮”

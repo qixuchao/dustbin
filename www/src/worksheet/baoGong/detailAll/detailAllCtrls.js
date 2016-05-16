@@ -34,10 +34,12 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 	    });
 
     	$scope.$on('$destroy', function() {
+    		console.log("baoGongDetailAllCtrl  $destroy");
 			__destroyMoreModal();
 		});
 
 		$scope.goBack = function(){
+			__destroyMoreModal();
 			if($scope.config.editMode){
 				Prompter.wsConfirm("提示","放弃本次编辑?","确定", "取消");
 			}else{
@@ -49,10 +51,6 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 			if($scope.config.moreModal != null){			
 				$scope.config.moreModal.remove();
 				$scope.config.moreModal = null;
-			}
-			if($scope.selectCustomerModal != null){
-				$scope.selectCustomerModal.remove();
-				$scope.selectCustomerModal = null;
 			}
 		}
 
@@ -67,6 +65,12 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 				case 'baoGongXinXi':
 					worksheetDataService.wsBaoDetailToFYJS = true;
 					worksheetDataService.wsBaoDetailData = $scope.datas.detail;
+					var wanGongListDatas = $scope.datas.detail.ET_DETAIL;
+					if(!angular.isUndefined(wanGongListDatas) && !!wanGongListDatas && wanGongListDatas.item && !!wanGongListDatas.item.length){
+						worksheetDataService.wsBaoDetailBaoGXXIsImpty = false;
+					}else{
+						worksheetDataService.wsBaoDetailBaoGXXIsImpty = true;
+					}
 					$scope.goState('worksheetBaoGonglist');
 					break;
 			}
@@ -153,7 +157,8 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 				return;
 			}
 			var header = {
-				DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION
+				DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION,
+				STATUS: $scope.datas.detail.ES_OUT_LIST.STATU
 			};
 			var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
 			params.IS_HEAD_DATA = header;

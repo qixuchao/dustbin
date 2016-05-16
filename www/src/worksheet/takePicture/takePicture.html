@@ -1,4 +1,4 @@
-<ion-view id="worksheet-takepicture-view" class="worksheet-view-public" align-title="center">
+<ion-view id="worksheet-takepicture-view" class="worksheet-view-public {{config.PROCESS_TYPE}} {{config.STATUS_CODE}}" align-title="center">
     
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
@@ -54,6 +54,10 @@
         
         <ion-gallery ion-gallery-items="datas.imageDatas" ion-gallery-row="2" ion-gallery-toggle="true" ion-item-callback="ionGalleryClickCallback(item);"></ion-gallery>
         
+        <div class="" ng-if="datas.imageDatas==null || datas.imageDatas.length<1" style="line-height: 4rem;height: 4rem;text-align: center;width: 100%;color: #A7A3A3;">
+            该工单暂无服务拍照信息!
+        </div>
+
     </ion-content>
 </ion-view>
 

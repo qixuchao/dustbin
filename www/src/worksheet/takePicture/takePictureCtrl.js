@@ -427,7 +427,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	        	fileItem.deletedError = true;
 	        });
 		}
-
+		
 		function __deleteItemInLocal(item){
 			for(var i = 0; i < $scope.datas.imageDatas.length; i++){
     			if(item == $scope.datas.imageDatas[i]){
@@ -438,7 +438,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
     			}
     		}
 		}
-
+		
 		$scope.networkClickHandler = function(fileItem, index){
 			if(fileItem.isServerHolder){   //对服务器端图片进行操作
 				if(fileItem.deletedError){
@@ -450,7 +450,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 				}
 			}
 		};
-
+		
 		$scope.init = function(){
 			$scope.config.OBJECT_ID = worksheetDataService.wsDetailToPaiZHao.OBJECT_ID;
 			$scope.config.PROCESS_TYPE = worksheetDataService.wsDetailToPaiZHao.PROCESS_TYPE;
@@ -460,7 +460,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			var ele = angular.element("body")[0];
 			ele.style.pointerEvents = "auto";
 		};
-
+		
 		$scope.init();
 
 		$scope.closeImageModal = function(){

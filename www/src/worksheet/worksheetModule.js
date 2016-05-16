@@ -107,6 +107,7 @@ worksheetModule.service('worksheetDataService', [function(){
     //报工相关
     wsBaoDetailData: null,
     wsBaoDetailToFYJS: false,
+    wsBaoDetailBaoGXXIsImpty: false
 
     /*{
       ydWorksheetNum: 

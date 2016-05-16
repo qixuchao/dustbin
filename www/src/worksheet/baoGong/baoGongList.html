@@ -20,7 +20,7 @@
             </div>
         </ion-header-bar>
     </div>
-    <ion-content scroll="true" has-bouncing="false"> 
+    <ion-content scroll="true" has-bouncing="false" delegate-handle="baogong-info-list"> 
             <style>
                 .baogong-list .bu-shou-fen{
                     color: red;
@@ -74,7 +74,7 @@
                     <div class="right-outer">
                         <div class="top-from-right">
                             <div class="left-inner">数量<span ng-bind="item.QUANTITY"></span></div>
-                            <div class="right-inner">
+                            <div class="right-inner" style="color: transparent;">
                                 收费
                                 <label class="toggle xbr-toggle-2 toggle-calm disable-user-behavior">
                                     <input type="checkbox" ng-model="item.AC_INDICATOR_XBR" ng-true-value="'D2'" ng-false-value="'D1'" class="ng-pristine ng-untouched ng-valid">

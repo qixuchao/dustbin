@@ -1,36 +1,12 @@
 <ion-view canClickEnterListMode id="worksheetlist-view" class="worksheet-view-public" ng-class="{'is-from-customer':(config.isFromCustomer),'is-from-cardetail':(config.isFromCarDetail)}"  align-title="center">
-	<!--ion-header-bar id="xbr-test-header" align-title="center" class="bar-positive" ng-class="{'query-mode':config.isQueryMode}">
-		<div class="left-back" ng-click="goBack();">
-			<i class="ion-ios-arrow-back"></i>
-		</div>
-		<div class="title" canClickEnterListMode ng-click="clickEnterListMode($event);">服务工单列表</div>
-        <div class="buttons right"  ng-class="{'right-buttons-actives':config.isQueryMode}" > <- style="transition: width .3s linear 0s;" ->
-            <div class="search-header-bar"><- bar-header ->
-                    <div  class="button button-clear right search" ng-click="clickHeadTopSearchIcon();">
-                        <i class="icon ion-ios-search-strong"></i>
-                    </div>
-                    <input class="search-input" type="text" ng-change="onSearchTextChangeFromHeaderBar($event);" ng-model="config.searchText" placeholder="{{config.searchPlaceholder}}">
-                <div class="cancle-search-mode" ng-click="enterListMode();">
-                    <span>取消</span>
-                </div>
-            </div>
-        </div>
-	</ion-header-bar>
-    <div class="search-hearder-bar"></div-->
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
                 <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
                 <div class="col col-70 text-center" ng-bind="config.titleText"></div>
-                <!--div class="col col-15 add"><img src="img/saleList/add.png"></div-->
                 <div class="col col-15"><span></span></div>
             </div>
         </ion-header-bar>
-        <!--div class="pub-subhead bar bar-subheader">
-            <div class="row row-center no-padding" ng-click="changeSearch()">
-                <i class="ion-ios-search"></i>请输入活动关键字
-            </div>
-        </div-->
     </div>
     <ion-content id="xbr-worksheet-list-content"  class="has-header" style="" scroll="false" has-bouncing="false">
     	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);"  ng-class="{'isSearchingMode':(config.queryModeNew)}">

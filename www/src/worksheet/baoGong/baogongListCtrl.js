@@ -7,7 +7,9 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     "baoGongService",
     "HttpAppService",
     "$timeout",
-    function($scope, ionicMaterialInk, ionicMaterialMotion, worksheetDataService, Prompter, baoGongService, HttpAppService, $timeout){
+    "worksheetHttpService",
+    "$ionicScrollDelegate",
+    function($scope, ionicMaterialInk, ionicMaterialMotion, worksheetDataService, Prompter, baoGongService, HttpAppService, $timeout, worksheetHttpService, $ionicScrollDelegate){
     
     //alert(" ---- WorksheetBaoGongListCtrl ---- ");
     
@@ -16,6 +18,8 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
 
         currentTip: "暂无数据",
         noDatas: false,
+
+        STATU: '',
 
         needInsert: false,
 
@@ -42,13 +46,41 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         Prompter.wsConfirmFuc("提示", "确实退出编辑?", "确定", "取消", function(){
             $scope.config.isEditPrice = false;
             $scope.config.isEditDetail = false;
+            if($scope.config.needInsert){
+                $scope.goBack();
+            }
         }, function(){
         });
     };
 
     $scope.editOk = function(){
         if($scope.config.isEditDetail){
-            __requestSaveDetail();
+            var needChangeCount = 0;
+            var chaned = false;
+            for(var i = 0; i < $scope.datas.baogongDatas.length; i++){
+                var tempItem = $scope.datas.baogongDatas[i];
+                if(tempItem.QUANTITY_XBR <= 0){
+                    needChangeCount++;
+                }
+                if(tempItem.QUANTITY_XBR != window.parseFloat(tempItem.QUANTITY)){
+                    chaned = true;
+                }
+            }
+            if(!$scope.config.needInsert && !chaned){ //未修改
+                $scope.config.isEditPrice = false;
+                $scope.config.isEditDetail = false;
+                $scope.config.title= "完工详情";
+                return;
+            }
+            if(needChangeCount > 0){
+                // title, text, okText, cancelText, okFunc, cancelFunc
+                Prompter.wsConfirmFuc("提示", "您还有"+needChangeCount+"个完工信息未维护!确认提交?", "确定", "取消", function(){
+                    __requestSaveDetail();
+                });
+                return;
+            }else{
+                __requestSaveDetail();
+            }
         }else if($scope.config.isEditPrice){
             __requestSavePrice();
         }
@@ -84,23 +116,42 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     	]
     };
 
+    function accAdd(arg1,arg2){
+        var r1,r2,m;
+        try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0}
+        try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0}
+        m=Math.pow(10,Math.max(r1,r2));
+        return Number((arg1*m+arg2*m)/m);
+    }
+
+    function accSub(arg1,arg2){
+         var r1,r2,m,n;
+         try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0}
+         try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0}
+         m=Math.pow(10,Math.max(r1,r2));
+         //last modify by deeka
+         //动态控制精度长度
+         n=(r1>=r2)?r1:r2;
+         return Number(((arg1*m-arg2*m)/m).toFixed(n));
+    }
+
     $scope.detailLowerOne = function(item){
         if($scope.config.isEditPrice){
-            //if(item.XBR_NEW > 0){
-                item.XBR_NEW--;
-            //}
+            //item.XBR_NEW--;
+            item.XBR_NEW = accSub(item.XBR_NEW, 1);
         }else if($scope.config.isEditDetail){
-            if(item.QUANTITY_XBR > 0){
-                item.QUANTITY_XBR--;
+            if(item.QUANTITY_XBR >= 1){
+                //item.QUANTITY_XBR--;
+                item.QUANTITY_XBR = accSub(item.QUANTITY_XBR, 1);
             }
         }
     };
 
     $scope.detailAddOne = function(item){
         if($scope.config.isEditPrice){
-            item.XBR_NEW++;
+            item.XBR_NEW = accAdd(item.XBR_NEW, 1);
         }else if($scope.config.isEditDetail){
-            item.QUANTITY_XBR++;
+            item.QUANTITY_XBR = accAdd(item.QUANTITY_XBR, 1);
         }
     };
 
@@ -108,22 +159,45 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         //return true;
         if($scope.config.isBaoWS){
             if($scope.datas.baogongDatas.length > 0 && worksheetDataService.wsBaoDetailData.ES_OUT_LIST.EDIT_FLAG=="X"){
+                if($scope.config.STATU == "E0002" || $scope.config.STATU == "E0006"){
+                    return false;
+                }
                 return true;
             }
         }
         return false;
     };
     
+    function __enterEmptyDatasMode(objId, proType){
+        __requestConfirmFill(objId, proType);
+        $scope.config.needInsert = true;
+        $scope.config.isBaoWS = true;
+        $scope.config.title = "完工详情维护";
+        return;
+    }
+    worksheetDataService.wsBaoDetailData. ES_OUT_LIST.STATU;
     $scope.init = function(){ //NUMBER_INT_XBR
         if(baoGongService.detailFromWSHistory.isEmptyDetail){  //报工单新建+费用结算数据为空
-            __requestConfirmFill(baoGongService.detailFromWSHistory.OBJECT_ID, baoGongService.detailFromWSHistory.PROCESS_TYPE);
             baoGongService.detailFromWSHistory.isEmptyDetail = false;
-            $scope.config.needInsert = true;
-            $scope.config.isBaoWS = true;
-            $scope.config.title = "完工详情";
+            __enterEmptyDatasMode(baoGongService.detailFromWSHistory.OBJECT_ID, baoGongService.detailFromWSHistory.PROCESS_TYPE);
             return;
         }
-
+        if(worksheetDataService.wsBaoDetailBaoGXXIsImpty){  //报工单详情界面来，且无完工信息
+            try{
+                $scope.config.STATU = worksheetDataService.wsBaoDetailData.ES_OUT_LIST.STATU;
+            }catch(e){
+                $scope.config.STATU = "";
+            }
+            if($scope.config.STATU == "E0002" || $scope.config.STATU == "E0006"){ //已报工与已取消状态下，显示为“无完工信息”即可
+                $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息?" : "该报工单暂无费用结算信息!";
+                $scope.config.noDatas = true;
+                return;
+            }
+            worksheetDataService.wsBaoDetailBaoGXXIsImpty = false;
+            $scope.config.STATU = worksheetDataService.wsBaoDetailData.ES_OUT_LIST.STATU;
+            __enterEmptyDatasMode(worksheetDataService.wsBaoDetailData.OBJECT_ID, baoGongService.detailFromWSHistory.PROCESS_TYPE);
+            return;
+        }
 
         if(worksheetDataService.wsBaoDetailToFYJS){
             $scope.config.isBaoWS = true;
@@ -131,6 +205,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             worksheetDataService.wsBaoDetailToFYJS = false;
             var bao = worksheetDataService.wsBaoDetailData;
             if(!angular.isUndefined(bao) && bao!= null && bao != ""){
+                $scope.config.STATU = bao.ES_OUT_LIST.STATU;
                 $scope.datas.baogongDatasTemp = worksheetDataService.wsBaoDetailData.ET_DETAIL.item;
                 if(!$scope.datas.baogongDatasTemp ||$scope.datas.baogongDatasTemp.length <=0){
                     $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息?" : "该报工单暂无费用结算信息!";
@@ -176,6 +251,10 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             }
         }
         $scope.datas.baogongDatas = angular.copy($scope.datas.baogongDatasTemp);
+        if(!$scope.$$phase) {
+            $scope.$apply();
+        }
+        $ionicScrollDelegate.$getByHandle("baogong-info-list").resize();
     }
 
 
@@ -282,6 +361,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
                 $timeout(function(){
                     $scope.config.isEditPrice = false;
                     $scope.config.isEditDetail = false;
+                    __requestRefreshBaoDetail();
                 }, 1000);
             }else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT != ""){
                 Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
@@ -347,6 +427,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
                     $timeout(function(){
                         $scope.config.isEditPrice = false;
                         $scope.config.isEditDetail = false;
+                        __requestRefreshBaoDetail();
                     }, 1000);
                 }else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT != ""){
                     Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
@@ -386,15 +467,14 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
                 return;
             }
 
+            var detailItems, pridocItems;
             if(response.ET_DETAIL && response.ET_DETAIL.item){
-                var detailItems = response.ET_DETAIL.item;
-                __updateDetailInfos(detailItems);
+                detailItems = response.ET_DETAIL.item;
             }
             if(response.ET_PRIDOC && response.ET_PRIDOC.item){
-                var detailItems = response.ET_PRIDOC.item;
-                __updatePridocInfos(detailItems);
+                pridocItems = response.ET_PRIDOC.item;
             }
-            __updateDetailAndPridocInfos();
+            __updateDetailAndPridocInfos(detailItems,pridocItems);
             Prompter.hideLoading();
         })
         .error(function(errorResponse){
@@ -403,8 +483,12 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     }
 
     function __updateDetailAndPridocInfos(detailItems, pridocItems){
-        $scope.datas.baogongDatasTemp = worksheetDataService.wsBaoDetailData.ET_DETAIL.item = detailItems;
-        $scope.datas.baogongDatasTemp = worksheetDataService.wsBaoDetailData.ET_PRIDOC.item = pridocItems;
+        if(!angular.isUndefined(detailItems) && detailItems!= null){
+            $scope.datas.baogongDatasTemp = worksheetDataService.wsBaoDetailData.ET_DETAIL.item = detailItems;
+        }
+        if(!angular.isUndefined(pridocItems) && pridocItems != null){
+            worksheetDataService.wsBaoDetailData.ET_PRIDOC.item = pridocItems;
+        }
         __handleBaoGongDatasTemp();
     }
 

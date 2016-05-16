@@ -74,7 +74,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         			ZBAR_CODE: $scope.datas.detail.ES_OUT_LIST.CAR_NO,
         			SHORT_TEXT: $scope.datas.detail.ES_OUT_LIST.CAR_DESC
         		});
-        		$state.go("carDetail");
+        		$scope.goState("carDetail");
         	};
 
 			function __destroyMoreModal(){
@@ -88,10 +88,14 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}
 			}
 
-			$scope.goState = function(stateName){
+			$scope.goState = function(stateName,params){
 				__destroyMoreModal();
 				$timeout(function (){
-					$state.go(stateName);
+					if(params && params != null){
+						$state.go(stateName, params);
+					}else{
+						$state.go(stateName);
+					}
 				}, 100);
 			};
 			$scope.dibButtonClickHandler = function(type){
@@ -136,7 +140,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}else if(type == 'fuwupaizhao'){
 					worksheetDataService.wsDetailToPaiZHao = {
 						OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
-      					PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE
+      					PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE,
+      					STATUS_CODE: $scope.datas.detail.ES_OUT_LIST.STATU
 					}; 
 					$scope.goState("worksheetTakePicture");
 				}else if(type == 'baogong'){
@@ -204,7 +209,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					WAIFU_EMP: angular.copy(waifuRenyuan),
 					ET_DETAIL: $scope.datas.detail.ET_DETAIL
 				};
-				$state.go("baoGongCreate");
+				$scope.goState("baoGongCreate");
 			}
 			
 			$scope.showRequestModel = function(){
@@ -217,10 +222,11 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				}
 			};
 			$scope.canShowMoreBtn = function(){
-				if($scope.config.canEdit){
-					return true;
-				}
-				return false;
+				return true;
+				// if($scope.config.canEdit){
+				// 	return true;
+				// }
+				// return false;
 			};
 			$scope.showMoreModel = function($event, sourceClassName){
 			    if($scope.config.moreModal == null){
@@ -279,15 +285,15 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 				var params = $scope.config.requestParams;
 				if(params.IS_PROCESS_TYPE == 'ZNCO'){	//ZNCO 新车档案收集工单 
-					$state.go("worksheetEdit", {
+					$scope.goState("worksheetEdit", {
 						detailType: 'newCar'
 					});
 				}else if(params.IS_PROCESS_TYPE == 'ZPRO'){  //ZPRO 现场维修工单 
-					$state.go("worksheetEdit", {
+					$scope.goState("worksheetEdit", {
 						detailType: 'siteRepair'
 					});
 				}else if(params.IS_PROCESS_TYPE == 'ZPLO'){	// ZPLO 批量改进工单
-					$state.go("worksheetEdit", {
+					$scope.goState("worksheetEdit", {
 						detailType: 'batchUpdate'
 					});
 				}

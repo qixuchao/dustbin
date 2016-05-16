@@ -1,5 +1,5 @@
 worksheetReportModule.controller('baoGongCreateCtrl', [
-	'$scope', 
+	'$scope',
 	'baoGongService',
 	"$timeout",
 	"Prompter",
@@ -15,7 +15,7 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
             $ionicHistory.goBack();
         }
     });
-
+    
 	$scope.config = {
 
 	};
@@ -68,10 +68,13 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
 		var type = $scope.datas.defaultDetail.IS_PROCESS_TYPE;
 		if(type == "ZPRO"){		   // 现场维修工单
 			$scope.datas.defaultDetail.IS_PROCESS_TYPE_BAO = "ZPRC";
+            $scope.datas.defaultDetail.BAO_TYPE_DESC = "现场维修报工单";
 		}else if(type == "ZPLO"){  // 批量改进工单
 			$scope.datas.defaultDetail.IS_PROCESS_TYPE_BAO = "ZPLC";
+            $scope.datas.defaultDetail.BAO_TYPE_DESC = "批量改进报工单";
 		}else if(type == "ZNCO"){  // 新车档案收集工单
 			$scope.datas.defaultDetail.IS_PROCESS_TYPE_BAO = "ZNCC";
+            $scope.datas.defaultDetail.BAO_TYPE_DESC = "新车档案收集报工单";
 		}
 
 		$timeout(function() {

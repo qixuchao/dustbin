@@ -19,7 +19,12 @@ worksheetReportModule.service("baoGongService", [
 				PARTNER_NO : "E060000878"
 			}
 		}*/
-		detailFromWSHistory: {},
+		detailFromWSHistory: {
+			isEmptyDetail: false
+		},
+		listFromBaoWSDetail: {
+			isEmptyDetail: false
+		},
 		/*{
 			OBJECT_ID: '',
 			PROCESS_TYPE: ''
