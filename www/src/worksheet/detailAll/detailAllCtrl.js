@@ -51,15 +51,18 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 	                }*/
 	            }
 	        });
-
+        	
         	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         		//从编辑界面返回  故障详情   ( || fromState.name == 'worksheetFaultInfosEdit')
-		        if(fromState && toState && (fromState.name == 'worksheetEdit' || fromState.name == 'worksheetFaultInfos') && toState.name == 'worksheetDetail'){
-		            if(worksheetDataService.wsEditToDetail.needReload){
-		            	worksheetDataService.wsEditToDetail.needReload = false;
-		            	__requestDetailDatas();
-		            }
-		        }
+        		if(fromState && toState && toState.name == 'worksheetDetail'){
+        			if( fromState.name == 'worksheetEdit' || fromState.name == 'worksheetFaultInfos' || fromState.name == "baoGongCreate" ){
+			            if(worksheetDataService.wsEditToDetail.needReload){
+			            	worksheetDataService.wsEditToDetail.needReload = false;
+			            	__requestDetailDatas();
+			            }
+			        }
+        		}
+		        
 		    });
 
         	$scope.$on('$destroy', function() {

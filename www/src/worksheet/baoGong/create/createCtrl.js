@@ -6,10 +6,12 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
 	"HttpAppService",
     "$state",
     "$ionicHistory",
-	function ($scope, baoGongService, $timeout, Prompter, HttpAppService, $state, $ionicHistory) {
+    "worksheetDataService",
+	function ($scope, baoGongService, $timeout, Prompter, HttpAppService, $state, $ionicHistory, worksheetDataService) {
 	
     $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         if(toState && fromState && toState.name == "baoGongCreate" && fromState.name == "baoGongDetail"){
+            worksheetDataService.wsEditToDetail.needReload = true;
             $ionicHistory.goBack();
         }
     });

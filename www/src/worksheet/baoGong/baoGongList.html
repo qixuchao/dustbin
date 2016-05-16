@@ -8,7 +8,7 @@
                 <a class="col col-15 text-left goBack" ng-click="editCancel()" ng-if="config.isEditPrice || config.isEditDetail">
                     <span>取消</span>
                 </a>
-                <div class="col col-60 text-center">费用结算</div>
+                <div class="col col-60 text-center" ng-bind="config.title"></div>
                 <div class="col col-15 add" ng-if="!config.isBaoWS"><span></span></div>
                 <div class="col col-15 add" ng-click="editOk();" ng-if="config.isEditPrice || config.isEditDetail">
                     <span>确定</span>

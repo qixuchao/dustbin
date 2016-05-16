@@ -1256,20 +1256,66 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         		display: none !important;
         	}
         }
+        //二阶段新增
+        //新车档案收集工单
+        .ZNCO{
+			&.E0006, &.E0010, &.E0007{  
+        		.fuwupaizhao{
+					display: block;
+				}
+        	}
+        }
+        //现场维修工单和批量改进工单
+        .ZPRO, .ZPLO{			//E0006 已完工        E0010 回访        E0007 审核
+        	&.E0006, &.E0010, &.E0007{
+        		.beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao{
+					display: block;
+				}
+        	}
+        }
+        //新车上线档案收集工单(服务商)显示 "服务拍照"
+        &.ZNCV{
+        	.fuwupaizhao{
+        		display: block;
+        	}
+        }
+        //现场维修工单(服务商)和批量改进工单(服务商)
+        &.ZPRV, &.ZPLV{
+			.beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao{
+				display: block;
+			}
+        }
     }
 }
 
-.worksheet-detail-view-public .detail-all-more-button{
-	&.ZNCO, &.ZPLO, &.ZPRO{
-		&.E0006, &.E0010, &.E0007, &.E0009{ //已完工  //回访  // 审核      //&.E0008:已打回  //E0009:已取消
-			display: none !important;
-		}
-	}	
-	&.ZPRV, &.ZPLV, &.ZNCV{
-		&.E0001, &.E0002, &.E0003, &.E0004, &.E0005, &.E0007, &.E0008, &.E0009, &.E0010{
+//二阶段:拍照界面"+"
+.ZNCO, .ZPRO, .ZPLO{
+	&.E0006, &.E0010, &.E0007{
+		.paizhao-add-picture{
 			display: none !important;
 		}
 	}
+}
+.ZPRV, .ZPLV, .ZNCV{
+	.paizhao-add-picture{
+		display: none !important;
+	}
+}
+
+
+.worksheet-detail-view-public .detail-all-more-button{
+	&.ZNCO, &.ZPLO, &.ZPRO{
+		//二阶段修改之前： &.E0006, &.E0007, &.E0010, &.E0009{...}
+		&.E0009{ //已完工  //回访  // 审核      //&.E0008:已打回  //E0009:已取消
+			display: none !important;
+		}
+	}
+	//二阶段新需求:服务商工单，任何状态下都要显示”更多按钮”
+	// &.ZPRV, &.ZPLV, &.ZNCV{ 
+	// 	&.E0001, &.E0002, &.E0003, &.E0004, &.E0005, &.E0007, &.E0008, &.E0009, &.E0010{
+	// 		display: none !important;
+	// 	}
+	// }
 }
 
 

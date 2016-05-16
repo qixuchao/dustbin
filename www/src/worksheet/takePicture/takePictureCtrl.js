@@ -73,6 +73,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 
 			OBJECT_ID: null,
 			PROCESS_TYPE: null,
+			STATUS_CODE: '',
 
 			
 
@@ -453,6 +454,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		$scope.init = function(){
 			$scope.config.OBJECT_ID = worksheetDataService.wsDetailToPaiZHao.OBJECT_ID;
 			$scope.config.PROCESS_TYPE = worksheetDataService.wsDetailToPaiZHao.PROCESS_TYPE;
+			$scope.config.STATUS_CODE = worksheetDataService.wsDetailToPaiZHao.STATUS_CODE;
 			__requestImageList();
 
 			var ele = angular.element("body")[0];
