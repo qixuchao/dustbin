@@ -435,6 +435,10 @@ salesModule.controller('saleClueDetailCtrl', [
                     $scope.unitTitle = "产品类型";
                     $scope.selectionArr = saleClueService.productType;
                     break;
+                case 'productType_atl':
+                    $scope.unitTitle = "产品类型";
+                    $scope.selectionArr = saleClueService.productType_atl;
+                    break;
                 case 'weight':
                     $scope.unitTitle = "重量";
                     $scope.selectionArr = saleClueService.weight;
@@ -492,16 +496,21 @@ salesModule.controller('saleClueDetailCtrl', [
                     $scope.productInfo.DESCRIPTION2 = x.text;
                     break;
                 case '长':
-                    $scope.productInfo.ZZFLD000040 = x.text;
+                    $scope.productInfo.MSEH2 = x.text;
+                    $scope.productInfo.ZZFLD000040 = x.code;
                     break;
                 case '宽':
-                    $scope.productInfo.ZZFLD00003Z = x.text;
+                    $scope.productInfo.MSEH3 = x.text;
+                    $scope.productInfo.ZZFLD00003Z = x.code;
                     break;
                 case '厚':
-                    $scope.productInfo.ZZFLD00003Y = x.text;
+                    $scope.productInfo.MSEH4 = x.text;
+                    $scope.productInfo.ZZFLD00003Y = x.code;
                     break;
                 case '客户类型':
-                    $scope.details.QUAL_LEVEL_MAN = x.text;
+                    $scope.details.QUAL_LEVEL_MAN = x.code;
+                    $scope.details.DESCRIPTION3 = x.text;
+                    console.log("fghjkl " + $scope.details.QUAL_LEVEL_MAN);
                     break;
             }
             $scope.selectionsModal.hide();
