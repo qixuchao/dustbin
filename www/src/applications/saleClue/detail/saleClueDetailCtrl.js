@@ -129,12 +129,25 @@ salesModule.controller('saleClueDetailCtrl', [
             }
         };
         //选择时间
-        $scope.selectTime = function () {
+        $scope.selectTime = function (type) {
             if (!$scope.isEdit) {
                 return;
             }
-            Prompter.selectTime($scope, 'clueDetailStart',
-                new Date($scope.details.DATE_START.replace(/-/g, "/")).format('yyyy/MM/dd'), 'date', '开始时间');
+            switch (type) {
+                case 'statTime':
+                    Prompter.selectTime($scope, 'clueDetailStart',
+                        new Date($scope.details.DATE_START.replace(/-/g, "/")).format('yyyy/MM/dd'), 'date', '开始时间');
+                    break;
+                case 'tempNeed'://样品需求开始时间
+                    Prompter.selectTime($scope, 'clueDetailTempNeedStart',
+                        new Date($scope.details.ZZFLD000051.replace(/-/g, "/")).format('yyyy/MM/dd'), 'date', '开始时间');
+                    break;
+                case 'masProduced'://样品量产开始时间
+                    Prompter.selectTime($scope, 'clueDetailMasProducedStart',
+                        new Date($scope.details.ZZFLD000054.replace(/-/g, "/")).format('yyyy/MM/dd'), 'date', '开始时间');
+                    break;
+            }
+
         };
         $scope.edit = function (type) {
             if ($scope.editText == '编辑' && angular.isUndefined(type)) {
@@ -492,6 +505,64 @@ salesModule.controller('saleClueDetailCtrl', [
                     break;
             }
             $scope.selectionsModal.hide();
+        };
+        //后续
+        $scope.chancePop = {
+            type: {}
+        };
+        $scope.createChancePopData = saleChanService.createPop;
+        $ionicPopover.fromTemplateUrl('src/applications/saleChance/modal/create_Pop.html', {
+            scope: $scope
+        }).then(function (popover) {
+            $scope.createChancePop = popover;
+        });
+        $scope.openCreateChancePop = function () {
+            Prompter.showLoading();
+            $scope.salesChanceGroup = [];
+            var data = {
+                "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "IS_USER": {"BNAME": window.localStorage.crmUserName}
+            };
+            HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
+                .success(function (response) {
+                    Prompter.hideLoading();
+                    var tempOfficeArr = [];
+                    if (response.ES_RESULT.ZFLAG === 'S') {
+                        for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
+                            response.ET_ORGMAN.item[i].text = response.ET_ORGMAN.item[i].SALES_OFF_SHORT.split(' ')[1];
+                            if (response.ET_ORGMAN.item[i].SALES_GROUP && tempOfficeArr.indexOf(response.ET_ORGMAN.item[i].SALES_OFFICE) == -1) {
+                                $scope.salesChanceGroup.push(response.ET_ORGMAN.item[i]);
+                                tempOfficeArr.push(response.ET_ORGMAN.item[i].SALES_OFFICE);
+                            }
+                        }
+                        if ($scope.salesChanceGroup.length > 1) {
+                            $scope.chancePop.saleOffice = $scope.salesChanceGroup[0];
+                            $scope.createChancePop.show();
+                        } else {
+                            $scope.chancePop.saleOffice = $scope.salesChanceGroup[0];
+                            $scope.showCreateChanceModal();
+                        }
+                    } else if (response.ES_RESULT.ZFLAG === 'E') {
+                        Prompter.showShortToastBotton('无法创建');
+                    }
+                });
+        };
+        $scope.showCreateChanceModal = function () {
+            saleChanService.isFromClue = true;
+            saleChanService.description = $scope.details.DESCRIPTION;
+            saleChanService.startTime = $scope.details.DATE_START;
+            $scope.createChancePop.hide();
+            $ionicModal.fromTemplateUrl('src/applications/saleChance/modal/create_Modal/create_Modal.html', {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.createChanceModal = modal;
+                modal.show();
+                var tempArr = document.getElementsByClassName('modal-wrapper');
+                for (var i = 0; i < tempArr.length; i++) {
+                    tempArr[i].style.pointerEvents = 'auto';
+                }
+            });
         };
         //相关方
         var modifyRelationsArr = [];//修改相关方

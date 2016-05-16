@@ -32,9 +32,20 @@ salesModule
             }
             //机会类型
             $scope.chanceTypes = saleChanService.chanceTypes;
+            $scope.create = {
+                title: '',
+                place: '',
+                customer: '',
+                contact: '',
+                stage: $scope.saleStages[0],
+                de_startTime: new Date().format('yyyy-MM-dd'),
+                de_endTime: '',
+                annotate: '测试',
+                chanceType:$scope.chanceTypes[0]
+            };
             $scope.$watch('create.chanceType', function () {
                 //console.log($scope.create.chanceType);
-                switch ($scope.create.chanceType.code) {
+                switch (angular.isUndefined($scope.create.chanceType)&&$scope.create.chanceType.code) {
                     case 'ZO02':
                         $scope.saleStages = saleChanService.saleStages.CATL.EBUS;
                         break;
@@ -46,17 +57,13 @@ salesModule
                         break;
                 }
             });
-            $scope.create = {
-                description: '',
-                place: '',
-                customer: '',
-                contact: '',
-                stage: $scope.saleStages[0],
-                de_startTime: new Date().format('yyyy-MM-dd'),
-                de_endTime: '',
-                annotate: '测试',
-                chanceType:$scope.chanceTypes[0]
-            };
+            //判断是否来自销售线索,如果是,赋予默认值
+            if(saleChanService.isFromClue){
+                $scope.create = {
+                    title: saleChanService.description,
+                    de_startTime: new Date(saleChanService.startTime).format('yyyy-MM-dd'),
+                };
+            }
             $scope.selectPersonflag = false;
             //选择时间
             $scope.selectCreateTime = function (type) {
@@ -363,6 +370,7 @@ salesModule
             };
             //销毁
             $scope.$on('$destroy', function () {
+                saleChanService.isFromClue = false;
                 $scope.createChanceModal.remove();
                 $scope.selectPersonModal.remove();
                 $scope.selectCustomerModal.remove();

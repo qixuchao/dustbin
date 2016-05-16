@@ -213,6 +213,12 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
                             case 'clueDetailStart':
                                 scope.details.DATE_START = time;
                                 break;
+                            case 'clueDetailTempNeedStart':
+                                scope.details.ZZFLD000051 = time;
+                                break;
+                            case 'clueDetailMasProducedStart':
+                                scope.details.ZZFLD000054 = time;
+                                break;
                         }
                     });
                 }, false);

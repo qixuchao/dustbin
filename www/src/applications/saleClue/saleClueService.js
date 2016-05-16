@@ -167,10 +167,10 @@ salesModule.factory('saleClueService', function () {
     }];
     //重量
     var weight = [{
-        text: '吨'
-    }, {
-        text: '千克'
-    }];
+        text:'吨'
+    },{
+        text:'千克'
+    }];  
     //客户类型
     var customerType = [{
         text: 'PACK厂',
