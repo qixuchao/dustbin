@@ -142,7 +142,8 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 
 		$scope.canShowEditBtn = function(){
 			//return true;
-			return !$scope.config.editMode;
+			return $scope.config.canEdit && $scope.config.statusStr =="E0001";
+			//return $scope.config.statusStr =="E0001";
 		};
 		$scope.editDetail = function(){
 			$scope.config.editMode = !$scope.config.editMode;
@@ -246,6 +247,7 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 			Prompter.showLoading("正在修改报工单");
 	        var promise = HttpAppService.post(url,params);
 	        promise.success(function(response){
+	        	$scope.config.BAO_BEIZHU = "";
 	        	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "S"){
 	        		Prompter.showLoadingAutoHidden("修改成功", false, 1000);
 	        		$timeout(function(){
