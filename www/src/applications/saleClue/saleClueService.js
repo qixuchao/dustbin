@@ -148,7 +148,7 @@ salesModule.factory('saleClueService', function () {
         text: 'ESS',
         code: 'ESS'
     }];
-    //产品类型
+    //产品类型--CATL
     var productType = [{
         text: 'PACK',
         code: 'PACK'
@@ -165,6 +165,16 @@ salesModule.factory('saleClueService', function () {
         text: 'BMS',
         code: 'BMS'
     }];
+
+    //产品类型--ATL
+    var productType_atl = [{
+        text: 'PACK',
+        code: 'PACK'
+    }, {
+        text: 'CELL',
+        code: 'CELL'
+    }];
+
     //重量
     var weight = [{
         text:'吨'
@@ -307,6 +317,7 @@ salesModule.factory('saleClueService', function () {
         applyType,
         productLine,
         productType,
+        productType_atl,
         weight,
         customerType,
         applyClass,

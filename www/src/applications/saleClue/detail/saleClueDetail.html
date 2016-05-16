@@ -101,8 +101,8 @@
                 <div class="row row-center" ng-show="isATL">
                     <div class="col no-padding">客户类型:</div>
                     <div class="col text no-padding saleChanDetail">
-                        <div class="money" ng-click="openSelectionsModal('customerType',details.QUAL_LEVEL_MAN)">
-                            -{{details.QUAL_LEVEL_MAN?details.QUAL_LEVEL_MAN:'请选择'}}-
+                        <div class="money" ng-click="openSelectionsModal('customerType',details.DESCRIPTION3)">
+                            -{{details.DESCRIPTION3?details.DESCRIPTION3:'请选择'}}-
                         </div>
                     </div>
                 </div>
@@ -349,7 +349,7 @@
                     <div class="row row-center">
                         <div class="col no-padding">产品类型:</div>
                         <div class="col text no-padding saleChanDetail">
-                            <div class="money" ng-click="openSelectionsModal('productType',productInfo.ZZFLD00004S)">
+                            <div class="money" ng-click="openSelectionsModal('productType_atl',productInfo.ZZFLD00004S)">
                                 -{{productInfo.ZZFLD00004S?productInfo.ZZFLD00004S:'请选择'}}-
                             </div>
                         </div>
@@ -381,8 +381,8 @@
                             <div class="row saleChanDetail">
                                 <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
                                                          ng-model="productInfo.ZZLONG"></div>
-                                <div class="col money" ng-click="openSelectionsModal('long',productInfo.ZZFLD000040)">
-                                    -{{productInfo.ZZFLD000040?productInfo.ZZFLD000040:'单位'}}-
+                                <div class="col money" ng-click="openSelectionsModal('long',productInfo.MSEH2)">
+                                    -{{productInfo.MSEH2?productInfo.MSEH2:'单位'}}-
                                 </div>
                             </div>
                         </div>
@@ -393,8 +393,8 @@
                             <div class="row saleChanDetail">
                                 <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
                                                          ng-model="productInfo.ZZWIDE"></div>
-                                <div class="col money" ng-click="openSelectionsModal('width',productInfo.ZZFLD00003Z)">
-                                    -{{productInfo.ZZFLD00003Z?productInfo.ZZFLD00003Z:'单位'}}-
+                                <div class="col money" ng-click="openSelectionsModal('width',productInfo.MSEH3)">
+                                    -{{productInfo.MSEH3?productInfo.MSEH3:'单位'}}-
                                 </div>
                             </div>
                         </div>
@@ -405,8 +405,8 @@
                             <div class="row saleChanDetail">
                                 <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
                                                          ng-model="productInfo.ZZTHICK"></div>
-                                <div class="col money" ng-click="openSelectionsModal('deep',productInfo.ZZFLD00003Y)">
-                                    -{{productInfo.ZZFLD00003Y?productInfo.ZZFLD00003Y:'单位'}}-
+                                <div class="col money" ng-click="openSelectionsModal('deep',productInfo.MSEH4)">
+                                    -{{productInfo.MSEH4?productInfo.MSEH4:'单位'}}-
                                 </div>
                             </div>
                         </div>
