@@ -11,7 +11,9 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     
     //alert(" ---- WorksheetBaoGongListCtrl ---- ");
     
-    $scope.config = {
+    $scope.config = { 
+        title: '费用结算', //报工详情
+
         currentTip: "暂无数据",
         noDatas: false,
 
@@ -23,12 +25,14 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     };
 
     $scope.enterPriceEditMode = function(){
+        $scope.config.title = "完工详情价格维护";
         $scope.config.isBaoWS = true;
         $scope.config.isEditPrice = true;
         $scope.config.isEditDetail = false;
     };
 
     $scope.enterDetailEditMode = function(){
+        $scope.config.title = "完工详情维护";
         $scope.config.isBaoWS = true;
         $scope.config.isEditPrice = false;
         $scope.config.isEditDetail = true;
@@ -115,25 +119,28 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             __requestConfirmFill(baoGongService.detailFromWSHistory.OBJECT_ID, baoGongService.detailFromWSHistory.PROCESS_TYPE);
             baoGongService.detailFromWSHistory.isEmptyDetail = false;
             $scope.config.needInsert = true;
+            $scope.config.isBaoWS = true;
+            $scope.config.title = "完工详情";
             return;
         }
 
 
         if(worksheetDataService.wsBaoDetailToFYJS){
             $scope.config.isBaoWS = true;
+            $scope.config.title = "完工详情";
             worksheetDataService.wsBaoDetailToFYJS = false;
             var bao = worksheetDataService.wsBaoDetailData;
             if(!angular.isUndefined(bao) && bao!= null && bao != ""){
                 $scope.datas.baogongDatasTemp = worksheetDataService.wsBaoDetailData.ET_DETAIL.item;
                 if(!$scope.datas.baogongDatasTemp ||$scope.datas.baogongDatasTemp.length <=0){
-                    $scope.config.currentTip = "该报工单暂无费用结算信息!";
+                    $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息?" : "该报工单暂无费用结算信息!";
                     $scope.config.noDatas = true;
                 }
             }
         }else{
             $scope.datas.baogongDatasTemp = worksheetDataService.wsDetailData.ET_DETAIL.item;
             if(!$scope.datas.baogongDatasTemp ||$scope.datas.baogongDatasTemp.length <=0){
-                $scope.config.currentTip = "该工单暂无费用结算信息!";
+                $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息!" : "该工单暂无费用结算信息!";
                 $scope.config.noDatas = true;
             }
         }
