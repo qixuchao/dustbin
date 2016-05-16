@@ -141,7 +141,8 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 		};
 
 		$scope.canShowEditBtn = function(){
-			return true;
+			//return true;
+			return !$scope.config.editMode;
 		};
 		$scope.editDetail = function(){
 			$scope.config.editMode = !$scope.config.editMode;
