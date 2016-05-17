@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="baogong-list edit-price-mode" ng-if="config.isEditPrice && config.isBaoWS">
                 <div class="baogong-item" ng-class="{'animated flipInX':itemAnimatedShow}" ng-init="itemAnimatedShow=true" ng-repeat="item in datas.baogongDatas">
                     <div class="left-outer">
@@ -111,7 +111,8 @@
                     <div class="desc">
                         <div class="col-65">
                             <div>产品编码:<span ng-bind="item.ORDERED_PROD"></span></div>
-                            <div>申请数量:<span ng-bind="item.QUANTITY"></span></div>
+                            <!--div>申请数量:<span ng-bind="item.QUANTITY"></span></div-->
+                            <div>申请数量:<span ng-bind="item.APPLY_NUM"></span></div>
                         </div>
                         <div class="col-35">
                             <div class="price-edit-box">

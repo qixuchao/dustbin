@@ -8,6 +8,9 @@
                 </div>
             </div>
             <div class="mainInfo" style="width:100%;top:60px;position:relative;height:125px;padding-left: 1rem;">
+                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
+                    <span class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.kyhuMingCheng"></span>
+                </div> 
                 <div class="row row-center">
                     <span class="crm-line-text" ng-bind-template="{{datas.detail.ES_OUT_LIST.TYPE_DESC}}&nbsp;-&nbsp;{{datas.detail.ydWorksheetNum}}"></span>
                 </div>
@@ -15,9 +18,6 @@
                     <i class="ion-android-radio-button-off"></i>
                     <div class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
                 </div>
-                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
-                    <span class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.kyhuMingCheng"></span>
-                </div> 
                 <div class="row row-center detail-last-line" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="detail-customer">
                         <div>外服人员:</div>

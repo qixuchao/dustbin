@@ -10,7 +10,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     "worksheetHttpService",
     "$ionicScrollDelegate",
     function($scope, ionicMaterialInk, ionicMaterialMotion, worksheetDataService, Prompter, baoGongService, HttpAppService, $timeout, worksheetHttpService, $ionicScrollDelegate){
-    
+
     //alert(" ---- WorksheetBaoGongListCtrl ---- ");
     
     $scope.config = { 
@@ -20,6 +20,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         noDatas: false,
 
         STATU: '',
+        baoGongScrollDelegate: null,
 
         needInsert: false,
 
@@ -85,8 +86,6 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             __requestSavePrice();
         }
     };
-
-
     
     $scope.datas = {
         baogongDatas: [],
@@ -175,7 +174,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         $scope.config.title = "完工详情维护";
         return;
     }
-    worksheetDataService.wsBaoDetailData. ES_OUT_LIST.STATU;
+    
     $scope.init = function(){ //NUMBER_INT_XBR
         if(baoGongService.detailFromWSHistory.isEmptyDetail){  //报工单新建+费用结算数据为空
             baoGongService.detailFromWSHistory.isEmptyDetail = false;
@@ -199,7 +198,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             return;
         }
 
-        if(worksheetDataService.wsBaoDetailToFYJS){
+        if(worksheetDataService.wsBaoDetailToFYJS){  //报工单明细界面跳转过来的
             $scope.config.isBaoWS = true;
             $scope.config.title = "完工详情";
             worksheetDataService.wsBaoDetailToFYJS = false;
@@ -212,7 +211,8 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
                     $scope.config.noDatas = true;
                 }
             }
-        }else{
+        }else{ //从服务工单明细界面跳转过来
+            $scope.config.isBaoWS = false;
             $scope.datas.baogongDatasTemp = worksheetDataService.wsDetailData.ET_DETAIL.item;
             if(!$scope.datas.baogongDatasTemp ||$scope.datas.baogongDatasTemp.length <=0){
                 $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息!" : "该工单暂无费用结算信息!";
@@ -223,8 +223,27 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             $scope.datas.baogongDatasTemp = [];
         }
         __handleBaoGongDatasTemp();
+        if($scope.config.isBaoWS){
+            __fillApplyNum(worksheetDataService.wsBaoDetailData.ydWorksheetNum, worksheetDataService.wsBaoDetailData.IS_PROCESS_TYPE);
+        }
+        $scope.config.baoGongScrollDelegate = $ionicScrollDelegate.$getByHandle("baogong-info-list");
     };
     $scope.init();
+
+    function emptyBaoGongDatas(){
+        delete $scope.datas.baogongDatas;
+        $scope.datas.baogongDatas = [];
+        resizeScroll();
+    }
+
+    function resizeScroll(){
+        if(!angular.isUndefined($scope.config.baoGongScrollDelegate) && $scope.config.baoGongScrollDelegate!= null){
+            $scope.config.baoGongScrollDelegate.resize();
+        }
+        if(!$scope.$$phase) {
+            $scope.$apply();
+        }
+    }
 
     function __handleBaoGongDatasTemp(){
         for(var i = 0; i < $scope.datas.baogongDatasTemp.length; i++){
@@ -251,12 +270,47 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             }
         }
         $scope.datas.baogongDatas = angular.copy($scope.datas.baogongDatasTemp);
-        if(!$scope.$$phase) {
-            $scope.$apply();
-        }
-        $ionicScrollDelegate.$getByHandle("baogong-info-list").resize();
+        resizeScroll();
     }
 
+    function __fillApplyNum(objId, proType){
+        var url = baoGongService.BAOWS_CONFIRM_FILL.url;
+        var params = baoGongService.BAOWS_CONFIRM_FILL.defaults;
+        params.IV_OBJECT_ID = objId;
+        params.IV_PROCESS_TYPE = proType;
+        var promise = HttpAppService.post(url,params);
+        promise.success(function(response){
+            if(response && response.ES_RESULT && (response.ES_RESULT.ZFLAG == "S"||response.ES_RESULT.ZFLAG == "")){
+                    var outs = [];
+                    if(response.ET_FILL && response.ET_FILL.item_out){
+                        outs = response.ET_FILL.item_out;
+                    }
+                    for(var i = 0; i < outs.length; i++){
+                        for(var j = 0; j <$scope.datas.baogongDatasTemp.length; j++){
+                            if(outs[i].PROD_ID == $scope.datas.baogongDatasTemp[j].ORDERED_PROD){
+                                $scope.datas.baogongDatasTemp[j].APPLY_NUM = outs[i].APPLY_NUM;
+                                continue;
+                            }
+                        }
+                        for(var z = 0; z <$scope.datas.baogongDatas.length; z++){
+                            if(outs[i].PROD_ID == $scope.datas.baogongDatas[z].ORDERED_PROD){
+                                $scope.datas.baogongDatas[z].APPLY_NUM = outs[i].APPLY_NUM;
+                                continue;
+                            }
+                        }
+                    }
+                    $scope.config.isEditPrice = false;
+                    $scope.config.isEditDetail = false;
+            }else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT != ""){
+                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+            }else{
+                $cordovaToast.showShortBottom(response);
+            }
+        })
+        .error(function(errorResponse){
+            $cordovaToast.showShortBottom("获取申请数量失败!");
+        });
+    }
 
     function __requestConfirmFill(objId, proType){
         // baoGongService.BAOWS_CONFIRM_FILL.url
@@ -281,6 +335,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
                             DESCRIPTION: outs[i].PROD_DESC,
                             // ITM_TYPE: "ZO02",
                             // ITM_TYPE_DESC: "工单服务项目",
+                            APPLY_NUM: outs[i].APPLY_NUM || 0,
                             QUANTITY: outs[i].APPLY_NUM || 0,
                             QUANTITY_XBR: outs[i].APPLY_NUM || 0,
                             // PROCESS_QTY_UNIT: "",
@@ -318,6 +373,10 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
         params.IV_OBJECT_ID = worksheetDataService.wsBaoDetailData.ydWorksheetNum;
         params.IV_PROCESS_TYPE = worksheetDataService.wsBaoDetailData. IS_PROCESS_TYPE;
+        params.IS_HEAD_DATA = {
+            DESCRIPTION: worksheetDataService.wsBaoDetailData.ES_OUT_LIST.DESCRIPTION,
+            STATUS: worksheetDataService.wsBaoDetailData.ES_OUT_LIST.STATU
+        };
         var zmode = $scope.config.needInsert ? 'I' : 'U';
         
         var itemIns = [];
@@ -379,12 +438,14 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
         params.IV_OBJECT_ID = worksheetDataService.wsBaoDetailData.ydWorksheetNum;
         params.IV_PROCESS_TYPE = worksheetDataService.wsBaoDetailData. IS_PROCESS_TYPE;
+        params.IS_HEAD_DATA = {
+            DESCRIPTION: worksheetDataService.wsBaoDetailData.ES_OUT_LIST.DESCRIPTION,
+            STATUS: worksheetDataService.wsBaoDetailData.ES_OUT_LIST.STATU
+        };
         var itemIns = [];
         var pridocIns = [];
         for(var i = 0; i < $scope.datas.baogongDatas.length; i++){
             var tempItem = $scope.datas.baogongDatas[i];
-
-
             if(tempItem.AC_INDICATOR != tempItem.AC_INDICATOR_XBR){ //收费是否改变
                 var tempObj = {
                     NUMBER_INT: tempItem.NUMBER_INT,
@@ -445,7 +506,6 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
                 $scope.config.isEditDetail = false;
             });
         }
-        
     }
 
     function __requestRefreshBaoDetail(loadStr){ //loadStr, params
@@ -457,6 +517,9 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             "IS_PROCESS_TYPE": worksheetDataService.wsBaoDetailData.IS_PROCESS_TYPE
         };
         Prompter.showLoading(loadingStr);
+
+        emptyBaoGongDatas(); //先将数据清空
+
         var promise = HttpAppService.post(worksheetHttpService.serviceDetail.url,queryParams);
         promise.success(function(response){
             if(response && !response.ES_RESULT){
@@ -494,9 +557,4 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
 
 
 
-
-
-
-
-    
 }]);

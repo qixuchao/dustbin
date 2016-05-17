@@ -159,7 +159,7 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 				return;
 			}
 			var header = {
-				DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION,
+				DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION_EDIT,
 				STATUS: $scope.datas.detail.ES_OUT_LIST.STATU
 			};
 			var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
@@ -366,7 +366,7 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 			    "IV_OBJECT_ID": $scope.config.OBJECT_ID+"",
 			    "IV_PROCESS_TYPE": $scope.config.PROCESS_TYPE,
 			    "IS_HEAD_DATA": {
-			    	"STATUS": statusId
+			    	"STATUS": statusId 	//, "DESCRIPTION": $scope.datas.detail.ES_OUT_LIST.DESCRIPTION
 			    }
 			}
 			Prompter.showLoading(statucChangingStr); //baoGongService.BAOWS_EDIT     worksheetHttpService.serviceDetailChange
