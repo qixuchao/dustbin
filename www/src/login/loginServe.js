@@ -124,7 +124,7 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
             }
             return null;
         },
-        version,
+        version : undefined,
         versionInfo: {
             currentVersion: '',
             newVersion: '',

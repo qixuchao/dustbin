@@ -349,7 +349,8 @@
     }
     .item-content{
       padding: 0;
-      height: 110px;
+      min-height: 90px;
+      max-height: 110px;
     }
     .item {
       border-color: #ddd;
@@ -364,7 +365,8 @@
       border-style: none;
       font-size: 16px;
       .item-content {
-        height: 110px;
+        min-height: 90px;
+        max-height: 110px;
         background-color: white;
       }
       .item-options{
@@ -414,7 +416,8 @@
     margin-top: 1px;
     margin-bottom: 1px;
     padding: 6px 10px 4px 10px;
-    height: 46px;
+    min-height: 46px;
+    max-height: 138px;
     line-height: 30px;
     font-size: 1.0rem;
     border-bottom: 1px solid #D6D3CE;

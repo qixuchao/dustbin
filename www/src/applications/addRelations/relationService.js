@@ -16,13 +16,13 @@ salesModule.factory('relationService', function () {
         chanceDetailPartner={}
         ;
   return{
-      saleActSelections,
-      relationCustomer,
-      isReplace,
-      myRelations,
-      replaceMan,
-      repTempIndex,
-      position,
-      chanceDetailPartner
+      saleActSelections:saleActSelections,
+      relationCustomer:relationCustomer,
+      isReplace:isReplace,
+      myRelations:myRelations,
+      replaceMan:replaceMan,
+      repTempIndex:repTempIndex,
+      position:position,
+      chanceDetailPartner:chanceDetailPartner
   }
 });

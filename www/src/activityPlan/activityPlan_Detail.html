@@ -51,7 +51,7 @@
                             <div class="row row-center fontcolor" style="color:#888282 ;">开始时间：{{i.ZZBEGDA}}</div>
                             <div class="row row-center fontcolor" style="color:#888282 ;">活动描述：{{i.ZZACTDESC}}</div>
                         </div>
-                        <div class="col col-center col-10" ng-click="updateAct(i)">
+                        <div class="col col-center col-10" ng-click="updateAct(i)" ng-if="editFlag">
                             <img class="imgGO" src="img/employee/Shape@2x.png">
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row row-center" >
+            <div class="row row-center" ng-if="editFlag">
                 <div class="col col-center text-center" ng-click="creatActivityGo()">
                     <i class="ion-ios-plus-outline" style="font-size:18px;color:#ddd">&nbsp;添加活动</i>
                 </div>

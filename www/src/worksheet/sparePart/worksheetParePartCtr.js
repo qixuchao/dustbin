@@ -26,7 +26,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
 
                 $scope.goSAPInfos = [];
                 var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
-            console.log(worksheetDetail);
+            //console.log(worksheetDetail);
                 if(worksheetDataService.wsDetailData.ET_MAT_LIST == ''){
                     worksheetHttpService.goWhere.go = true;
                 }
@@ -34,13 +34,13 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                     worksheetDetail = [];
                 }
                 var localInfos = worksheetHttpService.getSparePart();
-            console.log(localInfos);
+            //console.log(localInfos);
                 if(localInfos !== undefined && localInfos !== ''){
                     $scope.goSAPInfos = $scope.goSAPInfos.concat(localInfos);
                 }else{
                     $scope.goSAPInfos = $scope.goSAPInfos.concat(worksheetDetail);
                 }
-            console.log($scope.goSAPInfos);
+            //console.log($scope.goSAPInfos);
             $scope.goMore = false;//等待更多
             $scope.goNo = false;//没有
             $scope.goLoad = true;//加载
@@ -394,7 +394,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                 "IT_MAT_LIST": {
                     "item": item
                 }};
-            console.log(data);
+            //console.log(data);
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function(response){
@@ -565,7 +565,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         ionicMaterialInk.displayEffect();
         //工单详情
         var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
-        console.log(worksheetDetail);
+        //console.log(worksheetDetail);
             if(worksheetDetail === undefined){
                 worksheetDetail = [];
             }else{
@@ -580,17 +580,17 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 }
             }
 
-        console.log(worksheetDetail);
+        //console.log(worksheetDetail);
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState.name == 'worksheetSparepart' && toState.name == 'worksheetSelect'){
                 var localInfos = worksheetHttpService.getSparePart();
-                console.log(localInfos);
+                //console.log(localInfos);
                 if(localInfos == '' || localInfos == undefined){
 
                 }else{
                     //worksheetDetail = worksheetDetail.concat(localInfos);
                     worksheetDetail =  localInfos;
-                    console.log(worksheetDetail);
+                    //console.log(worksheetDetail);
                     changeArr();
                 }
             }
@@ -638,7 +638,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                         if (btnIndex == 1) {
                             worksheetHttpService.goWhere.cun = false;
                             worksheetHttpService.setSparePart("");
-                            console.log( worksheetHttpService.getSparePart());
+                            //console.log( worksheetHttpService.getSparePart());
                             worksheetHttpService.addPro.proInfos = "";
                             $scope.updateInfos("1");
                             $ionicHistory.goBack();
@@ -647,7 +647,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
             }else{
                 worksheetHttpService.goWhere.cun = false;
                 worksheetHttpService.setSparePart("");
-                console.log( worksheetHttpService.getSparePart());
+                //console.log( worksheetHttpService.getSparePart());
                 worksheetHttpService.addPro.proInfos = "";
                 $scope.updateInfos("1");
                 $ionicHistory.goBack();
@@ -660,11 +660,15 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         }
         $scope.upDown = true;
         $scope.showDetail = function(items) {
-            console.log(items);
+            var h = $scope.spareDetail.length;
+            console.log(h);
+            var sco = a - 48*h;
+            //console.log(items);
             for(var i=0;i<$scope.spareDetail.length;i++){
                 $scope.spareDetail[i].scrollStyle = "height:"+0+"px";
             }
             var scrHe = sco - items.detail.length * 116;
+            console.log(scrHe);
             if(scrHe < 0){
                 items.scrollStyle = "height:"+sco+"px";
              }else {
@@ -681,14 +685,14 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                     items.scrollStyle = "height:"+0+"px";
                 }
             }
-            var a = items.flag;
-            items.flag = !a;
+            items.flag = !items.flag;
         }
 
         $scope.showDetailInfos = false;
         var a=document.getElementById("content").offsetHeight;
         console.log(a);
         var h = $scope.spareDetail.length;
+        console.log(h);
         var sco = a - 48*h;
         console.log(sco);
         $scope.goUpdateSAP = function(){
@@ -720,7 +724,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 "IT_MAT_LIST": {
                     "item": item
                 }};
-            console.log(data);
+            //console.log(data);
             var url = ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE';
             if(item.length<1){
                 $cordovaToast.showShortBottom("暂无信息需要传输");
@@ -913,7 +917,7 @@ spareModule.controller('worksheetSpareListCtrl',['$ionicScrollDelegate','$rootSc
             var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function (response) {
                 if($scope.spareInfo == data.IS_PRODMAS_INPUT.SHORT_TEXT){
-                    console.log(page);
+                    //console.log(page);
                     if (response.ES_RESULT.ZFLAG == 'E') {
                         $scope.spareimisshow = false;
                         $scope.spareList = $scope.checkedPro
