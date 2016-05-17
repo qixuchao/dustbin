@@ -23,7 +23,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
     //ZPRO ZPLO ZNCO
         //filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
         else if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCO" ){
-            if(worksheetDataService.wsDetailData.ES_OUT_LIST.EDIT_FLAG == "Y"){
+            if(worksheetDataService.wsDetailData.ES_OUT_LIST.EDIT_FLAG == "X"){
                 if(worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0006" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0007" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0010"){
                     $scope.add = false;
                     $scope.deleteButton = false;
@@ -31,7 +31,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                     $scope.add = true;
                     $scope.deleteButton = true;
                 }
-            }else if(worksheetDataService.wsDetailData.ES_OUT_LIST.EDIT_FLAG == "N"){
+            }else{
                 $scope.add = false;
                 $scope.deleteButton = false;
             }

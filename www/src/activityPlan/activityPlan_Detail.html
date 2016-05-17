@@ -24,10 +24,10 @@
                 <div ng-class="{'border-bottom-white':isEdit}" ng-click="pickDate('')">{{activityDetail.ES_VISIT_PLAN.VALIDTO}}</div>
             </div>
             <div class="row row2 row-center" style="margin-top: 5px">
-                <div class="col-70">销售办事处：{{}}</div>
+                <div class="col-70">销售办事处：{{activityDetail.ES_ORGMAN.STEXT1}}</div>
             </div>
             <div class="row row2 row-center" style="margin-top: 5px">
-                <div class="col-70">销售组：{{}}</div>
+                <div class="col-70">销售组：{{activityDetail.ES_ORGMAN.STEXT2}}</div>
                 <div class="col-25 text-right" ng-click="edit('Y')" ng-hide="isEdit" ng-if="editFlag">
                     <img src="img/saleDetail/edit.png" style='height: 14px'>&nbsp;编辑
                 </div>
@@ -51,20 +51,20 @@
                             <div class="row row-center fontcolor" style="color:#888282 ;">开始时间：{{i.ZZBEGDA}}</div>
                             <div class="row row-center fontcolor" style="color:#888282 ;">活动描述：{{i.ZZACTDESC}}</div>
                         </div>
-                        <div class="col col-center col-10" ng-click="updateAct(i)">
+                        <div class="col col-center col-10" ng-click="updateAct(i)" ng-if="editFlag">
                             <img class="imgGO" src="img/employee/Shape@2x.png">
-                        </div>
-                    </div>
-                    <div class="row row-center text-center" ng-click="showOther(i)">
-                        <div class="col col-center text-center">
-                            <i class="ion-ios-arrow-down" ng-hide="i.otherInfos"></i>
-                            <i class="ion-ios-arrow-up" ng-show="i.otherInfos"></i>
                         </div>
                     </div>
                     <ion-option-button style="width:30px;height:110px;text-align: center" class="button-assertive" ng-click="delete(i)">
                         <i class="icon ion-ios-trash-outline" style="font-size: 90px;"></i>
                     </ion-option-button>
                 </ion-item>
+                <div class="row row-center text-center" ng-click="showOther(i)">
+                    <div class="col col-center text-center">
+                        <i class="ion-ios-arrow-down" ng-hide="i.otherInfos"></i>
+                        <i class="ion-ios-arrow-up" ng-show="i.otherInfos"></i>
+                    </div>
+                </div>
                 <div align="center" ng-show="i.otherInfos" style="height: 1px;border: 1px dashed #ddd;margin: 0 15px 0 15px; "></div>
                 <div class="row row-center" style="padding:3px 15px 3px 15px;" ng-show="i.otherInfos" >
                     <div class="col">
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row row-center" >
+            <div class="row row-center" ng-if="editFlag">
                 <div class="col col-center text-center" ng-click="creatActivityGo()">
                     <i class="ion-ios-plus-outline" style="font-size:18px;color:#ddd">&nbsp;添加活动</i>
                 </div>

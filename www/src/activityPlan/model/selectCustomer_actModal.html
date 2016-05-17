@@ -1,0 +1,44 @@
+<ion-modal-view class="referModal selectCustomerModal">
+    <div class="saleList">
+        <ion-header-bar class="head" no-tap-scroll="true">
+            <div class="row row-center">
+                <div class="text-center selections" ng-click="changeReferMoreflag()">
+                    {{selectCustomerText}}<img class="chanceImg" src="img/saleList/oval.png">
+                </div>
+                <div class="col input">
+                    <div class="row row-center no-padding">
+                        <i class="ion-ios-search"></i>
+                        <input id="selectCustomerId" type="search" ng-change="getCustomerArr(input.customer)"
+                               ng-model="input.customer" placeholder="请输入关键字">
+                        <i class="ion-ios-close" ng-if="input.customer" ng-click="initCustomerSearch()"></i>
+                    </div>
+                </div>
+                <div class="col col-15 text-center cancel" ng-click="closeSelectCustomer()">取消</div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <div class="addRelationsModal">
+        <ion-content class="content has-header" scroll="true">
+            <!--<ion-scroll class="fill-parent">-->
+                <ion-spinner class="mySpinner" icon="ios" ng-if="!customerSearch&&customerArr.length==0&&!isError"></ion-spinner>
+                <div>
+                    <ion-list>
+                        <ion-item class="selectItem" ng-repeat="x in customerArr"
+                                  ng-click="selectCustomer(x)">
+                            <span ng-bind-html="x.NAME_ORG1" style="word-wrap: break-word;word-break: normal;white-space:normal;"></span>
+                            <img class="selectImg" src="img/saleList/blank.png">
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div class="loadMore" ng-click="getCustomerArr()" ng-if="customerSearch&&!spinnerFlag">
+                    <span>点击加载更多...</span></div>
+                <div class="loadMore" ng-hide="customerSearch">
+                    <span>无更多数据显示...</span>
+                </div>
+                    <div class="loadMore" ng-click="getCustomerArr()" ng-if="spinnerFlag">
+                    <ion-spinner icon="ios" ng-if="customerArr.length>0"></ion-spinner>
+                </div>
+            <!--</ion-scroll>-->
+        </ion-content>
+    </div>
+</ion-modal-view>

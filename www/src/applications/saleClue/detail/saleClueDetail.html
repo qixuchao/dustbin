@@ -96,7 +96,8 @@
             <div ng-show="selects[0]">
                 <div class="row">
                     <div class="col-15">注释:</div>
-                    <textarea rows="3" ng-readonly="!isEdit" ng-model="commentText.text"></textarea>
+                    <textarea rows="3" ng-readonly="!isEdit" ng-model="commentText.text"
+                            ng-blur="blurComment()"></textarea>
                 </div>
                 <div class="row row-center" ng-show="isATL">
                     <div class="col no-padding">客户类型:</div>

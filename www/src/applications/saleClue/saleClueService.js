@@ -310,18 +310,18 @@ salesModule.factory('saleClueService', function () {
     ];
 
     return {
-        saleClueStatus,
-        relationPositionArr,
-        clueSource,
-        applyField,
-        applyType,
-        productLine,
-        productType,
-        productType_atl,
-        weight,
-        customerType,
-        applyClass,
-        productApply,
-        linearMeasure
+        saleClueStatus : saleClueStatus,
+        relationPositionArr :relationPositionArr ,
+        clueSource :clueSource,
+        applyField:applyField,
+        applyType:applyType,
+        productLine:productLine,
+        productType:productType,
+        productType_atl:productType_atl,
+        weight:weight,
+        customerType:customerType,
+        applyClass:applyClass,
+        productApply:productApply,
+        linearMeasure:linearMeasure
     }
 });

@@ -62,7 +62,11 @@ salesModule
                 $scope.create = {
                     title: saleChanService.description,
                     de_startTime: new Date(saleChanService.startTime).format('yyyy-MM-dd'),
+                    de_endTime: new Date(saleChanService.endTime).format('yyyy-MM-dd'),
                 };
+                if(isNaN($scope.create.de_endTime)) {
+                    $scope.create.de_endTime = "0000-00-00";
+                }
             }
             $scope.selectPersonflag = false;
             //选择时间

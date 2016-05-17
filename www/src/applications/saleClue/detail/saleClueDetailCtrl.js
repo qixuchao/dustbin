@@ -34,6 +34,10 @@ salesModule.controller('saleClueDetailCtrl', [
         $scope.statusArr = saleClueService.saleClueStatus.status;
         $scope.sourceArr = saleClueService.clueSource;
         $scope.relationArr = [];
+        $scope.commentParams = { //注释参数
+            item_out: []
+        };
+
         var getStatusIndex = function (data) {
             for (var i = 0; i < $scope.statusArr.length; i++) {
                 if ($scope.statusArr[i].value == data) {
@@ -68,7 +72,8 @@ salesModule.controller('saleClueDetailCtrl', [
                         };
                         $scope.commentText = {};
                         $scope.commentText.text = ""; //注释字段对应
-                        var comment = response.ET_LINES.item_out
+                        var comment = response.ET_LINES.item_out;
+                        $scope.commentParams.item_out = comment;
                         try {
                             for (var k = 0; k < comment.length; k++) {
                                 if (k == 0) {
@@ -76,9 +81,9 @@ salesModule.controller('saleClueDetailCtrl', [
                                 }
                                 if (k > 0) {
                                     if (comment[k].TDFORMAT == '*') {
-                                        $scope.commentText.text += "\n\r" + comment[k].TDLINE;
+                                        $scope.commentText.text += "\r" + comment[k].TDLINE;
                                     } else {
-                                        $scope.commentText.text += +comment[k].TDLINE;
+                                        $scope.commentText.text += comment[k].TDLINE;
                                     }
                                 }
                                 console.log($scope.commentText.text);
@@ -149,6 +154,23 @@ salesModule.controller('saleClueDetailCtrl', [
             }
 
         };
+
+        //注释--textarea方法
+        $scope.blurComment = function () {
+            $scope.commentParams.item_out = [];
+            var content = $scope.commentText.text.replace(/[\n\r]/g, "*");
+            console.log("content " + content);
+            var commentArray = content.split("*");
+            for (var i = 0; i < commentArray.length; i++) {
+                var arrayParam = {
+                    "TDFORMAT": "*", //标记列
+                    "TDLINE": commentArray[i] //文本行
+                };
+                $scope.commentParams.item_out.push(arrayParam);
+            }
+            console.log("now the comment text is:" + angular.toJson($scope.commentParams));
+        };
+
         $scope.edit = function (type) {
             if ($scope.editText == '编辑' && angular.isUndefined(type)) {
                 $scope.isEdit = true;
@@ -217,10 +239,7 @@ salesModule.controller('saleClueDetailCtrl', [
                         "ZZFLD00003Y": $scope.productInfo.ZZFLD00003Y
                     },
                     "IT_LINES": {
-                        "item_in": {
-                            "TDFORMAT": "*",
-                            "TDLINE": ""
-                        }
+                        "item_in": $scope.commentParams.item_out
                     },
                     "IT_PARTNER": {
                         "item_in": getModifyRelationsArr()
@@ -239,6 +258,7 @@ salesModule.controller('saleClueDetailCtrl', [
                     });
             }
         };
+
         $scope.selects = [true, false, false];
         $scope.showTitle = false;
         $scope.showTitleStatus = false;
@@ -560,6 +580,7 @@ salesModule.controller('saleClueDetailCtrl', [
             saleChanService.isFromClue = true;
             saleChanService.description = $scope.details.DESCRIPTION;
             saleChanService.startTime = $scope.details.DATE_START;
+            saleChanService.endTime = $scope.details.DATE_END;
             $scope.createChancePop.hide();
             $ionicModal.fromTemplateUrl('src/applications/saleChance/modal/create_Modal/create_Modal.html', {
                 scope: $scope,

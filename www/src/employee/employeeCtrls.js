@@ -375,9 +375,13 @@ employeeModule
             $scope.showFlag=false;
             if(LoginService.getProfileType()=="APP_SALE"){
                 $scope.showFlag=false;
+                $scope.saleFlag = true;
+                console.log("1212");
             }
             if(LoginService.getProfileType()=="APP_SERVICE"){
                 $scope.showFlag=true;
+                $scope.saleFlag = false;
+                console.log("1212444");
             }
 
         Prompter.showLoading("数据加载中...");
