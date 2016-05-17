@@ -294,12 +294,13 @@ salesModule
 
                 x.flag = true;
                 x.PARTNER_FCT = getRelationFCT();
-                //console.log(angular.toJson(x, true));
+                console.log(angular.toJson(x, true));
                 if (x.flag && x.PARTNER_FCT != '00000023') { //竞争对手可以添加多项
                     Prompter.alert('已有此类型相关方,无法再次添加!');
                     $scope.hideRelations();
                     return;
                 }
+
                 //已选的人不要再添加
                 angular.forEach($scope.relationArr, function (data) {
                     if (data.flag) {
