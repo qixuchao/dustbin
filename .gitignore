@@ -1,15 +1,14 @@
 */.DS_Store
-.idea/*
+.idea/
 atlenergy.sublime-project
 atlenergy.sublime-workspace
 
 plugins/*
+platforms/*
 
 www/npm-debug.log
 www/node_modules/*
 node_modules/*
-
-platforms/*
 
 www/src/dev/*
 www/.sass-cache/*
