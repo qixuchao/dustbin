@@ -343,7 +343,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                 Prompter.hideLoading();
                 if (response.ES_RESULT.ZFLAG == 'S') {
                     $scope.activityDetail = response;
-                    if(response.ES_VISIT_PLAN.EDITABLE == "X"){
+                    if(response.ES_VISIT_PLAN.EDIT_FLAG == "X"){
                         $scope.editFlag = true;
                     }else{
                         $scope.editFlag = false;
@@ -519,8 +519,8 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                             "SALES_ORG": "",
                             "DIS_CHANNEL": "",
                             "DIVISION": "",
-                            "SALES_OFFICE": "",
-                            "SALES_GROUP": "",
+                            "SALES_OFFICE": $scope.activityDetail.ES_ORGMAN.SALES_OFFICE,
+                            "SALES_GROUP":  $scope.activityDetail.ES_ORGMAN.SALES_GROUP,
                             "SALES_ORG_RESP": ""
                         },
                         "IS_USER": { "BNAME": window.localStorage.crmUserName },
@@ -571,8 +571,8 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
             Prompter.ContactCreateCancelvalue();
         }
         $scope.dataDetail = {
-            instart : "",
-            inend : "",
+            instart : "2013-11-11",
+            inend : "2016-11-11",
             saleOffice :{
                 flag : "N",
                 SALES_OFF_TXT : "请选择销售办事处"
@@ -622,8 +622,8 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
                     if (response.ES_RESULT.ZFLAG === 'S') {
                         activityPlanService.activityList = response.ES_VISIT_PLAN.VISIT_ID;
                         activityPlanService.pageFlag = "Y";
-                        $cordovaToast.showShortBottom("计划创建成功");
                         $state.go("activityPlanDetail");
+                        $cordovaToast.showShortBottom("计划创建成功");
                     }else{
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
@@ -949,7 +949,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                     desc : "请选择活动紧急度",
                     code : ""
                 },
-                instart: "",
+                instart: "2011-11-11",
                 desc: ""
             }
         }
