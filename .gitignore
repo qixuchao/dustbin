@@ -1,9 +1,9 @@
 */.DS_Store
-.idea/
+.idea/*
 atlenergy.sublime-project
 atlenergy.sublime-workspace
 
-plugins/*
+
 platforms/*
 
 www/npm-debug.log
