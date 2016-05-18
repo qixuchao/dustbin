@@ -25,7 +25,7 @@ salesModule.factory('saleClueService', function () {
     var relationPositionArr = {
         ATL: [{
             text: '竞争对手',
-            code: '00000023 '
+            code: '00000023'
         }, {
             text: 'ATL BO',
             code: 'Z0000002'
@@ -34,7 +34,7 @@ salesModule.factory('saleClueService', function () {
             code: 'Z0000003'
         }, {
             text: 'ATL销售经理',
-            code: 'Z0000006 '
+            code: 'Z0000006'
         }],
         CATL: [{
             text: 'CATL BO',

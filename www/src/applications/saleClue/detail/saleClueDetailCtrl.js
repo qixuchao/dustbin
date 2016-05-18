@@ -587,7 +587,8 @@ salesModule.controller('saleClueDetailCtrl', [
             saleChanService.isFromClue = true;
             saleChanService.description = $scope.details.DESCRIPTION;
             saleChanService.startTime = $scope.details.DATE_START;
-            saleChanService.endTime = $scope.details.DATE_END;
+            saleChanService.endTime = $scope.details.DATE_END; //增加结束时间字段的传输
+            saleChanService.objectId = $scope.details.OBJECT_ID; //增加线索标识的传输
             $scope.createChancePop.hide();
             $ionicModal.fromTemplateUrl('src/applications/saleChance/modal/create_Modal/create_Modal.html', {
                 scope: $scope,

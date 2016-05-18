@@ -19,8 +19,8 @@ salesModule
         'HttpAppService',
         'saleChanService',
         'customeService',
-        'LoginService', 
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, $cordovaDialogs,ionicMaterialInk,
+        'LoginService',
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, $cordovaDialogs, ionicMaterialInk,
                   ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService) {
             $scope.role = LoginService.getProfileType();
             $scope.filters = saleChanService.filters;
@@ -41,11 +41,12 @@ salesModule
                 de_startTime: new Date().format('yyyy-MM-dd'),
                 de_endTime: '',
                 annotate: '测试',
-                chanceType:$scope.chanceTypes[0]
+                chanceType: $scope.chanceTypes[0],
+                object_id: ''
             };
             $scope.$watch('create.chanceType', function () {
                 //console.log($scope.create.chanceType);
-                switch (angular.isUndefined($scope.create.chanceType)&&$scope.create.chanceType.code) {
+                switch (angular.isUndefined($scope.create.chanceType) && $scope.create.chanceType.code) {
                     case 'ZO02':
                         $scope.saleStages = saleChanService.saleStages.CATL.EBUS;
                         break;
@@ -58,13 +59,14 @@ salesModule
                 }
             });
             //判断是否来自销售线索,如果是,赋予默认值
-            if(saleChanService.isFromClue){
+            if (saleChanService.isFromClue) {
                 $scope.create = {
                     title: saleChanService.description,
                     de_startTime: new Date(saleChanService.startTime).format('yyyy-MM-dd'),
                     de_endTime: new Date(saleChanService.endTime).format('yyyy-MM-dd'),
+                    object_id: saleChanService.objectId
                 };
-                if(isNaN($scope.create.de_endTime)) {
+                if (isNaN($scope.create.de_endTime)) {
                     $scope.create.de_endTime = "";
                 }
             }
@@ -93,11 +95,11 @@ salesModule
             };
             $scope.saveCreateModal = function () {
 
-                if(angular.isUndefined($scope.create.chanceType.code)&&!Prompter.isATL()){
+                if (angular.isUndefined($scope.create.chanceType) && !Prompter.isATL()) {
                     Prompter.alert('请选择机会类型');
                     return
                 }
-                if (Number($scope.create.stage.value.substring(1,3))>=4 && !Prompter.isATL()) {
+                if (Number($scope.create.stage.value.substring(1, 3)) >= 4 && !Prompter.isATL()) {
                     if (!$scope.create.proNum) {
                         Prompter.alert('请输入项目编号');
                         return
@@ -129,7 +131,8 @@ salesModule
                         "ZZXSYXL": "",
                         "ZZYQXSLDW": "",
                         "ZZMBCP": "",
-                        "ZZFLD00002E": ""
+                        "ZZFLD00002E": "",
+                        "ZOBJECT_ID": $scope.create.object_id
                     },
                     "IS_ORGMAN": {
                         "SALES_ORG": $scope.chancePop.saleOffice.SALES_ORG,
@@ -176,7 +179,7 @@ salesModule
                                         saleChanService.obj_id = response.ES_RESULT.ZRESULT;
                                         $state.go('saleChanDetail');
                                         Prompter.hideLoading();
-                                    } else if(response.ES_RESULT.ZFLAG === 'E'){
+                                    } else if (response.ES_RESULT.ZFLAG === 'E') {
                                         Prompter.showShortToastBotton('创建失败');
                                         Prompter.hideLoading();
                                         $scope.createChanceModal.remove();
@@ -221,9 +224,9 @@ salesModule
             $scope.customerSearch = false;
             $scope.input = {customer: ''};
             var customerType;
-            if(Prompter.isATL()){
+            if (Prompter.isATL()) {
                 customerType = 'ZATL01';
-            }else{
+            } else {
                 customerType = 'Z00001';
             }
             $scope.getCustomerArr = function (search) {
@@ -245,7 +248,7 @@ salesModule
                     "IT_IN_ROLE": {
                         "item1": {"RLTYP": customerType}
                     },
-                    "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName }
+                    "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                     .success(function (response, status, headers, config) {
@@ -267,7 +270,7 @@ salesModule
                             $ionicScrollDelegate.resize();
                             //saleActService.customerArr = $scope.customerArr;
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                        } else if(response.ES_RESULT.ZFLAG === 'E'){
+                        } else if (response.ES_RESULT.ZFLAG === 'E') {
                             $scope.spinnerFlag = false;
                             $scope.customerSearch = false;
                             $scope.isError = true;
@@ -308,7 +311,7 @@ salesModule
                                 $scope.contactsLoadMoreFlag = false;
                             }
                             $scope.$broadcast('scroll.infiniteScrollComplete');
-                        } else if(response.ES_RESULT.ZFLAG === 'E'){
+                        } else if (response.ES_RESULT.ZFLAG === 'E') {
                             if ($scope.contacts.length == 0) {
                                 isNoContacts = true;
                             }
