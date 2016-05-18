@@ -19,7 +19,7 @@
     </div>
     <div class="addRelationsModal">
         <ion-content class="content has-header">
-           <ion-spinner class="mySpinner" icon="ios" ng-if="!changeSearch"></ion-spinner>
+           <!--<ion-spinner class="mySpinner" icon="ios" ng-if="!changeSearch"></ion-spinner>-->
             <div ng-if="changeSearch">
                 <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"
                      ng-click="changeReferMoreflag()"></div>
@@ -42,6 +42,9 @@
                 </ion-list>
             </div>
             <!--<ion-infinite-scroll on-infinite="getCustomerArr()" distance="1%" ng-if="CustomerLoadMoreFlag"></ion-infinite-scroll>-->
+            <div class="loadMore" ng-if="changeNo">
+                <span>无更多数据显示...</span>
+            </div>
             <div class="loadMore" ng-click="getChangeArr(input.customer)" ng-if="changeSearch&&!spinnerFlagChange"><span>点击加载更多...</span></div>
             <div class="loadMore" ng-click="getChangeArr(input.customer)" ng-if="spinnerFlagChange"><ion-spinner icon="ios"></ion-spinner></div>
         </ion-content>
