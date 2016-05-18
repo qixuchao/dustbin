@@ -158,9 +158,15 @@ salesModule.controller('saleClueDetailCtrl', [
         //注释--textarea方法
         $scope.blurComment = function () {
             $scope.commentParams.item_out = [];
-            var content = $scope.commentText.text.replace(/[\n\r]/g, "*");
+            var content = $scope.commentText.text.replace(/[\n\r]/g, "　");//中文空格
+            /**
+             * 这里备用几个特殊字符：(ps:用于进行备用字符分割)
+             * @1:朤 氺 曱 甴 囍 兀 々 〆 の ぁ 〡 〢 〣 〤 〥 〦 〧 〨 〩
+             * @2:ぬねのはばぱひびぴふぶぷへべぺ
+             * @3:╆╇╈╉╊╋ ┈┉┊┋┌┍┎┏┐┑┒┓└┕
+             * */
             console.log("content " + content);
-            var commentArray = content.split("*");
+            var commentArray = content.split("　");//中文空格
             for (var i = 0; i < commentArray.length; i++) {
                 var arrayParam = {
                     "TDFORMAT": "*", //标记列
@@ -212,7 +218,8 @@ salesModule.controller('saleClueDetailCtrl', [
                         "ZZZQDW": $scope.details.ZZZQDW,
                         "ZZFLD000054": $scope.details.ZZFLD000054,
                         "ZZFLD000055": $scope.details.ZZFLD000055,
-                        "ZZZQDW1": $scope.details.ZZZQDW1
+                        "ZZZQDW1": $scope.details.ZZZQDW1,
+                        "ZZFLD00004P": $scope.details.ZZFLD00004P
                     },
                     "IS_IN_PROD": {
                         "ZZFLD00004O": $scope.productInfo.ZZFLD00004O,
@@ -580,7 +587,8 @@ salesModule.controller('saleClueDetailCtrl', [
             saleChanService.isFromClue = true;
             saleChanService.description = $scope.details.DESCRIPTION;
             saleChanService.startTime = $scope.details.DATE_START;
-            saleChanService.endTime = $scope.details.DATE_END;
+            saleChanService.endTime = $scope.details.DATE_END; //增加结束时间字段的传输
+            saleChanService.objectId = $scope.details.OBJECT_ID; //增加线索标识的传输
             $scope.createChancePop.hide();
             $ionicModal.fromTemplateUrl('src/applications/saleChance/modal/create_Modal/create_Modal.html', {
                 scope: $scope,
