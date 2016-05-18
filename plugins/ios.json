@@ -1,0 +1,73 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cn.jpush.phonegap.JPushPlugin": {
+            "API_KEY": "e20b852492dd1fa83cb143ef",
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "com.verso.cordova.clipboard": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-base64-joewsh": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-canvas2image": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.crmEnergy.atltest"
+        }
+    },
+    "dependent_plugins": {}
+}
