@@ -96,6 +96,12 @@ worksheetModule.controller("WorksheetListCtrl",[
     
 	$scope.config = {
 		titleText: "服务工单列表",
+		//服务大区:
+		FWDQ: [{
+        	"OTJID": null,
+			"STEXT": "-- 请选择 --"
+		}],
+		currentFWDQ: null,
 		//showXbrModel: false, //是否显示遮罩层
 		// page mode
 		isFilterMode: false,
@@ -238,7 +244,9 @@ worksheetModule.controller("WorksheetListCtrl",[
 				filterStatusCancled: $scope.config.filterStatusCancled,
 
 				timeStart: $scope.config.timeStart,
-				timeEnd: $scope.config.timeEnd
+				timeEnd: $scope.config.timeEnd,
+
+				fuwudaqu: angular.copy($scope.config.currentFWDQ)
 			};
 		}else{ //更新filters、oldFilters则保持不变
 			angular.extend($scope.config, $scope.oldFilters);
@@ -495,6 +503,8 @@ worksheetModule.controller("WorksheetListCtrl",[
 		$scope.config.timeEnd = $scope.config.timeEndDefault;
 		//
 		//__remeberCurrentFilters();
+		//服务大区
+		$scope.config.currentFWDQ = $scope.config.FWDQ[0];
 		
 	};
 	
@@ -981,7 +991,8 @@ worksheetModule.controller("WorksheetListCtrl",[
 	};
 
 	$scope.init = function(){
-		
+		$scope.config.currentFWDQ = $scope.config.FWDQ[0];
+		__requestFWDQ();
 		// = $scope.config.timeStart    = $scope.config.timeEnd
 		//$scope.config.timeStartDefault  = new Date(new Date().getTime() - 7 * 24 * 3600 * 1000).format("yyyy-MM-dd");
 		//$scope.config.timeEndDefault  = new Date().format("yyyy-MM-dd");
@@ -1035,6 +1046,19 @@ worksheetModule.controller("WorksheetListCtrl",[
 		}
 	};
 	$scope.init();
+
+	function __requestFWDQ(){  //  
+		var url = worksheetHttpService.xialazhi.list_fuWuDaQu.url;
+        var defaults = worksheetHttpService.xialazhi.list_fuWuDaQu.defaults;
+        var promise = HttpAppService.post(url, defaults);
+        promise.success(function(successRes){
+            if(successRes && successRes.ET_OUT_SERVICE_ORG && successRes.ET_OUT_SERVICE_ORG.item_out){
+                $scope.config.FWDQ = $scope.config.FWDQ.concat(successRes.ET_OUT_SERVICE_ORG.item_out);
+            }
+        })
+        .error(function(errorRes){
+        });
+	}
 
 	function justTest(){
 		var header = document.getElementById("xbr-test-header");

@@ -1,0 +1,41 @@
+<ion-view class="saleActDetail worksheet-detail-view-public">
+    
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center">
+                <span class="col col-20 text-left goBack" ng-click="goBack();">取消</span>
+                <div class="col col-60 text-center">编辑报工单</div>
+                <div class="col col-20 add" ng-click="saveEdited();">保存</div>
+            </div>
+        </ion-header-bar>
+    </div>
+    
+    <ion-content id="baogong-detail-edit-content" has-bouncing="false" scrollbar-y="false" style="margin-top: 0px;"> 
+        
+        <div>
+            <div class="basic-info first-line commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.DESCRIPTION_EDIT" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="" style="padding-left: 1rem;">
+                    <div class="" style="margin-right:0px;">备注&nbsp;:</div>
+                    <div>
+                        <textarea id="textarea_beizhu" placeholder="请输入备注" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.BAO_BEIZHU" class="ng-pristine ng-valid ng-touched"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </ion-content>
+
+</ion-view>

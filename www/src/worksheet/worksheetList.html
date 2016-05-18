@@ -98,6 +98,13 @@
                                 <div class="filter-end-time" ng-click="selectCreateTime('end','选择日期', 'date');" ng-bind="config.timeEnd"></div>
                             </div>
                         </div>
+                        
+                        <div canNotClickEnterListMode class="filter-time fuwudaqu">
+                            <div class="filter-time-title filter-title">服务大区</div>
+                            <div class="filter-times-start-end">
+                                <select ng-model="config.currentFWDQ" ng-options="gzch as gzch.STEXT for gzch in config.FWDQ"></select>
+                            </div>
+                        </div>
                         <div canNotClickEnterListMode class="filter-worksheet-type">
                             <div class="filter-worksheet-type-title filter-title">工单类型</div>
                             <div class="filter-types">

@@ -207,7 +207,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					STATU: $scope.datas.detail.ES_OUT_LIST.STATU,
 					STATU_DESC: $scope.datas.detail.ES_OUT_LIST.STATU_DESC,
 					WAIFU_EMP: angular.copy(waifuRenyuan),
-					ET_DETAIL: $scope.datas.detail.ET_DETAIL
+					ET_DETAIL: $scope.datas.detail.ET_DETAIL,
+					KEHU_NAME: $scope.datas.detail.kyhuMingCheng
 				};
 				$scope.goState("baoGongCreate");
 			}
@@ -563,7 +564,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        		$scope.config.hasMoreData = false;
 		        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 		        		return;
-		        	}
+		        	} 
 		        	if(!$scope.datas.serviceListDatas){
 		        		$scope.datas.serviceListDatas = [];
 		        	}

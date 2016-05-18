@@ -224,8 +224,9 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
                 }, false);
             },
             showLoading: function (content) {
+                content = angular.isUndefined(content) || content == null ? "" : content;
                 $ionicLoading.show({
-                    template: ('<ion-spinner icon="ios"></ion-spinner><p ng-if=content>' + content + '</p>'),
+                    template: ('<ion-spinner icon="ios"></ion-spinner><p >' + content + '</p>'),
                     animation: 'fade-in',
                     showBackdrop: true
                 });

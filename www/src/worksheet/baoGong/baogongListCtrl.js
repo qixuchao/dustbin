@@ -70,7 +70,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             if(!$scope.config.needInsert && !chaned){ //未修改
                 $scope.config.isEditPrice = false;
                 $scope.config.isEditDetail = false;
-                $scope.config.title= "完工详情";
+                $scope.config.title= "完工详情列表";
                 return;
             }
             if(needChangeCount > 0){
@@ -177,18 +177,22 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     
     $scope.init = function(){ //NUMBER_INT_XBR
         if(baoGongService.detailFromWSHistory.isEmptyDetail){  //报工单新建+费用结算数据为空
+            $scope.config.title = "完工详情列表";
+            $scope.config.isBaoWS = true;
             baoGongService.detailFromWSHistory.isEmptyDetail = false;
             __enterEmptyDatasMode(baoGongService.detailFromWSHistory.OBJECT_ID, baoGongService.detailFromWSHistory.PROCESS_TYPE);
             return;
         }
         if(worksheetDataService.wsBaoDetailBaoGXXIsImpty){  //报工单详情界面来，且无完工信息
+            $scope.config.title = "完工详情列表";
+            $scope.config.isBaoWS = true;
             try{
                 $scope.config.STATU = worksheetDataService.wsBaoDetailData.ES_OUT_LIST.STATU;
             }catch(e){
                 $scope.config.STATU = "";
             }
             if($scope.config.STATU == "E0002" || $scope.config.STATU == "E0006"){ //已报工与已取消状态下，显示为“无完工信息”即可
-                $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息?" : "该报工单暂无费用结算信息!";
+                $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息!" : "该报工单暂无费用结算信息!";
                 $scope.config.noDatas = true;
                 return;
             }
@@ -200,14 +204,14 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
 
         if(worksheetDataService.wsBaoDetailToFYJS){  //报工单明细界面跳转过来的
             $scope.config.isBaoWS = true;
-            $scope.config.title = "完工详情";
+            $scope.config.title = "完工详情列表";
             worksheetDataService.wsBaoDetailToFYJS = false;
             var bao = worksheetDataService.wsBaoDetailData;
             if(!angular.isUndefined(bao) && bao!= null && bao != ""){
                 $scope.config.STATU = bao.ES_OUT_LIST.STATU;
                 $scope.datas.baogongDatasTemp = worksheetDataService.wsBaoDetailData.ET_DETAIL.item;
                 if(!$scope.datas.baogongDatasTemp ||$scope.datas.baogongDatasTemp.length <=0){
-                    $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息?" : "该报工单暂无费用结算信息!";
+                    $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息!" : "该报工单暂无费用结算信息!";
                     $scope.config.noDatas = true;
                 }
             }
@@ -245,15 +249,19 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         }
     }
 
-    function __handleBaoGongDatasTemp(){
+    function __handleBaoGongDatasTemp(pridocItems){
         for(var i = 0; i < $scope.datas.baogongDatasTemp.length; i++){
             //$scope.datas.baogongDatasTemp[i].NUMBER_INT_XBR = window.parseInt($scope.datas.baogongDatasTemp[i].NUMBER_INT);
             $scope.datas.baogongDatasTemp[i].QUANTITY_XBR = window.parseFloat($scope.datas.baogongDatasTemp[i].QUANTITY);
             $scope.datas.baogongDatasTemp[i].XBR_NEW = 0;
             $scope.datas.baogongDatasTemp[i].AC_INDICATOR_XBR = $scope.datas.baogongDatasTemp[i].AC_INDICATOR;
             var pridocs = [];
-            if(worksheetDataService.wsBaoDetailData.ET_PRIDOC && worksheetDataService.wsBaoDetailData.ET_PRIDOC.item && worksheetDataService.wsBaoDetailData.ET_PRIDOC.item.length > 0){
-                pridocs = worksheetDataService.wsBaoDetailData.ET_PRIDOC.item;
+            if(!angular.isUndefined(pridocItems) && pridocItems != null){
+                pridocs = pridocItems;
+            }else{
+                if(worksheetDataService.wsBaoDetailData.ET_PRIDOC && worksheetDataService.wsBaoDetailData.ET_PRIDOC.item && worksheetDataService.wsBaoDetailData.ET_PRIDOC.item.length > 0){
+                    pridocs = worksheetDataService.wsBaoDetailData.ET_PRIDOC.item;
+                }
             }
             for(var j = 0; j < pridocs.length; j++){
                 if(pridocs[j].NUMBER_INT == $scope.datas.baogongDatasTemp[i].NUMBER_INT){
@@ -271,7 +279,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         }
         $scope.datas.baogongDatas = angular.copy($scope.datas.baogongDatasTemp);
         resizeScroll();
-    }
+    } 
 
     function __fillApplyNum(objId, proType){
         var url = baoGongService.BAOWS_CONFIRM_FILL.url;
@@ -546,13 +554,27 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     }
 
     function __updateDetailAndPridocInfos(detailItems, pridocItems){
+        if(!angular.isUndefined(detailItems) && detailItems!= null && !angular.isUndefined(pridocItems) && pridocItems != null){
+            //计算总价：XBR_TOTALPRICE
+            for(var i = 0; i < detailItems.length; i++){
+                detailItems[i].XBR_TOTALPRICE = 0;
+                for(var x = 0; x < pridocItems.length; x++){
+                    if(detailItems[i].NUMBER_INT == pridocItems[x].NUMBER_INT && (pridocItems[x].KSCHL=="ZPR1" || pridocItems[x].KSCHL=="ZPD1" || pridocItems[x].KSCHL=="ZPR2" || pridocItems[x].KSCHL=="ZPD2")){
+                        detailItems[i].XBR_TOTALPRICE += Number(pridocItems[x].KBETR);
+                    }
+                }
+            }
+        }
         if(!angular.isUndefined(detailItems) && detailItems!= null){
             $scope.datas.baogongDatasTemp = worksheetDataService.wsBaoDetailData.ET_DETAIL.item = detailItems;
         }
         if(!angular.isUndefined(pridocItems) && pridocItems != null){
             worksheetDataService.wsBaoDetailData.ET_PRIDOC.item = pridocItems;
         }
-        __handleBaoGongDatasTemp();
+        __handleBaoGongDatasTemp(pridocItems);
+        if($scope.config.isBaoWS){
+            __fillApplyNum(worksheetDataService.wsBaoDetailData.ydWorksheetNum, worksheetDataService.wsBaoDetailData.IS_PROCESS_TYPE);
+        }
     }
 
 

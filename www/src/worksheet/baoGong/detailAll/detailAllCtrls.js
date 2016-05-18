@@ -28,10 +28,14 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
               $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, Prompter
               , saleActService, $rootScope, $filter,CarService, $ionicActionSheet, baoGongService) {
 
-    	
     	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-    		
-	    });
+            if(fromState && toState && fromState.name == 'baoGongEdit' && toState.name == 'baoGongDetail'){
+                if(baoGongService.wsBaoDetailData.needReload){
+                	baoGongService.wsBaoDetailData.needReload = false;
+                	__reloadBaoDetailDatas();
+                }
+            }
+        }); 
 
     	$scope.$on('$destroy', function() {
     		console.log("baoGongDetailAllCtrl  $destroy");
@@ -96,7 +100,8 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 		};
 		$scope.canShowMoreBtn = function(){
 			//if($scope.config.canEdit){
-			return !$scope.config.editMode;
+			//return !$scope.config.editMode;
+			return !$scope.config.editMode && $scope.config.canEdit && $scope.config.statusStr =="E0001";
 		};
 		$scope.showMoreModel = function($event, sourceClassName){
 		    if($scope.config.moreModal == null){
@@ -139,14 +144,15 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 				modal.style.left = modalFinalLeft+"px";
 				modal.style.zIndex = 12; // 12  -2
 		};
-
+		
 		$scope.canShowEditBtn = function(){
 			//return true;
 			return $scope.config.canEdit && $scope.config.statusStr =="E0001";
 			//return $scope.config.statusStr =="E0001";
 		};
 		$scope.editDetail = function(){
-			$scope.config.editMode = !$scope.config.editMode;
+			//$scope.config.editMode = !$scope.config.editMode;
+			$state.go("baoGongEdit");
 		};
 		$scope.saveChange = function(){
 			var oldDesc = $scope.datas.detail.ES_OUT_LIST.DESCRIPTION;
@@ -180,6 +186,8 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
     	$scope.config = {
     		typeStr: '',
     		statusStr:'',
+
+    		IS_FROM_WS_HISTORY: false,
 
     		PROCESS_TYPE: '',
         	OBJECT_ID: '',
@@ -215,19 +223,17 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 		
         ionicMaterialInk.displayEffect();
         
-        $scope.init = function(){
+        $scope.init = function(){ //区分从哪个界面来的：工单交易历史列表界面、报工单创建界面
         	$scope.config.PROCESS_TYPE = baoGongService.detailFromWSHistory.PROCESS_TYPE;
         	$scope.config.OBJECT_ID = baoGongService.detailFromWSHistory.OBJECT_ID;
         	$scope.config.WS_DETAIL = baoGongService.detailFromWSHistory.WS_DETAIL;
+        	$scope.config.IS_FROM_WS_HISTORY = baoGongService.detailFromWSHistory.isFromWSHistory;
 
-        	__requestBaoDetailDatas("正在加载", {
-        		IS_OBJECT_ID: $scope.config.OBJECT_ID,
-        		IS_PROCESS_TYPE: $scope.config.PROCESS_TYPE
-        	});
+        	__reloadBaoDetailDatas();
         };
-
+        
         $scope.init();
-
+        
         function __changeStatus(newStatus, newStatusDesc){
         	worksheetDataService.baoWsToWsHistory.needReload = true;
         	$scope.config.statusStr = $scope.config.ydStatusNum = newStatus;
@@ -268,14 +274,21 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 	        });
         }
 
+        function __reloadBaoDetailDatas(){
+        	__requestBaoDetailDatas("正在加载", {
+        		IS_OBJECT_ID: $scope.config.OBJECT_ID,
+        		IS_PROCESS_TYPE: $scope.config.PROCESS_TYPE
+        	});
+        }
+
         function __requestBaoDetailDatas(loadStr, params){
         	var loadingStr = loadStr ? loadStr : "正在加载" ;
-	        var queryParams = {
+	        var queryParams = { 
 			    "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
 			    "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") },
 			    "IS_OBJECT_ID": params.IS_OBJECT_ID,
 			    "IS_PROCESS_TYPE": params.IS_PROCESS_TYPE
-			}
+			};
 
 			Prompter.showLoading(loadingStr);
 	        var promise = HttpAppService.post(worksheetHttpService.serviceDetail.url,queryParams);
@@ -335,13 +348,43 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 	        	tempResponse.XBRZHUSHIS = lines;
 	        	tempResponse.XBRCHULIJIEGUOS = linesJieGuo;
 
+	        	//计算总价：XBR_TOTALPRICE
+	        	var details = [];
+	        	try{
+	        		details = tempResponse.ET_DETAIL.item;
+	        	}catch(e){
+	        		details = [];
+	        	}
+	        	var pridocs = [];
+	        	try{
+	        		pridocs = tempResponse.ET_PRIDOC.item;
+	        	}catch(e){
+	        		pridocs = [];
+	        	}
+	        	if(angular.isUndefined(details) || details== null){
+        			details = [];
+        		}
+        		if(angular.isUndefined(pridocs) || pridocs== null){
+        			pridocs = [];
+        		}
+
+	        	for(var i = 0; i < details.length; i++){
+	        		details[i].XBR_TOTALPRICE = 0;
+	        		for(var x = 0; x < pridocs.length; x++){
+	        			if(details[i].NUMBER_INT == pridocs[x].NUMBER_INT && (pridocs[x].KSCHL=="ZPR1" || pridocs[x].KSCHL=="ZPD1" || pridocs[x].KSCHL=="ZPR2" || pridocs[x].KSCHL=="ZPD2")){
+	        				details[i].XBR_TOTALPRICE += Number(pridocs[x].KBETR);
+	        			}
+	        		}
+	        	}
+	        	
 	        	tempResponse.kyhuMingCheng = kyhuMingCheng;
 	        	tempResponse.waifuRenyuan = waifuRenyuan;
 	        	tempResponse.ydWorksheetNum = params.IS_OBJECT_ID;
 	        	tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
 	        	tempResponse.ES_OUT_LIST.DESCRIPTION_EDIT = tempResponse.ES_OUT_LIST.DESCRIPTION;
-
-	        	$scope.datas.detail = tempResponse;
+	        	
+	        	baoGongService.wsBaoDetailData = $scope.datas.detail = tempResponse;
+	        	__handleFWDetail(params.IS_OBJECT_ID, params.IS_PROCESS_TYPE); //处理数据同步
 	        	$scope.config.statusStr = tempResponse.ES_OUT_LIST.STATU;
 	        	//worksheetDataService.wsDetailData = tempResponse;
 
@@ -357,6 +400,22 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 	        	Prompter.showLoadingAutoHidden("数据加载失败,请检查网络!", false, 2000);
 	        });
 		}
+
+		function __handleFWDetail(objId, proType){
+			if(!$scope.config.IS_FROM_WS_HISTORY){ return; }
+			var items = worksheetDataService.wsDetailData.ET_HISTORY.item;
+			for(var i = 0; i < items.length; i++){
+				if(items[i].OBJECT_ID == objId && items[i].PROCESS_TYPE == proType){
+					items[i].START_DATE = $scope.datas.detail.ES_OUT_LIST.START_DATE;
+					items[i].START_TIME = $scope.datas.detail.ES_OUT_LIST.START_TIME;
+					items[i].END_DATE = $scope.datas.detail.ES_OUT_LIST.END_DATE;
+					items[i].END_TIME = $scope.datas.detail.ES_OUT_LIST.END_TIME;
+					items[i].DESCRIPTION = $scope.datas.detail.ES_OUT_LIST.DESCRIPTION;
+					items[i].TYPE_DESC = $scope.datas.detail.ES_OUT_LIST.TYPE_DESC;
+				}
+			}
+		}
+
 		// 修改工单状态
 		//		eg: requestChangeStatus("E0008", "已打回", "正在打回", "打回成功", "打回失败，请检查网络");
 		function requestChangeStatus(statusId, statusStr, statucChangingStr, changeOkStr, requestErrorStr){
@@ -366,7 +425,8 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 			    "IV_OBJECT_ID": $scope.config.OBJECT_ID+"",
 			    "IV_PROCESS_TYPE": $scope.config.PROCESS_TYPE,
 			    "IS_HEAD_DATA": {
-			    	"STATUS": statusId 	//, "DESCRIPTION": $scope.datas.detail.ES_OUT_LIST.DESCRIPTION
+			    	"STATUS": statusId,
+			    	"DESCRIPTION": $scope.datas.detail.ES_OUT_LIST.DESCRIPTION_EDIT
 			    }
 			}
 			Prompter.showLoading(statucChangingStr); //baoGongService.BAOWS_EDIT     worksheetHttpService.serviceDetailChange
