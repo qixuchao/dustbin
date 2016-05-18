@@ -65,7 +65,7 @@ salesModule
                     de_endTime: new Date(saleChanService.endTime).format('yyyy-MM-dd'),
                 };
                 if(isNaN($scope.create.de_endTime)) {
-                    $scope.create.de_endTime = "0000-00-00";
+                    $scope.create.de_endTime = "";
                 }
             }
             $scope.selectPersonflag = false;
@@ -75,7 +75,8 @@ salesModule
                     Prompter.selectTime($scope, 'actCreateStart',
                         $scope.create.de_startTime.replace(/-/g, "/"), 'date', '开始时间');
                 } else {
-                    Prompter.selectTime($scope, 'actCreateEnd', $scope.create.de_endTime.replace(/-/g, "/"), 'date', '结束时间');
+                    Prompter.selectTime($scope, 'actCreateEnd',
+                        $scope.create.de_endTime.replace(/-/g, "/"), 'date', '结束时间');
                 }
             };
 
