@@ -14,6 +14,8 @@ activityPlanModule.factory('activityPlanService',function(){
         //添加或更新
         status : "",
         //是否刷新详情的标识
-        updatePageFlag : ""
+        updatePageFlag : "",
+        //创建联系人
+        goCreateCon : ""
     }
 });

@@ -354,7 +354,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                         }
                     }
                     $scope.details = response.ET_TRAVEL_PLAN.item;
-                    for(vari=0;i<$scope.details.length;i++){
+                    for(var i=0;i<$scope.details.length;i++){
                         $scope.details.otherInfos = false;
                     }
                     $scope.queryResultScrollDelegate.resize();
@@ -392,7 +392,11 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
             var options = {
                 date: new Date(),
                 mode: 'date',
-                locale: 'zh_cn'
+                locale: 'zh_cn',
+                okText: '确定',               //android
+                cancelText: '取消',           //android
+                doneButtonLabel: '确认',      // ios
+                cancelButtonLabel: '取消'    //ios
             };
             datePicker.show(options, function (date) {
                 dateTime = date.format('yyyyMMdd ');
@@ -438,7 +442,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                     "STATUS": ""
                 },
                 "IT_TRAVEL_PLAN": {
-                    "item": {
+                    "item": [{
                         "MODE": "D",
                         "ZZNO": value.ZZNO,
                         "ZZCUSNO":value.ZZCUSNO,
@@ -449,7 +453,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                         "ZZOPPOID": value.ZZOPPOID,
                         "ZZACTID": value.ZZACTID,
                         "ZZHDJJD":  value.ZZHDJJD
-                    }
+                    }]
                 }
             }
             console.log(dataUpdate);
@@ -495,63 +499,71 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
         };
         //生成活动
         $scope.generatingAct = function(){
-            //var urlUpdate = ROOTCONFIG.hempConfig.basePath + 'ACTIVITY_CREATE';
-            //for(var i=0;i<$scope.activityDetail.ET_TRAVEL_PLAN.item.length;i++) {
-            //    if($scope.activityDetail.ET_TRAVEL_PLAN.item[i].ZZACTID == ""){
-            //        var dataUpdate = {
-            //            "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-            //            "IS_USER": { "BNAME": window.localStorage.crmUserName },
-            //            "IS_VISIT_PLAN": {
-            //                "VISIT_ID": $scope.activityDetail.ES_VISIT_PLAN.TOURNUMBER,
-            //                "DESCRIPTION": $scope.activityDetail.ES_VISIT_PLAN.TOURDESCRIPTION,
-            //                "RESPON_PERSON": $scope.activityDetail.ES_VISIT_PLAN.TOUROWNER_NAME,
-            //                "VALIDFROM": $scope.activityDetail.ES_VISIT_PLAN.VALIDFROM,
-            //                "VALIDTO": $scope.activityDetail.ES_VISIT_PLAN.VALIDTO,
-            //                "STATUS": ""
-            //            },
-            //            "IT_TRAVEL_PLAN": {
-            //                "item": {
-            //                    "MODE": "D",
-            //                    "ZZNO": value.ZZNO,
-            //                    "ZZCUSNO":value.ZZCUSNO,
-            //                    "ZZCONNO": value.ZZCONNO,
-            //                    "ZZBEGDA":  value.ZZBEGDA,
-            //                    "ZZACTTYPE":  value.ZZACTTYPE,
-            //                    "ZZACTDESC":value.ZZACTDESC,
-            //                    "ZZOPPOID": value.ZZOPPOID,
-            //                    "ZZACTID": value.ZZACTID,
-            //                    "ZZHDJJD":  value.ZZHDJJD
-            //                }
-            //            }
-            //        }
-            //        console.log(dataUpdate);
-            //        Prompter.showLoading("正在生成活动");
-            //        var startTime = new Date().getTime();
-            //        HttpAppService.post(urlUpdate, dataUpdate).success(function (response) {
-            //            console.log(response);
-            //            Prompter.hideLoading();
-            //            if (response.ES_RESULT.ZFLAG == 'S') {
-            //                init();
-            //                $cordovaToast.showShortBottom("活动生成成功");
-            //            } else if (response.ES_RESULT.ZFLAG == 'E') {
-            //                $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
-            //            }
-            //        }).error(function (response, status, header, config) {
-            //            var respTime = new Date().getTime() - startTime;
-            //            Prompter.hideLoading();
-            //            //超时之后返回的方法
-            //            if (respTime >= config.timeout) {
-            //                //console.log('HTTP timeout');
-            //                if (ionic.Platform.isWebView()) {
-            //                    $cordovaDialogs.alert('请求超时');
-            //                }
-            //            } else {
-            //                $cordovaToast.showShortBottom("访问失败");
-            //            }
-            //            $ionicLoading.hide();
-            //        });
-            //    }
-            //}
+            var urlUpdate = ROOTCONFIG.hempConfig.basePath + 'VISIT_PLAN_CHANGE';
+            var itemArr = [];
+            for(var i=0;i<$scope.activityDetail.ET_TRAVEL_PLAN.item.length;i++) {
+                if($scope.activityDetail.ET_TRAVEL_PLAN.item[i].ZZACTID == "") {
+                    var value =$scope.activityDetail.ET_TRAVEL_PLAN.item[i];
+                    itemArr.push({
+                        "CREATE_FLAG" : "X",
+                        "MODE": "",
+                        "ZZNO": value.ZZNO,
+                        "ZZCUSNO": value.ZZCUSNO,
+                        "ZZCONNO": value.ZZCONNO,
+                        "ZZBEGDA": value.ZZBEGDA,
+                        "ZZACTTYPE": value.ZZACTTYPE,
+                        "ZZACTDESC": value.ZZACTDESC,
+                        "ZZOPPOID": value.ZZOPPOID,
+                        "ZZACTID": value.ZZACTID,
+                        "ZZHDJJD": value.ZZHDJJD
+                    })
+                }
+            }
+            if(itemArr.length > 0){
+                var dataUpdate = {
+                    "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_USER": { "BNAME": window.localStorage.crmUserName },
+                    "IS_VISIT_PLAN": {
+                        "VISIT_ID": $scope.activityDetail.ES_VISIT_PLAN.TOURNUMBER,
+                        "DESCRIPTION": $scope.activityDetail.ES_VISIT_PLAN.TOURDESCRIPTION,
+                        "RESPON_PERSON": $scope.activityDetail.ES_VISIT_PLAN.TOUROWNER_NAME,
+                        "VALIDFROM": $scope.activityDetail.ES_VISIT_PLAN.VALIDFROM,
+                        "VALIDTO": $scope.activityDetail.ES_VISIT_PLAN.VALIDTO,
+                        "STATUS": ""
+                    },
+                    "IT_TRAVEL_PLAN": {
+                        "item": itemArr
+                    }
+                }
+                console.log(angular.toJson(dataUpdate));
+                Prompter.showLoading("正在生成活动");
+                var startTime = new Date().getTime();
+                HttpAppService.post(urlUpdate, dataUpdate).success(function (response) {
+                    console.log(response);
+                    Prompter.hideLoading();
+                    if (response.ES_RESULT.ZFLAG == 'S') {
+                        init();
+                        $cordovaToast.showShortBottom("活动生成成功");
+                    } else if (response.ES_RESULT.ZFLAG == 'E') {
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    }
+                }).error(function (response, status, header, config) {
+                    var respTime = new Date().getTime() - startTime;
+                    Prompter.hideLoading();
+                    //超时之后返回的方法
+                    if (respTime >= config.timeout) {
+                        //console.log('HTTP timeout');
+                        if (ionic.Platform.isWebView()) {
+                            $cordovaDialogs.alert('请求超时');
+                        }
+                    } else {
+                        $cordovaToast.showShortBottom("访问失败");
+                    }
+                    $ionicLoading.hide();
+                });
+            }else{
+                $cordovaToast.showShortBottom("暂无活动生成");
+            }
         };
     }]);
 
@@ -717,6 +729,10 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
             var dateTime = "";
             var options = {
                 date: new Date(),
+                okText: '确定',               //android
+                cancelText: '取消',           //android
+                doneButtonLabel: '确认',      // ios
+                cancelButtonLabel: '取消',    //ios
                 mode: 'date',
                 locale: 'zh_cn'
             };
@@ -752,11 +768,11 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
         //选择销售办事处和销售组
         var conPage = 1;
         $scope.conArr = [];
-        $scope.conSearch = false;
+        $scope.officeSearch = false;
         $scope.getConArr = function (search) {
             $scope.ConLoadMoreFlag = false;
             if (search) {
-                $scope.conSearch = false;
+                $scope.officeSearch = false;
                 conPage = 1;
             } else {
                 $scope.spinnerFlagOffice = true;
@@ -768,15 +784,22 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
             var startTime = new Date().getTime();
             HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'ORGMAN', data)
                 .success(function (response) {
-                    console.log(response);
-                    if (response.ES_RESULT.ZFLAG === 'S') {
-                        $scope.conArr = response.ET_ORGMAN.item;
+                    if (response.ES_RESULT.ZFLAG == 'S') {
+                        var tempOfficeArr = [];
+                        for (var i = 0; i < response.ET_ORGMAN.item.length; i++) {
+                            if (response.ET_ORGMAN.item[i].SALES_GROUP && tempOfficeArr.indexOf(response.ET_ORGMAN.item[i].SALES_OFFICE) == -1) {
+                                $scope.conArr .push(response.ET_ORGMAN.item[i]);
+                                tempOfficeArr.push(response.ET_ORGMAN.item[i].SALES_OFFICE);
+                            }
+                        }
                         $scope.spinnerFlagOffice = false;
-                        $scope.conSearch = true;
+                        $scope.officeSearch = true;
                         $scope.ConLoadMoreFlag = true;
                         $ionicScrollDelegate.resize();
                         $rootScope.$broadcast('scroll.infiniteScrollComplete');
                     }else{
+                        $scope.officeSearch = false;
+                        $scope.spinnerFlagOffice = false;
                         $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
                 }).error(function (response, status, header, config) {
@@ -804,7 +827,7 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
         $scope.selectContactText = '销售办事处';
         $scope.openSelectCon = function () {
             $scope.isDropShow = true;
-            $scope.conSearch = true;
+            $scope.officeSearch = true;
             $scope.getConArr();
             $scope.selectContactModal.show();
         };
@@ -834,9 +857,17 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
     }]);
 
 activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$ionicLoading', '$ionicHistory', 'worksheetDataService', '$rootScope', '$ionicScrollDelegate', '$http', '$cordovaToast', 'HttpAppService', '$scope', 'CarService', '$timeout', '$state', 'Prompter',
-    'activityPlanService','LoginService','$ionicModal','saleActService',
-    function ($cordovaDialogs, $ionicLoading, $ionicHistory, worksheetDataService, $rootScope, $ionicScrollDelegate, $http, $cordovaToast, HttpAppService, $scope, CarService, $timeout, $state, Prompter, activityPlanService,LoginService,$ionicModal,saleActService) {
-
+    'activityPlanService','LoginService','$ionicModal','saleActService','customeService',
+    function ($cordovaDialogs, $ionicLoading, $ionicHistory, worksheetDataService, $rootScope, $ionicScrollDelegate, $http, $cordovaToast, HttpAppService, $scope, CarService, $timeout, $state, Prompter, activityPlanService,LoginService,$ionicModal,saleActService,customeService) {
+        $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            console.log(fromState.name+toState.name);
+            if(fromState.name == 'ContactCreate' && toState.name == 'activityPlanCreate'){
+                var x = contactService.get_ContactsListvalue();
+                console.log(x);
+                if(x != undefined  && x != ""){;
+                }
+            }
+        });
         console.log(activityPlanService.detailItem);
         if(activityPlanService.status == "U"){
             $scope.dataDetail = {
@@ -946,7 +977,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                     desc : "请选择活动紧急度",
                     code : ""
                 },
-                instart: "2011-11-11",
+                instart: "",
                 desc: ""
             }
         }
@@ -1102,13 +1133,14 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
         var conPage = 1;
         $scope.conArr = [];
         $scope.conSearch = false;
+        $scope.contactNo = false;
         $scope.getConArr = function (search) {
-            $scope.ConLoadMoreFlag = false;
+            $scope.addCon = false;
+            $scope.spinnerFlagCon = true;
+            $scope.conSearch = false;
             if (search) {
-                $scope.conSearch = false;
                 conPage = 1;
             } else {
-                $scope.spinnerFlagCon = true;
             }
             var data = {
                 "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
@@ -1120,6 +1152,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 "IS_PARTNER": {"PARTNER": $scope.customerId},
                 "IS_SEARCH": {"SEARCH": search}
             };
+            console.log(data);
             var startTime = new Date().getTime();
             HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
                 .success(function (response) {
@@ -1128,20 +1161,35 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                     }
                     if (response.ES_RESULT.ZFLAG === 'S') {
                         if (response.ET_OUT_LIST.item.length < 10) {
-                            $scope.ConLoadMoreFlag = false;
+                            $scope.spinnerFlagCon = false;
+                            $scope.conSearch = false;
+                            $scope.contactNo = true;
+                        }else{
+                            $scope.spinnerFlagCon = false;
+                            $scope.conSearch = true;
+                            $scope.contactNo = false;
                         }
                         if (search) {
                             $scope.conArr = response.ET_OUT_LIST.item;
                         } else {
                             $scope.conArr = $scope.conArr.concat(response.ET_OUT_LIST.item);
                         }
-                        $scope.spinnerFlagCon = false;
-                        $scope.conSearch = true;
-                        $scope.ConLoadMoreFlag = true;
                         $ionicScrollDelegate.resize();
                         $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                    }else{
+                        $scope.spinnerFlagCon = false;
+                        $scope.contactNo = true;
+                        $scope.conSearch = false;
+                        //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                    }
+                    console.log($scope.conArr.length+"-------");
+                    if($scope.conArr.length == 0){
+                        $scope.addCon = true;
                     }
                 }).error(function (response, status, header, config) {
+                    $scope.spinnerFlagCon = false;
+                    $scope.contactNo = true;
+                    $scope.conSearch = false;
                     var respTime = new Date().getTime() - startTime;
                     //超时之后返回的方法
                     if (respTime >= config.timeout) {
@@ -1155,7 +1203,12 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 });
             ;
         };
-
+        //新建联系人
+        //$scope.creatConGo = function(){
+        //    customeService.goContacts.formCusttomer = true;
+        //    $scope.selectContactModal.hide();
+        //    $state.go('ContactCreate');
+        //}
         $ionicModal.fromTemplateUrl('src/activityPlan/model/selectContacts_Modal.html', {
             scope: $scope,
             animation: 'slide-in-up',
@@ -1172,7 +1225,10 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             }
             $scope.isDropShow = true;
             $scope.conSearch = true;
+            $scope.contactNo = false;
             $scope.input.customer = '';
+            $scope.conArr = [];
+            conPage = 1;
             $scope.selectContactModal.show();
         };
         $scope.closeSelectCon = function () {
@@ -1251,6 +1307,11 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                         $scope.changeLoadMoreFlag = true;
                         $ionicScrollDelegate.resize();
                         $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                    }else{
+                        $scope.spinnerFlagChange = false;
+                        $scope.changeNo = true;
+                        $scope.changeSearch = false;
+                        $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
                 }).error(function (response, status, header, config) {
                     var respTime = new Date().getTime() - startTime;
@@ -1351,7 +1412,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
         }
         $scope.openSelectType = function () {
             $scope.isDropShow = true;
-            $scope.changeSearch = true;
+            //$scope.changeSearch = true;
             $scope.input.customer ='';
             $scope.selectTypeModal.show();
         };
@@ -1396,7 +1457,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
         }
         $scope.openSelectUrgency = function () {
             $scope.isDropShow = true;
-            $scope.changeSearch = true;
+            //$scope.changeSearch = true;
             $scope.input.customer ='';
             $scope.selectUrgencyModal.show();
         };
@@ -1421,6 +1482,10 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             var options = {
                 date: new Date(),
                 mode: 'date',
+                okText: '确定',               //android
+                cancelText: '取消',           //android
+                doneButtonLabel: '确认',      // ios
+                cancelButtonLabel: '取消',    //ios
                 locale: 'zh_cn'
             };
             datePicker.show(options, function (date) {
@@ -1538,14 +1603,14 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 }else if($scope.dataDetail.acttype.code == "ZA04"){
 
                 }else{
-                    if($scope.dataDetail.customer.PARTNER == ""){
-                        $cordovaToast.showShortBottom("请选择客户");
-                        return;
-                    }
-                    if($scope.dataDetail.contact.PARTNER == ""){
-                        $cordovaToast.showShortBottom("请选择联系人");
-                        return;
-                    }
+                    //if($scope.dataDetail.customer.PARTNER == ""){
+                    //    $cordovaToast.showShortBottom("请选择客户");
+                    //    return;
+                    //}
+                    //if($scope.dataDetail.contact.PARTNER == ""){
+                    //    $cordovaToast.showShortBottom("请选择联系人");
+                    //    return;
+                    //}
                 }
                 if($scope.dataDetail.urgency.code == ""){
                     $cordovaToast.showShortBottom("请选择活动紧急度");
@@ -1558,14 +1623,14 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 }else if($scope.dataDetail.acttype.code == "ZA04"){
 
                 }else{
-                    if($scope.dataDetail.customer.PARTNER == ""){
-                        $cordovaToast.showShortBottom("请选择客户");
-                        return;
-                    }
-                    if($scope.dataDetail.contact.PARTNER == ""){
-                        $cordovaToast.showShortBottom("请选择联系人");
-                        return;
-                    }
+                    //if($scope.dataDetail.customer.PARTNER == ""){
+                    //    $cordovaToast.showShortBottom("请选择客户");
+                    //    return;
+                    //}
+                    //if($scope.dataDetail.contact.PARTNER == ""){
+                    //    $cordovaToast.showShortBottom("请选择联系人");
+                    //    return;
+                    //}
                 }
             }
             var detail = activityPlanService.detail;
@@ -1584,7 +1649,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                     "STATUS": ""
                 },
                 "IT_TRAVEL_PLAN": {
-                    "item": {
+                    "item": [{
                         "MODE": "",
                         "ZZNO": "",
                         "ZZCUSNO": $scope.dataDetail.customer.PARTNER,
@@ -1595,15 +1660,15 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                         "ZZOPPOID": $scope.dataDetail.business.OBJECT_ID,
                         "ZZACTID": "",
                         "ZZHDJJD":  $scope.dataDetail.urgency.code
-                    }
+                    }]
                 }
             }
             if(activityPlanService.status == "I"){
-                dataUpdate.IT_TRAVEL_PLAN.item.MODE = "I";
+                dataUpdate.IT_TRAVEL_PLAN.item[0].MODE = "I";
             }else{
-                dataUpdate.IT_TRAVEL_PLAN.item.MODE = "U";
-                dataUpdate.IT_TRAVEL_PLAN.item.ZZNO = activityPlanService.detailItem.ZZNO;
-                dataUpdate.IT_TRAVEL_PLAN.item.ZZACTID = activityPlanService.detailItem.ZZACTID;
+                dataUpdate.IT_TRAVEL_PLAN.item[0].MODE = "U";
+                dataUpdate.IT_TRAVEL_PLAN.item[0].ZZNO = activityPlanService.detailItem.ZZNO;
+                dataUpdate.IT_TRAVEL_PLAN.item[0].ZZACTID = activityPlanService.detailItem.ZZACTID;
             }
             console.log(dataUpdate);
             Prompter.showLoading("正在提交");

@@ -6,6 +6,6 @@
 	"basePathTest":"http://117.28.248.23:9388/test/api/CRMAPP/",
 
 	"AppUpdateUrl": "https://www.pgyer.com/crm-catl-atl-pro",
-	"baseEnvironment": "ATL" 
+	"baseEnvironment": "ATL"
   }
 }
