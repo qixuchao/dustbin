@@ -1,7 +1,7 @@
 /*
  * Created by gongke on 2016/3/14.
  */
-loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialogs, $cordovaNetwork, $cordovaInAppBrowser, $cordovaToast) {
+loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialogs, $cordovaNetwork, $cordovaInAppBrowser, $cordovaToast,$state) {
     var data;
     var data3;
     var type;
@@ -145,6 +145,7 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
                     if(appVersion == app.newVersion){
                         $cordovaToast.showShortBottom('当前是最新版本');
                     }else if(newVersionGreaterThanOld(app.minVersion, version)){  //强制更新  app.minVersion > appVersion
+                        $state.go("login");
                         // alert("程序有了新版本,请确认更新!");
                         $cordovaDialogs.alert('程序有了新版本,请确认更新!', '提示', '确定').then(function () {
                             if ($cordovaNetwork.getNetwork() != 'wifi') {
