@@ -52,7 +52,7 @@
                     <select ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.text for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
                     <div class="chanObjNum">{{'NO.'+chanceDetails.OBJECT_ID}}</div>
-                    <div class="edit chanEdit" ng-show="chanceDetails.ZFLAG=='X'" ng-click="edit()"><img ng-show="!isEdit" src="img/saleDetail/edit.png">{{editText}}
+                    <div class="edit chanEdit" ng-show="chanceDetails.EDIT_FLAG=='X'" ng-click="edit()"><img ng-show="!isEdit" src="img/saleDetail/edit.png">{{editText}}
                     </div>
                 </div>
             </div>

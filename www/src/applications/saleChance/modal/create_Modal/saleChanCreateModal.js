@@ -69,6 +69,9 @@ salesModule
                 if (isNaN($scope.create.de_endTime)) {
                     $scope.create.de_endTime = "";
                 }
+                if(isNaN($scope.create.de_startTime)) {
+                    $scope.create.de_startTime = new Date().format('yyyy-MM-dd');
+                }
             }
             $scope.selectPersonflag = false;
             //选择时间
@@ -94,7 +97,6 @@ salesModule
                 return $scope.create.chanceType.code;
             };
             $scope.saveCreateModal = function () {
-
                 if (angular.isUndefined($scope.create.chanceType) && !Prompter.isATL()) {
                     Prompter.alert('请选择机会类型');
                     return
@@ -173,17 +175,27 @@ salesModule
                             Prompter.showLoading('正在提交');
                             HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_CREAT', data)
                                 .success(function (response) {
-                                    if (response.ES_RESULT.ZFLAG === 'S') {
-                                        $scope.createChanceModal.remove();
-                                        Prompter.showShortToastBotton('创建成功');
-                                        saleChanService.obj_id = response.ES_RESULT.ZRESULT;
-                                        $state.go('saleChanDetail');
-                                        Prompter.hideLoading();
-                                    } else if (response.ES_RESULT.ZFLAG === 'E') {
+                                    try {
+                                        if (response.ES_RESULT.ZFLAG === 'S') {
+                                            $scope.createChanceModal.remove();
+                                            Prompter.showShortToastBotton('创建成功');
+                                            saleChanService.obj_id = response.ES_RESULT.ZRESULT;
+                                            $state.go('saleChanDetail');
+                                            Prompter.hideLoading();
+                                        } else if (response.ES_RESULT.ZFLAG === 'E') {
+                                            Prompter.showShortToastBotton('创建失败');
+                                            Prompter.hideLoading();
+                                            $scope.createChanceModal.remove();
+                                        }
+                                    } catch (e) {
                                         Prompter.showShortToastBotton('创建失败');
                                         Prompter.hideLoading();
                                         $scope.createChanceModal.remove();
                                     }
+                                }).error(function (error) {
+                                    Prompter.showShortToastBotton('创建失败');
+                                    Prompter.hideLoading();
+                                    $scope.createChanceModal.remove();
                                 });
                         }
                     });

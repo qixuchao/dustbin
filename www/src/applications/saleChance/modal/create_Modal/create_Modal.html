@@ -46,7 +46,7 @@
         </div>
         <div class="row row-center">
             <div class="col col-41">开始日期:</div>
-            <div class="col col-59" ng-click="selectCreateTime('start')">{{create.de_startTime}}</div>
+            <div class="col col-59" ng-click="selectCreateTime('start')" ng-class="{'selectPlease':!create.de_startTime}">{{create.de_startTime?create.de_startTime:'-请选择-'}}</div>
         </div>
         <div class="row row-center">
             <div class="col col-41">计划结束日期:</div>

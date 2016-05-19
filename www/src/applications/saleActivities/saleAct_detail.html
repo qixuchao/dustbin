@@ -63,7 +63,7 @@
                     <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
                     <div class="num">{{'NO.'+details.OBJECT_ID}}</div>
-                    <div class="edit" ng-click="edit()" ng-show="details.ZFLAG=='X'"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}
+                    <div class="edit" ng-click="edit()" ng-show="details.EDIT_FLAG=='X'"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}
                     </div>
                 </div>
             </div>
