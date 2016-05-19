@@ -15,7 +15,12 @@ activityPlanModule.factory('activityPlanService',function(){
         status : "",
         //是否刷新详情的标识
         updatePageFlag : "",
-        //创建联系人
-        goCreateCon : ""
+        //创建联系人标识
+        goCreateCon : "",
+        //创建联系人信息
+        goCreateConInfo : {
+            id : "",
+            name : ""
+        }
     }
 });

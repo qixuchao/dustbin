@@ -351,6 +351,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                     for(var i =0;i<arr.length;i++){
                         if(arr[i] != "0"){
                             $scope.PARTNER_ID = arr.substring(i,arr.length);
+                            break;
                         }
                     }
                     $scope.details = response.ET_TRAVEL_PLAN.item;
@@ -857,14 +858,15 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
     }]);
 
 activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$ionicLoading', '$ionicHistory', 'worksheetDataService', '$rootScope', '$ionicScrollDelegate', '$http', '$cordovaToast', 'HttpAppService', '$scope', 'CarService', '$timeout', '$state', 'Prompter',
-    'activityPlanService','LoginService','$ionicModal','saleActService','customeService',
-    function ($cordovaDialogs, $ionicLoading, $ionicHistory, worksheetDataService, $rootScope, $ionicScrollDelegate, $http, $cordovaToast, HttpAppService, $scope, CarService, $timeout, $state, Prompter, activityPlanService,LoginService,$ionicModal,saleActService,customeService) {
+    'activityPlanService','LoginService','$ionicModal','saleActService','customeService','contactService',
+    function ($cordovaDialogs, $ionicLoading, $ionicHistory, worksheetDataService, $rootScope, $ionicScrollDelegate, $http, $cordovaToast, HttpAppService, $scope, CarService, $timeout, $state, Prompter, activityPlanService,LoginService,$ionicModal,saleActService,customeService,contactService) {
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             console.log(fromState.name+toState.name);
             if(fromState.name == 'ContactCreate' && toState.name == 'activityPlanCreate'){
                 var x = contactService.get_ContactsListvalue();
-                console.log(x);
-                if(x != undefined  && x != ""){;
+                if(x != undefined  && x != ""){
+                    $scope.openSelectCon();
+                    //$scope.getConArr();
                 }
             }
         });
@@ -1204,11 +1206,15 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             ;
         };
         //新建联系人
-        //$scope.creatConGo = function(){
-        //    customeService.goContacts.formCusttomer = true;
-        //    $scope.selectContactModal.hide();
-        //    $state.go('ContactCreate');
-        //}
+        $scope.creatConGo = function(){
+            activityPlanService.goCreateCon = true;
+            activityPlanService.goCreateConInfo.id = $scope.dataDetail.customer.PARTNER;
+            activityPlanService.goCreateConInfo.name = $scope.dataDetail.customer.NAME_ORG1;
+            console.log($scope.dataDetail);
+            console.log(activityPlanService.goCreateConInfo.id);
+            $scope.selectContactModal.hide();
+            $state.go('ContactCreate');
+        }
         $ionicModal.fromTemplateUrl('src/activityPlan/model/selectContacts_Modal.html', {
             scope: $scope,
             animation: 'slide-in-up',
@@ -1226,6 +1232,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             $scope.isDropShow = true;
             $scope.conSearch = true;
             $scope.contactNo = false;
+            $scope.addCon = false;
             $scope.input.customer = '';
             $scope.conArr = [];
             conPage = 1;
@@ -1679,7 +1686,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 if (response.ES_RESULT.ZFLAG == 'S') {
                     activityPlanService.updatePageFlag = true;
                     $ionicHistory.goBack();
-                    $cordovaToast.showShortBottom("活动创建成功");
+                    $cordovaToast.showShortBottom("添加成功");
                 } else if (response.ES_RESULT.ZFLAG == 'E') {
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 } else {

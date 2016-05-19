@@ -36,10 +36,26 @@ worksheetModule.controller("WorksheetCarMileageCtrl",["$scope",
            }else{
                    $scope.dateCar = worksheetDataService.wsDetailData.ES_OUT_LIST.CREATED_DATE.replace('-','').replace('-','');
             }
-           if($scope.carMile.MILEAGE_VALUE == "" && $scope.carMile.MILEAGE_DESC == ""){
-               $scope.carEdit = true;
-           }else{
-              $scope.carEdit = false;
+           //ZPRV ZPLV  ZNCV服务商
+           if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCV"){
+               $scope.carEdit = false
+           }
+           //ZPRO ZPLO ZNCO外服
+           //filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
+           else if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCO" ){
+               if(worksheetDataService.wsDetailData.ES_OUT_LIST.EDIT_FLAG == "X"){
+                    if(worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0009" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0006" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0007" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0010"){
+                        $scope.carEdit = false;
+                    }else{
+                        if($scope.carMile.MILEAGE_VALUE == "" && $scope.carMile.MILEAGE_DESC == ""){
+                            $scope.carEdit = true;
+                        }else{
+                            $scope.carEdit = false;
+                        }
+                    }
+               }else{
+                   $scope.carEdit = false;
+               }
            }
        }
         var no =1;

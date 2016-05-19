@@ -38,7 +38,10 @@
                 <div class="row row-center">
                     <div class="chanSubTitle">潜在客户:</div>
                     <div class="editText" ng-if="isEdit" ng-click="openSelectCustomer()">{{chanceDetails.PARTNER_TXT}}<i class="ion-arrow-right-c right-arrow"></i></div>
-                    <input type="text" ng-model="chanceDetails.PARTNER_TXT" ng-if="!isEdit" readonly>
+                    <!--<input type="text" ng-model="chanceDetails.PARTNER_TXT" ng-if="!isEdit" readonly>-->
+                    <ion-scroll direction="x" scrollbar-x="false"  ng-if="!isEdit" style="white-space:nowrap">
+                        <div >{{chanceDetails.PARTNER_TXT}}</div>
+                    </ion-scroll>
                     <div class="feel">{{chanceDetails.PROBABILITY+'%'}}</div>
                 </div>
                 <div class="row row-center">

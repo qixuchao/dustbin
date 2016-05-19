@@ -45,7 +45,10 @@
                 <div class="row row-center"
                      ng-class="customerFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div class="col col-16">客户:</div>
-                    <input type="text" ng-model="details.ZZKHMC" maxlength="40" ng-readonly="!isEdit"
+                    <ion-scroll direction="x" scrollbar-x="false"  ng-if="!isEdit" style="white-space:nowrap">
+                        <div >{{details.ZZKHMC}}</div>
+                    </ion-scroll>
+                    <input type="text" ng-model="details.ZZKHMC" maxlength="40"  ng-if="isEdit"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="row row-center"

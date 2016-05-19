@@ -45,7 +45,7 @@
                     <ion-list>
                         <ion-item class="selectItem" ng-repeat="x in customerArr"
                                   ng-click="selectCustomer(x)">
-                            <span ng-bind-html="x.NAME_ORG1"></span> <img
+                            <span ng-bind-html="x.NAME_ORG1" style="word-wrap: break-word;word-break: normal;white-space:normal;"></span> <img
                                 ng-if="x!=create.customer" class="selectImg" src="img/saleList/blank.png">
                             <img ng-if="x==create.customer" class="selectImg" src="img/saleList/selected.png">
                         </ion-item>

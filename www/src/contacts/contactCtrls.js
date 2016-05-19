@@ -691,8 +691,8 @@ ContactsModule
             }
         }
     }])
-    .controller('contactCreateCtrl',['$cordovaDialogs','$scope','$rootScope','$ionicHistory','$state','Prompter','$cordovaDatePicker','customeService','LoginService','saleActService','HttpAppService','$cordovaToast','$ionicModal','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet',
-        function($cordovaDialogs,$scope,$rootScope,$ionicHistory,$state,Prompter,$cordovaDatePicker,customeService,LoginService,saleActService,HttpAppService,$cordovaToast,$ionicModal,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet){
+    .controller('contactCreateCtrl',['$cordovaDialogs','$scope','$rootScope','$ionicHistory','$state','Prompter','$cordovaDatePicker','customeService','LoginService','saleActService','HttpAppService','$cordovaToast','$ionicModal','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet','activityPlanService',
+        function($cordovaDialogs,$scope,$rootScope,$ionicHistory,$state,Prompter,$cordovaDatePicker,customeService,LoginService,saleActService,HttpAppService,$cordovaToast,$ionicModal,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet,activityPlanService){
         //初始化数据
         $scope.contactlistvaluesel = [{
             typeId:'1',
@@ -831,6 +831,9 @@ ContactsModule
             if($scope.showCustomer==true){
                 $scope.contactcreat.PARTNER2VALUE= customeService.get_customerEditServevalue().NAME_ORG1;
                 $scope.contactcreat.PARTNER2=customeService.get_customerEditServevalue().PARTNER;
+            }else if(activityPlanService.goCreateCon == true){
+                $scope.contactcreat.PARTNER2VALUE= activityPlanService.goCreateConInfo.name;
+                $scope.contactcreat.PARTNER2=activityPlanService.goCreateConInfo.id;
             }else{
                 //console.log("2323");
                 $scope.contactcreat.PARTNER2VALUE="";
@@ -947,6 +950,9 @@ ContactsModule
 
                         if($scope.showCustomer==true){
                             $scope.showCustomer=false;
+                            $ionicHistory.goBack();
+                        }else if(activityPlanService.goCreateCon == true){
+
                             $ionicHistory.goBack();
                         }else{
                             //console.log('跳转成功--xbr');
@@ -1117,7 +1123,7 @@ ContactsModule
                     document.getElementById('contcreapartmentimg').style.display = "none";
                     break;
                 case 'FNCTN':
-                    $scope.contactcreat.POST_CODE1 = '';
+                    $scope.contactcreat.FNCTN = '';
                     document.getElementById('contcreaatendimg').style.display = "none";
                     break;
                 case 'POST_CODE1':
@@ -1126,7 +1132,7 @@ ContactsModule
                     break;
                 case 'SMTP_ADDR':
                     $scope.contactcreat.SMTP_ADDR = '';
-                    document.getElementById('contcreapostmimg').style.display = "none";
+                    document.getElementById('contcreaaddressnameimg1').style.display = "none";
                     break;
                 case 'ZZBYYX':
                     $scope.contactcreat.ZZBYYX = '';
@@ -1139,6 +1145,10 @@ ContactsModule
                 case 'HOUSE_NUM1':
                     $scope.contactcreat.HOUSE_NUM1 = '';
                     document.getElementById('contcreapostmimg').style.display = "none";
+                    break;
+                case 'FAX_EXTENS':
+                    $scope.contactcreat.FAX_EXTENS = '';
+                    document.getElementById('contcreafaxexitimg').style.display = "none";
                     break;
             }
         };
