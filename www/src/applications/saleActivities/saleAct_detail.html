@@ -41,9 +41,11 @@
                 </div>
                 <div class="row row-center" ng-class="customerFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div class="col col-16">客户:</div>
-                    <input type="text" ng-model="details.customerName" readonly
-                           ng-class="{'border-bottom-white':isEdit}">
-
+                    <ion-scroll direction="x" scrollbar-x="false"  ng-if="!isEdit" style="white-space:nowrap">
+                        <div >{{details.customerName}}</div>
+                    </ion-scroll>
+                    <!--<input type="text" ng-model="details.customerName" readonly-->
+                           <!--ng-class="{'border-bottom-white':isEdit}">-->
                     <div class="urgentDegree" ng-hide="isATL">
                         <select ng-model="details.urgent" ng-disabled="!isEdit" ng-options="x as x.text for x in urgentDegreeArr"></select>
                         <div ng-class="details.urgent.text.length==4?'textFour':'textFif'">{{details.urgent.text}}</div>
@@ -63,7 +65,7 @@
                     <select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit"
                             ng-options="x as x.value for x in statusArr" style="{{'color:'+mySelect.status.color}}">{{mySelect.status}}</select>
                     <div class="num">{{'NO.'+details.OBJECT_ID}}</div>
-                    <div class="edit" ng-click="edit()" ng-show="details.ZFLAG=='X'"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}
+                    <div class="edit" ng-click="edit()" ng-show="details.EDIT_FLAG=='X'"><img src="img/saleDetail/edit.png" ng-if="!isEdit">{{editText}}
                     </div>
                 </div>
             </div>

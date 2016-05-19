@@ -324,6 +324,7 @@ salesModule
                                 }
                             }
                             $scope.pop.saleOffice = $scope.salesGroup[0];
+                            console.log("data are " +angular.toJson($scope.pop,true));
                             $scope.createPop.show();
                             //}
                         } else if(response.ES_RESULT.ZFLAG === 'E'){

@@ -7,7 +7,6 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             var worksheetDetail = worksheetDataService.wsDetailData;
             $scope.faulInfos = worksheetDetail.ES_OUT_LIST;
-
             var arrInfos = worksheetDetail.ET_TEXT.item;
             console.log($scope.faulInfos);
             var remark = []; var result = "";
@@ -26,6 +25,24 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
                 remark : remark,
                 result : result
             };
+            //ZPRV ZPLV  ZNCV服务商
+            console.log(worksheetDataService.wsDetailData.IS_PROCESS_TYPE);
+            if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCV"){
+                $scope.carEdit = false
+            }
+            //ZPRO ZPLO ZNCO外服
+            //filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
+            else if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCO" ){
+                if(worksheetDataService.wsDetailData.ES_OUT_LIST.EDIT_FLAG == "X"){
+                    if(worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0009" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0006" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0007" || worksheetDataService.wsDetailData.ES_OUT_LIST.status == "E0010"){
+                        $scope.carEdit = false;
+                    }else{
+                        $scope.carEdit = true;
+                    }
+                }else{
+                    $scope.carEdit = false;
+                }
+            }
         });
         $scope.edit = function(){
             $state.go("worksheetFaultInfosEdit");
