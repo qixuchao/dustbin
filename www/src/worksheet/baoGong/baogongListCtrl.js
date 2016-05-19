@@ -154,6 +154,53 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         }
     };
 
+    //价格：2个小数点: item.XBR_NEW
+    $scope.onInputChangePrice = function(event, item){
+        console.log("onSearchTextChange  :  "+item.XBR_NEW);
+        if(angular.isUndefined(item.XBR_NEW) || item.XBR_NEW == null || item.XBR_NEW == ""){
+            item.XBR_NEW = 0;
+        }
+        var value = item.XBR_NEW;
+        var valueStr = value.toString();
+        //valueStr = valueStr.replace(/^0+/, "");
+        var valueNew = valueStr;
+
+        if(valueStr && valueStr!='' && valueStr.trim() != ''){
+            if(valueStr.indexOf(".")>=0){
+                if(valueStr.indexOf(".") != valueStr.lastIndexOf(".")){
+                    valueStr = valueStr.substring(0, valueStr.lastIndexOf("."));
+                }
+                valueNew = valueStr.substring(0, valueStr.indexOf(".")+3);
+            }
+        }else{
+            valueNew = '0';
+        }
+        item.XBR_NEW = Number(valueNew);
+    };
+    //数量：3个小数点: item.QUANTITY_XBR
+    $scope.onInputChangeQuantity = function(event, item){
+        console.log("onSearchTextChange  :  "+item.QUANTITY_XBR);
+        if(angular.isUndefined(item.QUANTITY_XBR) || item.QUANTITY_XBR == null || item.QUANTITY_XBR == ""){
+            item.QUANTITY_XBR = 0;
+        }
+        var value = item.QUANTITY_XBR;
+        var valueStr = value.toString();
+        
+
+        if(valueStr && valueStr!='' && valueStr.trim() != ''){
+            var valueNew = '';
+            if(valueStr.indexOf(".")>=0){
+                if(valueStr.indexOf(".") != valueStr.lastIndexOf(".")){
+                    valueStr = valueStr.substring(0, valueStr.lastIndexOf("."));
+                }
+                valueNew = valueStr.substring(0, valueStr.indexOf(".")+4);
+                item.QUANTITY_XBR = Number(valueNew);
+            }
+        }else{ 
+            item.QUANTITY_XBR = 0;
+        }
+    };
+
     $scope.canShowEditBtns = function(){
         //return true;
         if($scope.config.isBaoWS){
@@ -184,6 +231,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             return;
         }
         if(worksheetDataService.wsBaoDetailBaoGXXIsImpty){  //报工单详情界面来，且无完工信息
+            worksheetDataService.wsBaoDetailBaoGXXIsImpty = false;
             $scope.config.title = "完工详情列表";
             $scope.config.isBaoWS = true;
             try{
@@ -196,9 +244,8 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
                 $scope.config.noDatas = true;
                 return;
             }
-            worksheetDataService.wsBaoDetailBaoGXXIsImpty = false;
             $scope.config.STATU = worksheetDataService.wsBaoDetailData.ES_OUT_LIST.STATU;
-            __enterEmptyDatasMode(worksheetDataService.wsBaoDetailData.OBJECT_ID, baoGongService.detailFromWSHistory.PROCESS_TYPE);
+            __enterEmptyDatasMode(worksheetDataService.wsBaoDetailData.ydWorksheetNum, baoGongService.detailFromWSHistory.PROCESS_TYPE);
             return;
         }
 
@@ -221,11 +268,30 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             if(!$scope.datas.baogongDatasTemp ||$scope.datas.baogongDatasTemp.length <=0){
                 $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息!" : "该工单暂无费用结算信息!";
                 $scope.config.noDatas = true;
+            }else{ //存在费用结算信息 
+                //计算总价：XBR_TOTALPRICE
+                var detailItems = [],pridocItems = [];
+                try{
+                    detailItems = worksheetDataService.wsDetailData.ET_DETAIL.item;
+                }catch(e){ detailItems = []; }
+                try{
+                    pridocItems = worksheetDataService.wsDetailData.ET_PRIDOC.item;
+                }catch(e){ pridocItems = []; }
+                for(var i = 0; i < detailItems.length; i++){
+                    detailItems[i].XBR_TOTALPRICE = 0;
+                    for(var x = 0; x < pridocItems.length; x++){
+                        if(detailItems[i].NUMBER_INT == pridocItems[x].NUMBER_INT && (pridocItems[x].KSCHL=="ZPR1" || pridocItems[x].KSCHL=="ZPD1" || pridocItems[x].KSCHL=="ZPR2" || pridocItems[x].KSCHL=="ZPD2")){
+                            //detailItems[i].XBR_TOTALPRICE += Number(pridocItems[x].KBETR);
+                            detailItems[i].XBR_TOTALPRICE += Number(pridocItems[x].KWERT);
+                        }
+                    }
+                }
             }
         }
         if(angular.isUndefined($scope.datas.baogongDatasTemp) || $scope.datas.baogongDatasTemp==null){
             $scope.datas.baogongDatasTemp = [];
         }
+
         __handleBaoGongDatasTemp();
         if($scope.config.isBaoWS){
             __fillApplyNum(worksheetDataService.wsBaoDetailData.ydWorksheetNum, worksheetDataService.wsBaoDetailData.IS_PROCESS_TYPE);
@@ -259,9 +325,16 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             if(!angular.isUndefined(pridocItems) && pridocItems != null){
                 pridocs = pridocItems;
             }else{
-                if(worksheetDataService.wsBaoDetailData.ET_PRIDOC && worksheetDataService.wsBaoDetailData.ET_PRIDOC.item && worksheetDataService.wsBaoDetailData.ET_PRIDOC.item.length > 0){
-                    pridocs = worksheetDataService.wsBaoDetailData.ET_PRIDOC.item;
+                if($scope.config.isBaoWS){
+                    if(worksheetDataService.wsBaoDetailData.ET_PRIDOC && worksheetDataService.wsBaoDetailData.ET_PRIDOC.item && worksheetDataService.wsBaoDetailData.ET_PRIDOC.item.length > 0){
+                        pridocs = worksheetDataService.wsBaoDetailData.ET_PRIDOC.item;
+                    }
+                }else{
+                    if(worksheetDataService.wsDetailData.ET_PRIDOC && worksheetDataService.wsDetailData.ET_PRIDOC.item && worksheetDataService.wsDetailData.ET_PRIDOC.item.length > 0){
+                        pridocs = worksheetDataService.wsDetailData.ET_PRIDOC.item;
+                    }
                 }
+                
             }
             for(var j = 0; j < pridocs.length; j++){
                 if(pridocs[j].NUMBER_INT == $scope.datas.baogongDatasTemp[i].NUMBER_INT){
@@ -422,6 +495,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         Prompter.showLoading("正在修改");
         var promise = HttpAppService.post(url,params);
         promise.success(function(response){
+            baoGongService.wsBaoDetailData.needReload = true;
             if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "S"){
                 $scope.config.needInsert = false;
                 Prompter.showLoadingAutoHidden("修改成功", false, 1000);
@@ -491,6 +565,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             Prompter.showLoading("正在修改");
             var promise = HttpAppService.post(url,params);
             promise.success(function(response){
+                baoGongService.wsBaoDetailData.needReload = true;
                 if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "S"){
                     Prompter.showLoadingAutoHidden("修改成功", false, 1000);
                     $timeout(function(){
@@ -560,7 +635,8 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
                 detailItems[i].XBR_TOTALPRICE = 0;
                 for(var x = 0; x < pridocItems.length; x++){
                     if(detailItems[i].NUMBER_INT == pridocItems[x].NUMBER_INT && (pridocItems[x].KSCHL=="ZPR1" || pridocItems[x].KSCHL=="ZPD1" || pridocItems[x].KSCHL=="ZPR2" || pridocItems[x].KSCHL=="ZPD2")){
-                        detailItems[i].XBR_TOTALPRICE += Number(pridocItems[x].KBETR);
+                        //detailItems[i].XBR_TOTALPRICE += Number(pridocItems[x].KBETR);
+                        detailItems[i].XBR_TOTALPRICE += Number(pridocItems[x].KWERT);
                     }
                 }
             }

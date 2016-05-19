@@ -32,10 +32,11 @@ settingsModule.controller("ChangePassCtrl", [
             	}
             }
             if(toState.name == 'changePass' && fromState && fromState.name=='tabs'){
+            	LoginService.needTabsCache = true;
             	$scope.config.moduleCode = 'CHANGE_PASS';
             	$scope.config.changeBoxTitle = '修改密码';
             }
-        }); 
+        });
 
         function __initConfig(){
         	$scope.config = {
@@ -179,6 +180,7 @@ settingsModule.controller("ChangePassCtrl", [
 	        	//alert(response.ES_RESULT);
 	        	if(response.ES_RESULT && response.ES_RESULT.ZFLAG == 'S'){
 	        		Prompter.showLoadingAutoHidden("密码修改成功!", false, 1000);
+	        		LoginService.needTabsCache = true;
 	        		$timeout(function(){
 	        			$state.go("tabs");
 	        		}, 1000);

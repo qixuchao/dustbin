@@ -644,6 +644,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			}
 			// 修改工单状态
 			//requestChangeStatus("E0008", "已打回", "正在打回", "打回成功", "打回失败，请检查网络");
+			//requestChangeStatus("E0005", "已报工", "正在报工", "报工完成", "报工失败，请检查网络");
 			function requestChangeStatus(statusId, statusStr, statucChangingStr, changeOkStr, requestErrorStr){
 				var params = $scope.config.requestParams;
 		        var queryParams = {
@@ -677,7 +678,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG=="S"){
 		        		Prompter.showLoadingAutoHidden(changeOkStr, false, 1000);
 		        		__changeStatus(statusId, statusStr);
-		        		if(statusId == "E0002"){ //派工后，需要重新刷新数据
+		        		if(statusId == "E0002" || statusId == "E0005"){ //派工后，需要重新刷新数据
 		        			$timeout(function(){
 		        				__requestDetailDatas("正在刷新详情");
 		        			}, 1000);

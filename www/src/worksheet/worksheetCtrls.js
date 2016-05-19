@@ -256,6 +256,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	$scope.cancleQueryMode = function(){
 		if($scope.config.searchText == ""){
 			$scope.reloadData();
+			__addHistoryStr("");
 		}
 		var eleContent = angular.element("#xbr-worksheet-list-content");
 		eleContent.addClass("has-header");
@@ -298,7 +299,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	
 	
 	$scope.clickSearchInput = function(){
-		var eleContent = angular.element("#xbr-worksheet-list-content");
+		//var eleContent = angular.element("#xbr-worksheet-list-content");
 		//eleContent.removeClass("has-header");
 		$scope.config.queryModeNew = true;
 		$scope.config.showHistoryLog = true;

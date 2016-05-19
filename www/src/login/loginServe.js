@@ -28,6 +28,7 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
         return false;
     };
     return{
+        needTabsCache: false,
         newVersionGreaterThanOld: newVersionGreaterThanOld,
         setLoginerName: function(name){
             window.localStorage.loginerName = name;
