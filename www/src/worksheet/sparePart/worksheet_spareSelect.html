@@ -21,7 +21,7 @@
     <div class="row row-center  paddingIOS" style="background-color: #2B60AB;height: 85px;padding:0px 15px 0px 15px">
         <div class="col col-15 text-left " ng-click="goDetail()"><i class="ion-chevron-left goBack"></i></div>
         <div class="col col-60 text-center fontHeadcol ">备件申请列表</div>
-        <div class="col col-25 ">
+        <div class="col col-25 " ng-if="carEdit">
             <div class="row row-center" ng-click="goUpdateSelect()" style="text-align: center;">
                 <div class="col text-left fontHeadcol" >重新选择</div>
             </div>

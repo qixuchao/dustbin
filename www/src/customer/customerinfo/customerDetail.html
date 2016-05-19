@@ -10,10 +10,15 @@
                 </div>
                 <div class="customer_detailcontent">
                     <div class="customer_detailcontentname">
-                        <div class="customer_detailcontentcicle"></div><span ng-bind="customerdetails.NAME_ORG1"></span>
+                        <div class="customer_detailcontentcicle"></div>
+                        <span>
+                            <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                                 <div >{{customerdetails.NAME_ORG1}}</div>
+                            </ion-scroll>
+                        </span>
                     </div>
                     <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 15px">
-                        NO:<span ng-bind="customerdetails.PARTNER_ID" ></span>
+                        NO：<span ng-bind="customerdetails.PARTNER_ID" ></span>
                         <!--地址:<span ng-bind="customerdetails.NAME_CO" ng-if="customerDetailnameco"></span><span ng-bind="customerdetails.STR_SUPPL1" ng-if="customerDetailstrret"></span>-->
                         <!--<span ng-bind="customerdetails.STR_SUPPL2" ng-if="customerDetailstrreth"></span><span ng-bind="customerdetails.STREET"></span>-->
                     </div>
@@ -37,20 +42,20 @@
                 </div>
                 <div class="customer_detailcontent">
                     <div class="customer_detailcontentname">
-                        名称2:<span ng-bind="customerdetails.NAME_ORG2"></span>
+                        <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                            <div >名称2：{{customerdetails.NAME_ORG2}}</div>
+                        </ion-scroll>
                     </div>
                     <div class="customer_detailcontentaddress">
-                        名称3:<span ng-bind="customerdetails.NAME_ORG3"></span>
+                        <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                            <div >名称3：{{customerdetails.NAME_ORG3}}</div>
+                        </ion-scroll>
                     </div>
                     <div class="customer_detailcontentphone">
-                        名称4:<span ng-bind="customerdetails.NAME_ORG4"></span>
+                        <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                            <div >名称4：{{customerdetails.NAME_ORG4}}</div>
+                        </ion-scroll>
                     </div>
-                    <!--<div class="customer_detailcontentphone" style="top:54px" ng-if="customerDetailsearcho">-->
-                        <!--搜索项:<span ng-bind="customerdetails.BU_SORT1"></span>-->
-                    <!--</div>-->
-                    <!--<div class="customer_detailcontentphone" style="top:72px" ng-if="customerDetailsearcht">-->
-                        <!--搜索项2:<span ng-bind="customerdetails.BU_SORT2"></span>-->
-                    <!--</div>-->
                 </div>
             </div>
         </ion-slide>

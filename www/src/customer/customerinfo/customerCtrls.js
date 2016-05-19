@@ -471,6 +471,7 @@ customerModule
                             for(var i =0;i<arr.length;i++){
                                 if(arr[i] != "0"){
                                     $scope.customerdetails.PARTNER_ID = arr.substring(i,arr.length);
+                                    break;
                                 }
                             }
                             //$scope.customerdetails.PARTNER_ID = parseInt($scope.customerdetails.PARTNER);
