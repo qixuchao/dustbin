@@ -23,7 +23,7 @@ var worksheetModule = angular.module('worksheetModule', ['ion-gallery']); // 工
 var worksheetReportModule = angular.module('worksheetReportModule', []);
 var settingsModule = angular.module('settingsModule', []);  //我的模块
 var activityPlanModule = angular.module('activityPlanModule', []);  //活动计划模块
-
+ 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlideBox', 'ngCordova',
     'ionic-material',
     'utilsModule',
