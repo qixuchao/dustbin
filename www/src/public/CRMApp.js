@@ -23,7 +23,7 @@ var worksheetModule = angular.module('worksheetModule', ['ion-gallery']); // 工
 var worksheetReportModule = angular.module('worksheetReportModule', []);
 var settingsModule = angular.module('settingsModule', []);  //我的模块
 var activityPlanModule = angular.module('activityPlanModule', []);  //活动计划模块
-
+ 
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlideBox', 'ngCordova',
     'ionic-material',
     'utilsModule',
@@ -111,18 +111,18 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
     
     $stateProvider
         
-        // .state('login', {
-        //    url: '/login',
-        //    //abstract: true,
-        //    templateUrl: 'src/login/login.html',
-        //    controller: 'LoginCtrl'
-        // })
-        
         .state('login', {
-            url: '/login',
-            templateUrl: 'src/loginSecond/loginSecond.html',
-            controller: 'LoginCtrl'
+           url: '/login',
+           //abstract: true,
+           templateUrl: 'src/login/login.html',
+           controller: 'LoginCtrl'
         })
+        
+        // .state('login', {
+        //     url: '/login',
+        //     templateUrl: 'src/loginSecond/loginSecond.html',
+        //     controller: 'LoginCtrl'
+        // })
         
         .state('tabs', {
             url: '/tabs',
@@ -433,6 +433,11 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             url: '/baoGongInfosList',
             templateUrl: 'src/worksheet/baoGong/infos/infoList.html',
             controller: 'baoGongInfoListCtrl'
+        })
+        .state('baoGongEdit', {
+            url: '/baoGongEdit',
+            templateUrl: 'src/worksheet/baoGong/edit/edit.html',
+            controller: 'baoGongDetailEditCtrl'
         })
         // 报工单模块相关： end ------------------------
         // .state('worksheetReportedList', {

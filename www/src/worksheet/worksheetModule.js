@@ -271,6 +271,13 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
             }
         },
         xialazhi: {
+          list_fuWuDaQu: {
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_SERVICE_ORG",
+            defaults: {
+              "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            }
+          },
           service_order_reason:{
             url: ROOTCONFIG.hempConfig.basePath + "SERVICE_ORDER_REASON",
             defaults: {

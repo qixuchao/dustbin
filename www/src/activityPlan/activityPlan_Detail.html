@@ -5,8 +5,8 @@
     <div class="top-back">
         <div class="row row-center title " style="padding-top: 30px;padding-bottom: 0px">
             <div class="col col-15" ng-click="goEditBack()"><i class="ion-chevron-left"></i></div>
-            <div class="col col-65 text-center">活动计划详情信息</div>
-            <div class="col" style="white-space:nowrap;" ng-click="generatingAct()">生成活动</div>
+            <div class="col col-65 text-center" style="font-size: 20px">活动计划</div>
+            <div class="col" style="white-space:nowrap;" ng-click="generatingAct()" ng-if="editFlag">生成活动</div>
         </div>
         <div class="mainInfo">
             <div class="row row1 row-center" style="">
@@ -14,17 +14,21 @@
                     <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
                 <div class="col col-60 col-center colText" >
-                    <input type="text" ng-model="activityDetail.ES_VISIT_PLAN.TOURDESCRIPTION" ng-readonly="!isEdit" style="color: white"
+                    <ion-scroll direction="x" scrollbar-x="false"  ng-if="!isEdit" style="white-space:nowrap">
+                        <div >{{activityDetail.ES_VISIT_PLAN.TOURDESCRIPTION}}ahdsahdklahdalkdha就对啦大量的哈伦裤对话框</div>
+                    </ion-scroll>
+                    <input type="text"  ng-if="isEdit" ng-model="activityDetail.ES_VISIT_PLAN.TOURDESCRIPTION" style="color: white;width: 100%"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <div class="col col-30 text-right">NO：{{PARTNER_ID}}</div>
             </div>
             <div class="row row2 row-center" style="">
-                有效期：<div  ng-class="{'border-bottom-white':isEdit}" ng-click="pickDate('')">{{activityDetail.ES_VISIT_PLAN.VALIDFROM}}</div>--
-                <div ng-class="{'border-bottom-white':isEdit}" ng-click="pickDate('')">{{activityDetail.ES_VISIT_PLAN.VALIDTO}}</div>
+                有效期：<div  ng-class="{'border-bottom-white':isEdit}" ng-click="pickDate('instart')">{{activityDetail.ES_VISIT_PLAN.VALIDFROM}}</div>--
+                <div ng-class="{'border-bottom-white':isEdit}" ng-click="pickDate('inend')">{{activityDetail.ES_VISIT_PLAN.VALIDTO}}</div>
             </div>
             <div class="row row2 row-center" style="margin-top: 5px">
-                <div class="col-70">销售办事处：{{activityDetail.ES_ORGMAN.STEXT1}}</div>
+                <div class="col-50">销售办事处：{{activityDetail.ES_ORGMAN.STEXT1}}</div>
+                <div class="col-50">负责员工：{{activityDetail.ES_VISIT_PLAN.TOUROWNER_NAME}}</div>
             </div>
             <div class="row row2 row-center" style="margin-top: 5px">
                 <div class="col-70">销售组：{{activityDetail.ES_ORGMAN.STEXT2}}</div>
@@ -45,17 +49,17 @@
                         <div class="col col-center col-90">
                             <div class="row row-center">
                                 <div class="col col-center col-7"> <img ng-src="img/car/Oval.png" style="height:14px"></div>
-                                <div class="col col-center col-90" style="word-wrap: break-word;word-break: normal;white-space:normal;">客户：{{i.CUSNAME}}</div>
+                                <div class="col col-center col-90" style="word-wrap: break-word;word-break: normal;white-space:normal;border-bottom: 1px solid #ddd;margin-bottom: 1px">客户：{{i.CUSNAME}}</div>
                             </div>
-                            <div class="row row-center fontcolor" style="color:#888282 ;">联系人：{{i.CONNAME}}</div>
-                            <div class="row row-center fontcolor" style="color:#888282 ;">开始时间：{{i.ZZBEGDA}}</div>
-                            <div class="row row-center fontcolor" style="color:#888282 ;">活动描述：{{i.ZZACTDESC}}</div>
+                            <div class="row row-center fontcolor" style="color:#888282 ;border-bottom: 1px solid #ddd;margin-bottom: 1px">联系人：{{i.CONNAME}}</div>
+                            <div class="row row-center fontcolor" style="color:#888282 ;border-bottom: 1px solid #ddd;margin-bottom: 1px">开始时间：{{i.ZZBEGDA}}</div>
+                            <div class="row row-center fontcolor" style="color:#888282 ;border-bottom: 1px solid #ddd;margin-bottom: 1px">活动描述：{{i.ZZACTDESC}}</div>
                         </div>
                         <div class="col col-center col-10" ng-click="updateAct(i)" ng-if="editFlag">
                             <img class="imgGO" src="img/employee/Shape@2x.png">
                         </div>
                     </div>
-                    <ion-option-button style="width:30px;height:110px;text-align: center" class="button-assertive" ng-click="delete(i)">
+                    <ion-option-button style="width:30px;height:110px;text-align: center" class="button-assertive" ng-click="delete(i)" ng-if="editFlag">
                         <i class="icon ion-ios-trash-outline" style="font-size: 90px;"></i>
                     </ion-option-button>
                 </ion-item>

@@ -25,6 +25,7 @@ worksheetReportModule.service("baoGongService", [
 		listFromBaoWSDetail: {
 			isEmptyDetail: false
 		},
+		wsBaoDetailData: '',
 		/*{
 			OBJECT_ID: '',
 			PROCESS_TYPE: ''

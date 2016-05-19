@@ -1,4 +1,4 @@
-<ion-view  id="worksheet-baogong-list-view" class="ws-baogong-view-public" align-title="center">
+<ion-view id="worksheet-baogong-list-view" class="ws-baogong-view-public" align-title="center">
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center">
@@ -20,7 +20,7 @@
             </div>
         </ion-header-bar>
     </div>
-    <ion-content scroll="true" has-bouncing="false" delegate-handle="baogong-info-list"> 
+    <ion-content scroll="true" has-bouncing="false" delegate-handle="baogong-info-list">
             <style>
                 .baogong-list .bu-shou-fen{
                     color: red;
@@ -45,12 +45,12 @@
                         <div class="col-50">
                             产品编码:<span ng-bind="item.ORDERED_PROD"></span>
                         </div>
-                        <div class="col-15">
-                            <span ng-bind="item.ACIND_DESCR_20" ng-class="{'shou-fen':(item.AC_INDICATOR=='D2'),'bu-shou-fen':(item.AC_INDICATOR=='D1')}"></span>
-                        </div>
-                        
-                        <div class="col-35">
+                        <div class="col-25">
                             数量: <span ng-bind="item.QUANTITY"></span>
+                        </div>
+                        <div class="col-25">
+                            总价: <span ng-bind="item.XBR_TOTALPRICE"></span>
+                            <!--span ng-bind="item.ACIND_DESCR_20" ng-class="{'shou-fen':(item.AC_INDICATOR=='D2'),'bu-shou-fen':(item.AC_INDICATOR=='D1')}"></span-->
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,50 @@
             
             <div class="baogong-list edit-price-mode" ng-if="config.isEditPrice && config.isBaoWS">
                 <div class="baogong-item" ng-class="{'animated flipInX':itemAnimatedShow}" ng-init="itemAnimatedShow=true" ng-repeat="item in datas.baogongDatas">
-                    <div class="left-outer">
+                    <div class="title-top">
+                        <div class="title-icon"></div>
+                        <span ng-bind="item.DESCRIPTION"></span>
+                    </div>
+                    <div class="desc2">
+                        <div class="row">
+                            <div class="col-65">
+                                标准价格:<span ng-bind="item.XBR_ZPR1"></span>
+                            </div>
+                            <div class="col-35 with-num-input">
+                                <div class="left-inner">数量: <span ng-bind="item.QUANTITY"></span></div>
+                                <div class="right-inner" style="color: transparent;">
+                                    <label class="toggle xbr-toggle-2 toggle-calm disable-user-behavior" style="margin: 0px;">
+                                        <input type="checkbox" ng-model="item.AC_INDICATOR_XBR" ng-true-value="'D2'" ng-false-value="'D1'" class="ng-pristine ng-untouched ng-valid">
+                                        <div class="track">
+                                            <div class="handle"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-65">
+                                客户折扣:<span ng-bind="item.XBR_ZPD2"></span>
+                            </div>
+                            
+                            <div class="col-35">
+                                <div class="price-edit-box">
+                                    <div class="left" ng-click="detailLowerOne(item);">
+                                        <i class="ion-ios-minus-outline"></i>
+                                    </div>
+                                    <div class="center">
+                                        <input type="number" ng-model="item.XBR_NEW">
+                                    </div>
+                                    <div class="right" ng-click="detailAddOne(item);">
+                                        <i class="ion-ios-plus-outline"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <!--div class="left-outer">
                         <div class="top-from-left">
                             <div class="title-icon"></div>
                             <span ng-bind="item.DESCRIPTION"></span>
@@ -82,7 +125,6 @@
                                         <div class="handle"></div>
                                     </div>
                                 </label>
-                                <!--ion-toggle class="xbr-my-ion-toggle" ng-model="item.AC_INDICATOR" toggle-class="toggle-calm" ng-true-value="D1" ng-false-value="D2" style="padding-left: 6px;padding-top: 3px;"></ion-toggle-->
                             </div>
                         </div>
                         <div class="bottom-from-right">
@@ -98,7 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div-->
                 </div>         
             </div>
             
@@ -128,7 +170,7 @@
                             </div>
                         </div>
                     </div>
-                </div>    
+                </div>
             </div>
             
     </ion-content>

@@ -6,6 +6,15 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 	}
 }
 
+.fuwudaqu select{
+    background: none;
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    min-width: 95%;
+    background: url("../../img/worksheetReported/sanjiao.png") no-repeat scroll right center transparent !important;
+}
+
 #xbr-worksheet-list-content{ 
 	.search-box-wrapper{
 		//@mixin transition(padding-top .2s linear 0.0s);

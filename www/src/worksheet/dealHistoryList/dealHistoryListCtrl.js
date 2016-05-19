@@ -11,7 +11,7 @@ worksheetModule.controller("dealHistoryListCtrl",[
     $scope.config = {
         
     };
-
+    
     $scope.enterDetail = function(item){
         /*//工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
         //            filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV           filterBatchUpdateFWS: ZPLV
@@ -38,7 +38,8 @@ worksheetModule.controller("dealHistoryListCtrl",[
         baoGongService.detailFromWSHistory = {
             PROCESS_TYPE: item.PROCESS_TYPE,
             OBJECT_ID: item.OBJECT_ID,
-            WS_DETAIL: item.DESCRIPTION
+            WS_DETAIL: item.DESCRIPTION,
+            isFromWSHistory: true
         };
         $state.go("baoGongDetail");
     };

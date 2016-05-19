@@ -40,67 +40,33 @@
 		}
 		&.edit-price-mode{
             .baogong-item{
-                @include display-flex;
-                // @include align-items(center);
-                // @include justify-content(center);
-                height: 6.4rem;
-                .left-outer{
-                	@include flex(3);
-	                .top-from-left{
-						height: 2rem;
-					    font-size: 1rem;
+                //height: 6.4rem;
+	            .desc2{
+					width: 100%;
+				    color: #cacaca;
+				    font-size: .8rem;
+				    .row{
+				    	padding: 0px;
+					    height: 2rem;
 					    line-height: 2rem;
-					    font-weight: bolder;
-					    @include single-line-ellipsis;
-	                }
-	                .center-from-left{
-						height: 1.5rem;
-    					line-height: 1.5rem;
-    					color: #A29D9D;
-    					@include single-line-ellipsis;
-	                }
-	                .bottom-from-left{
-	                	height: 1.5rem;
-    					line-height: 1.5rem;
-    					color: #A29D9D;
-    					@include single-line-ellipsis;
-	                }
-	            }
-	            .right-outer{
-	            	//@include flex(2);
-	            	width: 10rem;
-    				min-width: 10rem;
-	                .top-from-right{
-						height: 2.5rem;
-    					line-height: 2.5rem;
-    					.right-inner{
-    						position: absolute;
-    						@include display-inline-flex;
-    						@include align-items(center);
-    						@include justify-content(center);
-    						margin-left: .8rem;
-    					}
-    					.left-inner{
-    						display: inline-block;
-    					}
-	                }
-	                .bottom-from-right{
-	                	height: 2.5rem;
-    					line-height: 2.5rem;
-    					float: right;
-	                }
-	                .item-toggle{
-	                	top: 0px;
-					    right: 0px;
-					    left: 0px;
-					    position: inherit;
-	                }
+					    padding: 0px;
+					    height: 2rem;
+					    line-height: 2rem;
+					    margin-top: .1rem;
+				    }
+				    .price-edit-box{
+				    	// top: -3px;
+    					// position: relative;
+				    }
+				    .with-num-input{
+				    	@include display-flex;
+				    	@include justify-content(space-between);
+				    }
 	            }
             }
-            .price-edit-box{
-            	width: 8rem;
-            }
-            .price-edit-box{
+        }
+        &.edit-detail-mode, &.edit-price-mode{
+        	.price-edit-box{
             	width: 8rem;
             	height: 2.5rem;
     			line-height: 2.5rem;
@@ -152,6 +118,7 @@
             //@include flex(1);
             input{
             	width: 5rem;
+            	min-width: 3.5rem;
     			text-align: center;
             }
         }

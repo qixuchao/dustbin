@@ -62,7 +62,7 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
 		__requestCreateBaoWS(baoGongService.BAOWS_CREATE.url, params);
 	};
 
-	$scope.init = function(){
+	$scope.init = function(){ 
 		$scope.datas.defaultDetail = angular.copy(baoGongService.createFromWSDetail);
 		$scope.datas.defaultDetail.BAO_DESCRIPTION = $scope.datas.defaultDetail.DESCRIPTION;
 		var type = $scope.datas.defaultDetail.IS_PROCESS_TYPE;
@@ -95,10 +95,11 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
                         PROCESS_TYPE: $scope.datas.defaultDetail.IS_PROCESS_TYPE_BAO,
                         //OBJECT_ID: $scope.datas.defaultDetail.IS_OBJECT_ID,
                         OBJECT_ID: response.EV_OBJECT_ID,
-                        WS_DETAIL: $scope.datas.defaultDetail.BAO_DESCRIPTION
+                        WS_DETAIL: $scope.datas.defaultDetail.BAO_DESCRIPTION,
+                        isFromWSHistory: false
                     };
                     __goBaoGongDetail();
-                },1000);
+                },1000); 
             }else if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG == "E" && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!=""){
                 Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
             }else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT!="" ){

@@ -10,15 +10,15 @@
                 </div>
             </div>
             <div class="mainInfo" style="width:100%;top:60px;position:relative;height:125px;padding-left: 1rem;">
+                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
+                    <span class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.kyhuMingCheng"></span>
+                </div>
                 <div class="row row-center">
                     <span class="crm-line-text" ng-bind-template="{{datas.detail.ES_OUT_LIST.TYPE_DESC}}&nbsp;-&nbsp;{{datas.detail.ydWorksheetNum}}"></span>
                 </div>
                 <div class="row row-center">
                     <i class="ion-android-radio-button-off"></i>
                     <div class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
-                </div>
-                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
-                    <span class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.kyhuMingCheng"></span>
                 </div>
                 <div class="row row-center detail-last-line" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
                     <div class="detail-customer">
@@ -74,6 +74,15 @@
                     </div>
                     <span class="title-bottom"></span>
                 </div>
+                
+                <!--div class="row">
+                    <div class="col-40">客户名称&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.kyhuMingCheng"></div>
+                </div-->
+                <!--div class="row row-center">
+                    <span class="crm-line-text" style="font-size: .9rem;" ng-bind=""></span>
+                </div-->
+
                 <!-- <div class="row">
                     <div class="col-40">工单类型&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TYPE_DESC"></div>
@@ -82,7 +91,7 @@
                     <div class="col-40">工单单号&nbsp;:</div>
                     <div class="col-60" ng-bind="datas.detail.ydWorksheetNum"></div>
                 </div> -->
-                <div class="row row-input">
+                <!--div class="row row-input">
                     <div class="col-40">简单描述&nbsp;:</div>
                     <ion-scroll ng-if="!config.editMode" class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
                         <div ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
@@ -90,7 +99,26 @@
                     <div class="col-60" ng-if="config.editMode">
                         <input type="text" ng-model="datas.detail.ES_OUT_LIST.DESCRIPTION_EDIT">
                     </div>
+                </div-->
+                
+
+                <div class="row">
+                    <div class="col-40">总金额&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.NET_VALUE"></div>
                 </div>
+                <div class="row">
+                    <div class="col-40">货币&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.CURRENCY"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">质保标识&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.WARRANTY_ID"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">质保描述&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.WARRANTY_DESC"></div>
+                </div>
+
                 <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
                     <div class="" style="margin-right:0px;">备注&nbsp;:</div>
                     <div ng-if="!config.editMode" class="" style="line-height:.9rem;padding: 0rem 1rem;font-size: .8rem;color: #7B7878;">
@@ -100,6 +128,7 @@
                         <textarea id="textarea_bao_beizhu_detail" placeholder="请添加备注" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.BAO_BEIZHU" class="ng-pristine ng-valid ng-touched"></textarea>
                     </div>
                 </div>
+
                 <!-- <div class="row">
                     <div class="col-40">状态&nbsp;:</div>
                     <div class="col-60 status-not-handle" ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{

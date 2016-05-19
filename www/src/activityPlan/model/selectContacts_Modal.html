@@ -19,8 +19,8 @@
     </div>
     <div class="addRelationsModal">
         <ion-content class="content has-header">
-           <ion-spinner class="mySpinner" icon="ios" ng-if="!conSearch"></ion-spinner>
-            <div ng-if="conSearch">
+           <!--<ion-spinner class="mySpinner" icon="ios" ng-if="!conSearch"></ion-spinner>-->
+            <div>
                 <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"
                      ng-click="changeReferMoreflag()"></div>
                 <div class="selectionsDown pushDown-animated refer-selectionsDown"
@@ -42,7 +42,15 @@
                 </ion-list>
             </div>
             <!--<ion-infinite-scroll on-infinite="getCustomerArr()" distance="1%" ng-if="CustomerLoadMoreFlag"></ion-infinite-scroll>-->
-            <div class="loadMore" ng-click="getConArr(input.customer)" ng-if="conSearch&&!spinnerFlagCon"><span>点击加载更多...</span></div>
+            <div class="row row-center" ng-if="addCon">
+                <div class="col col-center text-center" ng-click="creatConGo()">
+                    <i class="ion-ios-plus-outline" style="font-size:18px;color:#ddd">&nbsp;创建联系人</i>
+                </div>
+            </div>
+            <div class="loadMore" ng-if="contactNo">
+                <span>无更多数据显示...</span>
+            </div>
+            <div class="loadMore" ng-click="getConArr(input.customer)" ng-if="conSearch"><span>点击加载更多...</span></div>
             <div class="loadMore" ng-click="getConArr(input.customer)" ng-if="spinnerFlagCon"><ion-spinner icon="ios"></ion-spinner></div>
         </ion-content>
     </div>

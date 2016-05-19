@@ -560,8 +560,8 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
 }]);
 
 
-worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetHttpService','worksheetDataService','$cordovaDialogs','HttpAppService','$cordovaToast','$ionicHistory',
-    function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService,worksheetDataService,$cordovaDialogs,HttpAppService,$cordovaToast,$ionicHistory){
+worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http','$timeout','$ionicPopover','$ionicScrollDelegate','ionicMaterialInk','customeService','$ionicLoading','Prompter','worksheetHttpService','worksheetDataService','$cordovaDialogs','HttpAppService','$cordovaToast','$ionicHistory','SpareListService',
+    function($scope,$state,$http,$timeout,$ionicPopover,$ionicScrollDelegate,ionicMaterialInk,customeService,$ionicLoading,Prompter,worksheetHttpService,worksheetDataService,$cordovaDialogs,HttpAppService,$cordovaToast,$ionicHistory,SpareListService){
         ionicMaterialInk.displayEffect();
         //工单详情
         var worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
@@ -812,6 +812,15 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 Prompter.hideLoading();
                 $ionicLoading.hide();
             });
+        }
+        $scope.goSpare = function(item){
+            console.log(item);
+            var value = {
+                PRODUCT_ID : item.PROD,
+                SHORT_TEXT : item.PROD_DESC
+            };
+            SpareListService.set(value);
+            $state.go('spareDetail');
         }
     }]);
 
