@@ -114,8 +114,8 @@ $lineColor: #d2d2d2;
 
 [nav-view="cached"], [nav-bar="cached"]{
   display: none !important;
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .crm-line-text {
