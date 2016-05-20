@@ -121,7 +121,9 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			};
 			$scope.moreModalClickHandler = function(type){
 				console.log(type);
-				$scope.config.moreModal.hide();
+				if(!angular.isUndefined($scope.config.moreModal) && $scope.config.moreModal!=null){
+					$scope.config.moreModal.hide();
+				}
 				if(type == 'paigong'){
 					//先选择处理员工
 					//__selectChuLiYuanGong();
