@@ -42,12 +42,25 @@ worksheetModule.controller('baoGongDetailEditCtrl',[
 			params.IV_PROCESS_TYPE = $scope.config.PROCESS_TYPE;
 			params.IV_OBJECT_ID = $scope.config.OBJECT_ID;
 			if($scope.config.BAO_BEIZHU && $scope.config.BAO_BEIZHU != "" && $scope.config.BAO_BEIZHU.trim && $scope.config.BAO_BEIZHU.trim()!=""){
-				params.IT_TEXT = {
-					item_in: {
-						TDID: 'Z002',
-						TEXT: $scope.config.BAO_BEIZHU
-					}
-				};
+				// params.IT_TEXT = {
+				// 	item_in: {
+				// 		TDID: 'Z002',
+				// 		TEXT: $scope.config.BAO_BEIZHU
+				// 	}
+				// };
+                var currentLength = 0;
+                var item_in = [];
+                var maxLength = 255;
+
+                while($scope.config.BAO_BEIZHU.length > currentLength){
+                    item_in.push({
+                        TDID: "Z002",
+                        TEXT: $scope.config.BAO_BEIZHU.substring(currentLength, currentLength+maxLength)
+                    });
+                    currentLength += maxLength;
+                }
+                
+                params.IT_TEXT = item_in;
 			}
 			__requestChangeBaoWS(baoGongService.BAOWS_EDIT.url, params);
         };

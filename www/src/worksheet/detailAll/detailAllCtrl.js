@@ -55,7 +55,9 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         		//从编辑界面返回  故障详情   ( || fromState.name == 'worksheetFaultInfosEdit')
         		if(fromState && toState && toState.name == 'worksheetDetail'){
-        			if( fromState.name == 'worksheetEdit' || fromState.name == 'worksheetFaultInfos' || fromState.name == "baoGongCreate" || fromState.name=="worksheetDetailHistoryList"){
+        			if( fromState.name == 'worksheetEdit' || fromState.name == 'worksheetFaultInfos' 
+        				|| fromState.name == "baoGongCreate" 
+        				|| fromState.name=="worksheetDetailHistoryList"){
 			            if(worksheetDataService.wsEditToDetail.needReload){
 			            	worksheetDataService.wsEditToDetail.needReload = false;
 			            	__requestDetailDatas();
@@ -64,6 +66,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         		}
 		        
 		    });
+
+
 
         	$scope.$on('$destroy', function() {
 				__destroyMoreModal();
@@ -134,6 +138,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 						if($scope.datas.detail.ES_OUT_LIST.EDIT_FLAG=="X"
 							&& ($scope.config.typeStr == "ZPRO" || $scope.config.typeStr == "ZPLO" || $scope.config.typeStr == "ZNCO" )
 							&& ($scope.config.statusStr == "E0009" || $scope.config.statusStr == "E0006" || $scope.config.statusStr == "E0007" || $scope.config.statusStr == "E0010")){
+							$scope.goState("worksheetSelect");
+						}else if($scope.datas.detail.ES_OUT_LIST.EDIT_FLAG==""){
 							$scope.goState("worksheetSelect");
 						}else{
 							$scope.goState("worksheetSparepart");
@@ -242,7 +248,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			};
 			$scope.showMoreModel = function($event, sourceClassName){
 			    if($scope.config.moreModal == null){
-			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content "+$scope.config.typeStr+" "+$scope.config.statusStr+"'>"+
+			    	//$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content {{config.statusStr}} "+$scope.config.typeStr+" "+$scope.config.statusStr+"'>"+
+			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content {{config.statusStr}} "+$scope.config.typeStr+"'>"+
 		                "<div><div class='top-line'></div></div>"+
 		                "<div class='content-lines'>"+
 		                    "<div class='content-line paigong' ng-click='moreModalClickHandler(\"paigong\");'>派工</div>"+
@@ -628,6 +635,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
 		        	$scope.datas.detail = tempResponse;
 		        	worksheetDataService.wsDetailData = tempResponse;
+
+		        	$scope.config.statusStr = tempResponse.ES_OUT_LIST.STATU;
 
 		        	if(tempResponse.ES_OUT_LIST && tempResponse.ES_OUT_LIST.EDIT_FLAG == "X"){
 		        		$scope.config.canEdit = true;

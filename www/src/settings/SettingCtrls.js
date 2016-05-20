@@ -104,8 +104,7 @@ settingsModule.controller("SettingCtrl", [
                 Prompter.hideLoading();
                 //alert(JSON.stringify(response));
                 if (response.ES_RESULT.ZFLAG == 'S') {
-
-                    LoginService.getNewVersion(response.VERSION);
+                    LoginService.getNewVersion(response.VERSION, false);
                 } else {
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }

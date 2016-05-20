@@ -131,7 +131,8 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
             newVersion: '',
             minVersion: ''
         },
-        getNewVersion: function (app) { // 50130
+        getNewVersion: function (app, silentMode) { // 50130
+            //alert(JSON.stringify(app));
             if(!app || app == null){
                 return;
             }
@@ -142,12 +143,15 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
             if (ionic.Platform.isWebView()) {
                 $cordovaAppVersion.getVersionNumber().then(function (version) {
                     var appVersion = version;
-
+                    //alert(appVersion);
                     if(appVersion == app.newVersion){
-                        $cordovaToast.showShortBottom('当前是最新版本');
+                        //alert("当前是最新版本");
+                        if(!silentMode){
+                            $cordovaToast.showShortBottom('当前是最新版本');
+                        }
                     }else if(newVersionGreaterThanOld(app.minVersion, version)){  //强制更新  app.minVersion > appVersion
                         $state.go("login");
-                        // alert("程序有了新版本,请确认更新!");
+                        //alert("程序有了新版本,请确认更新!强制更新");
                         $cordovaDialogs.alert('程序有了新版本,请确认更新!', '提示', '确定').then(function () {
                             if ($cordovaNetwork.getNetwork() != 'wifi') {
                                 $cordovaDialogs.confirm('当前正在使用流量上网,是否继续下载?', '提示', ['确定', '取消']).then(function (buttonIndex) {
@@ -165,7 +169,7 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
                                 $cordovaInAppBrowser.open(app.downloadUrl, '_system', {location: 'yes'});
                             }
                         });
-                    }else if(newVersionGreaterThanOld(app.newVersion > appVersion)){   // app.newVersion > appVersion
+                    }else if(newVersionGreaterThanOld(app.newVersion, appVersion)){   // app.newVersion > appVersion
                         //alert("程序有了新版本,请确认更新!222");
                         $cordovaDialogs.confirm('程序有了新版本,请确认更新!', '提示', ['确定', '取消']).then(function (versionIndex) {
                             if (versionIndex == 1) {

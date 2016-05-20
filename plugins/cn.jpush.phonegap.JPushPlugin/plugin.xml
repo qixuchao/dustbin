@@ -10,7 +10,7 @@
     <keywords>JPush,push</keywords>
     <license>Apache 2.0 License</license>
     
-    <preference name="API_KEY" value="9ee1afe8f3caef162f835c56"/>
+    <preference name="API_KEY" value="b3793e32c69f2945bb61ae2f"/>
     
     <engines>
         <engine name="cordova" version=">=3.0"/>
@@ -46,7 +46,7 @@
         <framework src="libz.dylib" weak="true" />
 
         <config-file target="*PushConfig.plist" parent="APP_KEY">
-            <string>9ee1afe8f3caef162f835c56</string>
+            <string>b3793e32c69f2945bb61ae2f</string>
         </config-file>
     </platform>
 
@@ -78,7 +78,7 @@
             <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 			<uses-permission android:name="android.permission.WRITE_SETTINGS"/>
             <permission
-                    android:name="com.crmEnergy.atl.permission.JPUSH_MESSAGE"
+                    android:name="com.crmEnergy.catl.permission.JPUSH_MESSAGE"
                     android:protectionLevel="signature"/>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
@@ -90,7 +90,7 @@
                 <intent-filter>
                     <action android:name="cn.jpush.android.ui.PushActivity"/>
                     <category android:name="android.intent.category.DEFAULT"/>
-                    <category android:name="com.crmEnergy.atl"/>
+                    <category android:name="com.crmEnergy.catl"/>
                 </intent-filter>
             </activity>
             <!-- Required  SDK核心功能-->
@@ -119,7 +119,7 @@
                 <intent-filter android:priority="1000">
                     <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/>
                     <!--Required  显示通知栏 -->
-                    <category android:name="com.crmEnergy.atl"/>
+                    <category android:name="com.crmEnergy.catl"/>
                 </intent-filter>
                 <intent-filter>
                     <action android:name="android.intent.action.USER_PRESENT"/>
@@ -140,7 +140,7 @@
                 <intent-filter android:priority="1000">
                     <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/>
                     <!-- Required  显示通知栏 -->
-                    <category android:name="com.crmEnergy.atl"/>
+                    <category android:name="com.crmEnergy.catl"/>
                 </intent-filter>
                 <intent-filter>
                     <action android:name="cn.jpush.android.intent.REGISTRATION"/>
@@ -154,14 +154,14 @@
                     <!-- Required  用户打开自定义通知栏的intent -->
                     <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK"/>
                     <!-- Optional 用户接受Rich Push Javascript 回调函数的intent -->
-                    <category android:name="com.crmEnergy.atl"/>
+                    <category android:name="com.crmEnergy.catl"/>
                 </intent-filter>
             </receiver>
             <!-- Required SDK核心功能-->
             <receiver android:name="cn.jpush.android.service.AlarmReceiver"/>
             <!-- Required  . Enable it you can get statistics data with channel -->
             <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
-            <meta-data android:name="JPUSH_APPKEY" android:value="9ee1afe8f3caef162f835c56"/>
+            <meta-data android:name="JPUSH_APPKEY" android:value="b3793e32c69f2945bb61ae2f"/>
         </config-file>
         <source-file src="src/android/jpush-android-2.1.3.jar" target-dir="libs"/>
         <source-file src="src/android/armeabi/libjpush213.so" target-dir="libs/armeabi"/>

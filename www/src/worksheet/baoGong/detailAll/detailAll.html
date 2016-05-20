@@ -1,4 +1,4 @@
-<ion-view id="bao-ws-detailall-view" class="saleActDetail worksheet-detail-view-public" ng-class="{'edit-mode':config.editMode}">
+<ion-view id="bao-ws-detailall-view" class="saleActDetail worksheet-detail-view-public" ng-class="{'edit-mode':config.editMode}" >
     <div id="saleTopBackId" class="top-back bar">
             <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'" style="margin-left:0px;padding-left:0px;padding-top:20px;margin-top:15px;">
                 <div class="col col-10" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
@@ -20,7 +20,7 @@
                     <i class="ion-android-radio-button-off"></i>
                     <!--div class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div-->
                     <ion-scroll ng-if="!config.editMode" class="" direction="x" scrollbar-x="false" has-bouncing="false" style="height:2rem;">
-                        <div ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
+                        <div style="white-space: nowrap;font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
                     </ion-scroll>
                 </div>
                 <div class="row row-center detail-last-line" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">

@@ -8,11 +8,13 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
     "$ionicHistory",
     "worksheetDataService",
 	function ($scope, baoGongService, $timeout, Prompter, HttpAppService, $state, $ionicHistory, worksheetDataService) {
-	
+	 
     $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         if(toState && fromState && toState.name == "baoGongCreate" && fromState.name == "baoGongDetail"){
             worksheetDataService.wsEditToDetail.needReload = true;
+            //$timeout(function(){
             $ionicHistory.goBack();
+            //}, 600);
         }
     });
     
@@ -50,13 +52,20 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
 			IV_PROCESS_TYPE_CONF: $scope.datas.defaultDetail.IS_PROCESS_TYPE_BAO
 		};
 		var beizhu = $scope.datas.defaultDetail.BAO_BEIZHU;
+        var maxLength = 255; //132  255
 		if(!angular.isUndefined(beizhu) && beizhu!=null && beizhu.trim && beizhu.trim()!=""){
-			params.IT_TEXT = {
-                item_in: {
+            var currentLength = 0;
+            var item_in = [];
+
+            while(beizhu.length > currentLength){
+                item_in.push({
                     TDID: "Z002",
-                    TEXT: beizhu
-                }
-			};
+                    TEXT: beizhu.substring(currentLength, currentLength+maxLength)
+                });
+                currentLength += maxLength;
+            }
+            
+			params.IT_TEXT = item_in;
 		}
 		params = angular.extend(params, baoGongService.BAOWS_CREATE.defaults);
 		__requestCreateBaoWS(baoGongService.BAOWS_CREATE.url, params);

@@ -188,13 +188,13 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         var valueStr = value.toString();
         //valueStr = valueStr.replace(/^0+/, "");
         var valueNew = valueStr;
-
+        
         if(valueStr && valueStr!='' && valueStr.trim() != ''){
             if(valueStr.indexOf(".")>=0){
                 if(valueStr.indexOf(".") != valueStr.lastIndexOf(".")){
                     valueStr = valueStr.substring(0, valueStr.lastIndexOf("."));
                 }
-                valueNew = valueStr.substring(0, valueStr.indexOf(".")+3);
+                valueNew = valueStr.substring(0, valueStr.indexOf(".")+4);
             }
         }else{
             valueNew = '0';
@@ -245,15 +245,21 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     }
     
     $scope.init = function(){ //NUMBER_INT_XBR
-        if(baoGongService.detailFromWSHistory.isEmptyDetail){  //报工单新建+费用结算数据为空
-            $scope.config.title = "完工详情列表";
-            $scope.config.isBaoWS = true;
-            baoGongService.detailFromWSHistory.isEmptyDetail = false;
-            __enterEmptyDatasMode(baoGongService.detailFromWSHistory.OBJECT_ID, baoGongService.detailFromWSHistory.PROCESS_TYPE);
-            return;
-        }
+        // if(baoGongService.detailFromWSHistory.isEmptyDetail){  //报工单新建+费用结算数据为空
+        //     $scope.config.title = "完工详情列表";
+        //     $scope.config.isBaoWS = true;
+        //     baoGongService.detailFromWSHistory.isEmptyDetail = false;
+        //     if($scope.config.STATU == "E0002" || $scope.config.STATU == "E0006" || worksheetDataService.wsBaoDetailData.ES_OUT_LIST.EDIT_FLAG==""){ //已报工与已取消状态下，显示为“无完工信息”即可
+        //         $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息!" : "该报工单暂无费用结算信息!";
+        //         $scope.config.noDatas = true;
+        //         return;
+        //     }
+        //     __enterEmptyDatasMode(baoGongService.detailFromWSHistory.OBJECT_ID, baoGongService.detailFromWSHistory.PROCESS_TYPE);
+        //     return;
+        // }
         if(worksheetDataService.wsBaoDetailBaoGXXIsImpty){  //报工单详情界面来，且无完工信息
             worksheetDataService.wsBaoDetailBaoGXXIsImpty = false;
+            worksheetDataService.wsBaoDetailToFYJS = false;
             $scope.config.title = "完工详情列表";
             $scope.config.isBaoWS = true;
             try{
@@ -261,7 +267,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             }catch(e){
                 $scope.config.STATU = "";
             }
-            if($scope.config.STATU == "E0002" || $scope.config.STATU == "E0006"){ //已报工与已取消状态下，显示为“无完工信息”即可
+            if($scope.config.STATU == "E0002" || $scope.config.STATU == "E0006" || worksheetDataService.wsBaoDetailData.ES_OUT_LIST.EDIT_FLAG==""){ //已报工与已取消状态下，显示为“无完工信息”即可
                 $scope.config.currentTip = $scope.config.isBaoWS ? "该工单暂无完工详情信息!" : "该报工单暂无费用结算信息!";
                 $scope.config.noDatas = true;
                 return;
