@@ -437,6 +437,10 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 	        var promise = HttpAppService.post(baoGongService.BAOWS_EDIT.url,queryParams);
 	        promise.success(function(response){
 	        	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG=="S"){
+	        		//requestChangeStatus("E0002", "已报工", "正在报工", "报工完成", "报工失败，请检查网络");
+	        		if(statusId == "E0002"){
+	        			worksheetDataService.wsEditToDetail.needReload = true;
+	        		}
 	        		Prompter.showLoadingAutoHidden(changeOkStr, false, 1000);
 	        		__changeStatus(statusId, statusStr);
 	        		//if(statusId == "E0002"){ //派工后，需要重新刷新数据

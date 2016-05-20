@@ -55,7 +55,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         		//从编辑界面返回  故障详情   ( || fromState.name == 'worksheetFaultInfosEdit')
         		if(fromState && toState && toState.name == 'worksheetDetail'){
-        			if( fromState.name == 'worksheetEdit' || fromState.name == 'worksheetFaultInfos' || fromState.name == "baoGongCreate" ){
+        			if( fromState.name == 'worksheetEdit' || fromState.name == 'worksheetFaultInfos' || fromState.name == "baoGongCreate" || fromState.name=="worksheetDetailHistoryList"){
 			            if(worksheetDataService.wsEditToDetail.needReload){
 			            	worksheetDataService.wsEditToDetail.needReload = false;
 			            	__requestDetailDatas();
@@ -121,7 +121,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				if(type == 'paigong'){
 					//先选择处理员工
 					//__selectChuLiYuanGong();
-					$scope.openSelectCustomer();
+					$scope.openSelectCustomer(); 
 					//requestChangeStatus("E0002", "已派工", "正在派工", "派工成功", "派工失败，请检查网络");
 				}else if(type == 'judan'){
 					requestChangeStatus("E0003", "已拒绝", "正在拒绝", "拒绝成功", "拒绝失败，请检查网络");
@@ -131,17 +131,28 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					if(__hasBeijianInfo()){
 						$scope.goState("worksheetSelect");
 					}else{
-						$scope.goState("worksheetSparepart");
+						if($scope.datas.detail.ES_OUT_LIST.EDIT_FLAG=="X"
+							&& ($scope.config.typeStr == "ZPRO" || $scope.config.typeStr == "ZPLO" || $scope.config.typeStr == "ZNCO" )
+							&& ($scope.config.statusStr == "E0009" || $scope.config.statusStr == "E0006" || $scope.config.statusStr == "E0007" || $scope.config.statusStr == "E0010")){
+							$scope.goState("worksheetSelect");
+						}else{
+							$scope.goState("worksheetSparepart");
+						}
 					}
 				}else if(type == 'chelianglicheng'){
 					$scope.goState("worksheetCarMileage");
 				}else if(type == 'guzhangxinxi'){
 					$scope.goState("worksheetFaultInfos");
 				}else if(type == 'fuwupaizhao'){
+					var canEdit = false;
+					if($scope.datas.detail.ES_OUT_LIST.EDIT_FLAG=="X"){
+						canEdit = true;
+					}
 					worksheetDataService.wsDetailToPaiZHao = {
 						OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
       					PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE,
-      					STATUS_CODE: $scope.datas.detail.ES_OUT_LIST.STATU
+      					STATUS_CODE: $scope.datas.detail.ES_OUT_LIST.STATU,
+      					cantnotEdit: !canEdit
 					}; 
 					$scope.goState("worksheetTakePicture");
 				}else if(type == 'baogong'){

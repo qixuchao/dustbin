@@ -8,9 +8,11 @@ worksheetModule.controller("dealHistoryListCtrl",[
     "baoGongService",
     function($scope, ionicMaterialInk, ionicMaterialMotion, worksheetDataService, $timeout, $state, baoGongService){
     
+    
+
     $scope.config = {
         
-    };
+    }; 
     
     $scope.enterDetail = function(item){
         /*//工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单

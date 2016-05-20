@@ -176,6 +176,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
             valueNew = '0';
         }
         item.XBR_NEW = Number(valueNew);
+        window.event.currentTarget.value = item.XBR_NEW;
     };
     //数量：3个小数点: item.QUANTITY_XBR
     $scope.onInputChangeQuantity = function(event, item){
@@ -185,20 +186,41 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
         }
         var value = item.QUANTITY_XBR;
         var valueStr = value.toString();
-        
+        //valueStr = valueStr.replace(/^0+/, "");
+        var valueNew = valueStr;
 
         if(valueStr && valueStr!='' && valueStr.trim() != ''){
-            var valueNew = '';
             if(valueStr.indexOf(".")>=0){
                 if(valueStr.indexOf(".") != valueStr.lastIndexOf(".")){
                     valueStr = valueStr.substring(0, valueStr.lastIndexOf("."));
                 }
-                valueNew = valueStr.substring(0, valueStr.indexOf(".")+4);
-                item.QUANTITY_XBR = Number(valueNew);
+                valueNew = valueStr.substring(0, valueStr.indexOf(".")+3);
             }
-        }else{ 
-            item.QUANTITY_XBR = 0;
+        }else{
+            valueNew = '0';
         }
+        item.QUANTITY_XBR = Number(valueNew);
+        window.event.currentTarget.value = item.QUANTITY_XBR;
+        // console.log("onSearchTextChange  :  "+item.QUANTITY_XBR);
+        // if(angular.isUndefined(item.QUANTITY_XBR) || item.QUANTITY_XBR == null || item.QUANTITY_XBR == ""){
+        //     item.QUANTITY_XBR = 0;
+        // }
+        // var value = item.QUANTITY_XBR;
+        // var valueStr = value.toString();
+        
+
+        // if(valueStr && valueStr!='' && valueStr.trim() != ''){
+        //     var valueNew = '';
+        //     if(valueStr.indexOf(".")>=0){
+        //         if(valueStr.indexOf(".") != valueStr.lastIndexOf(".")){
+        //             valueStr = valueStr.substring(0, valueStr.lastIndexOf("."));
+        //         }
+        //         valueNew = valueStr.substring(0, valueStr.indexOf(".")+4);
+        //         item.QUANTITY_XBR = Number(valueNew);
+        //     }
+        // }else{ 
+        //     item.QUANTITY_XBR = 0;
+        // }
     };
 
     $scope.canShowEditBtns = function(){

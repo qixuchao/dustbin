@@ -13,7 +13,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 	"$ionicPopup",
 	"worksheetDataService",
 	"Prompter",
-	"$sce", 
+	"$sce",  
 	"$cordovaToast", 
 	function($scope, $timeout, $ionicActionSheet, $ionicPosition,$ionicBackdrop, $ionicGesture, $ionicModal, $state,
 			HttpAppService, worksheetHttpService, $ionicPopup, worksheetDataService, Prompter, $sce, $cordovaToast){
@@ -70,6 +70,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		$scope.config = {
 			actionSheet: null,
 			imageModal: null,
+			cantnotEdit: false,
 
 			OBJECT_ID: null,
 			PROCESS_TYPE: null,
@@ -455,6 +456,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			$scope.config.OBJECT_ID = worksheetDataService.wsDetailToPaiZHao.OBJECT_ID;
 			$scope.config.PROCESS_TYPE = worksheetDataService.wsDetailToPaiZHao.PROCESS_TYPE;
 			$scope.config.STATUS_CODE = worksheetDataService.wsDetailToPaiZHao.STATUS_CODE;
+			$scope.config.cantnotEdit = worksheetDataService.wsDetailToPaiZHao.cantnotEdit;
 			__requestImageList();
 
 			var ele = angular.element("body")[0];
