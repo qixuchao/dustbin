@@ -1,0 +1,73 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cn.jpush.phonegap.JPushPlugin": {
+            "API_KEY": "9ee1afe8f3caef162f835c56",
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "com.verso.cordova.clipboard": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-app-version": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-base64-joewsh": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-canvas2image": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.crmEnergy.atl"
+        }
+    },
+    "dependent_plugins": {}
+}
