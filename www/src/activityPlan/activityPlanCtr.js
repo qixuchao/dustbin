@@ -357,6 +357,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                     $scope.details = response.ET_TRAVEL_PLAN.item;
                     for(var i=0;i<$scope.details.length;i++){
                         $scope.details.otherInfos = false;
+                        $scope.details.flag = true;
                     }
                     $scope.queryResultScrollDelegate.resize();
                 } else if (response.ES_RESULT.ZFLAG == 'E') {
@@ -498,12 +499,27 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                     });
             }
         };
+        $scope.showUpdate = false;
+        $scope.textHand="生成活动";
+        $scope.goCheck = function(){
+            $scope.showUpdate = !$scope.showUpdate;
+            if($scope.textHand == "生成活动"){
+                $scope.textHand="确定";
+            }else{
+                $scope.textHand="生成活动";
+                $scope.generatingAct();
+            }
+        };
+        $scope.onItemUpadte = function(item){
+            item.flag = !item.flag;
+        }
         //生成活动
         $scope.generatingAct = function(){
+            console.log($scope.activityDetail)
             var urlUpdate = ROOTCONFIG.hempConfig.basePath + 'VISIT_PLAN_CHANGE';
             var itemArr = [];
             for(var i=0;i<$scope.activityDetail.ET_TRAVEL_PLAN.item.length;i++) {
-                if($scope.activityDetail.ET_TRAVEL_PLAN.item[i].ZZACTID == "") {
+                if($scope.activityDetail.ET_TRAVEL_PLAN.item[i].ZZACTID == "" && $scope.activityDetail.ET_TRAVEL_PLAN.item[i].flag == true) {
                     var value =$scope.activityDetail.ET_TRAVEL_PLAN.item[i];
                     itemArr.push({
                         "CREATE_FLAG" : "X",
@@ -563,7 +579,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                     $ionicLoading.hide();
                 });
             }else{
-                $cordovaToast.showShortBottom("暂无活动生成");
+                $cordovaToast.showShortBottom("暂无活动草稿");
             }
         };
     }]);
@@ -979,7 +995,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                     desc : "请选择活动紧急度",
                     code : ""
                 },
-                instart: "",
+                instart: "2011-11-11",
                 desc: ""
             }
         }

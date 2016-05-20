@@ -36,7 +36,9 @@ settingsModule.controller("SettingCtrl", [
 	    $scope.goAboutApp = function(){
 	    	$state.go("aboutapp");
 	    };
-
+		//$scope.updateApp = function(){
+		//	hotpatch.updateNewVersion("");
+		//};
 		function __requestStaffInfo(){
 			Prompter.showLoading();
             var url = ROOTCONFIG.hempConfig.basePath + "STAFF_DETAIL"; //"http://117.28.248.23:9388/test/api/bty/login";

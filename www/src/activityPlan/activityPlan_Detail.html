@@ -6,7 +6,7 @@
         <div class="row row-center title " style="padding-top: 30px;padding-bottom: 0px">
             <div class="col col-15" ng-click="goEditBack()"><i class="ion-chevron-left"></i></div>
             <div class="col col-65 text-center" style="font-size: 20px">活动计划</div>
-            <div class="col" style="white-space:nowrap;" ng-click="generatingAct()" ng-if="editFlag">生成活动</div>
+            <div class="col text-right" style="white-space:nowrap;" ng-click="goCheck()" ng-if="editFlag">{{textHand}}</div>
         </div>
         <div class="mainInfo">
             <div class="row row1 row-center" style="">
@@ -47,10 +47,14 @@
         </div>
     </div>
     <ion-content has-bouncing="false" delegate-handle="worksheetListResult">
-        <ion-list class="">
-            <div  style="margin-top:1px;border-bottom: 1px solid #ddd;" ng-repeat="i in  details track by $index"  >
-                <ion-item  >
-                    <div class="row row-center" style="padding:3px 15px 3px 15px" >
+        <ion-list class="" show-delete="showUpdate">
+            <div  style="margin-top:1px;border-bottom: 1px solid #ddd;" ng-repeat="i in  details track by $index" >
+                <ion-item  class="item-remove-animate">
+                    <ion-delete-button  ng-click="onItemUpadte(i)" style="padding: 0;" class="button">
+                        <img ng-if="!i.flag"  src="img/saleList/blank.png" style="width: 30px;border: none">
+                        <img ng-if="i.flag" src="img/saleList/selected.png" style="width: 30px;border: none">
+                    </ion-delete-button>
+                    <div class="row row-center" style="padding:3px 15px 3px 15px;border: none" >
                         <div class="col col-center col-90">
                             <div class="row row-center">
                                 <div class="col col-center col-7"> <img ng-src="img/car/Oval.png" style="height:14px"></div>
