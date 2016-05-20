@@ -1146,9 +1146,9 @@ ContactsModule
                     $scope.contactcreat.HOUSE_NUM1 = '';
                     document.getElementById('contcreapostmimg').style.display = "none";
                     break;
-                case 'FAX_EXTENS':
-                    $scope.contactcreat.FAX_EXTENS = '';
-                    document.getElementById('contcreafaxexitimg').style.display = "none";
+                case 'TEL_EXTENS':
+                    $scope.contactcreat.TEL_EXTENS = '';
+                    document.getElementById('concreatetphonenumberimg1').style.display = "none";
                     break;
             }
         };

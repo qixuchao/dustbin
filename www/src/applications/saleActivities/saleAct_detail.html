@@ -41,7 +41,7 @@
                 </div>
                 <div class="row row-center" ng-class="customerFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
                     <div class="col col-16">客户:</div>
-                    <ion-scroll direction="x" scrollbar-x="false"  ng-if="!isEdit" style="white-space:nowrap">
+                    <ion-scroll direction="x" scrollbar-x="false"  style="white-space:nowrap">
                         <div >{{details.customerName}}</div>
                     </ion-scroll>
                     <!--<input type="text" ng-model="details.customerName" readonly-->
@@ -112,6 +112,18 @@
                         <div class="col col-15 text-right rewrite"><!--img src="img/saleDetail/Shape.png"--></div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="row row-center">
+                        <div class="col col-85 col-center">
+                            <div class="row">
+                                <div class="col-35 text-left col-center">活动子类型:</div>
+                                <div class="text col-6 underline">{{details.ZZHDZLXSM}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-15 text-right rewrite"><!--img src="img/saleDetail/Shape.png"--></div>
+                    </div>
+                </div>
                 <div class="progress" ng-hide="isATL">
                     <div class="row">进展:</div>
                     <div class="obj {{x.class?x.class:'zoomInRight'}}" ng-class="isAndroid?'':'own-animated'" ng-repeat="x in makeConsensus.item">
@@ -171,7 +183,7 @@
             </div>
         </div>
     </ion-content>
-    <div class="bar bar-footer content item-input-inset" keyboard-attach ng-hide="isATL||details.ZFLAG!='X'">
+    <div class="bar bar-footer content item-input-inset" keyboard-attach ng-hide="isATL||details.EDIT_FLAG!='X'">
         <form ng-submit="formTest()" style="width: 100%">
             <div class="submit">
                 <div class="row row-center">

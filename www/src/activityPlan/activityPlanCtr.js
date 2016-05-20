@@ -1285,7 +1285,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 },
                 "IS_SEARCH": {
                     "ZSRTING": search,
-                    "PARTNER_NO": "",
+                    "PARTNER_NO": $scope.dataDetail.customer.PARTNER,
                     "OBJECT_ID": "",
                     "PHASE": "",
                     "STARTDATE": "",

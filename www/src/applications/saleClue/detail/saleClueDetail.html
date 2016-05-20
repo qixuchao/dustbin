@@ -54,8 +54,10 @@
                 <div class="row row-center"
                      style="padding-left: 0px;"
                      ng-class="placeFlag?isAndroid?'invisible':'animated fadeOut':isAndroid?'visible':'animated fadeIn'">
-                    <div class="col col-30">开始日期:</div>
+                    <div class="col col-30">有效日期:</div>
                     <input type="text" ng-model="details.DATE_START" maxlength="40" readonly ng-click="selectTime('statTime')"
+                           ng-class="{'border-bottom-white':isEdit}">
+                    <input type="text" ng-model="details.DATE_END" maxlength="40" readonly ng-click="selectTime('endTime')"
                            ng-class="{'border-bottom-white':isEdit}">
                 </div>
                 <!--<div class="row row-center"-->
