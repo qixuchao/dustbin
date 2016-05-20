@@ -100,7 +100,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
                           toggle: false,
                           row_size: 2,
                           fixed_row_size: true
-  });
+    });
     // Turn off caching for demo simplicity's sake
     //$ionicConfigProvider.views.maxCache(0);
     $ionicConfigProvider.views.swipeBackEnabled(true);
@@ -111,18 +111,18 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
     
     $stateProvider
         
-        .state('login', {
-           url: '/login',
-           //abstract: true,
-           templateUrl: 'src/login/login.html',
-           controller: 'LoginCtrl'
-        })
-        
         // .state('login', {
-        //     url: '/login',
-        //     templateUrl: 'src/loginSecond/loginSecond.html',
-        //     controller: 'LoginCtrl'
+        //    url: '/login',
+        //    //abstract: true,
+        //    templateUrl: 'src/login/login.html',
+        //    controller: 'LoginCtrl'
         // })
+        
+        .state('login', {
+            url: '/login',
+            templateUrl: 'src/loginSecond/loginSecond.html',
+            controller: 'LoginCtrl'
+        })
         
         .state('tabs', {
             url: '/tabs',

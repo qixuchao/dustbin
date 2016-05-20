@@ -14,6 +14,12 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
     min-width: 95%;
     background: url("../../img/worksheetReported/sanjiao.png") no-repeat scroll right center transparent !important;
 }
+.tab-filter-content{  //选择服务大区界面抖动的bug
+	ion-scroll.tab-filter-content-inner>.scroll{
+		overflow: hidden;
+    	height: 100%;
+	}
+}
 
 #xbr-worksheet-list-content{ 
 	.search-box-wrapper{
@@ -1299,7 +1305,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 
 //二阶段:拍照界面"+"
 .ZNCO, .ZPRO, .ZPLO{
-	&.E0006, &.E0010, &.E0007{
+	&.E0006, &.E0010, &.E0007, &.cantnotEdit{
 		#takepicture-content .selected-btn{
 			display: none !important;
 		}

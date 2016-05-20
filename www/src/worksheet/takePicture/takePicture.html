@@ -1,4 +1,4 @@
-<ion-view id="worksheet-takepicture-view" class="worksheet-view-public {{config.PROCESS_TYPE}} {{config.STATUS_CODE}}" align-title="center">
+<ion-view id="worksheet-takepicture-view" class="worksheet-view-public {{config.PROCESS_TYPE}} {{config.STATUS_CODE}}" ng-class="{'cantnotEdit':config.cantnotEdit}" align-title="center">
     
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
@@ -57,7 +57,7 @@
         <div class="" ng-if="datas.imageDatas==null || datas.imageDatas.length<1" style="line-height: 4rem;height: 4rem;text-align: center;width: 100%;color: #A7A3A3;">
             该工单暂无服务拍照信息!
         </div>
-
+        
     </ion-content>
 </ion-view>
 

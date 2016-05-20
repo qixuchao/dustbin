@@ -246,16 +246,27 @@ worksheetModule.controller("WorksheetListCtrl",[
 				timeStart: $scope.config.timeStart,
 				timeEnd: $scope.config.timeEnd,
 
-				fuwudaqu: angular.copy($scope.config.currentFWDQ)
+				currentFWDQ: angular.copy($scope.config.currentFWDQ)
 			};
 		}else{ //更新filters、oldFilters则保持不变
 			angular.extend($scope.config, $scope.oldFilters);
+			var has = false;
+			for(var i = 0; i < $scope.config.FWDQ.length; i++){
+				if($scope.config.FWDQ[i].OTJID == $scope.oldFilters.currentFWDQ.OTJID){
+					$scope.config.currentFWDQ = $scope.config.FWDQ[i];
+					has = true;
+				}
+			}
+			if(!has){
+ 				$scope.config.currentFWDQ = $scope.config.FWDQ[0];
+			}
 		}
 	};
-
+	
 	$scope.cancleQueryMode = function(){
 		if($scope.config.searchText == ""){
 			$scope.reloadData();
+			__addHistoryStr("");
 		}
 		var eleContent = angular.element("#xbr-worksheet-list-content");
 		eleContent.addClass("has-header");
@@ -298,7 +309,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	
 	
 	$scope.clickSearchInput = function(){
-		var eleContent = angular.element("#xbr-worksheet-list-content");
+		//var eleContent = angular.element("#xbr-worksheet-list-content");
 		//eleContent.removeClass("has-header");
 		$scope.config.queryModeNew = true;
 		$scope.config.showHistoryLog = true;
@@ -967,6 +978,10 @@ worksheetModule.controller("WorksheetListCtrl",[
 			//T_IN_STAT: $scope.config.T_IN_STAT
 			IT_STAT: $scope.config.T_IN_STAT
 		};
+		var otjid = $scope.config.currentFWDQ.OTJID;
+		if(!angular.isUndefined(otjid) && otjid != null){
+			queryParams.IS_ORGMAN = { SERVICE_ORG: otjid };
+		}
 		/*if($scope.config.IS_SEARCH.CREATED_FROM && $scope.config.IS_SEARCH.CREATED_FROM!=""){
 			queryParams.IS_SEARCH.CREATED_FROM = $scope.config.IS_SEARCH.CREATED_FROM;
 		}*/

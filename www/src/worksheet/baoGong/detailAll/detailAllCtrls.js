@@ -29,13 +29,16 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
               , saleActService, $rootScope, $filter,CarService, $ionicActionSheet, baoGongService) {
 
     	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-            if(fromState && toState && fromState.name == 'baoGongEdit' && toState.name == 'baoGongDetail'){
-                if(baoGongService.wsBaoDetailData.needReload){
-                	baoGongService.wsBaoDetailData.needReload = false;
-                	__reloadBaoDetailDatas();
-                }
+            if(fromState && toState && toState.name == 'baoGongDetail'){
+            	// fromState.name=="baoGongCreate"
+            	if(fromState.name == 'baoGongEdit' || fromState.name == 'worksheetBaoGonglist'){
+            		if(baoGongService.wsBaoDetailData.needReload){
+	                	baoGongService.wsBaoDetailData.needReload = false;
+	                	__reloadBaoDetailDatas();
+	                }
+            	}
             }
-        }); 
+        });
 
     	$scope.$on('$destroy', function() {
     		console.log("baoGongDetailAllCtrl  $destroy");
@@ -372,7 +375,8 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 	        		details[i].XBR_TOTALPRICE = 0;
 	        		for(var x = 0; x < pridocs.length; x++){
 	        			if(details[i].NUMBER_INT == pridocs[x].NUMBER_INT && (pridocs[x].KSCHL=="ZPR1" || pridocs[x].KSCHL=="ZPD1" || pridocs[x].KSCHL=="ZPR2" || pridocs[x].KSCHL=="ZPD2")){
-	        				details[i].XBR_TOTALPRICE += Number(pridocs[x].KBETR);
+	        				//details[i].XBR_TOTALPRICE += Number(pridocs[x].KBETR);
+	        				details[i].XBR_TOTALPRICE += Number(pridocs[x].KWERT);
 	        			}
 	        		}
 	        	}
@@ -433,6 +437,10 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
 	        var promise = HttpAppService.post(baoGongService.BAOWS_EDIT.url,queryParams);
 	        promise.success(function(response){
 	        	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG=="S"){
+	        		//requestChangeStatus("E0002", "已报工", "正在报工", "报工完成", "报工失败，请检查网络");
+	        		if(statusId == "E0002"){
+	        			worksheetDataService.wsEditToDetail.needReload = true;
+	        		}
 	        		Prompter.showLoadingAutoHidden(changeOkStr, false, 1000);
 	        		__changeStatus(statusId, statusStr);
 	        		//if(statusId == "E0002"){ //派工后，需要重新刷新数据

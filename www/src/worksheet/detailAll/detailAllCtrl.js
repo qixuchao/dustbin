@@ -55,7 +55,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         		//从编辑界面返回  故障详情   ( || fromState.name == 'worksheetFaultInfosEdit')
         		if(fromState && toState && toState.name == 'worksheetDetail'){
-        			if( fromState.name == 'worksheetEdit' || fromState.name == 'worksheetFaultInfos' || fromState.name == "baoGongCreate" ){
+        			if( fromState.name == 'worksheetEdit' || fromState.name == 'worksheetFaultInfos' || fromState.name == "baoGongCreate" || fromState.name=="worksheetDetailHistoryList"){
 			            if(worksheetDataService.wsEditToDetail.needReload){
 			            	worksheetDataService.wsEditToDetail.needReload = false;
 			            	__requestDetailDatas();
@@ -121,7 +121,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				if(type == 'paigong'){
 					//先选择处理员工
 					//__selectChuLiYuanGong();
-					$scope.openSelectCustomer();
+					$scope.openSelectCustomer(); 
 					//requestChangeStatus("E0002", "已派工", "正在派工", "派工成功", "派工失败，请检查网络");
 				}else if(type == 'judan'){
 					requestChangeStatus("E0003", "已拒绝", "正在拒绝", "拒绝成功", "拒绝失败，请检查网络");
@@ -131,17 +131,28 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					if(__hasBeijianInfo()){
 						$scope.goState("worksheetSelect");
 					}else{
-						$scope.goState("worksheetSparepart");
+						if($scope.datas.detail.ES_OUT_LIST.EDIT_FLAG=="X"
+							&& ($scope.config.typeStr == "ZPRO" || $scope.config.typeStr == "ZPLO" || $scope.config.typeStr == "ZNCO" )
+							&& ($scope.config.statusStr == "E0009" || $scope.config.statusStr == "E0006" || $scope.config.statusStr == "E0007" || $scope.config.statusStr == "E0010")){
+							$scope.goState("worksheetSelect");
+						}else{
+							$scope.goState("worksheetSparepart");
+						}
 					}
 				}else if(type == 'chelianglicheng'){
 					$scope.goState("worksheetCarMileage");
 				}else if(type == 'guzhangxinxi'){
 					$scope.goState("worksheetFaultInfos");
 				}else if(type == 'fuwupaizhao'){
+					var canEdit = false;
+					if($scope.datas.detail.ES_OUT_LIST.EDIT_FLAG=="X"){
+						canEdit = true;
+					}
 					worksheetDataService.wsDetailToPaiZHao = {
 						OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
       					PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE,
-      					STATUS_CODE: $scope.datas.detail.ES_OUT_LIST.STATU
+      					STATUS_CODE: $scope.datas.detail.ES_OUT_LIST.STATU,
+      					cantnotEdit: !canEdit
 					}; 
 					$scope.goState("worksheetTakePicture");
 				}else if(type == 'baogong'){
@@ -644,6 +655,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			}
 			// 修改工单状态
 			//requestChangeStatus("E0008", "已打回", "正在打回", "打回成功", "打回失败，请检查网络");
+			//requestChangeStatus("E0005", "已报工", "正在报工", "报工完成", "报工失败，请检查网络");
 			function requestChangeStatus(statusId, statusStr, statucChangingStr, changeOkStr, requestErrorStr){
 				var params = $scope.config.requestParams;
 		        var queryParams = {
@@ -677,7 +689,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG && response.ES_RESULT.ZFLAG=="S"){
 		        		Prompter.showLoadingAutoHidden(changeOkStr, false, 1000);
 		        		__changeStatus(statusId, statusStr);
-		        		if(statusId == "E0002"){ //派工后，需要重新刷新数据
+		        		if(statusId == "E0002" || statusId == "E0005"){ //派工后，需要重新刷新数据
 		        			$timeout(function(){
 		        				__requestDetailDatas("正在刷新详情");
 		        			}, 1000);

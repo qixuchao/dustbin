@@ -3,7 +3,7 @@
  */
 'use strict';
 mainModule
-    .controller('MainCtrl', [
+    .controller('MainCtrl', [ 
         '$scope',
         '$state',
         '$ionicSlideBoxDelegate',

@@ -22,7 +22,9 @@ tabsModule
                     alert("set ok");*/
                     $ionicHistory.clearCache();
                     $ionicHistory.clearHistory();
-                    if(fromState.name == "login"){
+                    if(LoginService.needTabsCache){
+                        LoginService.needTabsCache = false;
+                    }else{
                         $scope.clickTab($scope.tabs[0]);
                     }
                 }
