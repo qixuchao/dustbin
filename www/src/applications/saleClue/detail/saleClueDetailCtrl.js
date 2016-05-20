@@ -143,6 +143,10 @@ salesModule.controller('saleClueDetailCtrl', [
                     Prompter.selectTime($scope, 'clueDetailStart',
                         new Date($scope.details.DATE_START.replace(/-/g, "/")).format('yyyy/MM/dd'), 'date', '开始时间');
                     break;
+                case 'endTime':
+                    Prompter.selectTime($scope, 'clueDetailEnd',
+                        new Date($scope.details.DATE_END.replace(/-/g, "/")).format('yyyy/MM/dd'), 'date', '结束时间');
+                    break;
                 case 'tempNeed'://样品需求开始时间
                     Prompter.selectTime($scope, 'clueDetailTempNeedStart',
                         new Date($scope.details.ZZFLD000051.replace(/-/g, "/")).format('yyyy/MM/dd'), 'date', '开始时间');
