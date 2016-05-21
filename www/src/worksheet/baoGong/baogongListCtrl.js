@@ -13,6 +13,7 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
 
     //alert(" ---- WorksheetBaoGongListCtrl ---- ");
     
+
     $scope.config = { 
         title: '费用结算', //报工详情
 

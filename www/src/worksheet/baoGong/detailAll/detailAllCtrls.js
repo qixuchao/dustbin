@@ -43,6 +43,7 @@ worksheetModule.controller('baoGongDetailAllCtrl',[
             }
         });
 
+
         $scope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParam){
             if(fromState && toState && toState.name == 'baoGongDetail'){
             	// fromState.name=="baoGongCreate"

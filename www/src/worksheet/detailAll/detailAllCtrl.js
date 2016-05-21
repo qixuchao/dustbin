@@ -68,7 +68,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		    });
 
 
-
         	$scope.$on('$destroy', function() {
 				__destroyMoreModal();
 			});

@@ -7,16 +7,20 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
     "$state",
     "$ionicHistory",
     "worksheetDataService",
-	function ($scope, baoGongService, $timeout, Prompter, HttpAppService, $state, $ionicHistory, worksheetDataService) {
-	 
+    "$location",
+	function ($scope, baoGongService, $timeout, Prompter, HttpAppService, $state, $ionicHistory, worksheetDataService, $location) {
+	
     $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         if(toState && fromState && toState.name == "baoGongCreate" && fromState.name == "baoGongDetail"){
             worksheetDataService.wsEditToDetail.needReload = true;
-            //$timeout(function(){
-            $ionicHistory.goBack();
-            //}, 600);
+            var loadingTime = 800;
+            Prompter.showLoadingAutoHidden("正在返回,请稍候", false, loadingTime);
+            $timeout(function(){
+                $ionicHistory.goBack();
+            }, loadingTime);
         }
     });
+
     
 	$scope.config = {
 
@@ -52,7 +56,7 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
 			IV_PROCESS_TYPE_CONF: $scope.datas.defaultDetail.IS_PROCESS_TYPE_BAO
 		};
 		var beizhu = $scope.datas.defaultDetail.BAO_BEIZHU;
-        var maxLength = 255; //132  255
+        var maxLength = 132; //132  255
 		if(!angular.isUndefined(beizhu) && beizhu!=null && beizhu.trim && beizhu.trim()!=""){
             var currentLength = 0;
             var item_in = [];
@@ -65,7 +69,9 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
                 currentLength += maxLength;
             }
             
-			params.IT_TEXT = item_in;
+			params.IT_TEXT = {
+                item_in: item_in
+            };
 		}
 		params = angular.extend(params, baoGongService.BAOWS_CREATE.defaults);
 		__requestCreateBaoWS(baoGongService.BAOWS_CREATE.url, params);
@@ -88,11 +94,11 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
 
 		$timeout(function() {
             var textresult = document.getElementById("textarea_bao_beizhu");
-            autoTextarea(textresult, 0, 200);// 调用
+            autoTextarea(textresult, 0, 250);// 调用
         }, 1500);
 	};
 	$scope.init();
-
+    
 	function __requestCreateBaoWS(url, params){
 		var promise = HttpAppService.post(url,params);
         Prompter.showLoading("正在创建");
@@ -128,11 +134,18 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
         var detail = $scope.datas.defaultDetail.ET_DETAIL;
         if(!angular.isUndefined(detail) && !!detail && detail.item && !!detail.item.length){
             baoGongService.detailFromWSHistory.isEmptyDetail = false;
-            $state.go("baoGongDetail");
+            //$state.go("baoGongDetail");
         }else{
             baoGongService.detailFromWSHistory.isEmptyDetail = true;
-            $state.go("baoGongDetail");
+            //$state.go("baoGongDetail");
         }
+        //$location.replace();
+        //$location.path('/baoGongDetail');//.replace();
+        // $state.go("baoGongDetail", {},{
+        //     location: 'replace',
+        //     inherit: false
+        // });
+        $state.go("baoGongDetail");
     }
 
 	//文本框自适应换行

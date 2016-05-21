@@ -93,6 +93,24 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
         $rootScope.goBack = function(){
             $ionicHistory.goBack();
         };
+        $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParam){
+            var ele = $("ion-view[nav-view=entering]");
+            for(var i = 0; i < ele.length; i++){
+                var eleTemp = angular.element(ele[i]);
+                eleTemp.attr("nav-view","active");
+            }
+            var eleLeave = $("ion-view[nav-view=leaving]");
+            for(var i2 = 0; i2 < eleLeave.length; i2++){
+                var eleTemp = angular.element(eleLeave[i2]);
+                eleTemp.attr("nav-view","cached");
+            }
+        });
+        $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParam){
+            alert("rootScope: $stateChangeError :       to:"+toState.name+"     from:"+fromState.name);
+        });
+        $rootScope.$on("$stateNotFound", function (event, toState, toParams, fromState, fromParam){
+            alert("rootScope: $stateNotFound :       to:"+toState.name+"     from:"+fromState.name);
+        });
 })
 .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionGalleryConfigProvider) {
     ionGalleryConfigProvider.setGalleryConfig({

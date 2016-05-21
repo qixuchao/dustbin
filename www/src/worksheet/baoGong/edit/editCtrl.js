@@ -50,7 +50,7 @@ worksheetModule.controller('baoGongDetailEditCtrl',[
 				// };
                 var currentLength = 0;
                 var item_in = [];
-                var maxLength = 255;
+                var maxLength = 132; //255
 
                 while($scope.config.BAO_BEIZHU.length > currentLength){
                     item_in.push({
@@ -60,7 +60,9 @@ worksheetModule.controller('baoGongDetailEditCtrl',[
                     currentLength += maxLength;
                 }
                 
-                params.IT_TEXT = item_in;
+                params.IT_TEXT = {
+                    item_in: item_in
+                };
 			}
 			__requestChangeBaoWS(baoGongService.BAOWS_EDIT.url, params);
         };
@@ -170,7 +172,7 @@ worksheetModule.controller('baoGongDetailEditCtrl',[
         };
         function __initTextarea(){
         	var text = document.getElementById("textarea_beizhu");
-            autoTextarea(text);
+            autoTextarea(text, 0, 250);// 调用
         };
         
 
