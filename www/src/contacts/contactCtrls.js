@@ -439,7 +439,7 @@ ContactsModule
                 loadData();
             }
         });
-        //返回到联系人列表界面
+        //返回到联系人列表界面 
         $scope.ContactgoBack = function() {  
             $rootScope.$broadcast('contactBack','false');
             $rootScope.$on('contactEditvalue');
