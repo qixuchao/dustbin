@@ -58,7 +58,7 @@
                     <input type="text" ng-model="details.DATE_START" maxlength="40" readonly ng-click="selectTime('statTime')"
                            ng-class="{'border-bottom-white':isEdit}">
                     <input type="text" ng-model="details.DATE_END" maxlength="40" readonly ng-click="selectTime('endTime')"
-                           ng-class="{'border-bottom-white':isEdit}">
+                           ng-class="{'border-bottom-white':isEdit}" ng-hide="isATL">
                 </div>
                 <!--<div class="row row-center"-->
                      <!--ng-show="isATL"-->
