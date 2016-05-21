@@ -213,6 +213,9 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
                             case 'clueDetailStart':
                                 scope.details.DATE_START = time;
                                 break;
+                            case 'clueDetailEnd':
+                                scope.details.DATE_END = time;
+                                break;
                             case 'clueDetailTempNeedStart':
                                 scope.details.ZZFLD000051 = time;
                                 break;
