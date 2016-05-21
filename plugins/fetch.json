@@ -104,16 +104,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cn.jpush.phonegap.JPushPlugin": {
-        "source": {
-            "type": "local",
-            "path": "jpush-phonegap-plugin"
-        },
-        "is_top_level": true,
-        "variables": {
-            "API_KEY": "9ee1afe8f3caef162f835c56"
-        }
-    },
     "cordova-plugin-crosswalk-webview": {
         "source": {
             "type": "registry",
@@ -121,5 +111,15 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cn.jpush.phonegap.JPushPlugin": {
+        "source": {
+            "type": "local",
+            "path": "jpush-phonegap-plugin"
+        },
+        "is_top_level": true,
+        "variables": {
+            "API_KEY": "a0439f8c3cea3bd2ece24454"
+        }
     }
 }
