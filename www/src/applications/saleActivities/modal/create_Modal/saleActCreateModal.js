@@ -156,13 +156,13 @@ salesModule
                     $scope.create.customer = {PARTNER: "",PARTNER_FCT :""};
                 }else{
                     //$scope.create.customer = {PARTNER_FCT :"00000009"};
-                    $scope.create.customer.PARTNER_FCT = "00000009";
+                    $scope.create.customer.PARTNER_FCT = "00000009";    //客户
                 }
                 if (angular.isUndefined($scope.create.contact)) {
                     $scope.create.contact = {PARTNER: "",PARTNER_FCT :""}
                 }else{
-                    //$scope.create.customer = {PARTNER_FCT :"00000015"};
-                    $scope.create.contact.PARTNER_FCT = "00000015";
+                    //$scope.create.customer = {PARTNER_FCT :"00000015"}; 
+                    $scope.create.contact.PARTNER_FCT = "00000015";     //联系人
                 }
                 if (angular.isUndefined($scope.create.urgent)) {
                     $scope.create.urgent = {value: ""};
@@ -205,7 +205,7 @@ salesModule
                             "PARTNER_FCT": $scope.create.customer.PARTNER_FCT,//客户
                             "PARTNER": $scope.create.customer.PARTNER
                         }, {
-                            "PARTNER_FCT": $scope.create.customer.PARTNER_FCT,//联系人
+                            "PARTNER_FCT": $scope.create.contact.PARTNER_FCT,//联系人
                             "PARTNER": $scope.create.contact.PARTNER
                         }]
                     }
