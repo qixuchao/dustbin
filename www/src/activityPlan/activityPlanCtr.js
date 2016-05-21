@@ -77,10 +77,14 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
                 }
             }
             //console.log(ROOTCONFIG.hempConfig.baseEnvironment);
-            console.log(angular.toJson(data));
+            //console.log(angular.toJson(data));
             var startTime = new Date().getTime();
-            HttpAppService.post(url, data).success(function (response) {
-                console.log(angular.toJson(response));
+            HttpAppService.post(url, data).success(function (response, status, func, config) {
+                if($scope.carInfo != config.data.IS_VP.TOURDESCRIPTION){
+                    console.log("不是最新请求，直接丢弃!");
+                    return;
+                }
+                //console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.carimisshow = false;
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -135,7 +139,7 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
         //车辆列表接口
         $scope.initLoad = function () {
             page = 0;
-            $scope.cars = new Array;
+            $scope.cars = new Array();
             $scope.carLoadMore1Im();
         };
         //页面跳转，并传递参数
