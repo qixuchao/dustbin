@@ -256,6 +256,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
         $scope.showOther = function(item){
             $scope.lineshow = !$scope.lineshow;
             item.otherInfos = ! item.otherInfos;
+            $scope.queryResultScrollDelegate.resize();
         };
         $scope.edit = function(item){
             if(item == "Y"){

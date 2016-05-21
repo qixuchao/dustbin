@@ -46,17 +46,20 @@ salesModule
             };
             $scope.$watch('create.chanceType', function () {
                 //console.log($scope.create.chanceType);
-                switch (angular.isUndefined($scope.create.chanceType) && $scope.create.chanceType.code) {
-                    case 'ZO02':
-                        $scope.saleStages = saleChanService.saleStages.CATL.EBUS;
-                        break;
-                    case 'ZO03':
-                        $scope.saleStages = saleChanService.saleStages.CATL.ECAR;
-                        break;
-                    case 'ZO04':
-                        $scope.saleStages = saleChanService.saleStages.CATL.ESS;
-                        break;
+                if($scope.create.chanceType !=undefined){
+                    switch ( $scope.create.chanceType.code) {
+                        case 'ZO02':
+                            $scope.saleStages = saleChanService.saleStages.CATL.EBUS;
+                            break;
+                        case 'ZO03':
+                            $scope.saleStages = saleChanService.saleStages.CATL.ECAR;
+                            break;
+                        case 'ZO04':
+                            $scope.saleStages = saleChanService.saleStages.CATL.ESS;
+                            break;
+                    }
                 }
+
             });
             //判断是否来自销售线索,如果是,赋予默认值
             if (saleChanService.isFromClue) {
