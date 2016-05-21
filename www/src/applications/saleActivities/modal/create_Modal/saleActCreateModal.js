@@ -150,12 +150,14 @@ salesModule
                 if (angular.isUndefined($scope.create.customer)) {
                     $scope.create.customer = {PARTNER: "",PARTNER_FCT :""};
                 }else{
-                    $scope.create.customer = {PARTNER_FCT :"00000009"};
+                    //$scope.create.customer = {PARTNER_FCT :"00000009"};
+                    $scope.create.customer.PARTNER_FCT = "00000009";
                 }
                 if (angular.isUndefined($scope.create.contact)) {
                     $scope.create.contact = {PARTNER: "",PARTNER_FCT :""}
                 }else{
-                    $scope.create.customer = {PARTNER_FCT :"00000015"};
+                    //$scope.create.customer = {PARTNER_FCT :"00000015"};
+                    $scope.create.contact.PARTNER_FCT = "00000015";
                 }
                 if (angular.isUndefined($scope.create.urgent)) {
                     $scope.create.urgent = {value: ""};

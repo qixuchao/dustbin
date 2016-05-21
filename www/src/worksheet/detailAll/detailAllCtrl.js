@@ -681,7 +681,8 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				    "IS_OBJECT_ID": params.IS_OBJECT_ID+"",
 				    "IS_PROCESS_TYPE": params.IS_PROCESS_TYPE,
 				    "IS_HEAD_DATA": {
-				    	"STATUS": statusId
+				    	STATUS: statusId,
+				    	ZZXYHF: $scope.datas.detail.ES_OUT_LIST.ZZXYHF
 				    }
 				}
 				if(statusId == "E0002"){ //派工
