@@ -322,6 +322,7 @@ salesModule.factory('saleClueService', function () {
         customerType:customerType,
         applyClass:applyClass,
         productApply:productApply,
-        linearMeasure:linearMeasure
+        linearMeasure:linearMeasure,
+        flagClue : ""
     }
 });

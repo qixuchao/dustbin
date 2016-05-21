@@ -654,6 +654,7 @@ salesModule.controller('saleClueDetailCtrl', [
                 animation: 'slide-in-up'
             }).then(function (modal) {
                 $scope.addReleModal = modal;
+                saleClueService.flagClue = true;
                 modal.show();
             });
         };

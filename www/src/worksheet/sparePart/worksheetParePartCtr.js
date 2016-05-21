@@ -393,6 +393,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             var data={
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
+                "IS_HEAD_DATA":{"ZZXYHF":worksheetDataService.wsDetailData.ES_OUT_LIST.ZZXYHF},
                 "IS_OBJECT_ID": worksheetDataService.wsDetailData.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE,
                 "IT_MAT_LIST": {
@@ -740,6 +741,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                 "IS_OBJECT_ID": worksheetDataService.wsDetailData.ydWorksheetNum,
+                "IS_HEAD_DATA":{"ZZXYHF":worksheetDataService.wsDetailData.ES_OUT_LIST.ZZXYHF},
                 "IS_PROCESS_TYPE": worksheetDataService.wsDetailData.IS_PROCESS_TYPE,
                 "IT_MAT_LIST": {
                     "item": item

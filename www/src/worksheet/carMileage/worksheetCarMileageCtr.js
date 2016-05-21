@@ -121,6 +121,7 @@ worksheetModule.controller("WorksheetCarMileageEditCtrl",["$scope",
                 "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                 "IS_OBJECT_ID": worksheetDetail.ydWorksheetNum,
                 "IS_PROCESS_TYPE": worksheetDetail.IS_PROCESS_TYPE,
+                "IS_HEAD_DATA":{"ZZXYHF":worksheetDetail.ES_OUT_LIST.ZZXYHF},
                 "IT_MILEAGE": {
                     "item": [
                         {   "GUID"  : $scope.carMile.GUID,

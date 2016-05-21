@@ -355,9 +355,11 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                         }
                     }
                     $scope.details = response.ET_TRAVEL_PLAN.item;
-                    for(var i=0;i<$scope.details.length;i++){
-                        $scope.details.otherInfos = false;
-                        $scope.details.flag = true;
+                    if($scope.details != undefined){
+                        for(var i=0;i<$scope.details.length;i++){
+                            $scope.details.otherInfos = false;
+                            $scope.details.flag = true;
+                        }
                     }
                     $scope.queryResultScrollDelegate.resize();
                 } else if (response.ES_RESULT.ZFLAG == 'E') {
@@ -1282,12 +1284,13 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
         //选择商机
         var changePage = 1;
         $scope.changeArr = [];
-        $scope.changeSearch = false;
+        $scope.changeSearch = true;
         $scope.getChangeArr = function (search) {
+            $scope.changeSearch = false;
             console.log("--");
             $scope.changeLoadMoreFlag = false;
             if (search) {
-                $scope.changeSearch = false;
+                //$scope.changeSearch = false;
                 changePage = 1;
             } else {
                 $scope.spinnerFlagChange = true;
@@ -1318,15 +1321,22 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                     console.log(response);
                     if (response.ES_RESULT.ZFLAG === 'S') {
                         if (response.ET_OPPORT.item.length < 10) {
-                            $scope.changeLoadMoreFlag = false;
+                            console.log("===21==q");
+                            $scope.changeSearch = false;
+                            $scope.changeNo = true;
+                        }else{
+                            console.log("4===21==q");
+                            $scope.changeSearch = true;
                         }
                         if (search) {
+                            console.log("=====");
+                            $scope.changeArr = [];
                             $scope.changeArr = response.ET_OPPORT.item;
                         } else {
+                            console.log("===21==");
                             $scope.changeArr = $scope.changeArr.concat(response.ET_OPPORT.item);
                         }
                         $scope.spinnerFlagChange = false;
-                        $scope.changeSearch = true;
                         $scope.changeLoadMoreFlag = true;
                         $ionicScrollDelegate.resize();
                         $rootScope.$broadcast('scroll.infiniteScrollComplete');
