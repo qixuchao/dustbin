@@ -19,7 +19,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 		overflow: hidden;
     	height: 100%;
 	}
-}
+} 
 
 #xbr-worksheet-list-content{ 
 	.search-box-wrapper{
@@ -1287,6 +1287,7 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
 				display: block !important;
 			}
         }
+
 			    //     &.ZPRO, &.ZPLO{			//E0006 已完工        E0010 回访        E0007 审核   E0009 已经取消
 			    //     	//&.E0006, &.E0010, &.E0007, &.E0009{
 			    //     		.beijian, .chelianglicheng, .guzhangxinxi, .fuwupaizhao{
@@ -1299,6 +1300,14 @@ $worksheetlist-selected-color: rgb(50,89,164);//#236CE6;
         	.fuwupaizhao{
         		display: block;
         	}
+        }
+
+        &.ZPRO, &.ZPLO, &.ZPRV, &.ZPLV, &.ZNCO, &.ZNCV{
+        	&.can-not-edit{
+        		.baogong{
+					display: none !important;
+        		}
+			}
         }
         
     }

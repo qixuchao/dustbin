@@ -250,7 +250,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 			$scope.showMoreModel = function($event, sourceClassName){
 			    if($scope.config.moreModal == null){
 			    	//$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content {{config.statusStr}} "+$scope.config.typeStr+" "+$scope.config.statusStr+"'>"+
-			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content {{config.statusStr}} "+$scope.config.typeStr+"'>"+
+			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content {{config.statusStr}} {{config.editFlagClass}} "+$scope.config.typeStr+"'>"+
 		                "<div><div class='top-line'></div></div>"+
 		                "<div class='content-lines'>"+
 		                    "<div class='content-line paigong' ng-click='moreModalClickHandler(\"paigong\");'>派工</div>"+
@@ -337,6 +337,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         	$scope.config = {
         		typeStr: '',
         		statusStr:'',
+        		editFlagClass: '',
 
 				scrollDelegateHandler: null,
 				contentDetegateHandler: null,
@@ -583,7 +584,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        		$scope.config.hasMoreData = false;
 		        		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 		        		return;
-		        	} 
+		        	}
 		        	if(!$scope.datas.serviceListDatas){
 		        		$scope.datas.serviceListDatas = [];
 		        	}
@@ -641,8 +642,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 		        	if(tempResponse.ES_OUT_LIST && tempResponse.ES_OUT_LIST.EDIT_FLAG == "X"){
 		        		$scope.config.canEdit = true;
+		        		$scope.config.editFlagClass = 'can-edit';
 		        	}else{
 		        		$scope.config.canEdit = false;
+		        		$scope.config.editFlagClass = 'can-not-edit';
 		        	}
 
 		        	Prompter.hideLoading();
