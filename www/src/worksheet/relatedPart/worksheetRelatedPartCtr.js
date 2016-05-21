@@ -78,6 +78,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                     "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                     "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
                     "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
+                    "IS_HEAD_DATA":{"ZZXYHF":worksheetDetailData.ES_OUT_LIST.ZZXYHF},
                     "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
                     "IT_PARTNER": {
                         "item": [
@@ -214,6 +215,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
             "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
+            "IS_HEAD_DATA":{"ZZXYHF":worksheetDetailData.ES_OUT_LIST.ZZXYHF},
             "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
             "IT_PARTNER": {
                 "item": [
@@ -343,6 +345,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
             "IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
             "IS_OBJECT_ID": worksheetDetailData.ydWorksheetNum,
+            "IS_HEAD_DATA":{"ZZXYHF":worksheetDetailData.ES_OUT_LIST.ZZXYHF},
             "IS_PROCESS_TYPE": worksheetDetailData.IS_PROCESS_TYPE,
             "IT_PARTNER": {
                 "item": [

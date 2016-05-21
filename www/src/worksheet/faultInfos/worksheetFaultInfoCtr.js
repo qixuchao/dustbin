@@ -204,6 +204,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                 "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                 "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},
                 "IS_OBJECT_ID": worksheetDetail.ydWorksheetNum,
+                "IS_HEAD_DATA":{"ZZXYHF":worksheetDetail.ES_OUT_LIST.ZZXYHF},
                 "IS_PROCESS_TYPE": worksheetDetail.IS_PROCESS_TYPE,
                     "IS_HEAD_DATA": {
                     "SCENARIO": SCENARIO,

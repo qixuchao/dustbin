@@ -8,7 +8,7 @@
                 <div class="col input">
                     <div class="row row-center no-padding">
                         <i class="ion-ios-search"></i>
-                        <input id="selectCustomerId" type="search" ng-change="getchangeArr(input.customer)"
+                        <input id="selectCustomerId" type="search" ng-change="getChangeArr(input.customer)"
                                ng-model="input.customer" placeholder="请输入商机描述">
                         <i class="ion-ios-close" ng-if="input.customer" ng-click="initCustomerSearch()"></i>
                     </div>
@@ -20,7 +20,7 @@
     <div class="addRelationsModal">
         <ion-content class="content has-header">
            <!--<ion-spinner class="mySpinner" icon="ios" ng-if="!changeSearch"></ion-spinner>-->
-            <div ng-if="changeSearch">
+            <div>
                 <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"
                      ng-click="changeReferMoreflag()"></div>
                 <div class="selectionsDown pushDown-animated refer-selectionsDown"
@@ -45,7 +45,7 @@
             <div class="loadMore" ng-if="changeNo">
                 <span>无更多数据显示...</span>
             </div>
-            <div class="loadMore" ng-click="getChangeArr(input.customer)" ng-if="changeSearch&&!spinnerFlagChange"><span>点击加载更多...</span></div>
+            <div class="loadMore" ng-click="getChangeArr(input.customer)" ng-if="changeSearch"><span>点击加载更多...</span></div>
             <div class="loadMore" ng-click="getChangeArr(input.customer)" ng-if="spinnerFlagChange"><ion-spinner icon="ios"></ion-spinner></div>
         </ion-content>
     </div>
