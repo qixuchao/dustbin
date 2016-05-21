@@ -995,7 +995,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                     desc : "请选择活动紧急度",
                     code : ""
                 },
-                instart: "2011-11-11",
+                instart: "",
                 desc: ""
             }
         }
@@ -1301,7 +1301,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 },
                 "IS_SEARCH": {
                     "ZSRTING": search,
-                    "PARTNER_NO": $scope.dataDetail.customer.PARTNER,
+                    "PARTNER": $scope.dataDetail.customer.PARTNER,
                     "OBJECT_ID": "",
                     "PHASE": "",
                     "STARTDATE": "",

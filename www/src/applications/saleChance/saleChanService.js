@@ -155,10 +155,12 @@ salesModule.factory('saleChanService', function () {
     var saleStages2 = [{
         text: '关系建立阶段',
         value: 'Z01'
-    }, {
-        text: '技术交流及式样阶段',
-        value: 'Z02'
-    }, {
+    },
+    //    {
+    //    text: '技术交流及式样阶段',
+    //    value: 'Z02'
+    //},
+        {
         text: '方案沟通确认',
         value: 'Z03'
     }, {

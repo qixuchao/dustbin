@@ -520,7 +520,7 @@ salesModule
                             "ZZYQXSLDW": getNotDefined($scope.chanceDetails.ZZYQXSLDW),
                             "ZZMBCP": getNotDefined($scope.chanceDetails.ZZMBCP),
                             "ZZFLD00002E": getNotDefined($scope.chanceDetails.ZZFLD00002E),
-                            "ZTEXT": $scope.chanceDetails.ZTEXT,
+                            "ZTEXT": $scope.chanceDetails.CRM_ORDERH_T,
                             "ZEXMRL" :$scope.chanceDetails.ZEXMRL,
                             "ZERLDW" :$scope.chanceDetails.ZERLDW,
                             "ZEXMSL" :$scope.chanceDetails.ZEXMSL,

@@ -1212,7 +1212,7 @@ salesModule
                 $scope.processModal.hide()
             };
             $scope.changeProcessSelectFlag = function (x, type) {
-                if ($scope.details.ZFLAG != 'X') {
+                if ($scope.details.EDIT_FLAG != 'X') {
                     return
                 }
                 var flag = x.flag;
