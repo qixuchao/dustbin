@@ -10,7 +10,11 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             if(fromState.name == 'worksheetSelect' && toState.name == 'worksheetSparepart' && worksheetHttpService.goWhere.go == true && worksheetHttpService.goWhere.cun == false){
                 worksheetHttpService.goWhere.go = false;
                  //worksheetHttpService.goWhere.back = false;
-                $ionicHistory.goBack();
+                var loadingTime = 800;
+                Prompter.showLoadingAutoHidden("正在返回,请稍候", false, loadingTime);
+                $timeout(function(){
+                    $ionicHistory.goBack();
+                }, loadingTime);
                 worksheetHttpService.setSparePart("");
             }
             var proInfos =  worksheetHttpService.addPro.proInfos;
