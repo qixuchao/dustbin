@@ -160,11 +160,15 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
       					PROCESS_TYPE: $scope.datas.detail.IS_PROCESS_TYPE,
       					STATUS_CODE: $scope.datas.detail.ES_OUT_LIST.STATU,
       					cantnotEdit: !canEdit
-					}; 
+					};
 					$scope.goState("worksheetTakePicture");
 				}else if(type == 'baogong'){
 					//$scope.goState("worksheetbaogonglist");
-					__baoGongHandler();
+					if($scope.datas.detail.ES_OUT_LIST.EDIT_FLAG=="X"){
+						__baoGongHandler();
+					}else{
+						$cordovaToast.showShortBottom('您不在此单据中，无权编辑!');
+					}
 				}else if(type == 'wangong'){
 					requestChangeStatus("E0006", "已完工", "正在完工", "完工成功", "完工失败，请检查网络");
 				}else if(type == 'yiquxiao'){
