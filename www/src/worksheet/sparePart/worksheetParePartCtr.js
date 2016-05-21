@@ -800,17 +800,21 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                     worksheetDataService.wsDetailData.waifuRenyuan = wf;
                     worksheetDataService.wsDetailData.IS_PROCESS_TYPE = name;
                     worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
-                    for(var k=0;k<worksheetDetail.length;k++){
-                        worksheetDetail[k].showPic = true;
-                        worksheetDetail[k].addNum = true;
-                        worksheetDetail[k].ALWAY_NUM = worksheetDetail[k].APPLY_NUM;
+                    //console.log(worksheetDetail);
+                    if(worksheetDetail != undefined){
+                        for(var k=0;k<worksheetDetail.length;k++){
+                            worksheetDetail[k].showPic = true;
+                            worksheetDetail[k].addNum = true;
+                            worksheetDetail[k].ALWAY_NUM = worksheetDetail[k].APPLY_NUM;
+                        }
                     }
                     if(item == '1'){
 
                     }else{
                         worksheetHttpService.setSparePart(worksheetDetail);
                     }
-                    changeArr();
+                    if(worksheetDetail != undefined){
+                    changeArr();}
                 }else{
 
                 }
