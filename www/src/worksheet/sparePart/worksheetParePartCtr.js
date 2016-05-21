@@ -10,7 +10,11 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
             if(fromState.name == 'worksheetSelect' && toState.name == 'worksheetSparepart' && worksheetHttpService.goWhere.go == true && worksheetHttpService.goWhere.cun == false){
                 worksheetHttpService.goWhere.go = false;
                  //worksheetHttpService.goWhere.back = false;
-                $ionicHistory.goBack();
+                var loadingTime = 800;
+                Prompter.showLoadingAutoHidden("正在返回,请稍候", false, loadingTime);
+                $timeout(function(){
+                    $ionicHistory.goBack();
+                }, loadingTime);
                 worksheetHttpService.setSparePart("");
             }
             var proInfos =  worksheetHttpService.addPro.proInfos;
@@ -800,17 +804,21 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
                     worksheetDataService.wsDetailData.waifuRenyuan = wf;
                     worksheetDataService.wsDetailData.IS_PROCESS_TYPE = name;
                     worksheetDetail = worksheetDataService.wsDetailData.ET_MAT_LIST.item;
-                    for(var k=0;k<worksheetDetail.length;k++){
-                        worksheetDetail[k].showPic = true;
-                        worksheetDetail[k].addNum = true;
-                        worksheetDetail[k].ALWAY_NUM = worksheetDetail[k].APPLY_NUM;
+                    //console.log(worksheetDetail);
+                    if(worksheetDetail != undefined){
+                        for(var k=0;k<worksheetDetail.length;k++){
+                            worksheetDetail[k].showPic = true;
+                            worksheetDetail[k].addNum = true;
+                            worksheetDetail[k].ALWAY_NUM = worksheetDetail[k].APPLY_NUM;
+                        }
                     }
                     if(item == '1'){
 
                     }else{
                         worksheetHttpService.setSparePart(worksheetDetail);
                     }
-                    changeArr();
+                    if(worksheetDetail != undefined){
+                    changeArr();}
                 }else{
 
                 }

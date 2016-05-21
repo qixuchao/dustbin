@@ -952,7 +952,7 @@ ContactsModule
                             $scope.showCustomer=false;
                             $ionicHistory.goBack();
                         }else if(activityPlanService.goCreateCon == true){
-
+                            activityPlanService.goCreateCon = false;
                             $ionicHistory.goBack();
                         }else{
                             //console.log('跳转成功--xbr');
