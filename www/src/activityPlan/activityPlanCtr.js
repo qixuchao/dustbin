@@ -239,6 +239,7 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
 activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$ionicLoading', '$ionicHistory', 'worksheetDataService', '$rootScope', '$ionicScrollDelegate', '$http', '$cordovaToast', 'HttpAppService', '$scope', 'CarService', '$timeout', '$state', 'Prompter', 'activityPlanService','saleActService',
     function ($cordovaDialogs, $ionicLoading, $ionicHistory, worksheetDataService, $rootScope, $ionicScrollDelegate, $http, $cordovaToast, HttpAppService, $scope, CarService, $timeout, $state, Prompter, activityPlanService,saleActService) {
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+            init();
             if(fromState.name == 'activityPlanCreate' && toState.name == 'activityPlanDetail' && activityPlanService.updatePageFlag == true){
                 activityPlanService.updatePageFlag == false;
                 init();
@@ -592,15 +593,19 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
             if(fromState.name == 'activityPlanDetail' && toState.name == 'activityPlanCreateHead' && activityPlanService.pageFlag == "Y"){
                 activityPlanService.pageFlag = "N";
-                $ionicHistory.goBack();
+                var loadingTime = 200;
+                Prompter.showLoadingAutoHidden("正在返回,请稍候", false, loadingTime);
+                $timeout(function(){
+                    $ionicHistory.goBack();
+                }, loadingTime);
             }
         });
         $scope.goEditBack = function(){
             Prompter.ContactCreateCancelvalue();
         }
         $scope.dataDetail = {
-            instart : "",
-            inend : "",
+            instart : "2011-11-11",
+            inend : "2011-11-11",
             saleOffice :{
                 flag : "N",
                 SALES_OFF_TXT : "请选择销售办事处"

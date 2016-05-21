@@ -97,9 +97,19 @@
                                    ng-model="chanceDetails.ZZXMBH"></div>
                     </div>
                 </div>
-                <div class="row no-padding-right">
+                <div class="row no-padding-right" ng-hide="isATL">
                     <div class="row row-center">
                         <div class="col col-50 text-left">预期销售额Million:</div>
+                        <div class="text"><input type="text" ng-blur="returnScroll()" class="saleChanPreInput"
+                                                 ng-readonly="!isEdit" ng-model="chanceDetails.EXP_REVENUE"></div>
+                        <div class="col col-30 text-left money" ng-click="openMoneyModal('money')">
+                            -{{chanceDetails.CURRENCY?chanceDetails.CURRENCY:'币种'}}-
+                        </div>
+                    </div>
+                </div>
+                <div class="row no-padding-right" ng-show="isATL">
+                    <div class="row row-center">
+                        <div class="col col-35 text-left">预期销售额:</div>
                         <div class="text"><input type="text" ng-blur="returnScroll()" class="saleChanPreInput"
                                                  ng-readonly="!isEdit" ng-model="chanceDetails.EXP_REVENUE"></div>
                         <div class="col col-30 text-left money" ng-click="openMoneyModal('money')">
@@ -125,7 +135,7 @@
                             -{{chanceDetails.ZZFLD00002E?chanceDetails.ZZFLD00002E:'单位'}}-</div>
                     </div>
                 </div>
-                <div class="row no-padding-right">
+                <div class="row no-padding-right" ng-hide="isATL">
                     <div class="row row-center">
                         <div class="col col-30 text-left">容量:</div>
                         <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
@@ -135,7 +145,7 @@
                                    ng-model="chanceDetails.ZERLDW" placeholder="单位"></div>
                     </div>
                 </div>
-                <div class="row no-padding-right">
+                <div class="row no-padding-right" ng-hide="isATL">
                     <div class="row row-center">
                         <div class="col col-30 text-left">数量:</div>
                         <div class="text"><input type="text" class="saleChanPreInput" ng-readonly="!isEdit"
