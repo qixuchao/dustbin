@@ -196,12 +196,16 @@ salesModule
                     });
             };
             var getStaff = function (search) {
+                console.log("xbr--getStaff: "+relationPage);
                 $scope.isError = false;
                 if (search) {
                     $scope.relationArr = [];
                     $scope.relationSearch = false;
                     relationPage = 1;
                 } else {
+                    if(search==""){
+                        relationPage = 1;
+                    }
                     $scope.relationrelationSpinnerFlag = true;
                 }
                 var data = {
@@ -291,16 +295,54 @@ salesModule
                     Prompter.alert('已存在客户!');
                     return
                 }
-
                 x.flag = true;
                 if(saleClueService.flagClue == true){
                     saleClueService.flagClue = false;
                     x.PARTNER_FCT = getRelationFCT();
                     console.log(angular.toJson(x, true));
                     if (x.flag && x.PARTNER_FCT != '00000023') { //竞争对手可以添加多项
-                        Prompter.alert('已有此类型相关方,无法再次添加!');
-                        $scope.hideRelations();
-                        return;
+
+                        // angular.forEach($scope.relationArr, function(relationDate){
+                        //     if(relationDate.flag){
+                        //         var temp0 = 0; //该员工是否已经被选中
+                        //         angular.forEach(myRelations, function(x33){
+                        //             if (x33.PARTNER == relationDate.PARTNER && x33.PARTNER_FCT == ) {
+                        //                 temp0++;
+                        //             }
+                        //         });
+                        //         if (temp0 == 0) {
+                        //             relationDate.PARTNER_FCT = getRelationFCT();
+                        //             relationDate.position = $scope.selectPopText;
+                        //             relationDate.mode = "I";
+                        //             myRelations.push(relationDate);
+                        //         } else {
+                        //         }
+                        //     }
+                        // });
+
+
+                        var typeExists = false;
+                        angular.forEach(myRelations, function(relationDate){
+                            if(x.PARTNER_FCT == relationDate.PARTNER_FCT){
+                                typeExists = true;
+                            }
+                        });
+                        if(typeExists){ //已经存在此类型相关方
+                            Prompter.alert('已有此类型相关方,无法再次添加!');
+                            $scope.hideRelations();
+                            return;
+                        }else{
+                            x.mode = "I";
+                            x.position = $scope.selectPopText;
+                            myRelations.push(x);
+                            //$scope.relationArr.push(x);
+                        }
+                        
+
+
+                        // Prompter.alert('已有此类型相关方,无法再次添加!');
+                        // $scope.hideRelations();
+                        // return;
                     }
                 }
                 //已选的人不要再添加
