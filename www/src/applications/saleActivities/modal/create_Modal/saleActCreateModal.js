@@ -127,8 +127,13 @@ salesModule
                     });
             };
             var getDefultStartTime = function () {
-                var dateArr = new Date().format('hh:mm').split(':');
-                return new Date().format('yyyy-MM-dd') + ' ' + (Number(dateArr[0]) + 2) + ':' + dateArr[1];
+                //var dateArr = new Date().format('hh:mm').split(':');
+                //return new Date().format('yyyy-MM-dd') + ' ' + (Number(dateArr[0]) + 2) + ':' + dateArr[1];
+                //60*60*1000*2: 2小时  ：7200000
+                var nowTime = new Date().getTime();
+                var hourTime = 7200000 + nowTime;
+                var hourDate = new Date(hourTime);
+                return hourDate.format("yyyy-MM-dd hh:mm");
             };
             $scope.selectPersonflag = false;
             $scope.saveCreateModal = function () {
@@ -151,13 +156,13 @@ salesModule
                     $scope.create.customer = {PARTNER: "",PARTNER_FCT :""};
                 }else{
                     //$scope.create.customer = {PARTNER_FCT :"00000009"};
-                    $scope.create.customer.PARTNER_FCT = "00000009";
+                    $scope.create.customer.PARTNER_FCT = "00000009";    //客户
                 }
                 if (angular.isUndefined($scope.create.contact)) {
                     $scope.create.contact = {PARTNER: "",PARTNER_FCT :""}
                 }else{
-                    //$scope.create.customer = {PARTNER_FCT :"00000015"};
-                    $scope.create.contact.PARTNER_FCT = "00000015";
+                    //$scope.create.customer = {PARTNER_FCT :"00000015"}; 
+                    $scope.create.contact.PARTNER_FCT = "00000015";     //联系人
                 }
                 if (angular.isUndefined($scope.create.urgent)) {
                     $scope.create.urgent = {value: ""};
@@ -200,7 +205,7 @@ salesModule
                             "PARTNER_FCT": $scope.create.customer.PARTNER_FCT,//客户
                             "PARTNER": $scope.create.customer.PARTNER
                         }, {
-                            "PARTNER_FCT": $scope.create.customer.PARTNER_FCT,//联系人
+                            "PARTNER_FCT": $scope.create.contact.PARTNER_FCT,//联系人
                             "PARTNER": $scope.create.contact.PARTNER
                         }]
                     }
