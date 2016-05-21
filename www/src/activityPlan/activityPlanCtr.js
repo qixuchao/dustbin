@@ -1,9 +1,9 @@
  /**
  * Created by admin on 16/5/1.
  */
-activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ionicLoading', '$ionicHistory', 'worksheetDataService', '$rootScope', '$ionicScrollDelegate', '$http', '$cordovaToast', 'HttpAppService', '$scope', 'CarService', '$timeout', '$state', 'Prompter', 'activityPlanService',
-    function ($cordovaDialogs, $ionicLoading, $ionicHistory, worksheetDataService, $rootScope, $ionicScrollDelegate, $http, $cordovaToast, HttpAppService, $scope, CarService, $timeout, $state, Prompter, activityPlanService) {
-
+activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ionicLoading', '$ionicHistory', 'worksheetDataService', '$rootScope', '$ionicScrollDelegate', '$http', '$cordovaToast', 'HttpAppService', '$scope', 'CarService', '$timeout', '$state', 'Prompter', 'activityPlanService','LoginService',
+    function ($cordovaDialogs, $ionicLoading, $ionicHistory, worksheetDataService, $rootScope, $ionicScrollDelegate, $http, $cordovaToast, HttpAppService, $scope, CarService, $timeout, $state, Prompter, activityPlanService,LoginService) {
+        $scope.editCreate = LoginService.getAuthInfoByFunction("ACTPLAN").CREATE;
         $scope.cars = [];
         $scope.searchFlag = false;
         $scope.isSearch = false;
