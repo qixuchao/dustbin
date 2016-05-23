@@ -43,6 +43,10 @@ appModule
             name:'CAR',
             url:'img/apps/searchCar.png',
             go:'car'
+        },{
+            name:'VISIT',
+            url:'img/apps/visit.png',
+            go:'visit.list'
         }];
         var num=menuList.length;
 

@@ -7,13 +7,13 @@
                 <div class="col col-15"><span></span></div>
             </div>
         </ion-header-bar>
-    </div>
+    </div> 
     <ion-content id="xbr-worksheet-list-content"  class="has-header" style="" scroll="false" has-bouncing="false">
     	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);"  ng-class="{'isSearchingMode':(config.queryModeNew)}">
     		
             <div class="search-box" style="margin-left: .4rem;">
 	            <i class="icon ion-ios-search-strong left"></i>
-                    <form>
+                    <form> 
                      <input type="search" ng-model="config.searchText" style="font-size: 12px;padding-top:0px; padding-bottom:0px;" ng-change="onSearchTextChange($event);" ng-keyup="searchInputOnKeyup($event);" ng-click="clickSearchInput();" placeholder="{{config.searchPlaceholder}}">
                      </form>
                 <i ng-if="config.searchInputHasText" class="ion-ios-close right" ng-click="clearSearchText();"></i>

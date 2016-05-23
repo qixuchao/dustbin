@@ -1109,7 +1109,8 @@ mainModule
             };
             //拜访
             $scope.openCreateVisit = function () {
-                Prompter.alert('该功能尚未开通,敬请期待!');
+                //Prompter.alert('该功能尚未开通,敬请期待!');
+                $state.go("visit.create");
             };
             //签到
             $scope.openCreateCheck = function () {

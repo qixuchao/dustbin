@@ -200,7 +200,7 @@ loginModule
                 $ionicLoading.hide();
             };
             
-
+            
             var  times__registerJpushId = 20;
             function __registerJpushId(){
                 times__registerJpushId--;

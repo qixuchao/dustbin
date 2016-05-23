@@ -20,10 +20,14 @@ var customerContactsModule = angular.module('customerContactsModule', []);
 var customerModuleServive = angular.module('customerModuleServive', []);
 var spareModule = angular.module('spareModule',[]);
 var worksheetModule = angular.module('worksheetModule', ['ion-gallery']); // 工单模块
+var visitModule = angular.module('visitModule',[]); //拜访模块
+var signinModule = angular.module('signinModule',[]); //签到模块
 var worksheetReportModule = angular.module('worksheetReportModule', []);
 var settingsModule = angular.module('settingsModule', []);  //我的模块
 var activityPlanModule = angular.module('activityPlanModule', []);  //活动计划模块
- 
+
+
+
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlideBox', 'ngCordova',
     'ionic-material',
     'utilsModule',
@@ -38,6 +42,8 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlide
     'spareModule',
     'salesModule',
     'worksheetModule',
+    'visitModule',
+    'signinModule',
     'ContactsModule',
     'ContactsRelationModule',
     'contactModuleServive',
@@ -136,7 +142,7 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
            controller: 'LoginCtrl'
         })
         
-        // .state('login', {
+        // .state('login', { 
         //     url: '/login',
         //     templateUrl: 'src/loginSecond/loginSecond.html',
         //     controller: 'LoginCtrl'
@@ -526,6 +532,77 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             controller: 'ChangeCharCtrl'
         })
         //选择销售或服务 end-------
+        
+        //拜访模块 start ---------
+        .state('visit', {
+            url: '/visit',
+            abstract: true,
+            templateUrl: 'src/visit/absVisit.html',
+            controller: 'absVisitCtrl'
+        })
+        .state('visit.list', {
+            url: '/list',
+            views: {
+                'visitContent': {
+                    templateUrl: 'src/visit/list/visitList.html',
+                    controller: 'visitListCtrl'
+                }
+            }
+        })
+        .state('visit.detail', {
+            url: '/detail',
+            views: {
+                'visitContent': {
+                    templateUrl: 'src/visit/detail/visitDetail.html',
+                    controller: 'visitDetailCtrl'
+                }
+            }
+        })
+        .state('visit.create', {
+            url: '/create',
+            views: {
+                'visitContent': {
+                    templateUrl: 'src/visit/create/visitCreate.html',
+                    controller: 'visitCreateCtrl'
+                }
+            }
+        })
+        //拜访模块 end ---------
+        //签到模块 start ---------
+        .state('signin', {
+            url: '/signin',
+            abstract: true,
+            templateUrl: 'src/signin/absSignin.html',
+            controller: 'absSigninCtrl'
+        })
+        .state('signin.list', {
+            url: '/list',
+            views: {
+                'signinContent': {
+                    templateUrl: 'src/signin/list/signinList.html',
+                    controller: 'signinListCtrl'
+                }
+            }
+        })
+        .state('signin.detail', {
+            url: '/detail',
+            views: {
+                'signinContent': {
+                    templateUrl: 'src/signin/detail/signinDetail.html',
+                    controller: 'signinDetailCtrl'
+                }
+            }
+        })
+        .state('signin.create', {
+            url: '/create',
+            views: {
+                'signinContent': {
+                    templateUrl: 'src/signin/create/signinCreate.html',
+                    controller: 'signinCreateCtrl'
+                }
+            }
+        })
+        //签到模块 end ---------
     ;
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider  // /home/login
