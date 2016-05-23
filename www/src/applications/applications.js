@@ -47,6 +47,10 @@ appModule
             name:'VISIT',
             url:'img/apps/visit.png',
             go:'visit.list'
+        },{
+            name:'SERVICEMAP',
+            url:'img/apps/serviceMap.png',
+            go:'myMapService'
         }];
         var num=menuList.length;
 

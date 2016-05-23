@@ -1,0 +1,8 @@
+{
+  "baiduMap": {
+    "pointQueryUrl": "http://api.map.baidu.com/geosearch/v3/nearby",
+    "apiKey": "gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru",
+    "geotableId": "140851",
+    "radius": 30000
+  }
+}

@@ -2,8 +2,8 @@ var utilsModule = angular.module('utilsModule', []);
 var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []);
-var appModule = angular.module('appModule', []); 
-var carModule = angular.module('carModule',[]);
+var appModule = angular.module('appModule', []);
+var carModule = angular.module('carModule', []);
 var salesModule = angular.module('salesModule', []);
 var employeeModule = angular.module('employeeModule', []);
 var employeeModuleServive = angular.module('employeeModuleServive', []);
@@ -18,20 +18,19 @@ var customerkeyModule = angular.module('customerkeyModule', []);
 var customerWorkorderModule = angular.module('customerWorkorderModule', []);
 var customerContactsModule = angular.module('customerContactsModule', []);
 var customerModuleServive = angular.module('customerModuleServive', []);
-var spareModule = angular.module('spareModule',[]);
+var spareModule = angular.module('spareModule', []);
 var worksheetModule = angular.module('worksheetModule', ['ion-gallery']); // 工单模块
 var visitModule = angular.module('visitModule',[]); //拜访模块
 var signinModule = angular.module('signinModule',[]); //签到模块
 var worksheetReportModule = angular.module('worksheetReportModule', []);
 var settingsModule = angular.module('settingsModule', []);  //我的模块
 var activityPlanModule = angular.module('activityPlanModule', []);  //活动计划模块
+var myMapModule = angular.module('myMapModule', []);//服务地图模块
 
-
-
-var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlideBox', 'ngCordova',
+var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ionic.ui.superSlideBox', 'ngCordova',
     'ionic-material',
     'utilsModule',
-    'loginModule', 
+    'loginModule',
     'mainModule',
     'tabsModule',
     'appModule',
@@ -57,11 +56,14 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlide
     'customerWorkorderModule',
     "worksheetReportModule",
     "settingsModule",
-    'activityPlanModule'
+    'activityPlanModule',
+    'myMapModule',
+    'ngBaiduMap',
+    'ng-mfb'
 ]);
-CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
+CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
 
-        function __onHardwareBackButton(e){
+        function __onHardwareBackButton(e) {
             //判断处于哪个页面时双击退出
             if ($rootScope.backButtonPressedOnceToExit) {
                 ionic.Platform.exitApp();
@@ -90,50 +92,58 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
 
             $ionicPlatform.registerBackButtonAction(__onHardwareBackButton, 101);
 
-            
-            
+
         });
-        $rootScope.goState = function(state){
+        $rootScope.goState = function (state) {
             $state.go(state);
         };
-        $rootScope.goBack = function(){
+        $rootScope.goBack = function () {
             $ionicHistory.goBack();
         };
-        $rootScope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParam){
+        $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam) {
             var ele = $("ion-view[nav-view=entering]");
-            for(var i = 0; i < ele.length; i++){
+            for (var i = 0; i < ele.length; i++) {
                 var eleTemp = angular.element(ele[i]);
-                eleTemp.attr("nav-view","active");
+                eleTemp.attr("nav-view", "active");
             }
             var eleLeave = $("ion-view[nav-view=leaving]");
-            for(var i2 = 0; i2 < eleLeave.length; i2++){
+            for (var i2 = 0; i2 < eleLeave.length; i2++) {
                 var eleTemp = angular.element(eleLeave[i2]);
-                eleTemp.attr("nav-view","cached");
+                eleTemp.attr("nav-view", "cached");
             }
         });
-        $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParam){
-            alert("rootScope: $stateChangeError :       to:"+toState.name+"     from:"+fromState.name);
+        $rootScope.$on("$stateChangeError", function (event, toState, toParams, fromState, fromParam) {
+            alert("rootScope: $stateChangeError :       to:" + toState.name + "     from:" + fromState.name);
         });
-        $rootScope.$on("$stateNotFound", function (event, toState, toParams, fromState, fromParam){
-            alert("rootScope: $stateNotFound :       to:"+toState.name+"     from:"+fromState.name);
+        $rootScope.$on("$stateNotFound", function (event, toState, toParams, fromState, fromParam) {
+            alert("rootScope: $stateNotFound :       to:" + toState.name + "     from:" + fromState.name);
         });
 })
-.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionGalleryConfigProvider) {
+.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionGalleryConfigProvider, baiduMapApiProvider) {
     ionGalleryConfigProvider.setGalleryConfig({
                           action_label: '关闭',
                           toggle: false,
                           row_size: 2,
                           fixed_row_size: true
     });
+    baiduMapApiProvider.version('2.0').accessKey('gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru');
     // Turn off caching for demo simplicity's sake
     //$ionicConfigProvider.views.maxCache(0);
     $ionicConfigProvider.views.swipeBackEnabled(true);
     /*
      // Turn off back button text
      $ionicConfigProvider.backButton.previousTitleText(false);
-     */
+    */
     
     $stateProvider
+
+        //服务地图 start------
+        .state('myMapService', {
+            url: 'myMapService',
+            templateUrl: 'src/myMap/myMap.html',
+            controller: 'myBaiduMapCtrl'
+        })
+        //服务地图 end------
         
         .state('login', {
            url: '/login',
@@ -345,162 +355,6 @@ CRMApp.run(function ($ionicPlatform,$rootScope, $ionicHistory, $cordovaToast ) {
             url: '/worksheetEdit/{detailType}',
             templateUrl: 'src/worksheet/detailEdit/detailAllEdit.html',
             controller: 'worksheetEditAllCtrl'
-        })
-
-        .state('worksheetBaoGonglist', {   //报工信息列表界面
-            url: '/worksheetBaoGonglist',
-            templateUrl: 'src/worksheet/baoGong/baoGongList.html',
-            controller: 'WorksheetBaoGongListCtrl'
-        })
-        .state('worksheetDetailHistoryList', {   //交易历史列表界面
-            url: '/worksheetDetailHistoryList',
-            templateUrl: 'src/worksheet/dealHistoryList/dealHistoryList.html',
-            controller: 'dealHistoryListCtrl'
-        })
-        
-        .state('worksheetCarMileage',{
-            url: '/worksheetCarMileage',
-            templateUrl: 'src/worksheet/carMileage/worksheet_carMileage.html',
-            controller: 'WorksheetCarMileageCtrl'
-        })
-        .state('worksheetFaultInfos', {
-            url: '/worksheetFaultInfos',
-            templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo.html',
-            controller: 'WorksheetFaultInfoCtrl'
-        })
-
-
-        .state('worksheetCarMileageEdit',{
-            url: '/worksheetCarMileageEdit',
-            templateUrl: 'src/worksheet/carMileage/worksheet_carMileage_edit.html',
-            controller: 'WorksheetCarMileageEditCtrl'
-        })
-        .state('worksheetFaultInfosEdit', {
-            url: '/worksheetFaultInfosEdit',
-            templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo_edit.html',
-            controller: 'WorksheetFaultInfoEditCtrl'
-        })
-        .state('worksheetSparepart', {
-            url: '/worksheetSparepart',
-            templateUrl: 'src/worksheet/sparePart/worksheet_sparePart.html',
-            controller: 'WorksheetSparepartCtrl'
-        })
-        .state('worksheetSelect', {
-            url: '/worksheetSelect',
-            templateUrl: 'src/worksheet/sparePart/worksheet_spareSelect.html',
-            controller: 'WorksheetPareSelectCtrl'
-        })
-        .state('worksheetSelectPro', {
-            url: '/worksheetSelectPro',
-            templateUrl: 'src/worksheet/sparePart/worksheet_pro.html',
-            controller: 'worksheetSpareListCtrl'
-        })
-        .state('worksheetRelatedPart', {
-            url: '/worksheetRelatedPart',
-            templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',
-            controller: 'WorksheetRelatedCtrl'
-        })
-        .state('worksheetRelatedPartContact', {
-            url: '/worksheetRelatedPartContact',
-            templateUrl: 'src/worksheet/relatedPart/worksheet_relatePartContact.html',
-            controller: 'WorksheetRelatedContactCtrl'
-        })
-        .state('worksheetRelatedPartCust', {
-            url: '/worksheetRelatedPartCust',
-            templateUrl: 'src/worksheet/relatedPart/worksheet_relatePartCust.html',
-            controller: 'WorksheetRelatedCustCtrl'
-        })
-        .state('worksheetRelatedPartDelete', {
-            url: '/worksheetRelatedPartDelete',
-            templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPartDelete.html',
-            controller: 'WorksheetRelatedDeleteCtrl'
-        })
-        .state('worksheetTakePicture', {
-            url: '/worksheetTakePicture',
-            templateUrl: 'src/worksheet/takePicture/takePicture.html',
-            controller: 'worksheetTakePictureCtrl'
-        })
-
-        .state('staffSelect', {
-            url: '/staffSelect',
-            templateUrl: 'src/worksheet/selectStaff/selectStaff.html',
-            controller: 'selectStaffCtrl'
-        })
-        // 工单模块相关： end ------------------------
-        .state('changePass', {
-            url: '/changePass',
-            templateUrl: 'src/settings/changePass/changePass.html',
-            controller: 'ChangePassCtrl'
-        })
-        .state('about',{
-            url:'/about',
-            templateUrl:'src/settings/about.html',
-            controller:'AboutCtrl'
-        })
-        .state('aboutapp',{
-            url:'/aboutapp',
-            templateUrl:'src/settings/aboutApp.html',
-            controller:'AboutAppCtrl'
-        })
-        // 报工单模块相关： start ------------------------
-        .state('baoGongCreate', {
-            url: '/baoGongCreate',
-            templateUrl: 'src/worksheet/baoGong/create/create.html',
-            controller: 'baoGongCreateCtrl'
-        })
-        .state('baoGongDetail', {
-            url: '/baoGongDetail',
-            templateUrl: 'src/worksheet/baoGong/detailAll/detailAll.html',
-            controller: 'baoGongDetailAllCtrl'
-        })
-        .state('baoGongInfosList', {
-            url: '/baoGongInfosList',
-            templateUrl: 'src/worksheet/baoGong/infos/infoList.html',
-            controller: 'baoGongInfoListCtrl'
-        })
-        .state('baoGongEdit', {
-            url: '/baoGongEdit',
-            templateUrl: 'src/worksheet/baoGong/edit/edit.html',
-            controller: 'baoGongDetailEditCtrl'
-        })
-        // 报工单模块相关： end ------------------------
-        // .state('worksheetReportedList', {
-        //     url: '/worksheetReportedList',
-        //     templateUrl: 'src/worksheetReported/worksheetReportedList.html',
-        //     controller: 'WorksheetListReportedCtrl'
-        // })
-
-        // .state('worksheetReportedDetail', {
-        //     url: '/worksheetReportedDetail',
-        //     templateUrl: 'src/worksheetReported/worksheetReportedDetail/worksheetReporteDetail.html',
-        //     controller: 'WorksheetListReportedDetailCtrl'
-        // })
-        // .state('worksheetReportedInfosList', {
-        //     url: '/worksheetReportedInfosList',
-        //     templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedInfosList.html',
-        //     controller: 'WorksheetReportedListCtrl'
-        // })
-        // .state('worksheetReportedCreate', {
-        //     url: '/worksheetReportedCreate',
-        //     templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedCreate.html',
-        //     controller: 'WorksheetReportedCreateCtrl'
-        // })
-        // .state('worksheetReportedMaintain', {
-        //     url: '/worksheetReportedMaintain',
-        //     templateUrl: 'src/worksheetReported/worksheetReportedInfos/worksheetReportedMaintain.html',
-        //     controller: 'WorksheetReportedMaintainCtrl'
-        // })
-
-        //销售线索
-        .state('saleClueDetail', {
-            url: '/saleClueList/saleClueDetail',
-            templateUrl: 'src/applications/saleClue/detail/saleClueDetail.html',
-            controller: 'saleClueDetailCtrl'
-        })
-        .state('saleClueList', {
-            url: '/saleClueList',
-            templateUrl: 'src/applications/saleClue/list/saleClueList.html',
-            controller: 'saleClueListCtrl'
         })
 
         //活动计划模块 start-------

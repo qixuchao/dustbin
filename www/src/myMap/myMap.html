@@ -1,0 +1,41 @@
+<ion-view class="myMap">
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head ">
+            <div class="row row-center">
+                <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i
+                        class="ion-chevron-left"></i></a>
+                <div class="col col-60 text-center">服务地图</div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <ion-header-bar class="bar bar-subheader ">
+        <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <i class="icon ion-ios-close" ng-show="carInfo.length>0" ng-click="initSearch()"></i>
+            <input type="text" placeholder="请输入位置信息" ng-model="searchInfo" ng-click="changePage()"
+                   ng-change="initLoad()">
+            <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+        <div id="myMap" style="width: 100%;height: 100%;" ng-hide="searchFlag"></div>
+        <mfb-menu active-icon="ion-close-round" resting-icon="ion-plus-round"
+                  effect="slidein"
+                  toggling-method="click"
+                  position="tr" ng-hide="searchFlag">
+
+            <button mfb-button mfb-button-close icon="ion-close-round" ng-click="menuBtnSelected('{{item}}');"
+                    label="{{item}}" ng-repeat="item in baiduMapConfig.filterBtns"></button>
+            <!--<button mfb-button mfb-button-close icon="ion-close-round" ng-click="menuBtnSelected('测试2');"-->
+                    <!--label="测试2"></button>-->
+            <!--<button mfb-button mfb-button-close icon="ion-close-round" ng-click="menuBtnSelected('测试3');"-->
+                    <!--label="测试3"></button>-->
+        </mfb-menu>
+
+        <ion-list class="list" ng-show="searchFlag">
+            <ion-item class="list-item" ng-repeat="item in searchPointsData" ng-click="selectSearchData(item)">
+                {{item.title}}
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
