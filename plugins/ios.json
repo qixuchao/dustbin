@@ -11,16 +11,7 @@
             "API_KEY": "b3793e32c69f2945bb61ae2f",
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
-        "com.verso.cordova.clipboard": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
         "cordova-plugin-app-version": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
-        "cordova-plugin-base64-joewsh": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
-        "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
         "cordova-plugin-canvas2image": {
@@ -38,12 +29,6 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
-        "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
-        "cordova-plugin-file": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
@@ -59,9 +44,6 @@
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
         "cordova-plugin-x-toast": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
@@ -69,5 +51,24 @@
             "PACKAGE_NAME": "com.crmEnergy.catl"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "com.verso.cordova.clipboard": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
+        },
+        "cordova-plugin-base64-joewsh": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
+        }
+    }
 }

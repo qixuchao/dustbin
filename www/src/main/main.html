@@ -168,6 +168,7 @@
         </div>
         <ion-infinite-scroll id="mainInfiniteId" immediate-check="false" on-infinite="getList()" distance="1%"
                              ng-if="loadMoreFlag&&contentArr.length!=0"></ion-infinite-scroll>
+        <button class="button button-positive" ng-click="toMap();">进入百度</button>
     </ion-scroll>
 
 </ion-content>

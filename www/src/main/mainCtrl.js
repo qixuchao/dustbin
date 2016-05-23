@@ -27,6 +27,12 @@ mainModule
                   $ionicBackdrop, $ionicPopover, $cordovaDatePicker, $location, $cordovaToast, $ionicModal,
                   ionicMaterialInk, ionicMaterialMotion, Prompter, HttpAppService, LoginService, saleActService,
                   worksheetDataService, saleChanService) {
+
+            $scope.toMap = function(){
+                $state.go('myMapService');
+            }
+
+
             $timeout(function () {
                 document.getElementById('app-funcs').classList.toggle('on');
                 ionicMaterialInk.displayEffect();
