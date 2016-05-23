@@ -1,0 +1,153 @@
+<ion-view canClickEnterListMode id="signin-view" class="" align-title="center">
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
+                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-70 text-center">拜访列表</div>
+                <div class="col col-15"><span></span></div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <ion-content id="xbr-signin-list-content"  class="has-header" style="" scroll="false" has-bouncing="false">
+    	<div  class="search-box-wrapper fill-width" canClickEnterListMode ng-click="clickEnterListMode($event);"  ng-class="{'isSearchingMode':(config.queryModeNew)}">
+            <div class="search-box" style="margin-left: .4rem;">
+                <i class="icon ion-ios-search-strong left"></i>
+                    <form>
+                     <input type="search" ng-model="config.searchText" style="font-size: 12px;padding-top:0px; padding-bottom:0px;" ng-change="onSearchTextChange($event);" ng-keyup="searchInputOnKeyup($event);" ng-click="clickSearchInput();" placeholder="{{config.searchPlaceholder}}">
+                    </form>
+                <i ng-if="config.searchInputHasText" class="ion-ios-close right" ng-click="clearSearchText();"></i>
+            </div>
+            <div class="cancle-button button button-clear" ng-click="cancleQueryMode();">取消</div>
+        </div>
+        <div class="search-history" ng-class="{'isSearchingMode':(config.queryModeNew),'no-show-search-box':(!config.showHistoryLog)}">
+            <div class="row history-title">
+                <i class="ion-android-time"></i>
+                <span class="text">历史记录</span>
+                <span class="line"></span>
+                <span class="text" style="margin-left:.4rem;" ng-click="clearSearchHistorys();">清空记录</span>
+            </div>
+            <ion-scroll>
+                <div class="list">
+                    <div class="item"  ng-repeat="item in config.historyStrs track by $index">
+                        <span ng-bind="item.text" ng-click="selectOldSearch(item.text)"></span>
+                        <i class="ion-ios-close" ng-click="deleteThisSearchHistory(item);"></i>
+                    </div>
+                </div>
+            </ion-scroll>
+        </div>
+        
+        <div ng-if="!config.queryModeNew" class="tab-buttons-line">
+            <div class="tab-button-block" ng-class="{'selected':config.isSorteMode}" ng-click="enterSorteMode();">
+                <span>排 序</span>
+                <i class="icon ion-arrow-down-b"></i>
+            </div>
+            <div class="tab-button-block" ng-class="{'selected':config.isFilterMode}" ng-click="enterFilterMode();">
+                <span>筛 选</span>
+                <i class="icon ion-arrow-down-b"></i>
+            </div>
+        </div>
+        <div class="tab-buttons-line-border" ng-class="{'right-filter':config.isFilterMode,'left-sort':config.isSorteMode}" ></div>
+        <div ng-if="!config.queryModeNew" class="tab-buttons-line-border2" ng-class="{'noShowColor':(!config.isFilterMode&&!config.isSorteMode),'right-filter':config.isFilterMode,'left-sort':config.isSorteMode}">
+            <div class="left"></div>
+            <div class="center"></div>
+            <div class="right"></div>
+        </div>
+        
+        <!-- 'sort-model-show':config.isSorteMode,'filter-model-show':config.isFilterMode, -->
+        <!--div class="divs-wrapper animate-fade-slide-in" ng-class="{'show-model':showXbrModel(),'sort-to-filter-ing':config.filterModeFromingSortMode,'filter-to-sort-ing':config.sortModeFromingFilterMode}" -->
+        <!-- animate-fade-slide-in -->
+        <div class="divs-wrapper" ng-class="{
+            'show-model':showXbrModel(),
+            'platform-ios': isIosPlatform(),
+            'platform-android': isAndroidPlatform(),
+            'sort-from-click ':(config.isSorteMode&& config.sortModeFromClick),
+            'sort-from-filter':(config.isSorteMode&&config.sortModeFromFilterMode),
+            'filter-from-sort':(config.isFilterMode&&config.filterModeFromSortMode),
+            'filter-from-click':(config.isFilterMode&&config.filterModeFromClick),
+            'filter-click-gone':(config.filterGoneByClick),
+            'sort-click-gone':(config.sorteGoneByClick),
+            'filter-gone-bymodelclick':(config.filterGoneByModelClick),
+            'sorte-gone-bymodelclick':(config.sorteGoneByModelClick)}">
+                
+                <div canClickEnterListMode class="tab-sort-content tab-sort-content-inner" ng-click="clickEnterListMode($event);" >
+                        <div canNotClickEnterListMode class="time-desc sort-type-item" ng-class="{'selected':config.sortedTypeTimeDesc}"  ng-click="sorteTimeDesc();">
+                            <span>开始时间倒序</span>
+                        </div>
+                        <div canNotClickEnterListMode class="time-asc sort-type-item" ng-class="{'selected':config.sortedTypeTimeAes}" ng-click="sorteTimeAes();">
+                            <span style="border-bottom:0px;">开始时间顺序</span>
+                        </div>
+                </div>
+                
+                <div canClickEnterListMode class="tab-filter-content" ng-click="clickEnterListMode($event);">
+                    <ion-scroll canNotClickEnterListMode scrollbar-y="false" has-bouncing="false" class="tab-filter-content-inner">
+                        <div canNotClickEnterListMode class="filter-time">
+                            <div class="filter-time-title filter-title">日期区间</div>
+                            <div class="filter-times-start-end">
+                                <div class="filter-start-time" ng-click="selectCreateTime('start', '选择日期', 'date');" ng-bind="config.timeStart"></div>
+                                <div class="filter-time-center-line">-</div>
+                                <div class="filter-end-time" ng-click="selectCreateTime('end','选择日期', 'date');" ng-bind="config.timeEnd"></div>
+                            </div>
+                        </div>
+                        
+                        <div canNotClickEnterListMode class="filter-action-buttons">
+                            <div class="filter-action-button reset" ng-click="resetFilters();">重置</div>
+                            <div canClickEnterListMode class="filter-action-button confirm" ng-click="filterConfirm();">确认</div>
+                        </div>
+                    </ion-scroll>
+                </div>
+
+                <div class="worksheet-query-result fill-parent"><!-- ng-show="config.isSorteMode" -->
+                    <ion-scroll class="fill-parent"  on-refresh="" delegate-handle="worksheetListResult" has-bouncing="false">
+                        <ion-refresher ng-show="canReLoadData()" pulling-text="下拉刷新" on-refresh="reloadData();"></ion-refresher>
+                        <div class="is-loading" ng-if="config.isLoading && config.isReloading" style="text-align:center;margin-top:1rem;">
+                            <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+                        </div>
+                        <div class="list">
+                            <!-- animated flipInX     ng-class="{'flipInX':(config.showListItemAnimate)}"-->
+                            <a class="item "  ng-click="goDetailState(item, $index);" ng-repeat="item in datas.serviceListDatas track by $index">
+                                <div class="left single-line-ellipsis">
+                                    <div class="row item-line">
+                                        <div class="col-28 name">工单描述:</div>
+                                        <div class="col-72 value" ng-bind="item.DESCRIPTION"></div>
+                                    </div>  
+                                    <div class="row item-line">
+                                        <div class="col-28 name">客户名称:</div>
+                                        <div class="col-72 value single-line-ellipsis" ng-bind="item.NAME1"></div>
+                                    </div>
+                                    <div class="row item-line" >
+                                        <div class="col-40 name">最后更新时间:</div>
+                                        <div class="col-60 value" ng-bind="item.CHANGED_AT | xbrWorksheetTime:'yyyy-MM-dd HH:mm:ss'"></div>
+                                        <!--div class="col-60 value" ng-bind="item.CHANGED_AT | date:'yyyy-MM-dd HH:mm:ss'"></div-->
+                                    </div>
+                                </div>
+                                <div class="right" >
+                                    <div class="enter-detail-btn">
+                                        <i class="ion-android-arrow-forward"></i>
+                                    </div>
+                                    <div class="status">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <!--div class="loading-more" ng-if="config.hasMoreData && !config.isLoading" ng-click="loadMoreDatas()">
+                            点击加载更多...
+                        </div-->
+                        <!--ion-infinite-scroll on-infinite="loadMore()" distance="1%">
+                        </ion-infinite-scroll-->
+                        <ion-infinite-scroll ng-if="config.hasMoreData && !config.isReloading" distance="1%" on-infinite="loadMoreDatas() " immediate-check="true"></ion-infinite-scroll>
+
+                        <div class="has-more-data-no" ng-if="!config.hasMoreData && !config.isLoading && (config.loadingErrorMsg == null || config.loadingErrorMsg=='')">
+                            无更多数据
+                        </div>
+                        <div class="request-error-msg has-more-data-no" ng-if="config.loadingErrorMsg && config.loadingErrorMsg!=''">
+                            <span ng-bind="config.loadingErrorMsg"></span>
+                        </div>
+                        <div class="is-loading" ng-if="config.isLoading && !config.isReloading" style="text-align:center;margin-top:1rem;">
+                            <ion-spinner icon="" class="spinner spinner-ios"></ion-spinner>
+                        </div>
+                    </ion-scroll>                            
+                </div>
+                <div canClickEnterListMode class="divs-wrapper-bg" ng-if="config.isSorteMode || config.isFilterMode" ng-click="clickEnterListMode($event);"></div>
+        </div>
+    </ion-content>
+</ion-view>
