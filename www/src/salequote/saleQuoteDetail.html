@@ -1,0 +1,224 @@
+<ion-view class="saleQuote_detail">
+        <div class="customer_backtopb" style="z-index:-1;padding-top:20px;height:156px">
+            <div class="customer_detailtitle">
+                <div style="width:40px;height:40px;position: absolute;top: 20px;left: 5px;" ng-click="goBack()">
+                    <i class="icon ion-ios-arrow-back publicheadtitlei" style="margin-top:0"></i>
+                </div>
+                <span class="customerdeatil_headtitlespan">报价单详细信息</span>
+            </div>
+            <div class="customer_detailcontent">
+                <div class="customer_detailcontentname">
+                    <div class="customer_detailcontentcicle"></div>
+                    标识：
+                    <span>
+                        <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                            <div >{{customerdetails.NAME_ORG1}}</div>
+                        </ion-scroll>
+                    </span>
+                </div>
+                <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 15px">
+                    售达方：<span ng-bind="customerdetails.PARTNER_ID" ></span>
+                </div>
+                <div class="customer_detailcontentphone" style="margin-left: 15px">
+                    状态：
+                    <span style="margin-left: 4px;" ng-bind="customerdetails.MOB_NUMBER"></span>
+                </div>
+                <div class="customer_detailcontentphonespan" style="right:0">
+                    <!--NO:<span style=" margin-left: 10px;" ng-bind="customerdetails.PARTNER_ID"></span>-->
+                </div>
+            </div>
+        </div>
+    <div class="item" style="padding: 10px 3px;border: none;margin-top: 5px;">
+        <div class="row row-center" style="padding: 0">
+            <div class="col col-90 col-center" style="padding: 0">
+                <ion-scroll direction="x" scrollbar-x="false" >
+                    <span style="position: relative;margin:0 7px 0 7px;font-size: 17px;" ng-class="{'selectColor' : lists.colorFlag}" ng-repeat="lists in scrollLists"  ng-click="showContent(lists)">
+                        {{lists.name}}
+                    </span>
+                </ion-scroll>
+            </div>
+            <div class="col col-10 col-center text-right"><i class="ion-chevron-up" style="font-size: 18px;color:#276DAC "></i></div>
+        </div>
+        <div style=" background-image:linear-gradient(to right, #2B60AB, #9EC92A);height: 1px;margin-top: 7px"></div>
+    </div>
+    <ion-content style="position: fixed;margin-top: 216px;" class="contentDetail">
+        <div ng-if="config.detail">
+            <div class="row row-center itemContent">
+                <div class="col col-center">类型：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">报价单类型：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">产品线：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">产品线及报价类型：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">参考：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">税额：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">有效期自：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">有效期至：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+        </div>
+        <div ng-if="config.competitors">
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">竞争对手1：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor"></div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">竞争对手2：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor"></div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">竞争对手3：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor"></div>
+            </div>
+            <div class="row itemContentS row-center">
+                <div class="col ">方案：</div>
+            </div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{$scope.saleQuoteDetail}}<br/></div>
+            <div class="row itemContentS row-center">
+                <div class="col ">价格：</div>
+            </div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{$scope.saleQuoteDetail}}<br/></div>
+            <div class="row itemContentS row-center">
+                <div class="col ">关系维护：</div>
+            </div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{$scope.saleQuoteDetail}}<br/></div>
+        </div>
+        <div ng-if="config.projectInfos">
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">战略客户：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">示范项目：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">主打产品：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">新领域拓展：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">其他：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">生命周期：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">项目总量：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">目标份额：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">研发阶段时长：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">计划量产时间：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+        </div>
+        <div ng-if="config.costomerNature">
+            <div class="row row-center itemContent">
+                <div class="col col-center">付款条件：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">发货条件：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">质保条件：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">行业规模：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">行业地位：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">客户财务状况：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">客户财务状况备注：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">报价单策略：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">报价单策略备注：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+        </div>
+        <div ng-if="config.others">
+            <div class="row row-center itemContent">
+                <div class="col col-center">市场价格范围自：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">市场价格范围至：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">是否优惠：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">优惠条件：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">优惠条件备注：</div>
+                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-footer-bar>
+            <!--<span style="position: relative;margin-right:55px;width: 33%;padding: 0px 3px;border: none;margin-top: 5px;" ng-repeat="lists in customer_detailstypes"   >-->
+                <!--<img class="customer_detail_countentbu image-list-thumb" ng-click="gocustomerLists(lists)" ng-src="{{lists.imgurl}}" alt=""/>-->
+                <!--<span class="customer_detail_countentimgbase" ng-click="gocustomerLists(lists)">-->
+                    <!--{{lists.typemane}}-->
+                <!--</span>-->
+            <!--</span>-->
+        <div class="row row-center">
+            <div class="col col-center" ng-click="goOthers('project')"><img ng-src="img/salequote/xiangmu.png" style="height: 33px"></div>
+            <div class="col col-center" ng-click="goOthers('related')"><img ng-src="img/salequote/xiangguanfang.png" style="height: 33px"></div>
+            <div class="col col-center" ng-click="goOthers('remark')"><img ng-src="img/salequote/zhushi.png" style="height: 33px"></div>
+        </div>
+    </ion-footer-bar>
+</ion-view>

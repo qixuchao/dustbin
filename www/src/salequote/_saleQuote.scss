@@ -1,0 +1,237 @@
+.saleQuote_detail {
+  .contentDetail{
+    .itemContent{
+      background-color: white;
+      margin-top: 1px;
+      margin-bottom: 1px;
+      border-bottom: 1px solid #D6D3CE;
+      padding: 6px 10px 4px 10px;
+      min-height: 46px;
+      max-height: 300px;
+      line-height: 30px;
+      font-size: 17px;
+    }
+    .fontColor{
+      color:#A8A49F;
+    }
+    .itemContentS{
+      background-color: white;
+      margin-top: 1px;
+      margin-bottom: 1px;
+      padding: 6px 10px 4px 10px;
+      min-height: 30px;
+      max-height: 300px;
+      line-height: 30px;
+      font-size: 1.0rem;
+    }
+  }
+  .selectColor{
+    color : #276DAC;
+  }
+
+  .absolute {
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+  .customer_backtopa {
+    background: url("../../img/customer/customerbackga@2x.png") no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+  }
+  .customer_backtopb {
+    background: url("../../img/customer/customerbackg@2x.png") no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+  }
+  .customer_detailtitle {
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    .customerdeatil_headtitlei {
+      font-size: 35px;
+      color: #C5D2E1;
+      display: block;
+      float: left;
+      margin-left: 15px;
+    }
+    .customerdeatil_headtitlespan {
+      font-size: 18px;
+      color: white;
+    }
+  }
+
+  .customer_detailtitleview {
+    height: 44px;
+    //line-height:44px;
+    text-align: center;
+    .customerdeatil_headtitleiview {
+      font-size: 40px;
+      color: #C5D2E1;
+      display: block;
+      float: left;
+      margin-left: 15px;
+      margin-top: 6px;
+    }
+    .customerdeatil_headtitlespanview {
+      font-size: 18px;
+      color: white;
+    }
+  }
+
+  .customer_detailname {
+    position: absolute;
+    top: 37px;
+    font-size: 14px;
+    width: 80%;
+    margin-left: 10%;
+    color: white;
+    text-align: center;
+  }
+
+  .customer_detailcontent {
+    position: relative;
+    height: 85px;
+    font-size: 16px;
+    color: white;
+    .customer_detailcontentname {
+      position: absolute;
+      top: 5px;
+      left: 25px;
+      .customer_detailcontentcicle {
+        width: 14px;
+        height: 14px;
+        float: left;
+        margin-top: 3px;
+        margin-right: 5px;
+        display: inline-block;
+        border-radius: 50%;
+        border: 2px solid #9EC92A;
+      }
+    }
+    .customer_detailcontentaddress {
+      position: absolute;
+      top: 35px;
+      left: 25px;
+    }
+    .customer_detailcontentphonespan {
+      position: absolute;
+      top: 65px;
+      right: 0px;
+      margin-right: 15px;
+    }
+    .customer_detailcontentphone {
+      position: absolute;
+      top: 65px;
+      left: 25px;
+      .customer_detailcontentphonei {
+        float: left;
+        margin-top: -3px;
+        font-size: 25px;
+      }
+    }
+  }
+;
+
+  .customer_detail_countentbu {
+    width: 33px;
+    height: 33px;
+    z-index: 100;
+  }
+  .customer_detail_countentimgbase {
+    text-align: center;
+    width: 75px;
+    height: 32px;
+    font-size: 14px;
+    padding-left: 10px;
+    line-height: 32px;
+    position: absolute;
+    left: 11px;
+    background-color: #E8E7E7;
+    border-radius: 30px;
+    z-index: -1;
+  }
+}
+
+//项目列表
+.projectCss{
+  ion-header-bar{
+    background-color: $crm-subject-blue;
+    .rowTitle{
+      margin-right: 0px;
+      margin-left: 0px;
+    }
+  }
+  .pointImg {
+    height: 0.7em;
+  }
+  .shapeImg {
+    position: relative;
+    height: 16px;
+    top: .2em;
+    left: 0.5em;
+  }
+  .fontColor{
+    color:#A8A49F;
+    font-size: 15px;
+  }
+  .rowstyle{
+    padding: 3px;
+  }
+}
+
+.projectDetailCss{
+  ion-header-bar{
+    background-color: $crm-subject-blue;
+    .rowTitle{
+      margin-right: 0px;
+      margin-left: 0px;
+    }
+  }
+  .itemContent{
+    background-color: white;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    border-bottom: 1px solid #D6D3CE;
+    padding: 6px 10px 4px 10px;
+    min-height: 46px;
+    max-height: 300px;
+    line-height: 30px;
+    font-size: 17px;
+  }
+  .fontColor{
+    color:#A8A49F;
+  }
+  .itemContentS{
+    background-color: white;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    padding: 6px 10px 4px 10px;
+    min-height: 30px;
+    max-height: 300px;
+    line-height: 30px;
+    font-size: 1.0rem;
+  }
+  .itemContentColor{
+    background-color: white;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    border-bottom: 1px dashed  #276DAC;
+    padding: 6px 10px 4px 10px;
+    min-height: 40px;
+    max-height: 300px;
+    line-height: 30px;
+    font-size: 17px;
+    padding:0 10px 0 10px;
+  }
+  .selectColor{
+    color : #276DAC;
+  }
+  .line{
+    width: 92%;
+    margin: 0;
+  }
+}

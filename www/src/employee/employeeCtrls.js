@@ -401,6 +401,7 @@ employeeModule
                     }
                     Prompter.hideLoading();
                 }else if (response.ES_RESULT.ZFLAG == 'E') {
+                    Prompter.hideLoading();
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                 }
             }).error(function(){

@@ -51,6 +51,10 @@ appModule
             name:'SERVICEMAP',
             url:'img/apps/serviceMap.png',
             go:'myMapService'
+        }, {
+            name:'SALEQUOTE',
+            url:'img/apps/saleQuote.png',
+            go:'saleQuoteList'
         }];
         var num=menuList.length;
 
