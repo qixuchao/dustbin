@@ -80,6 +80,9 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
             console.log(angular.toJson(data));
             var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function (response) {
+                if($scope.carInfo != data.IS_VP.TOURDESCRIPTION){
+                    return;
+                }
                 console.log(angular.toJson(response));
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.carimisshow = false;

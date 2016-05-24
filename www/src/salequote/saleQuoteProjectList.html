@@ -1,0 +1,31 @@
+<ion-view class="projectCss" align-title="center">
+    <ion-header-bar>
+        <div class="row row-center title rowTitle">
+            <div class="col col-15 text-left"  ng-click="goBack()"><i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px;color: white"></i></div>
+            <div class="col col-70 text-center" style="color: white">项目
+            </div>
+        </div>
+    </ion-header-bar>
+    <ion-content has-bouncing="false"  delegate-handle="projectList">
+        <div class="row row-center" style="border-bottom: 1px solid #D6D3CE" ng-repeat="i in [1,2]" ng-click="goProjectDetail()">
+            <div class="col" style="padding: 0">
+                <div class="row row-center rowstyle">
+                    <div class="col col-center col-6"><img ng-src="img/car/Oval.png" class="pointImg"></div>
+                    <div class="col col-center col-84" style="font-size: 17px">9s模型且特价区科委块钱儿</div>
+                    <div class="col col-center text-right col-10">
+                        <img ng-src="img/car/Shape.png" class="shapeImg">
+                    </div>
+                </div>
+                <div class="row row-center rowstyle">
+                    <div class="col col-center fontColor">132132-31313</div>
+                    <div class="col col-center text-right fontColor">报价执行项目</div>
+                </div>
+                <div class="row row-center rowstyle">
+                    <div class="col col-center col-75 fontColor">Model号：1323-31313</div>
+                    <div class="col col-center text-right col-25 fontColor">NO：129</div>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll on-infinite="" ng-if=""></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,85 @@
+<ion-view class="employee_query">
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head ">
+            <div class="row row-center">
+                <a class="col col-20 text-left goBack button button-clear" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <div class="col col-60 text-center">销售报价</div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <ion-header-bar class="bar bar-subheader ">
+        <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <i class="icon ion-ios-close" ng-show="carInfo.length>0" ng-click="initSearch()"></i>
+            <input type="text" placeholder="请输入销售报价描述" ng-model="employ.employeefiledvalue" ng-click="changePage()" ng-change="initLoad()">
+            <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
+        </div>
+    </ion-header-bar>
+    <ion-content ng-show="!searchFlag" ><!-- style="margin-bottom: 50px;" xbr:delete this -->
+        <!--<img ng-src="img/car/oftenCar.png" class="textImg">-->
+        <div class="Car_countentbasic">
+            <div class="Car_countentbasicinfo">常用报价</div>
+            <div class="Car_countentbasicline"></div>
+            <div class="Car_countentbasicclok"></div>
+        </div>
+        <div class="contentType animated" ng-repeat="lists in usuaemployee_query_list track by $index" ng-click="employee_govalue(lists,$index)">
+            <div class="row row-center rowType " >
+                <div class="col col-5 col-center">
+                    <img ng-src="img/car/Oval.png" class="pointImg">
+                </div>
+                <div class="col col-78" ng-click="employee_govalue(lists,$index)">{{lists.NAME_LAST}}</div>
+                <div class="col col-15 col-center">
+                    <img ng-src="img/car/Shape.png" class="shapeImg" >
+                </div>
+                <div class="col col-2"></div>
+            </div>
+        </div>
+    </ion-content>
+    <ion-content class="has-header search " has-bouncing="true" ng-show="searchFlag">
+        <div ng-show="!employ.employeefiledvalue.length>0">
+            <div class="row row-center his-title" >
+                <i class="ion-android-time"></i>
+                <div class="hisText">历史记录</div>
+                <div class="horizon-line"></div>
+            </div>
+            <ion-list>
+                <ion-item ng-click="search(x.name,$event)" ng-repeat="x in employee_query_historylists">{{x.name}}</ion-item>
+            </ion-list>
+        </div>
+        <div class="contentType" ng-repeat="lists in employee_query_list" ng-if="employ.employeefiledvalue.length>0" ng-click="employee_govalue(lists)">
+            <div class="row row-center rowType " style="padding: 0">
+                <div class="col-80 col-center" >
+                    <div class="row row-center" style="padding: 3px 0 3px 0;margin: 4px 0 4px 0">
+                        <div class="col col-6 col-center">
+                            <img ng-src="img/car/Oval.png" class="pointImg">
+                        </div>
+                        <div class="col col-80 col-center colType">
+                            <span><div ng-bind-html="car.TOURDESCRIPTION.toString() |highlight:carInfo"></div></span>
+                        </div>
+                    </div>
+                    <div class="row row-center" style="padding: 3px 0 3px 0">
+                        <div class="col" style="color: #888282">类型：</div>
+                    </div>
+                    <div class="row row-center" style="padding: 3px 0 3px 0">
+                        <div class="col" style="color: #888282">标识：</div>
+                    </div>
+                </div>
+                <div class="col-20 col-center">
+                    <div class="row row-center" style="margin: 4px 0 4px 0">
+                        <div class="col col-80 col-center">
+                            <img ng-src="img/car/Shape.png" class="shapeImg" ng-class="{true:'display:none',false:''}[config.backParameter]">
+                        </div>
+                        <div class="col col-20"></div>
+                    </div>
+                    <div class="row row-center" style="margin: 4px 0 4px 0">
+                        <div class="col col-80 col-center">
+                            已创建
+                        </div>
+                        <div class="col col-20"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ion-infinite-scroll on-infinite="employLoadmore()" ng-if="employisshow&&employ.employeefiledvalue.length>0"></ion-infinite-scroll>
+    </ion-content>
+</ion-view>

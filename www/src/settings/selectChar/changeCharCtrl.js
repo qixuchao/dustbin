@@ -42,14 +42,14 @@ settingsModule.controller("ChangeCharCtrl", [
 				}
 			}else if($scope.config.char.code == "APP_SALE"){
 				LoginService.setProfileType($scope.config.char.code);
-				var list =["CUSTOMER","EMPLOYEE","OPPORT","ACTIVITY","ACTPLAN","SALECLUE"];
+				var list =["CUSTOMER","EMPLOYEE","OPPORT","ACTIVITY","ACTPLAN","SALECLUE",'SALEQUOTE'];
 				LoginService.setMenulist(list);
-				if($rootScope.FIRST_LOGIN == "Y" || $rootScope.FIRST_LOGIN == "D"){
-					$state.go('changePass');
-				}else{
+				//if($rootScope.FIRST_LOGIN == "Y" || $rootScope.FIRST_LOGIN == "D"){
+				//	$state.go('changePass');
+				//}else{
 					$state.go('tabs', {}, {location:"replace", reload:"true"});
 				}
-			}
+			//}
 
 		}
 	}]);
