@@ -359,6 +359,119 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
             controller: 'worksheetEditAllCtrl'
         })
 
+        .state('worksheetBaoGonglist', {   //报工信息列表界面
+            url: '/worksheetBaoGonglist',
+            templateUrl: 'src/worksheet/baoGong/baoGongList.html',
+            controller: 'WorksheetBaoGongListCtrl'
+        })
+        .state('worksheetDetailHistoryList', {   //交易历史列表界面
+            url: '/worksheetDetailHistoryList',
+            templateUrl: 'src/worksheet/dealHistoryList/dealHistoryList.html',
+            controller: 'dealHistoryListCtrl'
+        })
+
+        .state('worksheetCarMileage', {
+            url: '/worksheetCarMileage',
+            templateUrl: 'src/worksheet/carMileage/worksheet_carMileage.html',
+            controller: 'WorksheetCarMileageCtrl'
+        })
+        .state('worksheetFaultInfos', {
+            url: '/worksheetFaultInfos',
+            templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo.html',
+            controller: 'WorksheetFaultInfoCtrl'
+        })
+        .state('worksheetCarMileageEdit', {
+            url: '/worksheetCarMileageEdit',
+            templateUrl: 'src/worksheet/carMileage/worksheet_carMileage_edit.html',
+            controller: 'WorksheetCarMileageEditCtrl'
+        })
+        .state('worksheetFaultInfosEdit', {
+            url: '/worksheetFaultInfosEdit',
+            templateUrl: 'src/worksheet/faultInfos/worksheet_faultInfo_edit.html',
+            controller: 'WorksheetFaultInfoEditCtrl'
+        })
+        .state('worksheetSparepart', {
+            url: '/worksheetSparepart',
+            templateUrl: 'src/worksheet/sparePart/worksheet_sparePart.html',
+            controller: 'WorksheetSparepartCtrl'
+        })
+        .state('worksheetSelect', {
+            url: '/worksheetSelect',
+            templateUrl: 'src/worksheet/sparePart/worksheet_spareSelect.html',
+            controller: 'WorksheetPareSelectCtrl'
+        })
+        .state('worksheetSelectPro', {
+            url: '/worksheetSelectPro',
+            templateUrl: 'src/worksheet/sparePart/worksheet_pro.html',
+            controller: 'worksheetSpareListCtrl'
+        })
+        .state('worksheetRelatedPart', {
+            url: '/worksheetRelatedPart',
+            templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPart.html',
+            controller: 'WorksheetRelatedCtrl'
+        })
+        .state('worksheetRelatedPartContact', {
+            url: '/worksheetRelatedPartContact',
+            templateUrl: 'src/worksheet/relatedPart/worksheet_relatePartContact.html',
+            controller: 'WorksheetRelatedContactCtrl'
+        })
+        .state('worksheetRelatedPartCust', {
+            url: '/worksheetRelatedPartCust',
+            templateUrl: 'src/worksheet/relatedPart/worksheet_relatePartCust.html',
+            controller: 'WorksheetRelatedCustCtrl'
+        })
+        .state('worksheetRelatedPartDelete', {
+            url: '/worksheetRelatedPartDelete',
+            templateUrl: 'src/worksheet/relatedPart/worksheet_relatedPartDelete.html',
+            controller: 'WorksheetRelatedDeleteCtrl'
+        })
+        .state('worksheetTakePicture', {
+            url: '/worksheetTakePicture',
+            templateUrl: 'src/worksheet/takePicture/takePicture.html',
+            controller: 'worksheetTakePictureCtrl'
+        })
+        .state('staffSelect', {
+            url: '/staffSelect',
+            templateUrl: 'src/worksheet/selectStaff/selectStaff.html',
+            controller: 'selectStaffCtrl'
+        })
+        // 工单模块相关： end ------------------------
+        .state('changePass', {
+            url: '/changePass',
+            templateUrl: 'src/settings/changePass/changePass.html',
+            controller: 'ChangePassCtrl'
+        })
+        .state('about', {
+            url: '/about',
+            templateUrl: 'src/settings/about.html',
+            controller: 'AboutCtrl'
+        })
+        .state('aboutapp', {
+            url: '/aboutapp',
+            templateUrl: 'src/settings/aboutApp.html',
+            controller: 'AboutAppCtrl'
+        })
+        // 报工单模块相关： start ------------------------
+        .state('baoGongCreate', {
+            url: '/baoGongCreate',
+            templateUrl: 'src/worksheet/baoGong/create/create.html',
+            controller: 'baoGongCreateCtrl'
+        })
+        .state('baoGongDetail', {
+            url: '/baoGongDetail',
+            templateUrl: 'src/worksheet/baoGong/detailAll/detailAll.html',
+            controller: 'baoGongDetailAllCtrl'
+        })
+        .state('baoGongInfosList', {
+            url: '/baoGongInfosList',
+            templateUrl: 'src/worksheet/baoGong/infos/infoList.html',
+            controller: 'baoGongInfoListCtrl'
+        })
+        .state('baoGongEdit', {
+            url: '/baoGongEdit',
+            templateUrl: 'src/worksheet/baoGong/edit/edit.html',
+            controller: 'baoGongDetailEditCtrl'
+        })
         //活动计划模块 start-------
         .state('activityPlanList', {
             url: '/activityPlanList',
