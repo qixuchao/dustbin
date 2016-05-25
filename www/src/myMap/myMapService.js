@@ -1,7 +1,22 @@
 /**
  * Created by WillJiang on 5/18/16.
  */
-myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', function ($http, $cordovaGeolocation) {
+CRMApp.factory('$baiduGeolocation', ['$q', function ($q) {
+    return {
+        getCurrentPosition: function (options) {
+            var q = $q.defer();
+            var baiduMap = window.plugins.baiduMap;
+            baiduMap.getLocation(function (result) {
+                q.resolve(result);
+            }, function (err) {
+                q.reject(err);
+            }, options);
+            return q.promise;
+        }
+    }
+}]);
+
+myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', function ($http, $cordovaGeolocation, $baiduGeolocation) {
     var baiduMapServ = {
         //获取百度地图LBS数据库的点
         getLBSData: function (lng, lat) {
@@ -45,7 +60,7 @@ myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', function ($
                     return error;
                 });
             } else if (ionic.Platform.isAndroid()) {
-                promise = window.plugins.baiduMap.getLocation().then(function (position) {
+                promise = $baiduGeolocation.getCurrentPosition().then(function (position) {
                     var result = {
                         lat: position.location.latitude,
                         long: position.location.lontitude
