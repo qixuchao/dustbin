@@ -3,8 +3,9 @@
  */
 myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', function ($http, $cordovaGeolocation) {
     var baiduMapServ = {
-        getLBSData: function (configData, lng, lat) {
-            var url = configData.baiduMap.pointQueryUrl + "?ak=" + configData.baiduMap.apiKey + "&geotable_id=" + configData.baiduMap.geotableId + "&location=" + lng + "," + lat + "&radius=" + configData.baiduMap.radius;
+        //获取百度地图LBS数据库的点
+        getLBSData: function (lng, lat) {
+            var url = ROOTCONFIG.baiduMap.pointQueryUrl + "?ak=" + ROOTCONFIG.baiduMap.apiKey + "&geotable_id=" + ROOTCONFIG.baiduMap.geotableId + "&location=" + lng + "," + lat + "&radius=" + ROOTCONFIG.baiduMap.radius;
             console.log('url = ' + url);
             var promise = $http.get(url).then(function (res) {
                 return res.data.contents;
@@ -13,6 +14,19 @@ myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', function ($
             });
             return promise;
         },
+
+        //获取服务端配置的类的数据
+        getFilterBtns: function () {
+            var url = "";
+            var promise = $http.get(url).then(function (res) {
+
+            }, function (error) {
+
+            });
+            return promise;
+        },
+
+        //定位
         getCurrentLocation: function () {
             var promise;
             if (ionic.Platform.isIOS()) {
@@ -41,6 +55,16 @@ myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', function ($
                     return error;
                 });
             }
+            return promise;
+        },
+
+        locationToAddress: function (lat, lng) {
+            var url = ROOTCONFIG.baiduMap.locationToAddQueryUrl + "/?ak=" + ROOTCONFIG.baiduMap.apiKey + "&location=" + lat + "," + lng + "&output=json";
+            var promise = $http.get(url).then(function (res) {
+                return res.data.result;
+            }, function (error) {
+                return error;
+            });
             return promise;
         }
     };
