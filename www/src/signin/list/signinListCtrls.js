@@ -10,9 +10,17 @@ signinModule.controller('signinListCtrl', [
 	function ($scope, $timeout, signinService, $state, 
 			$ionicScrollDelegate, HttpAppService, 
 			$cordovaToast, ionicMaterialInk) {
+
+	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+        if(fromState && toState && fromState.name == 'signin.detail' && toState.name == 'signin.list'){
+            if(signinService.signinListNeedRefresh){
+            	signinService.signinListNeedRefresh = false;
+            	$scope.reloadData();
+            }
+        }
+    });
 	
 	$scope.config = {
-
 		//搜索相关
 		historysLocalStorageKey: 'signinListQueryHistory',
 		searchText: '',
@@ -375,9 +383,7 @@ signinModule.controller('signinListCtrl', [
 			}, 300);
 		}		
 	}
-
-
-
+	
 	///////////////////////////////////////////// 接口相关 ///////////////////////////////////////////////////
 	$scope.canReLoadData  = function(){
 		return true;
@@ -388,8 +394,8 @@ signinModule.controller('signinListCtrl', [
 		$timeout(function(){
 			$scope.config.queryResultScrollDelegate.scrollTop(true);
 		}, 200);
-		delete $scope.datas.serviceListDatas;
-		$scope.datas.serviceListDatas = [];
+		delete $scope.datas.signinListDatas;
+		$scope.datas.signinListDatas = [];
 		//console.log("reloadData  ---  start");
 		if(!$scope.$$phase) {
         	$scope.$apply();

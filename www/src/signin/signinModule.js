@@ -4,7 +4,9 @@ signinModule.service('signinService', [
 	return { 
 		setStored: setStored,
 		getStoredByKey: getStoredByKey,
-		
+
+		signinListNeedRefresh: false,
+
 		signin_list: {
 			url: ROOTCONFIG.hempConfig.basePath + "getAttendanceList",
 			defaults: {

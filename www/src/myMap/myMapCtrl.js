@@ -12,7 +12,7 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
         $scope.searchFlag = true;
     };
 
-    $scope.cancelSearch = function () {
+    $scope.cancelSearch = function () { 
         $scope.searchFlag = false;
         $scope.searchInfo = "";
     };

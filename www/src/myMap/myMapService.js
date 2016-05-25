@@ -45,4 +45,4 @@ myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', function ($
         }
     };
     return baiduMapServ;
-}]);
+}]); 

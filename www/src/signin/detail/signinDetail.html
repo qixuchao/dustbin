@@ -22,7 +22,9 @@
                 <span>定位地址:</span>
                 <span class="ion-ios-location" ng-if="config.isEditMode">重新定位</span>
             </div>
-            
+            <div class="row">
+                <lbs-geo id="geo" show-ui="false" city="北京" enable-modified="false"></lbs-geo>
+            </div>
             <div class="row content">
                 <span ng-bind="datas.detail.address" ng-if="!config.isEditMode"></span>
                 <span ng-bind="datas.detail.address_edit" ng-if="config.isEditMode"></span>
