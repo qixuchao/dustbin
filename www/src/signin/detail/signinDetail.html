@@ -1,0 +1,44 @@
+<ion-view canClickEnterListMode id="signin-detail-view" class="" align-title="center">
+    <div class="saleList">
+        <ion-header-bar align-title="center" class="head pub-head">
+            <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
+                <a class="col col-15 text-left" ng-click="goBack()" ng-if="!config.isEditMode"><i class="ion-chevron-left"></i></a>
+                <div class="col col-15 text-left" ng-click="cancleEdit();" ng-if="config.isEditMode"><span>取消</span></div>
+                <div class="col col-70 text-center">签到明细</div>
+                <div class="col col-15 right-btn" ng-click="enterEditMode();" ng-if="!config.isEditMode"><span>编辑</span></div>
+                <div class="col col-15 right-btn" ng-click="editConfirm();" ng-if="config.isEditMode"><span>确定</span></div>
+            </div>
+        </ion-header-bar>
+        <div class="time-info">
+            <span>签到时间</span>
+            <span ng-bind="datas.detail.sign_in_time | signInTime">10:45</span>
+        </div>
+
+    </div>
+    <ion-content id="xbr-signin-detail-content"  class="has-header" style="" scroll="false" has-bouncing="false">
+    	
+        <div class="signin-info-wrapper">
+            <div class="row title address-title">
+                <span>定位地址:</span>
+                <span class="ion-ios-location" ng-if="config.isEditMode">重新定位</span>
+            </div>
+            
+            <div class="row content">
+                <span ng-bind="datas.detail.address" ng-if="!config.isEditMode"></span>
+                <span ng-bind="datas.detail.address_edit" ng-if="config.isEditMode"></span>
+            </div>
+
+            <div class="row title">
+                签到备注:
+            </div>
+            <div class="row content content-beizhu" ng-if="!config.isEditMode">
+                <span ng-bind="datas.detail.comment"> </span>
+            </div>
+            <div class="row content content-beizhu" ng-if="config.isEditMode">
+                <textarea name="signin-comment" id="" cols="30" rows="10" ng-model="datas.detail.comment_edit"></textarea>
+            </div>
+
+        </div>
+
+    </ion-content>
+</ion-view>

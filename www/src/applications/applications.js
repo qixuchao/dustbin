@@ -48,6 +48,10 @@ appModule
             url:'img/apps/visit.png',
             go:'visit.list'
         },{
+            name:'SIGNIN',
+            url:'img/apps/signIn.png',
+            go:'signin.list'
+        },{
             name:'SERVICEMAP',
             url:'img/apps/serviceMap.png',
             go:'myMapService'

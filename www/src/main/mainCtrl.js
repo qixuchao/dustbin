@@ -1116,7 +1116,8 @@ mainModule
             };
             //签到
             $scope.openCreateCheck = function () {
-                Prompter.alert('该功能尚未开通,敬请期待!');
+                //Prompter.alert('该功能尚未开通,敬请期待!');
+                $state.go("signin.create");
             };
             /*-------------------------------新建 end-------------------------------------*/
             $scope.$on('$destroy', function () {

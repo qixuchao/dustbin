@@ -1,3 +1,70 @@
+#visit-view{
+	.worksheet-query-result{
+		.item{
+			@include flex-direction(column);
+			padding: 5px 10px;
+			.list-item-top{
+				font-size: 1.1rem;
+    			//font-weight: bolder;
+    			@include display-flex;
+    			@include align-items(center);
+    			height: 2rem;
+    			line-height: 2rem;
+			}
+			.circle{
+				display: inline-block;
+			    width: 14px;
+			    height: 14px;
+			    border: 2px solid #9fca17;
+			    border-radius: 20px;
+			    margin-right: 5px;
+			}
+			.list-item-center{
+				@include display-flex;
+				@include align-items(center);
+				@include justify-content(space-between);
+			    height: 2rem;
+			    font-size: 1rem;
+			    color: #2B60AB;
+			    line-height: 2rem;
+			    i{
+			    	color: #A29F9F;
+    				font-size: 1.5rem;
+			    }
+            }
+            .list-item-bottom{
+            	color: #ABA9A9;
+            }
+		}
+	}
+	.renYuanSelect{
+		.filter-times-start-end span{
+			height: 2.5rem;
+		    line-height: 2.5rem;
+		    width: 8rem;
+		    background: rgb(223, 226, 228);
+		    border-radius: 6px;
+		    padding: 0 0.6rem;
+		    color: #797979;
+		}
+	    i{
+			font-size: 1.1rem;
+		    margin-right: .5rem;
+		    position: relative;
+		    top: 2px;
+	    }
+	}
+}
+
+
+
+
+
+
+
+
+
+
 #xbr-visit-list-content{ 
 	.search-box-wrapper{
 		//@mixin transition(padding-top .2s linear 0.0s);
