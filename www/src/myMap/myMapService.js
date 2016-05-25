@@ -10,13 +10,13 @@ CRMApp.factory('$baiduGeolocation', ['$q', function ($q) {
                 q.resolve(result);
             }, function (err) {
                 q.reject(err);
-            }, options);
+            }, []);
             return q.promise;
         }
     }
 }]);
 
-myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', function ($http, $cordovaGeolocation, $baiduGeolocation) {
+myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', '$baiduGeolocation', function ($http, $cordovaGeolocation, $baiduGeolocation) {
     var baiduMapServ = {
         //获取百度地图LBS数据库的点
         getLBSData: function (lng, lat) {
