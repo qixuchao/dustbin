@@ -40,7 +40,7 @@ myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', '$baiduGeol
             });
             return promise;
         },
-    
+
         //定位
         getCurrentLocation: function () {
             var promise;
@@ -74,7 +74,13 @@ myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', '$baiduGeol
         },
 
         locationToAddress: function (lat, lng) {
-            var url = ROOTCONFIG.baiduMap.locationToAddQueryUrl + "/?ak=" + ROOTCONFIG.baiduMap.apiKey + "&location=" + lat + "," + lng + "&output=json";
+            var coordtype;
+            if (ionic.Platform.isIOS()) {
+                coordtype = 'gcj02ll';  //国测局经纬度坐标
+            } else if (ionic.Platform.isAndroid()) {
+                coordtype = 'bd09ll';   //百度坐标
+            }
+            var url = ROOTCONFIG.baiduMap.locationToAddQueryUrl + "/?ak=" + ROOTCONFIG.baiduMap.apiKey + "&location=" + lat + "," + lng + "&output=json&coordtype=" + coordtype;
             var promise = $http.get(url).then(function (res) {
                 return res.data.result;
             }, function (error) {
