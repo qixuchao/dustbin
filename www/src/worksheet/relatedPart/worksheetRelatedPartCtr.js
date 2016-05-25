@@ -7,7 +7,7 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
             $scope.relatedpopover = popover;
         });
         var  worksheetDetailData = worksheetDataService.wsDetailData;
-    console.log(worksheetDetailData);
+    //console.log(worksheetDetailData);
         if(worksheetDataService.wsDetailData.ET_PARTNER.item == undefined){
             $scope.infos = [];
             $cordovaToast.showShortBottom('暂无相关方');

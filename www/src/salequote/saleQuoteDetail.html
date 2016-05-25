@@ -9,19 +9,19 @@
             <div class="customer_detailcontent">
                 <div class="customer_detailcontentname">
                     <div class="customer_detailcontentcicle"></div>
-                    标识：
-                    <span>
-                        <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
-                            <div >{{customerdetails.NAME_ORG1}}</div>
-                        </ion-scroll>
-                    </span>
+                    标识：{{saleQuoteDetail.ES_OUT_QUOT.OBJECT_ID}}
+                    <!--<span>-->
+                        <!--<ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">-->
+                            <!--<div ></div>-->
+                        <!--</ion-scroll>-->
+                    <!--</span>-->
                 </div>
                 <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 15px">
-                    售达方：<span ng-bind="customerdetails.PARTNER_ID" ></span>
+                    售达方：<span ng-bind="saleQuoteDetail.ES_OUT_QUOT.NAME_ORG1" ></span>
                 </div>
                 <div class="customer_detailcontentphone" style="margin-left: 15px">
                     状态：
-                    <span style="margin-left: 4px;" ng-bind="customerdetails.MOB_NUMBER"></span>
+                    <span style="margin-left: 4px;color: #92CB3A" ng-bind="saleQuoteDetail.ES_OUT_QUOT.TXT30"></span>
                 </div>
                 <div class="customer_detailcontentphonespan" style="right:0">
                     <!--NO:<span style=" margin-left: 10px;" ng-bind="customerdetails.PARTNER_ID"></span>-->
@@ -45,166 +45,172 @@
         <div ng-if="config.detail">
             <div class="row row-center itemContent">
                 <div class="col col-center">类型：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.P_DESCRIPTION}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">报价单类型：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.PRIORITY}}</div>
             </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center">产品线：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
-            </div>
+            <!--//know-->
+            <!--<div class="row row-center itemContent">-->
+                <!--<div class="col col-center">产品线：</div>-->
+                <!--<div class="col col-center fontColor">{{}}</div>-->
+            <!--</div>-->
             <div class="row row-center itemContent">
                 <div class="col col-center">产品线及报价类型：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZCPXBJ}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">参考：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.NTEXT}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">税额：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.TAX_AMOUNT}}&nbsp;&nbsp;{{saleQuoteDetail.ES_OUT_QUOT.CURRENCY}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">有效期自：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.BEGDA}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">有效期至：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ENDDA}}</div>
             </div>
         </div>
         <div ng-if="config.competitors">
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">竞争对手1：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZMZ1}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZFE1}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">竞争对手2：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZMZ02}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZFE02}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">竞争对手3：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZMZ03}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZFE03}}</div>
             </div>
             <div class="row itemContentS row-center">
                 <div class="col ">方案：</div>
             </div>
-            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{$scope.saleQuoteDetail}}<br/></div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{saleQuoteDetail.ES_OUT_QUOT.ZZFA1}}<br/></div>
             <div class="row itemContentS row-center">
                 <div class="col ">价格：</div>
             </div>
-            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{$scope.saleQuoteDetail}}<br/></div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{saleQuoteDetail.ES_OUT_QUOT.ZZJG1}}<br/></div>
             <div class="row itemContentS row-center">
                 <div class="col ">关系维护：</div>
             </div>
-            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{$scope.saleQuoteDetail}}<br/></div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{saleQuoteDetail.ES_OUT_QUOT.ZZGXWH1}}<br/></div>
         </div>
         <div ng-if="config.projectInfos">
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">战略客户：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-6 col-center" ng-if="saleQuoteDetail.ES_OUT_QUOT.ZZZLKH"><i class="ion-checkmark fontColor"></i></div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZDESC1}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">示范项目：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-6 col-center" ng-if="saleQuoteDetail.ES_OUT_QUOT.ZZSFXM"><i class="ion-checkmark fontColor"></i></div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZDESC2}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">主打产品：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-6 col-center"  ng-if="saleQuoteDetail.ES_OUT_QUOT.ZZZDCP"><i class="ion-checkmark fontColor"></i></div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZDESC3}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">新领域拓展：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-6 col-center" ng-if="saleQuoteDetail.ES_OUT_QUOT.ZZXLYTZ"><i class="ion-checkmark fontColor"></i></div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZDESC4}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">其他：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-6 col-center" ng-if="saleQuoteDetail.ES_OUT_QUOT.ZZQT"><i class="ion-checkmark fontColor"></i></div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZDESC5}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">生命周期：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZSMZQ}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">项目总量：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZZXMZL}}&nbsp;&nbsp;{{saleQuoteDetail.ES_OUT_QUOT.ZZDW1}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">目标份额：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZMBFE}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">研发阶段时长：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZYFJDSC}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">计划量产时间：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZLCSJ}}</div>
             </div>
         </div>
         <div ng-if="config.costomerNature">
             <div class="row row-center itemContent">
                 <div class="col col-center">付款条件：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZFKTJ}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">发货条件：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZJHTJ}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">质保条件：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZZBTJ}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">行业规模：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZHYGM}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">行业地位：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZHYDW}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">客户财务状况：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZCWZK}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">客户财务状况备注：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZCWZKBZ}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">报价单策略：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZBJCL}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">报价单策略备注：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZTEXT}}</div>
             </div>
         </div>
         <div ng-if="config.others">
             <div class="row row-center itemContent">
                 <div class="col col-center">市场价格范围自：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZPRFR}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">市场价格范围至：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZPRTO}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">是否优惠：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZSFYH}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">优惠条件：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZYHTJ}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center">优惠条件备注：</div>
-                <div class="col col-center fontColor">{{$scope.saleQuoteDetail}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZYHTJBZ}}</div>
             </div>
         </div>
     </ion-content>
@@ -216,9 +222,9 @@
                 <!--</span>-->
             <!--</span>-->
         <div class="row row-center">
-            <div class="col col-center" ng-click="goOthers('project')"><img ng-src="img/salequote/xiangmu.png" style="height: 33px"></div>
-            <div class="col col-center" ng-click="goOthers('related')"><img ng-src="img/salequote/xiangguanfang.png" style="height: 33px"></div>
-            <div class="col col-center" ng-click="goOthers('remark')"><img ng-src="img/salequote/zhushi.png" style="height: 33px"></div>
+            <div class="col col-center text-center" ng-click="goOthers('project')"><img ng-src="img/salequote/xiangmu.png" style="height: 33px"></div>
+            <div class="col col-center text-center" ng-click="goOthers('related')"><img ng-src="img/salequote/xiangguanfang.png" style="height: 33px"></div>
+            <div class="col col-center text-center" ng-click="goOthers('remark')"><img ng-src="img/salequote/zhushi.png" style="height: 33px"></div>
         </div>
     </ion-footer-bar>
 </ion-view>
