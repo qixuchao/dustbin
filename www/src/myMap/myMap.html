@@ -24,12 +24,9 @@
                   toggling-method="click"
                   position="tr" ng-hide="searchFlag">
 
-            <button mfb-button mfb-button-close icon="ion-close-round" ng-click="menuBtnSelected('{{item}}');"
-                    label="{{item}}" ng-repeat="item in baiduMapConfig.filterBtns"></button>
-            <!--<button mfb-button mfb-button-close icon="ion-close-round" ng-click="menuBtnSelected('测试2');"-->
-                    <!--label="测试2"></button>-->
-            <!--<button mfb-button mfb-button-close icon="ion-close-round" ng-click="menuBtnSelected('测试3');"-->
-                    <!--label="测试3"></button>-->
+            <button mfb-button mfb-button-close icon="{{item.icon}}" ng-click="menuBtnSelected('{{item.label}}');"
+                    label="{{item.label}}" ng-repeat="item in baiduMapConfig.filterBtns"></button>
+
         </mfb-menu>
 
         <ion-list class="list" ng-show="searchFlag">

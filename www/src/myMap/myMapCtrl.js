@@ -31,12 +31,6 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
 
     $scope.$on('$ionicView.enter', function () {
 
-        var loadConfigRequest = new XMLHttpRequest();
-        loadConfigRequest.open('GET', 'src/myMap/myMapConfig.json', false);
-        loadConfigRequest.send(null);
-        if (loadConfigRequest.status === 200 || loadConfigRequest.status === 0) {
-            $scope.baiduMapConfig = JSON.parse(loadConfigRequest.responseText);
-        }
 
         var options = {
             timeout: 8000,
@@ -55,6 +49,9 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
         var lng = 116.42918;
         var lat = 39.93093;
         console.log('lat = ' + lat + '&lng = ' + lng);
+        BaiduMapServ.locationToAddress(lat, lng).then();
+
+
         var myMap = document.getElementById('myMap');
 
         baiduMapApi.then(function (BMap) {
@@ -65,16 +62,8 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
             map.enableScrollWheelZoom();
             map.addControl(new myBMap.NavigationControl());  //添加默认缩放平移控件
 
-            BaiduMapServ.getLBSData($scope.baiduMapConfig, lng, lat).then(function (res) {
+            BaiduMapServ.getLBSData(lng, lat).then(function (res) {
                 console.log('res = ', angular.toJson(res));
-                var filterBtns = [];
-                angular.forEach(res, function (item, index) {
-                    if (item.tags !== '' && filterBtns.indexOf(item.tags) === -1) {
-                        filterBtns.push(item.tags);
-                    }
-                });
-                console.log('filterBtns = ' + angular.toJson(filterBtns));
-                $scope.baiduMapConfig.filterBtns = filterBtns;
                 $scope.pointsData = res;
                 setMapOverlay($scope.pointsData, 'init');
             }, function (error) {
