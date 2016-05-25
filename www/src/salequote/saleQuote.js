@@ -382,6 +382,12 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
             if(item == 'project'){
                 saleQuoteService.projectInfos = $scope.saleQuoteDetail;
                 $state.go('saleQuoteProjectList');
+            }else  if(item == 'related'){
+                saleQuoteService.projectInfos = $scope.saleQuoteDetail;
+                $state.go('saleQuoteRelated');
+            }else  if(item == 'remark'){
+                saleQuoteService.projectInfos = $scope.saleQuoteDetail;
+                $state.go('saleQuoteRemark');
             }
         }
         var saleQuoteList = saleQuoteService.saleQuoteList;
@@ -391,8 +397,8 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
                 "IS_USER": { "BNAME":  window.localStorage.crmUserName  },
-                //"IS_PARTNER": { "PARTNER": saleQuoteList.OBJECT_ID}
-                "IS_PARTNER": { "PARTNER": '25000125'}
+                "IS_PARTNER": { "PARTNER": saleQuoteList.OBJECT_ID}
+                //"IS_PARTNER": { "PARTNER": '25000125'}
             };
             var startTime=new Date().getTime();
             HttpAppService.post(url, data).success(function (response) {
@@ -420,11 +426,18 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
         };
         $scope.showDetailSaleQuote();
     }])
-
+//25000125
 .controller('saleQuoteProjectCtrl',['$cordovaDialogs','$ionicActionSheet','$window','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading','saleQuoteService',
     function($cordovaDialogs,$ionicActionSheet,$window,$scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading,saleQuoteService){
         $scope.projectInfosDetail=saleQuoteService.projectInfosDetail;
-        console.log($scope.projectInfosDetail);
+        if(saleQuoteService.projectInfos.ET_OUT_PRI_ITEM==''){
+            var projectInfosPrice='';
+        }else{
+            var projectInfosPrice=saleQuoteService.projectInfos.ET_OUT_PRI_ITEM.item_out;
+        }
+        for(var i=0;i<projectInfosPrice.length;i++){
+
+        }
         $scope.projectLists = [
             {
                 name : "项目明细",
@@ -495,5 +508,27 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
         $scope.goProjectDetail = function(value){
             saleQuoteService.projectInfosDetail=value;
             $state.go('saleQuoteProject');
+        }
+    }])
+    //相关方
+.controller('saleQuoteRelatedCtrl',['$cordovaDialogs','$ionicActionSheet','$window','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading','saleQuoteService',
+    function($cordovaDialogs,$ionicActionSheet,$window,$scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading,saleQuoteService){
+        if(saleQuoteService.projectInfos.ET_OUT_REAL==''){
+            $scope.relatedInfos='';
+            $cordovaToast.showShortBottom('暂无内容');
+        }else{
+            $scope.relatedInfos=saleQuoteService.projectInfos.ET_OUT_REAL.item_out;
+        }
+    }])
+    //zhushi
+.controller('saleQuoteRelatedCtrl',['$cordovaDialogs','$ionicActionSheet','$window','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading','saleQuoteService',
+    function($cordovaDialogs,$ionicActionSheet,$window,$scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading,saleQuoteService){
+        console.log(saleQuoteService.projectInfos);
+        console.log('132132');
+        if(saleQuoteService.projectInfos.ET_LINES==''){
+            $scope.remarkInfos='';
+            $cordovaToast.showShortBottom('暂无内容');
+        }else{
+            $scope.remarkInfos=saleQuoteService.projectInfos.ET_LINES.item_out;
         }
     }]);

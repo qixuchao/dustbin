@@ -472,6 +472,17 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
             templateUrl: 'src/worksheet/baoGong/edit/edit.html',
             controller: 'baoGongDetailEditCtrl'
         })
+        //销售线索
+        .state('saleClueDetail', {
+            url: '/saleClueList/saleClueDetail',
+            templateUrl: 'src/applications/saleClue/detail/saleClueDetail.html',
+            controller: 'saleClueDetailCtrl'
+        })
+        .state('saleClueList', {
+            url: '/saleClueList',
+            templateUrl: 'src/applications/saleClue/list/saleClueList.html',
+            controller: 'saleClueListCtrl'
+        })
         //活动计划模块 start-------
         .state('activityPlanList', {
             url: '/activityPlanList',
@@ -591,6 +602,16 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
             url: '/saleQuoteProjectList',
             templateUrl: 'src/salequote/saleQuoteProjectList.html',
             controller: 'saleQuoteProjectListCtrl'
+        })
+        .state('saleQuoteRelated', {
+            url: '/saleQuoteRelated',
+            templateUrl: 'src/salequote/saleQuoteRelated.html',
+            controller: 'saleQuoteRelatedCtrl'
+        })
+        .state('saleQuoteRemark', {
+            url: '/saleQuoteRemark',
+            templateUrl: 'src/salequote/saleQuoteRemark.html',
+            controller: 'saleQuoteRelatedCtrl'
         })
         //销售报价 end-------
     ;
