@@ -1,18 +1,40 @@
-<ion-view canClickEnterListMode id="signin-view" class="" align-title="center">
+<ion-view canClickEnterListMode id="signin-create-view" class="" align-title="center">
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
                 <a class="col col-15 text-left goBack" ng-click="goBack()">
                     取消
                 </a>
-                <div class="col col-70 text-center">新建签到</div>
-                <div class="col col-15" ng-click="saveNewSingin();">保存</div>
+                <div class="col col-65 text-center">新建签到</div>
+                <div class="col col-20" ng-click="saveNewSingin();" style="padding-left: 10px;">保存</div>
             </div>
         </ion-header-bar>
     </div>
     <ion-content id="xbr-signin-list-content"  class="has-header" style="" scroll="false" has-bouncing="false">
         
-        新建签到
+        <div class="create-info-box">
+            <div class="location-box">
+                <span ng-click="caclCurrentLocation();">
+                    <i class="ion-ios-location"></i>
+                    定位
+                </span>
+                <span class="right-text" ng-bind="config.address" ng-if="!config.isLocationing"></span>
+                <span class="right-text isLoading" ng-if="config.isLocationing">正在定位中...</span>
+            </div>
+            <div class="time-box">
+                <div class="time-box-inner fill-parent">
+                    <span>签到时间</span>
+                    <span ng-bind="config.signInTime | signInTime"></span>
+                </div>
+            </div>
+            <div class="common-box">
+                <div class="common-title">签到备注:</div>
+                <div class="textarea-wrapper">
+                    <textarea ng-model="config.comment" placeholder="请输入备注内容" class="fill-parent"></textarea>
+                </div>
+            </div>
+
+        </div>
 
     </ion-content>
 </ion-view>
