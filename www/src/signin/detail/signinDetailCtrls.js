@@ -34,7 +34,8 @@ signinModule.controller('signinDetailCtrl', [
 	function __requestSaveSignin(){
 		__requestSaveSignin({
 			"attendance_id": $scope.datas.detail.attendance_id,
-			"comment": $scope.datas.detail.comment_edit
+			"comment": $scope.datas.detail.comment_edit,
+			"user_code": signinService.getStoredByKey("userName")
 		}, function(response){
 			$scope.datas.detail.comment = $scope.datas.detail.comment_edit;
 			$scope.config.isEditMode = false;
@@ -42,7 +43,7 @@ signinModule.controller('signinDetailCtrl', [
 	}
 
 	function __requestSaveSignin(options, successCallback){
-        var url = signinService.signin_list.url;
+        var url = signinService.signin_edit.url;
         // var postDatas = signinService.signin_list.defaults;
         // angular.extend(postDatas, options);
         var promise = HttpAppService.post(url, options);
