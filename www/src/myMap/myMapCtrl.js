@@ -38,18 +38,23 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
             enableHighAccuracy: true
         };
 
-        // BaiduMapServ.getCurrentLocation().then(function (success) {
-        //     console.log('success = ' + angular.toJson(success));
-        //     var lat = success.lat;
-        //     var lng = success.long;
-        // }, function (error) {
-        //     console.log('error = ' + angular.toJson(error));
-        // });
+        BaiduMapServ.getCurrentLocation().then(function (success) {
+            console.log('success = ' + angular.toJson(success));
+            var lat = success.lat;
+            var lng = success.long;
+            
+        }, function (error) {
+            console.log('error = ' + angular.toJson(error));
+        });
 
         var lng = 116.42918;
         var lat = 39.93093;
         console.log('lat = ' + lat + '&lng = ' + lng);
-        BaiduMapServ.locationToAddress(lat, lng).then();
+        // BaiduMapServ.locationToAddress(lat, lng).then(function(response){
+        //     alert(angular.toJson(response));;
+        // }, function(response){
+        //     alert("error: "+angular.toJson(response));;
+        // });
 
 
         var myMap = document.getElementById('myMap');

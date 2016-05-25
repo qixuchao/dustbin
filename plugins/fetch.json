@@ -121,5 +121,13 @@
         "variables": {
             "API_KEY": "73d0f7a75a984a356ff749cc"
         }
+    },
+    "cordova-plugin-baidumap": {
+        "source": {
+            "type": "local",
+            "path": "cordova-plugin-baidumap"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

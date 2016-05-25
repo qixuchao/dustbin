@@ -11,24 +11,18 @@
             "API_KEY": "73d0f7a75a984a356ff749cc",
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
-<<<<<<< HEAD
         "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
-=======
->>>>>>> 30a62afe1a51f4a35dea875c9f35e42617f93094
         "cordova-plugin-app-version": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
-<<<<<<< HEAD
         "cordova-plugin-base64-joewsh": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
-=======
->>>>>>> 30a62afe1a51f4a35dea875c9f35e42617f93094
         "cordova-plugin-canvas2image": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
@@ -44,15 +38,12 @@
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
-<<<<<<< HEAD
         "cordova-plugin-dialogs": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
-=======
->>>>>>> 30a62afe1a51f4a35dea875c9f35e42617f93094
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
@@ -68,37 +59,18 @@
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
-<<<<<<< HEAD
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
-=======
->>>>>>> 30a62afe1a51f4a35dea875c9f35e42617f93094
         "cordova-plugin-x-toast": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
+        },
+        "cordova-plugin-baidumap": {
+            "PACKAGE_NAME": "com.crmEnergy.atlpro"
         }
     },
-    "dependent_plugins": {
-        "com.verso.cordova.clipboard": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
-        "cordova-plugin-base64-joewsh": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
-        "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
-        "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
-        "cordova-plugin-file": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
-        }
-    }
+    "dependent_plugins": {}
 }

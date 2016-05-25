@@ -6,13 +6,16 @@ signinModule.controller('signinDetailCtrl', [
 	"HttpAppService",
 	"Prompter",
 	"$ionicHistory",
-	"$cordovaGeolocation",
+	"BaiduMapServ",
 	function ($scope, $timeout, signinService, $state, HttpAppService, 
-		Prompter, $ionicHistory, $cordovaGeolocation) {
+		Prompter, $ionicHistory, BaiduMapServ) {
 	
 	$scope.config = {
 		isEditMode: false,
-		hasEdited: false
+		hasEdited: false,
+		isLocationing: false, //正在定位
+
+		a: 'a'
 	};
 	$scope.datas = {
 		detail: null
@@ -21,26 +24,53 @@ signinModule.controller('signinDetailCtrl', [
 		$scope.datas.detail = signinService.currentSigninDetail;
 		$scope.datas.detail.comment_edit = $scope.datas.detail.comment;
 		$scope.datas.detail.address_edit = $scope.datas.detail.address;
-		$timeout(function(){
-			// 先获取元素
-			var lbsGeo = document.getElementById('geo');
-			//监听定位失败事件 geofail	
-			lbsGeo.addEventListener("geofail",function(evt){ 
-				alert("fail");
-			});
-			//监听定位成功事件 geosuccess
-			lbsGeo.addEventListener("geosuccess",function(evt){ 
-				console.log(evt.detail);
-				var address = evt.detail.address;
-				var coords = evt.detail.coords;
-				var x = coords.lng;
-				var y = coords.lat;
-				alert("地址："+address);
-				alert("地理坐标："+x+','+y);
-			});
-		}, 800);
+		// $timeout(function(){
+		// 	// 先获取元素
+		// 	var lbsGeo = document.getElementById('geo');
+		// 	//监听定位失败事件 geofail	
+		// 	lbsGeo.addEventListener("geofail",function(evt){ 
+		// 		alert("fail");
+		// 	});
+		// 	//监听定位成功事件 geosuccess
+		// 	lbsGeo.addEventListener("geosuccess",function(evt){ 
+		// 		console.log(evt.detail);
+		// 		var address = evt.detail.address;
+		// 		var coords = evt.detail.coords;
+		// 		var x = coords.lng;
+		// 		var y = coords.lat;
+		// 		alert("地址："+address);
+		// 		alert("地理坐标："+x+','+y);
+		// 	});
+		// }, 800);
 	};
 	$scope.init();
+
+	$scope.currentLocation = function(){
+		if($scope.config.isLocationing){
+			return;
+		}
+		$scope.config.isLocationing = true;
+		BaiduMapServ.getCurrentLocation().then(function (success) {
+            console.log('success = ' + angular.toJson(success));
+            var lat = success.lat;
+            var lng = success.long;
+            BaiduMapServ.locationToAddress(lat, lng).then(function(response){
+            	$scope.config.isLocationing = false;
+            	if(response && response.formatted_address && response.formatted_address !=""){
+            		$scope.datas.detail.address_edit = response.formatted_address;
+            		if($scope.$phase){
+            			$scope.$apply();
+            		}
+            	}
+	        }, function(response){
+	        	$scope.config.isLocationing = false;
+	        	$cordovaToast.showShortBottom(angular.toJson(response));
+	        });
+        }, function (error) {
+        	$scope.config.isLocationing = false;
+        	$cordovaToast.showShortBottom(angular.toJson(error));
+        });
+	}
 
 	$scope.goBack = function(){
 		signinService.signinListNeedRefresh = $scope.config.hasEdited;

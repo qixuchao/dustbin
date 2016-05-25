@@ -67,6 +67,9 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.crmEnergy.atlpro"
+        },
+        "cordova-plugin-baidumap": {
+            "PACKAGE_NAME": "com.crmEnergy.atlpro"
         }
     },
     "dependent_plugins": {}

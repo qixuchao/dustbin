@@ -25,7 +25,7 @@ myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', function ($
             });
             return promise;
         },
-
+    
         //定位
         getCurrentLocation: function () {
             var promise;
