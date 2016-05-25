@@ -39,6 +39,12 @@
     "../visit/detail/visitDetail",
     "../visit/create/visitCreate",
     //拜访模块 -- end
+    //签到模块 -- start
+    "../signin/list/signinList",
+    "../signin/detail/signinDetail",
+    "../signin/create/signinCreate",
+    //签到模块 -- end
+
 
      "../car/car.scss",
     	"../spare/spare.scss",
@@ -66,7 +72,9 @@
   "../loginSecond/loginSecond_Css",
     //活动计划
   "../activityPlan/activity_scss",
-  "../myMap/myMap"
+  "../myMap/myMap",
 
+//销售报价
+"../salequote/_saleQuote"
 ;
 

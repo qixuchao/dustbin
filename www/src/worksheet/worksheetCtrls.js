@@ -198,7 +198,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	    showHistoryLog: true,
 	    searchInputHasText: false,
 
-	    historyStrs: [{text:"测试1"},{text:'测试2'},{text:'测试3'}],
+	    historyStrs: [],//[{text:"测试1"},{text:'测试2'},{text:'测试3'}],
 
 	    //从其他界面跳转到该界面的一些参数信息
 	    isFromCustomer: false,

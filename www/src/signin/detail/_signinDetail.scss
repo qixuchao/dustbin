@@ -1,0 +1,96 @@
+#signin-detail-view{
+	
+	.saleList{
+		height: 135px;
+	    background: url("../../img/saleDetail/BG1.png") no-repeat;
+	    background-size: 100%;
+	    .time-info{
+	    	span:nth-child(1){
+	    		position: absolute;
+			    width: 38%;
+			    text-align: center;
+	    	}
+	    	span:nth-child(2){
+	    		width: 100%;
+			    text-align: center;
+			    display: inline-block;
+			    font-size: 3.2rem;
+	    	}
+	    }
+	}
+	ion-header-bar{
+		background-color: transparent;
+		.text-left{
+            padding-left: 10px;
+            max-width: 0;
+            min-width: 20%;
+            text-align: left;
+        }
+        .text-center{
+        	left: -10px;
+    		position: relative;
+        }
+		.right-btn{
+            position: relative;
+		    left: -20px;
+		    text-align: center;
+		    height: 40px;
+		    line-height: 29px;
+        }
+	}
+	.time-info{
+        top: 44px;
+        position: relative;
+        height: 90px;
+        line-height: 90px;
+        color: white;
+    }
+	ion-content{
+		top: 135px;
+		.row{
+		    padding: 0px;
+		    margin-top: 0px;
+		    margin-bottom: 0px;
+		    &.title{
+		    	height: 2.4rem;
+		    	line-height: 2.4rem;
+				font-size: 1rem;
+		    	color: #024E9E;
+		    	border-bottom: 1px solid #C7C7C7;
+		    }
+		    &.content{
+		    	line-height: 1.5rem;
+		    	min-height: 2.4rem;
+    			padding-top: .4rem;
+    			span{
+    				display: inline-block;
+				    width: 100%;
+				    line-height: 1.2rem;
+    			}
+		    }
+		}
+		.signin-info-wrapper{
+			padding: .4rem 1rem;
+			border-bottom: 1px solid #C7C7C7;
+			.content-beizhu{
+				min-height: 8rem;
+				color: #656464;
+				textarea{
+	                width: 100%;
+	            }
+			}
+		}
+		.address-title{
+			@include display-flex;
+			@include justify-content(space-between);
+			@include align-items(center);
+			.ion-ios-location:before{
+                margin-right: .5rem;
+                font-size: 1.5rem;
+                position: relative;
+                top: 3px;
+            }
+        }
+	}
+
+}

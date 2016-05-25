@@ -26,8 +26,9 @@ var worksheetReportModule = angular.module('worksheetReportModule', []);
 var settingsModule = angular.module('settingsModule', []);  //我的模块
 var activityPlanModule = angular.module('activityPlanModule', []);  //活动计划模块
 var myMapModule = angular.module('myMapModule', []);//服务地图模块
-
-var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ionic.ui.superSlideBox', 'ngCordova',
+var saleQuoteModule = angular.module('saleQuoteModule', []);  //销售报价模块
+ 
+var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlideBox', 'ngCordova',
     'ionic-material',
     'utilsModule',
     'loginModule',
@@ -59,7 +60,8 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic', 'ionic.ui.superSlid
     'activityPlanModule',
     'myMapModule',
     'ngBaiduMap',
-    'ng-mfb'
+    'ng-mfb',
+    'saleQuoteModule'
 ]);
 CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
 
@@ -386,7 +388,6 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
             controller: 'ChangeCharCtrl'
         })
         //选择销售或服务 end-------
-        
         //拜访模块 start ---------
         .state('visit', {
             url: '/visit',
@@ -457,6 +458,28 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
             }
         })
         //签到模块 end ---------
+        //销售报价 start-------
+        .state('saleQuoteList', {
+            url: '/saleQuoteList',
+            templateUrl: 'src/salequote/saleQuoteList.html',
+            controller: 'saleQuoteListCtrl'
+        })
+        .state('saleQuoteDetail', {
+            url: '/saleQuoteDetail',
+            templateUrl: 'src/salequote/saleQuoteDetail.html',
+            controller: 'saleQuoteDetailCtrl'
+        })
+        .state('saleQuoteProject', {
+            url: '/saleQuoteProject',
+            templateUrl: 'src/salequote/saleQuoteProject.html',
+            controller: 'saleQuoteProjectCtrl'
+        })
+        .state('saleQuoteProjectList', {
+            url: '/saleQuoteProjectList',
+            templateUrl: 'src/salequote/saleQuoteProjectList.html',
+            controller: 'saleQuoteProjectListCtrl'
+        })
+        //销售报价 end-------
     ;
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider  // /home/login

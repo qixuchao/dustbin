@@ -1,8 +1,15 @@
 signinModule.controller('signinListCtrl', [
 	'$scope',
-	"$timeout",
+	"$timeout", 
 	"signinService",
-	function ($scope, $timeout, signinService) {
+	"$state",
+	"$ionicScrollDelegate",
+	"HttpAppService",
+	"$cordovaToast",
+	"ionicMaterialInk",
+	function ($scope, $timeout, signinService, $state, 
+			$ionicScrollDelegate, HttpAppService, 
+			$cordovaToast, ionicMaterialInk) {
 	
 	$scope.config = {
 
@@ -17,6 +24,9 @@ signinModule.controller('signinListCtrl', [
 		//http相关
 		isReloading: false,
 		isLoading: false,
+		hasMoreData: true,
+		currentPage: 0,
+		selectedPerson: null, //传person_code给后台
 
 		// page mode
 		isFilterMode: false,
@@ -38,25 +48,39 @@ signinModule.controller('signinListCtrl', [
 		sortedTypeTimeDesc: false,  //时间 降序（不默认）
 		sortedTypeTimeAes: false,	//时间 升序
 		//筛选 规则
-		timeStart: '',
+		timeStart: '2016-01-02',
 		timeStartDefault: '',
-		timeEnd: '',
+		timeEnd: '2016-08-02',
 		timeEndDefault: '',
 
-
 		queryResultScrollDelegate: null
-
 	};
-
+	
 	$scope.datas = {
 		signinListDatas: null
 	};
 
 	$scope.init = function(){
 		$scope.oldFilters = null;
+		$scope.config.queryResultScrollDelegate = $ionicScrollDelegate.$getByHandle("signinListScrollDelegate");
 		__initQueryHistory();
+
+		if(ionic.Platform.isIOS){
+			$timeout(function () {
+	            ionicMaterialInk.displayEffect();
+	        }, 100);
+		}
 	};
 	$scope.init();
+
+	$scope.goCreateSignin = function(event){
+		$state.go("signin.create");
+	};
+
+	$scope.goDetailState = function(item, $index){
+		signinService.currentSigninDetail = angular.copy(item);
+		$state.go("signin.detail");
+	};
 
 	function __initQueryHistory(){
 		var historys = signinService.getStoredByKey($scope.config.historysLocalStorageKey);
@@ -68,7 +92,7 @@ signinModule.controller('signinListCtrl', [
 	}
 
 	//打开筛选界面的时候执行:保存或更新filters
-	function __remeberCurrentFilters(){ 
+	function __remeberCurrentFilters(){
 		if(!$scope.oldFilters){   //保存当前filters
 			$scope.oldFilters = {
 				//排序 规则
@@ -86,20 +110,17 @@ signinModule.controller('signinListCtrl', [
 		$scope.oldFilters = null;
 		__clearResponseDatasForReloading();
 
-		if($scope.config.timeStart && $scope.config.timeStart!= ""){
-			$scope.config.IS_SEARCH.CREATED_FROM = $scope.config.timeStart;
-		}
-		if($scope.config.timeEnd && $scope.config.timeEnd!= ""){
-			$scope.config.IS_SEARCH.CREATED_TO = $scope.config.timeEnd;
-		}
-		
 		$scope.enterListMode();
 		$scope.reloadData();		
 	};
-
-	$scope.reloadData = function(){
-		console.log("==========   reloadData   ==============");
+	$scope.resetFilters = function(){
+		delete $scope.oldFilters;
+		$scope.oldFilters = null;
+		$scope.config.currentCustomer = null;
+		$scope.config.timeStart = "";
+		$scope.config.timeEnd = "";
 	};
+
 
 	$scope.selectOldSearch = function(text){
 		$scope.config.searchText = text;
@@ -179,7 +200,7 @@ signinModule.controller('signinListCtrl', [
 		$scope.config.sortedTypeTimeAes = false;
 		$scope.config.sortedTypeTimeDesc = true;
 		$scope.enterListMode();
-		$scope.reloadData();
+		$scope.reloadData(); 
 	};
 	$scope.sorteTimeAes = function(){
 		__clearResponseDatasForReloading();
@@ -354,6 +375,228 @@ signinModule.controller('signinListCtrl', [
 			}, 300);
 		}		
 	}
+
+
+
+	///////////////////////////////////////////// 接口相关 ///////////////////////////////////////////////////
+	$scope.canReLoadData  = function(){
+		return true;
+	};
+
+	$scope.reloadData = function(){
+		//$ionicScrollDelegate.$getByHandle().scrollTop(true);
+		$timeout(function(){
+			$scope.config.queryResultScrollDelegate.scrollTop(true);
+		}, 200);
+		delete $scope.datas.serviceListDatas;
+		$scope.datas.serviceListDatas = [];
+		//console.log("reloadData  ---  start");
+		if(!$scope.$$phase) {
+        	$scope.$apply();
+        }
+        //console.log("reloadData  ---  end");
+		if($scope.canReLoadData()){
+			$scope.config.currentPage = 0;
+			$scope.config.hasMoreData = true;
+			$scope.config.isReloading = true;
+			$scope.loadMoreDatas();
+		}else{
+			$scope.$broadcast('scroll.refreshComplete');
+		}
+	};
+
+	$scope.loadMoreDatas = function(){
+		if(!$scope.config.hasMoreData && $scope.config.isReloading){
+			$scope.$broadcast('scroll.infiniteScrollComplete');
+		}
+		// 默认:1 代表开始时间倒序:desc 	 2 是开始时间顺序:aes 	 3 是影响由高到低:
+		// var sortedInt = $scope.config.sortedTypeTimeAes ? "2" : (
+		// 		$scope.config.sortedTypeTimeDesc ? "1" : (
+		// 				$scope.config.sortedTypeCompactDesc ? "3" : "" 
+		// 			)
+		// 	);
+		var startDate = !angular.isUndefined($scope.config.timeStart) && $scope.config.timeStart!=null && $scope.config.timeStart!="" ? $scope.config.timeStart.replace(/-/g,"") : '';
+		var endDate = !angular.isUndefined($scope.config.timeEnd) && $scope.config.timeEnd!=null && $scope.config.timeEnd!="" ? $scope.config.timeEnd.replace(/-/g,"") : '';
+
+		var queryParams = {
+			"person_code":"",
+		    "start_date": startDate,
+		    "end_date": endDate,
+		    "page_count": String(++$scope.config.currentPage),
+		    "page_size": String(10),
+		    "iv_sort": $scope.config.sortedTypeTimeDesc ? '1' : ($scope.config.sortedTypeTimeAes ? "2" : "")
+		};
+		//console.log(queryParams);
+		if($scope.config.hasMoreData){
+			__requestSigninList(queryParams);
+		}
+	};
+
+	// {"ES_RESULT":{"ZFLAG":"E","ZRESULT":"无符合条件数据"},"T_OUT_LIST":""}
+	function __requestSigninList(options){
+        var url = signinService.signin_list.url;
+        var promise = HttpAppService.post(url,options);
+        $scope.config.isLoading = true;
+        $scope.config.loadingErrorMsg = null;
+        promise.success(function(response, status, obj, config){
+        	// if(config.data.IS_SEARCH && config.data.IS_SEARCH.SEARCH && config.data.IS_SEARCH.SEARCH != $scope.config.searchText){
+        	// 	console.log("------  不是最新的HTTP响应，直接丢弃  --------");
+        	// 	return;
+        	// }
+        	$scope.config.isLoading = false;
+        	if($scope.config.isReloading){
+        		$scope.config.isReloading = false;
+        		$scope.$broadcast('scroll.refreshComplete');
+        		$scope.datas.signinListDatas = [];
+        	}else{
+        		$scope.$broadcast('scroll.infiniteScrollComplete');
+        	}
+        	if(response.ES_RESULT.ZFLAG == "E"){ // 未加载到数据
+        		$scope.config.hasMoreData = false;
+        		$cordovaToast.showShortBottom("无更多数据!");
+        		return;
+        	}
+        	if(!$scope.datas.signinListDatas){
+        		$scope.datas.signinListDatas = [];
+        	}
+
+        	if(response.ES_ATTENDANCE_LIST && response.ES_ATTENDANCE_LIST!="" && !!response.ES_ATTENDANCE_LIST.length){
+        		$scope.datas.signinListDatas = $scope.datas.signinListDatas.concat(response.ES_ATTENDANCE_LIST);
+	        	if(response.ES_ATTENDANCE_LIST.length < 10){
+	        		$scope.config.hasMoreData = false;
+	        	}
+        	}else if(response.ES_ATTENDANCE_LIST.length==0){
+        		$scope.config.hasMoreData = false;
+        	}
+        	$scope.config.queryResultScrollDelegate.resize();
+        })
+        .error(function(errorResponse){
+        	$scope.config.isLoading = false;
+        	if($scope.config.isReloading){
+        		$scope.config.isReloading = false;
+        		$scope.$broadcast('scroll.refreshComplete');
+        		$scope.datas.signinListDatas = [];
+        		$scope.config.hasMoreData = false;
+        	}
+        	$scope.config.loadingErrorMsg = "数据加载失败,请检查网络!";
+        });
+	}
+
+
+
+
+	//选择时间
+    $scope.selectCreateTime = function (type, title) { // type: start、end
+        if(ionic.Platform.isAndroid()){
+            __selectCreateTimeAndroid(type, title);
+        }else{
+            __selectCreateTimeIOS(type,title);
+        }
+    };
+    function __selectCreateTimeIOS(type, title){
+    	console.log("__selectCreateTimeIOS");
+        var date;
+        if(type == 'start'){
+        	if(!$scope.config.timeStart || $scope.config.timeStart==""){
+        		date =  new Date().format('yyyy/MM/dd hh:mm:ss');
+        	}else{
+        		date =  new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+        	}
+            //date =  new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+        }else if(type=='end'){
+        	if(!$scope.config.timeEnd || $scope.config.timeEnd==""){
+        		date = new Date().format('yyyy/MM/dd hh:mm:ss');
+        	}else{
+        		date = new Date($scope.config.timeEnd.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+        	}
+        }
+        __selectCreateTimeBasic(type, title, date);
+        console.log("__selectCreateTimeIOS : "+type+"    "+type+"    "+date);
+    }
+    function __selectCreateTimeAndroid(type, title){
+    	var date;
+        if(type == 'start'){
+        	if(!$scope.config.timeStart || $scope.config.timeStart==""){
+        		date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+        	}else{
+        		date = new Date($scope.config.timeStart.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+        	}
+        }else if(type=='end'){
+        	if(!$scope.config.timeEnd || $scope.config.timeEnd==""){
+        		date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+        	}else{
+        		date = new Date($scope.config.timeEnd.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+        	}
+        }
+        __selectCreateTimeBasic(type, title, date);
+    }
+    function __selectCreateTimeBasic(type, title, date){
+        console.log("Android selectCreateTime:     "+date);
+        console.log("Android datePicker:     "+datePicker);
+        $cordovaDatePicker.show({
+            date: date,
+            allowOldDates: true,
+            allowFutureDates: true,
+            mode: 'date',
+            titleText: title,
+            okText: '确定',               //android
+            cancelText: '取消',           //android
+            doneButtonLabel: '确认',      // ios
+            cancelButtonLabel: '取消',    //ios
+            todayText: '今天',            //android
+            nowText: '现在',              //android
+            is24Hour: true,              //android
+            androidTheme: datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT, // android： 3
+            popoverArrowDirection: 'UP',
+            locale: 'zh_cn'
+            //locale: 'en_us'
+        }).then(function(returnDate){
+        	var time = returnDate.format("yyyy-MM-dd"); //__getFormatTime(returnDate);
+	        console.log("selectTimeCallback : "+time);
+	        switch (type) {
+	            case 'start':
+	            	if(__startTimeIsValid(time, $scope.config.timeEnd)){
+	            		$scope.config.timeStart = time;
+	            	}else{
+	            		$cordovaToast.showShortBottom("最小时间不能大于最大时间!");
+	            	}
+	                break;
+	            case 'end':
+	            	if(__endTimeIsValid($scope.config.timeStart, time)){
+	            		$scope.config.timeEnd = time;
+	            	}else{
+	            		$cordovaToast.showShortBottom("最大时间不能小于最小时间!");
+	            	}
+	                break;
+	        }
+	        if(!$scope.$$phase){
+	            $scope.$apply();
+	        }
+        });
+    }
+
+    function __startTimeIsValid(startTime, endTime){
+    	if(!startTime || startTime==""){
+    		return false;
+    	}
+    	if(!endTime || endTime==""){
+    		return true;
+    	}
+    	var startTime2 = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+        var endTime2 = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+        return startTime2 <= endTime2;
+    }
+    function __endTimeIsValid(startTime, endTime){	
+    	if(!endTime || endTime==""){
+    		return false;
+    	}
+    	if(!startTime || startTime==""){
+    		return true;
+    	}
+    	var startTime = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+        var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+        return startTime <= endTime;
+    }
 
 
 }]);

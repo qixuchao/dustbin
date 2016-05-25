@@ -79,6 +79,7 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
             //console.log(ROOTCONFIG.hempConfig.baseEnvironment);
             //console.log(angular.toJson(data));
             var startTime = new Date().getTime();
+            
             HttpAppService.post(url, data).success(function (response, status, func, config) {
                 if($scope.carInfo != config.data.IS_VP.TOURDESCRIPTION){
                     console.log("不是最新请求，直接丢弃!");
