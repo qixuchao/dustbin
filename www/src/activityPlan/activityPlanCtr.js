@@ -79,12 +79,20 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
             //console.log(ROOTCONFIG.hempConfig.baseEnvironment);
             //console.log(angular.toJson(data));
             var startTime = new Date().getTime();
+<<<<<<< HEAD
             HttpAppService.post(url, data).success(function (response, status, func, config) {
                 if($scope.carInfo != config.data.IS_VP.TOURDESCRIPTION){
                     console.log("不是最新请求，直接丢弃!");
                     return;
                 }
                 //console.log(angular.toJson(response));
+=======
+            HttpAppService.post(url, data).success(function (response) {
+                if($scope.carInfo != data.IS_VP.TOURDESCRIPTION){
+                    return;
+                }
+                console.log(angular.toJson(response));
+>>>>>>> dai
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.carimisshow = false;
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
