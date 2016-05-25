@@ -26,7 +26,7 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
                 result : result
             };
             //ZPRV ZPLV  ZNCV服务商
-            console.log(worksheetDataService.wsDetailData.IS_PROCESS_TYPE);
+            //console.log(worksheetDataService.wsDetailData.IS_PROCESS_TYPE);
             if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCV"){
                 $scope.carEdit = false
             }
@@ -324,7 +324,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         //场景
         var urlChang = ROOTCONFIG.hempConfig.basePath + 'LIST_SCENARIO';
         HttpAppService.post(urlChang, data).success(function(response){
-            console.log(angular.toJson(response));
+            //console.log(angular.toJson(response));
             $scope.scenario = response.ET_SCENARIO.item;
             for(var i=0;i<$scope.scenario.length;i++){
                 if($scope.scenario[i].SCENARIO === $scope.faulInfos.SCENARIO){
@@ -336,7 +336,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         //责任方
         var urlReaponse = ROOTCONFIG.hempConfig.basePath + 'LIST_RESPONSE';
         HttpAppService.post(urlReaponse, data).success(function(response){
-            console.log(response);
+            //console.log(response);
             $scope.response = response.ET_RESPONSE.item;
             for(var i=0;i<$scope.response.length;i++){
                 if($scope.response[i].RESPONSE === $scope.faulInfos.RESPONSE){
@@ -371,7 +371,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
 
         var urlYY = ROOTCONFIG.hempConfig.basePath + 'LIST_ZZYYFL';
         HttpAppService.post(urlYY, data).success(function(response){
-            console.log(response);
+            //console.log(response);
             $scope.yyflDetail = response.ET_YYFL.item_out;
             for(var i=0;i<$scope.yyflDetail.length;i++){
                 if($scope.yyflDetail[i].ZZYYFL === $scope.faulInfos.ZZYYFL_1){

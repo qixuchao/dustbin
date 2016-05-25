@@ -23,7 +23,7 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
             $scope.carLoadMore1Im();
         };
         $rootScope.$on('carCreatevalue1', function (event, data) {
-            console.log("接收成功" + data);
+            //console.log("接收成功" + data);
             $scope.searchFlag = data;
             $scope.carInfo = "";
             $scope.cancelSearch();
@@ -79,20 +79,11 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
             //console.log(ROOTCONFIG.hempConfig.baseEnvironment);
             //console.log(angular.toJson(data));
             var startTime = new Date().getTime();
-<<<<<<< HEAD
             HttpAppService.post(url, data).success(function (response, status, func, config) {
                 if($scope.carInfo != config.data.IS_VP.TOURDESCRIPTION){
-                    console.log("不是最新请求，直接丢弃!");
+                    //console.log("不是最新请求，直接丢弃!");
                     return;
                 }
-                //console.log(angular.toJson(response));
-=======
-            HttpAppService.post(url, data).success(function (response) {
-                if($scope.carInfo != data.IS_VP.TOURDESCRIPTION){
-                    return;
-                }
-                console.log(angular.toJson(response));
->>>>>>> dai
                 if (response.ES_RESULT.ZFLAG == 'E') {
                     $scope.carimisshow = false;
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
@@ -171,7 +162,7 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
                             });
                             storedb('actdb').insert({'name': $scope.carInfo}, function (err) {
                                 if (!err) {
-                                    console.log('历史记录保存成功')
+                                    //console.log('历史记录保存成功')
                                 } else {
                                     $cordovaToast.showShortBottom('历史记录保存失败');
                                 }
@@ -182,7 +173,7 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
                     if (carIs === false) {
                         storedb('actdb').insert({'name': $scope.carInfo}, function (err) {
                             if (!err) {
-                                console.log('历史记录保存成功')
+                                //console.log('历史记录保存成功')
                             } else {
                                 $cordovaToast.showShortBottom('历史记录保存失败');
                             }
@@ -195,7 +186,7 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
                 //判断是否有相同的值
                 var carIsIn = true;
                 for (var i = 0; i < $scope.oftenCarList.length; i++) {
-                    console.log($scope.oftenCarList.length + 'car');
+                    //console.log($scope.oftenCarList.length + 'car');
 
                     if ($scope.oftenCarList[i].TOURNUMBER == value.TOURNUMBER) {
                         //删除原有的，重新插入
@@ -241,7 +232,7 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
             //}, 1)
         };
         $scope.creatActivity = function(){
-            console.log("11");
+            //console.log("11");
             $state.go("activityPlanCreateHead");
         }
     }
@@ -302,7 +293,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                 Prompter.showLoading("正在上传");
                 var startTime = new Date().getTime();
                 HttpAppService.post(urlUpdate, dataUpdate).success(function (response) {
-                    console.log(response);
+                    //console.log(response);
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG == 'S') {
                         init();
@@ -348,11 +339,11 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                 "IS_USER": {"BNAME": window.localStorage.crmUserName},
                 "IS_VP": {"TOURNUMBER": activityList}
             }
-            console.log(angular.toJson(data));
+            //console.log(angular.toJson(data));
             Prompter.showLoading("正在加载");
             var startTime = new Date().getTime();
             HttpAppService.post(url, data).success(function (response) {
-                console.log(response);
+                //console.log(response);
                 Prompter.hideLoading();
                 if (response.ES_RESULT.ZFLAG == 'S') {
                     $scope.activityDetail = response;
@@ -474,11 +465,11 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                     }]
                 }
             }
-            console.log(dataUpdate);
+            //console.log(dataUpdate);
             Prompter.showLoading("正在删除");
             var startTime = new Date().getTime();
             HttpAppService.post(urlUpdate, dataUpdate).success(function (response) {
-                console.log(response);
+                //console.log(response);
                 Prompter.hideLoading();
                 if (response.ES_RESULT.ZFLAG == 'S') {
                     init();
@@ -531,7 +522,7 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
         }
         //生成活动
         $scope.generatingAct = function(){
-            console.log($scope.activityDetail)
+            //console.log($scope.activityDetail)
             var urlUpdate = ROOTCONFIG.hempConfig.basePath + 'VISIT_PLAN_CHANGE';
             var itemArr = [];
             for(var i=0;i<$scope.activityDetail.ET_TRAVEL_PLAN.item.length;i++) {
@@ -568,11 +559,11 @@ activityPlanModule.controller('activityPlanDetailCtrl', ['$cordovaDialogs', '$io
                         "item": itemArr
                     }
                 }
-                console.log(angular.toJson(dataUpdate));
+                //console.log(angular.toJson(dataUpdate));
                 Prompter.showLoading("正在生成活动");
                 var startTime = new Date().getTime();
                 HttpAppService.post(urlUpdate, dataUpdate).success(function (response) {
-                    console.log(response);
+                    //console.log(response);
                     Prompter.hideLoading();
                     if (response.ES_RESULT.ZFLAG == 'S') {
                         init();
@@ -663,7 +654,7 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
             HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'VISIT_PLAN_CREATE', data)
                 .success(function (response) {
                     $ionicLoading.hide();
-                    console.log(response);
+                    //console.log(response);
                     if (response.ES_RESULT.ZFLAG === 'S') {
                         activityPlanService.activityList = response.ES_VISIT_PLAN.VISIT_ID;
                         activityPlanService.pageFlag = "Y";
@@ -872,7 +863,7 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
             $scope.selectContactModal.hide();
         };
         $scope.selectPop = function (x) {
-            console.log(x);
+            //console.log(x);
             $scope.selectContactText = x.text;
             $scope.referMoreflag = !$scope.referMoreflag;
         };
@@ -887,7 +878,7 @@ activityPlanModule.controller('activityPlanCreateHeadCtrl', ['$cordovaDialogs', 
             }, 1)
         };
         $scope.selectCon = function (x) {
-            console.log(x);
+            //console.log(x);
             $scope.dataDetail.saleOffice = x;
             $scope.selectContactModal.hide();
         }
@@ -897,7 +888,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
     'activityPlanService','LoginService','$ionicModal','saleActService','customeService','contactService',
     function ($cordovaDialogs, $ionicLoading, $ionicHistory, worksheetDataService, $rootScope, $ionicScrollDelegate, $http, $cordovaToast, HttpAppService, $scope, CarService, $timeout, $state, Prompter, activityPlanService,LoginService,$ionicModal,saleActService,customeService,contactService) {
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-            console.log(fromState.name+toState.name);
+            //console.log(fromState.name+toState.name);
             if(fromState.name == 'ContactCreate' && toState.name == 'activityPlanCreate'){
                 var x = contactService.get_ContactsListvalue();
                 if(x != undefined  && x != ""){
@@ -906,7 +897,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 }
             }
         });
-        console.log(activityPlanService.detailItem);
+        //console.log(activityPlanService.detailItem);
         if(activityPlanService.status == "U"){
             $scope.dataDetail = {
                 customer: {
@@ -1057,7 +1048,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 "IT_IN_ROLE": {
                 }
             };
-            console.log(angular.toJson(data));
+            //console.log(angular.toJson(data));
             var startTime = new Date().getTime();
             HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_LIST', data)
                 .success(function (response, status, headers, config) {
@@ -1154,7 +1145,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             }, 1)
         };
         $scope.selectCustomer = function (x) {
-            console.log(x);
+            //console.log(x);
             $scope.dataDetail.customer = x;
             //console.log(x.PARTNER);
 
@@ -1190,7 +1181,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 "IS_PARTNER": {"PARTNER": $scope.customerId},
                 "IS_SEARCH": {"SEARCH": search}
             };
-            console.log(data);
+            //console.log(data);
             var startTime = new Date().getTime();
             HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
                 .success(function (response) {
@@ -1220,7 +1211,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                         $scope.conSearch = false;
                         //$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     }
-                    console.log($scope.conArr.length+"-------");
+                    //console.log($scope.conArr.length+"-------");
                     if($scope.conArr.length == 0){
                         $scope.addCon = true;
                     }
@@ -1246,8 +1237,8 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             activityPlanService.goCreateCon = true;
             activityPlanService.goCreateConInfo.id = $scope.dataDetail.customer.PARTNER;
             activityPlanService.goCreateConInfo.name = $scope.dataDetail.customer.NAME_ORG1;
-            console.log($scope.dataDetail);
-            console.log(activityPlanService.goCreateConInfo.id);
+            //console.log($scope.dataDetail);
+            //console.log(activityPlanService.goCreateConInfo.id);
             $scope.selectContactModal.hide();
             $state.go('ContactCreate');
         }
@@ -1278,7 +1269,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             $scope.selectContactModal.hide();
         };
         $scope.selectPop = function (x) {
-            console.log(x);
+            //console.log(x);
             $scope.selectContactText = x.text;
             $scope.referMoreflag = !$scope.referMoreflag;
         };
@@ -1293,7 +1284,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             }, 1)
         };
         $scope.selectCon = function (x) {
-            console.log(x);
+            //console.log(x);
             $scope.dataDetail.contact = x;
             $scope.selectContactModal.hide();
         }
@@ -1305,7 +1296,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
         $scope.changeSearch = true;
         $scope.getChangeArr = function (search) {
             $scope.changeSearch = false;
-            console.log("--");
+            //console.log("--");
             $scope.changeLoadMoreFlag = false;
             if (search) {
                 //$scope.changeSearch = false;
@@ -1329,29 +1320,27 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                     "STATUS": ""
                 }
             };
-            console.log(data);
+            //console.log(data);
             var startTime = new Date().getTime();
             HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_LIST', data)
                 .success(function (response) {
                     if (data.IS_SEARCH.ZSRTING != $scope.input.customer) {
                         return;
                     }
-                    console.log(response);
                     if (response.ES_RESULT.ZFLAG === 'S') {
                         if (response.ET_OPPORT.item.length < 10) {
-                            console.log("===21==q");
+
                             $scope.changeSearch = false;
                             $scope.changeNo = true;
                         }else{
-                            console.log("4===21==q");
+
                             $scope.changeSearch = true;
                         }
                         if (search) {
-                            console.log("=====");
+
                             $scope.changeArr = [];
                             $scope.changeArr = response.ET_OPPORT.item;
                         } else {
-                            console.log("===21==");
                             $scope.changeArr = $scope.changeArr.concat(response.ET_OPPORT.item);
                         }
                         $scope.spinnerFlagChange = false;
@@ -1397,7 +1386,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             $scope.selectChangetactModal.hide();
         };
         $scope.selectPop = function (x) {
-            console.log(x);
+            //console.log(x);
             $scope.selectChangeText = x.text;
             $scope.referMoreflag = !$scope.referMoreflag;
         };
@@ -1412,7 +1401,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             }, 1)
         };
         $scope.selectChange = function (x) {
-            console.log(x);
+            //console.log(x);
             $scope.dataDetail.business = x;
             $scope.selectChangetactModal.hide();
         }
@@ -1471,7 +1460,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             $scope.selectTypeModal.hide();
         };
         $scope.selectType = function (x) {
-            console.log(x);
+            //console.log(x);
             $scope.dataDetail.acttype = x;
             $scope.selectTypeModal.hide();
         }
@@ -1516,7 +1505,7 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
             $scope.selectUrgencyModal.hide();
         };
         $scope.selectUrgency = function (x) {
-            console.log(x);
+            //console.log(x);
             $scope.dataDetail.urgency = x;
             $scope.selectUrgencyModal.hide();
         }
@@ -1685,8 +1674,8 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 }
             }
             var detail = activityPlanService.detail;
-            console.log(detail);
-            console.log($scope.dataDetail);
+            //console.log(detail);
+            //console.log($scope.dataDetail);
             var urlUpdate = ROOTCONFIG.hempConfig.basePath + 'VISIT_PLAN_CHANGE';
             var dataUpdate = {
                 "I_SYSTEM": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
@@ -1721,11 +1710,11 @@ activityPlanModule.controller('activityPlanCreateCtrl', ['$cordovaDialogs', '$io
                 dataUpdate.IT_TRAVEL_PLAN.item[0].ZZNO = activityPlanService.detailItem.ZZNO;
                 dataUpdate.IT_TRAVEL_PLAN.item[0].ZZACTID = activityPlanService.detailItem.ZZACTID;
             }
-            console.log(dataUpdate);
+            //console.log(dataUpdate);
             Prompter.showLoading("正在提交");
             var startTime = new Date().getTime();
             HttpAppService.post(urlUpdate, dataUpdate).success(function (response) {
-                console.log(response);
+                //console.log(response);
                 Prompter.hideLoading();
                 if (response.ES_RESULT.ZFLAG == 'S') {
                     activityPlanService.updatePageFlag = true;

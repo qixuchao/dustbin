@@ -7,25 +7,24 @@
         </div>
     </ion-header-bar>
     <ion-content has-bouncing="false"  delegate-handle="projectList">
-        <div class="row row-center" style="border-bottom: 1px solid #D6D3CE" ng-repeat="i in [1,2]" ng-click="goProjectDetail()">
+        <div class="row row-center" style="border-bottom: 1px solid #D6D3CE" ng-repeat="i in projectInfosList" ng-click="goProjectDetail(i)">
             <div class="col" style="padding: 0">
                 <div class="row row-center rowstyle">
                     <div class="col col-center col-6"><img ng-src="img/car/Oval.png" class="pointImg"></div>
-                    <div class="col col-center col-84" style="font-size: 17px">9s模型且特价区科委块钱儿</div>
+                    <div class="col col-center col-94" style="font-size: 17px">{{i.DESCRIPTION_UC}}</div>
+                </div>
+                <div class="row row-center rowstyle">
+                    <div class="col col-center fontColor">{{i.PRODUCT_ID}}</div>
                     <div class="col col-center text-right col-10">
                         <img ng-src="img/car/Shape.png" class="shapeImg">
                     </div>
                 </div>
                 <div class="row row-center rowstyle">
-                    <div class="col col-center fontColor">132132-31313</div>
-                    <div class="col col-center text-right fontColor">报价执行项目</div>
-                </div>
-                <div class="row row-center rowstyle">
-                    <div class="col col-center col-75 fontColor">Model号：1323-31313</div>
-                    <div class="col col-center text-right col-25 fontColor">NO：129</div>
+                    <div class="col col-center col-75 fontColor">Model号：{{i.ZZMODULE}}</div>
+                    <div class="col col-center text-right col-25" style="color:#276DAC">NO：{{i.NUMBER_INT}}</div>
                 </div>
             </div>
         </div>
-        <ion-infinite-scroll on-infinite="" ng-if=""></ion-infinite-scroll>
+        <!--<ion-infinite-scroll on-infinite="" ng-if=""></ion-infinite-scroll>-->
     </ion-content>
 </ion-view>
