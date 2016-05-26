@@ -1,4 +1,4 @@
-<ion-view class="saleQuote_detail">
+<ion-view class="saleQuote_detail projectDetailCss">
         <div class="customer_backtopb" style="z-index:-1;padding-top:20px;height:156px">
             <div class="customer_detailtitle">
                 <div style="width:40px;height:40px;position: absolute;top: 20px;left: 5px;" ng-click="goBack()">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-    <div class="item" style="padding: 10px 3px;border: none;margin-top: 5px;">
+    <div class="item" style="padding: 10px 3px 2px 3px;border: none;margin-top: 5px;">
         <div class="row row-center" style="padding: 0">
             <div class="col col-90 col-center" style="padding: 0">
                 <ion-scroll direction="x" scrollbar-x="false" >
@@ -37,9 +37,22 @@
                     </span>
                 </ion-scroll>
             </div>
-            <div class="col col-10 col-center text-right"><i class="ion-chevron-up" style="font-size: 18px;color:#276DAC "></i></div>
+            <div class="col col-10 col-center text-right" ng-if="!referMoreflag" ng-click="changeReferMoreflag()"><i class="ion-chevron-up" style="font-size: 18px;color:#276DAC "></i></div>
+            <div class="col col-10 col-center text-right" ng-if="referMoreflag" ng-click="changeReferMoreflag()"><i class="ion-chevron-down" style="font-size: 18px;color:#276DAC "></i></div>
         </div>
         <div style=" background-image:linear-gradient(to right, #2B60AB, #9EC92A);height: 1px;margin-top: 7px"></div>
+    </div>
+    <!--下拉值-->
+    <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"
+         ng-click="changeReferMoreflag()"></div>
+    <div ng-if="!isAndroid" class="selectionsDown pushDown-animated refer-selectionsDown"
+         ng-class="{'slideOutRight':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}">
+        <ion-list>
+            <ion-item ng-repeat="x in scrollLists"
+                      ng-class="{'selected':selectCustomerText==x.name}"
+                      ng-click="selectPop(x)">{{x.name}}
+            </ion-item>
+        </ion-list>
     </div>
     <ion-content style="position: fixed;margin-top: 216px;" class="contentDetail">
         <div ng-if="config.detail">

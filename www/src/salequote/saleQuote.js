@@ -287,33 +287,33 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
                 if (JSON.parse(localStorage.getItem("saleQuotedb")) != null || JSON.parse(localStorage.getItem("saleQuotedb")) != undefined) {
                     //判断是否有相同的值
                     var usuaemployhislistflag = true;
-                    console.log($scope.employeehislistvalue);
+                    //console.log($scope.employeehislistvalue);
                     for(var i=0;i<$scope.employeehislistvalue.length;i++){
                         if($scope.employeehislistvalue[i].OBJECT_ID == $scope.usuallyemployeelist.OBJECT_ID) {
                             //删除原有的，重新插入
                             $scope.employeehislistvalue = JSON.parse(localStorage.getItem("saleQuotedb"));
                             $scope.employeehislistvalue.splice(i,1);
                             $scope.employeehislistvalue.unshift($scope.usuallyemployeelist);
-                            console.log($scope.employeehislistvalue);
+                            //console.log($scope.employeehislistvalue);
                             localStorage['saleQuotedb'] = JSON.stringify( $scope.employeehislistvalue);
                             usuaemployhislistflag = false;
                         }
                     };
                     if(usuaemployhislistflag == true){
-                        console.log($scope.employeehislistvalue);
+                        //console.log($scope.employeehislistvalue);
                         $scope.employeehislistvalue.unshift($scope.usuallyemployeelist);
                         localStorage['saleQuotedb'] = JSON.stringify( $scope.employeehislistvalue);
                     }
 
                 }else{
-                    console.log($scope.employeehislistvalue);
+                    //console.log($scope.employeehislistvalue);
                     $scope.employeehislistvalue.unshift($scope.usuallyemployeelist);
-                    console.log($scope.employeehislistvalue);
+                    //console.log($scope.employeehislistvalue);
                     localStorage['saleQuotedb'] = JSON.stringify( $scope.employeehislistvalue);
-                    console.log(localStorage['saleQuotedb']);
+                    //console.log(localStorage['saleQuotedb']);
                 };
                 saleQuoteService.saleQuoteList = value;
-                console.log(saleQuoteService.saleQuoteList);
+                //console.log(saleQuoteService.saleQuoteList);
                 $state.go('saleQuoteDetail');
             }
         }])
@@ -354,6 +354,17 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
             costomerNature : false,
             others : false
         };
+        $scope.referMoreflag = false;
+        $scope.selectCustomerText='报价明细';
+        $scope.isDropShow = true;
+        $scope.changeReferMoreflag = function () {
+            $scope.referMoreflag = !$scope.referMoreflag;
+        };
+        $scope.selectPop = function (x) {
+            $scope.showContent(x);
+            $scope.selectCustomerText = x.name;
+            $scope.referMoreflag = !$scope.referMoreflag;
+        };
         $scope.showContent = function(item) {
             $scope.config = {
                 detail : false,
@@ -377,6 +388,7 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
             } else if (item.id == 5) {
                 $scope.config.others = true;
             }
+            $scope.selectCustomerText = item.name;
         };
         $scope.goOthers = function(item){
             if(item == 'project'){
@@ -404,7 +416,7 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
             HttpAppService.post(url, data).success(function (response) {
                 if (response.ES_RESULT.ZFLAG == 'S') {
                     $scope.saleQuoteDetail = response;
-                    console.log($scope.saleQuoteDetail.ES_OUT_QUOT.OBJECT_ID);
+                    //console.log($scope.saleQuoteDetail.ES_OUT_QUOT.OBJECT_ID);
                     Prompter.hideLoading();
                 }else if (response.ES_RESULT.ZFLAG == 'E') {
                     Prompter.hideLoading();
@@ -435,9 +447,14 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
         }else{
             var projectInfosPrice=saleQuoteService.projectInfos.ET_OUT_PRI_ITEM.item_out;
         }
+        //console.log( $scope.projectInfosDetail.NUMBER_INT);
+        $scope.priceDetail=[];
         for(var i=0;i<projectInfosPrice.length;i++){
-
+            if($scope.projectInfosDetail.NUMBER_INT == projectInfosPrice[i].NUMBER_INT){
+                $scope.priceDetail.push(projectInfosPrice[i]);
+            }
         }
+        //console.log($scope.priceDetail);
         $scope.projectLists = [
             {
                 name : "项目明细",
@@ -495,6 +512,18 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
             } else if (item.id == 5) {
                 $scope.config.price = true;
             }
+            $scope.selectCustomerText = item.name;
+        };
+        $scope.referMoreflag = false;
+        $scope.selectCustomerText='项目明细';
+        $scope.isDropShow = true;
+        $scope.changeReferMoreflag = function () {
+            $scope.referMoreflag = !$scope.referMoreflag;
+        };
+        $scope.selectPop = function (x) {
+            $scope.showContent(x);
+            $scope.selectCustomerText = x.name;
+            $scope.referMoreflag = !$scope.referMoreflag;
         };
     }])
 .controller('saleQuoteProjectListCtrl',['$cordovaDialogs','$ionicActionSheet','$window','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading','saleQuoteService',
@@ -518,13 +547,14 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
             $cordovaToast.showShortBottom('暂无内容');
         }else{
             $scope.relatedInfos=saleQuoteService.projectInfos.ET_OUT_REAL.item_out;
+
         }
     }])
     //zhushi
-.controller('saleQuoteRelatedCtrl',['$cordovaDialogs','$ionicActionSheet','$window','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading','saleQuoteService',
+.controller('saleQuoteRemarkCtrl',['$cordovaDialogs','$ionicActionSheet','$window','$scope','$state','$http','HttpAppService','$rootScope','$timeout','$cordovaToast','$ionicScrollDelegate','ionicMaterialInk','employeeService','Prompter','$ionicLoading','saleQuoteService',
     function($cordovaDialogs,$ionicActionSheet,$window,$scope,$state,$http,HttpAppService,$rootScope,$timeout,$cordovaToast,$ionicScrollDelegate,ionicMaterialInk,employeeService,Prompter,$ionicLoading,saleQuoteService){
-        console.log(saleQuoteService.projectInfos);
-        console.log('132132');
+        //console.log(saleQuoteService.projectInfos);
+        //console.log('132132');
         if(saleQuoteService.projectInfos.ET_LINES==''){
             $scope.remarkInfos='';
             $cordovaToast.showShortBottom('暂无内容');
