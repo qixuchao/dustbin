@@ -611,7 +611,7 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
         .state('saleQuoteRemark', {
             url: '/saleQuoteRemark',
             templateUrl: 'src/salequote/saleQuoteRemark.html',
-            controller: 'saleQuoteRelatedCtrl'
+            controller: 'saleQuoteRemarkCtrl'
         })
         //销售报价 end-------
     ;
