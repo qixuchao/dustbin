@@ -1,7 +1,7 @@
 /**
  * Created by WillJiang on 5/18/16.
  */
-myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory', '$compile', 'baiduMapApi', '$cordovaGeolocation', 'BaiduMapServ', function ($scope, $timeout, $ionicHistory, $compile, baiduMapApi, $cordovaGeolocation, BaiduMapServ) {
+myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory', '$compile', 'baiduMapApi', '$cordovaGeolocation', 'BaiduMapServ', 'HttpAppService', '$ionicLoading', function ($scope, $timeout, $ionicHistory, $compile, baiduMapApi, $cordovaGeolocation, BaiduMapServ, HttpAppService, $ionicLoading) {
     var map;
     var myBMap;
 
@@ -12,7 +12,7 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
         $scope.searchFlag = true;
     };
 
-    $scope.cancelSearch = function () { 
+    $scope.cancelSearch = function () {
         $scope.searchFlag = false;
         $scope.searchInfo = "";
     };
@@ -30,7 +30,30 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
 
 
     $scope.$on('$ionicView.enter', function () {
+        var url = ROOTCONFIG.hempConfig.basePath + 'mapTag';
+        var data = {
+            "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+            "IS_SEARCH": {"SEARCH": ""},
+            "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName}
+        };
 
+        var startTime = new Date().getTime();
+        HttpAppService.post(url, data).success(function (response, status, func, config) {
+            if (response.ES_RESULT.ZFLAG === 'S') {
+                $scope.filterBtns = response.ES_RESULT.ZRESULT;
+                console.log('$scope.filterBtns = ' + angular.toJson($scope.filterBtns));
+            }
+        }).error(function (response, status, header, config) {
+            var respTime = new Date().getTime() - startTime;
+            //超时之后返回的方法
+            if (respTime >= config.timeout) {
+                //console.log('HTTP timeout');
+                if (ionic.Platform.isWebView()) {
+                    $cordovaDialogs.alert('请求超时');
+                }
+            }
+            $ionicLoading.hide();
+        });
 
         var options = {
             timeout: 8000,
@@ -38,25 +61,18 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
             enableHighAccuracy: true
         };
 
-        BaiduMapServ.getCurrentLocation().then(function (success) {
-            console.log('success = ' + angular.toJson(success));
-            var lat = success.lat;
-            var lng = success.long;
-            
-        }, function (error) {
-            console.log('error = ' + angular.toJson(error));
-        });
+        // BaiduMapServ.getCurrentLocation().then(function (success) {
+        //     console.log('success = ' + angular.toJson(success));
+        //     var lat = success.lat;
+        //     var lng = success.long;
+        //
+        // }, function (error) {
+        //     console.log('error = ' + angular.toJson(error));
+        // });
 
         var lng = 116.42918;
         var lat = 39.93093;
         console.log('lat = ' + lat + '&lng = ' + lng);
-        // BaiduMapServ.locationToAddress(lat, lng).then(function(response){
-        //     alert(angular.toJson(response));;
-        // }, function(response){
-        //     alert("error: "+angular.toJson(response));;
-        // });
-
-
         var myMap = document.getElementById('myMap');
 
         baiduMapApi.then(function (BMap) {

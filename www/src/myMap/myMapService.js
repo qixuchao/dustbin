@@ -32,6 +32,14 @@ myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', '$baiduGeol
 
         //获取服务端配置的类的数据
         getFilterBtns: function () {
+            var data = {
+                "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                "IS_SEARCH": { "SEARCH": "" },
+                "IS_AUTHORITY": { "BNAME":  window.localStorage.crmUserName}
+            }
+
+
+
             var url = "";
             var promise = $http.get(url).then(function (res) {
 
