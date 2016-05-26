@@ -55,7 +55,8 @@ signinModule.controller('signinCreateCtrl', [
 		    "address": $scope.config.address,
 		    "sign_in_date": $scope.config.signInDate,
 		    "sign_in_time": $scope.config.signInTime,
-		    "comment": $scope.config.comment
+		    "comment": $scope.config.comment,
+		    "sys_name": signinService.getStoredByKey("sysName")
 		};
 		__requestSaveNewSingin(options, function(response){
 			Prompter.showLoadingAutoHidden("签到创建成功!", false, 1300);

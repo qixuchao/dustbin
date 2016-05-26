@@ -342,10 +342,10 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         		typeStr: '',
         		statusStr:'',
         		editFlagClass: '',
-
+        		
 				scrollDelegateHandler: null,
 				contentDetegateHandler: null,
-
+				
 				detailType: '',
 				detailTypeNewCar: false,
 				detailTypeSiteRepair: false,
@@ -353,13 +353,13 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				detailTypeNewCarFWS: false,
 				detailTypeSiteRepairFWS: false,
 				detailTypeBatchUpdateFWS: false,
-
+				
 				canEdit: false,
-
+				
 				moreModal: null,
 				requestModal: null,
 				requestModalStr: '正在加载',
-
+				
 				selectYuanGongModal: null,
 				selectedEmp: null,
 				empSearchStr: '',
@@ -471,7 +471,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 					handleResult: 'In the thmultuous business of cutting-in and attending to a whale, there is much running backwards and forwards among',
 				}
 			};
-
+			
 			function __hasBeijianInfo(){
 				//var beijian = $scope.datas.detail.ET_MAT_LIST;
 				var beijian = worksheetDataService.wsDetailData.ET_MAT_LIST;

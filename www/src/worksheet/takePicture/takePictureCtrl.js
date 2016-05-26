@@ -163,10 +163,10 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 		$scope.deleteImage = function(item, index){
 			__deleteImageInServer(item, index);
 		};
-
+		
 		$scope.saveImage = function(item){
 		};
-
+		
 		$scope.uploadImage = function(item){
 			//console.log("uploadImage    :"+JSON.stringify(item));
 			var inbond = {

@@ -430,6 +430,7 @@ signinModule.controller('signinListCtrl', [
 		    "end_date": endDate,
 		    "page_count": String(++$scope.config.currentPage),
 		    "page_size": String(10),
+		    "sys_name": signinService.getStoredByKey("sysName"),
 		    "iv_sort": $scope.config.sortedTypeTimeDesc ? '1' : ($scope.config.sortedTypeTimeAes ? "2" : "")
 		};
 		//console.log(queryParams);

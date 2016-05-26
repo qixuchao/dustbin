@@ -1,0 +1,172 @@
+#visit-create-view{
+	.saleList{
+		.right-btn{
+            text-align:center;
+        }
+	}
+	ion-content{
+		
+		.info-same{
+			color: #B3B3B3;
+
+		}
+
+		background-color: white;
+        .location-box{
+            color: #2B60AB;
+            height: 3rem;
+            @include display-flex;
+            @include align-items(center);
+            border-bottom: 1px solid #E4E4E4;
+            span:nth-child(1){
+                width: 3rem;
+                text-align: center;
+                @include display-flex;
+                @include flex-direction(column);
+                font-size: .8rem;
+                i{
+                    font-size: 1.2rem;
+                }
+            }
+            span.right-text{
+                height: 2rem;
+                line-height: 2rem;
+                border-left: 1px solid #E4E4E4;
+                padding-left: .4rem;
+                font-size: 1rem;
+                &.isLoading{
+                    font-size: .8rem;
+                }
+            }
+        }
+		
+		.row{
+			padding: .4rem 1.2rem .4rem .6rem;
+		    height: 2.5rem;
+		    line-height: 1.7rem;
+		    border-bottom: 1px solid #E4E4E4;
+		}
+    
+		.customer-box{
+			font-size: 1rem;
+            span:nth-child(1){ }
+            span:nth-child(2){
+            	text-align: right;
+    			color: #AFAFAF;
+    			font-size: .9rem;
+            }
+            span:nth-child(2):after, span:nth-child(3):after{
+            	@extend .ionic-font;
+    			content: "\f30f";
+				margin-left: .8rem;
+			    font-size: 1.4rem;
+			    position: relative;
+			    top: 3px;
+            }
+        }
+
+        .relations-select{
+        	border-bottom: 1px solid #E4E4E4;
+            .title-btn{
+            	@include display-flex;
+            	@include align-items(center);
+            	@include justify-content(space-between);
+			    border-bottom: 0px;
+			    font-size: 1rem;
+                span:nth-child(1){
+					
+                }
+                span:nth-child(2){
+                	font-size: 1.6rem;
+    				color: #2B60AB;
+                }
+            }
+            .relation-selected{
+            	height: 2.5rem;
+			    line-height: 2.5rem;
+			    font-size: 1rem;
+			    padding: 0rem 1.2rem 0rem .6rem;
+			    @include display-flex;
+                .delete-btn{
+					font-size: 1.5rem;
+				    width: 5rem;
+				    text-align: center;
+				    color: red;
+                }
+                .info-name{
+					width: 6rem;
+    				//text-align: center;
+    				font-size: 1.1rem;
+    				color: #2B60AB;
+                }
+                .info-cellphone{
+                	color: #B3B3B3;
+					@include flex(1);
+    				text-align: left;
+                }
+            }
+        }
+
+        .start-time,.end-time{
+            span:nth-child(1){
+				font-size: 1rem;
+            }
+            span:nth-child(2){
+            	color: #B3B3B3;
+            	background: url("../../img/worksheetReported/sanjiao.png") no-repeat scroll right center transparent !important;
+            }
+        }
+
+        .visit-comment{
+        	padding: 0px .6rem .6rem .6rem;
+        	border-bottom: 1px solid #E4E4E4;
+        	border-bottom: 1px solid #E4E4E4;
+            .title-line{
+				height: 2.5rem;
+			    line-height: 2.5rem;
+			    border-bottom: 1px solid #E4E4E4;
+			    font-size: 1rem;
+            }
+            .textarea-wrapper{
+				height: 7rem;
+				border-bottom: 1px dashed #E4E4E4;
+				textarea{
+					width: 100%;
+					height: 100%;
+					padding: .6rem 0px;
+				}
+            }
+            .pictures{
+            	margin-top: .6rem;
+            	.image-wrapper{
+            		position: relative;
+    				top: -2px;
+    				img{
+    					max-width: 100%;
+    					max-height: 100%;
+    				}
+            	}
+            	.take-pictures-btn, .image-wrapper{
+            		@include display-inline-flex;
+            		@include align-items(center);
+            		@include justify-content(center);
+				    width: 4rem;
+				    height: 4rem;
+				    border: 1px solid #E4E4E4;
+				    margin-right: 5px;
+            	}
+            	.take-pictures-btn{
+            		color: #C3C0C0;
+    				border: 1px solid#c3c0c0;
+    				font-size: 2.8rem;
+            	}
+            }
+        }
+
+
+
+	}
+
+
+
+}

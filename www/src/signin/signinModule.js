@@ -1,6 +1,6 @@
 signinModule.service('signinService', [ 
 	function () { 
-	//setStored  
+	//setStored   
 	return { 
 		setStored: setStored,
 		getStoredByKey: getStoredByKey,

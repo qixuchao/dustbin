@@ -87,7 +87,8 @@ signinModule.controller('signinDetailCtrl', [
 		__requestSaveSignin({
 			"attendance_id": $scope.datas.detail.attendance_id,
 			"comment": $scope.datas.detail.comment_edit,
-			"user_code": signinService.getStoredByKey("userName")
+			"user_code": signinService.getStoredByKey("userName"),
+			"sys_name": signinService.getStoredByKey("sysName")
 		}, function(response){
 			$scope.datas.detail.comment = $scope.datas.detail.comment_edit;
 			$scope.config.isEditMode = false;

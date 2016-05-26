@@ -1,9 +1,16 @@
 visitModule.service('visitService', [
 	function () {
-		//setStored  
+		//setStored    
 		return {
 			setStored: setStored,
 			getStoredByKey: getStoredByKey,
+			visit_create: {
+				url: ROOTCONFIG.hempConfig.basePath + "VISIT_CREATE",
+				defaults: {
+					"I_SYSNAME": { "SysName": getStoredByKey("sysName") },
+					"IS_USER": { "BNAME": getStoredByKey("userName") }
+				}
+			},
 			visit_list: {
 				url: ROOTCONFIG.hempConfig.basePath + "getVisitList",
 				defaults: {
