@@ -29,7 +29,7 @@ appModule
             go:'saleClueList'
         },{
             name:'SERVICE',
-            url:'img/apps/saleQuote.png',
+            url:'img/apps/service.png',
             go:'worksheetList'
         },{
             name:'PRODUCT',

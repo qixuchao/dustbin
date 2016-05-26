@@ -22,7 +22,7 @@ settingsModule.controller("ChangeCharCtrl", [
 				name : "销售",
 				code : "APP_SALE"
 			}];
-		console.log($rootScope.FIRST_LOGIN);
+		//console.log($rootScope.FIRST_LOGIN);
 		$scope.confirmChangeChar = function(){
 			// $state.go('tabs', {}, {location:"replace", reload:"true"});
 			if($scope.config.char == ""){
@@ -30,7 +30,7 @@ settingsModule.controller("ChangeCharCtrl", [
 				return;
 			}else if($scope.config.char.code == "APP_SERVICE"){
 				LoginService.setProfileType($scope.config.char.code);
-				var list =["CUSTOMER","EMPLOYEE","CAR","PRODUCT","SERVICE"];
+				var list =["CUSTOMER","EMPLOYEE","CAR","PRODUCT","SERVICE",'SERVICEMAP'];
 				LoginService.setMenulist(list); 
 				if($rootScope.FIRST_LOGIN == "Y" || $rootScope.FIRST_LOGIN == "D"){
 					$state.go('changePass');

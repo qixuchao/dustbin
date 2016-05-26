@@ -22,122 +22,125 @@
         </div>
         <div ng-if="config.project">
             <div class="row row-center itemContentColor">
-                <div class="col col-center selectColor">9sa是否就爱看的拉动你看了</div>
+                <div class="col col-center selectColor">{{projectInfosDetail.DESCRIPTION_UC}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">产品标识：</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{projectInfosDetail.PRODUCT_ID}}</div>
             </div>
             <div class="row row-center itemContent">
-                <div class="col col-40 col-center">数值：</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-40 col-center">数量：</div>
+                <div class="col col-center fontColor">{{projectInfosDetail.QUANTITY}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">各单位净值：</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{projectInfosDetail.NET_PRICE}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-40">净值：</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{projectInfosDetail.NET_VALUE}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-40">税：</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{projectInfosDetail.TAX_AMOUNT}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-40">总额：</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{projectInfosDetail.GROSS_VALUE}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center selectColor">报价</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-40">建议价格：</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{projectInfosDetail.ZZFINPRICE}}&nbsp;&nbsp;{{projectInfosDetail.ZZFLD000039}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-40">核价单号：</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{projectInfosDetail.ZZODERNO}}</div>
             </div>
         </div>
         <div ng-if="config.customer">
             <div class="row row-center itemContent">
                 <div class="col col-center col-45" style="padding: 0">
                     <div class="row row-center" >行业：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor">{{projectInfosDetail.ZZINDUSTRY}}</div>
                 </div>
-                <div class="col col-center">
-
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZDESC}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">终端客户：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor">{{projectInfosDetail.ZZENDCUS}}</div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZCUSDESC}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">终端产品：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor">{{projectInfosDetail.ZZENDPRD}}</div>
                 </div>
-                <div class="col col-center">
-
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZPRDNAME}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">客户物料编码1：</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{projectInfosDetail.ZZCUSMATNR1}}</div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">客户物料编码2：</div>
-                <div class="col col-center fontColor"></div>
+                <div class="col col-center fontColor">{{projectInfosDetail.ZZCUSMATNR2}}</div>
             </div>
         </div>
         <div ng-if="config.materials">
             <div class="row row-center itemContent">
                 <div class="col col-center col-45" style="padding: 0">
                     <div class="row row-center" >Model号：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
-
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZMODULE}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">最小容量：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZCPRL}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
-                    <div class="row row-center">盛产工艺：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center">生产工艺：</div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
-
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZSCGY}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45" style="padding: 0">
                     <div class="row row-center" >满充电压：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
-
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZMCDY}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">标准电压：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZBCDY}}
                 </div>
             </div>
         </div>
@@ -145,65 +148,73 @@
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">WBS元素 ：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZCUSWBS}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">客户项目代码：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZCUSPRJCODE}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">内部项目代码：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZNBXMCODE}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">单元数量：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZCELLQTY}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">最小订单数量：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZMINQTY}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">产品结构：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZCELLQTY}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">提前期：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZMINQTY}}
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-center col-45">
                     <div class="row row-center">交货工厂：</div>
-                    <div class="row row-center"></div>
+                    <div class="row row-center fontColor"></div>
                 </div>
-                <div class="col col-center">
+                <div class="col col-center fontColor">
+                    {{projectInfosDetail.ZZCUSWBS}}
                 </div>
             </div>
         </div>

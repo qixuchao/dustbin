@@ -495,7 +495,7 @@ worksheetModule.controller("WorksheetSparepartCtrl",['$scope','$state','$http','
                         var btnIndex = buttonIndex;
                         if (btnIndex == 1) {
                             worksheetHttpService.setSparePart("");
-                            console.log( worksheetHttpService.getSparePart());
+                            //console.log( worksheetHttpService.getSparePart());
                             worksheetHttpService.addPro.proInfos = "";
                             $ionicHistory.goBack();
                         }
@@ -682,20 +682,20 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
         $scope.upDown = true;
         $scope.showDetail = function(items) {
             var h = $scope.spareDetail.length;
-            console.log(h);
+            //console.log(h);
             var sco = a - 48*h;
             //console.log(items);
             for(var i=0;i<$scope.spareDetail.length;i++){
                 $scope.spareDetail[i].scrollStyle = "height:"+0+"px";
             }
             var scrHe = sco - items.detail.length * 116;
-            console.log(scrHe);
+            //console.log(scrHe);
             if(scrHe < 0){
                 items.scrollStyle = "height:"+sco+"px";
              }else {
                 items.scrollStyle = "height:"+items.detail.length * 116+"px";
             }
-            console.log(items.scrollStyle);
+            //console.log(items.scrollStyle);
             for(var i=0;i<$scope.spareDetail.length;i++){
                 if($scope.spareDetail[i].flag === false && $scope.spareDetail[i].STORAGE_DESC !== items.STORAGE_DESC){
                     $scope.spareDetail[i].flag = true;
@@ -711,11 +711,11 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
 
         $scope.showDetailInfos = false;
         var a=document.getElementById("content").offsetHeight;
-        console.log(a);
+        //console.log(a);
         var h = $scope.spareDetail.length;
-        console.log(h);
+        //console.log(h);
         var sco = a - 48*h;
-        console.log(sco);
+        //console.log(sco);
         $scope.goUpdateSAP = function(){
             Prompter.showLoading("正在传输");
             var item = new Array();
@@ -840,7 +840,7 @@ worksheetModule.controller("WorksheetPareSelectCtrl",['$scope','$state','$http',
             });
         }
         $scope.goSpare = function(item){
-            console.log(item);
+            //console.log(item);
             var value = {
                 PRODUCT_ID : item.PROD,
                 SHORT_TEXT : item.PROD_DESC

@@ -27,7 +27,7 @@
                 <div class="col col-5 col-center">
                     <img ng-src="img/car/Oval.png" class="pointImg">
                 </div>
-                <div class="col col-78" ng-click="employee_govalue(lists,$index)">{{lists.NAME_LAST}}</div>
+                <div class="col col-78" ng-click="employee_govalue(lists,$index)">{{lists.NAME_ORG1}}</div>
                 <div class="col col-15 col-center">
                     <img ng-src="img/car/Shape.png" class="shapeImg" >
                 </div>
@@ -54,14 +54,14 @@
                             <img ng-src="img/car/Oval.png" class="pointImg">
                         </div>
                         <div class="col col-80 col-center colType">
-                            <span><div ng-bind-html="car.TOURDESCRIPTION.toString() |highlight:carInfo"></div></span>
+                            <span><div ng-bind-html="lists.NAME_ORG1.toString() |highlight:carInfo"></div></span>
                         </div>
                     </div>
                     <div class="row row-center" style="padding: 3px 0 3px 0">
-                        <div class="col" style="color: #888282">类型：</div>
+                        <div class="col" style="color: #888282">类型：{{lists.P_DESCRIPTION}}</div>
                     </div>
                     <div class="row row-center" style="padding: 3px 0 3px 0">
-                        <div class="col" style="color: #888282">标识：</div>
+                        <div class="col" style="color: #888282">标识：{{lists.OBJECT_ID}}</div>
                     </div>
                 </div>
                 <div class="col-20 col-center">
@@ -71,9 +71,9 @@
                         </div>
                         <div class="col col-20"></div>
                     </div>
-                    <div class="row row-center" style="margin: 4px 0 4px 0">
+                    <div class="row row-center" style="margin: 4px 0 4px 0;color:#276DAC">
                         <div class="col col-80 col-center">
-                            已创建
+                            {{lists.TXT30}}
                         </div>
                         <div class="col col-20"></div>
                     </div>

@@ -2,9 +2,11 @@
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
-                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
+                <a class="col col-15 text-left goBack" ng-click="goBack()">
+                    取消
+                </a>
                 <div class="col col-70 text-center">新建签到</div>
-                <div class="col col-15"><span></span></div>
+                <div class="col col-15" ng-click="saveNewSingin();">保存</div>
             </div>
         </ion-header-bar>
     </div>
