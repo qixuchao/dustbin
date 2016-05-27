@@ -7,7 +7,84 @@
 	ion-header-bar{
 		background: transparent;
 	}
+  	.has-header{
+		margin-bottom: 44px;
+  	}
 	ion-content{
-		top: 135px;
+		top: 156px;
+	  .iFont{
+		font-size: 17px;
+		color : #276DAC;
+	  }
+	  .itemContent{
+		background-color: white;
+		margin-top: 1px;
+		margin-bottom: 1px;
+		border-bottom: 1px solid #D6D3CE;
+		padding: 6px 10px 4px 10px;
+		min-height: 46px;
+		max-height: 300px;
+		line-height: 30px;
+		font-size: 17px;
+	  }
+	  .fontColor{
+		color:#A8A49F;
+	  }
+	  .visitInfos{
+		border-bottom: 1px dashed #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;
+		margin-left: 15px;
+	  }
+	  .itemContentS{
+		background-color: white;
+		margin-top: 1px;
+		margin-bottom: 1px;
+		padding: 6px 10px 4px 10px;
+		min-height: 30px;
+		max-height: 300px;
+		line-height: 30px;
+		font-size: 1.0rem;
+		border-bottom: 1px solid #D6D3CE;
+	  }
+	  .selectColor{
+		color : #276DAC;
+	  }
+	  .pointImg {
+		height: 0.7em;
+	  }
+	  .pictures{
+		margin-top: .6rem;
+		border-bottom: 1px solid #D6D3CE;
+		.image-wrapper{
+		  position: relative;
+		  top: -2px;
+		  img{
+			max-width: 100%;
+			max-height: 100%;
+		  }
+		}
+		.take-pictures-btn, .image-wrapper{
+		  @include display-inline-flex;
+		  @include align-items(center);
+		  @include justify-content(center);
+		  width: 4rem;
+		  height: 4rem;
+		  border: 1px solid #E4E4E4;
+		  margin-right: 5px;
+		}
+		.take-pictures-btn{
+		  color: #C3C0C0;
+		  border: 1px solid#c3c0c0;
+		  font-size: 2.8rem;
+		}
+	  }
+	  .borderAll{
+		margin: 0 15px 0 15px;
+		border-left: 1px solid #D6D3CE;
+		border-right: 1px solid #D6D3CE;
+		.rowBorder{
+		  border-bottom:1px solid #D6D3CE ;
+		}
+	  }
+
 	}
 }

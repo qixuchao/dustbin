@@ -21,7 +21,7 @@ visitModule.service('visitService', [
 			visit_detail: {
 				url: ROOTCONFIG.hempConfig.basePath + "getVisitDetail",
 				defaults: {
-					"I_SYSTEM": { "SysName": getStoredByKey("sysName") },
+					"I_SYSNAME": { "SysName": getStoredByKey("sysName") },
 					"IS_USER": { "BNAME": getStoredByKey("userName") },
 				}
 			},
