@@ -1,44 +1,101 @@
-<ion-view canClickEnterListMode id="visit-detail-view" class="" align-title="center">
-    <div class="saleList">
-        <ion-header-bar align-title="center" class="head pub-head">
-            <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
-                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-65 text-center">拜访明细</div>
-                <div class="col col-20"><span></span></div>
+<ion-view canClickEnterListMode id="visit-detail-view" class="customer_detail saleQuote_detail saleActDetail" align-title="center">
+    <div class="customer_backtopb" style="z-index:-1;padding-top:20px;height:156px">
+        <div class="customer_detailtitle">
+            <div style="width:40px;height:40px;position: absolute;top: 20px;left: 5px;" ng-click="goBack()">
+                <i class="icon ion-ios-arrow-back publicheadtitlei" style="margin-top:0"></i>
             </div>
-        </ion-header-bar>
-        <div class="visit-head-infos">
-            <div class="created-user">
-                <span class="circle"></span>
-                <!--span class="user-name" >abc</span-->
-                <!-- ng-bind-html="{{datas.detail.CREATED_AT | xbrWorksheetTime}}" -->
-                <span></span>
+            <span class="customerdeatil_headtitlespan">拜访详情</span>
+        </div>
+        <div class="customer_detailcontent">
+            <div class="customer_detailcontentname">
+                <div class="customer_detailcontentcicle"></div>
+                <span ng-bind="datas.name" ></span>&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="datas.detail.DATE_FROM" ></span>&nbsp;&nbsp;<span ng-bind="datas.detail.TIME_FROM" ></span>
             </div>
-            <div class="second-line">
-                <span ng-bind="datas.detail.PROT_TXT"></span>
+            <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 15px">
+                <span style="margin-left: 4px;" ng-bind="datas.detail.customer" ></span>
             </div>
-            <div class="third-line">
-                <span ng-bind=datas.detail.abc></span>
+            <div class="customer_detailcontentphone" style="margin-left: 15px">
+                <span style="margin-left: 4px;" ng-bind="datas.detail.ACT_LOCATION"></span>
+            </div>
+            <div class="customer_detailcontentphonespan" style="right:0">
+                <!--NO:<span style=" margin-left: 10px;" ng-bind="customerdetails.PARTNER_ID"></span>-->
             </div>
         </div>
     </div>
-    <ion-content id="xbr-visit-detail-content"  class="has-header" style="" scroll="false" has-bouncing="false">
-    	
-        待补充....
-        <!--div class="head-line">
-            <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
-                <i class="ion-ios-clock-outline" style="font-size:1.8rem;font-weight: bold;line-height: 2.2rem;text-align: center;"></i>                               
-                <span>交易历史</span>
-                <style>
-                    .history-box .ion-ios-clock-outline:before{
-                        font-weight: bolder;
-                    }
-                </style>
-            </div> 
-            <div class="edit-btn">
-                <span>编辑</span>
+    <ion-content id="xbr-visit-detail-content"  class="has-header"  scroll="false" has-bouncing="false">
+        <div class="item" style="padding: 10px 3px 2px 3px;border: none;">
+            <div class="row row-center" style="padding: 0">
+                <div class="col col-80 col-center" style="padding: 0">
+                    <ion-scroll direction="x" scrollbar-x="false" >
+                        <span style="position: relative;margin-right:55px;" ng-repeat="lists in customer_detailstypes"   >
+                            <img class="customer_detail_countentbu image-list-thumb" ng-click="gocustomerLists(lists)" ng-src="{{lists.imgurl}}" alt=""/>
+                            <span class="customer_detail_countentimgbase" ng-click="gocustomerLists(lists)">
+                                {{lists.typemane}}
+                            </span>
+                        </span>
+                    </ion-scroll>
+                </div>
+                <div class="col col-20 col-center text-right" >
+                    <i class="ion-compose iFont">编辑</i>
+                </div>
             </div>
-        </div-->
-
+        </div>
+        <ion-scroll direction="y" style="height: 100%">
+            <div class="row row-center itemContent">
+                <div class="col col-35 col-center">开始时间：</div>
+                <div class="col col-center fontColor">
+                    <span ng-bind="datas.detail.DATE_FROM"></span><span ng-bind="datas.detail.TIME_FROM"></span>
+                </div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-35 col-center">结束时间：</div>
+                <div class="col col-center fontColor">
+                    <span ng-bind="datas.detail.DATE_TO"></span><span ng-bind="datas.detail.TIME_TO"></span>
+                </div>
+            </div>
+            <div class="row itemContentS row-center">
+                <div class="col selectColor">拜访总结：</div>
+            </div>
+            <div  class="visitInfos" ><div ng-repeat="i in datas.summary"><span ng-bind="i.TDLINE"></span></div></div>
+            <div class="pictures">
+                <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="true">
+                    <div class="image-wrapper" ng-repeat="item in config.pictures">
+                        <img src="{{item.src}}">
+                    </div>
+                </ion-scroll>
+            </div>
+            <div class="borderAll">
+                <div class="row itemContentS row-center" style="height: 30px">
+                    <div class="col selectColor">评论：<span ng-bind="datas.comment.length"></span></div>
+                </div>
+                <div class="rowBorder" ng-repeat="item in datas.comment">
+                    <div class="row row-center">
+                        <div class="col col-center">
+                            <div class="row row-center">
+                                <div class="col-6 col-center"><img ng-src="img/car/Oval.png" class="pointImg"></div>
+                                <div class="col-30 col-center fontColor"><span ng-bind="item.comment_person_name"></span></div>
+                                <div class="col-64 col-center text-right fontColor"><span ng-bind="item.create_date"></span></div>
+                            </div>
+                            <div class="row row-center"><span ng-bind="item.content"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ion-scroll>
     </ion-content>
+    <div class="bar bar-footer content item-input-inset" keyboard-attach ng-hide="">
+        <form ng-submit="formTest()" style="width: 100%">
+            <div class="submit">
+                <div class="row row-center">
+                    <div class="col no-padding">
+                        <div class="input"><input type="text" ng-click="openModal()" ng-model="process.content"/>
+                        </div>
+                    </div>
+                    <div class="col col-18 no-padding"  ng-click="submit()">
+                        <button>提交</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </ion-view>
