@@ -10,20 +10,20 @@ appModule
             name:'CUSTOMER',
             url:'img/apps/partner.png',
             go:'customerQuery'
-        },{
+        },{ 
             name:'ACTIVITY',
             url:'img/apps/saleAct.png',
             go:"saleActList"
-        },{
+        },{ 
             name:'ACTPLAN',
             url:'img/apps/acPlan.png',
             go : "activityPlanList"
             //go:'saleActDetail'
-        },{
+        },{ 
             name:'OPPORT',
             url:'img/apps/saleChance.png',
             go:'saleChanList'
-        },{
+        },{ 
             name:'SALECLUE',
             url:'img/apps/saleClue.png',
             go:'saleClueList'
@@ -47,8 +47,8 @@ appModule
             name:'VISIT',
             url:'img/apps/visit.png',
             go:'visit.list'
-        },{
-            name:'SIGNIN',
+        },{ 
+            name:'SIGNIN', 
             url:'img/apps/signIn.png',
             go:'signin.list'
         },{

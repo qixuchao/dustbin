@@ -115,6 +115,20 @@ $lineColor: #d2d2d2;
   @include single-line-ellipsis;
 }
 
+.ionic-font{
+    display: inline-block;
+    font-family: "Ionicons";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 [nav-view="cached"], [nav-bar="cached"]{
   display: none !important;
   opacity: 0 !important;

@@ -233,4 +233,55 @@
     width: 92%;
     margin: 0;
   }
+  .linestyle{
+    border-bottom: 1px dashed #ddd;
+    margin: 0;
+    padding: 5px;
+  }
+  .scroll{
+    height: 100%;
+  }
+  
+  .own-backDrop-on {
+    background: rgba(160, 160, 160, 0.4);
+    left: -20px;
+    width: 120%;
+  }
+  .own-backDrop-off {
+    left: -20px;
+    width: 120%;
+  }
+  .selectionsDown {
+    position: absolute;
+    //margin-top: -10px;
+    right: 0;
+    margin-left: -20px;
+    width: 150px;
+    background: white;
+    padding: 0 20px;
+    z-index: 12;
+    .item {
+      text-align: center;
+      margin-bottom: -2px;
+      color: #969698;;
+    }
+  }
+  .pushDown-animated {
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+  .selected {
+    color: $crm-subject-blue !important;
+  }
+  .refer-selectionsDown {
+    //width: 100px;
+    padding: 0 10px;
+  }
+  .item {
+    font-size: 16px;
+    border-bottom: 1px solid #E2E0DF;
+    padding: 16px 15% 12px 5px;
+  }
 }

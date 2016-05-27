@@ -1,6 +1,6 @@
 signinModule.service('signinService', [ 
 	function () { 
-	//setStored
+	//setStored   
 	return { 
 		setStored: setStored,
 		getStoredByKey: getStoredByKey,
@@ -14,8 +14,8 @@ signinModule.service('signinService', [
 				//"IS_USER": { "BNAME": getStoredByKey("userName") },
 			}
 		},
-		signin_detail: {
-			url: ROOTCONFIG.hempConfig.basePath + "getVisitDetail",
+		signin_signIn: {
+			url: ROOTCONFIG.hempConfig.basePath + "signIn",
 			defaults: {
 				//"I_SYSTEM": { "SysName": getStoredByKey("sysName") },
 				//"IS_USER": { "BNAME": getStoredByKey("userName") },
@@ -39,8 +39,9 @@ signinModule.service('signinService', [
         if(key == "userName"){
           return window.localStorage.crmUserName;
         }else if(key == "sysName"){
-          //return "CATL";
           return ROOTCONFIG.hempConfig.baseEnvironment;
+        }else if(key == "loginerName"){
+        	return "测试者";
         }else{
           return window.localStorage[key];
         }

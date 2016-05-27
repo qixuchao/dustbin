@@ -3,14 +3,42 @@
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
                 <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-70 text-center">拜访明细</div>
-                <div class="col col-15"><span></span></div>
+                <div class="col col-65 text-center">拜访明细</div>
+                <div class="col col-20"><span></span></div>
             </div>
         </ion-header-bar>
+        <div class="visit-head-infos">
+            <div class="created-user">
+                <span class="circle"></span>
+                <!--span class="user-name" >abc</span-->
+                <!-- ng-bind-html="{{datas.detail.CREATED_AT | xbrWorksheetTime}}" -->
+                <span></span>
+            </div>
+            <div class="second-line">
+                <span ng-bind="datas.detail.PROT_TXT"></span>
+            </div>
+            <div class="third-line">
+                <span ng-bind=datas.detail.abc></span>
+            </div>
+        </div>
     </div>
     <ion-content id="xbr-visit-detail-content"  class="has-header" style="" scroll="false" has-bouncing="false">
     	
-        拜访明细
+        待补充....
+        <!--div class="head-line">
+            <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
+                <i class="ion-ios-clock-outline" style="font-size:1.8rem;font-weight: bold;line-height: 2.2rem;text-align: center;"></i>                               
+                <span>交易历史</span>
+                <style>
+                    .history-box .ion-ios-clock-outline:before{
+                        font-weight: bolder;
+                    }
+                </style>
+            </div> 
+            <div class="edit-btn">
+                <span>编辑</span>
+            </div>
+        </div-->
 
     </ion-content>
 </ion-view>

@@ -1,7 +1,3 @@
-/*
-	TODO: 
-		筛选：不点击“确定”按钮的时候，如果处理、		时间筛选、	工单类型筛选接口有问题
-*/
 worksheetModule.controller("WorksheetListCtrl",[
 	"$scope",
 	"$ionicScrollDelegate",

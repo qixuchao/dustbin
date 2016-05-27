@@ -1,0 +1,13 @@
+#visit-detail-view{
+	.saleList{
+		height: 135px;
+	    background: url("../../img/saleDetail/BG1.png") no-repeat;
+	    background-size: 100%;
+	}
+	ion-header-bar{
+		background: transparent;
+	}
+	ion-content{
+		top: 135px;
+	}
+}

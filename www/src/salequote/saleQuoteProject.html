@@ -6,8 +6,8 @@
             </div>
         </div>
     </ion-header-bar>
-    <ion-content class="contentDetail">
-        <div class="item" style="padding: 10px 3px;border: none;margin-top: 5px;">
+    <ion-content class="contentDetail" scroll="false">
+        <div class="item" style="padding: 10px 3px 1px 3px;border: none;margin-top: 5px;">
             <div class="row row-center" style="padding: 0">
                 <div class="col col-90 col-center" style="padding: 0">
                     <ion-scroll direction="x" scrollbar-x="false" >
@@ -16,217 +16,251 @@
                     </span>
                     </ion-scroll>
                 </div>
-                <div class="col col-10 col-center text-right"><i class="ion-chevron-up" style="font-size: 18px;color:#276DAC "></i></div>
+                <div class="col col-10 col-center text-right" ng-if="!referMoreflag" ng-click="changeReferMoreflag()"><i class="ion-chevron-up" style="font-size: 18px;color:#276DAC "></i></div>
+                <div class="col col-10 col-center text-right" ng-if="referMoreflag" ng-click="changeReferMoreflag()"><i class="ion-chevron-down" style="font-size: 18px;color:#276DAC "></i></div>
             </div>
             <div style=" background-image:linear-gradient(to right, #2B60AB, #9EC92A);height: 1px;margin-top: 7px"></div>
         </div>
-        <div ng-if="config.project">
-            <div class="row row-center itemContentColor">
-                <div class="col col-center selectColor">{{projectInfosDetail.DESCRIPTION_UC}}</div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-40 col-center">产品标识：</div>
-                <div class="col col-center fontColor">{{projectInfosDetail.PRODUCT_ID}}</div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-40 col-center">数量：</div>
-                <div class="col col-center fontColor">{{projectInfosDetail.QUANTITY}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-40 col-center">各单位净值：</div>
-                <div class="col col-center fontColor">{{projectInfosDetail.NET_PRICE}}</div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-40">净值：</div>
-                <div class="col col-center fontColor">{{projectInfosDetail.NET_VALUE}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-40">税：</div>
-                <div class="col col-center fontColor">{{projectInfosDetail.TAX_AMOUNT}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-40">总额：</div>
-                <div class="col col-center fontColor">{{projectInfosDetail.GROSS_VALUE}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center selectColor">报价</div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-40">建议价格：</div>
-                <div class="col col-center fontColor">{{projectInfosDetail.ZZFINPRICE}}&nbsp;&nbsp;{{projectInfosDetail.ZZFLD000039}}</div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-40">核价单号：</div>
-                <div class="col col-center fontColor">{{projectInfosDetail.ZZODERNO}}</div>
-            </div>
+<!--下拉值-->
+        <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"
+             ng-click="changeReferMoreflag()"></div>
+        <div ng-if="!isAndroid" class="selectionsDown pushDown-animated refer-selectionsDown"
+             ng-class="{'slideOutRight':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}">
+            <ion-list>
+                <ion-item ng-repeat="x in projectLists"
+                          ng-class="{'selected':selectCustomerText==x.name}"
+                          ng-click="selectPop(x)">{{x.name}}
+                </ion-item>
+            </ion-list>
         </div>
-        <div ng-if="config.customer">
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45" style="padding: 0">
-                    <div class="row row-center" >行业：</div>
-                    <div class="row row-center fontColor">{{projectInfosDetail.ZZINDUSTRY}}</div>
-                </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZDESC}}
-                </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">终端客户：</div>
-                    <div class="row row-center fontColor">{{projectInfosDetail.ZZENDCUS}}</div>
-                </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZCUSDESC}}
-                </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">终端产品：</div>
-                    <div class="row row-center fontColor">{{projectInfosDetail.ZZENDPRD}}</div>
-                </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZPRDNAME}}
-                </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-40 col-center">客户物料编码1：</div>
-                <div class="col col-center fontColor">{{projectInfosDetail.ZZCUSMATNR1}}</div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-40 col-center">客户物料编码2：</div>
-                <div class="col col-center fontColor">{{projectInfosDetail.ZZCUSMATNR2}}</div>
-            </div>
+        <div class="selectionsDown refer-selectionsDown"
+             ng-if="referMoreflag&&isAndroid">
+            <ion-list>
+                <ion-item ng-repeat="x in projectLists"
+                          ng-class="{'selected':selectCustomerText==x.name}"
+                          ng-click="selectPop(x)">{{x.name}}
+                </ion-item>
+            </ion-list>
         </div>
-        <div ng-if="config.materials">
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45" style="padding: 0">
-                    <div class="row row-center" >Model号：</div>
-                    <div class="row row-center fontColor"></div>
+
+        <ion-scroll class="scroll" ng-if="!config.price">
+            <div ng-if="config.project">
+                <div class="row row-center itemContentColor">
+                    <div class="col col-center selectColor">{{projectInfosDetail.DESCRIPTION_UC}}</div>
                 </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZMODULE}}
+                <div class="row row-center itemContent">
+                    <div class="col col-40 col-center">产品标识：</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.PRODUCT_ID}}</div>
                 </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">最小容量：</div>
-                    <div class="row row-center fontColor"></div>
+                <div class="row row-center itemContent">
+                    <div class="col col-40 col-center">数量：</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.QUANTITY}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
                 </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZCPRL}}
+                <div class="row row-center itemContent">
+                    <div class="col col-40 col-center">各单位净值：</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.NET_PRICE}}</div>
                 </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">生产工艺：</div>
-                    <div class="row row-center fontColor"></div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-40">净值：</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.NET_VALUE}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
                 </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZSCGY}}
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-40">税：</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.TAX_AMOUNT}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
                 </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45" style="padding: 0">
-                    <div class="row row-center" >满充电压：</div>
-                    <div class="row row-center fontColor"></div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-40">总额：</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.GROSS_VALUE}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
                 </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZMCDY}}
+                <div class="row row-center itemContent">
+                    <div class="col col-center selectColor">报价</div>
                 </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">标准电压：</div>
-                    <div class="row row-center fontColor"></div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-40">建议价格：</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.ZZFINPRICE}}&nbsp;&nbsp;{{projectInfosDetail.ZZFLD000039}}</div>
                 </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZBCDY}}
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-40">核价单号：</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.ZZODERNO}}</div>
                 </div>
             </div>
-        </div>
-        <div ng-if="config.others">
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">WBS元素 ：</div>
-                    <div class="row row-center fontColor"></div>
+            <div ng-if="config.customer">
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45" style="padding: 0">
+                        <div class="row row-center" >行业：</div>
+                        <div class="row row-center fontColor" ng-if="projectInfosDetail.ZZINDUSTRY">{{projectInfosDetail.ZZINDUSTRY}}</div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZDESC}}
+                    </div>
                 </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZCUSWBS}}
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">终端客户：</div>
+                        <div class="row row-center fontColor" ng-if="projectInfosDetail.ZZENDCUS">{{projectInfosDetail.ZZENDCUS}}</div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZCUSDESC}}
+                    </div>
                 </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">客户项目代码：</div>
-                    <div class="row row-center fontColor"></div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">终端产品：</div>
+                        <div class="row row-center fontColor" ng-if="projectInfosDetail.ZZENDPRD">{{projectInfosDetail.ZZENDPRD}}</div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZPRDNAME}}
+                    </div>
                 </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZCUSPRJCODE}}
+                <div class="row row-center itemContent">
+                    <div class="col col-40 col-center">客户物料编码1：</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.ZZCUSMATNR1}}</div>
                 </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">内部项目代码：</div>
-                    <div class="row row-center fontColor"></div>
-                </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZNBXMCODE}}
-                </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">单元数量：</div>
-                    <div class="row row-center fontColor"></div>
-                </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZCELLQTY}}
-                </div>
-            </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">最小订单数量：</div>
-                    <div class="row row-center fontColor"></div>
-                </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZMINQTY}}
+                <div class="row row-center itemContent">
+                    <div class="col col-40 col-center">客户物料编码2：</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.ZZCUSMATNR2}}</div>
                 </div>
             </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">产品结构：</div>
-                    <div class="row row-center fontColor"></div>
+            <div ng-if="config.materials">
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45" style="padding: 0">
+                        <div class="row row-center" >Model号：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZMODULE}}
+                    </div>
                 </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZCELLQTY}}
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">最小容量：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZCPRL}}
+                    </div>
+                </div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">生产工艺：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZSCGY}}
+                    </div>
+                </div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45" style="padding: 0">
+                        <div class="row row-center" >满充电压：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZMCDY}}
+                    </div>
+                </div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">标准电压：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZBCDY}}
+                    </div>
                 </div>
             </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">提前期：</div>
-                    <div class="row row-center fontColor"></div>
+            <div ng-if="config.others">
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">WBS元素 ：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZCUSWBS}}
+                    </div>
                 </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZMINQTY}}
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">客户项目代码：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZCUSPRJCODE}}
+                    </div>
+                </div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">内部项目代码：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZNBXMCODE}}
+                    </div>
+                </div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">单元数量：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZCELLQTY}}
+                    </div>
+                </div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">最小订单数量：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZMINQTY}}
+                    </div>
+                </div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">产品结构：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZCELLQTY}}
+                    </div>
+                </div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">提前期：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZMINQTY}}
+                    </div>
+                </div>
+                <div class="row row-center itemContent">
+                    <div class="col col-center col-45">
+                        <div class="row row-center">交货工厂：</div>
+                        <div class="row row-center fontColor" ng-if=""></div>
+                    </div>
+                    <div class="col col-center fontColor">
+                        {{projectInfosDetail.ZZCUSWBS}}
+                    </div>
                 </div>
             </div>
-            <div class="row row-center itemContent">
-                <div class="col col-center col-45">
-                    <div class="row row-center">交货工厂：</div>
-                    <div class="row row-center fontColor"></div>
+        </ion-scroll>
+            <div ng-if="config.price">
+                <div class="row row-center">
+                    <div class="col col-center text-center">价格元素</div>
+                    <div class="col col-center text-center">价格</div>
+                    <div class="col col-center text-center">单位</div>
+                    <div class="col col-center text-center">价格单位</div>
+                    <div class="col col-center text-center">计量单位</div>
                 </div>
-                <div class="col col-center fontColor">
-                    {{projectInfosDetail.ZZCUSWBS}}
-                </div>
+                <div align="center"><hr color="#276DAC" class="line" size="2"></div>
+                <ion-scroll class="scroll">
+                    <div class="row row-center fontColor linestyle" ng-repeat="priceDetailItem in priceDetail">
+                        <div class="col col-center text-center">{{priceDetailItem.VTEXT}}</div>
+                        <div class="col col-center text-center">{{priceDetailItem.KBETR}}</div>
+                        <div class="col col-center text-center">{{priceDetailItem.WAERS}}</div>
+                        <div class="col col-center text-center">{{priceDetailItem.KPEIN}}</div>
+                        <div class="col col-center text-center">{{priceDetailItem.KMEIN}}</div>
+                    </div>
+                </ion-scroll>
             </div>
-        </div>
-        <div ng-if="config.price">
-            <div class="row row-center">
-                <div class="col col-center text-center">价格元素</div>
-                <div class="col col-center text-center">价格</div>
-                <div class="col col-center text-center">单位</div>
-                <div class="col col-center text-center">价格单位</div>
-                <div class="col col-center text-center">计量单位</div>
-            </div>
-            <div align="center"><hr color="#276DAC" class="line" size="2"></div>
-        </div>
     </ion-content>
 </ion-view>

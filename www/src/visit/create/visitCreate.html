@@ -2,15 +2,75 @@
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
-                <a class="col col-15 text-left goBack" ng-click="goBack()"><i class="ion-chevron-left"></i></a>
-                <div class="col col-70 text-center">新建拜访</div>
-                <div class="col col-15"><span></span></div>
+                <a class="col col-15 text-left goBack" ng-click="goBack()">
+                    取消
+                </a>
+                <div class="col col-65 text-center">新建拜访</div>
+                <div class="col col-20 right-btn" ng-click="visitCreateConfirm();">完成</div>
             </div>
         </ion-header-bar>
     </div>
-    <ion-content id="xbr-visit-create-content"  class="has-header" style="" scroll="false" has-bouncing="false">
+    <ion-content id="xbr-visit-create-content"  class="has-header" style="" scroll="true" has-bouncing="false">
     	
-        新建拜访
-
+        <div class="create-info-box">
+            
+            <div class="location-box">
+                <span ng-click="caclCurrentLocation();">
+                    <i class="ion-ios-location"></i>
+                    定位
+                </span>
+                <span class="right-text" ng-bind="config.address" ng-if="!config.isLocationing"></span>
+                <span class="right-text isLoading" ng-if="config.isLocationing">正在定位中...</span>
+            </div>
+            
+            <div class="customer-box row">
+                <span class="col-15">客户:</span>
+                <span class="col-85" ng-if="config.selectedCustomer==null" ng-click="openSelectCustomer();" >请选择客户</span>
+                <span class="col-85" ng-if="config.selectedCustomer!=null" ng-click="openSelectCustomer();" ng-bind="config.selectedCustomer.NAME_ORG1"></span>
+            </div>
+            
+            <div class="relations-select">
+                <div class="title-btn row">
+                    <span>联系人选择:</span>
+                    <span class="ion-ios-plus-outline" ng-click="openRelations();"></span>
+                </div>
+                <div class="relation-selected" ng-repeat="item in config.selectedRelations">
+                    <span class="delete-btn ion-ios-minus-outline" ng-click="deleteItem(item, $index);"></span>
+                    <span class="info-name crm-line-text" ng-bind="item.NAME"></span>
+                    <span class="info-cellphone" ng-bind="item.TEL_NUMBER"></span>
+                </div>
+            </div>
+            
+            <div class="start-time row">
+                <span class="col-40">开始时间:</span>
+                <span class="col-60" ng-bind="config.startTime"></span>
+            </div>
+            
+            <div class="end-time row">
+                <span class="col-40">结束时间:</span>
+                <span class="col-60" ng-bind="config.endTime"></span>
+            </div>
+            
+            <div class="visit-comment">
+                <div class="title-line">
+                    拜访总结:
+                </div>
+                <div class="textarea-wrapper">
+                    <textarea placeholder="请输入拜访总结" ng-model="config.visitComment"></textarea>
+                </div>
+                <div class="pictures">
+                    <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="true">
+                        <div class="image-wrapper" ng-repeat="item in config.pictures">
+                            <img src="{{item.src}}">
+                        </div>
+                        <div class="take-pictures-btn" ng-click="takePicture();">
+                            <span class="ion-ios-camera"></span>
+                        </div>
+                    </ion-scroll>
+                </div>
+            </div>
+            
+        </div>
+        
     </ion-content>
 </ion-view>

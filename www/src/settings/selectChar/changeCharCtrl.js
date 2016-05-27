@@ -30,7 +30,7 @@ settingsModule.controller("ChangeCharCtrl", [
 				return;
 			}else if($scope.config.char.code == "APP_SERVICE"){
 				LoginService.setProfileType($scope.config.char.code);
-				var list =["CUSTOMER","EMPLOYEE","CAR","PRODUCT","SERVICE",'SERVICEMAP'];
+				var list =["CUSTOMER","EMPLOYEE","CAR","PRODUCT","SERVICE",'SIGNIN','VISIT','SERVICEMAP'];
 				LoginService.setMenulist(list); 
 				if($rootScope.FIRST_LOGIN == "Y" || $rootScope.FIRST_LOGIN == "D"){
 					$state.go('changePass');
