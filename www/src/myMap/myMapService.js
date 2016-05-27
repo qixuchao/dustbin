@@ -19,8 +19,8 @@ CRMApp.factory('$baiduGeolocation', ['$q', function ($q) {
 myMapModule.factory('BaiduMapServ', ['$http', '$cordovaGeolocation', '$baiduGeolocation', function ($http, $cordovaGeolocation, $baiduGeolocation) {
     var baiduMapServ = {
         //获取百度地图LBS数据库的点
-        getLBSData: function (lng, lat) {
-            var url = ROOTCONFIG.baiduMap.pointQueryUrl + "?ak=" + ROOTCONFIG.baiduMap.apiKey + "&geotable_id=" + ROOTCONFIG.baiduMap.geotableId + "&location=" + lng + "," + lat + "&radius=" + ROOTCONFIG.baiduMap.radius;
+        getLBSData: function (lng, lat, zoomdiff) {
+            var url = ROOTCONFIG.baiduMap.pointQueryUrl + "?ak=" + ROOTCONFIG.baiduMap.apiKey + "&geotable_id=" + ROOTCONFIG.baiduMap.geotableId + "&location=" + lng + "," + lat + "&radius=" + (ROOTCONFIG.baiduMap.radius * zoomdiff);
             console.log('url = ' + url);
             var promise = $http.get(url).then(function (res) {
                 return res.data.contents;

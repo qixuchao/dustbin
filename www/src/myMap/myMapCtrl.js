@@ -37,7 +37,6 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
             "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName}
         };
 
-        var startTime = new Date().getTime();
         HttpAppService.post(url, data).success(function (response, status, func, config) {
             if (response.ES_RESULT.ZFLAG === 'S') {
                 $scope.filterBtns = response.ES_RESULT.ZRESULT;
@@ -53,42 +52,52 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
             enableHighAccuracy: true
         };
 
-        // BaiduMapServ.getCurrentLocation().then(function (success) {
-        //     console.log('success = ' + angular.toJson(success));
-        //     var lat = success.lat;
-        //     var lng = success.long;
-        //
-        // }, function (error) {
-        //     console.log('error = ' + angular.toJson(error));
-        // });
+        BaiduMapServ.getCurrentLocation(options).then(function (success) {
+            console.log('success = ' + angular.toJson(success));
+            var lat = success.lat;
+            var lng = success.long;
 
-        var lng = 116.42918;
-        var lat = 39.93093;
-        console.log('lat = ' + lat + '&lng = ' + lng);
-        var myMap = document.getElementById('myMap');
 
-        baiduMapApi.then(function (BMap) {
-            myBMap = BMap;
-            map = new myBMap.Map(myMap);
-            var point = new myBMap.Point(lng, lat);  // 创建点坐标
-            map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
-            map.enableScrollWheelZoom();
-            map.addControl(new myBMap.NavigationControl());  //添加默认缩放平移控件
+            // var lng = 116.42918;
+            // var lat = 39.93093;
+            console.log('lat = ' + lat + '&lng = ' + lng);
+            var myMap = document.getElementById('myMap');
 
-            BaiduMapServ.getLBSData(lng, lat).then(function (res) {
-                console.log('res = ', angular.toJson(res));
-                $scope.pointsData = res;
-                setMapOverlay($scope.pointsData, 'init');
-            }, function (error) {
-                console.log('error = ', angular.toJson(error));
+            baiduMapApi.then(function (BMap) {
+                myBMap = BMap;
+                map = new myBMap.Map(myMap);
+                var point = new myBMap.Point(lng, lat);  // 创建点坐标
+                map.centerAndZoom(point, 15);                 // 初始化地图，设置中心点坐标和地图级别
+                map.enableScrollWheelZoom();
+                map.addControl(new myBMap.NavigationControl());  //添加默认缩放平移控件
+
+                window.localStorage.map_orig_zoom = map.getZoom();
+                getLBSData(lng, lat);
+
+                map.addEventListener('dragend', resetLBSData);
+
             });
+        }, function (error) {
+            console.log('error = ' + angular.toJson(error));
         });
-        // }, function (error) {
-        //   console.log('error = ' + angular.toJson(error));
-        // });
-
-
     });
+
+    function getLBSData(lng, lat) {
+        var zoomdiff = window.localStorage.map_orig_zoom - map.getZoom() > 0 ? window.localStorage.map_orig_zoom - map.getZoom() : 1;//地图级别差,用于计算放大和缩小地图后的点图范围radius
+
+        BaiduMapServ.getLBSData(lng, lat, zoomdiff).then(function (res) {
+            console.log('res = ', angular.toJson(res));
+            $scope.pointsData = res;
+            setMapOverlay($scope.pointsData, 'init');
+        }, function (error) {
+            console.log('error = ', angular.toJson(error));
+        });
+    }
+
+    function resetLBSData(e) {
+        var newCenter = map.getCenter();
+        getLBSData(newCenter.lng, newCenter.lat);
+    }
 
     function openInfoWind(content, e) {//单击热点图层
         var opts = {
@@ -118,10 +127,17 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
 
     function setMapOverlay(pointsData, type) {
         console.log('pointsData = ' + angular.toJson(pointsData));
-        map.clearOverlays();
-        var myIcon = new myBMap.Icon("../../img/apps/acPlan.png", new myBMap.Size(23, 23), {
+
+        if (type === 'filter') {
+            map.clearOverlays();
+            var centerPoi = new myBMap.Point(pointsData[0].location[0], pointsData[0].location[1]);
+            map.panTo(centerPoi);// 初始化地图，设置中心点坐标和地图级别
+        }
+        
+        var myIcon = new myBMap.Icon("../../img/apps/ic_traffic.png", new myBMap.Size(32, 36), {
             offset: new myBMap.Size(10, 25), // 指定定位位置
-            imageOffset: new myBMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+            // imageOffset: new myBMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+            imageSize: new myBMap.Size(24, 24)
         });
 
 
@@ -130,7 +146,7 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
             var markerOpt = {
                 icon: myIcon
             };
-            // var marker = new myBMap.Marker(tempPoi,markerOpt);
+            // var marker = new myBMap.Marker(tempPoi, markerOpt);
             var marker = new myBMap.Marker(tempPoi);
             var content = item;
             map.addOverlay(marker);
@@ -139,10 +155,6 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
             });
         });
 
-        if (type === 'filter') {
-            var centerPoi = new myBMap.Point(pointsData[0].location[0], pointsData[0].location[1]);
-            map.panTo(centerPoi);// 初始化地图，设置中心点坐标和地图级别
-        }
 
     }
 
