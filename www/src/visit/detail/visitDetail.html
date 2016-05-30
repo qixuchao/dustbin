@@ -35,7 +35,7 @@
                         </span>
                     </ion-scroll>
                 </div>
-                <div class="col col-20 col-center text-right" >
+                <div class="col col-20 col-center text-right" ng-click="goEdit()" ng-if="edit">
                     <i class="ion-compose iFont">编辑</i>
                 </div>
             </div>
@@ -44,13 +44,13 @@
             <div class="row row-center itemContent">
                 <div class="col col-35 col-center">开始时间：</div>
                 <div class="col col-center fontColor">
-                    <span ng-bind="datas.detail.DATE_FROM"></span><span ng-bind="datas.detail.TIME_FROM"></span>
+                    <span ng-bind="datas.detail.DATE_FROM"></span>&nbsp;&nbsp;<span ng-bind="datas.detail.TIME_FROM"></span>
                 </div>
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-35 col-center">结束时间：</div>
                 <div class="col col-center fontColor">
-                    <span ng-bind="datas.detail.DATE_TO"></span><span ng-bind="datas.detail.TIME_TO"></span>
+                    <span ng-bind="datas.detail.DATE_TO"></span>&nbsp;&nbsp;<span ng-bind="datas.detail.TIME_TO"></span>
                 </div>
             </div>
             <div class="row itemContentS row-center">
@@ -59,8 +59,8 @@
             <div  class="visitInfos" ><div ng-repeat="i in datas.summary"><span ng-bind="i.TDLINE"></span></div></div>
             <div class="pictures">
                 <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="true">
-                    <div class="image-wrapper" ng-repeat="item in config.pictures">
-                        <img src="{{item.src}}">
+                    <div class="image-wrapper" ng-repeat="item in datas.pictures">
+                        <img src="{{item.LINE}}">
                     </div>
                 </ion-scroll>
             </div>
@@ -88,7 +88,7 @@
             <div class="submit">
                 <div class="row row-center">
                     <div class="col no-padding">
-                        <div class="input"><input type="text" ng-click="openModal()" ng-model="process.content"/>
+                        <div class="input"><input type="text"  ng-readonly="!edit" ng-model="datas.content"/>
                         </div>
                     </div>
                     <div class="col col-18 no-padding"  ng-click="submit()">

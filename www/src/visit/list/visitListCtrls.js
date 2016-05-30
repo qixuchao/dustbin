@@ -7,9 +7,9 @@ visitModule.controller('visitListCtrl', [
 	"HttpAppService",
 	"$cordovaToast",
 	"worksheetHttpService",
-	"ionicMaterialInk",
+	"ionicMaterialInk",'$cordovaDatePicker',
 	function ($scope, $timeout, visitService, $state, $ionicScrollDelegate, 
-		HttpAppService, $cordovaToast, worksheetHttpService, ionicMaterialInk) {
+		HttpAppService, $cordovaToast, worksheetHttpService, ionicMaterialInk,$cordovaDatePicker) {
 	
 	$scope.config = {
 		//搜索相关

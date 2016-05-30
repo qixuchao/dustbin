@@ -42,7 +42,10 @@ visitModule.service('visitService', [
 
 
 			//页面间传递数据用
-			currentVisitDetail: null
+			currentVisitDetail: null,
+			//详情到编辑
+			visitDetail : null,
+			visitContact : null
 		};
 
 		function setStored(key, value){
