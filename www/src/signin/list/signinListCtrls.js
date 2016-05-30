@@ -6,10 +6,10 @@ signinModule.controller('signinListCtrl', [
 	"$ionicScrollDelegate",
 	"HttpAppService",
 	"$cordovaToast",
-	"ionicMaterialInk",
+	"ionicMaterialInk",'$cordovaDatePicker',
 	function ($scope, $timeout, signinService, $state, 
 			$ionicScrollDelegate, HttpAppService, 
-			$cordovaToast, ionicMaterialInk) {
+			$cordovaToast, ionicMaterialInk,$cordovaDatePicker) {
 
 	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         if(fromState && toState && fromState.name == 'signin.detail' && toState.name == 'signin.list'){

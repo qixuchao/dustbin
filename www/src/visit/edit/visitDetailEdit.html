@@ -1,0 +1,38 @@
+<ion-view canClickEnterListMode  id="visit-edit-view" class="" align-title="center">
+    <ion-header-bar>
+        <div class="row row-center title rowTitle">
+            <div class="col col-15 text-left"  ng-click="goDetail()">取消</div>
+            <div class="col col-70 text-center">编辑拜访
+            </div>
+            <div class="col col-15 text-right" ng-click="keepDatas()">保存</div>
+        </div>
+    </ion-header-bar>
+    <ion-content>
+            <div class="row row-center itemContent">
+                <div class="col col-35 col-center">开始时间：</div>
+                <div class="col col-center fontColor" ng-click="selectCreateTime('start', '开始时间');">
+                    <span ng-bind="datas.START_TIME_STR"></span>
+                </div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-35 col-center">结束时间：</div>
+                <div class="col col-center fontColor" ng-click="selectCreateTime('end', '结束时间');">
+                    <span ng-bind="datas.END_TIME_STR"></span>
+                </div>
+            </div>
+            <div class="row itemContentS row-center">
+                <div class="col">拜访总结：</div>
+            </div>
+            <textarea id="textareare" placeholder="请输入拜访总结"style="width: 100%;padding: 15px;border-bottom: 1px solid #D6D3CE;color:#A0A09F " ng-model="datas.result"></textarea>
+            <div class="pictures">
+                <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="true">
+                    <div class="image-wrapper" ng-repeat="item in config.pictures">
+                        <img src="{{item.src}}">
+                    </div>
+                    <div class="take-pictures-btn" ng-click="takePicture();">
+                        <span class="ion-ios-camera"></span>
+                    </div>
+                </ion-scroll>
+            </div>
+    </ion-content>
+</ion-view>

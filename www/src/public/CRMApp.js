@@ -546,6 +546,24 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
                 }
             }
         })
+        .state('visit.edit', {
+            url: '/visitedit',
+            views: {
+                'visitContent': {
+                    templateUrl: 'src/visit/edit/visitDetailEdit.html',
+                    controller: 'visitEditCtrl'
+                }
+            }
+        })
+        .state('visit.contact', {
+            url: '/visitContact',
+            views: {
+                'visitContent': {
+                    templateUrl: 'src/visit/edit/visitDetailContact.html',
+                    controller: 'visitContactCtrl'
+                }
+            }
+        })
         //拜访模块 end ---------
         //签到模块 start ---------
         .state('signin', {

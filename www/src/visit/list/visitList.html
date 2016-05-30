@@ -74,10 +74,10 @@
                 
                 <div canClickEnterListMode class="tab-sort-content tab-sort-content-inner" ng-click="clickEnterListMode($event);" >
                         <div canNotClickEnterListMode class="time-desc sort-type-item" ng-class="{'selected':config.sortedTypeTimeDesc}"  ng-click="sorteTimeDesc();">
-                            <span>开始时间倒序</span>
+                            <span>创建时间倒序</span>
                         </div>
                         <div canNotClickEnterListMode class="time-asc sort-type-item" ng-class="{'selected':config.sortedTypeTimeAes}" ng-click="sorteTimeAes();">
-                            <span style="border-bottom:0px;">开始时间顺序</span>
+                            <span style="border-bottom:0px;">创建时间顺序</span>
                         </div>
                 </div>
                 
@@ -86,9 +86,9 @@
                         <div canNotClickEnterListMode class="filter-time">
                             <div class="filter-time-title filter-title">日期区间</div>
                             <div class="filter-times-start-end">
-                                <div class="filter-start-time" ng-click="selectCreateTime('start', '选择日期', 'date');" ng-bind="config.timeStart"></div>
+                                <div class="filter-start-time" ng-click="selectCreateTime('start', '选择日期');" ng-bind="config.timeStart"></div>
                                 <div class="filter-time-center-line">-</div>
-                                <div class="filter-end-time" ng-click="selectCreateTime('end','选择日期', 'date');" ng-bind="config.timeEnd"></div>
+                                <div class="filter-end-time" ng-click="selectCreateTime('end','选择日期');" ng-bind="config.timeEnd"></div>
                             </div>
                         </div>
                         <div canNotClickEnterListMode class="filter-time fuwudaqu">
