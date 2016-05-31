@@ -7,10 +7,14 @@ visitModule.controller('visitListCtrl', [
 	"HttpAppService",
 	"$cordovaToast",
 	"worksheetHttpService",
-	"ionicMaterialInk",'$cordovaDatePicker',
+	"ionicMaterialInk",'$cordovaDatePicker','$ionicModal',
 	function ($scope, $timeout, visitService, $state, $ionicScrollDelegate, 
-		HttpAppService, $cordovaToast, worksheetHttpService, ionicMaterialInk,$cordovaDatePicker) {
-	
+		HttpAppService, $cordovaToast, worksheetHttpService, ionicMaterialInk,$cordovaDatePicker,$ionicModal) {
+		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+			if(toState.name == 'visit.list' && fromState.name == 'visit.detail'){
+				$scope.init();
+			}
+		});
 	$scope.config = {
 		//搜索相关
 		historysLocalStorageKey: 'visitListQueryHistory',
@@ -57,8 +61,10 @@ visitModule.controller('visitListCtrl', [
 		timeStartDefault: '',
 		timeEnd: '',
 		timeEndDefault: '',
-
-
+		selectPe : {
+			PARTNER : "",
+			NAME_LAST :""
+		},
 		queryResultScrollDelegate: null
 	};
 
@@ -149,6 +155,10 @@ visitModule.controller('visitListCtrl', [
 		$scope.config.currentCustomer = null;
 		$scope.config.timeStart = "";
 		$scope.config.timeEnd = "";
+		$scope.selectPe ={
+			PARTNER : "",
+			NAME_LAST :""
+		}
 	};
 
 	$scope.selectOldSearch = function(text){
@@ -453,7 +463,7 @@ visitModule.controller('visitListCtrl', [
 				DATE_FROM: startDate,
 				DATE_TO: endDate,
 				CUSTOMER: "",     //客户ID，暂时不用
-      			SRVEMPL: "",		//人员ID
+      			SRVEMPL: $scope.config.selectPe.PARTNER,		//人员ID
       			SERVICE_ORG: ""		//服务大区
 			},
 			IV_SORT: $scope.config.sortedTypeTimeDesc ? 'D' : ($scope.config.sortedTypeTimeAes ? "A" : "")
@@ -654,5 +664,95 @@ visitModule.controller('visitListCtrl', [
     }
 
     $scope.init();
+		$scope.goEmployee=function(){
+			$scope.openSelectCon();
+		}
+		//选择员工
 
+		var conPage = 1;
+		$scope.conArr = [];
+		$scope.conSearch = false;
+		$scope.getConArr = function (search) {
+			$scope.ConLoadMoreFlag = false;
+			if (search) {
+				$scope.conSearch = false;
+				conPage = 1;
+			} else {
+				$scope.spinnerFlag = true;
+			}
+			var data = {
+				"I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+				"IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
+				"IS_PAGE": {
+					"CURRPAGE": conPage++,
+					"ITEMS": "10"
+				},
+				"IS_EMPLOYEE": {"NAME":search}
+			};
+			var startTime = new Date().getTime();
+			HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST', data)
+				.success(function (response) {
+					if (response.ES_RESULT.ZFLAG === 'S') {
+						if (response.ET_EMPLOYEE.item.length < 10) {
+							$scope.ConLoadMoreFlag = false;
+						}
+						if (search) {
+							$scope.conArr = response.ET_EMPLOYEE.item;
+						} else {
+							$scope.conArr = $scope.conArr.concat(response.ET_EMPLOYEE.item);
+						}
+						$scope.spinnerFlag = false;
+						$scope.conSearch = true;
+						$scope.ConLoadMoreFlag = true;
+						$ionicScrollDelegate.resize();
+						//$rootScope.$broadcast('scroll.infiniteScrollComplete');
+					}
+				}).error(function (response, status, header, config) {
+					var respTime = new Date().getTime() - startTime;
+					//超时之后返回的方法
+					if(respTime >= config.timeout){
+						if(ionic.Platform.isWebView()){
+							//$cordovaDialogs.alert('请求超时');
+						}
+					}else{
+						$cordovaDialogs.alert('访问接口失败，请检查设备网络');
+					}
+					$ionicLoading.hide();
+				});;
+		};
+
+		$ionicModal.fromTemplateUrl('src/signin/list/selectEmployee_Modal.html', {
+			scope: $scope,
+			animation: 'slide-in-up',
+			focusFirstInput: true
+		}).then(function (modal) {
+			$scope.selectContactModal = modal;
+		});
+		$scope.selectContactText = '员工';
+		$scope.openSelectCon = function () {
+			$scope.isDropShow = true;
+			$scope.conSearch = true;
+			$scope.selectContactModal.show();
+		};
+		$scope.closeSelectCon = function () {
+			$scope.selectContactModal.hide();
+		};
+		$scope.selectPop = function (x) {
+			$scope.selectContactText = x.text;
+			$scope.referMoreflag = !$scope.referMoreflag;
+		};
+		$scope.showChancePop = function () {
+			$scope.referMoreflag = true;
+			$scope.isDropShow = true;
+		};
+		$scope.initConSearch = function () {
+			$scope.input.con = '';
+			$timeout(function () {
+				document.getElementById('selectConId').focus();
+			}, 1)
+		};
+		$scope.selectCon = function (x) {
+			$scope.config.selectPe= x;
+			$scope.selectContactModal.hide();
+		};
 }]);

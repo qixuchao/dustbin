@@ -1,0 +1,49 @@
+<ion-modal-view class="referModal selectCustomerModal">
+    <div class="saleList">
+        <ion-header-bar class="head" no-tap-scroll="true">
+            <div class="row row-center">
+                <div class="text-center selections" >
+                    {{selectContactText}}<img class="chanceImg" src="img/saleList/oval.png">
+                </div>
+                <div class="col input">
+                    <div class="row row-center no-padding">
+                        <i class="ion-ios-search"></i>
+                        <input id="selectCustomerId" type="search" ng-change="getConArr(input.customer)"
+                               ng-model="input.customer" placeholder="请输入员工姓名">
+                        <i class="ion-ios-close" ng-if="input.customer" ng-click="initCustomerSearch()"></i>
+                    </div>
+                </div>
+                <div class="col col-15 text-center cancel" ng-click="closeSelectCon()">取消</div>
+            </div>
+        </ion-header-bar>
+    </div>
+    <div class="addRelationsModal">
+        <ion-content class="content has-header">
+           <ion-spinner class="mySpinner" icon="ios" ng-if="!conSearch"></ion-spinner>
+            <div ng-if="conSearch">
+                <div ng-class="referMoreflag?'own-backDrop-on':'own-backDrop-off'"
+                     ng-click="changeReferMoreflag()"></div>
+                <div class="selectionsDown pushDown-animated refer-selectionsDown"
+                     ng-class="{'slideOutUp':!referMoreflag&&isDropShow,'fadeInDown':referMoreflag}"
+                     ng-show="referMoreflag">
+                    <ion-list>
+                        <ion-item ng-repeat="x in customerModalArr" ng-class="{'selected':selectCustomerText==x.text}"
+                                  ng-click="selectPop(x)">{{x.text}}
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <ion-list>
+                    <ion-item class="selectItem" ng-repeat="x in conArr"
+                              ng-click="selectCon(x)">
+                        <span ng-bind-html="x.NAME_LAST"></span> <img
+                            ng-if="x!=create.customer" class="selectImg" src="img/saleList/blank.png">
+                        <img ng-if="x==create.customer" class="selectImg" src="img/saleList/selected.png">
+                    </ion-item>
+                </ion-list>
+            </div>
+            <!--<ion-infinite-scroll on-infinite="getCustomerArr()" distance="1%" ng-if="CustomerLoadMoreFlag"></ion-infinite-scroll>-->
+            <div class="loadMore" ng-click="getConArr()" ng-if="conSearch&&!spinnerFlag"><span>点击加载更多...</span></div>
+            <div class="loadMore" ng-click="getConArr()" ng-if="spinnerFlag"><ion-spinner icon="ios"></ion-spinner></div>
+        </ion-content>
+    </div>
+</ion-modal-view>

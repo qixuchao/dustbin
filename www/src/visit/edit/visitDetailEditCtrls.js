@@ -7,6 +7,36 @@ visitModule.controller('visitEditCtrl', [
 			START_TIME_STR:"",
 			END_TIME_STR:""
 		};
+		$scope.config={
+			pictures:[
+			],
+			fileItemDefaults: {
+				originServer: false,
+				originPhoto: false,
+				originCamera: false,
+
+				isServerHolder: false,
+				isNetworking: false,
+				networkTip: "",
+				networkResultDesc: '',
+
+				isDeleting: false,
+				deletedError: false,
+				deletedOk: false,
+
+				isSaving: false,
+				isSaved: false,
+				saveTip: '',
+
+				uploading: false,
+				uploadOk: false,
+				uploadError: false,
+				uploadPercentDesc: "",
+
+				src: "",
+				fileLocalPath: ""
+			}
+		}
 		$scope.datas.detail=visitService.visitDetail.ES_VISIT;
 		$scope.datas.START_TIME_STR=visitService.visitDetail.ES_VISIT.DATE_FROM +" "+visitService.visitDetail.ES_VISIT.TIME_FROM;
 		$scope.datas.END_TIME_STR=visitService.visitDetail.ES_VISIT.DATE_TO +" "+visitService.visitDetail.ES_VISIT.TIME_TO;
@@ -22,7 +52,7 @@ visitModule.controller('visitEditCtrl', [
 			Prompter.ContactCreateCancelvalue();
 		}
 		//选择时间
-		function __selectCreateTimeBasic(type, title, date){
+		$scope._selectCreateTimeBasic = function (type, title, date){
 			$cordovaDatePicker.show({
 				date: date,
 				allowOldDates: true,
@@ -140,6 +170,193 @@ visitModule.controller('visitEditCtrl', [
 				Prompter.hideLoading();
 			});
 		};
+		$scope.takePicture = function(){
+			$scope.config.actionSheet = $ionicActionSheet.show({
+				buttons: [
+					{text: '拍照'},
+					{text: '相册'}
+				],
+				//destructiveText: 'Delete',
+				titleText: '选择相片',
+				cancelText: '取消',
+				cssClass: 'image-take-actionsheet',
+				cancel: function(){
+					//$scope.config.actionSheet();
+				},
+				buttonClicked: function(index){
+					if(index == 0){ //拍照
+						$scope.selectImage(0);
+						return true;
+					}else if(index == 1){ //相册
+						$scope.selectImage(1);
+						return true;
+					}
+					//return false;
+				}
+			});
+		};
+
+		$scope.selectImage = function(sourceTypeInt){
+			if(angular.isUndefined(Camera) || angular.isUndefined(navigator.camera)){
+				alert("Camera 插件未安装!");
+				return;
+			}
+			if(angular.isUndefined(window.plugins) || angular.isUndefined(angular.isUndefined(window.plugins.Base64))){
+				alert("Camera 插件未安装!");
+				return;
+			}
+			var sourceType;
+			if(sourceTypeInt == 0){
+				sourceType = Camera.PictureSourceType.CAMERA;
+			}else if(sourceTypeInt == 1){
+				sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+			}else if(sourceTypeInt == 2){
+				sourceType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
+			}
+			var options = {
+				quality: 5,
+				sourceType: sourceType,
+				destinationType: Camera.DestinationType.FILE_URL, //1, //'FILE_URL',
+				encodingType: Camera.EncodingType.JPEG, //0, //'JPEG',
+				mediaType: Camera.MediaType.PICTURE, //0, //'PICTURE',
+				saveToPhotoAlbum: true,
+				cameraDirection: Camera.Direction.BACK // 0, //'BACK'
+			};
+			if(navigator.camera){
+				navigator.camera.getPicture(function (successRes){
+					getBase64FromFilepath(successRes, sourceTypeInt);
+				}, function (errorRes){
+				}, options);
+			}else{
+				alert("Camera 插件未安装!");
+			}
+		};
+
+		function getBase64FromFilepath(filepath, sourceTypeInt){
+			window.plugins.Base64.encodeFile(filepath, function (successRes){
+				var newFileItem = angular.copy($scope.config.fileItemDefaults);
+				var isFromCamera = false;
+				if(sourceTypeInt == 0){
+					isFromCamera = true;
+				}
+				angular.extend(newFileItem, {
+					fileLocalPath: filepath,
+					src: successRes,
+					isFromCamera: isFromCamera,
+					isFromPhotos: !isFromCamera
+				});
+				$scope.config.pictures.push(newFileItem);
+				$scope.uploadImage(newFileItem);
+				if(!$scope.$$phase){
+					$scope.$apply();
+				}
+			}, function(errorRes){
+				//$scope.alert("选择图片出错!");
+				//alert("getBase64FromFilepath errorRes:    "+JSON.stringify(errorRes));
+			}, {
+				//max_width: 80,
+				//max_height: 80
+			});
+		}
+
+		$scope.uploadImage = function(item){
+			//console.log("uploadImage    :"+JSON.stringify(item));
+			var inbond = {
+				I_SYSNAME: {
+					SysName: ROOTCONFIG.hempConfig.baseEnvironment
+				},
+				IS_AUTHORITY: {
+					BNAME:  window.localStorage.crmUserName
+				},
+				IS_URL: {
+					OBJECT_ID: $scope.config.OBJECT_ID,//  "5200000315",
+					PROCESS_TYPE: $scope.config.PROCESS_TYPE,// "ZPRO",
+					CREATED_BY: worksheetDataService.getStoredByKey("userName"), //"HANDLCX",
+					LINE: ""
+				}
+			};
+			//ROOTCONFIG.hempConfig.UploadImageUrl;
+			// http://117.28.248.23:9388/test/api/bty/uploadImage
+			var url = ROOTCONFIG.hempConfig.basePath + "uploadImage";
+			__uploadImage(item, url, JSON.stringify(inbond));
+		};
+
+		function __uploadImage(file, url, inbond){
+			var filepath = file.fileLocalPath;
+			var uploadUrl = ROOTCONFIG.hempConfig.basePath + "uploadImage";
+			var url = encodeURI(uploadUrl);
+			var options = new FileUploadOptions();
+			options.fileKey = "image";
+			options.fileName = file.name;
+			options.mimeType = "image/jpeg";
+			var tokens = HttpAppService.getToken();
+			options.headers = {
+				token: tokens.token+"",
+				timestamp: tokens.timestamp,
+				userKey: tokens.userKey,
+				timeout: 100000
+			};
+			// alert(JSON.stringify(tokens));
+			// alert(JSON.stringify(options));
+			options.params = {
+				inbond: inbond
+			};
+			//options.httpMethod = "POST";
+			if(FileTransfer){
+				//$scope.config.uploadFilesing = true;
+				//$scope.config.canShowSelectImageBtn = false;
+				var ft = new FileTransfer();
+				file.uploading = true;
+				file.uploadOk = false;
+				file.uploadError = false;
+
+				file.isNetworking = true;
+				file.networkTip = "正在上传中...";
+				ft.upload(filepath, url, function (winRes){
+					//alert("上传成功:   "+JSON.stringify(winRes));
+					file.isServerHolder = true;
+					file.uploading = false;
+					file.uploadOk = true;
+					file.uploadError = false;
+
+					file.isNetworking = false;
+					file.networkTip = "";
+
+					var response = JSON.parse(winRes.response);
+					if(response.ES_OBJECT){
+						file.OBJECT_ID = $scope.config.OBJECT_ID;  //  "5200000315
+						file.PROCESS_TYPE = $scope.config.PROCESS_TYPE;// "ZPRO",;
+						file.OBJIDLO = response.ES_OBJECT.OBJID;
+						file.OBJTYPELO = response.ES_OBJECT.OBJTYPE;
+						file.CLASSLO = response.ES_OBJECT.CLASS;
+					}
+
+					if(!$scope.$$phase){
+						$scope.$apply();
+					}
+				}, function (errorRes){
+					//var endTime = new Date();
+					file.isServerHolder = false;
+					file.uploading = false;
+					file.uploadOk = false;
+					file.uploadError = true;
+					file.isNetworking = false;
+					file.networkTip = "";
+					var desc = "";
+					//var  endTime - startTime >= config.timeout;
+					if(!errorRes || errorRes == null){
+						desc = ": 请检查网络!";
+					}
+					$ionicPopup.alert({
+						title: '提示',
+						template: "上传失败"+desc
+					});
+				}, options);
+				//alert(filepath+"   "+url+"   "+JSON.stringify(options));
+			}else{
+				$scope.alert("FileTransfer 插件未安装");
+			}
+		}
 }]);
 
 
@@ -220,7 +437,6 @@ visitModule.controller('visitContactCtrl', [
 				});
 			}
 		}
-		$scope.add=true;
 		$ionicPopover.fromTemplateUrl('src/worksheet/relatedPart/worksheetRelate_select.html', {
 			scope: $scope
 		}).then(function(popover) {
@@ -386,6 +602,7 @@ visitModule.controller('visitContactCtrl', [
 		};
 		//详情
 		function __requestVisitDetail(){
+			$scope.config.detail=[];
 			var options={
 				I_OBJECT_ID : visitService.currentVisitDetail.OBJECT_ID
 				//"I_OBJECT_ID": "0064000004"
@@ -396,6 +613,11 @@ visitModule.controller('visitContactCtrl', [
 			promise.success(function(response, status, obj, config){
 				if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG){
 					if(response.ES_RESULT.ZFLAG == "S"){
+						for(var i=0;i<response.ET_PARTNERS.item_out.length;i++){
+							if(response.ET_PARTNERS.item_out[i].PARTNER_FCT =="ZCUSTCTT"){
+								$scope.config.detail.push(response.ET_PARTNERS.item_out[i]);
+							}
+						}
 						$scope.config.detail = response.ET_PARTNERS.item_out;
 					}else if(response.ES_RESULT.ZFLAG == "E"){
 						Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);

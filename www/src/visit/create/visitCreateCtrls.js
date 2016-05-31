@@ -9,11 +9,11 @@ visitModule.controller('visitCreateCtrl', [
 	"HttpAppService",
 	"$ionicScrollDelegate",
 	"$rootScope",
-	"relationService",
+	"relationService",'Prompter','$cordovaDatePicker','visitService',
 	function ($scope, BaiduMapServ, $cordovaToast, $ionicActionSheet,
 		$ionicModal, LoginService, saleActService, HttpAppService,
 		$ionicScrollDelegate, $rootScope,
-		relationService){
+		relationService,Prompter,$cordovaDatePicker,visitService){
 	$scope.config = {
 		isLocationing: false,
 		address: '',
@@ -25,22 +25,10 @@ visitModule.controller('visitCreateCtrl', [
 			// 	TEL_NUMBER: '110'
 			// }
 		],
-		startTime: '2016-03-01 12:00',
+		startTime: '',
 		endTime: '',
 		visitComment: '',
 		pictures:[
-			{
-				src: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'
-			},
-			{
-				src: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'
-			},
-			{
-				src: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'
-			},
-			{
-				src: 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo/bd_logo1_31bdc765.png'
-			}
 		],
 		fileItemDefaults: {
 			originServer: false,
@@ -71,16 +59,26 @@ visitModule.controller('visitCreateCtrl', [
 	};
 
 	$scope.init = function(){
+		$scope.config.startTime = getDefultStartTime();
+		$scope.config.endTime = new Date().format('yyyy-MM-dd hh:mm:ss')
 		$scope.caclCurrentLocation();
 	};
-
+	var getDefultStartTime = function () {
+		//60*60*1000*2: 2小时  ：7200000
+		var nowTime = new Date().getTime();
+		var hourTime =  nowTime - 7200000;
+		var hourDate = new Date(hourTime);
+		return hourDate.format("yyyy-MM-dd hh:mm:ss");
+	};
 	$scope.visitCreateConfirm = function(){
 		var queryParams = {
+			"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+			"IS_USER": { "BNAME": window.localStorage.crmUserName },
 			"IS_DATE": {
-		      "DATE_FROM": "",
-		      "TIME_FROM": "",
-		      "DATE_TO": "",
-		      "TIME_TO": ""
+		      "DATE_FROM": $scope.config.startTime.substring(0,10),
+		      "TIME_FROM": $scope.config.startTime.substring(10,19),
+		      "DATE_TO": $scope.config.endTime.substring(0,10),
+		      "TIME_TO": $scope.config.endTime.substring(10,19)
 		    },
 		    "IS_HEAD": {
 		      "PROCESS_TYPE": "ZVIS",
@@ -91,6 +89,7 @@ visitModule.controller('visitCreateCtrl', [
 		    "IT_PARTNER": {
 		      "item_in": []
 		    },
+			"IS_ORGMAN": { },
 		    "IT_TEXT": {
 		      "item_in": []
 		    }
@@ -118,8 +117,11 @@ visitModule.controller('visitCreateCtrl', [
 				PARTNER_FCT: 'ZCUSTOME',
 				PARTNER: $scope.config.selectedCustomer.PARTNER
 			});
+		}else{
+			$cordovaToast.showShortBottom('请选择客户');
+			return;
 		}
-		__requestCreateVisit(requestParams);
+		__requestCreateVisit(queryParams);
 	};
 
 	//visitService.visit_create.url    visitService.visit_create.defaults
@@ -127,11 +129,15 @@ visitModule.controller('visitCreateCtrl', [
 		var url = visitService.visit_create.url;
         var postDatas = angular.copy(visitService.visit_create.defaults);
         angular.extend(postDatas, options);
+		console.log(url);
+		console.log(postDatas);
         var promise = HttpAppService.post(url, postDatas);
         Prompter.showLoading("正在创建");
         promise.success(function(response, status, obj, config){
+			console.log(response);
         	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG=="S"){
         		if(successCallback) successCallback(response);
+				$state.go("visit.list");
         	}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT != null){
         		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
         	}else{
@@ -278,10 +284,10 @@ visitModule.controller('visitCreateCtrl', [
 		//console.log("uploadImage    :"+JSON.stringify(item));
 		var inbond = {
 			I_SYSNAME: { 
-				SysName: worksheetDataService.getStoredByKey("sysName") 
+				SysName: ROOTCONFIG.hempConfig.baseEnvironment
 			},
 			IS_AUTHORITY: { 
-				BNAME: worksheetDataService.getStoredByKey("userName")
+				BNAME:  window.localStorage.crmUserName
 			},
 			IS_URL: {
 				OBJECT_ID: $scope.config.OBJECT_ID,//  "5200000315",
@@ -547,7 +553,119 @@ visitModule.controller('visitCreateCtrl', [
             modal.show();
         });
     };
+	$scope.goAlertBack=function(){
+		Prompter.ContactCreateCancelvalue1("新建");
+	}
+		//选择时间
+		$scope.selectCreateTime = function (type, title) { // type: start、end
+			if(ionic.Platform.isAndroid()){
+				__selectCreateTimeAndroid(type, title);
+			}else{
+				__selectCreateTimeIOS(type,title);
+			}
+		};
+		function __selectCreateTimeIOS(type, title){
+			console.log("__selectCreateTimeIOS");
+			var date;
+			if(type == 'start'){
+				if(!$scope.config.startTime || $scope.config.startTime==""){
+					date =  new Date().format('yyyy/MM/dd hh:mm:ss');
+				}else{
+					date =  new Date($scope.config.startTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+				}
+				//date =  new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+			}else if(type=='end'){
+				if(!$scope.config.endTime || $scope.config.endTime==""){
+					date = new Date().format('yyyy/MM/dd hh:mm:ss');
+				}else{
+					date = new Date($scope.config.endTime.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+				}
+			}
+			__selectCreateTimeBasic(type, title, date);
+			console.log("__selectCreateTimeIOS : "+type+"    "+type+"    "+date);
+		}
+		function __selectCreateTimeAndroid(type, title){
+			var date;
+			if(type == 'start'){
+				if(!$scope.config.startTime || $scope.config.startTime==""){
+					date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+				}else{
+					date = new Date($scope.config.startTime.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+				}
+			}else if(type=='end'){
+				if(!$scope.config.endTime || $scope.config.endTime==""){
+					date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+				}else{
+					date = new Date($scope.config.endTime.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+				}
+			}
+			__selectCreateTimeBasic(type, title, date);
+		}
+		function __selectCreateTimeBasic(type, title, date){
+			console.log("Android selectCreateTime:     "+date);
+			console.log("Android datePicker:     "+datePicker);
+			$cordovaDatePicker.show({
+				date: date,
+				allowOldDates: true,
+				allowFutureDates: true,
+				mode: 'datetime',
+				titleText: title,
+				okText: '确定',               //android
+				cancelText: '取消',           //android
+				doneButtonLabel: '确认',      // ios
+				cancelButtonLabel: '取消',    //ios
+				todayText: '今天',            //android
+				nowText: '现在',              //android
+				is24Hour: true,              //android
+				androidTheme: datePicker.ANDROID_THEMES.THEME_HOLO_LIGHT, // android： 3
+				popoverArrowDirection: 'UP',
+				locale: 'zh_cn'
+				//locale: 'en_us'
+			}).then(function(returnDate){
+				var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
+				console.log("selectTimeCallback : "+time);
+				switch (type) {
+					case 'start':
+						if(__startTimeIsValid(time, $scope.config.endTime)){
+							$scope.config.startTime = time;
+						}else{
+							$cordovaToast.showShortBottom("最小时间不能大于最大时间!");
+						}
+						break;
+					case 'end':
+						if(__endTimeIsValid($scope.config.startTime, time)){
+							$scope.config.endTime = time;
+						}else{
+							$cordovaToast.showShortBottom("最大时间不能小于最小时间!");
+						}
+						break;
+				}
+				if(!$scope.$$phase){
+					$scope.$apply();
+				}
+			});
+		}
 
-
-
+		function __startTimeIsValid(startTime, endTime){
+			if(!startTime || startTime==""){
+				return false;
+			}
+			if(!endTime || endTime==""){
+				return true;
+			}
+			var startTime2 = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+			var endTime2 = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+			return startTime2 <= endTime2;
+		}
+		function __endTimeIsValid(startTime, endTime){
+			if(!endTime || endTime==""){
+				return false;
+			}
+			if(!startTime || startTime==""){
+				return true;
+			}
+			var startTime = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+			var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+			return startTime <= endTime;
+		}
 }]);

@@ -2,7 +2,7 @@
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head">
             <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
-                <a class="col col-15 text-left goBack" ng-click="goBack()">
+                <a class="col col-15 text-left goBack" ng-click="goAlertBack()">
                     取消
                 </a>
                 <div class="col col-65 text-center">新建拜访</div>
@@ -17,7 +17,7 @@
             <div class="location-box">
                 <span ng-click="caclCurrentLocation();">
                     <i class="ion-ios-location"></i>
-                    定位
+                    <span style="color: #69717d">重新定位</span>
                 </span>
                 <span class="right-text" ng-bind="config.address" ng-if="!config.isLocationing"></span>
                 <span class="right-text isLoading" ng-if="config.isLocationing">正在定位中...</span>
@@ -25,7 +25,7 @@
             
             <div class="customer-box row">
                 <span class="col-15">客户:</span>
-                <span class="col-85" ng-if="config.selectedCustomer==null" ng-click="openSelectCustomer();" >请选择客户</span>
+                <span class="col-85" ng-if="config.selectedCustomer==null"  style="color: #AFAFAF;" ng-click="openSelectCustomer();" >请选择客户</span>
                 <span class="col-85" ng-if="config.selectedCustomer!=null" ng-click="openSelectCustomer();" ng-bind="config.selectedCustomer.NAME_ORG1"></span>
             </div>
             
@@ -43,12 +43,12 @@
             
             <div class="start-time row">
                 <span class="col-40">开始时间:</span>
-                <span class="col-60" ng-bind="config.startTime"></span>
+                <span class="col-60" ng-bind="config.startTime" ng-click="selectCreateTime('start', '选择日期');"></span>
             </div>
             
             <div class="end-time row">
                 <span class="col-40">结束时间:</span>
-                <span class="col-60" ng-bind="config.endTime"></span>
+                <span class="col-60" ng-bind="config.endTime" ng-click="selectCreateTime('end','选择日期');"></span>
             </div>
             
             <div class="visit-comment">

@@ -16,7 +16,7 @@
             <div class="location-box">
                 <span ng-click="caclCurrentLocation();">
                     <i class="ion-ios-location"></i>
-                    定位
+                    <span style="color: #69717d">重新定位</span>
                 </span>
                 <span class="right-text" ng-bind="config.address" ng-if="!config.isLocationing"></span>
                 <span class="right-text isLoading" ng-if="config.isLocationing">正在定位中...</span>
