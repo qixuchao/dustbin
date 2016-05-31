@@ -9,16 +9,19 @@
         <div class="customer_detailcontent">
             <div class="customer_detailcontentname">
                 <div class="customer_detailcontentcicle"></div>
-                <span ng-bind="datas.name" ></span>&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="datas.detail.DATE_FROM" ></span>&nbsp;&nbsp;<span ng-bind="datas.detail.TIME_FROM" ></span>
+                <span ng-bind="datas.name" ></span>&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="datas.detail.CREATED_AT" ></span>
             </div>
             <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 15px">
-                <span style="margin-left: 4px;" ng-bind="datas.detail.customer" ></span>
+                <ion-scroll direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                    <div style="margin-left: 4px;" ng-bind="datas.customer" ></div>
+                </ion-scroll>
             </div>
             <div class="customer_detailcontentphone" style="margin-left: 15px">
-                <span style="margin-left: 4px;" ng-bind="datas.detail.ACT_LOCATION"></span>
+                <ion-scroll direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                    <div style="margin-left: 4px;" ng-bind="datas.detail.ACT_LOCATION"></div>
+                </ion-scroll>
             </div>
             <div class="customer_detailcontentphonespan" style="right:0">
-                <!--NO:<span style=" margin-left: 10px;" ng-bind="customerdetails.PARTNER_ID"></span>-->
             </div>
         </div>
     </div>
@@ -64,7 +67,6 @@
                     </div>
                 </ion-scroll>
             </div>
-            <div class="borderAll">
                 <div class="row itemContentS row-center" style="height: 30px">
                     <div class="col selectColor">评论：<span ng-bind="datas.comment.length"></span></div>
                 </div>
@@ -76,11 +78,13 @@
                                 <div class="col-30 col-center fontColor"><span ng-bind="item.comment_person_name"></span></div>
                                 <div class="col-64 col-center text-right fontColor"><span ng-bind="item.create_date"></span></div>
                             </div>
-                            <div class="row row-center"><span ng-bind="item.content"></span></div>
+                            <div class="row row-center">
+                                <div class="col-6 col-center"></div>
+                                <div class="col col-center"><span ng-bind="item.content"></span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </ion-scroll>
     </ion-content>
     <div class="bar bar-footer content item-input-inset" keyboard-attach ng-hide="">

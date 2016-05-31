@@ -6,9 +6,9 @@ signinModule.controller('signinDetailCtrl', [
 	"HttpAppService",
 	"Prompter",
 	"$ionicHistory",
-	"BaiduMapServ",
+	"BaiduMapServ",'$cordovaDialogs',
 	function ($scope, $timeout, signinService, $state, HttpAppService, 
-		Prompter, $ionicHistory, BaiduMapServ) {
+		Prompter, $ionicHistory, BaiduMapServ,$cordovaDialogs) {
 	
 	$scope.config = {
 		isEditMode: false,
@@ -78,7 +78,14 @@ signinModule.controller('signinDetailCtrl', [
 	};
 
 	$scope.cancleEdit = function(){
-		$scope.config.isEditMode = false;
+		$cordovaDialogs.confirm('是否退出编辑界面', '提示', ['确定', '取消'])
+			.then(function (buttonIndex) {
+				// no button = 0, 'OK' = 1, 'Cancel' = 2
+				var btnIndex = buttonIndex;
+				if (btnIndex == 1) {
+					$scope.config.isEditMode = false;
+				}
+			});
 	};
 	$scope.enterEditMode = function(){
 		$scope.config.isEditMode = true;

@@ -99,10 +99,10 @@
                         </div>
                         <div canNotClickEnterListMode class="filter-time renYuanSelect">
                             <div class="filter-time-title filter-title">人员选择</div>
-                            <div class="filter-times-start-end">
+                            <div class="filter-times-start-end" ng-click="goEmployee()">
                                 <span>
                                     <i class="ion-ios-search-strong"></i>
-                                    人员选择
+                                    <span ng-bind="config.selectPe.NAME_LAST"></span>
                                 </span>
                             </div>
                         </div>
@@ -132,9 +132,9 @@
                                     <span><i class="ion-android-arrow-forward"></i></span>
                                 </div>
                                 <div class="list-item-bottom">
-                                    <span ng-bind-template="{{item.CREATED_AT | xbrWorksheetTime}} " style="margin-right: 1rem;"></span>
+                                    <span ng-bind-template="{{item.DATE_FROM}} {{item.TIME_FROM}} " style="margin-right: 1rem;"></span>
                                     <span style="margin-right: 1rem;">|</span>
-                                    <span ng-bind-template="{{item.COMMENT_COUNT}} 评    {{item.READ_COUNT}} 看"></span>
+                                    <span ng-bind-template="{{item.COMMENT_COUNT}} 评"></span>
                                 </div>
                             </a>
                         </div>

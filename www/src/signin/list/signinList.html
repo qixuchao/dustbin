@@ -74,10 +74,10 @@
                 
                 <div canClickEnterListMode class="tab-sort-content tab-sort-content-inner" ng-click="clickEnterListMode($event);" >
                         <div canNotClickEnterListMode class="time-desc sort-type-item" ng-class="{'selected':config.sortedTypeTimeDesc}"  ng-click="sorteTimeDesc();">
-                            <span>开始时间倒序</span>
+                            <span>签到时间倒序</span>
                         </div>
                         <div canNotClickEnterListMode class="time-asc sort-type-item" ng-class="{'selected':config.sortedTypeTimeAes}" ng-click="sorteTimeAes();">
-                            <span style="border-bottom:0px;">开始时间顺序</span>
+                            <span style="border-bottom:0px;">签到时间顺序</span>
                         </div>
                 </div>
                 
@@ -94,10 +94,10 @@
 
                         <div canNotClickEnterListMode class="filter-time renYuanSelect">
                             <div class="filter-time-title filter-title">人员选择</div>
-                            <div class="filter-times-start-end">
+                            <div class="filter-times-start-end" ng-click="goEmployee()">
                                 <span>
                                     <i class="ion-ios-search-strong"></i>
-                                    人员选择
+                                    <span ng-bind="config.selectPe.NAME_LAST"></span>
                                 </span>
                             </div>
                         </div>

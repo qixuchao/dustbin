@@ -15,8 +15,9 @@ visitModule.controller('visitDetailCtrl', [
 		};
 		$scope.edit=false;
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-			$scope.init();
-			$scope.datas.summary=[];
+			if(toState.name == 'visit.detail'){
+				$scope.init();
+			}
 		});
 		$ionicModal.fromTemplateUrl('src/visit/detail/model/visitDetail_Modal.html', {
 			scope: $scope
@@ -37,6 +38,7 @@ visitModule.controller('visitDetailCtrl', [
 		};
 		//详情
 		function __requestVisitDetail(){
+			$scope.datas.summary=[];
 			var options={
 				I_OBJECT_ID : visitService.currentVisitDetail.OBJECT_ID
 				//"I_OBJECT_ID": "0064000004"

@@ -6,10 +6,10 @@ signinModule.controller('signinListCtrl', [
 	"$ionicScrollDelegate",
 	"HttpAppService",
 	"$cordovaToast",
-	"ionicMaterialInk",'$cordovaDatePicker',
+	"ionicMaterialInk",'$cordovaDatePicker','$ionicModal',
 	function ($scope, $timeout, signinService, $state, 
 			$ionicScrollDelegate, HttpAppService, 
-			$cordovaToast, ionicMaterialInk,$cordovaDatePicker) {
+			$cordovaToast, ionicMaterialInk,$cordovaDatePicker,$ionicModal) {
 
 	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         if(fromState && toState && fromState.name == 'signin.detail' && toState.name == 'signin.list'){
@@ -56,11 +56,14 @@ signinModule.controller('signinListCtrl', [
 		sortedTypeTimeDesc: false,  //时间 降序（不默认）
 		sortedTypeTimeAes: false,	//时间 升序
 		//筛选 规则
-		timeStart: '2016-01-02',
+		timeStart: '',
 		timeStartDefault: '',
-		timeEnd: '2016-08-02',
+		timeEnd: '',
 		timeEndDefault: '',
-
+		selectPe : {
+			PARTNER : "",
+			NAME_LAST :""
+		},//人员
 		queryResultScrollDelegate: null
 	};
 	
@@ -127,6 +130,10 @@ signinModule.controller('signinListCtrl', [
 		$scope.config.currentCustomer = null;
 		$scope.config.timeStart = "";
 		$scope.config.timeEnd = "";
+		$scope.config.selectPe ={
+			PARTNER : "",
+				NAME_LAST :""
+		}
 	};
 
 
@@ -425,7 +432,7 @@ signinModule.controller('signinListCtrl', [
 		var endDate = !angular.isUndefined($scope.config.timeEnd) && $scope.config.timeEnd!=null && $scope.config.timeEnd!="" ? $scope.config.timeEnd.replace(/-/g,"") : '';
 
 		var queryParams = {
-			"person_code":"",
+			"person_code":$scope.config.selectPe.PARTNER,
 		    "start_date": startDate,
 		    "end_date": endDate,
 		    "page_count": String(++$scope.config.currentPage),
@@ -604,6 +611,96 @@ signinModule.controller('signinListCtrl', [
         var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
         return startTime <= endTime;
     }
+		$scope.goEmployee=function(){
+			$scope.openSelectCon();
+		}
+		//选择员工
 
+		var conPage = 1;
+		$scope.conArr = [];
+		$scope.conSearch = false;
+		$scope.getConArr = function (search) {
+			$scope.ConLoadMoreFlag = false;
+			if (search) {
+				$scope.conSearch = false;
+				conPage = 1;
+			} else {
+				$scope.spinnerFlag = true;
+			}
+			var data = {
+				"I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+				"IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
+				"IS_PAGE": {
+					"CURRPAGE": conPage++,
+					"ITEMS": "10"
+				},
+				"IS_EMPLOYEE": {"NAME":search}
+			};
+			var startTime = new Date().getTime();
+			HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'STAFF_LIST', data)
+				.success(function (response) {
+					if (response.ES_RESULT.ZFLAG === 'S') {
+						if (response.ET_EMPLOYEE.item.length < 10) {
+							$scope.ConLoadMoreFlag = false;
+						}
+						if (search) {
+							$scope.conArr = response.ET_EMPLOYEE.item;
+						} else {
+							$scope.conArr = $scope.conArr.concat(response.ET_EMPLOYEE.item);
+						}
+						$scope.spinnerFlag = false;
+						$scope.conSearch = true;
+						$scope.ConLoadMoreFlag = true;
+						$ionicScrollDelegate.resize();
+						//$rootScope.$broadcast('scroll.infiniteScrollComplete');
+					}
+				}).error(function (response, status, header, config) {
+					var respTime = new Date().getTime() - startTime;
+					//超时之后返回的方法
+					if(respTime >= config.timeout){
+						if(ionic.Platform.isWebView()){
+							//$cordovaDialogs.alert('请求超时');
+						}
+					}else{
+						$cordovaDialogs.alert('访问接口失败，请检查设备网络');
+					}
+					$ionicLoading.hide();
+				});;
+		};
 
+		$ionicModal.fromTemplateUrl('src/signin/list/selectEmployee_Modal.html', {
+			scope: $scope,
+			animation: 'slide-in-up',
+			focusFirstInput: true
+		}).then(function (modal) {
+			$scope.selectContactModal = modal;
+		});
+		$scope.selectContactText = '员工';
+		$scope.openSelectCon = function () {
+			$scope.isDropShow = true;
+			$scope.conSearch = true;
+			$scope.selectContactModal.show();
+		};
+		$scope.closeSelectCon = function () {
+			$scope.selectContactModal.hide();
+		};
+		$scope.selectPop = function (x) {
+			$scope.selectContactText = x.text;
+			$scope.referMoreflag = !$scope.referMoreflag;
+		};
+		$scope.showChancePop = function () {
+			$scope.referMoreflag = true;
+			$scope.isDropShow = true;
+		};
+		$scope.initConSearch = function () {
+			$scope.input.con = '';
+			$timeout(function () {
+				document.getElementById('selectConId').focus();
+			}, 1)
+		};
+		$scope.selectCon = function (x) {
+			console.log(x);
+			$scope.config.selectPe= x;
+			$scope.selectContactModal.hide();
+		};
 }]);

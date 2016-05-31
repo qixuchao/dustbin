@@ -19,7 +19,7 @@
             @include align-items(center);
             border-bottom: 1px solid #E4E4E4;
             span:nth-child(1){
-                width: 3rem;
+                width: 4rem;
                 text-align: center;
                 @include display-flex;
                 @include flex-direction(column);
@@ -52,10 +52,11 @@
             span:nth-child(1){ }
             span:nth-child(2){
             	text-align: right;
-    			color: #AFAFAF;
+			  color: #2B60AB;
     			font-size: .9rem;
             }
             span:nth-child(2):after, span:nth-child(3):after{
+			  color: #AFAFAF;
             	@extend .ionic-font;
     			content: "\f30f";
 				margin-left: .8rem;
@@ -96,7 +97,6 @@
                 .info-name{
 					width: 6rem;
     				//text-align: center;
-    				font-size: 1.1rem;
     				color: #2B60AB;
                 }
                 .info-cellphone{
