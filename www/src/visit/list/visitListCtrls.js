@@ -155,7 +155,7 @@ visitModule.controller('visitListCtrl', [
 		$scope.config.currentCustomer = null;
 		$scope.config.timeStart = "";
 		$scope.config.timeEnd = "";
-		$scope.selectPe ={
+		$scope.config.selectPe ={
 			PARTNER : "",
 			NAME_LAST :""
 		}

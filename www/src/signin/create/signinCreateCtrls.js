@@ -7,9 +7,9 @@ signinModule.controller('signinCreateCtrl', [
 	"$cordovaToast",
 	"HttpAppService",
 	"Prompter",
-	"$ionicHistory",
+	"$ionicHistory",'LoginService',
 	function ($scope, $timeout, signinService, $state, BaiduMapServ, 
-		$cordovaToast, HttpAppService, Prompter, $ionicHistory) {
+		$cordovaToast, HttpAppService, Prompter, $ionicHistory,LoginService) {
 
 	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
         if(fromState && toState && fromState.name == 'signin.detail' && toState.name == 'signin.create'){
@@ -27,7 +27,9 @@ signinModule.controller('signinCreateCtrl', [
 		signInDate: '',
 		signInTime: '',
 		comment: '',
-		isLocationing: false
+		isLocationing: false,
+		userName:'',
+		userCode : ''
 	};
 
 	$scope.datas = {
@@ -50,8 +52,8 @@ signinModule.controller('signinCreateCtrl', [
 			return;
 		}
 		var options = {
-		    "person_code": signinService.getStoredByKey("userName"),
-		    "person_name": signinService.getStoredByKey("loginerName"),
+		    "person_code": $scope.config.userCode,
+		    "person_name": $scope.config.userName,
 		    "address": $scope.config.address,
 		    "sign_in_date": $scope.config.signInDate,
 		    "sign_in_time": $scope.config.signInTime,
@@ -62,8 +64,8 @@ signinModule.controller('signinCreateCtrl', [
 			Prompter.showLoadingAutoHidden("签到创建成功!", false, 1300);
 			$timeout(function(){
 				signinService.currentSigninDetail = {
-					"person_code": signinService.getStoredByKey("userName"),
-				    "person_name": signinService.getStoredByKey("loginerName"),
+					"person_code": $scope.config.userCode,
+				    "person_name": $scope.config.userName,
 				    "address": $scope.config.address,
 				    "sign_in_date": $scope.config.signInDate,
 				    "sign_in_time": $scope.config.signInTime,
@@ -75,8 +77,29 @@ signinModule.controller('signinCreateCtrl', [
 		});
 	};
 
-	
+		//名称
+		function __requestVisitName(options){
+			Prompter.showLoading();
+			var urlName = ROOTCONFIG.hempConfig.basePath + "STAFF_DETAIL"; //"http://117.28.248.23:9388/test/api/bty/login";
+			var querParams = {
+				"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+				"IS_EMPLOYEE": { "PARTNER": LoginService.getBupaTypeUser() }
+			};
+			HttpAppService.post(urlName,querParams).success(function(response){
+				Prompter.hideLoading();
+				console.log(response);
+				if(response.ES_RESULT.ZFLAG == 'E') {
+					$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+				} else if (response.ES_RESULT.ZFLAG == 'S') {
+					if(response.ES_EMPLOYEE){
+						$scope.config.userName = response.ES_EMPLOYEE.NAME_LAST+response.ES_EMPLOYEE.NAME_FIRST;
+						$scope.config.userCode = response.ES_EMPLOYEE.PARTNER;
+					}
+				}
 
+			});
+		}
+		__requestVisitName();
 	function __requestSaveNewSingin(options, successCallback){
 		var url = signinService.signin_signIn.url;
         // var postDatas = signinService.signin_list.defaults;

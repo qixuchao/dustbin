@@ -59,7 +59,7 @@
             <div class="row itemContentS row-center">
                 <div class="col selectColor">拜访总结：</div>
             </div>
-            <div  class="visitInfos" ><div ng-repeat="i in datas.summary"><span ng-bind="i.TDLINE"></span></div></div>
+            <div  class="visitInfos fontColor" ><div ng-repeat="i in datas.summary"><span ng-bind="i.TDLINE"></span></div></div>
             <div class="pictures">
                 <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="true">
                     <div class="image-wrapper" ng-repeat="item in datas.pictures">
@@ -67,7 +67,7 @@
                     </div>
                 </ion-scroll>
             </div>
-                <div class="row itemContentS row-center" style="height: 30px">
+                <div class="row itemContentS row-center">
                     <div class="col selectColor">评论：<span ng-bind="datas.comment.length"></span></div>
                 </div>
                 <div class="rowBorder" ng-repeat="item in datas.comment">
@@ -80,19 +80,19 @@
                             </div>
                             <div class="row row-center">
                                 <div class="col-6 col-center"></div>
-                                <div class="col col-center"><span ng-bind="item.content"></span></div>
+                                <div class="col col-center fontColor"><span ng-bind="item.content"></span></div>
                             </div>
                         </div>
                     </div>
                 </div>
         </ion-scroll>
     </ion-content>
-    <div class="bar bar-footer content item-input-inset" keyboard-attach ng-hide="">
+    <div class="bar bar-footer content item-input-inset" keyboard-attach ng-if="edit">
         <form ng-submit="formTest()" style="width: 100%">
             <div class="submit">
                 <div class="row row-center">
                     <div class="col no-padding">
-                        <div class="input"><input type="text"  ng-readonly="!edit" ng-model="datas.content"/>
+                        <div class="input"><input type="text"  ng-model="datas.content"/>
                         </div>
                     </div>
                     <div class="col col-18 no-padding"  ng-click="submit()">

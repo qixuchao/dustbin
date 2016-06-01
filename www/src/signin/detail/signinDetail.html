@@ -4,7 +4,7 @@
             <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
                 <a class="col col-15 text-left" ng-click="goBack()" ng-if="!config.isEditMode"><i class="ion-chevron-left"></i></a>
                 <div class="col col-15 text-left" ng-click="cancleEdit();" ng-if="config.isEditMode"><span>取消</span></div>
-                <div class="col col-70 text-center">签到明细</div>
+                <div class="col col-70 text-center">{{config.title}}</div>
                 <div class="col col-15 right-btn" ng-click="enterEditMode();" ng-if="!config.isEditMode"><span>编辑</span></div>
                 <div class="col col-15 right-btn" ng-click="editConfirm();" ng-if="config.isEditMode"><span>保存</span></div>
             </div>

@@ -13,6 +13,7 @@ visitModule.controller('visitDetailCtrl', [
 			userName : '',//当前登录人姓名
 			allInfo :''
 		};
+		cordova.plugins.Keyboard.disableScroll(true);
 		$scope.edit=false;
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			if(toState.name == 'visit.detail'){
@@ -113,7 +114,8 @@ visitModule.controller('visitDetailCtrl', [
 							console.log($scope.datas.pictures);
 						}
 					}else if(response.ES_RESULT.ZFLAG == "E"){
-						Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
+						Prompter.hideLoading();
+						//Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 					}else{
 						Prompter.showLoadingAutoHidden(angular.toJson(response), false, 2000);
 					}

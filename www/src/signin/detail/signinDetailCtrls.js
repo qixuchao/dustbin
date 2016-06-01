@@ -14,7 +14,7 @@ signinModule.controller('signinDetailCtrl', [
 		isEditMode: false,
 		hasEdited: false,
 		isLocationing: false, //正在定位
-
+		title : "签到明细",
 		a: 'a'
 	};
 	$scope.datas = {
@@ -88,6 +88,7 @@ signinModule.controller('signinDetailCtrl', [
 			});
 	};
 	$scope.enterEditMode = function(){
+		$scope.config.title="签到编辑";
 		$scope.config.isEditMode = true;
 	};
 	$scope.editConfirm = function(){
@@ -110,6 +111,7 @@ signinModule.controller('signinDetailCtrl', [
         var promise = HttpAppService.post(url, options);
         Prompter.showLoading("正在保存");
         promise.success(function(response, status, obj, config){
+			$scope.config.title="签到明细";
         	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG=="S"){
         		successCallback(response);
         	}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT != null){
