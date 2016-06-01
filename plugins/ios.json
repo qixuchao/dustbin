@@ -29,6 +29,9 @@
         "cordova-plugin-canvas2image": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
@@ -48,6 +51,9 @@
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
+        "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-inappbrowser": {
