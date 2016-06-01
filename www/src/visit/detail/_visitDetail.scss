@@ -29,21 +29,22 @@
 	  }
 	  .fontColor{
 		color:#A8A49F;
+		font-size: 16px;
 	  }
 	  .visitInfos{
-		border-bottom: 1px dashed #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;
+		border-bottom: 1px dashed #D6D3CE;padding: 5px 15px 5px 15px;;word-break: break-all;word-wrap: break-word;
 		margin-left: 15px;
 	  }
 	  .itemContentS{
 		background-color: white;
 		margin-top: 1px;
 		margin-bottom: 1px;
-		padding: 6px 10px 4px 10px;
+		padding: 2px 10px 2px 10px;
 		min-height: 30px;
 		max-height: 300px;
 		line-height: 30px;
 		font-size: 1.0rem;
-		border-bottom: 1px solid #D6D3CE;
+		//border-bottom: 1px solid #D6D3CE;
 	  }
 	  .selectColor{
 		color : #276DAC;

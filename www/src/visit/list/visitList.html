@@ -132,9 +132,9 @@
                                     <span><i class="ion-android-arrow-forward"></i></span>
                                 </div>
                                 <div class="list-item-bottom">
-                                    <span ng-bind-template="{{item.DATE_FROM}} {{item.TIME_FROM}} " style="margin-right: 1rem;"></span>
+                                    <span ng-bind="item.CREATED_AT" style="margin-right: 1rem;"></span>
                                     <span style="margin-right: 1rem;">|</span>
-                                    <span ng-bind-template="{{item.COMMENT_COUNT}} 评"></span>
+                                    <span >{{item.COMMENT_COUNT}} 评</span>
                                 </div>
                             </a>
                         </div>

@@ -52,7 +52,53 @@ visitModule.controller('visitEditCtrl', [
 			Prompter.ContactCreateCancelvalue();
 		}
 		//选择时间
-		$scope._selectCreateTimeBasic = function (type, title, date){
+		$scope.selectCreateTime = function (type, title) { // type: start、end
+			if(ionic.Platform.isAndroid()){
+				__selectCreateTimeAndroid(type, title);
+			}else{
+				__selectCreateTimeIOS(type,title);
+			}
+		};
+		function __selectCreateTimeIOS(type, title){
+			console.log("__selectCreateTimeIOS");
+			var date;
+			if(type == 'start'){
+				if(!$scope.datas.START_TIME_STR || $scope.datas.START_TIME_STR==""){
+					date =  new Date().format('yyyy/MM/dd hh:mm:ss');
+				}else{
+					date =  new Date($scope.datas.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+				}
+				//date =  new Date($scope.config.timeStart.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+			}else if(type=='end'){
+				if(!$scope.datas.END_TIME_STR || $scope.datas.END_TIME_STR==""){
+					date = new Date().format('yyyy/MM/dd hh:mm:ss');
+				}else{
+					date = new Date($scope.datas.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+				}
+			}
+			__selectCreateTimeBasic(type, title, date);
+			console.log("__selectCreateTimeIOS : "+type+"    "+type+"    "+date);
+		}
+		function __selectCreateTimeAndroid(type, title){
+			var date;
+			if(type == 'start'){
+				if(!$scope.datas.START_TIME_STR || $scope.datas.START_TIME_STR==""){
+					date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+				}else{
+					date = new Date($scope.datas.START_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+				}
+			}else if(type=='end'){
+				if(!$scope.datas.END_TIME_STR || $scope.datas.END_TIME_STR==""){
+					date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+				}else{
+					date = new Date($scope.datas.END_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+				}
+			}
+			__selectCreateTimeBasic(type, title, date);
+		}
+		function __selectCreateTimeBasic(type, title, date){
+			console.log("Android selectCreateTime:     "+date);
+			console.log("Android datePicker:     "+datePicker);
 			$cordovaDatePicker.show({
 				date: date,
 				allowOldDates: true,
@@ -70,8 +116,9 @@ visitModule.controller('visitEditCtrl', [
 				popoverArrowDirection: 'UP',
 				locale: 'zh_cn'
 				//locale: 'en_us'
-			}).then(function (returnDate) {
+			}).then(function(returnDate){
 				var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
+				console.log("selectTimeCallback : "+time);
 				switch (type) {
 					case 'start':
 						if(__startTimeIsValid(time, $scope.datas.END_TIME_STR)){
@@ -88,7 +135,7 @@ visitModule.controller('visitEditCtrl', [
 						}
 						break;
 				}
-				if(!$scope.$$phrese){
+				if(!$scope.$$phase){
 					$scope.$apply();
 				}
 			});
@@ -101,9 +148,9 @@ visitModule.controller('visitEditCtrl', [
 			if(!endTime || endTime==""){
 				return true;
 			}
-			var startTime = new Date(startTime.replace("-","/").replace("-","/")).getTime();
-			var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
-			return startTime <= endTime;
+			var startTime2 = new Date(startTime.replace("-","/").replace("-","/")).getTime();
+			var endTime2 = new Date(endTime.replace("-","/").replace("-","/")).getTime();
+			return startTime2 <= endTime2;
 		}
 		function __endTimeIsValid(startTime, endTime){
 			if(!endTime || endTime==""){
@@ -362,16 +409,20 @@ visitModule.controller('visitEditCtrl', [
 
 
 visitModule.controller('visitContactCtrl', [
-	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','LoginService','$ionicPopover','$ionicScrollDelegate','$rootScope',
-	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,LoginService,$ionicPopover,$ionicScrollDelegate,$rootScope) {
+	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','LoginService','$ionicPopover','$ionicScrollDelegate','$rootScope','$cordovaDialogs',
+	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,LoginService,$ionicPopover,$ionicScrollDelegate,$rootScope,$cordovaDialogs) {
 		$scope.config={
-			detail:[]
+			detail:[],
+			PARTNER:''
 		};
 		$scope.add=false;
 		if(visitService.visitContact.ET_PARTNERS != ''){
 			for(var i=0;i<visitService.visitContact.ET_PARTNERS.item_out.length;i++){
 				if(visitService.visitContact.ET_PARTNERS.item_out[i].PARTNER_FCT =="ZCUSTCTT"){
 					$scope.config.detail.push(visitService.visitContact.ET_PARTNERS.item_out[i]);
+				}
+				if(visitService.visitContact.ET_PARTNERS.item_out[i].PARTNER_FCT =="ZCREATOR"){
+					$scope.config.PARTNER = visitService.visitContact.ET_PARTNERS.item_out[i].PARTNER;
 				}
 			}
 			if(visitService.visitContact.ES_VISIT.EDIT_FLAG=='X'){
@@ -478,7 +529,7 @@ visitModule.controller('visitContactCtrl', [
 					"CURRPAGE": conPage++,
 					"ITEMS": "10"
 				},
-				"IS_PARTNER": { "PARTNER": "" },
+				"IS_PARTNER": { "PARTNER": $scope.config.PARTNER },
 				"IS_SEARCH": { "SEARCH": search }
 			};
 			var startTime = new Date().getTime();
@@ -498,6 +549,8 @@ visitModule.controller('visitContactCtrl', [
 						$scope.ConLoadMoreFlag = true;
 						$ionicScrollDelegate.resize();
 						$rootScope.$broadcast('scroll.infiniteScrollComplete');
+					}else{
+						$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
 					}
 				}).error(function (response, status, header, config) {
 					var respTime = new Date().getTime() - startTime;
@@ -618,7 +671,6 @@ visitModule.controller('visitContactCtrl', [
 								$scope.config.detail.push(response.ET_PARTNERS.item_out[i]);
 							}
 						}
-						$scope.config.detail = response.ET_PARTNERS.item_out;
 					}else if(response.ES_RESULT.ZFLAG == "E"){
 						Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 					}else{
