@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="216" id="com.crmEnergy.hrms" ios-CFBundleVersion="216" version="2.1.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>CATL Test</name>
+<widget android-versionCode="216" id="com.crmEnergy.catl" ios-CFBundleVersion="216" version="2.1.6" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>CATL UAT</name>
     <description>
         新能源CRM应用
     </description>

@@ -7,10 +7,6 @@
         "files": {}
     },
     "installed_plugins": {
-        "cn.jpush.phonegap.JPushPlugin": {
-            "API_KEY": "73d0f7a75a984a356ff749cc",
-            "PACKAGE_NAME": "com.crmEnergy.hrms"
-        },
         "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
@@ -70,6 +66,10 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
+        "cn.jpush.phonegap.JPushPlugin": {
+            "API_KEY": "b3793e32c69f2945bb61ae2f",
+            "PACKAGE_NAME": "com.crmEnergy.catl"
         }
     },
     "dependent_plugins": {}
