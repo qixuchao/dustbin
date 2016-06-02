@@ -133,29 +133,41 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
             var centerPoi = new myBMap.Point(pointsData[0].location[0], pointsData[0].location[1]);
             map.panTo(centerPoi);// 初始化地图，设置中心点坐标和地图级别
         }
-        
-        var myIcon = new myBMap.Icon("../../img/apps/ic_traffic.png", new myBMap.Size(32, 36), {
-            offset: new myBMap.Size(10, 25), // 指定定位位置
-            // imageOffset: new myBMap.Size(0, 0 - 10 * 25) // 设置图片偏移
-            imageSize: new myBMap.Size(24, 24)
-        });
-
 
         angular.forEach(pointsData, function (item, index) {
+            console.log('imageUrl = ' + item.icon);
+            var isImage = varifyIconUrl(item.icon);
+            var marker;
             var tempPoi = new myBMap.Point(item.location[0], item.location[1]);
-            var markerOpt = {
-                icon: myIcon
-            };
-            // var marker = new myBMap.Marker(tempPoi, markerOpt);
-            var marker = new myBMap.Marker(tempPoi);
+            if (isImage) {
+                var myIcon = new myBMap.Icon(encodeURI(item.icon), new myBMap.Size(32, 36), {
+                    offset: new myBMap.Size(10, 25), // 指定定位位置
+                    // imageOffset: new myBMap.Size(0, 0 - 10 * 25) // 设置图片偏移
+                    imageSize: new myBMap.Size(24, 24)
+                });
+                var markerOpt = {
+                    icon: myIcon
+                };
+                marker = new myBMap.Marker(tempPoi, markerOpt);
+            } else {
+                marker = new myBMap.Marker(tempPoi);
+            }
             var content = item;
             map.addOverlay(marker);
             marker.addEventListener('click', function (e) {
                 openInfoWind(content, e);
             });
         });
+    }
 
-
+    function varifyIconUrl(icon) {
+        var tmpAry = icon.split('.');
+        var iconType = tmpAry[tmpAry.length - 1];
+        console.log('iconType = ' + iconType);
+        if (iconType === 'png' || iconType === 'jpg' || iconType === 'jpeg') {
+            return true;
+        }
+        return false;
     }
 
     //页面筛选按钮组
