@@ -9,11 +9,20 @@ visitModule.controller('visitCreateCtrl', [
 	"HttpAppService",
 	"$ionicScrollDelegate",
 	"$rootScope",
-	"relationService",'Prompter','$cordovaDatePicker','visitService',
+	"relationService",'Prompter','$cordovaDatePicker','visitService','$state','$timeout','$ionicHistory',
 	function ($scope, BaiduMapServ, $cordovaToast, $ionicActionSheet,
 		$ionicModal, LoginService, saleActService, HttpAppService,
 		$ionicScrollDelegate, $rootScope,
-		relationService,Prompter,$cordovaDatePicker,visitService){
+		relationService,Prompter,$cordovaDatePicker,visitService,$state,$timeout,$ionicHistory){
+		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+			if(fromState && toState && fromState.name == 'visit.detail' && toState.name == 'visit.create'){
+				var loadingTime = 800;
+				Prompter.showLoadingAutoHidden("正在返回,请稍候", false, loadingTime);
+				$timeout(function(){
+					$ionicHistory.goBack();
+				}, loadingTime);
+			}
+		});
 	$scope.config = {
 		isLocationing: false,
 		address: '',
@@ -28,6 +37,8 @@ visitModule.controller('visitCreateCtrl', [
 		startTime: '',
 		endTime: '',
 		visitComment: '',
+		userName:"",
+		FILE_URL : [],
 		pictures:[
 		],
 		fileItemDefaults: {
@@ -62,7 +73,30 @@ visitModule.controller('visitCreateCtrl', [
 		$scope.config.startTime = getDefultStartTime();
 		$scope.config.endTime = new Date().format('yyyy-MM-dd hh:mm:ss')
 		$scope.caclCurrentLocation();
+		__requestVisitName();
+
 	};
+		//名称
+		function __requestVisitName(options){
+			Prompter.showLoading();
+			var urlName = ROOTCONFIG.hempConfig.basePath + "STAFF_DETAIL"; //"http://117.28.248.23:9388/test/api/bty/login";
+			var querParams = {
+				"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+				"IS_EMPLOYEE": { "PARTNER": LoginService.getBupaTypeUser() }
+			};
+			HttpAppService.post(urlName,querParams).success(function(response){
+				Prompter.hideLoading();
+				console.log(response);
+				if(response.ES_RESULT.ZFLAG == 'E') {
+					$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+				} else if (response.ES_RESULT.ZFLAG == 'S') {
+					if(response.ES_EMPLOYEE){
+						$scope.config.userName = response.ES_EMPLOYEE.NAME_LAST+response.ES_EMPLOYEE.NAME_FIRST;
+					}
+				}
+
+			});
+		}
 	var getDefultStartTime = function () {
 		//60*60*1000*2: 2小时  ：7200000
 		var nowTime = new Date().getTime();
@@ -82,7 +116,6 @@ visitModule.controller('visitCreateCtrl', [
 		    },
 		    "IS_HEAD": {
 		      "PROCESS_TYPE": "ZVIS",
-		      "DESCRIPTION": "",
 		      "ACT_LOCATION": $scope.config.address,
 		      "ESTAT": "E0001"
 		    },
@@ -94,6 +127,7 @@ visitModule.controller('visitCreateCtrl', [
 		      "item_in": []
 		    }
 		};
+		console.log(queryParams);
 		// Z006:客户拜访总结 、Z007:评论
 		if(!angular.isUndefined($scope.config.visitComment) && $scope.config.visitComment!=null && $scope.config.visitComment!=""){
 			queryParams.IT_TEXT.item_in.push({
@@ -123,21 +157,57 @@ visitModule.controller('visitCreateCtrl', [
 		}
 		__requestCreateVisit(queryParams);
 	};
+		function upPicture(data){
+			var url = ROOTCONFIG.hempConfig.basePath + "URL_CREATE";
+			Prompter.showLoadingAutoHidden("正在提交,请稍候", false, 800);
+				$timeout(function(){
+					$state.go("visit.detail");
+				}, 1000);
+			for(var i=0;i<$scope.config.FILE_URL.length;i++){
+				var pic={
+					"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment  },
+					"IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
+					"IS_URL": {
+						"OBJECT_ID": data.EV_OBJECT_ID,
+						"PROCESS_TYPE": 'ZVIS',
+						"CREATED_BY": $scope.config.userName,
+						"LINE": $scope.config.FILE_URL[i]
+					}
+				}
+				var picture = HttpAppService.post(url, pic);
+				picture.success(function(response, status, obj, config){
+					console.log(response);
+					if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG=="S"){
 
+					}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT != null){
+						Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
+					}else{
+						Prompter.showLoadingAutoHidden(JSON.stringify(response), false, 2000);
+					}
+					//Prompter.hideLoading();
+				})
+					.error(function(errorResponse){
+						Prompter.showLoadingAutoHidden("数据加载失败,请检查网络!", false, 2000);
+					});
+			}
+		}
 	//visitService.visit_create.url    visitService.visit_create.defaults
 	function __requestCreateVisit(options, successCallback){
 		var url = visitService.visit_create.url;
         var postDatas = angular.copy(visitService.visit_create.defaults);
         angular.extend(postDatas, options);
-		console.log(url);
-		console.log(postDatas);
+		//console.log(url);
+		//console.log(postDatas);
         var promise = HttpAppService.post(url, postDatas);
         Prompter.showLoading("正在创建");
         promise.success(function(response, status, obj, config){
-			console.log(response);
+			//console.log(response);
         	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG=="S"){
         		if(successCallback) successCallback(response);
-				$state.go("visit.list");
+				visitService.currentVisitDetail={
+					OBJECT_ID : response.EV_OBJECT_ID
+				}
+				upPicture(response);
         	}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT != null){
         		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
         	}else{
@@ -166,7 +236,7 @@ visitModule.controller('visitCreateCtrl', [
 		}
 		$scope.config.isLocationing = true;
 		BaiduMapServ.getCurrentLocation().then(function (success) {
-            console.log('getCurrentLocation success = ' + angular.toJson(success));
+            //console.log('getCurrentLocation success = ' + angular.toJson(success));
             var lat = success.lat;
             var lng = success.long;
             BaiduMapServ.locationToAddress(lat, lng).then(function(response){
@@ -235,7 +305,7 @@ visitModule.controller('visitCreateCtrl', [
             sourceType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
         }
         var options = {
-            quality: 5, 
+            quality: 50,
             sourceType: sourceType,
             destinationType: Camera.DestinationType.FILE_URL, //1, //'FILE_URL',
             encodingType: Camera.EncodingType.JPEG, //0, //'JPEG',
@@ -283,28 +353,19 @@ visitModule.controller('visitCreateCtrl', [
 	$scope.uploadImage = function(item){
 		//console.log("uploadImage    :"+JSON.stringify(item));
 		var inbond = {
-			I_SYSNAME: { 
-				SysName: ROOTCONFIG.hempConfig.baseEnvironment
-			},
-			IS_AUTHORITY: { 
-				BNAME:  window.localStorage.crmUserName
-			},
-			IS_URL: {
-				OBJECT_ID: $scope.config.OBJECT_ID,//  "5200000315",
-				PROCESS_TYPE: $scope.config.PROCESS_TYPE,// "ZPRO",
-				CREATED_BY: worksheetDataService.getStoredByKey("userName"), //"HANDLCX",
-				LINE: ""
-			}
+			username : $scope.config.userName
 		};
+		//console.log(inbond);
 		//ROOTCONFIG.hempConfig.UploadImageUrl;			
 		// http://117.28.248.23:9388/test/api/bty/uploadImage
-		var url = ROOTCONFIG.hempConfig.basePath + "uploadImage";
+		var url = ROOTCONFIG.hempConfig.basePath + "visitImageUpload";
 		__uploadImage(item, url, JSON.stringify(inbond));
 	};
 
 	function __uploadImage(file, url, inbond){
+		//console.log(inbond);
 		var filepath = file.fileLocalPath;
-		var uploadUrl = ROOTCONFIG.hempConfig.basePath + "uploadImage";
+		var uploadUrl = ROOTCONFIG.hempConfig.basePath + "visitImageUpload";
 		var url = encodeURI(uploadUrl);
 		var options = new FileUploadOptions();
 		options.fileKey = "image";
@@ -322,6 +383,7 @@ visitModule.controller('visitCreateCtrl', [
 		options.params = {
 			inbond: inbond
 		};
+		//console.log(options);
 		//options.httpMethod = "POST";
 		if(FileTransfer){
 			//$scope.config.uploadFilesing = true;
@@ -335,21 +397,18 @@ visitModule.controller('visitCreateCtrl', [
         	file.networkTip = "正在上传中...";
 			ft.upload(filepath, url, function (winRes){
 				//alert("上传成功:   "+JSON.stringify(winRes));
-				file.isServerHolder = true;
-				file.uploading = false;
-				file.uploadOk = true;
-				file.uploadError = false;
-				
-				file.isNetworking = false;
-        		file.networkTip = "";
+				//file.isServerHolder = true;
+				//file.uploading = false;
+				//file.uploadOk = true;
+				//file.uploadError = false;
+				//
+				//file.isNetworking = false;
+                //file.networkTip = "";
         		
         		var response = JSON.parse(winRes.response);
-        		if(response.ES_OBJECT){
-        			file.OBJECT_ID = $scope.config.OBJECT_ID;  //  "5200000315
-        			file.PROCESS_TYPE = $scope.config.PROCESS_TYPE;// "ZPRO",;
-        			file.OBJIDLO = response.ES_OBJECT.OBJID;
-        			file.OBJTYPELO = response.ES_OBJECT.OBJTYPE;
-        			file.CLASSLO = response.ES_OBJECT.CLASS;
+				//console.log(response);
+        		if(response.ES_RESULT){
+					$scope.config.FILE_URL.push(response.ES_RESULT.ZRESULT.FILE_URL);
         		}
         		
 				if(!$scope.$$phase){

@@ -9,7 +9,7 @@
         <div class="customer_detailcontent">
             <div class="customer_detailcontentname">
                 <div class="customer_detailcontentcicle"></div>
-                <span ng-bind="datas.name" ></span>&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="datas.detail.CREATED_AT" ></span>
+                <span ng-bind="datas.name" ></span>&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="datas.time" ></span>
             </div>
             <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 15px">
                 <ion-scroll direction="x" scrollbar-x="false"  style="white-space:nowrap">
@@ -87,7 +87,7 @@
                 </div>
         </ion-scroll>
     </ion-content>
-    <div class="bar bar-footer content item-input-inset" keyboard-attach ng-if="edit">
+    <div class="bar bar-footer content item-input-inset" keyboard-attach style="z-index: 999">
         <form ng-submit="formTest()" style="width: 100%">
             <div class="submit">
                 <div class="row row-center">

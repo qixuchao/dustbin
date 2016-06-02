@@ -12,7 +12,12 @@
     "pointQueryUrl": "http://api.map.baidu.com/geosearch/v3/nearby",
     "locationToAddQueryUrl": "http://api.map.baidu.com/geocoder/v2",
     "apiKey": "gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru",
+    "apiKeyPro": "cWKXNjK17RG0If17cgQ8Yd6bO8MWpfUC",
+    "apiKeyTest&Uat": "gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru",
     "geotableId": "140851",
+    "geotableIdPro": "142126",
+    "geotableIdUat": "142084",
+    "geotableIdTest": "140851",
     "radius": 30000
   }
 }

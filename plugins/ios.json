@@ -32,6 +32,9 @@
         "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
         },
@@ -55,6 +58,9 @@
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.crmEnergy.catl"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.crmEnergy.catl"

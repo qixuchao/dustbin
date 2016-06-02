@@ -11,9 +11,10 @@ visitModule.controller('visitDetailCtrl', [
 			pictures : [],//tupian
 			content : '',//评论内容
 			userName : '',//当前登录人姓名
-			allInfo :''
+			allInfo :'',
+			time:""
 		};
-		cordova.plugins.Keyboard.disableScroll(true);
+		//cordova.plugins.Keyboard.disableScroll(true);
 		$scope.edit=false;
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			if(toState.name == 'visit.detail'){
@@ -56,6 +57,9 @@ visitModule.controller('visitDetailCtrl', [
 						if($scope.datas.detail.EDIT_FLAG=='X'){
 							$scope.edit=true;
 						}
+						var date =$scope.datas.detail.CREATED_AT.toString();
+						$scope.datas.time=date.substring(0,4)+"-"+date.substring(4,6)+"-"+date.substring(6,8)+" "
+						+date.substring(8,10)+":"+date.substring(10,12)+":"+date.substring(12,14);
 						$scope.datas.comment = response.ES_VISIT.COMMENT_LIST;
 						if(response.ET_TEXT != ''){
 							for(var i=0;i< response.ET_TEXT.item_out.length;i++){
@@ -104,20 +108,23 @@ visitModule.controller('visitDetailCtrl', [
 					//"PROCESS_TYPE": "ZPRO"
 				}
 			}
-			var url =ROOTCONFIG.hempConfig.basePath + 'URL_LIST';
+			var url =ROOTCONFIG.hempConfig.basePath + 'downloadImageList';
 			var photo = HttpAppService.post(url,data);
 			photo.success(function(response, status, obj, config){
 				if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG){
 					if(response.ES_RESULT.ZFLAG == "S"){
 						if( response.ET_OUT_LIST != ''){
 							$scope.datas.pictures = response.ET_OUT_LIST.item;
+							visitService.visitPicture=$scope.datas.pictures;
 							console.log($scope.datas.pictures);
 						}
 					}else if(response.ES_RESULT.ZFLAG == "E"){
+						visitService.visitPicture=[];
 						Prompter.hideLoading();
 						//Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 					}else{
 						Prompter.showLoadingAutoHidden(angular.toJson(response), false, 2000);
+						visitService.visitPicture=[];
 					}
 				}else{
 					Prompter.showLoadingAutoHidden(response, false, 2000);
@@ -143,6 +150,7 @@ visitModule.controller('visitDetailCtrl', [
 				} else if (response.ES_RESULT.ZFLAG == 'S') {
 					if(response.ES_EMPLOYEE){
 						$scope.datas.userName = response.ES_EMPLOYEE.NAME_LAST+response.ES_EMPLOYEE.NAME_FIRST;
+						visitService.visitCreate = $scope.datas.userName;
 					}
 				}
 
@@ -171,7 +179,7 @@ visitModule.controller('visitDetailCtrl', [
 			}
 			console.log(dataSubmit);
 			var urlSubmit =ROOTCONFIG.hempConfig.basePath + 'saveComment';
-			if(dataSubmit.comment==''){
+			if(dataSubmit.content==''){
 				$cordovaToast.showShortBottom('请输入提交的内容');
 				return;
 			}
