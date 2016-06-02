@@ -1,4 +1,6 @@
 */.DS_Store
+.DS_Store
+www/src/.DS_Store
 .idea/*
 atlenergy.sublime-project
 atlenergy.sublime-workspace
