@@ -45,7 +45,9 @@ visitModule.service('visitService', [
 			currentVisitDetail: null,
 			//详情到编辑
 			visitDetail : null,
-			visitContact : null
+			visitContact : null,
+			visitCreate : null,//创建人
+			visitPicture : []
 		};
 
 		function setStored(key, value){

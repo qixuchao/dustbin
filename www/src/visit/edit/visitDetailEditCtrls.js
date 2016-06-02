@@ -1,6 +1,6 @@
 visitModule.controller('visitEditCtrl', [
-	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','$cordovaDatePicker','$ionicHistory',
-	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,$cordovaDatePicker,$ionicHistory) {
+	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','$cordovaDatePicker','$ionicHistory','$ionicActionSheet',
+	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,$cordovaDatePicker,$ionicHistory,$ionicActionSheet) {
 		$scope.datas={
 			detail:"",
 			result:"",
@@ -47,6 +47,10 @@ visitModule.controller('visitEditCtrl', [
 				}
 			}
 		}
+		for(var i=0;i<visitService.visitPicture.length;i++){
+			visitService.visitPicture[i].src=visitService.visitPicture[i].LINE;
+		}
+		$scope.config.pictures=visitService.visitPicture;
 
 		$scope.goDetail=function(){
 			Prompter.ContactCreateCancelvalue();
@@ -60,7 +64,7 @@ visitModule.controller('visitEditCtrl', [
 			}
 		};
 		function __selectCreateTimeIOS(type, title){
-			console.log("__selectCreateTimeIOS");
+			//console.log("__selectCreateTimeIOS");
 			var date;
 			if(type == 'start'){
 				if(!$scope.datas.START_TIME_STR || $scope.datas.START_TIME_STR==""){
@@ -77,7 +81,7 @@ visitModule.controller('visitEditCtrl', [
 				}
 			}
 			__selectCreateTimeBasic(type, title, date);
-			console.log("__selectCreateTimeIOS : "+type+"    "+type+"    "+date);
+			//console.log("__selectCreateTimeIOS : "+type+"    "+type+"    "+date);
 		}
 		function __selectCreateTimeAndroid(type, title){
 			var date;
@@ -97,8 +101,8 @@ visitModule.controller('visitEditCtrl', [
 			__selectCreateTimeBasic(type, title, date);
 		}
 		function __selectCreateTimeBasic(type, title, date){
-			console.log("Android selectCreateTime:     "+date);
-			console.log("Android datePicker:     "+datePicker);
+			//console.log("Android selectCreateTime:     "+date);
+			//console.log("Android datePicker:     "+datePicker);
 			$cordovaDatePicker.show({
 				date: date,
 				allowOldDates: true,
@@ -191,7 +195,7 @@ visitModule.controller('visitEditCtrl', [
 						"TDLINE": $scope.datas.result
 					}
 				}};
-			console.log(angular.toJson(data));
+			//console.log(angular.toJson(data));
 			var url = ROOTCONFIG.hempConfig.basePath + 'VISIT_CHANGE';
 			var startTime = new Date().getTime();
 			HttpAppService.post(url, data).success(function(response){
@@ -244,6 +248,7 @@ visitModule.controller('visitEditCtrl', [
 		};
 
 		$scope.selectImage = function(sourceTypeInt){
+			//console.log(sourceTypeInt);
 			if(angular.isUndefined(Camera) || angular.isUndefined(navigator.camera)){
 				alert("Camera 插件未安装!");
 				return;
@@ -261,7 +266,7 @@ visitModule.controller('visitEditCtrl', [
 				sourceType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
 			}
 			var options = {
-				quality: 5,
+				quality: 50,
 				sourceType: sourceType,
 				destinationType: Camera.DestinationType.FILE_URL, //1, //'FILE_URL',
 				encodingType: Camera.EncodingType.JPEG, //0, //'JPEG',
@@ -280,6 +285,8 @@ visitModule.controller('visitEditCtrl', [
 		};
 
 		function getBase64FromFilepath(filepath, sourceTypeInt){
+			//console.log(filepath);
+			//console.log(sourceTypeInt);
 			window.plugins.Base64.encodeFile(filepath, function (successRes){
 				var newFileItem = angular.copy($scope.config.fileItemDefaults);
 				var isFromCamera = false;
@@ -316,12 +323,13 @@ visitModule.controller('visitEditCtrl', [
 					BNAME:  window.localStorage.crmUserName
 				},
 				IS_URL: {
-					OBJECT_ID: $scope.config.OBJECT_ID,//  "5200000315",
-					PROCESS_TYPE: $scope.config.PROCESS_TYPE,// "ZPRO",
-					CREATED_BY: worksheetDataService.getStoredByKey("userName"), //"HANDLCX",
+					OBJECT_ID: visitService.visitDetail.ES_VISIT.OBJECT_ID,//  "5200000315",
+					PROCESS_TYPE: visitService.visitDetail.ES_VISIT.PROCESS_TYPE,// "ZPRO",
+					CREATED_BY: visitService.visitCreate, //"HANDLCX",
 					LINE: ""
 				}
 			};
+			console.log(inbond);
 			//ROOTCONFIG.hempConfig.UploadImageUrl;
 			// http://117.28.248.23:9388/test/api/bty/uploadImage
 			var url = ROOTCONFIG.hempConfig.basePath + "uploadImage";
@@ -348,6 +356,7 @@ visitModule.controller('visitEditCtrl', [
 			options.params = {
 				inbond: inbond
 			};
+			//console.log(options);
 			//options.httpMethod = "POST";
 			if(FileTransfer){
 				//$scope.config.uploadFilesing = true;
@@ -359,6 +368,7 @@ visitModule.controller('visitEditCtrl', [
 
 				file.isNetworking = true;
 				file.networkTip = "正在上传中...";
+				//console.log("正在上传中...");
 				ft.upload(filepath, url, function (winRes){
 					//alert("上传成功:   "+JSON.stringify(winRes));
 					file.isServerHolder = true;
@@ -370,13 +380,15 @@ visitModule.controller('visitEditCtrl', [
 					file.networkTip = "";
 
 					var response = JSON.parse(winRes.response);
-					if(response.ES_OBJECT){
-						file.OBJECT_ID = $scope.config.OBJECT_ID;  //  "5200000315
-						file.PROCESS_TYPE = $scope.config.PROCESS_TYPE;// "ZPRO",;
-						file.OBJIDLO = response.ES_OBJECT.OBJID;
-						file.OBJTYPELO = response.ES_OBJECT.OBJTYPE;
-						file.CLASSLO = response.ES_OBJECT.CLASS;
-					}
+					//console.log(response);
+					//console.log("-------------");
+					//if(response.ES_OBJECT){
+					//	file.OBJECT_ID = $scope.config.OBJECT_ID;  //  "5200000315
+					//	file.PROCESS_TYPE = $scope.config.PROCESS_TYPE;// "ZPRO",;
+					//	file.OBJIDLO = response.ES_OBJECT.OBJID;
+					//	file.OBJTYPELO = response.ES_OBJECT.OBJTYPE;
+					//	file.CLASSLO = response.ES_OBJECT.CLASS;
+					//}
 
 					if(!$scope.$$phase){
 						$scope.$apply();
@@ -421,7 +433,7 @@ visitModule.controller('visitContactCtrl', [
 				if(visitService.visitContact.ET_PARTNERS.item_out[i].PARTNER_FCT =="ZCUSTCTT"){
 					$scope.config.detail.push(visitService.visitContact.ET_PARTNERS.item_out[i]);
 				}
-				if(visitService.visitContact.ET_PARTNERS.item_out[i].PARTNER_FCT =="ZCREATOR"){
+				if(visitService.visitContact.ET_PARTNERS.item_out[i].PARTNER_FCT =="ZCUSTOME"){
 					$scope.config.PARTNER = visitService.visitContact.ET_PARTNERS.item_out[i].PARTNER;
 				}
 			}

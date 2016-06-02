@@ -510,6 +510,11 @@ visitModule.controller('visitListCtrl', [
 
         	if(response.ES_VISIT_LIST && response.ES_VISIT_LIST!="" && response.ES_VISIT_LIST.ITEMS && !!response.ES_VISIT_LIST.ITEMS.length){
         		$scope.datas.visitListDatas = $scope.datas.visitListDatas.concat(response.ES_VISIT_LIST.ITEMS);
+				for(var i=0;i<$scope.datas.visitListDatas.length;i++){
+					var date =$scope.datas.visitListDatas[i].CREATED_AT.toString();
+					$scope.datas.visitListDatas[i].time=date.substring(0,4)+"-"+date.substring(4,6)+"-"+date.substring(6,8)+" "
+						+date.substring(8,10)+":"+date.substring(10,12)+":"+date.substring(12,14);
+				}
 	        	if(response.ES_VISIT_LIST.ITEMS.length < 10){
 	        		$scope.config.hasMoreData = false;
 	        	}
