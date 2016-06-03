@@ -7,6 +7,10 @@
         "files": {}
     },
     "installed_plugins": {
+        "cn.jpush.phonegap.JPushPlugin": {
+            "API_KEY": "d5c769ed7f3b74b31933aafd",
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
         "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
@@ -23,6 +27,9 @@
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-canvas2image": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
+        "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-console": {
@@ -46,6 +53,9 @@
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
+        },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
@@ -66,10 +76,6 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.crmEnergy.hrms"
-        },
-        "cn.jpush.phonegap.JPushPlugin": {
-            "API_KEY": "b3793e32c69f2945bb61ae2f",
-            "PACKAGE_NAME": "com.crmEnergy.catl"
         }
     },
     "dependent_plugins": {}
