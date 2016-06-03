@@ -151,10 +151,10 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
             var marker;
             var tempPoi = new myBMap.Point(item.location[0], item.location[1]);
             if (isImage) {
-                var myIcon = new myBMap.Icon(encodeURI(item.icon), new myBMap.Size(18, 18), {
+                var myIcon = new myBMap.Icon(encodeURI(item.icon), new myBMap.Size(24, 24), {
                     offset: new myBMap.Size(10, 25), // 指定定位位置
                     // imageOffset: new myBMap.Size(0, 0 - 10 * 25) // 设置图片偏移
-                    imageSize: new myBMap.Size(18, 18)
+                    imageSize: new myBMap.Size(24, 24)
                 });
                 var markerOpt = {
                     icon: myIcon
