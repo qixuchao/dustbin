@@ -4,6 +4,7 @@
 myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory', '$compile', 'baiduMapApi', '$cordovaGeolocation', 'BaiduMapServ', 'HttpAppService', '$ionicLoading', function ($scope, $timeout, $ionicHistory, $compile, baiduMapApi, $cordovaGeolocation, BaiduMapServ, HttpAppService, $ionicLoading) {
     var map;
     var myBMap;
+    var searchLabelStr = '';
 
     $scope.searchInfo = "";
     $scope.searchFlag = false;
@@ -72,7 +73,7 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
                 map.addControl(new myBMap.NavigationControl());  //添加默认缩放平移控件
 
                 window.localStorage.map_orig_zoom = map.getZoom();
-                getLBSData(lng, lat);
+                getLBSData(lng, lat, 'init');
 
                 map.addEventListener('dragend', resetLBSData);
 
@@ -82,13 +83,23 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
         });
     });
 
-    function getLBSData(lng, lat) {
+    function getLBSData(lng, lat, type) {
         var zoomdiff = window.localStorage.map_orig_zoom - map.getZoom() > 0 ? window.localStorage.map_orig_zoom - map.getZoom() : 1;//地图级别差,用于计算放大和缩小地图后的点图范围radius
 
         BaiduMapServ.getLBSData(lng, lat, zoomdiff).then(function (res) {
             console.log('res = ', angular.toJson(res));
             $scope.pointsData = res;
-            setMapOverlay($scope.pointsData, 'init');
+            if (type === 'reset' && searchLabelStr !== '') {
+                var typeSearchData = [];
+                angular.forEach($scope.pointsData, function (item, index) {
+                    if ((item.tags.indexOf(searchLabel) >= 0)) {
+                        typeSearchData.push(item);
+                    }
+                });
+                setMapOverlay(typeSearchData, 'init');
+            } else {
+                setMapOverlay($scope.pointsData, 'init');
+            }
         }, function (error) {
             console.log('error = ', angular.toJson(error));
         });
@@ -96,14 +107,14 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
 
     function resetLBSData(e) {
         var newCenter = map.getCenter();
-        getLBSData(newCenter.lng, newCenter.lat);
+        getLBSData(newCenter.lng, newCenter.lat, 'reset');
     }
 
     function openInfoWind(content, e) {//单击热点图层
         var opts = {
             width: 0,     // 信息窗口宽度
             height: 0,      // 信息窗口高度
-            title: '名称: ' + content.title
+            title: '<div>名称:' + content.title + '</div><div>类型:' + content.tags + '</div>'
         };
         var position = e.target.getPosition();
         console.log('position = ' + angular.toJson(position));
@@ -140,7 +151,7 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
             var marker;
             var tempPoi = new myBMap.Point(item.location[0], item.location[1]);
             if (isImage) {
-                var myIcon = new myBMap.Icon(encodeURI(item.icon), new myBMap.Size(32, 36), {
+                var myIcon = new myBMap.Icon(encodeURI(item.icon), new myBMap.Size(24, 24), {
                     offset: new myBMap.Size(10, 25), // 指定定位位置
                     // imageOffset: new myBMap.Size(0, 0 - 10 * 25) // 设置图片偏移
                     imageSize: new myBMap.Size(24, 24)
@@ -172,6 +183,7 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
 
     //页面筛选按钮组
     $scope.menuBtnSelected = function (searchLabel) {
+        searchLabelStr = searchLabel;
         $timeout(function () {
             var typeSearchData = [];
             angular.forEach($scope.pointsData, function (item, index) {

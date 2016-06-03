@@ -53,6 +53,11 @@
             <div class="loadMore" ng-click="getRelationsArr()" ng-if="relationSpinnerFlag">
                 <ion-spinner icon="ios" ng-if="relationArr.length>0"></ion-spinner>
             </div>
+            <div style="height:60px;background: transparent;" ng-if="createContact">
+                <div class="customercontentbutton" ng-click="createConGo()">
+                    创建联系人
+                </div>
+            </div>
         </ion-scroll>
 
     </ion-content>

@@ -12,7 +12,8 @@ visitModule.controller('visitDetailCtrl', [
 			content : '',//评论内容
 			userName : '',//当前登录人姓名
 			allInfo :'',
-			time:""
+			time:"",
+			noComment : ""
 		};
 		//cordova.plugins.Keyboard.disableScroll(true);
 		$scope.edit=false;
@@ -61,6 +62,9 @@ visitModule.controller('visitDetailCtrl', [
 						$scope.datas.time=date.substring(0,4)+"-"+date.substring(4,6)+"-"+date.substring(6,8)+" "
 						+date.substring(8,10)+":"+date.substring(10,12)+":"+date.substring(12,14);
 						$scope.datas.comment = response.ES_VISIT.COMMENT_LIST;
+						if($scope.datas.comment.length==0){
+							$scope.datas.noComment=true;
+						}
 						if(response.ET_TEXT != ''){
 							for(var i=0;i< response.ET_TEXT.item_out.length;i++){
 								if(response.ET_TEXT.item_out[i].TDID=='Z006'){
@@ -175,7 +179,14 @@ visitModule.controller('visitDetailCtrl', [
 				"comment_person":  window.localStorage.crmUserName ,
 				"visit_id":visitService.currentVisitDetail.OBJECT_ID,
 				"comment_person_name":$scope.datas.userName,
-				"content":$scope.datas.content
+				"content":$scope.datas.content,
+				"DATE_FROM": $scope.datas.allInfos.ES_VISIT.DATE_FROM,
+				"TIME_FROM": $scope.datas.allInfos.ES_VISIT.TIME_FROM,
+				"DATE_TO": $scope.datas.allInfos.ES_VISIT.DATE_TO,
+				"TIME_TO": $scope.datas.allInfos.ES_VISIT.TIME_TO,
+				"DESCRIPTION": $scope.datas.allInfos.ES_VISIT.DESCRIPTION,
+				"ACT_LOCATION": $scope.datas.allInfos.ES_VISIT.ACT_LOCATION,
+				"ESTAT": $scope.datas.allInfos.ES_VISIT.ESTAT
 			}
 			console.log(dataSubmit);
 			var urlSubmit =ROOTCONFIG.hempConfig.basePath + 'saveComment';

@@ -691,8 +691,8 @@ ContactsModule
             }
         }
     }])
-    .controller('contactCreateCtrl',['$cordovaDialogs','$scope','$rootScope','$ionicHistory','$state','Prompter','$cordovaDatePicker','customeService','LoginService','saleActService','HttpAppService','$cordovaToast','$ionicModal','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet','activityPlanService',
-        function($cordovaDialogs,$scope,$rootScope,$ionicHistory,$state,Prompter,$cordovaDatePicker,customeService,LoginService,saleActService,HttpAppService,$cordovaToast,$ionicModal,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet,activityPlanService){
+    .controller('contactCreateCtrl',['$cordovaDialogs','$scope','$rootScope','$ionicHistory','$state','Prompter','$cordovaDatePicker','customeService','LoginService','saleActService','HttpAppService','$cordovaToast','$ionicModal','$ionicLoading','$ionicScrollDelegate','$ionicPopup','ionicMaterialInk','contactService','$window','$ionicActionSheet','activityPlanService','visitService',
+        function($cordovaDialogs,$scope,$rootScope,$ionicHistory,$state,Prompter,$cordovaDatePicker,customeService,LoginService,saleActService,HttpAppService,$cordovaToast,$ionicModal,$ionicLoading,$ionicScrollDelegate,$ionicPopup,ionicMaterialInk,contactService,$window,$ionicActionSheet,activityPlanService,visitService){
         //初始化数据
         $scope.contactlistvaluesel = [{
             typeId:'1',
@@ -834,7 +834,10 @@ ContactsModule
             }else if(activityPlanService.goCreateCon == true){
                 $scope.contactcreat.PARTNER2VALUE= activityPlanService.goCreateConInfo.name;
                 $scope.contactcreat.PARTNER2=activityPlanService.goCreateConInfo.id;
-            }else{
+            }else if(visitService.goCreateCon == true){
+                $scope.contactcreat.PARTNER2VALUE= visitService.goCreateConInfo.name;
+                $scope.contactcreat.PARTNER2=visitService.goCreateConInfo.id;
+            } else{
                 //console.log("2323");
                 $scope.contactcreat.PARTNER2VALUE="";
             }
@@ -953,6 +956,9 @@ ContactsModule
                             $ionicHistory.goBack();
                         }else if(activityPlanService.goCreateCon == true){
                             activityPlanService.goCreateCon = false;
+                            $ionicHistory.goBack();
+                        }else if(visitService.goCreateCon == true){
+                            visitService.goCreateCon = false;
                             $ionicHistory.goBack();
                         }else{
                             //console.log('跳转成功--xbr');

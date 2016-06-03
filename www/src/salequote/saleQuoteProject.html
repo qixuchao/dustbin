@@ -54,7 +54,7 @@
                 </div>
                 <div class="row row-center itemContent">
                     <div class="col col-40 col-center">数量：</div>
-                    <div class="col col-center fontColor">{{projectInfosDetail.QUANTITY}}&nbsp;&nbsp;{{projectInfosDetail.CURRENCY}}</div>
+                    <div class="col col-center fontColor">{{projectInfosDetail.QUANTITY}}&nbsp;&nbsp;{{projectInfosDetail.NETPR_UOM}}</div>
                 </div>
                 <div class="row row-center itemContent">
                     <div class="col col-40 col-center">各单位净值：</div>
@@ -234,11 +234,11 @@
                 </div>
                 <div class="row row-center itemContent">
                     <div class="col col-center col-45">
-                        <div class="row row-center">交货工厂：</div>
+                        <div class="row row-center">备注：</div>
                         <div class="row row-center fontColor" ng-if=""></div>
                     </div>
                     <div class="col col-center fontColor">
-                        {{projectInfosDetail.ZZCUSWBS}}
+                        {{projectInfosDetail.ZZBZ}}
                     </div>
                 </div>
             </div>

@@ -22,8 +22,15 @@ visitModule.controller('visitCreateCtrl', [
 					$ionicHistory.goBack();
 				}, loadingTime);
 			}
+			if(fromState && toState && fromState.name == 'ContactCreate' && toState.name == 'visit.create'){
+				var loadingTime = 500;
+				$timeout(function(){
+					$scope.openRelations();
+				}, loadingTime);
+			}
 		});
 	$scope.config = {
+		uploadNow : false,
 		isLocationing: false,
 		address: '',
 		selectedCustomer: null,
@@ -105,6 +112,9 @@ visitModule.controller('visitCreateCtrl', [
 		return hourDate.format("yyyy-MM-dd hh:mm:ss");
 	};
 	$scope.visitCreateConfirm = function(){
+		if($scope.config.uploadNow == false){
+			$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
+		}
 		var queryParams = {
 			"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
 			"IS_USER": { "BNAME": window.localStorage.crmUserName },
@@ -288,6 +298,7 @@ visitModule.controller('visitCreateCtrl', [
 	};
 
 	$scope.selectImage = function(sourceTypeInt){
+		$scope.config.uploadNow = true;
 		if(angular.isUndefined(Camera) || angular.isUndefined(navigator.camera)){
 			alert("Camera 插件未安装!");
 			return;
@@ -408,6 +419,7 @@ visitModule.controller('visitCreateCtrl', [
         		var response = JSON.parse(winRes.response);
 				//console.log(response);
         		if(response.ES_RESULT){
+					$scope.config.uploadNow = false;
 					$scope.config.FILE_URL.push(response.ES_RESULT.ZRESULT.FILE_URL);
         		}
         		
@@ -415,6 +427,7 @@ visitModule.controller('visitCreateCtrl', [
 					$scope.$apply();
 				}
 			}, function (errorRes){
+				$scope.config.uploadNow = false;
 				//var endTime = new Date();
 				file.isServerHolder = false;
 				file.uploading = false;
@@ -592,6 +605,8 @@ visitModule.controller('visitCreateCtrl', [
         }
         //获取相关方列表中的客户
         relationService.relationCustomer = $scope.config.selectedCustomer;
+		relationService.createContact = true;
+		console.log(relationService.relationCustomer );
         // angular.forEach($scope.relationArr, function (data) {
         //     if (data.PARTNER_FCT == "00000009") {
         //         relationService.relationCustomer = data;

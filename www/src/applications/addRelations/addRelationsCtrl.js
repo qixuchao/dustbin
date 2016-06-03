@@ -16,9 +16,9 @@ salesModule
         'Prompter',
         'HttpAppService',
         'relationService',
-        'LoginService','saleClueService',
+        'LoginService','saleClueService','visitService',
         function ($scope, $rootScope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $cordovaToast, $ionicScrollDelegate,
-                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService, LoginService,saleClueService) {
+                  ionicMaterialInk, ionicMaterialMotion, saleActService, Prompter, HttpAppService, relationService, LoginService,saleClueService,visitService) {
             $scope.role = LoginService.getProfileType();
             //是否单选
             $scope.isReplace = relationService.isReplace;
@@ -35,6 +35,19 @@ salesModule
             $scope.relationsPopArr = relationService.saleActSelections;
             $scope.relationArr = [];
             $scope.input = {relation: ''};
+            //创建联系人
+            if(relationService.createContact == true){
+                $scope.createContact = true;
+            };
+            $scope.createConGo = function () {
+                console.log("1212");
+                $scope.conArr=[];
+                visitService.goCreateCon = true;
+                visitService.goCreateConInfo.id = relationCustomer.PARTNER;
+                visitService.goCreateConInfo.name = relationCustomer.NAME_ORG1;
+                $scope.hideRelations();
+                $state.go('ContactCreate');
+            };
             //相关方里面的客户,用来查联系人
             var relationCustomer = relationService.relationCustomer;
             var relationPage = 1;
@@ -265,6 +278,7 @@ salesModule
                 }, 1)
             };
             $scope.hideRelations = function () {
+                relationService.createContact == false;
                 $scope.addReleModal.remove();
                 $timeout(function () {
                     $scope.hideSelections();
@@ -405,5 +419,4 @@ salesModule
 
             //初始化
             $scope.getRelationsArr();
-
         }]);

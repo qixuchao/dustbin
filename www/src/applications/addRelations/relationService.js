@@ -23,6 +23,7 @@ salesModule.factory('relationService', function () {
       replaceMan:replaceMan,
       repTempIndex:repTempIndex,
       position:position,
-      chanceDetailPartner:chanceDetailPartner
+      chanceDetailPartner:chanceDetailPartner,
+      createContact : ""
   }
 });
