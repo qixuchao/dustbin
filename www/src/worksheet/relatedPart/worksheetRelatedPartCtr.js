@@ -259,7 +259,10 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
     var conPage = 1;
     $scope.conArr = [];
     $scope.conSearch = false;
+        $scope.noMore = false;
+        $scope.haveMore = true;
     $scope.getConArr = function (search) {
+        $scope.haveMore = false;
         $scope.ConLoadMoreFlag = false;
         if (search) {
             $scope.conSearch = false;
@@ -283,6 +286,10 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                 if (response.ES_RESULT.ZFLAG === 'S') {
                     if (response.ET_OUT_LIST.item.length < 10) {
                         $scope.ConLoadMoreFlag = false;
+                        $scope.noMore = true;
+                        $scope.haveMore = false;
+                    }else{
+                        $scope.haveMore = true;
                     }
                     if (search) {
                         $scope.conArr = response.ET_OUT_LIST.item;
@@ -294,6 +301,9 @@ worksheetModule.controller("WorksheetRelatedCtrl",['$scope','$state','$http','$t
                     $scope.ConLoadMoreFlag = true;
                     $ionicScrollDelegate.resize();
                     $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                }else{
+                    $scope.noMore = true;
+                    $scope.haveMore = false;
                 }
             }).error(function (response, status, header, config) {
                 var respTime = new Date().getTime() - startTime;

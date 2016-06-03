@@ -43,10 +43,75 @@ visitModule.controller('visitEditCtrl', [
 		if(visitService.visitDetail.ET_TEXT!=''){
 			for(var i=0;i<visitService.visitDetail.ET_TEXT.item_out.length;i++){
 				if(visitService.visitDetail.ET_TEXT.item_out[i].TDID=='Z006'){
-					$scope.datas.result=visitService.visitDetail.ET_TEXT.item_out[i].TDLINE;
+					$scope.datas.result += visitService.visitDetail.ET_TEXT.item_out[i].TDLINE;
 				}
 			}
 		}
+		//文本框自适应换行
+		var autoTextarea = function (elem, extra, maxHeight) {
+			extra = extra || 0;
+			var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
+				isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
+				addEvent = function (type, callback) {
+					elem.addEventListener ?
+						elem.addEventListener(type, callback, false) :
+						elem.attachEvent('on' + type, callback);
+				},
+				getStyle = elem.currentStyle ? function (name) {
+					var val = elem.currentStyle[name];
+
+					if (name === 'height' && val.search(/px/i) !== 1) {
+						var rect = elem.getBoundingClientRect();
+						return rect.bottom - rect.top -
+							parseFloat(getStyle('paddingTop')) -
+							parseFloat(getStyle('paddingBottom')) + 'px';
+					};
+
+					return val;
+				} : function (name) {
+					return getComputedStyle(elem, null)[name];
+				},
+				minHeight = parseFloat(getStyle('height'));
+
+			elem.style.resize = 'none';
+
+			var change = function () {
+				var scrollTop, height,
+					padding = 0,
+					style = elem.style;
+
+				if (elem._length === elem.value.length) return;
+				elem._length = elem.value.length;
+
+				if (!isFirefox && !isOpera) {
+					padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
+				};
+				scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+				elem.style.height = minHeight + 'px';
+				if (elem.scrollHeight > minHeight) {
+					if (maxHeight && elem.scrollHeight > maxHeight) {
+						height = maxHeight - padding;
+						style.overflowY = 'auto';
+					} else {
+						height = elem.scrollHeight - padding;
+						style.overflowY = 'hidden';
+					};
+					style.height = height + extra + 'px';
+					scrollTop += parseInt(style.height) - elem.currHeight;
+					document.body.scrollTop = scrollTop;
+					document.documentElement.scrollTop = scrollTop;
+					elem.currHeight = parseInt(style.height);
+				};
+			};
+
+			addEvent('propertychange', change);
+			addEvent('input', change);
+			addEvent('focus', change);
+			change();
+		};
+		var text = document.getElementById("textarea");
+		autoTextarea(text);// 调用
 		for(var i=0;i<visitService.visitPicture.length;i++){
 			visitService.visitPicture[i].src=visitService.visitPicture[i].LINE;
 		}
@@ -170,6 +235,16 @@ visitModule.controller('visitEditCtrl', [
 
 		$scope.keepDatas = function () {
 			Prompter.showLoading("正在保存");
+			var num = Math.ceil($scope.datas.result.length/132);
+			var item = [];
+			for(var i=0;i<num;i++){
+				item.push({
+					"TDID": "Z006",
+					"TDSPRAS": "",
+					"TDFORMAT": "",
+					"TDLINE": $scope.datas.result.substring(i*132,i*132+131)
+				});
+			}
 			var data={
 				"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
 				"IS_USER": { "BNAME": window.localStorage.crmUserName },
@@ -188,12 +263,7 @@ visitModule.controller('visitEditCtrl', [
 				"IT_PARTNER": {
 				},
 				"IT_TEXT": {
-					"item_in": {
-						"TDID": "Z006",
-						"TDSPRAS": "",
-						"TDFORMAT": "",
-						"TDLINE": $scope.datas.result
-					}
+					"item_in": item
 				}};
 			//console.log(angular.toJson(data));
 			var url = ROOTCONFIG.hempConfig.basePath + 'VISIT_CHANGE';
@@ -421,11 +491,20 @@ visitModule.controller('visitEditCtrl', [
 
 
 visitModule.controller('visitContactCtrl', [
-	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','LoginService','$ionicPopover','$ionicScrollDelegate','$rootScope','$cordovaDialogs',
-	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,LoginService,$ionicPopover,$ionicScrollDelegate,$rootScope,$cordovaDialogs) {
+	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','LoginService','$ionicPopover','$ionicScrollDelegate','$rootScope','$cordovaDialogs','$state',
+	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,LoginService,$ionicPopover,$ionicScrollDelegate,$rootScope,$cordovaDialogs,$state) {
+		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+			if(fromState && toState && fromState.name == 'ContactCreate' && toState.name == 'visit.contact'){
+				var loadingTime = 500;
+				$timeout(function(){
+					$scope.openSelectCon();
+				}, loadingTime);
+			}
+		});
 		$scope.config={
 			detail:[],
-			PARTNER:''
+			PARTNER:'',
+			name : ""
 		};
 		$scope.add=false;
 		if(visitService.visitContact.ET_PARTNERS != ''){
@@ -435,6 +514,7 @@ visitModule.controller('visitContactCtrl', [
 				}
 				if(visitService.visitContact.ET_PARTNERS.item_out[i].PARTNER_FCT =="ZCUSTOME"){
 					$scope.config.PARTNER = visitService.visitContact.ET_PARTNERS.item_out[i].PARTNER;
+					$scope.config.name = visitService.visitContact.ET_PARTNERS.item_out[i].NAME;
 				}
 			}
 			if(visitService.visitContact.ES_VISIT.EDIT_FLAG=='X'){
@@ -525,8 +605,12 @@ visitModule.controller('visitContactCtrl', [
 
 		var conPage = 1;
 		$scope.conArr = [];
-		$scope.conSearch = false;
+		$scope.conSearch = true;
+		$scope.noMore = false;
+		$scope.haveMore = true;
 		$scope.getConArr = function (search) {
+			console.log(conPage);
+			$scope.haveMore = false;
 			$scope.ConLoadMoreFlag = false;
 			if (search) {
 				$scope.conSearch = false;
@@ -544,12 +628,17 @@ visitModule.controller('visitContactCtrl', [
 				"IS_PARTNER": { "PARTNER": $scope.config.PARTNER },
 				"IS_SEARCH": { "SEARCH": search }
 			};
+			console.log(data);
 			var startTime = new Date().getTime();
 			HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'CONTACT_LIST', data)
 				.success(function (response) {
 					if (response.ES_RESULT.ZFLAG === 'S') {
 						if (response.ET_OUT_LIST.item.length < 10) {
 							$scope.ConLoadMoreFlag = false;
+							$scope.noMore = true;
+							$scope.haveMore = false;
+						}else{
+							$scope.haveMore = true;
 						}
 						if (search) {
 							$scope.conArr = response.ET_OUT_LIST.item;
@@ -559,9 +648,13 @@ visitModule.controller('visitContactCtrl', [
 						$scope.spinnerFlag = false;
 						$scope.conSearch = true;
 						$scope.ConLoadMoreFlag = true;
+						//$scope.haveMore = true;
 						$ionicScrollDelegate.resize();
 						$rootScope.$broadcast('scroll.infiniteScrollComplete');
 					}else{
+						$scope.noMore = true;
+						$scope.haveMore = false;
+						$scope.spinnerFlag = false;
 						$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
 					}
 				}).error(function (response, status, header, config) {
@@ -589,6 +682,10 @@ visitModule.controller('visitContactCtrl', [
 		$scope.openSelectCon = function () {
 			$scope.isDropShow = true;
 			$scope.conSearch = true;
+			$scope.noMore = false;
+			$scope.haveMore = true;
+			conPage = 1;
+			$scope.getConArr("");
 			$scope.selectContactModal.show();
 		};
 		$scope.closeSelectCon = function () {
@@ -695,5 +792,15 @@ visitModule.controller('visitContactCtrl', [
 				.error(function(errorResponse){
 					Prompter.showLoadingAutoHidden("请求失败,请检查网络!", false, 2000);
 				});
+		}
+		//创建联系人
+		$scope.createContact=true;
+		$scope.creatConGo = function(){
+			$scope.conArr=[];
+			visitService.goCreateCon = true;
+			visitService.goCreateConInfo.id = $scope.config.PARTNER;
+			visitService.goCreateConInfo.name = $scope.config.name;
+			$scope.selectContactModal.hide();
+			$state.go('ContactCreate');
 		}
 	}]);
