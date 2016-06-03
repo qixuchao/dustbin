@@ -42,8 +42,14 @@
                 </ion-list>
             </div>
             <!--<ion-infinite-scroll on-infinite="getCustomerArr()" distance="1%" ng-if="CustomerLoadMoreFlag"></ion-infinite-scroll>-->
-            <div class="loadMore" ng-click="getConArr()" ng-if="conSearch&&!spinnerFlag"><span>点击加载更多...</span></div>
+            <div class="loadMore" ng-click="getConArr()" ng-if="haveMore"><span>点击加载更多...</span></div>
             <div class="loadMore" ng-click="getConArr()" ng-if="spinnerFlag"><ion-spinner icon="ios"></ion-spinner></div>
+            <div class="loadMore"  ng-if="noMore"><span>没有更多数据...</span></div>
         </ion-content>
     </div>
+    <ion-footer-bar style="height:60px;background: transparent;" ng-if="createContact">
+        <div class="customercontentbutton" ng-click="creatConGo()">
+            创建联系人
+        </div>
+    </ion-footer-bar>
 </ion-modal-view>

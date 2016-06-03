@@ -11,7 +11,7 @@ visitModule.controller('visitListCtrl', [
 	function ($scope, $timeout, visitService, $state, $ionicScrollDelegate, 
 		HttpAppService, $cordovaToast, worksheetHttpService, ionicMaterialInk,$cordovaDatePicker,$ionicModal) {
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-			if(toState.name == 'visit.list' && fromState.name == 'visit.detail'){
+			if(toState.name == 'visit.list' && (fromState.name == 'visit.detail' || fromState.name == 'visit.create')){
 				$scope.init();
 			}
 		});

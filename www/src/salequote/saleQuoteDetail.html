@@ -17,7 +17,10 @@
                     <!--</span>-->
                 </div>
                 <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 15px">
-                    售达方：<span ng-bind="saleQuoteDetail.ES_OUT_QUOT.NAME_ORG1" ></span>
+                    <!--售达方：<span ng-bind="saleQuoteDetail.ES_OUT_QUOT.NAME_ORG1" ></span>-->
+                    <ion-scroll direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                        <div style="margin-left: 4px;" ng-bind="saleQuoteDetail.ES_OUT_QUOT.NAME_ORG1" ></div>
+                    </ion-scroll>
                 </div>
                 <div class="customer_detailcontentphone" style="margin-left: 15px">
                     状态：
@@ -82,6 +85,10 @@
                 <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.TAX_AMOUNT}}&nbsp;&nbsp;{{saleQuoteDetail.ES_OUT_QUOT.CURRENCY}}</div>
             </div>
             <div class="row row-center itemContent">
+                <div class="col col-center">净值：</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.NET_VALUE}}&nbsp;&nbsp;{{saleQuoteDetail.ES_OUT_QUOT.CURRENCY}}</div>
+            </div>
+            <div class="row row-center itemContent">
                 <div class="col col-center">有效期自：</div>
                 <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.BEGDA}}</div>
             </div>
@@ -105,6 +112,10 @@
                 <div class="col col-40 col-center">竞争对手3：</div>
                 <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZMZ03}}</div>
                 <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZFE03}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">其他：</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZQT1}}</div>
             </div>
             <div class="row itemContentS row-center">
                 <div class="col ">方案：</div>
@@ -165,6 +176,10 @@
                 <div class="col col-40 col-center">计划量产时间：</div>
                 <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZLCSJ}}</div>
             </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">年度总产量：</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZLCZL}}</div>
+            </div>
         </div>
         <div ng-if="config.costomerNature">
             <div class="row row-center itemContent">
@@ -202,6 +217,14 @@
             <div class="row row-center itemContent">
                 <div class="col col-center">报价单策略备注：</div>
                 <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZTEXT}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">客户目标价格：</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZKHMBJG}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-center">LAT年降：</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZLATNJ}}</div>
             </div>
         </div>
         <div ng-if="config.others">

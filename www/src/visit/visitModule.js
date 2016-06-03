@@ -47,7 +47,13 @@ visitModule.service('visitService', [
 			visitDetail : null,
 			visitContact : null,
 			visitCreate : null,//创建人
-			visitPicture : []
+			visitPicture : [],
+			//为了创建联系人
+			goCreateCon : "",
+			goCreateConInfo : {
+				id : "",
+				name : ""
+			}
 		};
 
 		function setStored(key, value){
