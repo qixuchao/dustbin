@@ -153,7 +153,7 @@ visitModule.controller('visitDetailCtrl', [
 				},
 				"IS_URL": {
 					OBJECT_ID : visitService.currentVisitDetail.OBJECT_ID,
-					"PROCESS_TYPE": visitService.currentVisitDetail.PROCESS_TYPE
+					"PROCESS_TYPE": "ZVIS"
 					//"OBJECT_ID": "5200000315",
 					//"PROCESS_TYPE": "ZPRO"
 				}
