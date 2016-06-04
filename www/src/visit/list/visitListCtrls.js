@@ -466,7 +466,7 @@ visitModule.controller('visitListCtrl', [
       			SRVEMPL: $scope.config.selectPe.PARTNER,		//人员ID
       			SERVICE_ORG: ""		//服务大区
 			},
-			IV_SORT: $scope.config.sortedTypeTimeDesc ? 'D' : ($scope.config.sortedTypeTimeAes ? "A" : "")
+			IV_SORT: $scope.config.sortedTypeTimeDesc ? 'D' : ($scope.config.sortedTypeTimeAes ? "A" : "D")
 		};
 		if(!angular.isUndefined($scope.config.currentFWDQ) && !angular.isUndefined($scope.config.currentFWDQ.OTJID) && $scope.config.currentFWDQ.OTJID!=null){
 			queryParams.IS_VISIT.SERVICE_ORG = $scope.config.currentFWDQ.OTJID;

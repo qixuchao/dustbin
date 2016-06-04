@@ -6,24 +6,27 @@ signinModule.controller('signinDetailCtrl', [
 	"HttpAppService",
 	"Prompter",
 	"$ionicHistory",
-	"BaiduMapServ",'$cordovaDialogs',
+	"BaiduMapServ",'$cordovaDialogs','LoginService','$cordovaToast',
 	function ($scope, $timeout, signinService, $state, HttpAppService, 
-		Prompter, $ionicHistory, BaiduMapServ,$cordovaDialogs) {
+		Prompter, $ionicHistory, BaiduMapServ,$cordovaDialogs,LoginService,$cordovaToast) {
 	
 	$scope.config = {
 		isEditMode: false,
 		hasEdited: false,
 		isLocationing: false, //正在定位
 		title : "签到明细",
-		a: 'a'
+		userCode: '',
+		show : ""
 	};
 	$scope.datas = {
 		detail: null
 	};
 	$scope.init = function(){
 		$scope.datas.detail = signinService.currentSigninDetail;
+		console.log($scope.datas.detail);
 		$scope.datas.detail.comment_edit = $scope.datas.detail.comment;
 		$scope.datas.detail.address_edit = $scope.datas.detail.address;
+		__requestVisitName();
 		// $timeout(function(){
 		// 	// 先获取元素
 		// 	var lbsGeo = document.getElementById('geo');
@@ -45,6 +48,36 @@ signinModule.controller('signinDetailCtrl', [
 	};
 	$scope.init();
 
+		//名称
+		function __requestVisitName(options){
+			Prompter.showLoading();
+			var urlName = ROOTCONFIG.hempConfig.basePath + "STAFF_DETAIL"; //"http://117.28.248.23:9388/test/api/bty/login";
+			var querParams = {
+				"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+				"IS_EMPLOYEE": { "PARTNER": LoginService.getBupaTypeUser() }
+			};
+			HttpAppService.post(urlName,querParams).success(function(response){
+				Prompter.hideLoading();
+				console.log(response);
+				if(response.ES_RESULT.ZFLAG == 'E') {
+					$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+				} else if (response.ES_RESULT.ZFLAG == 'S') {
+					if(response.ES_EMPLOYEE){
+						//$scope.config.userName = response.ES_EMPLOYEE.NAME_LAST+response.ES_EMPLOYEE.NAME_FIRST;
+						$scope.config.userCode = response.ES_EMPLOYEE.PARTNER;
+
+						console.log($scope.config.userCode);
+						console.log($scope.datas.detail.person_code);
+						if($scope.config.userCode != $scope.datas.detail.person_code){
+							$scope.config.show = false;
+						}else {
+							$scope.config.show = true;
+						}
+					}
+				}
+
+			});
+		}
 	$scope.currentLocation = function(){
 		if($scope.config.isLocationing){
 			return;

@@ -55,13 +55,14 @@
                 <div class="title-line">
                     拜访总结:
                 </div>
-                <div class="textarea-wrapper">
-                    <textarea placeholder="请输入拜访总结" ng-model="config.visitComment" style="font-size: 17px"></textarea>
-                </div>
+                <!--<div class="textarea-wrapper">-->
+                    <textarea id="textarea1" placeholder="请输入拜访总结" ng-model="config.visitComment" style="font-size: 17px;min-height: 60px;color: #D2D2D2"></textarea>
+                <!--</div>-->
                 <div class="pictures">
                     <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="true">
                         <div class="image-wrapper" ng-repeat="item in config.pictures">
                             <img src="{{item.src}}">
+                            <div style="position: absolute;right:2px;" ng-click="deletePic(item)"><i class="ion-close-circled" style="color: red;font-size: 17px"></i></div>
                         </div>
                         <div class="take-pictures-btn" ng-click="takePicture();">
                             <span class="ion-ios-camera"></span>
