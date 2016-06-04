@@ -1,36 +1,36 @@
 visitModule.service('visitService', [
 	function () {
 		//setStored    
-		return {
+		return {     
 			setStored: setStored,
 			getStoredByKey: getStoredByKey,
 			visit_create: {
-				url: ROOTCONFIG.hempConfig.basePath + "VISIT_CREATE",
-				defaults: {
-					"I_SYSNAME": { "SysName": getStoredByKey("sysName") },
-					"IS_USER": { "BNAME": getStoredByKey("userName") }
-				}
-			},
+				url: ROOTCONFIG.hempConfig.basePath + "VISIT_CREATE"
+				// defaults: {
+				// 	// "I_SYSNAME": { "SysName": getStoredByKey("sysName") },
+				// 	// "IS_USER": { "BNAME": getStoredByKey("userName") }
+				// }
+			},   
 			visit_list: {
-				url: ROOTCONFIG.hempConfig.basePath + "getVisitList",
-				defaults: {
-					"I_SYSTEM": { "SysName": getStoredByKey("sysName") },
-					"IS_USER": { "BNAME": getStoredByKey("userName") },
-				}
+				url: ROOTCONFIG.hempConfig.basePath + "getVisitList"
+				// defaults: {
+				// 	// "I_SYSTEM": { "SysName": getStoredByKey("sysName") },
+				// 	// "IS_USER": { "BNAME": getStoredByKey("userName") },
+				// }
 			},
 			visit_detail: {
-				url: ROOTCONFIG.hempConfig.basePath + "getVisitDetail",
-				defaults: {
-					"I_SYSNAME": { "SysName": getStoredByKey("sysName") },
-					"IS_USER": { "BNAME": getStoredByKey("userName") },
-				}
+				url: ROOTCONFIG.hempConfig.basePath + "getVisitDetail"
+				// defaults: {
+				// 	"I_SYSNAME": { "SysName": getStoredByKey("sysName") },
+				// 	"IS_USER": { "BNAME": getStoredByKey("userName") },
+				// }
 			},
 			visit_edit: {
-				url: ROOTCONFIG.hempConfig.basePath + "",
-				defaults: {
-					"I_SYSTEM": { "SysName": getStoredByKey("sysName") },
-					"IS_USER": { "BNAME": getStoredByKey("userName") },
-				}
+				url: ROOTCONFIG.hempConfig.basePath + ""
+				// defaults: {
+				// 	"I_SYSTEM": { "SysName": getStoredByKey("sysName") },
+				// 	"IS_USER": { "BNAME": getStoredByKey("userName") },
+				// }
 			},
 			visit_saveComment: {
 				url: ROOTCONFIG.hempConfig.basePath + "saveComment",
@@ -61,6 +61,7 @@ visitModule.service('visitService', [
 		}
 		function getStoredByKey(key){
 	        if(key == "userName"){
+	        	//alert(window.localStorage.crmUserName);
 	          return window.localStorage.crmUserName;
 	        }else if(key == "sysName"){
 	          //return "CATL";

@@ -479,8 +479,12 @@ visitModule.controller('visitListCtrl', [
 	};
 
 	// {"ES_RESULT":{"ZFLAG":"E","ZRESULT":"无符合条件数据"},"T_OUT_LIST":""}
-	function __requestVisitList(options){
-		var postDatas = angular.copy(visitService.visit_list.defaults);
+	function __requestVisitList(options){ 
+		//var postDatas = angular.copy(visitService.visit_list.defaults);
+		var postDatas = {
+			"I_SYSTEM": { "SysName": visitService.getStoredByKey("sysName") },
+			"IS_USER": { "BNAME": visitService.getStoredByKey("userName") }
+		};
 		angular.extend(postDatas, options);
         //console.log(JSON.stringify(postData));
         var promise = HttpAppService.post(visitService.visit_list.url,postDatas);
