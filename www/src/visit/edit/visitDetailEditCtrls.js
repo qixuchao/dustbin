@@ -9,7 +9,7 @@ visitModule.controller('visitEditCtrl', [
 		};
 		$scope.config={
 			pictures:[
-			],
+			],num : 0,
 			fileItemDefaults: {
 				originServer: false,
 				originPhoto: false,
@@ -236,6 +236,10 @@ visitModule.controller('visitEditCtrl', [
 		}
 
 		$scope.keepDatas = function () {
+			if($scope.config.num!=$scope.config.pictures.length){
+				$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
+				return;
+			}
 			Prompter.showLoading("正在保存");
 			var num = Math.ceil($scope.datas.result.length/132);
 			var item = [];
@@ -482,6 +486,7 @@ visitModule.controller('visitEditCtrl', [
 
 					file.isNetworking = false;
 					file.networkTip = "";
+					$scope.config.num++;
 
 					var response = JSON.parse(winRes.response);
 					//console.log(response);

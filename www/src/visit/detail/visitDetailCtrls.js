@@ -16,13 +16,13 @@ visitModule.controller('visitDetailCtrl', [
 			noComment : "",
 			edit : ""
 		};
-<<<<<<< HEAD
-		// cordova.plugins.Keyboard.disableScroll(true);
-		$scope.edit=false;
-=======
-		//cordova.plugins.Keyboard.disableScroll(true);
-		//$scope.edit=false;
->>>>>>> dai
+//<<<<<<< HEAD
+//		// cordova.plugins.Keyboard.disableScroll(true);
+//		$scope.edit=false;
+//=======
+//		//cordova.plugins.Keyboard.disableScroll(true);
+//		//$scope.edit=false;
+//>>>>>>> dai
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			if(toState.name == 'visit.detail'){
 				$scope.init();
@@ -46,7 +46,6 @@ visitModule.controller('visitDetailCtrl', [
 			__requestVisitName();
 		};
 
-<<<<<<< HEAD
 		$scope.config = {
 			photoModel: null,
 			currentPhotoSrc: ''
@@ -80,8 +79,6 @@ visitModule.controller('visitDetailCtrl', [
 			}
 		};
 
-=======
->>>>>>> dai
 		//详情
 		function __requestVisitDetail(){
 			$scope.datas.summary=[];

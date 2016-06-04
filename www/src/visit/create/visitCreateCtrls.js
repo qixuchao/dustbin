@@ -30,7 +30,6 @@ visitModule.controller('visitCreateCtrl', [
 			}
 		});
 	$scope.config = {
-		uploadNow : false,
 		isLocationing: false,
 		address: '',
 		selectedCustomer: null,
@@ -155,9 +154,12 @@ visitModule.controller('visitCreateCtrl', [
 		return hourDate.format("yyyy-MM-dd hh:mm:ss");
 	};
 	$scope.visitCreateConfirm = function(){
-		//if($scope.config.uploadNow == false){
-		//	$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
-		//}
+		for(var i=0;i<$scope.config.FILE_URL.length;i++){
+			if($scope.config.FILE_URL[i].uploadNow != false && $scope.config.pictures.length ==$scope.config.FILE_URL.length){
+				$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
+				return;
+			}
+		}
 		var queryParams = {
 			"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
 			"IS_USER": { "BNAME": window.localStorage.crmUserName },
@@ -214,12 +216,10 @@ visitModule.controller('visitCreateCtrl', [
 		}
 		__requestCreateVisit(queryParams);
 	};
+		$scope.num=0;
 		function upPicture(data){
 			var url = ROOTCONFIG.hempConfig.basePath + "URL_CREATE";
-			Prompter.showLoadingAutoHidden("正在提交,请稍候", false, 800);
-				$timeout(function(){
-					$state.go("visit.detail");
-				}, 1000);
+			Prompter.showLoading("正在提交,请稍候");
 			for(var i=0;i<$scope.config.FILE_URL.length;i++){
 				var pic={
 					"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment  },
@@ -235,7 +235,12 @@ visitModule.controller('visitCreateCtrl', [
 				picture.success(function(response, status, obj, config){
 					console.log(response);
 					if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG=="S"){
-
+						$scope.num++;
+						if($scope.num==$scope.config.FILE_URL.length){
+							$timeout(function(){
+								$state.go("visit.detail");
+							}, 1000);
+						}
 					}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT != null){
 						Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 					}else{
@@ -345,7 +350,6 @@ visitModule.controller('visitCreateCtrl', [
 	};
 
 	$scope.selectImage = function(sourceTypeInt){
-		$scope.config.uploadNow = true;
 		if(angular.isUndefined(Camera) || angular.isUndefined(navigator.camera)){
 			alert("Camera 插件未安装!");
 			return;
@@ -466,16 +470,13 @@ visitModule.controller('visitCreateCtrl', [
         		var response = JSON.parse(winRes.response);
 				//console.log(response);
         		if(response.ES_RESULT){
-					$scope.config.uploadNow = false;
-					$scope.config.FILE_URL.push({FILE_URL :response.ES_RESULT.ZRESULT.FILE_URL,src : file.src});
+					$scope.config.FILE_URL.push({FILE_URL :response.ES_RESULT.ZRESULT.FILE_URL,src : file.src,uploadNow : false});
         		}
         		
 				if(!$scope.$$phase){
 					$scope.$apply();
 				}
 			}, function (errorRes){
-				$scope.config.uploadNow = false;
-				//var endTime = new Date();
 				file.isServerHolder = false;
 				file.uploading = false;
 				file.uploadOk = false;
