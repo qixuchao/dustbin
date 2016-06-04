@@ -46,9 +46,7 @@ visitModule.controller('visitCreateCtrl', [
 		userName:"",
 		FILE_URL : [],
 		pictures:[
-			{
-				src: 'https://www.baidu.com/img/bd_logo1.png'
-			}
+
 		],
 		fileItemDefaults: {
 			originServer: false,
@@ -154,11 +152,9 @@ visitModule.controller('visitCreateCtrl', [
 		return hourDate.format("yyyy-MM-dd hh:mm:ss");
 	};
 	$scope.visitCreateConfirm = function(){
-		for(var i=0;i<$scope.config.FILE_URL.length;i++){
-			if($scope.config.FILE_URL[i].uploadNow != false && $scope.config.pictures.length ==$scope.config.FILE_URL.length){
-				$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
-				return;
-			}
+		if($scope.config.pictures.length != $scope.config.FILE_URL.length){
+			$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
+			return;
 		}
 		var queryParams = {
 			"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
@@ -235,12 +231,15 @@ visitModule.controller('visitCreateCtrl', [
 				picture.success(function(response, status, obj, config){
 					console.log(response);
 					if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG=="S"){
+						console.log($scope.num);
+						console.log($scope.config.FILE_URL.length);
 						$scope.num++;
 						if($scope.num==$scope.config.FILE_URL.length){
 							$timeout(function(){
 								$state.go("visit.detail");
 							}, 1000);
 						}
+						console.log($scope.num);
 					}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT != null){
 						Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
 					}else{
@@ -269,7 +268,11 @@ visitModule.controller('visitCreateCtrl', [
 				visitService.currentVisitDetail={
 					OBJECT_ID : response.EV_OBJECT_ID
 				}
-				upPicture(response);
+				if($scope.config.pictures.length == 0){
+					$state.go("visit.detail");
+				}else{
+					upPicture(response);
+				}
         	}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT != null){
         		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);
         	}else{

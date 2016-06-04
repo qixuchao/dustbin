@@ -9,7 +9,7 @@ visitModule.controller('visitEditCtrl', [
 		};
 		$scope.config={
 			pictures:[
-			],num : 0,
+			],num : "",
 			fileItemDefaults: {
 				originServer: false,
 				originPhoto: false,
@@ -118,7 +118,7 @@ visitModule.controller('visitEditCtrl', [
 			visitService.visitPicture[i].src=visitService.visitPicture[i].LINE;
 		}
 		$scope.config.pictures=visitService.visitPicture;
-
+		$scope.config.num=$scope.config.pictures.length;
 		$scope.goDetail=function(){
 			Prompter.ContactCreateCancelvalue();
 		}
@@ -236,6 +236,8 @@ visitModule.controller('visitEditCtrl', [
 		}
 
 		$scope.keepDatas = function () {
+			console.log($scope.config.num);
+			console.log($scope.config.pictures.length);
 			if($scope.config.num!=$scope.config.pictures.length){
 				$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
 				return;
