@@ -96,6 +96,14 @@
                 <div class="col col-center">有效期至：</div>
                 <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ENDDA}}</div>
             </div>
+            <div class="row row-center itemContentS">
+                <div class="col col-center">主题：</div>
+            </div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{saleQuoteDetail.ES_OUT_QUOT.ZZTHEME}}<br/></div>
+            <div class="row row-center itemContentS">
+                <div class="col col-center">备注：</div>
+            </div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{saleQuoteDetail.ES_OUT_QUOT.ZZTEXT_THEME}}<br/></div>
         </div>
         <div ng-if="config.competitors">
             <div class="row row-center itemContent">
@@ -110,6 +118,11 @@
             </div>
             <div class="row row-center itemContent">
                 <div class="col col-40 col-center">竞争对手3：</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZMZ04}}</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZFE04}}</div>
+            </div>
+            <div class="row row-center itemContent">
+                <div class="col col-40 col-center">其他竞争对手：</div>
                 <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZMZ03}}</div>
                 <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZFE03}}</div>
             </div>
@@ -129,6 +142,10 @@
                 <div class="col ">关系维护：</div>
             </div>
             <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{saleQuoteDetail.ES_OUT_QUOT.ZZGXWH1}}<br/></div>
+            <div class="row itemContentS row-center">
+                <div class="col ">其他：</div>
+            </div>
+            <div  style="border-bottom: 1px solid #D6D3CE;padding: 5px 15px 5px 15px;color: #A0A09F;word-break: break-all;word-wrap: break-word;'" >{{saleQuoteDetail.ES_OUT_QUOT.ZZQT1}}<br/></div>
         </div>
         <div ng-if="config.projectInfos">
             <div class="row row-center itemContent">
@@ -177,8 +194,8 @@
                 <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZLCSJ}}</div>
             </div>
             <div class="row row-center itemContent">
-                <div class="col col-40 col-center">年度总产量：</div>
-                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZLCZL}}</div>
+                <div class="col col-40 col-center">年量产总量：</div>
+                <div class="col col-center fontColor">{{saleQuoteDetail.ES_OUT_QUOT.ZZLCZL}}&nbsp;&nbsp;{{saleQuoteDetail.ES_OUT_QUOT.ZZDW2}}</div>
             </div>
         </div>
         <div ng-if="config.costomerNature">
