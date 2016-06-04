@@ -871,7 +871,11 @@ visitModule.controller('visitContactCtrl', [
 				I_OBJECT_ID : visitService.currentVisitDetail.OBJECT_ID
 				//"I_OBJECT_ID": "0064000004"
 			}
-			var postDatas = angular.copy(visitService.visit_detail.defaults);
+			//var postDatas = angular.copy(visitService.visit_detail.defaults);
+			var postDatas = {
+				"I_SYSNAME": { "SysName": visitService.getStoredByKey("sysName") },
+				"IS_USER": { "BNAME": visitService.getStoredByKey("userName") }
+			};
 			angular.extend(postDatas, options);
 			var promise = HttpAppService.post(visitService.visit_detail.url,postDatas);
 			promise.success(function(response, status, obj, config){

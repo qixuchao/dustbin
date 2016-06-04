@@ -254,10 +254,14 @@ visitModule.controller('visitCreateCtrl', [
 					});
 			}
 		}
-	//visitService.visit_create.url    visitService.visit_create.defaults
+	//visitService.visit_create.url   
 	function __requestCreateVisit(options, successCallback){
 		var url = visitService.visit_create.url;
-        var postDatas = angular.copy(visitService.visit_create.defaults);
+        //var postDatas = angular.copy(visitService.visit_create.defaults);
+        var postDatas = {
+        	"I_SYSNAME": { "SysName": visitService.getStoredByKey("sysName") },
+			"IS_USER": { "BNAME": visitService.getStoredByKey("userName") }
+        };
         angular.extend(postDatas, options);
 		//console.log(url);
 		//console.log(postDatas);
