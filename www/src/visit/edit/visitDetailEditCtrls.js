@@ -1,6 +1,6 @@
 visitModule.controller('visitEditCtrl', [
-	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','$cordovaDatePicker','$ionicHistory','$ionicActionSheet',
-	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,$cordovaDatePicker,$ionicHistory,$ionicActionSheet) {
+	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','$cordovaDatePicker','$ionicHistory','$ionicActionSheet','$cordovaDialogs',
+	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,$cordovaDatePicker,$ionicHistory,$ionicActionSheet,$cordovaDialogs) {
 		$scope.datas={
 			detail:"",
 			result:"",
@@ -9,7 +9,7 @@ visitModule.controller('visitEditCtrl', [
 		};
 		$scope.config={
 			pictures:[
-			],
+			],num : "",
 			fileItemDefaults: {
 				originServer: false,
 				originPhoto: false,
@@ -118,7 +118,7 @@ visitModule.controller('visitEditCtrl', [
 			visitService.visitPicture[i].src=visitService.visitPicture[i].LINE;
 		}
 		$scope.config.pictures=visitService.visitPicture;
-
+		$scope.config.num=$scope.config.pictures.length;
 		$scope.goDetail=function(){
 			Prompter.ContactCreateCancelvalue();
 		}
@@ -236,6 +236,12 @@ visitModule.controller('visitEditCtrl', [
 		}
 
 		$scope.keepDatas = function () {
+			console.log($scope.config.num);
+			console.log($scope.config.pictures.length);
+			if($scope.config.num!=$scope.config.pictures.length){
+				$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
+				return;
+			}
 			Prompter.showLoading("正在保存");
 			var num = Math.ceil($scope.datas.result.length/132);
 			var item = [];
@@ -482,6 +488,7 @@ visitModule.controller('visitEditCtrl', [
 
 					file.isNetworking = false;
 					file.networkTip = "";
+					$scope.config.num++;
 
 					var response = JSON.parse(winRes.response);
 					//console.log(response);
@@ -520,6 +527,59 @@ visitModule.controller('visitEditCtrl', [
 				$scope.alert("FileTransfer 插件未安装");
 			}
 		}
+		$scope.deletePic=function(item){
+			$cordovaDialogs.confirm('是否删除此图片', '提示', ['确定', '取消'])
+				.then(function (buttonIndex) {
+					// no button = 0, 'OK' = 1, 'Cancel' = 2
+					if (buttonIndex == 1) {
+						$scope.deleteInfos(item);
+					}
+				});
+		}
+		$scope.deleteInfos=function(item){
+			console.log(item);
+			var data ={
+				"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment  },
+				"IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
+				"IS_URL": {
+					"OBJECT_ID": item.OBJECT_ID,
+					"PROCESS_TYPE": item.PROCESS_TYPE,
+					"OBJIDLO": item.OBJIDLO,
+					"OBJTYPELO":item.OBJTYPELO,
+					"CLASSLO": item.CLASSLO
+				}
+			}
+			var url = ROOTCONFIG.hempConfig.basePath + 'URL_DELETE';
+			var startTime = new Date().getTime();
+			HttpAppService.post(url, data).success(function(response){
+				Prompter.hideLoading();
+				if (response.ES_RESULT.ZFLAG === 'S') {
+
+			for(var i=0;i<$scope.config.pictures.length;i++){
+				if($scope.config.pictures[i].OBJIDLO == item.OBJIDLO){
+					$scope.config.pictures.splice(i,1);
+					break;
+				}
+			}
+					$cordovaToast.showShortBottom('删除成功 ');
+				}else{
+					$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+				}
+			}).error(function (response, status, header, config) {
+				var respTime = new Date().getTime() - startTime;
+				//超时之后返回的方法
+				if(respTime >= config.timeout){
+					if(ionic.Platform.isWebView()){
+						//$cordovaDialogs.alert('请求超时');
+					}
+				}else{
+					$cordovaDialogs.alert('访问接口失败，请检查设备网络');
+				}
+				Prompter.hideLoading();
+				$ionicLoading.hide();
+			});
+
+		}
 }]);
 
 
@@ -538,9 +598,11 @@ visitModule.controller('visitContactCtrl', [
 		$scope.config={
 			detail:[],
 			PARTNER:'',
-			name : ""
+			name : "",
+			add : ""
 		};
-		$scope.add=false;
+		//$scope.add=false;
+		console.log(visitService.visitContact);
 		if(visitService.visitContact.ET_PARTNERS != ''){
 			for(var i=0;i<visitService.visitContact.ET_PARTNERS.item_out.length;i++){
 				if(visitService.visitContact.ET_PARTNERS.item_out[i].PARTNER_FCT =="ZCUSTCTT"){
@@ -552,7 +614,11 @@ visitModule.controller('visitContactCtrl', [
 				}
 			}
 			if(visitService.visitContact.ES_VISIT.EDIT_FLAG=='X'){
-				$scope.add=true;
+				$scope.config.add=true;
+				console.log(visitService.visitContact.ES_VISIT.EDIT_FLAG);
+			}else{
+				$scope.config.add=false;
+				console.log(visitService.visitContact.ES_VISIT.EDIT_FLAG);
 			}
 		}
 		$scope.deleteInfos = function(item){

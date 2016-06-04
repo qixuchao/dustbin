@@ -7,9 +7,9 @@
             <span class="customerdeatil_headtitlespan">拜访详情</span>
         </div>
         <div class="customer_detailcontent">
-            <div class="customer_detailcontentname">
+            <div class="customer_detailcontentname" style="white-space:nowrap;">
                 <div class="customer_detailcontentcicle"></div>
-                <span ng-bind="datas.name" ></span>&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="datas.time" ></span>
+                <span ng-bind="datas.name" ></span>&nbsp;&nbsp;&nbsp;&nbsp;<span ng-bind="datas.time" style="white-space:nowrap;" ></span>
             </div>
             <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 15px">
                 <ion-scroll direction="x" scrollbar-x="false"  style="white-space:nowrap">
@@ -38,20 +38,20 @@
                         </span>
                     </ion-scroll>
                 </div>
-                <div class="col col-20 col-center text-right" ng-click="goEdit()" ng-if="edit">
+                <div class="col col-20 col-center text-right" ng-click="goEdit()" ng-if="datas.edit">
                     <i class="ion-compose iFont">编辑</i>
                 </div>
             </div>
         </div>
         <ion-scroll direction="y" style="height: 100%">
             <div class="row row-center itemContent">
-                <div class="col col-35 col-center">开始时间：</div>
+                <div class="col col-35 col-center" style="font-size: 17px;">开始时间：</div>
                 <div class="col col-center fontColor">
                     <span ng-bind="datas.detail.DATE_FROM"></span>&nbsp;&nbsp;<span ng-bind="datas.detail.TIME_FROM"></span>
                 </div>
             </div>
             <div class="row row-center itemContent">
-                <div class="col col-35 col-center">结束时间：</div>
+                <div class="col col-35 col-center" style="font-size: 17px;">结束时间：</div>
                 <div class="col col-center fontColor">
                     <span ng-bind="datas.detail.DATE_TO"></span>&nbsp;&nbsp;<span ng-bind="datas.detail.TIME_TO"></span>
                 </div>
@@ -88,6 +88,7 @@
                         </div>
                     </div>
                 </div>
+            <div style="height: 44px"></div>
         </ion-scroll>
     </ion-content>
     <div class="bar bar-footer content item-input-inset" keyboard-attach style="z-index: 999">

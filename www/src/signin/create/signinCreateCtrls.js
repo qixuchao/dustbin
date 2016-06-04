@@ -29,7 +29,7 @@ signinModule.controller('signinCreateCtrl', [
 		comment: '',
 		isLocationing: false,
 		userName:'',
-		userCode : ''
+		userCode : '',
 	};
 
 	$scope.datas = {
