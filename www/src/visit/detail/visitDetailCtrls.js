@@ -13,10 +13,16 @@ visitModule.controller('visitDetailCtrl', [
 			userName : '',//当前登录人姓名
 			allInfo :'',
 			time:"",
-			noComment : ""
+			noComment : "",
+			edit : ""
 		};
+<<<<<<< HEAD
 		// cordova.plugins.Keyboard.disableScroll(true);
 		$scope.edit=false;
+=======
+		//cordova.plugins.Keyboard.disableScroll(true);
+		//$scope.edit=false;
+>>>>>>> dai
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			if(toState.name == 'visit.detail'){
 				$scope.init();
@@ -40,6 +46,7 @@ visitModule.controller('visitDetailCtrl', [
 			__requestVisitName();
 		};
 
+<<<<<<< HEAD
 		$scope.config = {
 			photoModel: null,
 			currentPhotoSrc: ''
@@ -73,6 +80,8 @@ visitModule.controller('visitDetailCtrl', [
 			}
 		};
 
+=======
+>>>>>>> dai
 		//详情
 		function __requestVisitDetail(){
 			$scope.datas.summary=[];
@@ -88,9 +97,12 @@ visitModule.controller('visitDetailCtrl', [
 				if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG){
 					if(response.ES_RESULT.ZFLAG == "S"){
 						$scope.datas.allInfos = response;
+						console.log($scope.datas.allInfos );
 						$scope.datas.detail = response.ES_VISIT;
 						if($scope.datas.detail.EDIT_FLAG=='X'){
-							$scope.edit=true;
+							$scope.datas.edit=true;
+						}else{
+							$scope.datas.edit=false;
 						}
 						var date =$scope.datas.detail.CREATED_AT.toString();
 						$scope.datas.time=date.substring(0,4)+"-"+date.substring(4,6)+"-"+date.substring(6,8)+" "
@@ -98,6 +110,8 @@ visitModule.controller('visitDetailCtrl', [
 						$scope.datas.comment = response.ES_VISIT.COMMENT_LIST;
 						if($scope.datas.comment.length==0){
 							$scope.datas.noComment=true;
+						}else{
+							$scope.datas.noComment=false;
 						}
 						if(response.ET_TEXT != ''){
 							for(var i=0;i< response.ET_TEXT.item_out.length;i++){

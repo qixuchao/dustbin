@@ -8,12 +8,12 @@ visitModule.controller('visitCreateCtrl', [
 	"saleActService",
 	"HttpAppService",
 	"$ionicScrollDelegate",
-	"$rootScope", 
-	"relationService",'Prompter','$cordovaDatePicker','visitService','$state','$timeout','$ionicHistory',
+	"$rootScope",
+	"relationService",'Prompter','$cordovaDatePicker','visitService','$state','$timeout','$ionicHistory','$cordovaDialogs',
 	function ($scope, BaiduMapServ, $cordovaToast, $ionicActionSheet,
 		$ionicModal, LoginService, saleActService, HttpAppService,
 		$ionicScrollDelegate, $rootScope,
-		relationService,Prompter,$cordovaDatePicker,visitService,$state,$timeout,$ionicHistory){
+		relationService,Prompter,$cordovaDatePicker,visitService,$state,$timeout,$ionicHistory,$cordovaDialogs){
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			if(fromState && toState && fromState.name == 'visit.detail' && toState.name == 'visit.create'){
 				var loadingTime = 800;
@@ -155,9 +155,9 @@ visitModule.controller('visitCreateCtrl', [
 		return hourDate.format("yyyy-MM-dd hh:mm:ss");
 	};
 	$scope.visitCreateConfirm = function(){
-		if($scope.config.uploadNow == false){
-			$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
-		}
+		//if($scope.config.uploadNow == false){
+		//	$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
+		//}
 		var queryParams = {
 			"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
 			"IS_USER": { "BNAME": window.localStorage.crmUserName },
@@ -183,12 +183,16 @@ visitModule.controller('visitCreateCtrl', [
 		console.log(queryParams);
 		// Z006:客户拜访总结 、Z007:评论
 		if(!angular.isUndefined($scope.config.visitComment) && $scope.config.visitComment!=null && $scope.config.visitComment!=""){
-			queryParams.IT_TEXT.item_in.push({
-				TDID: 'Z006',
-				TDSPRAS: '',
-				TDFORMAT: '',
-				TDLINE: $scope.config.visitComment
-			});
+			var num = Math.ceil($scope.config.visitComment.length/132);
+			var item = [];
+			for(var i=0;i<num;i++){
+				queryParams.IT_TEXT.item_in.push({
+					TDID: 'Z006',
+					TDSPRAS: '',
+					TDFORMAT: '',
+					TDLINE: $scope.config.visitComment.substring(i*132,i*132+131)
+				});
+			}
 		}
 		//添加相关方: ZCUSTOME 客户 		ZCUSTCTT 客户联系人
 		if(!angular.isUndefined($scope.config.selectedRelations) && $scope.config.selectedRelations!=null && !!$scope.config.selectedRelations.length){
@@ -224,7 +228,7 @@ visitModule.controller('visitCreateCtrl', [
 						"OBJECT_ID": data.EV_OBJECT_ID,
 						"PROCESS_TYPE": 'ZVIS',
 						"CREATED_BY": $scope.config.userName,
-						"LINE": $scope.config.FILE_URL[i]
+						"LINE": $scope.config.FILE_URL[i].FILE_URL
 					}
 				}
 				var picture = HttpAppService.post(url, pic);
@@ -463,7 +467,7 @@ visitModule.controller('visitCreateCtrl', [
 				//console.log(response);
         		if(response.ES_RESULT){
 					$scope.config.uploadNow = false;
-					$scope.config.FILE_URL.push(response.ES_RESULT.ZRESULT.FILE_URL);
+					$scope.config.FILE_URL.push({FILE_URL :response.ES_RESULT.ZRESULT.FILE_URL,src : file.src});
         		}
         		
 				if(!$scope.$$phase){
@@ -784,5 +788,95 @@ visitModule.controller('visitCreateCtrl', [
 			var startTime = new Date(startTime.replace("-","/").replace("-","/")).getTime();
 			var endTime = new Date(endTime.replace("-","/").replace("-","/")).getTime();
 			return startTime <= endTime;
+		}
+		//文本框自适应换行
+		var autoTextarea = function (elem, extra, maxHeight) {
+			extra = extra || 0;
+			var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
+				isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
+				addEvent = function (type, callback) {
+					elem.addEventListener ?
+						elem.addEventListener(type, callback, false) :
+						elem.attachEvent('on' + type, callback);
+				},
+				getStyle = elem.currentStyle ? function (name) {
+					var val = elem.currentStyle[name];
+
+					if (name === 'height' && val.search(/px/i) !== 1) {
+						var rect = elem.getBoundingClientRect();
+						return rect.bottom - rect.top -
+							parseFloat(getStyle('paddingTop')) -
+							parseFloat(getStyle('paddingBottom')) + 'px';
+					};
+
+					return val;
+				} : function (name) {
+					return getComputedStyle(elem, null)[name];
+				},
+				minHeight = parseFloat(getStyle('height'));
+
+			elem.style.resize = 'none';
+
+			var change = function () {
+				var scrollTop, height,
+					padding = 0,
+					style = elem.style;
+
+				if (elem._length === elem.value.length) return;
+				elem._length = elem.value.length;
+
+				if (!isFirefox && !isOpera) {
+					padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
+				};
+				scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+				elem.style.height = minHeight + 'px';
+				if (elem.scrollHeight > minHeight) {
+					if (maxHeight && elem.scrollHeight > maxHeight) {
+						height = maxHeight - padding;
+						style.overflowY = 'auto';
+					} else {
+						height = elem.scrollHeight - padding;
+						style.overflowY = 'hidden';
+					};
+					style.height = height + extra + 'px';
+					scrollTop += parseInt(style.height) - elem.currHeight;
+					document.body.scrollTop = scrollTop;
+					document.documentElement.scrollTop = scrollTop;
+					elem.currHeight = parseInt(style.height);
+				};
+			};
+
+			addEvent('propertychange', change);
+			addEvent('input', change);
+			addEvent('focus', change);
+			change();
+		};
+		var text = document.getElementById("textarea1");
+		autoTextarea(text);// 调用
+		$scope.deletePic=function(item){
+			$cordovaDialogs.confirm('是否删除此图片', '提示', ['确定', '取消'])
+				.then(function (buttonIndex) {
+					// no button = 0, 'OK' = 1, 'Cancel' = 2
+					if (buttonIndex == 1) {
+						$scope.deleteInfos(item);
+					}
+				});
+		}
+		$scope.deleteInfos=function(item){
+			//console.log($scope.config.pictures);
+			for(var i=0;i<$scope.config.pictures.length;i++){
+				if($scope.config.pictures[i].src == item.src){
+					$scope.config.pictures.splice(i,1);
+					break;
+				}
+			}
+			for(var i=0;i<$scope.config.FILE_URL.length;i++){
+				if($scope.config.FILE_URL[i].src == item.src){
+					$scope.config.FILE_URL.splice(i,1);
+					break;
+				}
+			}
+			console.log($scope.config.pictures);
 		}
 }]);

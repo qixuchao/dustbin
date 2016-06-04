@@ -713,6 +713,38 @@ ContactsModule
             if(fromState && toState && fromState.name == 'ContactDetail'){
                 $ionicHistory.goBack();
             }
+            $scope.contactcreat = {
+                //客户编号
+                PARTNER2VALUE:'',
+                conatctdeatilnote:"",
+                TITLE:"",
+                TITLE_MEDI:"",
+                FAX_NUMBER:"",
+                FAX_EXTENS:"",
+                DPRTMNT:"",
+                FNCTN:"",
+                COUNTRY:"",
+                LANDX:"",
+                BEZEI:"",
+                CITY1:"",
+                ZZBYYX:"",
+                ZZJX:"",
+                HOUSE_NUM1:"",
+                REGION:"",
+                POST_CODE1:"",
+                BIRTHDT:"",
+                LANGU:"",
+                SPTEXT:"",
+                NAME_LAST:"",
+                SMTP_ADDR:"",
+                TEL_NUMBER:"",
+                MOB_NUMBER:"",
+                STREET:"",
+                //不需要改的
+                PARTNER2:""
+                //relationsalsname:"",
+                //PARTNER:"",
+            };
         });
             //文本框自适应换行
         var autoTextarea1 = function (elem, extra, maxHeight) {
