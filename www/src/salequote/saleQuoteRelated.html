@@ -1,9 +1,19 @@
 <ion-view class="projectCss" align-title="center">
-    <ion-header-bar>
-        <div class="row row-center title rowTitle">
-            <div class="col col-15 text-left"  ng-click="goBack()"><i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px;color: white"></i></div>
-            <div class="col col-70 text-center" style="color: white">相关方
-            </div>
+    <!--<ion-header-bar>-->
+        <!--<div class="row row-center title rowTitle">-->
+            <!--<div class="col col-15 text-left"  ng-click="goBack()"><i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px;color: white"></i></div>-->
+            <!--<div class="col col-70 text-center" style="color: white">相关方-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</ion-header-bar>-->
+
+    <ion-header-bar align-title="center" class="head pub-head rowTitle">
+        <div class="row row-center" style="padding-left: 0px;padding-right: 0px;">
+            <a class="col col-15 text-center goBack" style="color: white" ng-click="goBack()">
+                <i class="ion-chevron-left" style="font-size:1.8rem;position: relative;top:5px;color: white"></i>
+            </a>
+            <div class="col col-65 text-center" style="color: white">相关方</div>
+            <div class="col col-20 text-center" style="color: white;padding-right: 8px"></div>
         </div>
     </ion-header-bar>
     <ion-content has-bouncing="false"  delegate-handle="projectList">
