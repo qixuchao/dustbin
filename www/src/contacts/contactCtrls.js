@@ -714,7 +714,7 @@ ContactsModule
                 $ionicHistory.goBack();
             }
             console.log(fromState.name);
-            if(fromState.name == 'tabs'){
+            //if(fromState.name == 'tabs'){
                 $scope.contactcreat = {
                     //客户编号
                     PARTNER2VALUE:'',
@@ -746,7 +746,20 @@ ContactsModule
                     PARTNER2:""
                     //relationsalsname:"",
                     //PARTNER:"",
-                };            }
+                };
+            if($scope.showCustomer==true){
+                $scope.contactcreat.PARTNER2VALUE= customeService.get_customerEditServevalue().NAME_ORG1;
+                $scope.contactcreat.PARTNER2=customeService.get_customerEditServevalue().PARTNER;
+            }else if(activityPlanService.goCreateCon == true){
+                $scope.contactcreat.PARTNER2VALUE= activityPlanService.goCreateConInfo.name;
+                $scope.contactcreat.PARTNER2=activityPlanService.goCreateConInfo.id;
+            }else if(visitService.goCreateCon == true){
+                $scope.contactcreat.PARTNER2VALUE= visitService.goCreateConInfo.name;
+                $scope.contactcreat.PARTNER2=visitService.goCreateConInfo.id;
+                console.log(visitService.goCreateConInfo);
+            } else{
+                $scope.contactcreat.PARTNER2VALUE="";
+            }
 
         });
             //文本框自适应换行
@@ -873,6 +886,7 @@ ContactsModule
             }else if(visitService.goCreateCon == true){
                 $scope.contactcreat.PARTNER2VALUE= visitService.goCreateConInfo.name;
                 $scope.contactcreat.PARTNER2=visitService.goCreateConInfo.id;
+                console.log(visitService.goCreateConInfo);
             } else{
                 $scope.contactcreat.PARTNER2VALUE="";
             }
@@ -1385,9 +1399,9 @@ ContactsModule
 
         ////点击取消事件
         $scope.Createancel = function(){
-            $scope.showCustomer==false ;
-            activityPlanService.goCreateCon == false;
-            visitService.goCreateCon == false;
+            $scope.showCustomer=false ;
+            activityPlanService.goCreateCon = false;
+            visitService.goCreateCon = false;
             Prompter.ContactCreateCancelvalue1("创建");
         };
 

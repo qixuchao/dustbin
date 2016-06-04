@@ -150,7 +150,7 @@ visitModule.controller('visitDetailCtrl', [
 			Prompter.showLoading();
 			var data ={
 				"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-				"IS_AUTHORITY": { "BNAME":  window.localStorage.crmUserName },
+				"IS_AUTHORITY": { "BNAME": window.localStorage.crmUserName },
 				"IS_PAGE": {
 					"CURRPAGE": "1",
 					"ITEMS": "10"

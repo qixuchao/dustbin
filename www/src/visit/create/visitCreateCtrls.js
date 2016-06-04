@@ -158,7 +158,7 @@ visitModule.controller('visitCreateCtrl', [
 		}
 		var queryParams = {
 			"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-			"IS_USER": { "BNAME": window.localStorage.crmUserName },
+			"IS_USER": { "BNAME" : window.localStorage.crmUserName },
 			"IS_DATE": {
 		      "DATE_FROM": $scope.config.startTime.substring(0,10),
 		      "TIME_FROM": $scope.config.startTime.substring(10,19),
@@ -658,14 +658,15 @@ visitModule.controller('visitCreateCtrl', [
 
     //选择联系人
     $scope.openRelations = function () {
+		//获取相关方列表中的客户
+		relationService.relationCustomer = $scope.config.selectedCustomer;
+		relationService.createContact = true;
+		console.log(relationService.relationCustomer );
     	if(angular.isUndefined($scope.config.selectedCustomer) || $scope.config.selectedCustomer==null){
             $cordovaToast.showShortBottom("请先选择客户!");
             return;
         }
-        //获取相关方列表中的客户
-        relationService.relationCustomer = $scope.config.selectedCustomer;
-		relationService.createContact = true;
-		console.log(relationService.relationCustomer );
+
         // angular.forEach($scope.relationArr, function (data) {
         //     if (data.PARTNER_FCT == "00000009") {
         //         relationService.relationCustomer = data;
@@ -864,8 +865,8 @@ visitModule.controller('visitCreateCtrl', [
 			addEvent('focus', change);
 			change();
 		};
-		var text = document.getElementById("textarea1");
-		autoTextarea(text);// 调用
+		//var text = document.getElementById("textarea1");
+		//autoTextarea(text);// 调用
 		$scope.deletePic=function(item){
 			$cordovaDialogs.confirm('是否删除此图片', '提示', ['确定', '取消'])
 				.then(function (buttonIndex) {

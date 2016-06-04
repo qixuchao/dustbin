@@ -40,11 +40,12 @@ salesModule
                 $scope.createContact = true;
             };
             $scope.createConGo = function () {
-                console.log("1212");
+                //console.log("1212");
                 $scope.conArr=[];
                 visitService.goCreateCon = true;
                 visitService.goCreateConInfo.id = relationCustomer.PARTNER;
                 visitService.goCreateConInfo.name = relationCustomer.NAME_ORG1;
+                console.log(visitService.goCreateConInfo);
                 $scope.hideRelations();
                 $state.go('ContactCreate');
             };
