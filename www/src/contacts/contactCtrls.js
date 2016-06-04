@@ -714,7 +714,7 @@ ContactsModule
                 $ionicHistory.goBack();
             }
             console.log(fromState.name);
-            if(fromState.name == 'tabs'){
+            //if(fromState.name == 'tabs'){
                 $scope.contactcreat = {
                     //客户编号
                     PARTNER2VALUE:'',
@@ -746,7 +746,7 @@ ContactsModule
                     PARTNER2:""
                     //relationsalsname:"",
                     //PARTNER:"",
-                };            }
+                };
             if($scope.showCustomer==true){
                 $scope.contactcreat.PARTNER2VALUE= customeService.get_customerEditServevalue().NAME_ORG1;
                 $scope.contactcreat.PARTNER2=customeService.get_customerEditServevalue().PARTNER;
@@ -1399,9 +1399,9 @@ ContactsModule
 
         ////点击取消事件
         $scope.Createancel = function(){
-            $scope.showCustomer==false ;
-            activityPlanService.goCreateCon == false;
-            visitService.goCreateCon == false;
+            $scope.showCustomer=false ;
+            activityPlanService.goCreateCon = false;
+            visitService.goCreateCon = false;
             Prompter.ContactCreateCancelvalue1("创建");
         };
 

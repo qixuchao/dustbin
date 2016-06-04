@@ -158,7 +158,7 @@ visitModule.controller('visitCreateCtrl', [
 		}
 		var queryParams = {
 			"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-			"IS_USER": { "BNAME": window.localStorage.crmUserName },
+			"IS_USER": { "BNAME" : window.localStorage.crmUserName },
 			"IS_DATE": {
 		      "DATE_FROM": $scope.config.startTime.substring(0,10),
 		      "TIME_FROM": $scope.config.startTime.substring(10,19),
