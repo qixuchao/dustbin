@@ -24,6 +24,7 @@ visitModule.controller('visitDetailCtrl', [
 //		//$scope.edit=false;
 //>>>>>>> dai
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
+			console.log(toState.name);
 			if(toState.name == 'visit.detail'){
 				$scope.init();
 			}

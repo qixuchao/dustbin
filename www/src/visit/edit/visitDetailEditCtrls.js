@@ -376,13 +376,14 @@ visitModule.controller('visitEditCtrl', [
 				sourceType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
 			}
 			var options = {
-				quality: 50,
+				quality: 5,
 				sourceType: sourceType,
 				destinationType: Camera.DestinationType.FILE_URL, //1, //'FILE_URL',
 				encodingType: Camera.EncodingType.JPEG, //0, //'JPEG',
 				mediaType: Camera.MediaType.PICTURE, //0, //'PICTURE',
 				saveToPhotoAlbum: true,
-				cameraDirection: Camera.Direction.BACK // 0, //'BACK'
+				cameraDirection: Camera.Direction.BACK, // 0, //'BACK'
+				targetWidth: 1366, targetHeight: 768
 			};
 			if(navigator.camera){
 				navigator.camera.getPicture(function (successRes){
@@ -555,12 +556,13 @@ visitModule.controller('visitEditCtrl', [
 				Prompter.hideLoading();
 				if (response.ES_RESULT.ZFLAG === 'S') {
 
-			for(var i=0;i<$scope.config.pictures.length;i++){
-				if($scope.config.pictures[i].OBJIDLO == item.OBJIDLO){
-					$scope.config.pictures.splice(i,1);
-					break;
+				for(var i=0;i<$scope.config.pictures.length;i++){
+					if($scope.config.pictures[i].OBJIDLO == item.OBJIDLO){
+						$scope.config.pictures.splice(i,1);
+						break;
+					}
 				}
-			}
+					$scope.config.num--;
 					$cordovaToast.showShortBottom('删除成功 ');
 				}else{
 					$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
