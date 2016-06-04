@@ -40,8 +40,13 @@
                     </span>
                 </ion-scroll>
             </div>
-            <div class="col col-10 col-center text-right" ng-if="!referMoreflag" ng-click="changeReferMoreflag()"><i class="ion-chevron-up" style="font-size: 18px;color:#276DAC "></i></div>
-            <div class="col col-10 col-center text-right" ng-if="referMoreflag" ng-click="changeReferMoreflag()"><i class="ion-chevron-down" style="font-size: 18px;color:#276DAC "></i></div>
+            <div ng-if="!isAndroidPlatform()">
+                <div class="col col-10 col-center text-right" ng-if="!referMoreflag" ng-click="changeReferMoreflag()"><i class="ion-chevron-up" style="font-size: 18px;color:#276DAC "></i></div>
+                <div class="col col-10 col-center text-right" ng-if="referMoreflag" ng-click="changeReferMoreflag()"><i class="ion-chevron-down" style="font-size: 18px;color:#276DAC "></i></div>
+            </div>
+            <div ng-if="isAndroidPlatform()">
+                <div class="col col-10 col-center text-right"  ><i class="ion-chevron-up" style="font-size: 18px;color:#276DAC "></i></div>
+            </div>
         </div>
         <div style=" background-image:linear-gradient(to right, #2B60AB, #9EC92A);height: 1px;margin-top: 7px"></div>
     </div>

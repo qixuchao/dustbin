@@ -112,8 +112,8 @@ visitModule.controller('visitEditCtrl', [
 			addEvent('focus', change);
 			change();
 		};
-		var text = document.getElementById("textarea");
-		autoTextarea(text);// 调用
+		//var text = document.getElementById("textarea");
+		//autoTextarea(text);// 调用
 		for(var i=0;i<visitService.visitPicture.length;i++){
 			visitService.visitPicture[i].src=visitService.visitPicture[i].LINE;
 		}

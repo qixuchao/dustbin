@@ -347,6 +347,15 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
                 colorFlag : false,
             }
         ];
+        //     ionic.Platform.isIOS()
+        $scope.isIosPlatform = function(){
+            //console.log("is IOS: "+ionic.Platform.isIOS());
+            return ionic.Platform.isIOS();
+        };
+        $scope.isAndroidPlatform = function(){
+            //console.log("is Android: "+ionic.Platform.isAndroid());
+            return ionic.Platform.isAndroid();
+        };
         $scope.config = {
             detail : true,
             competitors : false,
@@ -482,6 +491,15 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
                 colorFlag : false,
             }
         ];
+        //     ionic.Platform.isIOS()
+        $scope.isIosPlatform = function(){
+            //console.log("is IOS: "+ionic.Platform.isIOS());
+            return ionic.Platform.isIOS();
+        };
+        $scope.isAndroidPlatform = function(){
+            //console.log("is Android: "+ionic.Platform.isAndroid());
+            return ionic.Platform.isAndroid();
+        };
         $scope.config = {
             project : true,
             customer : false,

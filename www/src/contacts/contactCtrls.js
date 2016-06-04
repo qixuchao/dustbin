@@ -747,6 +747,19 @@ ContactsModule
                     //relationsalsname:"",
                     //PARTNER:"",
                 };            }
+            if($scope.showCustomer==true){
+                $scope.contactcreat.PARTNER2VALUE= customeService.get_customerEditServevalue().NAME_ORG1;
+                $scope.contactcreat.PARTNER2=customeService.get_customerEditServevalue().PARTNER;
+            }else if(activityPlanService.goCreateCon == true){
+                $scope.contactcreat.PARTNER2VALUE= activityPlanService.goCreateConInfo.name;
+                $scope.contactcreat.PARTNER2=activityPlanService.goCreateConInfo.id;
+            }else if(visitService.goCreateCon == true){
+                $scope.contactcreat.PARTNER2VALUE= visitService.goCreateConInfo.name;
+                $scope.contactcreat.PARTNER2=visitService.goCreateConInfo.id;
+                console.log(visitService.goCreateConInfo);
+            } else{
+                $scope.contactcreat.PARTNER2VALUE="";
+            }
 
         });
             //文本框自适应换行
@@ -873,6 +886,7 @@ ContactsModule
             }else if(visitService.goCreateCon == true){
                 $scope.contactcreat.PARTNER2VALUE= visitService.goCreateConInfo.name;
                 $scope.contactcreat.PARTNER2=visitService.goCreateConInfo.id;
+                console.log(visitService.goCreateConInfo);
             } else{
                 $scope.contactcreat.PARTNER2VALUE="";
             }
