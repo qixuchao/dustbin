@@ -128,7 +128,7 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
                           row_size: 2,
                           fixed_row_size: true
     });
-    baiduMapApiProvider.version('2.0').accessKey('gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru');
+    baiduMapApiProvider.version('2.0').accessKey(ROOTCONFIG.baiduMap.apiKey);
     // Turn off caching for demo simplicity's sake
     //$ionicConfigProvider.views.maxCache(0);
     $ionicConfigProvider.views.swipeBackEnabled(true);
@@ -147,18 +147,18 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
         })
         //服务地图 end------
         
-        // .state('login', {
-        //    url: '/login',
-        //    //abstract: true,
-        //    templateUrl: 'src/login/login.html',
-        //    controller: 'LoginCtrl'
-        // })
-        
-        .state('login', { 
-            url: '/login',
-            templateUrl: 'src/loginSecond/loginSecond.html',
-            controller: 'LoginCtrl'
+        .state('login', {
+           url: '/login',
+           //abstract: true,
+           templateUrl: 'src/login/login.html',
+           controller: 'LoginCtrl'
         })
+        
+        // .state('login', { 
+        //     url: '/login',
+        //     templateUrl: 'src/loginSecond/loginSecond.html',
+        //     controller: 'LoginCtrl'
+        // })
         
         .state('tabs', {
             url: '/tabs',
@@ -219,7 +219,7 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
             controller: 'contactQueryCtrl'
         })
         .state('ContactDetail', {
-            cache:false,
+            // cache:false,
             url: '/contactDetail',
             templateUrl: 'src/contacts/contactDetail.html',
             controller: 'contactDetailCtrl'
