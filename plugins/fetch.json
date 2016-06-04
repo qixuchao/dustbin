@@ -104,14 +104,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cordova-plugin-crosswalk-webview": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-crosswalk-webview"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-baidumap": {
         "source": {
             "type": "local",
@@ -127,7 +119,7 @@
         },
         "is_top_level": true,
         "variables": {
-            "API_KEY": "d5c769ed7f3b74b31933aafd"
+            "API_KEY": "9ee1afe8f3caef162f835c56"
         }
     }
 }
