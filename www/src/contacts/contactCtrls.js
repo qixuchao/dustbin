@@ -713,38 +713,41 @@ ContactsModule
             if(fromState && toState && fromState.name == 'ContactDetail'){
                 $ionicHistory.goBack();
             }
-            $scope.contactcreat = {
-                //客户编号
-                PARTNER2VALUE:'',
-                conatctdeatilnote:"",
-                TITLE:"",
-                TITLE_MEDI:"",
-                FAX_NUMBER:"",
-                FAX_EXTENS:"",
-                DPRTMNT:"",
-                FNCTN:"",
-                COUNTRY:"",
-                LANDX:"",
-                BEZEI:"",
-                CITY1:"",
-                ZZBYYX:"",
-                ZZJX:"",
-                HOUSE_NUM1:"",
-                REGION:"",
-                POST_CODE1:"",
-                BIRTHDT:"",
-                LANGU:"",
-                SPTEXT:"",
-                NAME_LAST:"",
-                SMTP_ADDR:"",
-                TEL_NUMBER:"",
-                MOB_NUMBER:"",
-                STREET:"",
-                //不需要改的
-                PARTNER2:""
-                //relationsalsname:"",
-                //PARTNER:"",
-            };
+            console.log(fromState.name);
+            if(fromState.name == 'tabs'){
+                $scope.contactcreat = {
+                    //客户编号
+                    PARTNER2VALUE:'',
+                    conatctdeatilnote:"",
+                    TITLE:"",
+                    TITLE_MEDI:"",
+                    FAX_NUMBER:"",
+                    FAX_EXTENS:"",
+                    DPRTMNT:"",
+                    FNCTN:"",
+                    COUNTRY:"",
+                    LANDX:"",
+                    BEZEI:"",
+                    CITY1:"",
+                    ZZBYYX:"",
+                    ZZJX:"",
+                    HOUSE_NUM1:"",
+                    REGION:"",
+                    POST_CODE1:"",
+                    BIRTHDT:"",
+                    LANGU:"",
+                    SPTEXT:"",
+                    NAME_LAST:"",
+                    SMTP_ADDR:"",
+                    TEL_NUMBER:"",
+                    MOB_NUMBER:"",
+                    STREET:"",
+                    //不需要改的
+                    PARTNER2:""
+                    //relationsalsname:"",
+                    //PARTNER:"",
+                };            }
+
         });
             //文本框自适应换行
         var autoTextarea1 = function (elem, extra, maxHeight) {
@@ -856,6 +859,7 @@ ContactsModule
             //relationsalsname:"",
             //PARTNER:"",
         };
+            console.log( $scope.contactcreat);
             $scope.showCustomer=customeService.goContacts.formCusttomer;
             //console.log(angular.toJson(customeService.get_customerEditServevalue()));
 
@@ -870,7 +874,6 @@ ContactsModule
                 $scope.contactcreat.PARTNER2VALUE= visitService.goCreateConInfo.name;
                 $scope.contactcreat.PARTNER2=visitService.goCreateConInfo.id;
             } else{
-                //console.log("2323");
                 $scope.contactcreat.PARTNER2VALUE="";
             }
         //创建
@@ -1382,6 +1385,9 @@ ContactsModule
 
         ////点击取消事件
         $scope.Createancel = function(){
+            $scope.showCustomer==false ;
+            activityPlanService.goCreateCon == false;
+            visitService.goCreateCon == false;
             Prompter.ContactCreateCancelvalue1("创建");
         };
 

@@ -153,7 +153,7 @@ visitModule.controller('visitCreateCtrl', [
 	};
 	$scope.visitCreateConfirm = function(){
 		if($scope.config.pictures.length != $scope.config.FILE_URL.length){
-			$cordovaToast.showShortBottom('图片正在上传中,请稍后..');
+			$cordovaToast.showShortBottom('图片正在上传中,请稍候..');
 			return;
 		}
 		var queryParams = {
@@ -229,11 +229,13 @@ visitModule.controller('visitCreateCtrl', [
 				}
 				var picture = HttpAppService.post(url, pic);
 				picture.success(function(response, status, obj, config){
-					console.log(response);
+					//console.log(response);
 					if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG=="S"){
-						console.log($scope.num);
-						console.log($scope.config.FILE_URL.length);
+						//alert(angular.toJson(response));
+						//console.log($scope.num);
+						//console.log($scope.config.FILE_URL.length);
 						$scope.num++;
+						Prompter.showLoadingAutoHidden("正在提交,请稍候", false, 1000);
 						if($scope.num==$scope.config.FILE_URL.length){
 							$timeout(function(){
 								$state.go("visit.detail");
@@ -266,7 +268,8 @@ visitModule.controller('visitCreateCtrl', [
         	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG=="S"){
         		if(successCallback) successCallback(response);
 				visitService.currentVisitDetail={
-					OBJECT_ID : response.EV_OBJECT_ID
+					OBJECT_ID : response.EV_OBJECT_ID,
+					PROCESS_TYPE :"ZVIS"
 				}
 				if($scope.config.pictures.length == 0){
 					$state.go("visit.detail");
@@ -370,13 +373,14 @@ visitModule.controller('visitCreateCtrl', [
             sourceType = Camera.PictureSourceType.SAVEDPHOTOALBUM;
         }
         var options = {
-            quality: 50,
+            quality: 5,
             sourceType: sourceType,
             destinationType: Camera.DestinationType.FILE_URL, //1, //'FILE_URL',
             encodingType: Camera.EncodingType.JPEG, //0, //'JPEG',
             mediaType: Camera.MediaType.PICTURE, //0, //'PICTURE',
             saveToPhotoAlbum: true,
-            cameraDirection: Camera.Direction.BACK // 0, //'BACK'
+            cameraDirection: Camera.Direction.BACK, // 0, //'BACK'
+			targetWidth: 1366, targetHeight: 768
         };
         if(navigator.camera){
             navigator.camera.getPicture(function (successRes){
