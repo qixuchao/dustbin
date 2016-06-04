@@ -21,7 +21,7 @@
           
           <meta-data
           android:name="com.baidu.lbsapi.API_KEY"
-          android:value="gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru" />
+          android:value="cWKXNjK17RG0If17cgQ8Yd6bO8MWpfUC" />
           
       </config-file>
       <config-file parent="/manifest" target="AndroidManifest.xml">
