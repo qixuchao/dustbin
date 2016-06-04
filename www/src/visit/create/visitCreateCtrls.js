@@ -8,7 +8,7 @@ visitModule.controller('visitCreateCtrl', [
 	"saleActService",
 	"HttpAppService",
 	"$ionicScrollDelegate",
-	"$rootScope",
+	"$rootScope", 
 	"relationService",'Prompter','$cordovaDatePicker','visitService','$state','$timeout','$ionicHistory',
 	function ($scope, BaiduMapServ, $cordovaToast, $ionicActionSheet,
 		$ionicModal, LoginService, saleActService, HttpAppService,
@@ -47,6 +47,9 @@ visitModule.controller('visitCreateCtrl', [
 		userName:"",
 		FILE_URL : [],
 		pictures:[
+			{
+				src: 'https://www.baidu.com/img/bd_logo1.png'
+			}
 		],
 		fileItemDefaults: {
 			originServer: false,
@@ -73,14 +76,54 @@ visitModule.controller('visitCreateCtrl', [
 
 			src: "",
 			fileLocalPath: ""
+		},
+		photoModel: null,
+		currentPhotoSrc: ''
+	};
+
+	$scope.destoryPhotoModel = function(){
+		if($scope.config.photoModel){
+			$scope.config.photoModel.hide();
+			$scope.config.photoModel.remove();
+			$scope.config.photoModel = null;
+		}
+	}
+
+	$scope.$on("$destroy", function(){
+		$scope.destoryPhotoModel();
+	});
+
+	$scope.showSinglePicture = function(item, index){
+		if($scope.config.photoModel == null){
+			$ionicModal.fromTemplateUrl('src/visit/photo/model.html', {
+		        scope: $scope,
+		        animation: 'slide-in-up',
+		        focusFirstInput: true
+		    }).then(function (modal) {
+		        $scope.config.photoModel = modal;
+		        $scope.config.currentPhotoSrc = item.src;
+				$scope.config.photoModel.show();
+	    	});
+		}else{
+			$scope.config.currentPhotoSrc = item.src;
+			$scope.config.photoModel.show();
 		}
 	};
+
 
 	$scope.init = function(){
 		$scope.config.startTime = getDefultStartTime();
 		$scope.config.endTime = new Date().format('yyyy-MM-dd hh:mm:ss')
 		$scope.caclCurrentLocation();
 		__requestVisitName();
+		//src/applications/saleActivities/modal/selectCustomer_Modal.html
+		$ionicModal.fromTemplateUrl('src/visit/photo/model.html', {
+	        scope: $scope,
+	        animation: 'slide-in-up',
+	        focusFirstInput: true
+	    }).then(function (modal) {
+	        $scope.config.photoModel = modal;
+	    });
 
 	};
 		//名称
@@ -270,7 +313,7 @@ visitModule.controller('visitCreateCtrl', [
 
 	$scope.init();
 
-
+	
 	$scope.takePicture = function(){
 		$scope.config.actionSheet = $ionicActionSheet.show({
 			buttons: [

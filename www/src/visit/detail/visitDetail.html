@@ -62,8 +62,8 @@
             <div  class="visitInfos fontColor" ><div ng-repeat="i in datas.summary"><span ng-bind="i.TDLINE"></span></div></div>
             <div class="pictures">
                 <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="true">
-                    <div class="image-wrapper" ng-repeat="item in datas.pictures">
-                        <img src="{{item.LINE}}">
+                    <div class="image-wrapper" ng-click="showSinglePicture(item, $index);" ng-repeat="item in datas.pictures">
+                        <img ng-src="{{item.LINE}}">
                     </div>
                 </ion-scroll>
             </div>

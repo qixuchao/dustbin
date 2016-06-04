@@ -5,7 +5,7 @@
     "basePathUat": "https://crmmp.atlbattery.com:9343/crmuat/api/CRMAPP/",
     "basePathTest": "http://117.28.248.23:9388/test/api/CRMAPP/",
     "AppUpdateUrl": "https://www.pgyer.com/crm-catl-atl-pro",
-    "baseEnvironment": "ATL",
+    "baseEnvironment": "CATL",
     "ISDEBUG": true
   },
   "baiduMap": {

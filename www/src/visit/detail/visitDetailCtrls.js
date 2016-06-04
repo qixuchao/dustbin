@@ -15,7 +15,7 @@ visitModule.controller('visitDetailCtrl', [
 			time:"",
 			noComment : ""
 		};
-		//cordova.plugins.Keyboard.disableScroll(true);
+		// cordova.plugins.Keyboard.disableScroll(true);
 		$scope.edit=false;
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			if(toState.name == 'visit.detail'){
@@ -39,6 +39,40 @@ visitModule.controller('visitDetailCtrl', [
 			__requestVisitPicture();
 			__requestVisitName();
 		};
+
+		$scope.config = {
+			photoModel: null,
+			currentPhotoSrc: ''
+		}
+		$scope.destoryPhotoModel = function(){
+			if($scope.config.photoModel){
+				$scope.config.photoModel.hide();
+				$scope.config.photoModel.remove();
+				$scope.config.photoModel = null;
+			}
+		}
+
+		$scope.$on("$destroy", function(){
+			$scope.destoryPhotoModel();
+		});
+
+		$scope.showSinglePicture = function(item, index){
+			if($scope.config.photoModel == null){
+				$ionicModal.fromTemplateUrl('src/visit/photo/model.html', {
+			        scope: $scope,
+			        animation: 'slide-in-up',
+			        focusFirstInput: true
+			    }).then(function (modal) {
+			        $scope.config.photoModel = modal;
+			        $scope.config.currentPhotoSrc = item.LINE;
+					$scope.config.photoModel.show();
+		    	});
+			}else{
+				$scope.config.currentPhotoSrc = item.LINE;
+				$scope.config.photoModel.show();
+			}
+		};
+
 		//详情
 		function __requestVisitDetail(){
 			$scope.datas.summary=[];
@@ -168,6 +202,7 @@ visitModule.controller('visitDetailCtrl', [
 			}];
 		//联系人
 		$scope.gocustomerLists = function(cusvalue){
+			$scope.destoryPhotoModel();
 			visitService.visitContact=($scope.datas.allInfos);
 			$state.go(cusvalue.url);
 		};
@@ -217,6 +252,7 @@ visitModule.controller('visitDetailCtrl', [
 		}
 		//编辑
 		$scope.goEdit=function(){
+			$scope.destoryPhotoModel();
 			visitService.visitDetail=$scope.datas.allInfos;
 			$state.go('visit.edit');
 		}

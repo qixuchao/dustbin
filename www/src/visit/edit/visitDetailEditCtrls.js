@@ -35,7 +35,9 @@ visitModule.controller('visitEditCtrl', [
 
 				src: "",
 				fileLocalPath: ""
-			}
+			},
+			photoModel: null,
+			currentPhotoSrc: ''
 		}
 		$scope.datas.detail=visitService.visitDetail.ES_VISIT;
 		$scope.datas.START_TIME_STR=visitService.visitDetail.ES_VISIT.DATE_FROM +" "+visitService.visitDetail.ES_VISIT.TIME_FROM;
@@ -316,6 +318,38 @@ visitModule.controller('visitEditCtrl', [
 				}
 			});
 		};
+
+
+		$scope.destoryPhotoModel = function(){
+			if($scope.config.photoModel){
+				$scope.config.photoModel.hide();
+				$scope.config.photoModel.remove();
+				$scope.config.photoModel = null;
+			}
+		}
+
+		$scope.$on("$destroy", function(){
+			$scope.destoryPhotoModel();
+		});
+
+		$scope.showSinglePicture = function(item, index){
+			if($scope.config.photoModel == null){
+				$ionicModal.fromTemplateUrl('src/visit/photo/model.html', {
+			        scope: $scope,
+			        animation: 'slide-in-up',
+			        focusFirstInput: true
+			    }).then(function (modal) {
+			        $scope.config.photoModel = modal;
+			        $scope.config.currentPhotoSrc = item.src;
+					$scope.config.photoModel.show();
+		    	});
+			}else{
+				$scope.config.currentPhotoSrc = item.src;
+				$scope.config.photoModel.show();
+			}
+		};
+
+
 
 		$scope.selectImage = function(sourceTypeInt){
 			//console.log(sourceTypeInt);

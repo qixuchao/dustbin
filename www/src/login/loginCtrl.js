@@ -154,15 +154,16 @@ loginModule
                           }
                         console.log(angular.toJson(response));
                         
-                        if(response.PROFILE == "*"){
-                            $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
-                            $state.go('changeChar');
-                        }else if(ionic.Platform.isWebView()&&(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D")){
-                            $state.go('changePass');
-                            $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
-                        }else{
-                            $state.go('tabs', {}, {location:"replace", reload:"true"});
-                        }
+                        // if(response.PROFILE == "*"){
+                        //     $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
+                        //     $state.go('changeChar');
+                        // }else if(ionic.Platform.isWebView()&&(response.FIRST_LOGIN == "Y" || response.FIRST_LOGIN == "D")){
+                        //     $state.go('changePass');
+                        //     $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
+                        // }else{
+                        //     $state.go('tabs', {}, {location:"replace", reload:"true"});
+                        // }
+                        $state.go('tabs', {}, {location:"replace", reload:"true"});
                     }
                 }).error(function(errorResponse, status, header, config){
                     Prompter.hideLoading();
