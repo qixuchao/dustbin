@@ -138,7 +138,7 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
     */
     
     $stateProvider
-    
+
         //服务地图 start------
         .state('myMapService', {
             url: 'myMapService',
@@ -147,18 +147,18 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
         })
         //服务地图 end------
         
-        .state('login', {
-           url: '/login',
-           //abstract: true,
-           templateUrl: 'src/login/login.html',
-           controller: 'LoginCtrl'
-        })
+        //.state('login', {
+        //   url: '/login',
+        //   //abstract: true,
+        //   templateUrl: 'src/login/login.html',
+        //   controller: 'LoginCtrl'
+        //})
         
-        // .state('login', { 
-        //     url: '/login',
-        //     templateUrl: 'src/loginSecond/loginSecond.html',
-        //     controller: 'LoginCtrl'
-        // })
+         .state('login', {
+             url: '/login',
+             templateUrl: 'src/loginSecond/loginSecond.html',
+             controller: 'LoginCtrl'
+         })
         
         .state('tabs', {
             url: '/tabs',
@@ -632,6 +632,13 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
             controller: 'saleQuoteRemarkCtrl'
         })
         //销售报价 end-------
+        //忘记密码start
+        .state('forgetPass', {
+            url: '/forgetPass',
+            templateUrl: 'src/settings/forgetPass/forgetPass.html',
+            controller: 'forgetPassCtrl'
+        })
+        //忘记密码end
     ;
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider  // /home/login

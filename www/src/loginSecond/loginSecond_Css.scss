@@ -46,14 +46,16 @@
     margin-top:10px;
   }
    .login_radiosele{
-    float: right;
-    margin-top:15px;
-    margin-right:17%;
-     margin-left: 55%;
+     width: 68%;
+      float: right;
+      margin-top:15px;
+      margin-right:17%;
+      margin-left: 55%;
   }
    .login_radioseleimg{
-    width:20px;
-    height:20px;
+     float: right;
+     width:20px;
+     height:20px;
   }
    .login_contentdeleimg{
     width:20px;
@@ -96,6 +98,14 @@
     }
   .footPic{
     position: relative;
+  }
+
+  .loginforget{
+    font-size:14px;
+    color: #ffffff;
+    float: left;
+    margin-top:-1px;
+    display: inline-block;
   }
 }
 

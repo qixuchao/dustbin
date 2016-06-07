@@ -48,10 +48,12 @@
   float: right;
   margin-top:15px;
   margin-right:17%;
+  width: 65%;
 }
 .login .login_radioseleimg{
   width:20px;
   height:20px;
+  float:right;
 }
 .login .login_contentdeleimg{
   width:20px;
@@ -80,4 +82,11 @@
   border: none;
   border-radius:15px;
 
+}
+.login .loginforget{
+  font-size:14px;
+  color: #ffffff;
+  float: left;
+  margin-top:-1px;
+  display: inline-block;
 }

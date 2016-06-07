@@ -11,10 +11,13 @@
                 
                 <img ng-if="logindeleteimgflag" id="cls" class="login_contentdeleimg" src="img/login/delete@2x.png" ng-click="deletepass()" alt="" />
 
-                <div class="login_radiosele" ng-click="loginradioSele()">
-                    <img ng-if="loginradioimgflag" class="login_radioseleimg"src="img/login/remuseroutline@2x.png" alt=""/>
-                    <img ng-if="!loginradioimgflag" class="login_radioseleimg"src="img/login/remuserfill@2x.png" alt=""/>
-                    <span class="login_radioselerem">记住密码</span>
+                <div class="login_radiosele">
+                    <span class="loginforget" ng-click="forgetPW()">忘记密码</span>
+                    <span ng-click="loginradioSele()">
+                        <span class="login_radioselerem">记住密码</span>
+                        <img ng-if="loginradioimgflag" class="login_radioseleimg"src="img/login/remuseroutline@2x.png" alt=""/>
+                        <img ng-if="!loginradioimgflag" class="login_radioseleimg"src="img/login/remuserfill@2x.png" alt=""/>
+                    </span>
                 </div>
                 <div>
                     <button class="login_button" ng-click="login();">登录</button>
