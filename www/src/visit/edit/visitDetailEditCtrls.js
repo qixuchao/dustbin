@@ -587,8 +587,8 @@ visitModule.controller('visitEditCtrl', [
 
 
 visitModule.controller('visitContactCtrl', [
-	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','LoginService','$ionicPopover','$ionicScrollDelegate','$rootScope','$cordovaDialogs','$state',
-	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,LoginService,$ionicPopover,$ionicScrollDelegate,$rootScope,$cordovaDialogs,$state) {
+	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','LoginService','$ionicPopover','$ionicScrollDelegate','$rootScope','$cordovaDialogs','$state','employeeService',
+	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,LoginService,$ionicPopover,$ionicScrollDelegate,$rootScope,$cordovaDialogs,$state,employeeService) {
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			if(fromState && toState && fromState.name == 'ContactCreate' && toState.name == 'visit.contact'){
 				var loadingTime = 500;
@@ -909,4 +909,8 @@ visitModule.controller('visitContactCtrl', [
 			$scope.selectContactModal.hide();
 			$state.go('ContactCreate');
 		}
+		$scope.goDetail = function(i){
+			employeeService.set_employeeListvalue(i);
+			$state.go('userDetail');
+		};
 	}]);

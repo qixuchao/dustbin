@@ -1,16 +1,4 @@
 <ion-view class="CarDetail">
-    <!--<div class="top-back3 absolute animated fadeIn" ng-class="!showTitle?'animated fadeOut':'animated fadeIn'" ng-show="showTitle">-->
-        <!--<div class="row row-center title" >-->
-            <!--<div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>-->
-            <!--<div class="col col-69 text-center">车辆信息详情</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="top-back2 absolute top-back"  ng-show="titleStatus">-->
-        <!--<div class="row row-center title" >-->
-            <!--<div class="col col-15" ng-click="goBack()"><i class="ion-chevron-left"></i></div>-->
-            <!--<div class="col col-69 text-center">车辆信息详情</div>-->
-        <!--</div>-->
-    <!--</div>-->
         <div class="top-back">
             <div class="row row-center title ">
                 <div class="col col-15" ng-click="back()"><i class="ion-chevron-left"></i></div>
@@ -22,11 +10,16 @@
                         <img ng-src="img/car/Oval.png" class="pointImg">
                     </div>
                     <div class="col col-95 col-center colText" >
-                        {{carInfo1.describe}}
+                        <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                            {{carInfo1.productionDate1}}&nbsp;&nbsp;{{carInfo1.describe}}
+                        </ion-scroll>
                     </div>
                 </div>
                 <div class="row row2 row-center">
-                    质保:&nbsp;&nbsp;{{carInfo1.productionDate1}}</div>
+                    <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                    {{carInfo1.directCustomer}}
+                    </ion-scroll>
+                </div>
                 <div class="row row2 row-center">
                     {{projectName}}&nbsp;&nbsp;{{carInfo1.projectName}}</div>
             </div>
@@ -205,6 +198,12 @@
                 更新日期
             </div>
             <div class="col col-center col-56">{{carInfo1.newDate}}</div>
+        </div>
+        <div class="row row-center rowType">
+            <div class="col col-center col-40">
+                装车日期
+            </div>
+            <div class="col col-center col-56">{{carInfo1.ZZ0026}}</div>
         </div>
         <div class="lineType1"></div>
             <div class="Car_countentbasic">

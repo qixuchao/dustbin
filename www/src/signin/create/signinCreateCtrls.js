@@ -109,6 +109,7 @@ signinModule.controller('signinCreateCtrl', [
         promise.success(function(response, status, obj, config){
         	if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG=="S"){
         		if(successCallback) successCallback(response);
+				signinService.signinListNeedRefresh = true;
         		//Prompter.hideLoading();
         	}else if(response && response.ES_RESULT && response.ES_RESULT.ZRESULT && response.ES_RESULT.ZRESULT != null){
         		Prompter.showLoadingAutoHidden(response.ES_RESULT.ZRESULT, false, 2000);

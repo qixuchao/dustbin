@@ -398,6 +398,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                         carInfo.terminal = carInfoData.ZSRV_REP_TEXT;
                         carInfo.terminalId = carInfoData.ZSRV_REPRENT;
                         carInfo.quality = carInfoData.Z_SHORT_TEXT;
+                        carInfo.ZZ0026 = carInfoData.ZZ0026;
 
                         //console.log(carInfo.describe);
 

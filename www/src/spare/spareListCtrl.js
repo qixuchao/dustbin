@@ -281,8 +281,39 @@ spareModule.controller('SpareListCtrl',['$cordovaDialogs','$ionicScrollDelegate'
         //
 }
 ])
-.controller('SpareDetailCtrl',['$ionicHistory','$rootScope','$scope','SpareListService',function($ionicHistory,$rootScope,$scope,SpareListService){
+.controller('SpareDetailCtrl',['$ionicHistory','$rootScope','$scope','SpareListService','HttpAppService','Prompter','$cordovaToast',function($ionicHistory,$rootScope,$scope,SpareListService,HttpAppService,Prompter,$cordovaToast){
         $scope.spareList=SpareListService.get();
+        $scope.spareLoadmoreIm = function() {
+            Prompter.showLoading('正在加载...');
+            var url = ROOTCONFIG.hempConfig.basePath + 'GET_PRODUCT_DETAIL';
+            var data = {
+                "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
+                "IS_USER": { "BNAME": window.localStorage.crmUserName},
+                "IS_PRODMAS_INPUT": {"SHORT_TEXT": $scope.spareInfo}
+            };
+            var startTime=new Date().getTime();
+            HttpAppService.post(url, data).success(function (response) {
+                Prompter.hideLoading();
+                if (response.ES_RESULT.ZFLAG == 'S') {
+
+
+                }else {
+                    $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+                }
+            }).error(function (response, status, header, config) {
+                Prompter.hideLoading();
+                var respTime = new Date().getTime() - startTime;
+                //超时之后返回的方法
+                if(respTime >= config.timeout){
+                    //console.log('HTTP timeout');
+                    if(ionic.Platform.isWebView()){
+                        //$cordovaDialogs.alert('请求超时');
+                    }
+                }
+                $ionicLoading.hide();
+            });
+
+        };
         $scope.back=function(){
             $rootScope.$broadcast('customercontactCreatevalue','false');
             $ionicHistory.goBack();

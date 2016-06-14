@@ -18,6 +18,12 @@ signinModule.controller('signinListCtrl', [
             	$scope.reloadData();
             }
         }
+		if(fromState && toState && fromState.name == 'signin.create' && toState.name == 'signin.list'){
+			if(signinService.signinListNeedRefresh){
+				signinService.signinListNeedRefresh = false;
+				$scope.reloadData();
+			}
+		}
     });
 	
 	$scope.config = {
