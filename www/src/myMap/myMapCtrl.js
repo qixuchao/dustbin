@@ -114,7 +114,7 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
         var opts = {
             width: 0,     // 信息窗口宽度
             height: 0,      // 信息窗口高度
-            title: '<div>名称:' + content.title + '</div><div>类型:' + content.tags + '</div>'
+            title: '<div>类别:' + content.tags + '</div><div>名称:' + content.title + '</div>'
         };
         var position = e.target.getPosition();
         console.log('position = ' + angular.toJson(position));
