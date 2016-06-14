@@ -45,7 +45,7 @@ worksheetModule.controller("customerFuZeCtrl",['$scope','$state','$http','$timeo
             $scope.relatedPopoverhide();
         };
         $scope.goDetail = function(i){
-            console.log(i);
+            //console.log(i);
             employeeService.set_employeeListvalue(i);
             $state.go('userDetail');
         };
