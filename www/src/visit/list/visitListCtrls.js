@@ -15,7 +15,7 @@ visitModule.controller('visitListCtrl', [
 				$scope.init();
 			}
 		});
-	$scope.config = {
+	$scope.config = { 
 		//搜索相关
 		historysLocalStorageKey: 'visitListQueryHistory',
 		searchText: '',

@@ -105,6 +105,16 @@
                                 <select ng-model="config.currentFWDQ" ng-options="gzch as gzch.STEXT for gzch in config.FWDQ"></select>
                             </div>
                         </div>
+                        <div canNotClickEnterListMode class="filter-time ">
+                            <div class="filter-time-title filter-title">人员选择</div>
+                            <div class="filter-times-start-end">
+                                <div class="search-box-sect filter-eme-select" ng-click="goEmployeeSelectModal();">
+                                    <i class="ion-ios-search-strong"></i>
+                                    <span ng-bind="config.selectPe.NAME_LAST"></span>
+                                </div>
+                            </div>
+                        </div>
+
                         <div canNotClickEnterListMode class="filter-worksheet-type">
                             <div class="filter-worksheet-type-title filter-title">工单类型</div>
                             <div class="filter-types">
