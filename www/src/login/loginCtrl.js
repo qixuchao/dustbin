@@ -343,5 +343,7 @@ loginModule
                 }
             };
 
-
+            $scope.forgetPW = function(){
+                $state.go("forgetPass");
+            }
         }]);

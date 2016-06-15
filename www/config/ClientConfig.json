@@ -1,23 +1,23 @@
 {
-  "hempConfig": {
-    "basePath": "http://117.28.248.23:9388/crmprod/api/CRMAPP/",
+  "hempConfig": { 
+    "basePath": "http://117.28.248.23:9388/test/api/CRMAPP/",
     "basePathPro": "https://crmmp.atlbattery.com:9343/crmprod/api/CRMAPP/",
     "basePathUat": "https://crmmp.atlbattery.com:9343/crmuat/api/CRMAPP/",
     "basePathTest": "http://117.28.248.23:9388/test/api/CRMAPP/",
     "AppUpdateUrl": "https://www.pgyer.com/crm-catl-atl-pro",
     "baseEnvironment": "CATL",
     "ISDEBUG": true
-  },
-  "baiduMap": {
+  }, 
+  "baiduMap": { 
     "pointQueryUrl": "http://api.map.baidu.com/geosearch/v3/nearby",
     "locationToAddQueryUrl": "http://api.map.baidu.com/geocoder/v2",
-    "apiKey": "cWKXNjK17RG0If17cgQ8Yd6bO8MWpfUC",
+    "apiKey": "gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru",
     "apiKeyPro": "cWKXNjK17RG0If17cgQ8Yd6bO8MWpfUC",
     "apiKeyTest&Uat": "gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru",
-    "geotableId": "142126",
+    "geotableId": "142084",
     "geotableIdPro": "142126",
     "geotableIdUat": "142084",
     "geotableIdTest": "140851",
     "radius": 30000
-  }
+  } 
 }

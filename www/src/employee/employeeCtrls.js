@@ -245,7 +245,7 @@ employeeModule
         $scope.employeequeryphone = function(data){
             //console.log(angular.toJson(data));
             //console.log(data.TEL_NUMBER);
-            if((data.TEL_NUMBER==undefined) && (data.MOB_NUMBER==undefined)){
+            if((data.TEL_NUMBER==undefined || data.TEL_NUMBER=='') && (data.MOB_NUMBER==undefined || data.MOB_NUMBER=='')){
                 $cordovaToast.showShortBottom('无号码');
             }else{
                 var number=[];
@@ -411,28 +411,28 @@ employeeModule
         };
         $scope.updateCustomer();
             //拨打电话
-            //$scope.employeeshowphone1 = function(data){
-            //
-            //    if((data==undefined)){
-            //        $cordovaToast.showShortBottom('无号码');
-            //    }else{
-            //        var number={
-            //            text:data
-            //        };
-            //        $ionicActionSheet.show({
-            //            buttons:{text:data},
-            //            titleText: '拨打电话',
-            //            cancelText: '取消',
-            //            buttonClicked: function (index) {
-            //                console.log(data+'1');
-            //                if (index == 0) {
-            //                    $window.location.href = "tel:" + data;
-            //                    return true;
-            //                }
-            //            }
-            //        })
-            //    }
-            //};
+            $scope.employeeshowphone1 = function(data){
+
+                if((data==undefined) || data==''){
+                    $cordovaToast.showShortBottom('无号码');
+                }else{
+                    var number=[{
+                        text:data
+                    }];
+                    $ionicActionSheet.show({
+                        buttons:number,
+                        titleText: '拨打电话',
+                        cancelText: '取消',
+                        buttonClicked: function (index) {
+                            //console.log(data+'1');
+                            if (index == 0) {
+                                $window.location.href = "tel:" + data;
+                                return true;
+                            }
+                        }
+                    })
+                }
+            };
         $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
                 if(fromState && toState && fromState.name == 'customerList'){
                     $scope.updateCustomer();

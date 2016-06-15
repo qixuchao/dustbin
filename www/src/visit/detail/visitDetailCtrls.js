@@ -16,13 +16,6 @@ visitModule.controller('visitDetailCtrl', [
 			noComment : "",
 			edit : ""
 		};
-//<<<<<<< HEAD
-//		// cordova.plugins.Keyboard.disableScroll(true);
-//		$scope.edit=false;
-//=======
-//		//cordova.plugins.Keyboard.disableScroll(true);
-//		//$scope.edit=false;
-//>>>>>>> dai
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			console.log(toState.name);
 			if(toState.name == 'visit.detail'){

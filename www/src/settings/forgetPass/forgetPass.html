@@ -1,0 +1,51 @@
+<ion-view id="my-changepass-view" align-title="center" >
+    <ion-content id="my-changepass-content" scroll="false" has-bouncing="false">
+        
+        <div class="changepass-box">
+            <div class="cp-title" ng-bind="config.changeBoxTitle">忘记密码</div>
+            <div class="row">
+                <div class="col-40">用户名</div>
+                <div class="col-60">
+                    <input type="text" ng-change="otherInputChangeForConfirm();" placeholder="请输入用户名" ng-model="config.username">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-40">新密码</div>
+                <div class="col-60">
+                    <input type="password" ng-change="otherInputChangeForConfirm();" placeholder="请输入" ng-model="config.newPassWord">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-40">确认新密码</div>
+                <div class="col-60">
+                    <input type="password" ng-change="otherInputChangeForConfirm();" placeholder="请输入" ng-model="config.newPassWord2">
+                </div>
+            </div>
+            <div class="row" ng-if="config.isReset">
+                <div class="col-40">手机号</div>
+                <div class="col-60">
+                    <input ng-change="cellPhoneChange();" type="text" placeholder="请输入手机号" ng-model="config.cellphone">
+                </div>
+            </div>
+            <div class="row" ng-show="config.sendValidCodeOk" ng-if="config.isReset">
+                <div class="col-40">验证码</div>
+                <div class="col-60">
+                    <input type="number" ng-change="otherInputChangeForConfirm();" placeholder="请输入验证码" ng-model="config.valideCode">
+                </div>
+            </div>
+
+            <div class="btn-valid-cellphone button button-clear" ng-disabled="config.btnGetCodeDisabled" ng-bind="config.getValidBtnText" ng-click="getValidCode();" ng-if="config.isReset"></div>
+
+            <div class="btn-confirm button" ng-click="confirmChangePass();" ng-disabled="config.btnConfirmDisabled">确认</div>
+            <div class="password-valid-tip">
+                <span>*</span>
+                <span>密码需为最少6位字母/数字</span>
+            </div>
+        </div>
+        
+        <div class="return-button" ng-if="config.isReset">
+            <img class="cancel" src="img/apps/cancel.png" ng-click="$ionicGoBack();">
+        </div>
+        
+    </ion-content>
+</ion-view>
