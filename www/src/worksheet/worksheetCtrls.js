@@ -999,8 +999,13 @@ worksheetModule.controller("WorksheetListCtrl",[
 			queryParams.IS_SEARCH.PRODUCT_ID = $scope.config.carCodeFromCarDetail && $scope.config.carCodeFromCarDetail.code1 ? $scope.config.carCodeFromCarDetail.code1 : null;
 		}
 		if($scope.config.selectPe && $scope.config.selectPe!=null){
-			queryParams.T_IN_PARTNER = {
-				PARTNER_NO: $scope.config.selectPe.PARTNER
+			queryParams.IT_PARTNER = {
+				//PARTNER_NO: $scope.config.selectPe.PARTNER
+				item: [
+					{
+						PARTNER_NO: $scope.config.selectPe.PARTNER.substring(2)
+					}
+				]
 			};
 		}
 

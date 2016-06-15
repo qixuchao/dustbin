@@ -1059,7 +1059,6 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                             parseFloat(getStyle('paddingTop')) -
                             parseFloat(getStyle('paddingBottom')) + 'px';
                     };
-
                     return val;
                 } : function (name) {
                     return getComputedStyle(elem, null)[name];

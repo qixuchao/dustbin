@@ -173,12 +173,17 @@
 
 ion-content.sigle-show-model{
     .img-wrapper{
-        @include display-flex;
-        @include justify-content(center);
-        @include align-items(center);
-        img{
-          max-width: 100%;
-          max-height: 100%;
+        //.scroll{
+            @include display-flex;
+            @include justify-content(center);
+            @include align-items(center);
+            img{
+              max-width: 100%;
+              max-height: 100%;
+            }
+        //}
+        .scroll{
+            padding: 10px !important;
         }
     }
   }

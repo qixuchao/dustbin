@@ -56,20 +56,27 @@ visitModule.controller('visitDetailCtrl', [
 			$scope.destoryPhotoModel();
 		});
 
+		$scope.test = function(){
+			console.log("abcdefg");
+		};
+
 		$scope.showSinglePicture = function(item, index){
 			if($scope.config.photoModel == null){
 				$ionicModal.fromTemplateUrl('src/visit/photo/model.html', {
 			        scope: $scope,
 			        animation: 'slide-in-up',
-			        focusFirstInput: true
+			        focusFirstInput: true,
+			        backdropClickToClose: false
 			    }).then(function (modal) {
 			        $scope.config.photoModel = modal;
 			        $scope.config.currentPhotoSrc = item.LINE;
 					$scope.config.photoModel.show();
+					$scope.config.photoModel.$el.addClass("visit-photo-show-modal");
 		    	});
 			}else{
 				$scope.config.currentPhotoSrc = item.LINE;
 				$scope.config.photoModel.show();
+				$scope.config.photoModel.$el.addClass("visit-photo-show-modal");
 			}
 		};
 
