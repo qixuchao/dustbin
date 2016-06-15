@@ -453,7 +453,8 @@ salesModule
                 var data = {
                     "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_USER": {"BNAME": window.localStorage.crmUserName},
-                    "IS_ID": {"OBJECT_ID": saleChanService.obj_id}
+                    //"IS_ID": {"OBJECT_ID": saleChanService.obj_id}
+                    "IS_ID": {"OBJECT_ID": '40000183'}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_DETAIL', data)
                     .success(function (response) {
@@ -478,10 +479,31 @@ salesModule
                             }
                             $scope.relationArr = response.ET_RELEATION.item;
                             relationService.chanceDetailPartner = $scope.chanceDetails;
+                            console.log($scope.relationArr);
                             angular.forEach($scope.relationArr, function (x) {
                                 x.position = getRelationsType(x.PARTNER_FCT);
                                 x.PARTNER = x.PARTNER_NO;
                             });
+                            console.log($scope.relationArr);
+                            for(var i=0;i<$scope.relationArr.length;i++){
+                                if($scope.relationArr[i].PARTNER_FCT == '00000023'){
+                                    for(var j=0;j<response.ET_COMPETITOR.item.length;j++){
+                                        if($scope.relationArr[i].PARTNER_NO == response.ET_COMPETITOR.item[j].PARTNER_NO){
+                                            $scope.relationArr[i].ADVANTAGE = response.ET_COMPETITOR.item[j].ADVANTAGE;
+                                            $scope.relationArr[i].DISADVANTAGE = response.ET_COMPETITOR.item[j].DISADVANTAGE;
+                                        }
+                                    }
+                                }
+                                if($scope.relationArr[i].PARTNER_FCT == '00000015'){
+                                    for(var j=0;j<response.ET_CONTACT.item.length;j++){
+                                        if($scope.relationArr[i].PARTNER_NO == response.ET_CONTACT.item[j].PARTNER_NO){
+                                            $scope.relationArr[i].INFLUENCE = response.ET_CONTACT.item[j].INFLUENCE;
+                                            $scope.relationArr[i].NEED = response.ET_CONTACT.item[j].NEED;
+                                            $scope.relationArr[i].OUR_OPINION = response.ET_CONTACT.item[j].OUR_OPINION;
+                                        }
+                                    }
+                                }
+                            }
                             $scope.chanceDetails.PHASE = getSaleStage($scope.chanceDetails.PHASE);
                             getOldCustomer();
                             Prompter.hideLoading();
@@ -1040,4 +1062,59 @@ salesModule
                 $scope.moneyTypesModal.remove();
                 $scope.selectCustomerModal.remove();
             });
+        }]);
+
+salesModule
+    .controller('saleChanContactCtrl', ['$scope',
+        '$state',
+        '$timeout',
+        '$ionicLoading',
+        '$ionicPopover',
+        '$ionicModal',
+        '$ionicScrollDelegate',
+        '$ionicHistory',
+        'ionicMaterialInk',
+        'ionicMaterialMotion',
+        'saleActService',
+        'Prompter',
+        'HttpAppService',
+        'saleChanService',
+        'customeService',
+        'LoginService','contactService',
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
+                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService,contactService) {
+            var x = saleChanService.goOtherPage;
+            console.log(x);
+            $scope.goDetail = function(){
+                contactService.set_ContactsListvalue(x.PARTNER);
+                $state.go('ContactDetail');
+            }
+        }]);
+salesModule
+    .controller('saleChanCompetitionCtrl', ['$scope',
+        '$state',
+        '$timeout',
+        '$ionicLoading',
+        '$ionicPopover',
+        '$ionicModal',
+        '$ionicScrollDelegate',
+        '$ionicHistory',
+        'ionicMaterialInk',
+        'ionicMaterialMotion',
+        'saleActService',
+        'Prompter',
+        'HttpAppService',
+        'saleChanService',
+        'customeService',
+        'LoginService',
+        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
+                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService) {
+            var x = saleChanService.goOtherPage;
+            console.log(x);
+            $scope.goDetail = function(){
+                x.PARTNER_ROLE = 'Z00002';
+                customeService.set_customerListvalue(x);
+                saleActService.isFromRelation = true;
+                $state.go('customerDetail');
+            }
         }]);

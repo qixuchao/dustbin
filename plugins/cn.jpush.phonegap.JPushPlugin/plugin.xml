@@ -10,7 +10,7 @@
     <keywords>JPush,push</keywords>
     <license>Apache 2.0 License</license>
     
-    <preference name="API_KEY" value="b3793e32c69f2945bb61ae2f"/>
+    <preference name="API_KEY" value="a0439f8c3cea3bd2ece24454"/>
     
     <engines>
         <engine name="cordova" version=">=3.0"/>
@@ -46,7 +46,7 @@
         <framework src="libz.dylib" weak="true" />
 
         <config-file target="*PushConfig.plist" parent="APP_KEY">
-            <string>b3793e32c69f2945bb61ae2f</string>
+            <string>a0439f8c3cea3bd2ece24454</string>
         </config-file>
     </platform>
 
@@ -161,7 +161,7 @@
             <receiver android:name="cn.jpush.android.service.AlarmReceiver"/>
             <!-- Required  . Enable it you can get statistics data with channel -->
             <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
-            <meta-data android:name="JPUSH_APPKEY" android:value="b3793e32c69f2945bb61ae2f"/>
+            <meta-data android:name="JPUSH_APPKEY" android:value="a0439f8c3cea3bd2ece24454"/>
         </config-file>
         <source-file src="src/android/jpush-android-2.1.3.jar" target-dir="libs"/>
         <source-file src="src/android/armeabi/libjpush213.so" target-dir="libs/armeabi"/>
