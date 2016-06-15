@@ -84,6 +84,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             currentGuZhangBuJian: null,      //{ "CODEGRUPPE": "04", "COMPONENT": "电芯" }
             currentGuZhangMingCheng: null,   //{CODE: '', REASON: ''}
             currentResultCategory: null,  // 原因分类
+            currentTreatment: null, //处理方式
 
             isLoading_BujianReason: false,
             isLoading_response: false,
@@ -113,6 +114,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var katalogart = $scope.config.currentChanPinLeiXing.KATALOGART;
             var codegrupper = $scope.config.currentGuZhangBuJian.CODEGRUPPE;
             var code = $scope.config.currentGuZhangMingCheng.CODE;
+            var treatment = $scope.config.currentTreatment.TREATMENT;
             
             var startStr = $scope.datas.detail.ES_OUT_LIST.START_TIME_STR;
             var startDateStr = new Date(startStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
@@ -124,12 +126,24 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var endDate = endDateStr.split(" ")[0];
             var endTime = endDateStr.split(" ")[1];
             //console.log(startStr +"          "+endStr);
-            console.log(startDate+"  "+startTime+"     "+endDate+" "+endTime);
+
+            var malStr = $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR;
+            var malTimeStr = new Date(endStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
+            var malDate = malTimeStr.split(" ")[0];
+            var malTime = malTimeStr.split(" ")[1];
+
+            var visitsStr = $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR;
+            var visitsDateStr = new Date(endStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
+            var visitsDate = visitsDateStr.split(" ")[0];
+            var visitsTime = visitsDateStr.split(" ")[1];
+            console.log(startDate+"  "+startTime+"     "+endDate+" "+endTime+" "+malDate+" "+ malTime+" "+visitsDate+" "+visitsTime);
+
             var header = {
                 IMPACT: (!impact) ? "" : impact,
                 SCENARIO: (!scenario) ? "" : scenario,
                 RESPONSE: (!response) ? "" : response,
                 DEFECT: (!defect) ? "" : defect,
+                ZZDEALS: (!treatment) ? "" : treatment,
                 
                 COMP_TYPE: (!katalogart) ? "" : katalogart,
                 COMPONENT: (!codegrupper) ? "" : codegrupper,
@@ -141,6 +155,10 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 START_TIME: startTime,
                 END_DATE: endDate,
                 END_TIME: endTime,
+                ZZMAL_DATS: malDate,
+                ZZMAL_TIMS: malTime,
+                ZZVISITS_DATS: visitsDate,
+                ZZVISITS_TIMS: visitsTime,
 
                 ZZBXR: $scope.datas.detail.ES_OUT_LIST.ZZBXR,
                 ZZBXDH: $scope.datas.detail.ES_OUT_LIST.ZZBXDH,
@@ -297,6 +315,12 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     ZZYYFL_DESC: pleaseChoose,
                     ZZYYFL: null
                 }
+            ],
+            treatmentS:[
+                {
+                    TREARTMENT_DESC: pleaseChoose,
+                    TREARTMENT: null
+                }
             ]
         };
         $scope.datas.chanPinLeiXingS.addItem = function(item){
@@ -429,6 +453,10 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 date =  new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
             }else if(type=='end'){
                 date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+            } else if(type=='malTime') {
+                date = new Date($scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+            } else if(type=='visitsTime') {
+                date = new Date($scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
             }
             __selectCreateTimeBasic(type, title, date);
         }
@@ -445,6 +473,18 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 }else{
                     date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+                }
+            } else if(type == 'malTime') {
+                if(!$scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR==""){
+                    date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                }else{
+                    date = new Date($scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
+                }
+            } else if(type == 'visitsTime') {
+                if (!$scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR == "") {
+                    date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                } else {
+                    date = new Date($scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
                 }
             }
             __selectCreateTimeBasic(type, title, date);
@@ -484,6 +524,12 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                             $cordovaToast.showShortBottom("最大时间不能小于最小时间!");
                         }
                         //$scope.datas.detail.ES_OUT_LIST.END_TIME_STR = time;
+                        break;
+                    case 'malTime':
+                            $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR = time;
+                        break;
+                    case 'visitsTime':
+                            $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR = time;
                         break;
                 }
                 if(!$scope.$$phrese){
@@ -561,9 +607,15 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             $scope.datas.detail = angular.copy(worksheetDataService.wsDetailData);
             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
+
             if($scope.datas.detail.ES_OUT_LIST.ZZXYHF!="X"){
                 $scope.datas.detail.ES_OUT_LIST.ZZXYHF = "";
             }
+
+            $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR = $scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS + " " + $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIMS;
+            $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR = $scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS + " " + $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIMS;
+            
+            
             var texts = $scope.datas.detail.ET_TEXT.item;
             if(texts){
                 for(var i = 0; i < texts.length; i++){
@@ -581,6 +633,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             __initScenario();
             __initResponse();
             __initGuZhangFeiLei();
+            __initTreatment();
             //__initImpact();
         };
 
@@ -705,6 +758,42 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                     $scope.config.isLoading_defect = false;
             });
         }
+
+            function __initTreatment(){
+                console.log("11111111111111" + $scope.datas.detail.ES_OUT_LIST.ZZDEALS);
+                var url = ROOTCONFIG.hempConfig.basePath + 'LIST_DEALS';
+                var defaults = {
+                    "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+                    "IS_USER": { "BNAME": window.localStorage.crmUserName }
+                };
+                var promise = HttpAppService.post(url, defaults);
+                $scope.config.isLoading_treatment = true;
+                promise.success(function(response){
+                    var items = response.ET_OUT_LIST.item_out;
+
+                    //$scope.datas.guZhangFeiLenS = $scope.datas.guZhangFeiLenS.concat(items);
+                    for(var j = 0; j < items.length; j++){
+                        $scope.datas.treatmentS.push({
+                            TREATMENT: items[j].ZEDEALS,
+                            TREARTMENT_DESC: items[j].DESCRIPTION
+                        });
+                    }
+                    console.log("222222222" + angular.toJson($scope.datas.treatmentS));
+                    console.log("3333333333" + $scope.datas.detail.ES_OUT_LIST.ZZDEALS);
+                    for(var i = 0; i < $scope.datas.treatmentS.length; i++){
+                        if($scope.datas.treatmentS[i].TREARTMENT_DESC == $scope.datas.detail.ES_OUT_LIST.ZZDEALS){
+                            $scope.config.currentTreatment = $scope.datas.treatmentS[i];
+                        }
+                    }
+                    if($scope.config.currentTreatment==null){
+                        $scope.config.currentTreatment = $scope.datas.treatmentS[0];
+                    }
+                    $scope.config.isLoading_defect = false;
+                })
+                    .error(function(errorRes){
+                        $scope.config.isLoading_defect = false;
+                    });
+            }
 
         function __initImpactFromRemote(){
             var url = worksheetHttpService.xialazhi.list_impact.url;

@@ -43,7 +43,7 @@
             <ion-list>
                 <ion-item class="selectItem" ng-repeat="x in relationArr | filter:input.relation"
                           ng-click="isReplace?replaceRelation(x):addRelationModal(x)">
-                    <span ng-bind-html="x.NAME | highlight:input.search"></span> <img ng-if="!x.flag" class="selectImg"
+                    <span ng-bind-html="x.NAME | highlight:input.search" style="word-wrap: break-word;word-break: normal;white-space:normal;"></span> <img ng-if="!x.flag" class="selectImg"
                                                                                       src="img/saleList/blank.png">
                     <img ng-if="x.flag" class="selectImg" src="img/saleList/selected.png">
                 </ion-item>

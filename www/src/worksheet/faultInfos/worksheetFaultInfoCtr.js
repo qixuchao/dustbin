@@ -177,6 +177,14 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             }else {
                 var yyfl = $scope.config.yyfl.ZZYYFL;
             }
+            if($scope.config.treatment == null || $scope.config.treatment ==undefined || $scope.config.treatment ==""){
+                Prompter.hideLoading();
+                $cordovaToast.showShortBottom("请选择处理方式");
+                return;
+                //var DEFECT = '';
+            }else {
+                var treatment = $scope.config.treatment.ZEDEALS;
+            }
             if($scope.config.currentGuZhangMingCheng == null || $scope.config.currentGuZhangMingCheng ==undefined || $scope.config.currentGuZhangMingCheng ==""){
                 Prompter.hideLoading();
                 $cordovaToast.showShortBottom("请选择故障名称");
@@ -213,7 +221,8 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
                         "COMP_TYPE": KATALOGART,
                         "COMPONENT": CODEGRUPPE,
                         "REASON": CODE,
-                        "ZZYYFL_1" : yyfl
+                        "ZZYYFL_1" : yyfl,
+                        "ZZDEALS" : treatment
                 },
                     "IT_TEXT": {
                     "item": item
@@ -282,6 +291,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             responseItem : "",
             defectItem : "",
             yyfl : "",
+            treatment : '',
             currentChanPinLeiXing: "",  //{"KATALOGART": "F0", "COMP_TYPE": "eBus",}
             currentGuZhangBuJian: "",      //{ "CODEGRUPPE": "04", "COMPONENT": "电芯" }
             currentGuZhangMingCheng: "",   //{CODE: '', REASON: ''}
@@ -376,6 +386,23 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             for(var i=0;i<$scope.yyflDetail.length;i++){
                 if($scope.yyflDetail[i].ZZYYFL === $scope.faulInfos.ZZYYFL_1){
                     $scope.config.yyfl = $scope.yyflDetail[i];
+                }
+            }
+        }).error(function(err){
+        });
+        //处理方式
+        var urltreatment = ROOTCONFIG.hempConfig.basePath + 'LIST_DEALS';
+        var datatreatment = {
+            "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+            "IS_USER": { "BNAME": window.localStorage.crmUserName }
+        }
+        console.log(datatreatment);
+        HttpAppService.post(urltreatment, datatreatment).success(function(response){
+            console.log(response);
+            $scope.treatmentDetail = response.ET_OUT_LIST.item_out;
+            for(var i=0;i<$scope.treatmentDetail.length;i++){
+                if($scope.treatmentDetail[i].DESCRIPTION === $scope.faulInfos.ZZDEALS){
+                    $scope.config.treatment = $scope.treatmentDetail[i];
                 }
             }
         }).error(function(err){

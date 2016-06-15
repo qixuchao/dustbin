@@ -380,7 +380,11 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                         carInfo.endDate = Date2(carInfoData.END_DATE);
                         carInfo.buyDate = Date2(carInfoData.ZZ0019);
                         carInfo.operationDate = Date2(carInfoData.ZZ0020);
-                        carInfo.newDate = carInfoData.ZZ0021;
+                        if(carInfoData.ZZ0021=='0000-00-00'){
+                            carInfo.newDate = '';
+                        }else{
+                            carInfo.newDate = carInfoData.ZZ0021;
+                        }
                         carInfo.point = point;
                         carInfo.code = code;
                         carInfo.code1 = carInfoData.PRODUCT_ID;

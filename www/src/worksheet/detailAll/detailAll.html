@@ -1,35 +1,35 @@
 <ion-view class="saleActDetail worksheet-detail-view-public">
     <div id="saleTopBackId" class="top-back bar">
-            <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'" style="margin-left:0px;padding-left:0px;padding-top:20px;margin-top:15px;">
-                <div class="col col-10" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
-                <div class="col col-75 text-center">工单详细信息</div>
-                <div class="col-15 show-more-modal-content-source3 " ng-if="canShowMoreBtn();"  ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
-                    <span class="detail-all-more-button {{config.statusStr}} {{config.typeStr}}"><i class="ion-ios-more"></i></span>
-                </div>
+        <div class="row row-center title" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'" style="margin-left:0px;padding-left:0px;padding-top:20px;margin-top:15px;">
+            <div class="col col-10" ng-click="goBack()"><i class="ion-chevron-left"></i></div>
+            <div class="col col-75 text-center">工单详细信息</div>
+            <div class="col-15 show-more-modal-content-source3 " ng-if="canShowMoreBtn();"  ng-click="showMoreModel($event, 'show-more-modal-content-source3');">
+                <span class="detail-all-more-button {{config.statusStr}} {{config.typeStr}}"><i class="ion-ios-more"></i></span>
             </div>
-            <div class="mainInfo" style="width:100%;top:60px;position:relative;height:125px;padding-left: 1rem;">
-                <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
-                    <span class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.kyhuMingCheng"></span>
-                </div> 
-                <div class="row row-center">
-                    <span class="crm-line-text" ng-bind-template="{{datas.detail.ES_OUT_LIST.TYPE_DESC}}&nbsp;-&nbsp;{{datas.detail.ydWorksheetNum}}"></span>
+        </div>
+        <div class="mainInfo" style="width:100%;top:60px;position:relative;height:125px;padding-left: 1rem;">
+            <div class="row row-center" ng-class="customerFlag?'animated fadeOut':'animated fadeIn'">
+                <span class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.kyhuMingCheng"></span>
+            </div>
+            <div class="row row-center">
+                <span class="crm-line-text" ng-bind-template="{{datas.detail.ES_OUT_LIST.TYPE_DESC}}&nbsp;-&nbsp;{{datas.detail.ydWorksheetNum}}"></span>
+            </div>
+            <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
+                <i class="ion-android-radio-button-off"></i>
+                <!--div class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div-->
+                <ion-scroll ng-if="!config.editMode" class="" direction="x" scrollbar-x="false" has-bouncing="false" style="height:2rem;">
+                    <div style="white-space: nowrap;font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
+                </ion-scroll>
+            </div>
+            <div class="row row-center detail-last-line" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
+                <div class="detail-customer">
+                    <div>外服人员:</div>
+                    <span ng-bind="datas.detail.waifuRenyuan"></span>
                 </div>
-                <div class="row row-center" ng-class="TitleFlag?'animated fadeOut':'animated fadeIn'">
-                    <i class="ion-android-radio-button-off"></i>
-                    <!--div class="crm-line-text" style="font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div-->
-                    <ion-scroll ng-if="!config.editMode" class="" direction="x" scrollbar-x="false" has-bouncing="false" style="height:2rem;">
-                        <div style="white-space: nowrap;font-size: .9rem;" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
-                    </ion-scroll>
-                </div>
-                <div class="row row-center detail-last-line" ng-class="statusFlag?'animated fadeOut':'animated fadeIn'">
-                    <div class="detail-customer">
-                        <div>外服人员:</div>
-                        <span ng-bind="datas.detail.waifuRenyuan"></span>
-                    </div>
-                    <!--select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select--> 
-                    <div class="detail-status">
-                        <div class="num" style="color:white;">状态:</div>
-                        <div ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
+                <!--select ng-class="{'border-bottom-white':isEdit}" ng-model="mySelect.status" ng-disabled="!isEdit" ng-options="x as x.value for x in statusArr" ng-click="showStatus()" style="{{'color:'+x}}">{{mySelect.status}}</select-->
+                <div class="detail-status">
+                    <div class="num" style="color:white;">状态:</div>
+                    <div ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
                                             'stat-new':(datas.detail.ES_OUT_LIST.STATU=='E0001'),
                                             'stat-sendedworker':(datas.detail.ES_OUT_LIST.STATU=='E0002'),
                                             'stat-refused':(datas.detail.ES_OUT_LIST.STATU=='E0003'),
@@ -40,16 +40,16 @@
                                             'stat-audited':(datas.detail.ES_OUT_LIST.STATU=='E0007'),
                                             'stat-returned':(datas.detail.ES_OUT_LIST.STATU=='E0008'),
                                             'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
-                                            'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div> 
-                    </div>
+                                            'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
                 </div>
             </div>
+        </div>
     </div>
-    
+
     <ion-scroll class="history-info-relation-line" direction="x" scrollbar-x="false" has-bouncing="false" style="padding-top:.4rem;height: 40px;background:white;z-index: 1;top: 185px;margin-top: 0px;">
         <div class="fill-height line-inner">
             <div class="relation-box left-1" ng-click="dibButtonClickHandler('xiangGuanFang');">
-                <i class="ion-link" style="font-size:2.1rem;line-height:2.4rem;"></i>                             
+                <i class="ion-link" style="font-size:2.1rem;line-height:2.4rem;"></i>
                 <style>
                     .history-info-relation-line .ion-link:before{
                         transform: rotate(140deg);
@@ -62,27 +62,27 @@
                 <span>相关方</span>
             </div>
             <div class="history-box left-2" ng-click="dibButtonClickHandler('jiaoYiLiShi');">
-                <i class="ion-ios-clock-outline" style="font-size:1.8rem;font-weight: bold;line-height: 2.2rem;text-align: center;"></i>                               
+                <i class="ion-ios-clock-outline" style="font-size:1.8rem;font-weight: bold;line-height: 2.2rem;text-align: center;"></i>
                 <span>交易历史</span>
                 <style>
                     .history-box .ion-ios-clock-outline:before{
                         font-weight: bolder;
                     }
                 </style>
-            </div> 
+            </div>
             <div class="info-box left-3" ng-click="dibButtonClickHandler('baoGongXinXi');">
                 <i class="ion-document-text" style="font-size: 1.8rem;line-height: 2.3rem;text-align: center;transform:rotate(180deg);-webkit-transform:rotate(180deg);"></i>
                 <span>费用结算</span>
             </div>
         </div>
     </ion-scroll>
-    
+
     <div class="fixed-buttons buttons" ng-if="canShowEditBtn();" style="z-index:1;">
         <div class="button button-crm-edit button-crm-edit-public" ng-click="editDetail();">
             编辑
         </div>
     </div>
-    
+
     <ion-content class="has-header {{config.typeStr}} ws-detail-all-content" has-bouncing="false" delegate-handle="xbrDelegateContent"  scrollbar-y="true" ng-class="{'can-not-editor-detail':!canShowEditBtn()}">
         <div ng-if="config.detailTypeNewCar">
             <div class="basic-info first-line commment-info-lines">
@@ -107,7 +107,7 @@
                         <div ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
                     </ion-scroll>                 
                 </div-->
-                
+
                 <div class="row">
                     <div class="col-40">状态&nbsp;:</div>
                     <div class="col-60 status-not-handle" ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
@@ -143,7 +143,7 @@
                     <div class="col-40">
                         需要回访:
                     </div>
-                   <div class="col-60" style="padding-left: 0px;">
+                    <div class="col-60" style="padding-left: 0px;">
                         <ion-toggle ng-disabled="true" class="xbr-my-ion-toggle" ng-true-value="'X'" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm" style="padding-left: 6px;"></ion-toggle>
                     </div>
                 </div>
@@ -203,8 +203,8 @@
                 </div>
             </div>
         </div>
-        
-        <div ng-if="config.detailTypeSiteRepair || config.detailTypeBatchUpdate">
+
+        <div ng-if="config.detailTypeBatchUpdate">
             <div class="basic-info first-line commment-info-lines">
                 <div class="crm-line-title">
                     <div class="title-top">
@@ -287,7 +287,7 @@
                     </div>
                 </div-->
             </div>
-            <div class="fuwuduixiang-info commment-info-lines"> 
+            <div class="fuwuduixiang-info commment-info-lines">
                 <div class="crm-line-title">
                     <div class="title-top">
                         <span >服务对象</span>
@@ -319,7 +319,7 @@
                     </ion-scroll-->
                 </div>
             </div>
-            
+
             <div class="time-info commment-info-lines">
                 <div class="crm-line-title">
                     <div class="title-top">
@@ -339,7 +339,7 @@
                     <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.END_DATE}} {{datas.detail.ES_OUT_LIST.END_TIME}}"></div>
                 </div>
             </div>
-            
+
             <div class="fuwuhetong-zhibao-info commment-info-lines">
                 <div class="crm-line-title">
                     <div class="title-top">
@@ -426,6 +426,256 @@
 
             </div>
         </div>
-        
+
+        <div ng-if="config.detailTypeSiteRepair">
+            <div class="basic-info first-line commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <!--div class="row">
+                    <div class="col-40">工单类型&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.TYPE_DESC"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">工单单号&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ydWorksheetNum"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <!-div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div->
+                    <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                        <div ng-bind="datas.detail.ES_OUT_LIST.DESCRIPTION"></div>
+                    </ion-scroll>
+                </div-->
+                <!--div class="text-row">
+                    <div class="">备注&nbsp;:</div>
+                    <div class="" ng-bind="datas.basicInfoSiteRepair.desc"></div>
+                </div-->
+                <div class="row">
+                    <div class="col-40">状态&nbsp;:</div>
+                    <div class="col-60 status-not-handle" ng-bind="datas.detail.ES_OUT_LIST.STATU_DESC" ng-class="{
+                                            'stat-new':(datas.detail.ES_OUT_LIST.STATU=='E0001'),
+                                            'stat-sendedworker':(datas.detail.ES_OUT_LIST.STATU=='E0002'),
+                                            'stat-refused':(datas.detail.ES_OUT_LIST.STATU=='E0003'),
+                                            'stat-handing':(datas.detail.ES_OUT_LIST.STATU=='E0004'),
+                                            'stat-reported':(datas.detail.ES_OUT_LIST.STATU=='E0005'),
+                                            'stat-finished':(datas.detail.ES_OUT_LIST.STATU=='E0006'),
+                                            'stat-revisited':(datas.detail.ES_OUT_LIST.STATU=='E0010'),
+                                            'stat-audited':(datas.detail.ES_OUT_LIST.STATU=='E0007'),
+                                            'stat-returned':(datas.detail.ES_OUT_LIST.STATU=='E0008'),
+                                            'stat-cancled':(datas.detail.ES_OUT_LIST.STATU=='E0009'),
+                                            'stat-audited-out':(datas.detail.ES_OUT_LIST.STATU=='E0011')}"></div>
+                </div>
+                <div class="row" ng-if="config.detailTypeSiteRepair">
+                    <div class="col-40">车辆影响&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.IMPACT_DESC"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">总金额&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.NET_VALUE"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">货币&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.CURRENCY"></div>
+                </div>
+                <div class="row has-toggle ZPLO-hide ZPRV-hide ZPLV-hide ZNCV-hide">
+                    <div class="col-40">
+                        <!-- input type="checkbox" disabled ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" ng-true-value="'X'" ng-false-value="''"-->
+                        需要回访:
+                    </div>
+                    <div class="col-60" style="padding-left: 0px;">
+                        <ion-toggle ng-disabled="true" class="xbr-my-ion-toggle" ng-true-value="'X'" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" toggle-class="toggle-calm" style="padding-left: 6px;"></ion-toggle>
+                    </div>
+                </div>
+                <style>
+
+                </style>
+                <div class="row ZPLO-hide ZPLV-hide">
+                    <div class="col-40">报修人&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZBXR"></div>
+                </div>
+                <div class="row ZPLO-hide ZPLV-hide">
+                    <div class="col-40">报修电话&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZBXDH"></div>
+                </div>
+                <!--div class="row">
+                    <div class="col-40">外服人员&nbsp;:</div>
+                    <div class="col-50 color-common-blue" ng-bind="datas.basicInfoSiteRepair.user"></div>
+                    <div class="col-10 line-right-icon">
+                        <i class="ion-android-arrow-forward"></i>
+                    </div>
+                </div-->
+            </div>
+            <div class="fuwuduixiang-info commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >服务对象</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <!--div class="text-row has-right-icon">
+                    <div class="">车辆编号&nbsp;:</div>
+                    <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO"></div>
+                </div>
+                <div class="text-row">
+                    <div class="">车辆描述&nbsp;:</div>
+                    <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
+                </div-->
+                <div class="row">
+                    <div class="col-40">车辆编号&nbsp;:</div>
+                    <!--div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO"></div-->
+                    <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                        <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO | xbrParseInt"></div>
+                    </ion-scroll>
+                </div>
+                <div class="cheliang-desc" style="margin-left:1rem;">
+                    <div class="">车辆描述&nbsp;:</div>
+                    <!--div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div-->
+                    <div class="color-common-blue" style="margin-bottom: 10px" ng-click="goCarDetail();" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
+                    <!--ion-scroll class="col-55 xbr-scroll-x" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
+                    </ion-scroll-->
+                </div>
+                <div style="height: 1px; border-bottom: 1px solid #eee"></div>
+                <div class="row">
+                    <div class="col-40">PN号&nbsp;:</div>
+                    <!--div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO"></div-->
+                    <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                        <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.ZZPRODUCT_ID"></div>
+                    </ion-scroll>
+                </div>
+                <div class="row">
+                    <div class="col-40">PN描述&nbsp;:</div>
+                    <!--div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_NO"></div-->
+                    <ion-scroll class="col-55 xbr-scroll-x" direction="x" scrollbar-x="false" has-bouncing="false">
+                        <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.ZZSHORT_TEXT"></div>
+                    </ion-scroll>
+                </div>
+            </div>
+
+            <div class="time-info commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >日期</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">客户来电时间&nbsp;:</div>
+                    <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.ZZVISITS_DATS}} {{datas.detail.ES_OUT_LIST.ZZVISITS_TIMS}}"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障发生时间&nbsp;:</div>
+                    <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.ZZMAL_DATS}} {{datas.detail.ES_OUT_LIST.ZZMAL_TIMS}}"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40" ng-if="config.detailTypeSiteRepair">维修开始时间&nbsp;:</div>
+                    <div class="col-40" ng-if="config.detailTypeBatchUpdate">改进开始时间&nbsp;:</div>
+                    <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40" ng-if="config.detailTypeSiteRepair">维修结束时间&nbsp;:</div>
+                    <div class="col-40" ng-if="config.detailTypeBatchUpdate">改进结束时间&nbsp;:</div>
+                    <div class="col-60" ng-bind-template="{{datas.detail.ES_OUT_LIST.END_DATE}} {{datas.detail.ES_OUT_LIST.END_TIME}}"></div>
+                </div>
+            </div>
+
+            <div class="fuwuhetong-zhibao-info commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >服务合同和质保</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">质保标识&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.WARRANTY_ID"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">质保描述&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.WARRANTY_DESC"></div>
+                </div>
+            </div>
+
+            <div class="guzhang-info commment-info-lines" style="margin-bottom: 1rem;">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >故障信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障阶段&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.SCENARIO_DESC"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">责任方&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.RESPONSE_DESC"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">对车辆影响&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.DEFECT_DESC"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">原因分类&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZYYFL_1_DESC"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">处理方式&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.ZZDEALS"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">产品类型&nbsp;:</div> <!-- 部件分类 -->
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.COMP_TYPE"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障部件&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.COMPONENT"></div>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障名称&nbsp;:</div>
+                    <div class="col-60" ng-bind="datas.detail.ES_OUT_LIST.REASON"></div>
+                </div>
+                <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
+                    <div class="" style="margin-right:0px;">注释&nbsp;:</div>
+                    <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
+                            <span ng-bind="item.finalStr"></span>
+                        </div>
+                    </ion-scroll-->
+                    <div class="" style="line-height:.9rem;padding: 0rem 1rem;font-size: .8rem;color: #7B7878;">
+                        <div ng-bind="item.finalStr" ng-repeat="item in datas.detail.XBRZHUSHIS"></div>
+                    </div>
+                </div>
+                <style>
+                    .text-row-ion-scroll .scroll{
+                        padding-left: 0px;
+                        width: 100%;
+                        font-size: .8rem;
+                    }
+                </style>
+                <div class="" style="height:auto;margin-right:0px;margin-top:.2rem;line-height:2rem;padding-left: 1rem;border-bottom: 1px solid #EEEEEE;">
+                    <div class="" style="margin-right:0px;">故障描述及处理结果&nbsp;:</div>
+                    <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
+                            <span ng-bind="item.finalStr"></span>
+                        </div>
+                    </ion-scroll-->
+                    <div class="" style="line-height:.9rem;padding: 0rem 1rem;font-size: .8rem;color: #7B7878;">
+                        <div ng-bind="item.finalStr" ng-repeat="item in datas.detail.XBRCHULIJIEGUOS"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </ion-content>
 </ion-view>
