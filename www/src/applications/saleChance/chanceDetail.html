@@ -158,9 +158,54 @@
             </div>
             <!--相关方-->
             <div id="relativeId" class="relative" ng-if="!select">
-                <div class="row" ng-repeat="x in relationArr" ng-if="x.position" ng-click="goRelationDetail(x)" on-hold="showActionSheet(x)">
-                    <div class="col col-60">{{x.NAME}}</div>
-                    <div class="col col-40 text-center position col-center">{{x.position}}</div>
+                <div class="row" ng-repeat="x in relationArr" ng-if="x.position" >
+                    <div class="col" style="padding: 0">
+                        <div class="row" ng-click="goRelationDetail(x)" on-hold="showActionSheet(x)">
+                            <div class="col col-60">{{x.NAME}}</div>
+                            <div class="col col-40 text-center position col-center">{{x.position}}</div>
+                        </div>
+                        <div class="row" ng-if="x.PARTNER_FCT == '00000023'">
+                            <div class="col col-4"></div>
+                            <div class="col col-6"></div>
+                            <div class="col col-20">强项:</div>
+                            <div class="col col-70 text-center col-center">
+                                <!--{{x.ADVANTAGE}}-->
+                                <textarea ng-model="x.ADVANTAGE" style="font-size: 16px;height: 60px" ng-readonly="!isEdit"></textarea>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="x.PARTNER_FCT == '00000023'">
+                            <div class="col col-4"></div>
+                            <div class="col col-6"></div>
+                            <div class="col col-20">缺点:</div>
+                            <div class="col col-70 text-center position col-center">
+                                <!--{{x.DISADVANTAGE}}-->
+                                <textarea ng-model="x.DISADVANTAGE" style="font-size: 16px;height: 60px" ng-readonly="!isEdit"></textarea>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="x.PARTNER_FCT == '00000015'">
+                            <div class="col col-4"></div>
+                            <div class="col col-6"></div>
+                            <div class="col col-50">对购买决定的影响:</div>
+                            <div class="col col-40 text-center position col-center">
+                                <!--{{x.INFLUENCE}}-->
+                                <select ng-model="x.INFLUENCE" class="selectC" ng-disabled="!isEdit" ng-options="treatment as treatment.DESCRIPTION for treatment in treatmentDetail">
+                                <option selected value="">--请选择--</option>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="row" ng-if="x.PARTNER_FCT == '00000015'">
+                            <div class="col col-4"></div>
+                            <div class="col col-6"></div>
+                            <div class="col col-50">需求迫切性:</div>
+                            <div class="col col-40 text-center position col-center">{{x.NEED}}</div>
+                        </div>
+                        <div class="row" ng-if="x.PARTNER_FCT == '00000015'">
+                            <div class="col col-4"></div>
+                            <div class="col col-6"></div>
+                            <div class="col col-50">我们的意见:</div>
+                            <div class="col col-40 text-center position col-center">{{x.OUR_OPINION}}</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row row-center add" ng-if="isEdit">
                     <div class="col" ng-click="openRelations()"><i class="ion-ios-plus-outline"></i>添加相关方</div>

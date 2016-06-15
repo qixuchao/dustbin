@@ -193,6 +193,9 @@ salesModule.controller('saleClueDetailCtrl', [
                 //执行保存操作
                 Prompter.showLoading('正在保存');
                 //console.error("9090 " + angular.isUndefined($scope.mySelect.source));
+                if($scope.mySelect.status.value == 'E0005' && $scope.details.STATUS != 'E0005'){
+                    $scope.details.DATE_END = new Date().format('yyyy-MM-dd');
+                }
                 var data = {
                     "I_SYSNAME": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_AUTHORITY": {"BNAME": window.localStorage.crmUserName},

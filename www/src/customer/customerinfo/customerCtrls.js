@@ -722,6 +722,9 @@ customerModule
                 $scope.customerDetailmobilenum = false;
                 $scope.menNum = false;
             }
+            //客户详情中缺少以下区域及字段：
+            //竞争对手信息：领域、份额、价格
+            //助销伙伴信息：领域、项目、长项
         Prompter.showLoading("数据加载中...");
         var url = ROOTCONFIG.hempConfig.basePath + 'CUSTOMER_DETAIL';
         var data = {

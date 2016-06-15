@@ -639,6 +639,18 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
             controller: 'forgetPassCtrl'
         })
         //忘记密码end
+        ////销售机会补充
+        //.state('saleChanContact', {
+        //    url: 'apps/saleChanList/detail/salechanceContact',
+        //    templateUrl: 'src/applications/saleChance/salechanceContact.html',
+        //    controller: 'saleChanContactCtrl'
+        //})
+        //.state('saleChanCompetition', {
+        //    url: 'apps/saleChanList/detail/salechanceCompetition',
+        //    templateUrl: 'src/applications/saleChance/salechanceCompetition.html',
+        //    controller: 'saleChanCompetitionCtrl'
+        //})
+        ////销售机会补充
     ;
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider  // /home/login

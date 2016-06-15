@@ -553,6 +553,57 @@ salesModule.factory('saleChanService', function () {
         text: 'ESS',
         code: 'ZO04'
     }];
+    var influenceList = [ {
+        text: '',
+        code: '0000000000'
+    }, {
+        text: '高',
+        code: '0000000001'
+    }, {
+        text: '中',
+        code: '0000000002'
+    }, {
+        text: '最小的',
+        code: '0000000003'
+    }, {
+        text: '没影响',
+        code: '0000000004'
+    }];
+    var needList = [ {
+        text: '',
+        code: '0000000000'
+    }, {
+        text: '必选',
+        code: '0000000005'
+    }, {
+        text: '重要的',
+        code: '0000000006'
+    }, {
+        text: '最小的',
+        code: '0000000007'
+    }, {
+        text: '无',
+        code: '0000000008'
+    }];
+    var opinionList = [ {
+        text: '',
+        code: '0000000000'
+    }, {
+        text: '热心的',
+        code: '0000000009'
+    },  {
+        text: '正的',
+        code: '0000000010'
+    }, {
+        text: '中立的',
+        code: '0000000011'
+    }, {
+        text: '负的',
+        code: '0000000012'
+    }, {
+        text: '故意的',
+        code: '0000000013'
+    }];
     var chanListArr = [],
         listPage = 1,
         obj_id,
@@ -585,6 +636,11 @@ salesModule.factory('saleChanService', function () {
         chanceTypes:chanceTypes,
         saleChanceUnits_ATL:saleChanceUnits_ATL,
         timeDate:timeDate,
-        isFromClue:timeDate
+        isFromClue:timeDate,
+        influenceList : influenceList,
+        needList : needList,
+        opinionList : opinionList,
+        goOtherPage : "",
+        otherPageDetail : ""
     }
 });

@@ -55,6 +55,15 @@
             </div>
             <div class="row itemContent row-center">
                 <div class="col-3 col-center"><span style="color: red">*</span></div>
+                <div class="col-38 col-center">处理方式：</div>
+                <div class="col-59 col-center">
+                    <select ng-model="config.treatment" class="selectC" ng-options="treatment as treatment.DESCRIPTION for treatment in treatmentDetail">
+                        <option selected value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row itemContent row-center">
+                <div class="col-3 col-center"><span style="color: red">*</span></div>
                 <div class="col-38 col-center">产品类型：</div>
                 <div class="col-59 col-center">
                     <select ng-change="buJianFeiLenChanged();" class="selectC" ng-model="config.currentChanPinLeiXing" ng-options="cplx as cplx.COMP_TYPE for cplx in datas.chanPinLeiXingS">
