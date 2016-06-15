@@ -188,22 +188,32 @@
                             <div class="col col-50">对购买决定的影响:</div>
                             <div class="col col-40 text-center position col-center">
                                 <!--{{x.INFLUENCE}}-->
-                                <select ng-model="x.INFLUENCE" class="selectC" ng-disabled="!isEdit" ng-options="treatment as treatment.DESCRIPTION for treatment in treatmentDetail">
-                                <option selected value="">--请选择--</option>
-                            </select>
+                                <select ng-model="x.INFLUENCE" class="selectC" ng-disabled="!isEdit" ng-options="influence.code as influence.text for influence in influenceList">
+                                    <option selected value="">--请选择--</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row" ng-if="x.PARTNER_FCT == '00000015'">
                             <div class="col col-4"></div>
                             <div class="col col-6"></div>
                             <div class="col col-50">需求迫切性:</div>
-                            <div class="col col-40 text-center position col-center">{{x.NEED}}</div>
+                            <div class="col col-40 text-center position col-center">
+                                <!--{{x.NEED}}-->
+                                <select ng-model="x.NEED" class="selectC" ng-disabled="!isEdit" ng-options="need.code as need.text for need in needList">
+                                    <option selected value="">--请选择--</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="row" ng-if="x.PARTNER_FCT == '00000015'">
                             <div class="col col-4"></div>
                             <div class="col col-6"></div>
                             <div class="col col-50">我们的意见:</div>
-                            <div class="col col-40 text-center position col-center">{{x.OUR_OPINION}}</div>
+                            <div class="col col-40 text-center position col-center">
+                                <!--{{x.OUR_OPINION}}-->
+                                <select ng-model="x.OUR_OPINION" class="selectC" ng-disabled="!isEdit" ng-options="opinion.code as opinion.text for opinion in opinionList">
+                                    <option selected value="">--请选择--</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>

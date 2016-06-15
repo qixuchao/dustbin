@@ -381,7 +381,7 @@ visitModule.controller('visitEditCtrl', [
 				destinationType: Camera.DestinationType.FILE_URL, //1, //'FILE_URL',
 				encodingType: Camera.EncodingType.JPEG, //0, //'JPEG',
 				mediaType: Camera.MediaType.PICTURE, //0, //'PICTURE',
-				saveToPhotoAlbum: true,
+				saveToPhotoAlbum: false,
 				cameraDirection: Camera.Direction.BACK, // 0, //'BACK'
 				targetWidth: 1366, targetHeight: 768
 			};
