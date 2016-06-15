@@ -1,5 +1,5 @@
 {
-  "hempConfig": {
+  "hempConfig": { 
     "basePath": "http://117.28.248.23:9388/test/api/CRMAPP/",
     "basePathPro": "https://crmmp.atlbattery.com:9343/crmprod/api/CRMAPP/",
     "basePathUat": "https://crmmp.atlbattery.com:9343/crmuat/api/CRMAPP/",
@@ -7,8 +7,8 @@
     "AppUpdateUrl": "https://www.pgyer.com/crm-catl-atl-pro",
     "baseEnvironment": "CATL",
     "ISDEBUG": true
-  },
-  "baiduMap": {
+  }, 
+  "baiduMap": { 
     "pointQueryUrl": "http://api.map.baidu.com/geosearch/v3/nearby",
     "locationToAddQueryUrl": "http://api.map.baidu.com/geocoder/v2",
     "apiKey": "gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru",
@@ -19,5 +19,5 @@
     "geotableIdUat": "142084",
     "geotableIdTest": "140851",
     "radius": 30000
-  }
+  } 
 }
