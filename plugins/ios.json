@@ -8,74 +8,74 @@
     },
     "installed_plugins": {
         "cn.jpush.phonegap.JPushPlugin": {
-            "API_KEY": "b3793e32c69f2945bb61ae2f",
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "API_KEY": "d5c769ed7f3b74b31933aafd",
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "com.verso.cordova.clipboard": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-app-version": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-baidumap": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-base64-joewsh": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-camera": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-canvas2image": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-crosswalk-webview": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-datepicker": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-file": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-file-transfer": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-geolocation": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "cordova-plugin-x-toast": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         },
         "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.crmEnergy.catl"
+            "PACKAGE_NAME": "com.crmEnergy.hrms"
         }
     },
     "dependent_plugins": {}

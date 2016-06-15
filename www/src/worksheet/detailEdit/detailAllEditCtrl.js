@@ -607,8 +607,14 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             $scope.datas.detail = angular.copy(worksheetDataService.wsDetailData);
             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
+
+            if($scope.datas.detail.ES_OUT_LIST.ZZXYHF!="X"){
+                $scope.datas.detail.ES_OUT_LIST.ZZXYHF = "";
+            }
+
             $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR = $scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS + " " + $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIMS;
             $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR = $scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS + " " + $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIMS;
+            
             
             var texts = $scope.datas.detail.ET_TEXT.item;
             if(texts){
