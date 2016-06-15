@@ -484,7 +484,6 @@ salesModule
                                 x.position = getRelationsType(x.PARTNER_FCT);
                                 x.PARTNER = x.PARTNER_NO;
                             });
-                            console.log($scope.relationArr);
                             for(var i=0;i<$scope.relationArr.length;i++){
                                 if($scope.relationArr[i].PARTNER_FCT == '00000023'){
                                     for(var j=0;j<response.ET_COMPETITOR.item.length;j++){
@@ -497,9 +496,9 @@ salesModule
                                 if($scope.relationArr[i].PARTNER_FCT == '00000015'){
                                     for(var j=0;j<response.ET_CONTACT.item.length;j++){
                                         if($scope.relationArr[i].PARTNER_NO == response.ET_CONTACT.item[j].PARTNER_NO){
-                                            $scope.relationArr[i].INFLUENCE = response.ET_CONTACT.item[j].INFLUENCE;
-                                            $scope.relationArr[i].NEED = response.ET_CONTACT.item[j].NEED;
-                                            $scope.relationArr[i].OUR_OPINION = response.ET_CONTACT.item[j].OUR_OPINION;
+                                            $scope.relationArr[i].INFLUENCE = $scope.goInfluenceList(response.ET_CONTACT.item[j].INFLUENCE);
+                                            $scope.relationArr[i].NEED = $scope.goNeedList(response.ET_CONTACT.item[j].NEED);
+                                            $scope.relationArr[i].OUR_OPINION = $scope.goOpinionList(response.ET_CONTACT.item[j].OUR_OPINION);
                                         }
                                     }
                                 }
@@ -523,6 +522,29 @@ salesModule
                             // callback success
                         });
                 } else {
+                    var itemCompetitor = [];
+                    var itemContact = [];
+                    for(var i=0;i<$scope.relationArr.length;i++){
+                        if($scope.relationArr[i].PARTNER_FCT == '00000023'){
+                            itemCompetitor.push({
+                                "PARTNER_NO": $scope.relationArr[i].PARTNER_NO,
+                                "ADVANTAGE": $scope.relationArr[i].ADVANTAGE,
+                                "DISADVANTAGE": $scope.relationArr[i].DISADVANTAGE
+                            });
+                        }
+                        if($scope.relationArr[i].PARTNER_FCT == '00000015'){
+                            itemContact.push(
+                                {
+                                    "PARTNER_NO": $scope.relationArr[i].PARTNER_NO,
+                                    "INFLUENCE": $scope.relationArr[i].INFLUENCE,
+                                    "NEED": $scope.relationArr[i].NEED,
+                                    "OUR_OPINION": $scope.relationArr[i].OUR_OPINION
+                                }
+                            );
+                        }
+                    }
+                    console.log(itemContact);
+                    console.log(itemCompetitor);
                     //执行保存操作
                     Prompter.showLoading('正在保存');
                     var data = {
@@ -550,19 +572,10 @@ salesModule
                         },
                         "IS_USER": {"BNAME": window.localStorage.crmUserName},
                         "IT_COMPETITOR": {
-                            "item": {
-                                "PARTNER_NO": "",
-                                "ADVANTAGE": "",
-                                "DISADVANTAGE": ""
-                            }
+                            "item":itemCompetitor
                         },
                         "IT_CONTACT": {
-                            "item": {
-                                "PARTNER_NO": "",
-                                "INFLUENCE": "",
-                                "NEED": "",
-                                "OUR_OPINION": ""
-                            }
+                            "item": itemContact
                         },
                         "IT_PARTNER": {
                             "item": getModifyRelationsArr()
@@ -1062,59 +1075,56 @@ salesModule
                 $scope.moneyTypesModal.remove();
                 $scope.selectCustomerModal.remove();
             });
+            /*---------------------------------修改相关方信息-------------------------------------*/
+            $scope.influenceList = saleChanService.influenceList;
+            $scope.needList = saleChanService.needList;
+            $scope.opinionList = saleChanService.opinionList;
+            $scope.a=function(){
+                var itemCompetitor = [];
+                var itemContact = [];
+                for(var i=0;i<$scope.relationArr.length;i++){
+                    if($scope.relationArr[i].PARTNER_FCT == '00000023'){
+                        itemCompetitor.push({
+                            "PARTNER_NO": $scope.relationArr[i].PARTNER_NO,
+                            "ADVANTAGE": $scope.relationArr[i].ADVANTAGE,
+                            "DISADVANTAGE": $scope.relationArr[i].DISADVANTAGE
+                        });
+                    }
+                    if($scope.relationArr[i].PARTNER_FCT == '00000015'){
+                        itemContact.push(
+                            {
+                                "PARTNER_NO": $scope.relationArr[i].PARTNER_NO,
+                                "INFLUENCE": $scope.relationArr[i].INFLUENCE,
+                                "NEED": $scope.relationArr[i].NEED,
+                                "OUR_OPINION": $scope.relationArr[i].OUR_OPINION
+                            }
+                        );
+                    }
+                }
+                console.log(itemContact);
+                console.log(itemCompetitor);
+            }
+            $scope.goInfluenceList = function(item){
+                for(var i=0;i<$scope.influenceList.length;i++){
+                    if($scope.influenceList[i].text == item){
+                        return $scope.influenceList[i].code;
+                    }
+                }
+            }
+            $scope.goNeedList = function(item){
+                for(var i=0;i<$scope.needList.length;i++){
+                    if($scope.needList[i].text == item){
+                        return $scope.needList[i].code;
+                    }
+                }
+            }
+            $scope.goOpinionList = function(item){
+                for(var i=0;i<$scope.opinionList.length;i++){
+                    if($scope.opinionList[i].text == item){
+                        return $scope.opinionList[i].code;
+                    }
+                }
+            }
+            /*---------------------------------修改相关方信息-------------------------------------*/
         }]);
 
-salesModule
-    .controller('saleChanContactCtrl', ['$scope',
-        '$state',
-        '$timeout',
-        '$ionicLoading',
-        '$ionicPopover',
-        '$ionicModal',
-        '$ionicScrollDelegate',
-        '$ionicHistory',
-        'ionicMaterialInk',
-        'ionicMaterialMotion',
-        'saleActService',
-        'Prompter',
-        'HttpAppService',
-        'saleChanService',
-        'customeService',
-        'LoginService','contactService',
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
-                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService,contactService) {
-            var x = saleChanService.goOtherPage;
-            console.log(x);
-            $scope.goDetail = function(){
-                contactService.set_ContactsListvalue(x.PARTNER);
-                $state.go('ContactDetail');
-            }
-        }]);
-salesModule
-    .controller('saleChanCompetitionCtrl', ['$scope',
-        '$state',
-        '$timeout',
-        '$ionicLoading',
-        '$ionicPopover',
-        '$ionicModal',
-        '$ionicScrollDelegate',
-        '$ionicHistory',
-        'ionicMaterialInk',
-        'ionicMaterialMotion',
-        'saleActService',
-        'Prompter',
-        'HttpAppService',
-        'saleChanService',
-        'customeService',
-        'LoginService',
-        function ($scope, $state, $timeout, $ionicLoading, $ionicPopover, $ionicModal, $ionicScrollDelegate, $ionicHistory, ionicMaterialInk,
-                  ionicMaterialMotion, saleActService, Prompter, HttpAppService, saleChanService, customeService, LoginService) {
-            var x = saleChanService.goOtherPage;
-            console.log(x);
-            $scope.goDetail = function(){
-                x.PARTNER_ROLE = 'Z00002';
-                customeService.set_customerListvalue(x);
-                saleActService.isFromRelation = true;
-                $state.go('customerDetail');
-            }
-        }]);
