@@ -128,12 +128,12 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             //console.log(startStr +"          "+endStr);
 
             var malStr = $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR;
-            var malTimeStr = new Date(endStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
+            var malTimeStr = new Date(malStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
             var malDate = malTimeStr.split(" ")[0];
             var malTime = malTimeStr.split(" ")[1];
 
             var visitsStr = $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR;
-            var visitsDateStr = new Date(endStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
+            var visitsDateStr = new Date(visitsStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
             var visitsDate = visitsDateStr.split(" ")[0];
             var visitsTime = visitsDateStr.split(" ")[1];
             console.log(startDate+"  "+startTime+"     "+endDate+" "+endTime+" "+malDate+" "+ malTime+" "+visitsDate+" "+visitsTime);
