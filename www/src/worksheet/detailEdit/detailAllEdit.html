@@ -109,7 +109,7 @@
             </div>
         </div>
         
-        <div ng-if="config.detailTypeSiteRepair || config.detailTypeBatchUpdate">
+        <div ng-if="config.detailTypeBatchUpdate">
             <div class="basic-info first-line commment-info-lines" ng-if="config.detailTypeSiteRepair">
                 <div class="crm-line-title">
                     <div class="title-top">
@@ -288,6 +288,254 @@
                     </div>
                 </div>
                 
+                <div class="" style="margin-right:0px;margin-top:.2rem;margin-left: 1rem;">
+                    <div class="" style="margin-right:0px;">注释&nbsp;:</div>
+                    <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div ng-repeat="item in datas.detail.XBRZHUSHIS" style="padding-left:0px;">
+                            <span ng-bind="item.finalStr"></span>
+                        </div>
+                    </ion-scroll-->
+                    <div>
+                        <textarea id="textarea_zhushi" placeholder="请输入备注" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.zhushi" class="ng-pristine ng-valid ng-touched"></textarea>
+                    </div>
+                </div>
+                <style>
+                    .text-row-ion-scroll .scroll{
+                        padding-left: 0px;
+                        width: 100%;
+                        font-size: .8rem;
+                    }
+                </style>
+                <div class="" style="margin-right:0px;margin-top:.2rem;margin-left: 1rem;">
+                    <div class="" style="margin-right:0px;">故障描述及处理结果&nbsp;:</div>
+                    <div>
+                        <textarea id="textarea_chulijieguo" placeholder="请输入处理结果" style="width: 100%; padding: 15px; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: rgb(214, 211, 206); color: rgb(160, 160, 159); resize: none; height: 63px;" ng-model="config.chulijieguo" class="ng-pristine ng-valid ng-touched"></textarea>
+                    </div>
+                </div>
+                <!--div class="text-row">
+                    <div class="">注释&nbsp;:</div>
+
+                    <div class="" ng-bind="datas.detail.ES_OUT_LIST.TODO">
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="text-row">
+                    <div class="">处理结果&nbsp;:</div>
+                    <div class="" ng-bind="datas.detail.ES_OUT_LIST.TODO">
+                        <textarea name="" id="" cols="30" rows="10"></textarea>
+                    </div>
+                </div-->
+            </div>
+        </div>
+
+        <div ng-if="config.detailTypeSiteRepair">
+            <div class="basic-info first-line commment-info-lines" ng-if="config.detailTypeSiteRepair">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.DESCRIPTION">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">报修人&nbsp;:</div>
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.ZZBXR">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">报修电话&nbsp;:</div>
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.ZZBXDH">
+                    </div>
+                </div>
+                <div class="row" ng-if="config.detailTypeSiteRepair">
+                    <div class="col-40">车辆影响&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentImpact" ng-options="impact as impact.IMPACT_DESC for impact in datas.impactS">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">
+                        需要回访:
+                        <!--input type="checkbox" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" ng-true-value="'X'" ng-false-value="''"-->
+                    </div>
+                    <div class="col-60">
+                        <ion-toggle class="xbr-my-ion-toggle" ng-true-value="'X'" ng-model="datas.detail.ES_OUT_LIST.ZZXYHF" style="padding-left: 6px;padding-top: 3px;" toggle-class="toggle-calm"></ion-toggle>
+                    </div>
+                </div>
+            </div>
+
+            <div class="basic-info first-line commment-info-lines" ng-if="config.detailTypeBatchUpdate">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >基本信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">简单描述&nbsp;:</div>
+                    <div class="col-60">
+                        <input type="text" ng-model="datas.detail.ES_OUT_LIST.DESCRIPTION">
+                    </div>
+                </div>
+            </div>
+
+            <div class="fuwuduixiang-info commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >服务对象</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="cheliang-desc" style="margin-left:1rem;">
+                    <div class="">车辆描述&nbsp;:</div>
+                    <!--div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div-->
+                    <div class="color-common-blue" ng-click="selectCar();" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
+                    <!--ion-scroll class="col-55 xbr-scroll-x" direction="y" scrollbar-y="false" has-bouncing="false">
+                        <div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
+                    </ion-scroll-->
+                </div>
+                <!--div class="row" style="height: 5rem !important;overflow: hidden;">
+                    <div class="col-40">车辆&nbsp;:</div>
+                    <ion-scroll class="col-55 detail-all-edit-cheliang-iscroll" direction="y" scrollbar-y="false" has-bouncing="false" ng-click="selectCar();">
+                        <div style="margin-top: .4rem;overflow: hidden !important;height: 5rem !important;white-space: normal !important;line-height: 1.4rem !important;padding-top: .6rem !important;" class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div>
+                    </ion-scroll>
+                    <-div class="color-common-blue" ng-bind="datas.detail.ES_OUT_LIST.CAR_DESC"></div->
+                </div-->
+            </div>
+
+            <div class="time-info commment-info-lines">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >日期</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row" ng-click="selectCreateTime('visitsTime', '客户来电时间');">
+                    <div class="col-40" ng-if="config.detailTypeSiteRepair">客户来电时间&nbsp;:</div>
+                    <div class="col-50" >
+                        <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
+                        <span ng-bind="datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR"></span>
+                        <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.START_TIME_STR333"-->
+                    </div>
+                    <div class="col-10">
+                        <i class="ion-clock" style="font-size: 1.2rem;"></i>
+                    </div>
+                </div>
+                <div class="row" ng-click="selectCreateTime('malTime', '故障发生时间');">
+                    <div class="col-40" ng-if="config.detailTypeSiteRepair">故障发生时间&nbsp;:</div>
+                    <div class="col-50" >
+                        <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
+                        <span ng-bind="datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR"></span>
+                        <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.START_TIME_STR333"-->
+                    </div>
+                    <div class="col-10">
+                        <i class="ion-clock" style="font-size: 1.2rem;"></i>
+                    </div>
+                </div>
+                <div class="row" ng-click="selectCreateTime('start', '维修开始时间');">
+                    <div class="col-40" ng-if="config.detailTypeSiteRepair">维修开始时间&nbsp;:</div>
+                    <div class="col-40" ng-if="config.detailTypeBatchUpdate">改进开始时间&nbsp;:</div>
+                    <div class="col-50" >
+                        <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
+                        <span ng-bind="datas.detail.ES_OUT_LIST.START_TIME_STR"></span>
+                        <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.START_TIME_STR333"-->
+                    </div>
+                    <div class="col-10">
+                        <i class="ion-clock" style="font-size: 1.2rem;"></i>
+                    </div>
+                </div>
+                <div class="row" ng-click="selectCreateTime('end', '上线结束时间');">
+                    <div class="col-40" ng-if="config.detailTypeSiteRepair">维修结束时间&nbsp;:</div>
+                    <div class="col-40" ng-if="config.detailTypeBatchUpdate">改进结束时间&nbsp;:</div>
+                    <div class="col-50" >
+                        <!--span ng-bind-template="{{datas.detail.ES_OUT_LIST.START_DATE}} {{datas.detail.ES_OUT_LIST.START_TIME}}"></span-->
+                        <span ng-bind="datas.detail.ES_OUT_LIST.END_TIME_STR"></span>
+                        <!--input type="date" ng-model="datas.detail.ES_OUT_LIST.END_TIME_STR333"-->
+                    </div>
+                    <div class="col-10">
+                        <i class="ion-clock" style="font-size: 1.2rem;"></i>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="guzhang-info commment-info-lines" style="padding-bottom: 2rem;">
+                <div class="crm-line-title">
+                    <div class="title-top">
+                        <span >故障信息</span>
+                        <span class="line"></span>
+                    </div>
+                    <span class="title-bottom"></span>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障阶段&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentGuZhangChangJing" ng-options="gzch as gzch.SCENARIO_DESC for gzch in datas.guZhangChangJingS">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">责任方&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentZeRenFang" ng-options="zrf as zrf.RESPONSE_DESC for zrf in datas.zeRengFangS">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">对车辆影响&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentGuZhangFeiLen" ng-options="gzfl as gzfl.DEFECT_DESC for gzfl in datas.guZhangFeiLenS">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">原因分类&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentResultCategory" ng-options="ZZYYFLObj as ZZYYFLObj.ZZYYFL_DESC for ZZYYFLObj in datas.resultCategoryS">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">处理方式&nbsp;:</div> <!-- 部件分类 -->
+                    <div class="col-60">
+                        <select ng-model="config.currentTreatment" ng-options="treatment as treatment.TREARTMENT_DESC for treatment in datas.treatmentS">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">产品类型&nbsp;:</div> <!-- 部件分类 -->
+                    <div class="col-60">
+                        <select ng-change="buJianFeiLenChanged();" ng-model="config.currentChanPinLeiXing" ng-options="cplx as cplx.COMP_TYPE for cplx in datas.chanPinLeiXingS">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障部件&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-change="buJianChanged();" ng-model="config.currentGuZhangBuJian" ng-options="gzbj as gzbj.COMPONENT for gzbj in datas.guZhangBuJianS">
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-40">故障名称&nbsp;:</div>
+                    <div class="col-60">
+                        <select ng-model="config.currentGuZhangMingCheng" ng-options="gzmc as gzmc.REASON for gzmc in datas.guZhangMingChengS">
+                        </select>
+                    </div>
+                </div>
+
                 <div class="" style="margin-right:0px;margin-top:.2rem;margin-left: 1rem;">
                     <div class="" style="margin-right:0px;">注释&nbsp;:</div>
                     <!--ion-scroll class="col-60 text-row-ion-scroll" direction="y" scrollbar-y="false" has-bouncing="false">
