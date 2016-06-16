@@ -1,6 +1,6 @@
 <ion-view class="myTab" id="myTabId">
     <div ng-include="'src/main/main.html'" ng-show="tabs[0].isActive" ng-controller="MainCtrl"></div>
-    <div ng-include="'src/applications/applications.html'" ng-if="tabs[1].isActive" ng-controller="AppCtrl"></div>
+    <div ng-include="'src/applications/applications.html'" ng-if="tabs[1].isActive" ng-controller="AppCtrl"></div> 
     <div ng-include="'src/contacts/contactQuery.html'" ng-if="tabs[2].isActive" ng-controller="contactQueryCtrl"></div>
     <!--div ng-include="'src/applications/applications.html'" ng-if="tabs[3].isActive"></div-->
     <div ng-include="'src/settings/main.html'" ng-if="tabs[3].isActive" ng-controller="SettingCtrl"></div>

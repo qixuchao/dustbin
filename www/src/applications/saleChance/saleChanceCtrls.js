@@ -453,8 +453,8 @@ salesModule
                 var data = {
                     "I_SYSTEM": {"SysName": ROOTCONFIG.hempConfig.baseEnvironment},
                     "IS_USER": {"BNAME": window.localStorage.crmUserName},
-                    //"IS_ID": {"OBJECT_ID": saleChanService.obj_id}
-                    "IS_ID": {"OBJECT_ID": '40000183'}
+                    "IS_ID": {"OBJECT_ID": saleChanService.obj_id}
+                    //"IS_ID": {"OBJECT_ID": '40000183'}
                 };
                 HttpAppService.post(ROOTCONFIG.hempConfig.basePath + 'OPPORT_DETAIL', data)
                     .success(function (response) {

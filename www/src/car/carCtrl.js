@@ -5,7 +5,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
     function($cordovaDialogs,$ionicLoading,$ionicHistory,worksheetDataService,$rootScope,$ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
     $scope.cars=[];
     $scope.searchFlag=false;
-    $scope.isSearch=false;
+    $scope.isSearch=false; 
     $scope.carimisshow = false;
     $scope.carInfo="";
     $scope.data=[];
@@ -53,6 +53,14 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
         }
     };
     $scope.carListHistoryval();
+    $scope.clearCommonQueryDatas = function(){
+        $scope.carList = [];
+        if(!$scope.$$phase) {
+            $scope.$apply();
+        };
+        delete window.localStorage.oftenCardb;
+        $scope.oftenCarList = [];
+    };
 
 
         $scope.carLoadMore1Im = function() {
@@ -1089,7 +1097,6 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
             return date;
         };
         $scope.spare=function(){
-
             page+=1;
             var url=ROOTCONFIG.hempConfig.basePath+'ATTACHMENT_LIST';
             var data = {
@@ -1122,7 +1129,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                         //console.log(angular.toJson((response.ET_PRODMAS_OUTPUT.item)));
                         $.each(response.ET_COMM_LIST.Item, function (n, value) {
 
-                            console.log(sparelist.length);
+                            //console.log(sparelist.length);
                             var spare = {
                                 spareName: "",
                                 spareNum: "",
@@ -1135,7 +1142,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                             spare.count = value.AMOUNT;
                             spare.qualityTime =value.Z_SHORT_TEXT;
                             spare.qualityDate =(value.START_DATE[0]!=="0"||value.END_DATE[0]!=="0")? (Date1(value.START_DATE) + "-" + Date1(value.END_DATE)):"";
-                            console.log(value.START_DATE[0]);
+                            //console.log(value.START_DATE[0]);
                             $scope.spareList.push(spare);
 
                         });
@@ -1148,12 +1155,15 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                         $scope.buttonShow1=true;
                     }
                 }else {
+                    $scope.buttonShow1=false;
                     //Prompter.showPopupAlert("加载失败","没有更多数据");
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 }
+                $scope.$broadcast('scroll.infiniteScrollComplete');
                 $ionicScrollDelegate.resize();
             }).error(function (response, status, header, config) {
+                $scope.buttonShow1=false;
                 var respTime = new Date().getTime() - startTime;
                 Prompter.hideLoading();
                 //超时之后返回的方法
@@ -1216,7 +1226,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                             spare.spareNum = value.PRODUCT_ID;
                             spare.count = value.AMOUNT;
                             spare.qualityTime =value.Z_SHORT_TEXT;
-                            spare.qualityDate =(value.START_DATE[1]!=='0'|| value.END_DATE[1]!=='0')? Date1(value.START_DATE) + "-" + Date1(value.END_DATE):"";
+                            spare.qualityDate =(value.START_DATE[0]!=='0'|| value.END_DATE[0]!=='0')? Date1(value.START_DATE) + "-" + Date1(value.END_DATE):"";
                             if($scope.spareDesc===''){
                                 $scope.spareList1=new Array;
                             }else{
@@ -1232,12 +1242,15 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                     }else{
                         $scope.buttonShow=true;
                     }
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
                 } else if(response.ES_RESULT.ZFLAG==='E') {
+                    $scope.buttonShow=false;
                     $cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
                     $scope.$broadcast('scroll.infiniteScrollComplete');
                 }
                 $ionicScrollDelegate.resize();
             }).error(function (response, status, header, config) {
+                $scope.buttonShow=false;
                 Prompter.hideLoading();
                 var respTime = new Date().getTime() - startTime;
                 //超时之后返回的方法

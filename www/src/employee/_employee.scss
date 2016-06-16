@@ -261,7 +261,21 @@
       border-bottom: 1px solid rgba(0, 0, 0, 0.16);
     }
   }
+
+  .Car_countentbasicline{
+    width: inherit !important;
+    right: 3.5rem;
+  }
+  .clear-common-datas-btn{
+      position: absolute;
+      right: 0px;
+      width: 3.5rem;
+      text-align: center;
+  }
+
+
 };
+
 .employee_query_listline{
   width: 100%;
   height: 1px;

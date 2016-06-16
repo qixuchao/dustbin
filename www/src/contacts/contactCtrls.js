@@ -19,6 +19,7 @@ ContactsModule
         // if(LoginService.getAuthInfoByFunction('EMPLOYEE').CREATE == false){
         //     $scope.config.create = false;
         // }
+        // 
         //历史记录显示
         $scope.ContactListHistoryval = function(){
             //$scope.contacts_userqueryflag = false;
@@ -38,6 +39,15 @@ ContactsModule
                 $scope.usuallycontactQuery_list = [];
             };
         };
+        
+        $scope.clearCommonQueryDatas = function(){
+            $scope.usuallycontactQuery_list = [];
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            };
+            delete window.localStorage.usuacontactdb;
+        };
+
         $scope.ContactListHistoryval();
         //广播修改界面显示flag
         //$rootScope.$on('contactdeatillist', function(event, data) {

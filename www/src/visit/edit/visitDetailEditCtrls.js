@@ -5,11 +5,11 @@ visitModule.controller('visitEditCtrl', [
 			detail:"",
 			result:"",
 			START_TIME_STR:"",
-			END_TIME_STR:""
+			END_TIME_STR:"",
+			pictures: []
 		};
 		$scope.config={
-			pictures:[
-			],num : "",
+			num : "",
 			fileItemDefaults: {
 				originServer: false,
 				originPhoto: false,
@@ -37,7 +37,8 @@ visitModule.controller('visitEditCtrl', [
 				fileLocalPath: ""
 			},
 			photoModel: null,
-			currentPhotoSrc: ''
+			currentPhotoSrc: '',
+			activeSlideInteger: 0
 		}
 		$scope.datas.detail=visitService.visitDetail.ES_VISIT;
 		$scope.datas.START_TIME_STR=visitService.visitDetail.ES_VISIT.DATE_FROM +" "+visitService.visitDetail.ES_VISIT.TIME_FROM;
@@ -338,20 +339,29 @@ visitModule.controller('visitEditCtrl', [
 			$scope.destoryPhotoModel();
 		});
 
+		$scope.closePhotoShowModel = function(){
+			$scope.destoryPhotoModel();
+		};
+
 		$scope.showSinglePicture = function(item, index){
+			$scope.config.activeSlideInteger = index;
 			if($scope.config.photoModel == null){
 				$ionicModal.fromTemplateUrl('src/visit/photo/model.html', {
 			        scope: $scope,
 			        animation: 'slide-in-up',
-			        focusFirstInput: true
+			        focusFirstInput: true,
+			        backdropClickToClose: false
 			    }).then(function (modal) {
 			        $scope.config.photoModel = modal;
 			        $scope.config.currentPhotoSrc = item.src;
 					$scope.config.photoModel.show();
+					$scope.config.photoModel.$el.addClass("visit-photo-show-modal");
+
 		    	});
 			}else{
 				$scope.config.currentPhotoSrc = item.src;
 				$scope.config.photoModel.show();
+				$scope.config.photoModel.$el.addClass("visit-photo-show-modal");
 			}
 		};
 
@@ -587,8 +597,8 @@ visitModule.controller('visitEditCtrl', [
 
 
 visitModule.controller('visitContactCtrl', [
-	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','LoginService','$ionicPopover','$ionicScrollDelegate','$rootScope','$cordovaDialogs','$state','employeeService',
-	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,LoginService,$ionicPopover,$ionicScrollDelegate,$rootScope,$cordovaDialogs,$state,employeeService) {
+	'$scope','visitService','HttpAppService','Prompter','$ionicModal','$timeout','$cordovaToast','LoginService','$ionicPopover','$ionicScrollDelegate','$rootScope','$cordovaDialogs','$state','contactService',
+	function ($scope,visitService,HttpAppService,Prompter,$ionicModal,$timeout,$cordovaToast,LoginService,$ionicPopover,$ionicScrollDelegate,$rootScope,$cordovaDialogs,$state,contactService) {
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			if(fromState && toState && fromState.name == 'ContactCreate' && toState.name == 'visit.contact'){
 				var loadingTime = 500;
@@ -910,7 +920,7 @@ visitModule.controller('visitContactCtrl', [
 			$state.go('ContactCreate');
 		}
 		$scope.goDetail = function(i){
-			employeeService.set_employeeListvalue(i);
-			$state.go('userDetail');
+			contactService.set_ContactsListvalue(i.PARTNER);
+			$state.go("ContactDetail");
 		};
 	}]);
