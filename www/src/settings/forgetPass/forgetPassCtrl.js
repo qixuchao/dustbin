@@ -23,7 +23,7 @@ settingsModule.controller("forgetPassCtrl", [
 
         function __initConfig(){
         	$scope.config = {
-        		moduleCode: '', //RESET_PASS 重置密码; CHANGE_PASS: 修改密码   CHANGE_DEVICE:更换设备，重置密码
+        		moduleCode: 'FORGET_PASS', //RESET_PASS 重置密码; CHANGE_PASS: 修改密码   CHANGE_DEVICE:更换设备，重置密码
 				changeBoxTitle: '忘记密码',
 				getValidBtnText: '获取验证码',
 				defaultText: '已发送##',
@@ -44,7 +44,7 @@ settingsModule.controller("forgetPassCtrl", [
         }
 		
 		$scope.config = {
-			moduleCode: '', //RESET_PASS 重置密码; CHANGE_PASS: 修改密码   CHANGE_DEVICE:更换设备，重置密码
+			moduleCode: 'FORGET_PASS', //RESET_PASS 重置密码; CHANGE_PASS: 修改密码   CHANGE_DEVICE:更换设备，重置密码
 			changeBoxTitle: '忘记密码',
 			getValidBtnText: '获取验证码',
 			defaultText: '已发送##',
@@ -147,7 +147,7 @@ settingsModule.controller("forgetPassCtrl", [
 
 	    function __requestChangePass(){
 	    	var queryParams = {
-			    userName: worksheetDataService.getStoredByKey("userName"),
+			    userName: $scope.config.username,
 			    oldPassword: $scope.config.oldPassWord,
 			    newPassword: $scope.config.newPassWord,
 			    newPassword2: $scope.config.newPassWord2,
@@ -183,7 +183,7 @@ settingsModule.controller("forgetPassCtrl", [
 
 	    function __requestResetPassword(){
 	    	var queryParams = {
-			    userName: worksheetDataService.getStoredByKey("userName"),
+			    userName: $scope.config.username,
 			    newPassword: $scope.config.newPassWord,
 			    newPassword2: $scope.config.newPassWord2,
 			    moduleCode: "FORGET_PASS", // 'RESET_PASS',
@@ -218,7 +218,7 @@ settingsModule.controller("forgetPassCtrl", [
 
 	    function __requestGetCheckCode(moduleCode){   //RESET_PASS 重置密码; CHANGE_PASS: 修改密码
 	        var queryParams = {
-			    userName: worksheetDataService.getStoredByKey("userName"),
+			    userName: $scope.config.username,
 			    system: worksheetDataService.getStoredByKey("sysName"),
 			    phoneNo: $scope.config.cellphone,
 			    moduleCode: moduleCode
