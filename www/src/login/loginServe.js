@@ -53,6 +53,11 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
             data = data4;
             return data;
         },
+        setUserAPPName:function(data5){
+            window.localStorage.crmUserAPPName = data5;
+            data = data5;
+            return data;
+        },
         //过去登录的用户名
         getUserName: function () {
             return data;
