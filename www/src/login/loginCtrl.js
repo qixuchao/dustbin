@@ -37,7 +37,7 @@ loginModule
 
             ionicMaterialInk.displayEffect();
             $scope.loginData = {
-                username: window.localStorage.setUserAPPName,
+                username: window.localStorage.crmUserAPPName,
                 password: window.localStorage.crmUserPassword
             };
             $scope.loginradioimgflag = false;
