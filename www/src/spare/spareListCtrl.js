@@ -41,6 +41,14 @@ spareModule.controller('SpareListCtrl',['$cordovaDialogs','$ionicScrollDelegate'
         }
     };
     $scope.spareListHistoryval();
+    $scope.clearCommonQueryDatas = function(){
+        $scope.spareList1 = [];
+        if(!$scope.$$phase) {
+            $scope.$apply();
+        };
+        delete window.localStorage.oftenSparedb;
+        $scope.oftenSpareList = [];
+    };
 
     //广播修改界面显示flag
     $rootScope.$on('customercontactCreatevalue', function(event, data) {

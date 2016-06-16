@@ -5,7 +5,7 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
     function($cordovaDialogs,$ionicLoading,$ionicHistory,worksheetDataService,$rootScope,$ionicScrollDelegate,$http,$cordovaToast,HttpAppService,$scope,CarService,$timeout,$state,Prompter){
     $scope.cars=[];
     $scope.searchFlag=false;
-    $scope.isSearch=false;
+    $scope.isSearch=false; 
     $scope.carimisshow = false;
     $scope.carInfo="";
     $scope.data=[];
@@ -53,6 +53,14 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
         }
     };
     $scope.carListHistoryval();
+    $scope.clearCommonQueryDatas = function(){
+        $scope.carList = [];
+        if(!$scope.$$phase) {
+            $scope.$apply();
+        };
+        delete window.localStorage.oftenCardb;
+        $scope.oftenCarList = [];
+    };
 
 
         $scope.carLoadMore1Im = function() {

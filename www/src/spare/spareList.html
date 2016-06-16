@@ -6,14 +6,14 @@
                 <div class="col col-60 text-center">物料清单</div>
             </div>
         </ion-header-bar>
-    </div>
+    </div> 
     <ion-header-bar class="bar bar-subheader ">
         <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
             <i class="icon ion-ios-search placeholder-icon"></i>
             <i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>
             <input type="text" placeholder="请输入物料信息" ng-model="spareInfo" ng-click="changePage()" ng-change="initLoad()">
             <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
-        </div>
+        </div> 
         <!--<div class="search2" ng-show="searchFlag">-->
             <!--<i class="icon ion-ios-search placeholder-icon"></i>-->
             <!--<i class="icon ion-ios-close" ng-show="spareInfo.length>0" ng-click="initSearch()"></i>-->
@@ -33,9 +33,10 @@
         <div class="Car_countentbasic" >
             <div class="Car_countentbasicinfo">常用物料</div>
             <div class="Car_countentbasicline"></div>
+            <span class="clear-common-datas-btn" ng-click="clearCommonQueryDatas();">清除</span>
             <div class="Car_countentbasicclok"></div>
         </div>
-        <div class="contentType animated" ng-repeat="spare in spareList1 track by $index" ng-click="goDetail(spare)" >
+        <div class="contentType" ng-repeat="spare in spareList1 track by $index" ng-click="goDetail(spare)" >
             <div class="row row-center rowType1">
                 <div class="col col-8 col-center">
                     <img ng-src="img/car/Oval.png" class="pointImg">

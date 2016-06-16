@@ -39,7 +39,7 @@ ContactsModule
                 $scope.usuallycontactQuery_list = [];
             };
         };
-        $scope.noCommonQueryDatasHistory = false;
+        
         $scope.clearCommonQueryDatas = function(){
             $scope.usuallycontactQuery_list = [];
             if(!$scope.$$phase) {
