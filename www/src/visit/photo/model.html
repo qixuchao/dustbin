@@ -1,14 +1,39 @@
 <ion-content class="has-no-header sigle-show-model" scroll="false" has-bouncing="false">
-  
+  <div class="close-box" ng-click="closePhotoShowModel();">
+  	<span>关闭</span>
+  </div>
+  <ion-slide-box  active-slide="config.activeSlideInteger" show-pager="false" class="fill-parent ">
+
+      <ion-slide ng-repeat="single in config.pictures track by $index" >
+          <ion-scroll class="img-wrapper fill-parent" 
+            zooming="true"  min-zoom="1" max-zoom="2"
+            locking="false" direction="xy"
+            ion-slide-action
+            overflow-scroll="false" has-bouncing="false"
+            scrollbar-y="false" scrollbar-x="false" >
+              <img class="xbr-single-show-img" ng-src="{{single.LINE}}">            
+          </ion-scroll> 
+          <!-- img-wrapper fill-parent -->
+          
+          <!--ion-scroll class="img-wrapper fill-parent" 
+            zooming="true"  min-zoom="1" max-zoom="2"
+            locking="false" direction="xy"
+            overflow-scroll="false" has-bouncing="false"
+            scrollbar-y="false" scrollbar-x="false">
+              <img ng-src="{{single.LINE}}">            
+          </ion-scroll-->
+      </ion-slide>
+  </ion-slide-box>
+
   <!-- img-wrapper fill-parent -->
-  <ion-scroll class="img-wrapper fill-parent" 
-    zooming="true"  min-zoom="0.5" max-zoom="2"
+  <!--ion-scroll class="img-wrapper fill-parent" 
+    zooming="true"  min-zoom="1" max-zoom="2"
     locking="false" direction="xy"
     overflow-scroll="false" has-bouncing="false"
-  	scrollbar-y="false" scrollbar-x="false" style="border:1px solid red;">
-
-	<img ng-src="{{config.currentPhotoSrc}}" ng-click="test();">
-
-  </ion-scroll>
+  	scrollbar-y="false" scrollbar-x="false" >
+    
+	<img ng-src="{{config.currentPhotoSrc}}">
+    
+  </ion-scroll-->
 
 </ion-content>

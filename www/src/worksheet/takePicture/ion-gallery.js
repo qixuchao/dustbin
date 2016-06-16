@@ -319,9 +319,12 @@
         var previndex = index - 1;// < 0 ? galleryLength - 1 : index - 1;
         var nextindex = index + 1;// >= galleryLength ? 0 : index + 1;
 
-        $scope.slides[0] = $scope.ionGalleryItems[index];
-        $scope.selectedSlide = 0;
-        lastSlideIndex = 0;
+        // $scope.slides[0] = $scope.ionGalleryItems[index];
+        // $scope.selectedSlide = 0;
+        // lastSlideIndex = 0;
+        $scope.slides = $scope.ionGalleryItems;
+        $scope.selectedSlide = index;
+        lastSlideIndex = $scope.ionGalleryItems.length -1;
 
         /*if(previndex < 0 && nextindex < $scope.ionGalleryItems.length){  //点击第一张图片
           $scope.slides[0] = $scope.ionGalleryItems[index];
