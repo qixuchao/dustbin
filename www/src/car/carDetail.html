@@ -11,7 +11,7 @@
                     </div>
                     <div class="col col-95 col-center colText" >
                         <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
-                            {{carInfo1.productionDate1}}&nbsp;&nbsp;{{carInfo1.describe}}
+                            {{carInfo1.productionDate1}}&nbsp;&nbsp;{{carInfo1.projectName}}
                         </ion-scroll>
                     </div>
                 </div>
@@ -21,7 +21,8 @@
                     </ion-scroll>
                 </div>
                 <div class="row row2 row-center">
-                    {{projectName}}&nbsp;&nbsp;{{carInfo1.projectName}}</div>
+                    <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
+                    {{carInfo1.describe}}</ion-scroll></div>
             </div>
         </div>
         <div class="contentType">
@@ -199,6 +200,7 @@
             </div>
             <div class="col col-center col-56">{{carInfo1.newDate}}</div>
         </div>
+        <div class="lineType1"></div>
         <div class="row row-center rowType">
             <div class="col col-center col-40">
                 装车日期
@@ -246,4 +248,4 @@
             <div class="lineType1"></div>
        </div>
     </ion-content>
-</ion-view>                                                                                                                                
+</ion-view>

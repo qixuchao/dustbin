@@ -403,7 +403,11 @@ carModule.controller('CarCtrl',['$cordovaDialogs','$ionicLoading','$ionicHistory
                         carInfo.terminalId = carInfoData.ZSRV_REPRENT;
                         carInfo.quality = carInfoData.Z_SHORT_TEXT;
                         carInfo.ZZ0026 = carInfoData.ZZ0026;
-
+                        if(carInfoData.ZZ0026=='0000-00-00'){
+                            carInfo.ZZ0026 = '';
+                        }else{
+                            carInfo.ZZ0026 = carInfoData.ZZ0026;
+                        }
                         //console.log(carInfo.describe);
 
                         $scope.carInfo1 = carInfo;
