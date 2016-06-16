@@ -153,7 +153,7 @@ settingsModule.controller("forgetPassCtrl", [
 			    newPassword2: $scope.config.newPassWord2,
 			    moduleCode: 'FORGET_PASS',
 			    checkcode: $scope.config.valideCode,
-			    system: $scope.config.username
+			    system: worksheetDataService.getStoredByKey("sysName")
 			};
 	        //var promise = HttpAppService.post(worksheetHttpService.imageInfos.listUrl,queryParams);
 	        var promise = HttpAppService.post(SettingsService.changePwd.url,queryParams);
@@ -188,7 +188,7 @@ settingsModule.controller("forgetPassCtrl", [
 			    newPassword2: $scope.config.newPassWord2,
 			    moduleCode: "FORGET_PASS", // 'RESET_PASS',
 			    checkcode: $scope.config.valideCode,
-			    system: $scope.config.username,
+			    system: worksheetDataService.getStoredByKey("sysName"),
 			    platform: ionic.Platform.isWebView() ? ionic.Platform.platform() : 'browser',
                 deviceId: window.localStorage.deviceId
 			};
