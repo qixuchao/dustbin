@@ -54,6 +54,13 @@ customerModule
             };
 
         };
+        $scope.clearCommonQueryDatas = function(){
+            $scope.usuallycustomerQuery_list = [];
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            };
+            delete window.localStorage.usuacustomerdb;
+        };
         $scope.CustomerHisGetvaluehis();
 
         //广播修改界面显示flag

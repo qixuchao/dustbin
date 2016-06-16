@@ -6,7 +6,7 @@
                 <div class="col col-60 text-center">员工列表</div>
             </div>
         </ion-header-bar>
-    </div>
+    </div> 
     <ion-header-bar class="bar bar-subheader ">
         <div ng-class="{true:'search2',false:'search1'}[searchFlag]">
             <i class="icon ion-ios-search placeholder-icon"></i>
@@ -26,9 +26,10 @@
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">常用员工</div>
             <div class="Car_countentbasicline"></div>
+            <span class="clear-common-datas-btn" ng-click="clearCommonQueryDatas();">清除</span>
             <div class="Car_countentbasicclok"></div>
         </div>
-        <div class="contentType animated" ng-repeat="lists in usuaemployee_query_list track by $index">
+        <div class="contentType" ng-repeat="lists in usuaemployee_query_list track by $index">
             <div class="row row-center rowType " >
                 <div class="col col-5 col-center">
                     <img ng-src="img/car/Oval.png" class="pointImg">

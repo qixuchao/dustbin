@@ -1,7 +1,7 @@
 <ion-view class="customer_Query">
     <div class="saleList">
         <ion-header-bar align-title="center" class="head pub-head ">
-            <div class="row row-center">
+            <div class="row row-center"> 
                 <a class="col col-20 text-left goBack button button-clear" ng-click="CustomerListgoBack()"><i class="ion-chevron-left"></i></a>
                 <div class="col col-60 text-center">客户列表</div>
                 <div class="col col-20 add" ng-click="customerPopover($event)" style="text-align: right">筛选</div>
@@ -21,9 +21,10 @@
         <div class="Car_countentbasic">
             <div class="Car_countentbasicinfo">常用客户</div>
             <div class="Car_countentbasicline"></div>
+            <span class="clear-common-datas-btn" ng-click="clearCommonQueryDatas();">清除</span>
             <div class="Car_countentbasicclok"></div>
         </div>
-        <div class="contentType animated" ng-repeat="x in  usuallycustomerQuery_list track by $index">
+        <div class="contentType" ng-repeat="x in  usuallycustomerQuery_list track by $index">
             <div class="row row-center rowType " ng-click="customergodeatil(x)">
                 <div class="col col-6 col-center">
                     <img ng-src="img/car/Oval.png" class="pointImg">

@@ -138,6 +138,12 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var visitsTime = visitsDateStr.split(" ")[1];
             console.log(startDate+"  "+startTime+"     "+endDate+" "+endTime+" "+malDate+" "+ malTime+" "+visitsDate+" "+visitsTime);
 
+            var zzxyhf = '';
+            if($scope.datas.detail.ES_OUT_LIST.ZZXYHF!="X"){
+                zzxyhf = "";
+            }else{
+                zzxyhf = 'X'
+            }
             var header = {
                 IMPACT: (!impact) ? "" : impact,
                 SCENARIO: (!scenario) ? "" : scenario,
@@ -162,7 +168,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
                 ZZBXR: $scope.datas.detail.ES_OUT_LIST.ZZBXR,
                 ZZBXDH: $scope.datas.detail.ES_OUT_LIST.ZZBXDH,
-                ZZXYHF: $scope.datas.detail.ES_OUT_LIST.ZZXYHF,
+                ZZXYHF: zzxyhf,
 
                 ZZYYFL_1: $scope.config.currentResultCategory.ZZYYFL || ''
             };
