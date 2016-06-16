@@ -116,7 +116,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var code = $scope.config.currentGuZhangMingCheng.CODE;
             var treatment = $scope.config.currentTreatment.TREATMENT;
 
-            if($scope.datas.detail.ES_OUT_LIST.START_TIME_STR === ""){
+            if($scope.datas.detail.ES_OUT_LIST.START_DATE === ""){
                 startDate = "";
                 startTime = "";
             } else {
@@ -126,7 +126,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 startTime = startDateStr.split(" ")[1];
             }
 
-            if($scope.datas.detail.ES_OUT_LIST.END_TIME_STR === ""){
+            if($scope.datas.detail.ES_OUT_LIST.END_DATE === ""){
                 var endDate = "";
                 var endTime = "";
             } else {
@@ -137,24 +137,24 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 //console.log(startStr +"          "+endStr);
             }
 
-            if($scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR === ""){
-                var malDate = "";
-                var malTime = "";
-            } else {
+            if($scope.ZZMAL.MARK === "false"){
                 var malStr = $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR;
                 var malTimeStr = new Date(malStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
                 var malDate = malTimeStr.split(" ")[0];
                 var malTime = malTimeStr.split(" ")[1];
+            } else {
+                var malDate = "";
+                var malTime = "";
             }
 
-            if($scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR === ""){
-                var visitsDate = "";
-                var visitsTime = "";
-            } else {
+            if($scope.ZZVISITS.MARK ===  "false") {
                 var visitsStr = $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR;
                 var visitsDateStr = new Date(visitsStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
                 var visitsDate = visitsDateStr.split(" ")[0];
                 var visitsTime = visitsDateStr.split(" ")[1];
+            } else {
+                var visitsDate = "";
+                var visitsTime = "";
             }
             console.log(startDate+"  "+startTime+"     "+endDate+" "+endTime+" "+malDate+" "+ malTime+" "+visitsDate+" "+visitsTime);
 
@@ -553,14 +553,17 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
                 switch (type) {
                     case 'start':
-                        if(__startTimeIsValid(time, $scope.datas.detail.ES_OUT_LIST.END_TIME_STR) || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR === ""){
+                        if($scope.datas.detail.ES_OUT_LIST.START_DATE === ""){
+                            $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
+                        }
+                        if(__startTimeIsValid(time, $scope.datas.detail.ES_OUT_LIST.END_TIME_STR)){
                             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
                         }else{
                             $cordovaToast.showShortBottom("最小时间不能大于最大时间!");   
                         }
                         break;
                     case 'end':
-                        if(__endTimeIsValid($scope.datas.detail.ES_OUT_LIST.START_TIME_STR, time) || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR === ""){
+                        if(__endTimeIsValid($scope.datas.detail.ES_OUT_LIST.START_TIME_STR, time)){
                             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = time;
                         }else{
                             $cordovaToast.showShortBottom("最大时间不能小于最小时间!");
@@ -569,9 +572,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                         break;
                     case 'malTime':
                             $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR = time;
+                            $scope.ZZMAL.MARK = false;
                         break;
                     case 'visitsTime':
                             $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR = time;
+                            $scope.ZZVISITS.MARK = false;
                         break;
                 }
                 if(!$scope.$$phrese){
@@ -661,10 +666,12 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             if($scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS === "0000-00-00"){
                 $scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS = "";
                 $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIMS = "";
+                $scope.ZZVISITS.MARK = true;
             }
             if($scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS === "0000-00-00"){
                 $scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS = "";
                 $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIMS = "";
+                $scope.ZZMAL.MARK = true;
             }
             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
