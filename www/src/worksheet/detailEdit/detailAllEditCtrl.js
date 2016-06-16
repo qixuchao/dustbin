@@ -605,6 +605,14 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             $scope.config.detailTypeBatchUpdate =  $scope.config.typeStr == "batchUpdate" ? true : false;
 
             $scope.datas.detail = angular.copy(worksheetDataService.wsDetailData);
+            if($scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS === "0000-00-00"){
+                $scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS = "";
+                $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIMS = "";
+            }
+            if($scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS === "0000-00-00"){
+                $scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS = "";
+                $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIMS = "";
+            }
             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
 
