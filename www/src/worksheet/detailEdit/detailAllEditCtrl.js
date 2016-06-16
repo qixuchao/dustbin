@@ -116,7 +116,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var code = $scope.config.currentGuZhangMingCheng.CODE;
             var treatment = $scope.config.currentTreatment.TREATMENT;
 
-            if($scope.datas.detail.ES_OUT_LIST.START_DATE === ""){
+            if($scope.datas.detail.ES_OUT_LIST.START_TIME_STR === ""){
                 startDate = "";
                 startTime = "";
             } else {
@@ -126,7 +126,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 startTime = startDateStr.split(" ")[1];
             }
 
-            if($scope.datas.detail.ES_OUT_LIST.END_DATE === ""){
+            if($scope.datas.detail.ES_OUT_LIST.END_TIME_STR === ""){
                 var endDate = "";
                 var endTime = "";
             } else {
