@@ -450,13 +450,29 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         function __selectCreateTimeIOS(type, title){
             var date;
             if(type == 'start'){
-                date =  new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR==""){
+                    date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                }else {
+                    date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+                }
             }else if(type=='end'){
-                date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR==""){
+                    date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                }else {
+                    date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+                }
             } else if(type=='malTime') {
-                date = new Date($scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+                if(!$scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR==""){
+                    date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                }else {
+                    date = new Date($scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+                }
             } else if(type=='visitsTime') {
-                date = new Date($scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+                if (!$scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR == "") {
+                    date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                } else {
+                    date = new Date($scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
+                }
             }
             __selectCreateTimeBasic(type, title, date);
         }
