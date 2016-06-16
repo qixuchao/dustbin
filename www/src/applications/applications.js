@@ -47,10 +47,6 @@ appModule
             name:'VISIT',
             url:'img/apps/visit.png',
             go:'visit.list'
-        },{ 
-            name:'SIGNIN', 
-            url:'img/apps/signIn.png',
-            go:'signin.list'
         },{
             name:'SERVICEMAP',
             url:'img/apps/serviceMap.png',
@@ -60,6 +56,13 @@ appModule
             url:'img/apps/saleQuote.png',
             go:'saleQuoteList'
         }];
+        /**
+           { 
+                name:'SIGNIN', 
+                url:'img/apps/signIn.png',
+                go:'signin.list'
+            }
+         */
         var num=menuList.length;
 
         $scope.imgs1= new Array();
