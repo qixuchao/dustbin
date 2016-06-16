@@ -456,25 +456,25 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         function __selectCreateTimeIOS(type, title){
             var date;
             if(type == 'start'){
-                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR==""){
+                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR=="" || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR == "0000-00-00 00:00:00"){
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 }else {
                     date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
                 }
             }else if(type=='end'){
-                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR==""){
+                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR=="" || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR == "0000-00-00 00:00:00"){
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 }else {
                     date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
                 }
             } else if(type=='malTime') {
-                if(!$scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR==""){
+                if(!$scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR=="" || $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR == "0000-00-00 00:00:00"){
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 }else {
                     date = new Date($scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
                 }
             } else if(type=='visitsTime') {
-                if (!$scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR == "") {
+                if (!$scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR == "" || $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR == "0000-00-00 00:00:00") {
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 } else {
                     date = new Date($scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
@@ -485,25 +485,25 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         function __selectCreateTimeAndroid(type, title){
             var date;
             if(type == 'start'){
-                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR==""){
+                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR=="" || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR == "0000-00-00 00:00:00"){
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 }else{
                     date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
                 }
             }else if(type=='end'){
-                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR==""){
+                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR=="" || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR == "0000-00-00 00:00:00"){
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 }else{
                     date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
                 }
             } else if(type == 'malTime') {
-                if(!$scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR==""){
+                if(!$scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR=="" || $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR == "0000-00-00 00:00:00"){
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 }else{
                     date = new Date($scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
                 }
             } else if(type == 'visitsTime') {
-                if (!$scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR == "") {
+                if (!$scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR || $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR == "" || $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR == "0000-00-00 00:00:00") {
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 } else {
                     date = new Date($scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
@@ -790,7 +790,6 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         }
 
             function __initTreatment(){
-                console.log("11111111111111" + $scope.datas.detail.ES_OUT_LIST.ZZDEALS);
                 var url = ROOTCONFIG.hempConfig.basePath + 'LIST_DEALS';
                 var defaults = {
                     "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
@@ -808,8 +807,6 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                             TREARTMENT_DESC: items[j].DESCRIPTION
                         });
                     }
-                    console.log("222222222" + angular.toJson($scope.datas.treatmentS));
-                    console.log("3333333333" + $scope.datas.detail.ES_OUT_LIST.ZZDEALS);
                     for(var i = 0; i < $scope.datas.treatmentS.length; i++){
                         if($scope.datas.treatmentS[i].TREARTMENT_DESC == $scope.datas.detail.ES_OUT_LIST.ZZDEALS){
                             $scope.config.currentTreatment = $scope.datas.treatmentS[i];
