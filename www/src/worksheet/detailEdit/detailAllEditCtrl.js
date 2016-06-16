@@ -192,6 +192,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
                 ZZYYFL_1: $scope.config.currentResultCategory.ZZYYFL || ''
             };
+            console.log("22222" + angular.toJson(header));
             __requestUpdateWorksheet(header);
         };
         function __checkCanUpdate(){
@@ -553,14 +554,14 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
                 switch (type) {
                     case 'start':
-                        if(__startTimeIsValid(time, $scope.datas.detail.ES_OUT_LIST.END_TIME_STR)){
+                        if(__startTimeIsValid(time, $scope.datas.detail.ES_OUT_LIST.END_TIME_STR) || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR === ""){
                             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
                         }else{
                             $cordovaToast.showShortBottom("最小时间不能大于最大时间!");   
                         }
                         break;
                     case 'end':
-                        if(__endTimeIsValid($scope.datas.detail.ES_OUT_LIST.START_TIME_STR, time)){
+                        if(__endTimeIsValid($scope.datas.detail.ES_OUT_LIST.START_TIME_STR, time) ||  $scope.datas.detail.ES_OUT_LIST.END_TIME_STR === ""){
                             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = time;
                         }else{
                             $cordovaToast.showShortBottom("最大时间不能小于最小时间!");
@@ -652,34 +653,37 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 $scope.datas.detail.ES_OUT_LIST.START_DATE = "";
                 $scope.datas.detail.ES_OUT_LIST.START_TIME = "";
                 $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = "";
+            } else {
+                $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             }
 
             if($scope.datas.detail.ES_OUT_LIST.END_DATE === "0000-00-00"){
                 $scope.datas.detail.ES_OUT_LIST.END_DATE = "";
                 $scope.datas.detail.ES_OUT_LIST.END_TIME = "";
                 $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = "";
+            } else {
+                $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
             }
 
             if($scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS === "0000-00-00"){
                 $scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS = "";
                 $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIMS = "";
                 $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR = "";
+            } else {
+                $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR = $scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS + " " + $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIMS;
             }
+
             if($scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS === "0000-00-00"){
                 $scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS = "";
                 $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIMS = "";
                 $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR = "";
+            } else {
+                $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR = $scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS + " " + $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIMS;
             }
-            $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
-            $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
 
             if($scope.datas.detail.ES_OUT_LIST.ZZXYHF!="X"){
                 $scope.datas.detail.ES_OUT_LIST.ZZXYHF = "";
             }
-
-            $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR = $scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS + " " + $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIMS;
-            $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR = $scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS + " " + $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIMS;
-            
             
             var texts = $scope.datas.detail.ET_TEXT.item;
             if(texts){
