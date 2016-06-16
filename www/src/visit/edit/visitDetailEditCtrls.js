@@ -920,6 +920,7 @@ visitModule.controller('visitContactCtrl', [
 			$state.go('ContactCreate');
 		}
 		$scope.goDetail = function(i){
+			console.log(i);
 			contactService.set_ContactsListvalue(i.PARTNER);
 			$state.go("ContactDetail");
 		};
