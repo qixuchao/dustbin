@@ -53,6 +53,14 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
             }
         };
         $scope.carListHistoryval();
+        $scope.clearCommonQueryDatas = function(){
+            $scope.carList = [];
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            };
+            delete window.localStorage.oftenActdb;
+            $scope.oftenCarList = [];
+        };
 
 
         $scope.carLoadMore1Im = function () {

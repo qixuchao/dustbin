@@ -28,6 +28,16 @@ saleQuoteModule.controller('saleQuoteListCtrl',['$cordovaDialogs','$ionicActionS
                 }
             };
             $scope.EmployeeListHistoryval();
+            $scope.clearCommonQueryDatas = function(){
+                $scope.usuaemployee_query_list = [];
+                if(!$scope.$$phase) {
+                    $scope.$apply();
+                };
+                delete window.localStorage.saleQuotedb;
+                $scope.employeehislistvalue = [];
+            };
+
+
             //广播修改界面显示flag
             $rootScope.$on('employeedeatillist', function(event, data) {
                 //数据初始化
