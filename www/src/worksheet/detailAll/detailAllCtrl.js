@@ -640,6 +640,14 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	tempResponse.waifuRenyuan = waifuRenyuan;
 		        	tempResponse.IS_PROCESS_TYPE = params.IS_PROCESS_TYPE;
 		        	$scope.datas.detail = tempResponse;
+					if($scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS === "0000-00-00"){
+						$scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS = "";
+						$scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIMS = "";
+					}
+					if($scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS === "0000-00-00"){
+						$scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS = "";
+						$scope.datas.detail.ES_OUT_LIST.ZZMAL_TIMS = "";
+					}
 		        	worksheetDataService.wsDetailData = tempResponse;
 
 		        	$scope.config.statusStr = tempResponse.ES_OUT_LIST.STATU;

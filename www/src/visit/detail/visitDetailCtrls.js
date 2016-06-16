@@ -8,7 +8,7 @@ visitModule.controller('visitDetailCtrl', [
 			customer :null,//客户
 			summary :[],//zongjie
 			comment :null,//评论
-			pictures : [],//tupian
+			//pictures : [],//tupian
 			content : '',//评论内容
 			userName : '',//当前登录人姓名
 			allInfo :'',
@@ -20,7 +20,7 @@ visitModule.controller('visitDetailCtrl', [
 			console.log(toState.name);
 			if(toState.name == 'visit.detail'){
 				$scope.init();
-			}
+			} 
 		});
 		$ionicModal.fromTemplateUrl('src/visit/detail/model/visitDetail_Modal.html', {
 			scope: $scope
@@ -42,7 +42,10 @@ visitModule.controller('visitDetailCtrl', [
 
 		$scope.config = {
 			photoModel: null,
-			currentPhotoSrc: ''
+			currentPhotoSrc: '',
+
+			pictures : [],//tupian
+			activeSlideInteger: 0
 		}
 		$scope.destoryPhotoModel = function(){
 			if($scope.config.photoModel){
@@ -56,11 +59,11 @@ visitModule.controller('visitDetailCtrl', [
 			$scope.destoryPhotoModel();
 		});
 
-		$scope.test = function(){
-			console.log("abcdefg");
+		$scope.closePhotoShowModel = function(){
+			$scope.destoryPhotoModel();
 		};
-
 		$scope.showSinglePicture = function(item, index){
+			$scope.config.activeSlideInteger = index;
 			if($scope.config.photoModel == null){
 				$ionicModal.fromTemplateUrl('src/visit/photo/model.html', {
 			        scope: $scope,
@@ -168,9 +171,9 @@ visitModule.controller('visitDetailCtrl', [
 				if(response && response.ES_RESULT && response.ES_RESULT.ZFLAG){
 					if(response.ES_RESULT.ZFLAG == "S"){
 						if( response.ET_OUT_LIST != ''){
-							$scope.datas.pictures = response.ET_OUT_LIST.item;
-							visitService.visitPicture=$scope.datas.pictures;
-							console.log($scope.datas.pictures);
+							$scope.config.pictures = response.ET_OUT_LIST.item;
+							visitService.visitPicture=$scope.config.pictures;
+							console.log($scope.config.pictures);
 						}
 					}else if(response.ES_RESULT.ZFLAG == "E"){
 						visitService.visitPicture=[];

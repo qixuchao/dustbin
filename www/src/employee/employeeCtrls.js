@@ -16,7 +16,7 @@ employeeModule
                 if ($scope.employee_query_historylists.length > 5) {
                     $scope.employee_query_historylists = $scope.employee_query_historylists.slice(0, 5);
                 };
-            };
+            }; 
 
             //常用联系人显示
             if (JSON.parse(localStorage.getItem("usuaemploydb")) != null || JSON.parse(localStorage.getItem("usuaemploydb")) != undefined) {
@@ -27,6 +27,14 @@ employeeModule
             } else {
                 $scope.usuaemployee_query_list = [];
             }
+        };
+        $scope.clearCommonQueryDatas = function(){
+            $scope.usuaemployee_query_list = [];
+            if(!$scope.$$phase) {
+                $scope.$apply();
+            };
+            delete window.localStorage.usuaemploydb;
+            $scope.employeehislistvalue = [];
         };
         $scope.EmployeeListHistoryval();
 

@@ -4,6 +4,43 @@
 	}
 }
 
+.platform-ios{
+	.close-box{
+		margin-top: 20px;
+	}
+}
+.close-box{
+	height: 2rem;
+	width: 4rem;
+	line-height: 2rem;
+	text-align: center;
+	color: white;
+	//float: right;
+	position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 14;
+}
+.sigle-show-model{
+	.slider-slides{
+		ion-slide{
+			// @include display-flex;
+			// @include justify-content(center);
+			// @include align-items(center);
+			img{
+				border: 1px solid white;
+				&.xbr-single-show-img{
+					border: 1px solid white;
+				    padding: 1% 1%;
+				    margin: 0px 1%;
+				    max-width: 98%;
+				    max-height: 98%;
+				}
+			}
+		}
+	}
+}
+
 #visit-detail-view{
 	.saleList{
 		height: 135px;

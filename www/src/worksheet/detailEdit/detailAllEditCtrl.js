@@ -138,6 +138,12 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var visitsTime = visitsDateStr.split(" ")[1];
             console.log(startDate+"  "+startTime+"     "+endDate+" "+endTime+" "+malDate+" "+ malTime+" "+visitsDate+" "+visitsTime);
 
+            var zzxyhf = '';
+            if($scope.datas.detail.ES_OUT_LIST.ZZXYHF!="X"){
+                zzxyhf = "";
+            }else{
+                zzxyhf = 'X'
+            }
             var header = {
                 IMPACT: (!impact) ? "" : impact,
                 SCENARIO: (!scenario) ? "" : scenario,
@@ -162,7 +168,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
                 ZZBXR: $scope.datas.detail.ES_OUT_LIST.ZZBXR,
                 ZZBXDH: $scope.datas.detail.ES_OUT_LIST.ZZBXDH,
-                ZZXYHF: $scope.datas.detail.ES_OUT_LIST.ZZXYHF,
+                ZZXYHF: zzxyhf,
 
                 ZZYYFL_1: $scope.config.currentResultCategory.ZZYYFL || ''
             };
@@ -605,6 +611,14 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             $scope.config.detailTypeBatchUpdate =  $scope.config.typeStr == "batchUpdate" ? true : false;
 
             $scope.datas.detail = angular.copy(worksheetDataService.wsDetailData);
+            if($scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS === "0000-00-00"){
+                $scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS = "";
+                $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIMS = "";
+            }
+            if($scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS === "0000-00-00"){
+                $scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS = "";
+                $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIMS = "";
+            }
             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = $scope.datas.detail.ES_OUT_LIST.START_DATE + " " + $scope.datas.detail.ES_OUT_LIST.START_TIME;
             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = $scope.datas.detail.ES_OUT_LIST.END_DATE + " " + $scope.datas.detail.ES_OUT_LIST.END_TIME;
 
