@@ -448,6 +448,11 @@ ContactsModule
             if(fromState.name=="ContactEdit"&&toState.name=="ContactDetail"){
                 loadData();
             }
+            //console.log(fromState.name);
+            if(fromState.name=="tabs"&&toState.name=="ContactDetail"){
+                loadData();
+            }
+
         });
         //返回到联系人列表界面 
         $scope.ContactgoBack = function() {  
