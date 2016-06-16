@@ -115,27 +115,47 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var codegrupper = $scope.config.currentGuZhangBuJian.CODEGRUPPE;
             var code = $scope.config.currentGuZhangMingCheng.CODE;
             var treatment = $scope.config.currentTreatment.TREATMENT;
-            
-            var startStr = $scope.datas.detail.ES_OUT_LIST.START_TIME_STR;
-            var startDateStr = new Date(startStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
-            startDate = startDateStr.split(" ")[0];
-            startTime = startDateStr.split(" ")[1];
 
-            var endStr = $scope.datas.detail.ES_OUT_LIST.END_TIME_STR;
-            var endDateStr = new Date(endStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
-            var endDate = endDateStr.split(" ")[0];
-            var endTime = endDateStr.split(" ")[1];
-            //console.log(startStr +"          "+endStr);
+            if($scope.datas.detail.ES_OUT_LIST.START_DATE === ""){
+                startDate = "";
+                startTime = "";
+            } else {
+                var startStr = $scope.datas.detail.ES_OUT_LIST.START_TIME_STR;
+                var startDateStr = new Date(startStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
+                startDate = startDateStr.split(" ")[0];
+                startTime = startDateStr.split(" ")[1];
+            }
 
-            var malStr = $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR;
-            var malTimeStr = new Date(malStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
-            var malDate = malTimeStr.split(" ")[0];
-            var malTime = malTimeStr.split(" ")[1];
+            if($scope.datas.detail.ES_OUT_LIST.END_DATE === ""){
+                var endDate = "";
+                var endTime = "";
+            } else {
+                var endStr = $scope.datas.detail.ES_OUT_LIST.END_TIME_STR;
+                var endDateStr = new Date(endStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
+                var endDate = endDateStr.split(" ")[0];
+                var endTime = endDateStr.split(" ")[1];
+                //console.log(startStr +"          "+endStr);
+            }
 
-            var visitsStr = $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR;
-            var visitsDateStr = new Date(visitsStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
-            var visitsDate = visitsDateStr.split(" ")[0];
-            var visitsTime = visitsDateStr.split(" ")[1];
+            if($scope.datas.detail.ES_OUT_LIST.ZZMAL_DATS === ""){
+                var malDate = "";
+                var malTime = "";
+            } else {
+                var malStr = $scope.datas.detail.ES_OUT_LIST.ZZMAL_TIME_STR;
+                var malTimeStr = new Date(malStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
+                var malDate = malTimeStr.split(" ")[0];
+                var malTime = malTimeStr.split(" ")[1];
+            }
+
+            if($scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS === ""){
+                var visitsDate = "";
+                var visitsTime = "";
+            } else {
+                var visitsStr = $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIME_STR;
+                var visitsDateStr = new Date(visitsStr.replace(/-/g, "/")).format('yyyy-MM-dd hh:mm:ss');
+                var visitsDate = visitsDateStr.split(" ")[0];
+                var visitsTime = visitsDateStr.split(" ")[1];
+            }
             console.log(startDate+"  "+startTime+"     "+endDate+" "+endTime+" "+malDate+" "+ malTime+" "+visitsDate+" "+visitsTime);
 
             var zzxyhf = '';
@@ -456,13 +476,13 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         function __selectCreateTimeIOS(type, title){
             var date;
             if(type == 'start'){
-                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR == ""){
+                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR == "" || $scope.datas.detail.ES_OUT_LIST.START_DATE === ""){
                     date = new Date().format('yyyy/MM/dd hh:mm:ss');
                 }else {
                     date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
                 }
             }else if(type=='end'){
-                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR == ""){
+                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR == "" || $scope.datas.detail.ES_OUT_LIST.END_DATE === ""){
                     date = new Date().format('yyyy/MM/dd hh:mm:ss');
                 }else {
                     date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
@@ -485,13 +505,13 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         function __selectCreateTimeAndroid(type, title){
             var date;
             if(type == 'start'){
-                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR == ""){
+                if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR == "" || $scope.datas.detail.ES_OUT_LIST.START_DATE === ""){
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 }else{
                     date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
                 }
             }else if(type=='end'){
-                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR == ""){
+                if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR == "" || $scope.datas.detail.ES_OUT_LIST.END_DATE === ""){
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
                 }else{
                     date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
@@ -627,6 +647,17 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             $scope.config.detailTypeBatchUpdate =  $scope.config.typeStr == "batchUpdate" ? true : false;
 
             $scope.datas.detail = angular.copy(worksheetDataService.wsDetailData);
+
+            if($scope.datas.detail.ES_OUT_LIST.START_DATE === "0000-00-00"){
+                $scope.datas.detail.ES_OUT_LIST.START_DATE = "";
+                $scope.datas.detail.ES_OUT_LIST.START_TIME = "";
+            }
+
+            if($scope.datas.detail.ES_OUT_LIST.END_DATE === "0000-00-00"){
+                $scope.datas.detail.ES_OUT_LIST.END_DATE = "";
+                $scope.datas.detail.ES_OUT_LIST.END_TIME = "";
+            }
+
             if($scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS === "0000-00-00"){
                 $scope.datas.detail.ES_OUT_LIST.ZZVISITS_DATS = "";
                 $scope.datas.detail.ES_OUT_LIST.ZZVISITS_TIMS = "";
