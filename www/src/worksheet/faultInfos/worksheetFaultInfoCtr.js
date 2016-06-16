@@ -27,6 +27,11 @@ worksheetModule.controller("WorksheetFaultInfoCtrl",["$scope",
             };
             //ZPRV ZPLV  ZNCV服务商
             //console.log(worksheetDataService.wsDetailData.IS_PROCESS_TYPE);
+            if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV"){
+                $scope.showCL = true;
+            }else{
+                $scope.showCL = false;
+            }
             if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPLV" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZNCV"){
                 $scope.carEdit = false
             }
@@ -59,6 +64,11 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
         ionicMaterialInk.displayEffect();
         $scope.goAlert = function(){
             Prompter.ContactCreateCancelvalue();
+        }
+        if(worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRO" || worksheetDataService.wsDetailData.IS_PROCESS_TYPE === "ZPRV"){
+            $scope.showCL = true;
+        }else{
+            $scope.showCL = false;
         }
         //文本框自适应换行
         var autoTextarea = function (elem, extra, maxHeight) {
@@ -177,7 +187,7 @@ worksheetModule.controller("WorksheetFaultInfoEditCtrl",["$scope",
             }else {
                 var yyfl = $scope.config.yyfl.ZZYYFL;
             }
-            if($scope.config.treatment == null || $scope.config.treatment ==undefined || $scope.config.treatment ==""){
+            if(($scope.config.treatment == null || $scope.config.treatment ==undefined || $scope.config.treatment =="") && $scope.showCL != false){
                 Prompter.hideLoading();
                 $cordovaToast.showShortBottom("请选择处理方式");
                 return;

@@ -153,7 +153,7 @@ loginModule
                           if(ROOTCONFIG.hempConfig.baseEnvironment == "CATL"){
                                 __initJPushPlugin();
                           }
-                        console.log(angular.toJson(response));
+                        //console.log(angular.toJson(response));
                         
                         if(response.PROFILE == "*"){
                             $rootScope.FIRST_LOGIN = response.FIRST_LOGIN;
@@ -278,7 +278,7 @@ loginModule
                         window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
                     }
                 } catch (exception) {
-                    console.log(exception);
+                    //console.log(exception);
                 }
                 
                 //document.addEventListener("jpush.setTagsWithAlias", onTagsWithAlias, false);

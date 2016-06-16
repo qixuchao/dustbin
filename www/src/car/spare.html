@@ -15,7 +15,7 @@
             <i class="button button-clear" ng-click="cancelSearch()" ng-show="searchFlag">取消</i>
         </div>
     </ion-header-bar>
-    <ion-content class="has-header search " ng-show="searchFlag">
+    <ion-content class="has-header search " ng-show="searchFlag" has-bouncing="true">
         <div class="divContent" ng-repeat="x in spareList1">
              <div class="row row-center ">
                 <div class="col col-5">
@@ -48,14 +48,15 @@
                 </div>
             </div>
         </div>
-        <div class="row row-center rowType" style="text-align: center">
-            <div class="col col-100 col-center">
-                <span ng-click="spare1()" ng-show="buttonShow">点击加载更多</span>
-                <span ng-hide="buttonShow">无更多数据显示</span>
-            </div>
-        </div>
+        <!--<div class="row row-center rowType" style="text-align: center">-->
+            <!--<div class="col col-100 col-center">-->
+                <!--<span ng-click="spare1()" ng-show="buttonShow">点击加载更多</span>-->
+                <!--<span ng-hide="buttonShow">无更多数据显示</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <ion-infinite-scroll on-infinite="spare1()" ng-if="buttonShow"></ion-infinite-scroll>
     </ion-content>
-    <ion-content  ng-show="!searchFlag">
+    <ion-content  ng-show="!searchFlag" has-bouncing="true">
         <div class="divContent" ng-repeat="spare in spareList">
             <div class="row row-center">
                 <div class="col col-5">
@@ -87,11 +88,12 @@
                 </div>
             </div>
         </div>
-        <div class="row row-center rowType" style="text-align: center">
-            <div class="col col-100 col-center">
-                <span ng-click="spare()" ng-show="buttonShow1">点击加载更多</span>
-                <span ng-hide="buttonShow1">无更多数据显示</span>
-            </div>
-        </div>
+        <!--<div class="row row-center rowType" style="text-align: center">-->
+            <!--<div class="col col-100 col-center">-->
+                <!--<span ng-click="spare()" ng-show="buttonShow1">点击加载更多</span>-->
+                <!--<span ng-hide="buttonShow1">无更多数据显示</span>-->
+            <!--</div>-->
+        <!--</div>-->
+        <ion-infinite-scroll on-infinite="spare()" ng-if="buttonShow1"></ion-infinite-scroll>
     </ion-content>
 </ion-view>
