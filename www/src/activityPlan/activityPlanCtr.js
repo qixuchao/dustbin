@@ -59,6 +59,7 @@ activityPlanModule.controller('activityPlanListCtrl', ['$cordovaDialogs', '$ioni
                 $scope.$apply();
             };
             delete window.localStorage.oftenActdb;
+            $scope.oftenCarList = [];
         };
 
 
