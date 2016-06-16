@@ -37,7 +37,7 @@ loginModule
 
             ionicMaterialInk.displayEffect();
             $scope.loginData = {
-                username: window.localStorage.crmUserName,
+                username: window.localStorage.setUserAPPName,
                 password: window.localStorage.crmUserPassword
             };
             $scope.loginradioimgflag = false;
@@ -136,7 +136,8 @@ loginModule
                         LoginService.setProfileType(response.PROFILE_TYPE);
                         LoginService.setMenulist(response.MENULIST);
                         LoginService.setAuth(response.AUTH);
-                        LoginService.setUserName($scope.loginData.username);
+                        LoginService.setUserName(response.LOGIN_USER);
+                        LoginService.setUserAPPName($scope.loginData.username);
                         LoginService.version = response.VERSION;
                         UTILITIES.setToken(response.TOKEN.pre_token + "" + response.TOKEN.token_key);
                         if (LoginService.getBupaTypeUser() != response.BUPA_TYPE_USER) {
