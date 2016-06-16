@@ -11,11 +11,11 @@
                 <div class="customer_detailcontent">
                     <div class="customer_detailcontentname">
                         <div class="customer_detailcontentcicle"></div>
-                        <span>
+                        <div>
                             <ion-scroll  direction="x" scrollbar-x="false"  style="white-space:nowrap">
-                                 <div >{{customerdetails.NAME_ORG1}}</div>
+                                {{customerdetails.NAME_ORG1}}
                             </ion-scroll>
-                        </span>
+                        </div>
                     </div>
                     <div class="customer_detailcontentaddress" style="max-width: 90%;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;margin-left: 15px">
                         NO：<span ng-bind="customerdetails.PARTNER_ID" ></span>
