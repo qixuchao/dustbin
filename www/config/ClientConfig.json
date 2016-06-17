@@ -1,6 +1,6 @@
-{
+{ 
   "hempConfig": {
-    "basePath": "http://117.28.248.23:9388/test/api/CRMAPP/",
+    "basePath": "https://crmmp.atlbattery.com:9343/crmuat/api/CRMAPP/",
     "basePathPro": "https://crmmp.atlbattery.com:9343/crmprod/api/CRMAPP/",
     "basePathUat": "https://crmmp.atlbattery.com:9343/crmuat/api/CRMAPP/",
     "basePathTest": "http://117.28.248.23:9388/test/api/CRMAPP/",
@@ -14,7 +14,7 @@
     "apiKey": "gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru",
     "apiKeyPro": "cWKXNjK17RG0If17cgQ8Yd6bO8MWpfUC",
     "apiKeyTest&Uat": "gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru",
-    "geotableId": "140851",
+    "geotableId": "142084",
     "geotableIdPro": "142126",
     "geotableIdUat": "142084",
     "geotableIdTest": "140851",
