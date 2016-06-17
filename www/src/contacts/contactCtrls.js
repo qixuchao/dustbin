@@ -448,7 +448,10 @@ ContactsModule
             if(fromState.name=="ContactEdit"&&toState.name=="ContactDetail"){
                 loadData();
             }
-            //console.log(fromState.name);
+            if(fromState.name=="visit.contact"&&toState.name=="ContactDetail"){
+                loadData();
+            }
+            console.log(fromState.name);
             if(fromState.name=="tabs"&&toState.name=="ContactDetail"){
                 loadData();
             }
@@ -1773,7 +1776,7 @@ ContactsModule
                     break;
                 case 'FNCTN':
                     $scope.contactedit.POST_CODE1 = '';
-                    document.getElementById('contcreaatendimg').style.display = "none";
+                    document.getElementById('contatend').style.display = "none";
                     break;
                 case 'POST_CODE1':
                     $scope.contactedit.POST_CODE1 = '';
@@ -1794,6 +1797,15 @@ ContactsModule
                 case 'HOUSE_NUM1':
                     $scope.contactedit.HOUSE_NUM1 = '';
                     document.getElementById('contcreapostmimg').style.display = "none";
+                    break;
+
+                case 'email':
+                    $scope.contactedit.HOUSE_NUM1 = '';
+                    document.getElementById('emailname').style.display = "none";
+                    break;
+                case 'TEL_EXTENS':
+                    $scope.contactedit.TEL_EXTENS = '';
+                    document.getElementById('contphonenumber1').style.display = "none";
                     break;
             }
         };
