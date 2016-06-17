@@ -117,7 +117,7 @@ salesModule
                     Prompter.alert('请选择客户');
                     return
                 }
-                if($scope.create.contact.PARTNER ==''){
+                if($scope.create.contact ==''){
                     var item = [{
                         "PARTNER_NO": $scope.create.customer.PARTNER,
                         "PARTNER_FCT": "00000021",//客户
