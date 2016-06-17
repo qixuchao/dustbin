@@ -117,7 +117,29 @@ salesModule
                     Prompter.alert('请选择客户');
                     return
                 }
-
+                if($scope.create.contact.PARTNER ==''){
+                    var item = [{
+                        "PARTNER_NO": $scope.create.customer.PARTNER,
+                        "PARTNER_FCT": "00000021",//客户
+                        "NAME": "",
+                        "MAINPARTNER": "",
+                        "ZMODE": ""
+                    }];
+                }else{
+                    var item = [{
+                        "PARTNER_NO": $scope.create.customer.PARTNER,
+                        "PARTNER_FCT": "00000021",//客户
+                        "NAME": "",
+                        "MAINPARTNER": "",
+                        "ZMODE": ""
+                    }, {
+                        "PARTNER_NO": $scope.create.contact.PARTNER,
+                        "PARTNER_FCT": "00000015",//联系人
+                        "NAME": "",
+                        "MAINPARTNER": "",
+                        "ZMODE": ""
+                    }];
+                }
                 var data = {
                     "I_SYSNAME": {
                         "SysName": ROOTCONFIG.hempConfig.baseEnvironment
@@ -157,19 +179,7 @@ salesModule
                         }
                     },
                     "IT_PARTNER": {
-                        "item": [{
-                            "PARTNER_NO": $scope.create.customer.PARTNER,
-                            "PARTNER_FCT": "00000021",//客户
-                            "NAME": "",
-                            "MAINPARTNER": "",
-                            "ZMODE": ""
-                        }, {
-                            "PARTNER_NO": $scope.create.contact.PARTNER,
-                            "PARTNER_FCT": "00000015",//联系人
-                            "NAME": "",
-                            "MAINPARTNER": "",
-                            "ZMODE": ""
-                        }]
+                        "item": item
                     }
                 };
                 $cordovaDialogs.confirm('是否确认提交', '提示', ['确定', '取消'])
