@@ -37,7 +37,11 @@ worksheetModule.controller('baoGongDetailEditCtrl',[
 				DESCRIPTION: $scope.datas.detail.ES_OUT_LIST.DESCRIPTION_EDIT,
 				STATUS: $scope.datas.detail.ES_OUT_LIST.STATU
 			};
-			var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
+			//var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
+            var params = {
+                I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
+                IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
+            };
 			params.IS_HEAD_DATA = header;
 			params.IV_PROCESS_TYPE = $scope.config.PROCESS_TYPE;
 			params.IV_OBJECT_ID = $scope.config.OBJECT_ID;

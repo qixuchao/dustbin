@@ -306,6 +306,9 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
                 try{
                     pridocItems = worksheetDataService.wsDetailData.ET_PRIDOC.item;
                 }catch(e){ pridocItems = []; }
+                if(!pridocItems || pridocItems==null){
+                    pridocItems = [];
+                }
                 for(var i = 0; i < detailItems.length; i++){
                     detailItems[i].XBR_TOTALPRICE = 0;
                     for(var x = 0; x < pridocItems.length; x++){
@@ -385,7 +388,11 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
 
     function __fillApplyNum(objId, proType){
         var url = baoGongService.BAOWS_CONFIRM_FILL.url;
-        var params = baoGongService.BAOWS_CONFIRM_FILL.defaults;
+        //var params = baoGongService.BAOWS_CONFIRM_FILL.defaults;
+        var params = {
+            I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
+            IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
+        };
         params.IV_OBJECT_ID = objId;
         params.IV_PROCESS_TYPE = proType;
         var promise = HttpAppService.post(url,params);
@@ -425,7 +432,11 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     function __requestConfirmFill(objId, proType){
         // baoGongService.BAOWS_CONFIRM_FILL.url
         var url = baoGongService.BAOWS_CONFIRM_FILL.url;
-        var params = baoGongService.BAOWS_CONFIRM_FILL.defaults;
+        //var params = baoGongService.BAOWS_CONFIRM_FILL.defaults;
+        var params = {
+            I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
+            IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
+        };
         params.IV_OBJECT_ID = objId;
         params.IV_PROCESS_TYPE = proType;
         Prompter.showLoading("正在加载");
@@ -480,7 +491,11 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
     //baoGongService.baoGongService.BAOWS_EDIT.
     function __requestSaveDetail(){
         var url = baoGongService.BAOWS_EDIT.url;
-        var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
+        //var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
+        var params = {
+            I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
+            IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
+        };
         params.IV_OBJECT_ID = worksheetDataService.wsBaoDetailData.ydWorksheetNum;
         params.IV_PROCESS_TYPE = worksheetDataService.wsBaoDetailData. IS_PROCESS_TYPE;
         params.IS_HEAD_DATA = {
@@ -546,7 +561,11 @@ worksheetModule.controller("WorksheetBaoGongListCtrl",[
 
     function __requestSavePrice(){
         var url = baoGongService.BAOWS_EDIT.url;
-        var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
+        //var params = angular.copy(baoGongService.BAOWS_EDIT.defaults);
+        var params = {
+            I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
+            IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
+        };
         params.IV_OBJECT_ID = worksheetDataService.wsBaoDetailData.ydWorksheetNum;
         params.IV_PROCESS_TYPE = worksheetDataService.wsBaoDetailData. IS_PROCESS_TYPE;
         params.IS_HEAD_DATA = {

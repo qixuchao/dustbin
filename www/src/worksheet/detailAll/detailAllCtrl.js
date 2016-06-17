@@ -783,7 +783,15 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 
 			function __requestEmpDatas(){
 				//Prompter.showLoading("");
-				var options = worksheetHttpService.empsList.defaults;
+				//var options = worksheetHttpService.empsList.defaults;
+				var options = {
+					I_SYSNAME: { SysName: worksheetDataService.getStoredByKey("sysName") },
+					IS_PAGE: {
+						CURRPAGE: "1",
+						ITEMS: "10"
+					},
+					IS_EMPLOYEE: { "NAME": "" }
+				};
 				options.IS_EMPLOYEE.NAME = $scope.config.empSearchStr;
 				options.IS_PAGE.CURRPAGE = $scope.config.empPage;
 		        var promise = HttpAppService.post(worksheetHttpService.empsList.url,options);

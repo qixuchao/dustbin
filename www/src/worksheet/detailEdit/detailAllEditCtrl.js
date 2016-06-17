@@ -181,10 +181,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 START_TIME: startTime,
                 END_DATE: endDate,
                 END_TIME: endTime,
-                ZZMAL_DATS: malDate,
-                ZZMAL_TIMS: malTime,
-                ZZVISITS_DATS: visitsDate,
-                ZZVISITS_TIMS: visitsTime,
+                
 
                 ZZBXR: $scope.datas.detail.ES_OUT_LIST.ZZBXR,
                 ZZBXDH: $scope.datas.detail.ES_OUT_LIST.ZZBXDH,
@@ -192,6 +189,16 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
                 ZZYYFL_1: $scope.config.currentResultCategory.ZZYYFL || ''
             };
+
+            if($scope.config.detailTypeSiteRepair){
+                header.ZZMAL_DATS = malDate;
+                header.ZZMAL_TIMS = malTime;
+                header.ZZVISITS_DATS = visitsDate;
+                header.ZZVISITS_TIMS = visitsTime;
+            }
+                
+
+
             console.log("22222" + angular.toJson(header));
             __requestUpdateWorksheet(header);
         };
@@ -215,7 +222,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         }
         function __requestUpdateWorksheet(headerData){
             var url = worksheetHttpService.serviceDetailChange.url;
-            var defaults = worksheetHttpService.serviceDetailChange.defaults;
+            //var defaults = worksheetHttpService.serviceDetailChange.defaults;
+            var defaults = {
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+                "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            };
             var postData = angular.extend(defaults, {
                 IS_HEAD_DATA: headerData,
                 IS_OBJECT_ID: $scope.datas.detail.ydWorksheetNum,
@@ -728,7 +739,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         var bujianS = [];
         function __initBuJianReason(){
             var url = worksheetHttpService.xialazhi.service_order_reason.url;
-            var defaults = worksheetHttpService.xialazhi.service_order_reason.defaults;
+            //var defaults = worksheetHttpService.xialazhi.service_order_reason.defaults;
+            var defaults = {
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+                "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            };
             var promise = HttpAppService.post(url, defaults);
             $scope.config.isLoading_BujianReason = true;
             promise.success(function(successRes){
@@ -745,7 +760,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         }
         function __initScenario(){
             var url = worksheetHttpService.xialazhi.list_scenario.url;
-            var defaults = worksheetHttpService.xialazhi.list_scenario.defaults;
+            //var defaults = worksheetHttpService.xialazhi.list_scenario.defaults;
+            var defaults = {
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+                "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            };
             var promise = HttpAppService.post(url, defaults);
             $scope.config.isLoading_scenario = true;
             promise.success(function(successRes){
@@ -777,7 +796,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         }
         function __initResponse(){
             var url = worksheetHttpService.xialazhi.list_response.url;
-            var defaults = worksheetHttpService.xialazhi.list_response.defaults;
+            //var defaults = worksheetHttpService.xialazhi.list_response.defaults;
+            var defaults = {
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+                "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            };
             var promise = HttpAppService.post(url, defaults);
             $scope.config.isLoading_response = true;
             promise.success(function(successRes){
@@ -805,7 +828,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         }
         function __initGuZhangFeiLei(){
             var url = worksheetHttpService.xialazhi.list_defect.url;
-            var defaults = worksheetHttpService.xialazhi.list_defect.defaults;
+            //var defaults = worksheetHttpService.xialazhi.list_defect.defaults;
+            var defaults = {
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") } 
+            };
             var promise = HttpAppService.post(url, defaults);
             $scope.config.isLoading_defect = true;
             promise.success(function(successRes){
@@ -867,7 +894,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
         function __initImpactFromRemote(){
             var url = worksheetHttpService.xialazhi.list_impact.url;
-            var defaults = worksheetHttpService.xialazhi.list_impact.defaults;
+            //var defaults = worksheetHttpService.xialazhi.list_impact.defaults;
+            var defaults = {
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") } 
+            };
             var promise = HttpAppService.post(url, defaults);
             $scope.config.isLoading_impactFromRemote = true;
             promise.success(function(successRes){
@@ -895,7 +926,11 @@ worksheetModule.controller('worksheetEditAllCtrl',[
 
         function __initResponseCategory(){  
             var url = worksheetHttpService.xialazhi.list_zzyyfl.url;
-            var defaults = worksheetHttpService.xialazhi.list_zzyyfl.defaults;
+            //var defaults = worksheetHttpService.xialazhi.list_zzyyfl.defaults;
+            var defaults = {
+                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") } 
+            };
             var promise = HttpAppService.post(url, defaults);
             $scope.config.isLoading_responseCategory = true;
             promise.success(function(successRes){

@@ -4,7 +4,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 	"ionicMaterialInk", 
 	"ionicMaterialMotion",
 	"$ionicPopup", "$timeout", 
-	"$ionicPosition","$state",
+	"$ionicPosition","$state", 
 	"$cordovaDatePicker",
 	"HttpAppService",
 	"worksheetHttpService",
@@ -1074,7 +1074,11 @@ worksheetModule.controller("WorksheetListCtrl",[
 
 	function __requestFWDQ(){  //  
 		var url = worksheetHttpService.xialazhi.list_fuWuDaQu.url;
-        var defaults = worksheetHttpService.xialazhi.list_fuWuDaQu.defaults;
+        //var defaults = worksheetHttpService.xialazhi.list_fuWuDaQu.defaults;
+        var defaults = {
+        	"I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+        };
         var promise = HttpAppService.post(url, defaults);
         promise.success(function(successRes){
             if(successRes && successRes.ET_OUT_SERVICE_ORG && successRes.ET_OUT_SERVICE_ORG.item_out){
@@ -1098,7 +1102,30 @@ worksheetModule.controller("WorksheetListCtrl",[
 	
 	// {"ES_RESULT":{"ZFLAG":"E","ZRESULT":"无符合条件数据"},"T_OUT_LIST":""}
 	function __requestServiceList(options){
-        var postData = angular.copy(worksheetHttpService.serviceList.defaults);
+        //var postData = angular.copy(worksheetHttpService.serviceList.defaults);
+        var postData = {
+        	I_SYSNAME: { SysName: worksheetDataService.getStoredByKey("sysName") },
+            IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") },
+            IS_PAGE: {
+              CURRPAGE: 1,
+              ITEMS: 10
+            },
+            IS_SEARCH: {
+              SEARCH: "",
+              OBJECT_ID: "",
+              DESCRIPTION: "",
+              PARTNER: "",
+              PRODUCT_ID: "",
+              CAR_TEXT: "",
+              CREATED_FROM: "",
+              CREATED_TO: ""
+            },
+            IV_SORT: "",
+            IT_IMPACT: {},
+            IT_PARTNER: {},
+            IT_PROCESS_TYPE: {},
+            IT_STAT: {}
+        };
         angular.extend(postData, options);
         //console.log(JSON.stringify(postData));
         var promise = HttpAppService.post(worksheetHttpService.serviceList.url,postData);

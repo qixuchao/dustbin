@@ -73,7 +73,10 @@ worksheetReportModule.controller('baoGongCreateCtrl', [
                 item_in: item_in
             };
 		}
-		params = angular.extend(params, baoGongService.BAOWS_CREATE.defaults);
+		params = angular.extend(params, {
+            I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
+                IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
+        });
 		__requestCreateBaoWS(baoGongService.BAOWS_CREATE.url, params);
 	};
 

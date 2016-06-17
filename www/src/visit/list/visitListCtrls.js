@@ -541,7 +541,11 @@ visitModule.controller('visitListCtrl', [
 
 	function __requestFWDQ(){  //  
 		var url = worksheetHttpService.xialazhi.list_fuWuDaQu.url;
-        var defaults = worksheetHttpService.xialazhi.list_fuWuDaQu.defaults;
+        //var defaults = worksheetHttpService.xialazhi.list_fuWuDaQu.defaults;
+        var defaults = {
+        	"I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+        };
         var promise = HttpAppService.post(url, defaults);
         promise.success(function(successRes){
             if(successRes && successRes.ET_OUT_SERVICE_ORG && successRes.ET_OUT_SERVICE_ORG.item_out){

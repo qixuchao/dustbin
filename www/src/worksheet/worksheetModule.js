@@ -18,7 +18,7 @@ worksheetModule.directive('crmToast', function() {
 
         	};
         }
-    };
+    }; 
 });
 
 
@@ -120,7 +120,7 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
     var sparePart;
     var sparePartPro;
     //相关方数据
-    return {
+    return {   
         serviceList: {
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_LIST',   //工单列表接口
             /*defaults: {
@@ -146,40 +146,40 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
                 T_IN_PROCESS_TYPE: {},
                 T_IN_STAT: {}
             }*/
-            defaults: {
-                I_SYSNAME: { SysName: worksheetDataService.getStoredByKey("sysName") },
-                IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") },
-                IS_PAGE: {
-                  CURRPAGE: 1,
-                  ITEMS: 10
-                },
-                IS_SEARCH: {
-                  SEARCH: "",
-                  OBJECT_ID: "",
-                  DESCRIPTION: "",
-                  PARTNER: "",
-                  PRODUCT_ID: "",
-                  CAR_TEXT: "",
-                  CREATED_FROM: "",
-                  CREATED_TO: ""
-                },
-                IV_SORT: "",
-                IT_IMPACT: {},
-                IT_PARTNER: {},
-                IT_PROCESS_TYPE: {},
-                IT_STAT: {}
-            }
+            // defaults: {
+            //     I_SYSNAME: { SysName: worksheetDataService.getStoredByKey("sysName") },
+            //     IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") },
+            //     IS_PAGE: {
+            //       CURRPAGE: 1,
+            //       ITEMS: 10
+            //     },
+            //     IS_SEARCH: {
+            //       SEARCH: "",
+            //       OBJECT_ID: "",
+            //       DESCRIPTION: "",
+            //       PARTNER: "",
+            //       PRODUCT_ID: "",
+            //       CAR_TEXT: "",
+            //       CREATED_FROM: "",
+            //       CREATED_TO: ""
+            //     },
+            //     IV_SORT: "",
+            //     IT_IMPACT: {},
+            //     IT_PARTNER: {},
+            //     IT_PROCESS_TYPE: {},
+            //     IT_STAT: {}
+            // }
         },
         empsList: {
-          url: "STAFF_LIST",
-          defaults: {
-              I_SYSNAME: { SysName: worksheetDataService.getStoredByKey("sysName") },
-              IS_PAGE: {
-                CURRPAGE: "1",
-                ITEMS: "10"
-              },
-              IS_EMPLOYEE: { "NAME": "" }
-          }
+          url: "STAFF_LIST"//,
+          // defaults: {
+          //     I_SYSNAME: { SysName: worksheetDataService.getStoredByKey("sysName") },
+          //     IS_PAGE: {
+          //       CURRPAGE: "1",
+          //       ITEMS: "10"
+          //     },
+          //     IS_EMPLOYEE: { "NAME": "" }
+          // }
         },
         //备件
         setSparePart:function(data){
@@ -212,10 +212,10 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
             url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_DETAIL'   //工单详情接口
         },
         serviceDetailChange: {
-            url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE',   //工单详情修改接口
-            defaults: {
-                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
-                "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            url: ROOTCONFIG.hempConfig.basePath + 'SERVICE_CHANGE'//,   //工单详情修改接口
+            // defaults: {
+            //     "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+            //     "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") }
                 /*,
                 "IS_HEAD_DATA": {
                   "DESCRIPTION": "",
@@ -268,57 +268,57 @@ worksheetModule.service('worksheetHttpService', ['HttpAppService', 'worksheetDat
                     "TEXT": ""
                   }
                 }*/
-            }
+            // }
         },
-        xialazhi: {
+        xialazhi: {   
           list_fuWuDaQu: {
-            url: ROOTCONFIG.hempConfig.basePath + "LIST_SERVICE_ORG",
-            defaults: {
-              "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
-              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
-            }
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_SERVICE_ORG"//,
+            // defaults: {
+            //   "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+            //   "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            // }
           },
           service_order_reason:{
-            url: ROOTCONFIG.hempConfig.basePath + "SERVICE_ORDER_REASON",
-            defaults: {
-                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
-                "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
-            }
+            url: ROOTCONFIG.hempConfig.basePath + "SERVICE_ORDER_REASON"//,
+            // defaults: {
+            //     "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+            //     "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            // }
           },
           list_scenario:{
-            url: ROOTCONFIG.hempConfig.basePath + "LIST_SCENARIO",
-            defaults: {
-                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
-                "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
-            }
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_SCENARIO"//,
+            // defaults: {
+            //     "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+            //     "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            // }
           },
           list_response: {
-            url: ROOTCONFIG.hempConfig.basePath + "LIST_RESPONSE",
-            defaults: {
-                "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
-                "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
-            }
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_RESPONSE"//,
+            // defaults: {
+            //     "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+            //     "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            // }
           },
           list_defect:{
-            url: ROOTCONFIG.hempConfig.basePath + "LIST_DEFECT",
-            defaults: {
-              "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
-              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
-            }
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_DEFECT"//,
+            // defaults: {
+            //   "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+            //   "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") }
+            // }
           },
           list_zzyyfl: {
-            url: ROOTCONFIG.hempConfig.basePath + "LIST_ZZYYFL",
-            defaults: {
-              "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
-              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") } 
-            }
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_ZZYYFL"//,
+            // defaults: {
+            //   "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+            //   "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") } 
+            // }
           },
           list_impact: {
-            url: ROOTCONFIG.hempConfig.basePath + "LIST_IMPACT",
-            defaults: {
-              "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
-              "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") } 
-            }
+            url: ROOTCONFIG.hempConfig.basePath + "LIST_IMPACT"//,
+            // defaults: {
+            //   "I_SYSTEM": { "SysName": worksheetDataService.getStoredByKey("sysName") },
+            //   "IS_USER": { "BNAME": worksheetDataService.getStoredByKey("userName") } 
+            // }
           }
         },
         imageInfos: {  // 图片展示界面

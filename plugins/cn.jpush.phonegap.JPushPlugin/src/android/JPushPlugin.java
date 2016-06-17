@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.Context;
 import android.util.Log;
 
-import com.crmEnergy.atl.R;
+import com.crmEnergy.catl.R;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;

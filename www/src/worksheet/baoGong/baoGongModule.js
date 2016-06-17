@@ -29,27 +29,27 @@ worksheetReportModule.service("baoGongService", [
 		/*{
 			OBJECT_ID: '',
 			PROCESS_TYPE: ''
-		}*/
-		BAOWS_CREATE: {
-			url: ROOTCONFIG.hempConfig.basePath + 'CONFIRM_CREATE',
-			defaults: {
-				I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
-			    IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
-			}
+		}*/	
+		BAOWS_CREATE: {   
+			url: ROOTCONFIG.hempConfig.basePath + 'CONFIRM_CREATE'//,
+			// defaults: {
+			// 	I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
+			//     IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
+			// }
 		},
 		BAOWS_EDIT: {
-			url: ROOTCONFIG.hempConfig.basePath + 'CONFIRM_CHANGE',
-			defaults: {
-				I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
-			    IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
-			}
+			url: ROOTCONFIG.hempConfig.basePath + 'CONFIRM_CHANGE'//,
+			// defaults: {
+			// 	I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
+			//     IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
+			// }
 		},
 		BAOWS_CONFIRM_FILL: {
-			url: ROOTCONFIG.hempConfig.basePath + 'CONFIRM_FILL',
-			defaults: {
-				I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
-			    IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
-			}
+			url: ROOTCONFIG.hempConfig.basePath + 'CONFIRM_FILL'//,
+			// defaults: {
+			// 	I_SYSTEM: { SysName: worksheetDataService.getStoredByKey("sysName") },
+			//     IS_AUTHORITY: { BNAME: worksheetDataService.getStoredByKey("userName") }
+			// }
 		}
 
 	};

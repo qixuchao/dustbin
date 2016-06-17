@@ -49,7 +49,7 @@
                             数量: <span ng-bind="item.QUANTITY"></span>
                         </div>
                         <div class="col-25">
-                            总价: <span ng-bind="item.XBR_TOTALPRICE"></span>
+                            总价: <span ng-bind="item.XBR_TOTALPRICE | currency:''"></span>
                             <!--span ng-bind="item.ACIND_DESCR_20" ng-class="{'shou-fen':(item.AC_INDICATOR=='D2'),'bu-shou-fen':(item.AC_INDICATOR=='D1')}"></span-->
                         </div>
                     </div>
