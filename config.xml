@@ -34,7 +34,7 @@
     <preference name="SplashScreen" value="screen" />
     <preference name="Orientation" value="portrait" />
     <preference name="auto-hide-splash-screen" value="false" />
-    <preference name="SplashScreenDelay" value="2500" />
+    <preference name="SplashScreenDelay" value="4500" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <plugin name="Contacts" value="org.apache.cordova.ContactManager" />
     <plugin name="Contacts" value="CDVContacts" />
