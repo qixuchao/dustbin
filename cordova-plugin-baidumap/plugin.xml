@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-baidumap" version="0.0.1">
-  <name>baidumap</name>
+  <name>baidumap</name> 
   <description>baidumap library</description>
   <author>Will</author>
   <keywords>cordova,baidumap</keywords>
@@ -21,7 +21,7 @@
           
           <meta-data
           android:name="com.baidu.lbsapi.API_KEY"
-          android:value="gHg25hrUpStp9Nw5G2yZlkTIGoFvIaru" />
+          android:value="cWKXNjK17RG0If17cgQ8Yd6bO8MWpfUC" />
           
       </config-file>
       <config-file parent="/manifest" target="AndroidManifest.xml">
