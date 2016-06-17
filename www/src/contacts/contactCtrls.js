@@ -1775,8 +1775,8 @@ ContactsModule
                     document.getElementById('contcreapartmentimg').style.display = "none";
                     break;
                 case 'FNCTN':
-                    $scope.contactedit.POST_CODE1 = '';
-                    document.getElementById('contatend').style.display = "none";
+                    $scope.contactedit.FNCTN = '';
+                    document.getElementById('contatendimg').style.display = "none";
                     break;
                 case 'POST_CODE1':
                     $scope.contactedit.POST_CODE1 = '';
@@ -1800,12 +1800,12 @@ ContactsModule
                     break;
 
                 case 'email':
-                    $scope.contactedit.HOUSE_NUM1 = '';
-                    document.getElementById('emailname').style.display = "none";
+                    $scope.contactedit.SMTP_ADDR = '';
+                    document.getElementById('emailnameimg').style.display = "none";
                     break;
                 case 'TEL_EXTENS':
                     $scope.contactedit.TEL_EXTENS = '';
-                    document.getElementById('contphonenumber1').style.display = "none";
+                    document.getElementById('contphonenumberimg1').style.display = "none";
                     break;
             }
         };
