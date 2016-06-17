@@ -731,7 +731,7 @@ ContactsModule
             if(fromState && toState && fromState.name == 'ContactDetail'){
                 $ionicHistory.goBack();
             }
-            console.log(fromState.name);
+            //console.log(fromState.name);
             //if(fromState.name == 'tabs'){
                 $scope.contactcreat = {
                     //客户编号
@@ -774,7 +774,6 @@ ContactsModule
             }else if(visitService.goCreateCon == true){
                 $scope.contactcreat.PARTNER2VALUE= visitService.goCreateConInfo.name;
                 $scope.contactcreat.PARTNER2=visitService.goCreateConInfo.id;
-                console.log(visitService.goCreateConInfo);
             } else{
                 $scope.contactcreat.PARTNER2VALUE="";
             }
