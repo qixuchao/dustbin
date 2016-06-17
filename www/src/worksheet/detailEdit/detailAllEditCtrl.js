@@ -116,7 +116,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             var code = $scope.config.currentGuZhangMingCheng.CODE;
             var treatment = $scope.config.currentTreatment.TREATMENT;
 
-            if($scope.datas.detail.ES_OUT_LIST.START_DATE === ""){
+            if($scope.datas.detail.ES_OUT_LIST.START_TIME_STR === ""){
                 startDate = "";
                 startTime = "";
             } else {
@@ -126,7 +126,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 startTime = startDateStr.split(" ")[1];
             }
 
-            if($scope.datas.detail.ES_OUT_LIST.END_DATE === ""){
+            if($scope.datas.detail.ES_OUT_LIST.END_TIME_STR === ""){
                 var endDate = "";
                 var endTime = "";
             } else {
@@ -479,12 +479,14 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             if(type == 'start'){
                 if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR == "" || $scope.datas.detail.ES_OUT_LIST.START_DATE === ""){
                     date = new Date().format('yyyy/MM/dd hh:mm:ss');
+                    $scope.startMark = "empty";
                 }else {
                     date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
                 }
             }else if(type=='end'){
                 if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR == "" || $scope.datas.detail.ES_OUT_LIST.END_DATE === ""){
                     date = new Date().format('yyyy/MM/dd hh:mm:ss');
+                    $scope.endMark = "empty";
                 }else {
                     date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('yyyy/MM/dd hh:mm:ss');
                 }
@@ -508,12 +510,14 @@ worksheetModule.controller('worksheetEditAllCtrl',[
             if(type == 'start'){
                 if(!$scope.datas.detail.ES_OUT_LIST.START_TIME_STR || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR == "" || $scope.datas.detail.ES_OUT_LIST.START_DATE === ""){
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                    $scope.startMark = "empty";
                 }else{
                     date = new Date($scope.datas.detail.ES_OUT_LIST.START_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
                 }
             }else if(type=='end'){
                 if(!$scope.datas.detail.ES_OUT_LIST.END_TIME_STR || $scope.datas.detail.ES_OUT_LIST.END_TIME_STR == "" || $scope.datas.detail.ES_OUT_LIST.END_DATE === ""){
                     date = new Date().format('MM/dd/yyyy/hh/mm/ss');
+                    $scope.endMark = "empty";
                 }else{
                     date = new Date($scope.datas.detail.ES_OUT_LIST.END_TIME_STR.replace(/-/g, "/")).format('MM/dd/yyyy/hh/mm/ss');
                 }
@@ -554,14 +558,14 @@ worksheetModule.controller('worksheetEditAllCtrl',[
                 var time = returnDate.format("yyyy-MM-dd hh:mm:ss"); //__getFormatTime(returnDate);
                 switch (type) {
                     case 'start':
-                        if(__startTimeIsValid(time, $scope.datas.detail.ES_OUT_LIST.END_TIME_STR) || $scope.datas.detail.ES_OUT_LIST.START_TIME_STR === ""){
+                        if(__startTimeIsValid(time, $scope.datas.detail.ES_OUT_LIST.END_TIME_STR) || $scope.startMark === "empty"){
                             $scope.datas.detail.ES_OUT_LIST.START_TIME_STR = time;
                         }else{
                             $cordovaToast.showShortBottom("最小时间不能大于最大时间!");   
                         }
                         break;
                     case 'end':
-                        if(__endTimeIsValid($scope.datas.detail.ES_OUT_LIST.START_TIME_STR, time) ||  $scope.datas.detail.ES_OUT_LIST.END_TIME_STR === ""){
+                        if(__endTimeIsValid($scope.datas.detail.ES_OUT_LIST.START_TIME_STR, time) ||  $scope.endMark === "empty"){
                             $scope.datas.detail.ES_OUT_LIST.END_TIME_STR = time;
                         }else{
                             $cordovaToast.showShortBottom("最大时间不能小于最小时间!");
