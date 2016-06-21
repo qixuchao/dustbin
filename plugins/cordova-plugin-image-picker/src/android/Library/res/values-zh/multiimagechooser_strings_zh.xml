@@ -1,0 +1,10 @@
+
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+    <string name="multi_app_name">图片选择器</string>
+    <string name="free_version_label">免费版本 - 剩余图片: %d</string>
+    <string name="error_database">打开相册出现错误. </string>
+    <string name="requesting_thumbnails">请稍后。。。</string>
+    <string name="discard">取消</string>
+    <string name="done">确定</string>
+</resources>

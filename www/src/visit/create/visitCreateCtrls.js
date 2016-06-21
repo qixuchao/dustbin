@@ -9,11 +9,11 @@ visitModule.controller('visitCreateCtrl', [
 	"HttpAppService",
 	"$ionicScrollDelegate",
 	"$rootScope",
-	"relationService",'Prompter','$cordovaDatePicker','visitService','$state','$timeout','$ionicHistory','$cordovaDialogs',
+	"relationService",'Prompter','$cordovaDatePicker','visitService','$state','$timeout','$ionicHistory','$cordovaDialogs','$cordovaImagePicker',
 	function ($scope, BaiduMapServ, $cordovaToast, $ionicActionSheet,
 		$ionicModal, LoginService, saleActService, HttpAppService,
 		$ionicScrollDelegate, $rootScope,
-		relationService,Prompter,$cordovaDatePicker,visitService,$state,$timeout,$ionicHistory,$cordovaDialogs){
+		relationService,Prompter,$cordovaDatePicker,visitService,$state,$timeout,$ionicHistory,$cordovaDialogs,$cordovaImagePicker){
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			if(fromState && toState && fromState.name == 'visit.detail' && toState.name == 'visit.create'){
 				var loadingTime = 800;
@@ -337,7 +337,7 @@ visitModule.controller('visitCreateCtrl', [
 		$scope.config.actionSheet = $ionicActionSheet.show({
 			buttons: [
 				{text: '拍照'},
-				{text: '相册'}
+				{text: '相册'},
 			],
 			//destructiveText: 'Delete',
 		    titleText: '选择相片',
@@ -351,13 +351,35 @@ visitModule.controller('visitCreateCtrl', [
 		    		$scope.selectImage(0);
 		    		return true;
 		    	}else if(index == 1){ //相册
-		    		$scope.selectImage(1);
-		    		return true;
-		    	}
+					//console.log("相册");
+					$scope.pickImage(1);
+					return true;
+				}
 		    	//return false;
 		    }
 		});
 	};
+
+		$scope.pickImage = function (item) {
+			var options = {
+				maximumImagesCount: 10,
+				width: 1366,
+				height: 768,
+				quality: 5
+			};
+			//console.log(item);
+			//console.log(options);
+			window.imagePicker.getPictures(
+				function(results) {
+					for (var i = 0; i < results.length; i++) {
+						getBase64FromFilepath(results[i], item);
+						//console.log('Image URI: ' + results[i]);
+					}
+				}, function (error) {
+					console.log('Error: ' + error);
+				}, options
+			);
+		}
 
 	$scope.selectImage = function(sourceTypeInt){
 		if(angular.isUndefined(Camera) || angular.isUndefined(navigator.camera)){
@@ -892,4 +914,4 @@ visitModule.controller('visitCreateCtrl', [
 			}
 			console.log($scope.config.pictures);
 		}
-}]);
+	}]);

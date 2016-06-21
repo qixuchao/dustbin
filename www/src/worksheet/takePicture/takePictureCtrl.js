@@ -646,14 +646,35 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			    		$scope.selectImage(0);
 			    		return true;
 			    	}else if(index == 1){ //相册
-			    		$scope.selectImage(1);
+			    		//$scope.selectImage(1);
+						$scope.pickImage(1);
 			    		return true;
 			    	}
 			    	//return false;
 			    }
 			});
 		};
-		
+		$scope.pickImage = function (item) {
+			var options = {
+				maximumImagesCount: 10,
+				width: 1366,
+				height: 768,
+				quality: 5
+			};
+			//console.log(item);
+			//console.log(options);
+			window.imagePicker.getPictures(
+				function(results) {
+					for (var i = 0; i < results.length; i++) {
+						getBase64FromFilepath(results[i], item);
+						//console.log('Image URI: ' + results[i]);
+					}
+				}, function (error) {
+					console.log('Error: ' + error);
+				}, options
+			);
+		}
+
 		$scope.selectImage = function(sourceTypeInt){
 			if(angular.isUndefined(Camera) || angular.isUndefined(navigator.camera)){
 				alert("Camera 插件未安装!");

@@ -7,9 +7,9 @@ visitModule.controller('visitListCtrl', [
 	"HttpAppService",
 	"$cordovaToast",
 	"worksheetHttpService",
-	"ionicMaterialInk",'$cordovaDatePicker','$ionicModal',
+	"ionicMaterialInk",'$cordovaDatePicker','$ionicModal','worksheetDataService',
 	function ($scope, $timeout, visitService, $state, $ionicScrollDelegate, 
-		HttpAppService, $cordovaToast, worksheetHttpService, ionicMaterialInk,$cordovaDatePicker,$ionicModal) {
+		HttpAppService, $cordovaToast, worksheetHttpService, ionicMaterialInk,$cordovaDatePicker,$ionicModal,worksheetDataService) {
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
 			if(toState.name == 'visit.list' && (fromState.name == 'visit.detail' || fromState.name == 'visit.create')){
 				$scope.init();

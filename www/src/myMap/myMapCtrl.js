@@ -184,9 +184,12 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
     //页面筛选按钮组
     $scope.menuBtnSelected = function (searchLabel) {
         searchLabelStr = searchLabel;
+        console.log(searchLabel);
+        console.log($scope.pointsData);
         $timeout(function () {
             var typeSearchData = [];
             angular.forEach($scope.pointsData, function (item, index) {
+                console.log(item.tags.indexOf(searchLabel));
                 if ((item.tags.indexOf(searchLabel) >= 0)) {
                     typeSearchData.push(item);
                 }
