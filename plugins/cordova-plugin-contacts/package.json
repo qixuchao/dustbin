@@ -1,0 +1,29 @@
+{
+  "name": "cordova-plugin-contacts-ios9",
+  "version": "1.1.0",
+  "description": "Cordova contacts plugin fork with workarounds for ios9",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steven-elliott/cordova-plugin-contacts.git"
+  },
+  "keywords": [
+    "cordova",
+    "contacts",
+    "address",
+    "ios9"
+  ],
+  "author": "Steven Elliott <steven@stevenelliott.me> (http://stevenelliott.me/)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/steven-elliott/cordova-plugin-contacts/issues"
+  },
+  "homepage": "https://github.com/steven-elliott/cordova-plugin-contacts#readme"
+}

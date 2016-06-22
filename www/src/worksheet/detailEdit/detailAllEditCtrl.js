@@ -18,7 +18,7 @@ worksheetModule.controller('worksheetEditAllCtrl',[
         "$cordovaDatePicker",
         "worksheetHttpService",
         "Prompter",
-        "$ionicPlatform",
+        "$ionicPlatform", 
         function ($scope, $state, $ionicHistory, $ionicScrollDelegate,
                   ionicMaterialInk, ionicMaterialMotion, $timeout, $cordovaDialogs, $ionicModal, $ionicPopover,
                   $cordovaToast, $stateParams, $ionicPosition, HttpAppService, worksheetHttpService, worksheetDataService, $cordovaDatePicker, worksheetHttpService, Prompter, $ionicPlatform) {

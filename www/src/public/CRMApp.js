@@ -131,7 +131,7 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
     baiduMapApiProvider.version('2.0').accessKey(ROOTCONFIG.baiduMap.apiKey);
     // Turn off caching for demo simplicity's sake
     //$ionicConfigProvider.views.maxCache(0);
-    $ionicConfigProvider.views.swipeBackEnabled(true);
+    $ionicConfigProvider.views.swipeBackEnabled(false);
     /*
      // Turn off back button text
      $ionicConfigProvider.backButton.previousTitleText(false);

@@ -39,14 +39,6 @@
         "is_top_level": false,
         "variables": {}
     },
-    "cordova-plugin-datepicker": {
-        "source": {
-            "type": "registry",
-            "id": "cordova-plugin-datepicker"
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "cordova-plugin-splashscreen": {
         "source": {
             "type": "registry",
@@ -129,5 +121,21 @@
         "variables": {
             "API_KEY": "a0439f8c3cea3bd2ece24454"
         }
+    },
+    "cordova-plugin-contacts": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-contacts-ios9"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-datepicker": {
+        "source": {
+            "type": "local",
+            "path": "cordova-plugin-datepicker"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

@@ -38,9 +38,6 @@
         "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.crmEnergy.catlpro"
         },
-        "cordova-plugin-datepicker": {
-            "PACKAGE_NAME": "com.crmEnergy.catlpro"
-        },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.crmEnergy.catlpro"
         },
@@ -76,6 +73,12 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.crmEnergy.catlpro"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
+        },
+        "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
         }
     },
     "dependent_plugins": {}

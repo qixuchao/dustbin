@@ -83,11 +83,11 @@ loginModule
                 if (this.value.length > 0) {
                     $scope.$apply(function () {
                         $scope.logindeleteimgflag = true;
-                    })
+                    });
                 } else {
                     $scope.$apply(function () {
                         $scope.logindeleteimgflag = false;
-                    })
+                    });
                 }
             });
             
@@ -95,6 +95,18 @@ loginModule
             var userPassword = $scope.loginData.password;
             var timeForGetDeviceId = 3000;
             $scope.login = function(isNotFirst){
+                // navigator.contacts.chooseContact(function (successRes){
+                //     console.log(angular.toJson(successRes));
+                // }, {
+                //     allowsEditing: true//,
+                //     //fields:
+                // }); 
+                // navigator.contacts.pickContact(function(successRes){
+                //     console.log("success::::::::: "+angular.toJson(successRes));
+                // }, function(error){
+                //     console.log("error::::::::: "+angular.toJson(error));
+                // });
+                // return;
                 // alert("login");
                 if(ionic.Platform.isWebView()){
                     if(!isNotFirst){
