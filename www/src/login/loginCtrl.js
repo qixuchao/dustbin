@@ -2,7 +2,7 @@
  * Created by zhangren on 16/3/7.
  */
 'use strict';
-loginModule
+loginModule 
     .controller('LoginCtrl',[
         '$ionicHistory', 'LoginService','Prompter','$cordovaToast',
         'HttpAppService','$scope','$state','ionicMaterialInk',
@@ -133,6 +133,8 @@ loginModule
                 //http://117.28.248.23:9388/test/api/bty/login
                 //var url = ROOTCONFIG.hempConfig.LoginUrl; //"http://117.28.248.23:9388/test/api/bty/login";
                 var url = ROOTCONFIG.hempConfig.basePath + "login";
+                alert("loginReal: deviceId  "+ $scope.config.deviceId);
+                console.log($scope.config.deviceId);
                 var data = {
                     "username": $scope.loginData.username,
                     "password": $scope.loginData.password,
@@ -183,7 +185,7 @@ loginModule
                         }
                         // $state.go('tabs', {}, {location:"replace", reload:"true"});
                     }
-                }).error(function(errorResponse, status, header, config){
+                }).error(function(errorResponse, status, header, config){ 
                     Prompter.hideLoading();
                     var endTime = new Date();
                     if(!errorResponse || errorResponse == null){
@@ -217,10 +219,9 @@ loginModule
             };
             $scope.hide = function () {
                 $ionicLoading.hide();
-            };
+            };            
             
-            
-            var  times__registerJpushId = 20;
+            var times__registerJpushId = 20;
             function __registerJpushId(){
                 times__registerJpushId--;
                 getMyDeviceId();
@@ -277,6 +278,7 @@ loginModule
                 try {
                     window.plugins.jPushPlugin.getRegistrationID(function(data){
                         console.log("22222   JPushPlugin:registrationID is: " + data);
+                        alert("22222   JPushPlugin:registrationID is: " + data);
                         var tags = [ROOTCONFIG.hempConfig.baseEnvironment];
                         // eg: CATL + 60000051 + deviceId     1114a89792aa79e6ef2
                         var deviceId = $scope.config.deviceId; //ionic.Platform.isIOS ? data : $scope.config.deviceId;
@@ -284,6 +286,7 @@ loginModule
                         //alert(tags);
                         //alert(alias);
                         console.log("setTagsWithAlias:   tags:"+tags+"    alias:"+alias);
+                        alert("setTagsWithAlias:   tags:"+tags+"    alias:"+alias);
                         window.plugins.jPushPlugin.setTagsWithAlias(tags, alias);
                     });
                     if (device.platform != "Android") {
@@ -318,7 +321,8 @@ loginModule
                 */
             }
             function onReceiveNotification(event) {
-                //alert("onReceiveNotification    event: "+JSON.stringify(event));
+                alert("onReceiveNotification    event: "+JSON.stringify(event));
+                console.log("onReceiveNotification    event: "+JSON.stringify(event));
                 if(device.platform != "Android"){
                     var alertContent = event.aps.alert;
                     //Prompter.showPopupAlert("消息推送",alertContent);
@@ -328,11 +332,13 @@ loginModule
                 //alert(JSON.stringify(event.extras));
             }
             function onBackgroundNotification(event){
+                alert("onBackgroundNotification  evnet: "+event);
                 console.log("onBackgroundNotification  evnet: "+event);
             }
             function onOpenNotification(event) { // {isTrusted: false}
-                //alert("onOpenNotification");
-                //alert(JSON.stringify(event));
+                alert("onOpenNotification");
+                alert(JSON.stringify(event));
+                console.log(JSON.stringify(event));
                 console.log("onOpenNotification   event: "+event);
                 try {
                     var alertContent;

@@ -7,10 +7,6 @@
         "files": {}
     },
     "installed_plugins": {
-        "cn.jpush.phonegap.JPushPlugin": {
-            "API_KEY": "a0439f8c3cea3bd2ece24454",
-            "PACKAGE_NAME": "com.crmEnergy.catlpro"
-        },
         "com.verso.cordova.clipboard": {
             "PACKAGE_NAME": "com.crmEnergy.catlpro"
         },
@@ -75,6 +71,10 @@
             "PACKAGE_NAME": "com.crmEnergy.catlpro"
         },
         "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "com.crmEnergy.catl"
+        },
+        "cn.jpush.phonegap.JPushPlugin": {
+            "API_KEY": "b3793e32c69f2945bb61ae2f",
             "PACKAGE_NAME": "com.crmEnergy.catl"
         }
     },
