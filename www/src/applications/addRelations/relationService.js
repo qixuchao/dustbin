@@ -2,7 +2,7 @@
  * Created by zhangren on 16/4/18.
  */
 'use strict';
-salesModule.factory('relationService', function () {
+salesModule.factory('relationService', [function () {
     var saleActSelections;
     //相关方里面的客户,用来查联系人
     var relationCustomer={},
@@ -26,4 +26,4 @@ salesModule.factory('relationService', function () {
       chanceDetailPartner:chanceDetailPartner,
       createContact : ""
   }
-});
+}]);

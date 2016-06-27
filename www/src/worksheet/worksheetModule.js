@@ -1,4 +1,4 @@
-worksheetModule.directive('crmToast', function() {
+worksheetModule.directive('crmToast', [function() {
     return {
         restrict: 'E',
         scope: {
@@ -19,10 +19,10 @@ worksheetModule.directive('crmToast', function() {
         	};
         }
     }; 
-});
+}]);
 
 
-worksheetModule.filter('xbrParseInt', function(){
+worksheetModule.filter('xbrParseInt', [function(){
   return function (str) {
       var returnStr = str;
       if(str && str!=null && str != "" && str.startsWith && str.startsWith("0")){
@@ -30,11 +30,11 @@ worksheetModule.filter('xbrParseInt', function(){
       }
       return returnStr;
   };
-});
+}]);
 
 // $filter('date')(date, format, timezone)
 // 用来处理 20160101055050 类似的日期字符串
-worksheetModule.filter('xbrWorksheetTime', function($filter){
+worksheetModule.filter('xbrWorksheetTime',['$filter', function($filter){
   return function(timeStr, formatStr){
     var returnStr = (!formatStr || formatStr=="") ? "yyyy-MM-dd HH:mm:ss" : formatStr;
     
@@ -53,7 +53,7 @@ worksheetModule.filter('xbrWorksheetTime', function($filter){
     returnStr = returnStr.replace("ss", ss);
     return returnStr;
   };
-});
+}]);
 
 
 worksheetModule.service('worksheetDataService', [function(){

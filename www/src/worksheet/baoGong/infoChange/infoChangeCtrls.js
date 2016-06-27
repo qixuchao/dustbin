@@ -1,4 +1,5 @@
-worksheetModule.controller("WorksheetBaoGongListCtrl2",[
+worksheetModule
+.controller("WorksheetBaoGongListCtrl2",[
     "$scope",
     "ionicMaterialInk",
     "ionicMaterialMotion",

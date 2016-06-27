@@ -33,7 +33,12 @@
                     <input type="number" ng-change="otherInputChangeForConfirm();" placeholder="请输入验证码" ng-model="config.valideCode">
                 </div>
             </div>
-
+<!--             <div class="row" >
+                <div class="col-40">身份证</div>
+                <div class="col-60">
+                    <input type="number" ng-change="otherInputChangeForConfirm();" placeholder="请输入身份证后六位" ng-model="config.">
+                </div>
+            </div> -->
             <div class="btn-valid-cellphone button button-clear" ng-disabled="config.btnGetCodeDisabled" ng-bind="config.getValidBtnText" ng-click="getValidCode();" ng-if="config.isReset"></div>
 
             <div class="btn-confirm button" ng-click="confirmChangePass();" ng-disabled="config.btnConfirmDisabled">确认</div>

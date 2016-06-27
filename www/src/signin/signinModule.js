@@ -55,18 +55,18 @@ signinModule.controller('absSigninCtrl', [
 	
 }]);
 
-signinModule.filter('signDateFilter', function(){
+signinModule.filter('signDateFilter', [function(){
   return function (str) {
       return returnStr = str.substring(0,4) + "-" + str.substring(4,6) + "-" + str.substring(6,8);
   };
-});
+}]);
 
 //09:11:11 ---> 09:11
-signinModule.filter('signInTime', function(){
+signinModule.filter('signInTime', [function(){
   return function (str) {
       return str.substring(0, 5);
   };
-});
+}]);
 
 
 

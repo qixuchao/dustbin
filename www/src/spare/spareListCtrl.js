@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2016/3/22 0022.
  */
-spareModule.controller('SpareListCtrl',['$cordovaDialogs','$ionicScrollDelegate','$rootScope','$cordovaToast','worksheetDataService','HttpAppService','$http','SpareListService','$state','$scope','Prompter','$timeout',
+spareModule
+.controller('SpareListCtrl',['$cordovaDialogs','$ionicScrollDelegate','$rootScope','$cordovaToast','worksheetDataService','HttpAppService','$http','SpareListService','$state','$scope','Prompter','$timeout',
     "$ionicHistory",
     function ($cordovaDialogs,$ionicScrollDelegate,$rootScope,$cordovaToast,worksheetDataService,HttpAppService,$http,SpareListService,$state,$scope,Prompter,$timeout, $ionicHistory){
     var page=0;

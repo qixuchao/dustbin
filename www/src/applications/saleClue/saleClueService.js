@@ -2,7 +2,7 @@
  * Created by zhangren on 16/5/6.
  */
 'use strict';
-salesModule.factory('saleClueService', function () {
+salesModule.factory('saleClueService', [function () {
     var saleClueStatus = {
         status: [
             {
@@ -325,4 +325,4 @@ salesModule.factory('saleClueService', function () {
         linearMeasure:linearMeasure,
         flagClue : ""
     }
-});
+}]);

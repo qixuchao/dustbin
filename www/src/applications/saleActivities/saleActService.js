@@ -2,7 +2,7 @@
  * Created by zhangren on 16/3/23.
  */
 'use strict';
-salesModule.factory('saleActService', function () {
+salesModule.factory('saleActService', [function () {
 
     var saleListArr2 = [{
         title: '福州龙福汽车交流活动',
@@ -416,4 +416,4 @@ salesModule.factory('saleActService', function () {
         createPopTypes_ATL:createPopTypes_ATL,
         filterType_ATL:filterType_ATL
     };
-});
+}]);

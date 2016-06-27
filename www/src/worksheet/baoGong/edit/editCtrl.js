@@ -1,4 +1,5 @@
-worksheetModule.controller('baoGongDetailEditCtrl',[
+worksheetModule
+.controller('baoGongDetailEditCtrl',[
         '$scope',
         '$state',
         '$ionicHistory',

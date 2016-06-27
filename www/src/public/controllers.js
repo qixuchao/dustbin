@@ -3,12 +3,13 @@
 
 angular.module('ATLApp.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $ionicPopover, $timeout) {
+.controller('AppCtrl', ['$scope', '$ionicModal', '$ionicPopover', '$timeout', 
+    function($scope, $ionicModal, $ionicPopover, $timeout) {
 
-        //返回回退
-        $scope.goBack = function() {
-            $ionicHistory.goBack();
-        }
+    //返回回退
+    $scope.goBack = function() {
+        $ionicHistory.goBack();
+    }
 
         // Form data for the login modal
     $scope.loginData = {};
@@ -93,17 +94,17 @@ angular.module('ATLApp.controllers', [])
             fabs[0].remove();
         }
     };
-})
+}])
 
-.controller('LoginCtrl', function($scope, $timeout, $stateParams, ionicMaterialInk) {
+.controller('LoginCtrl',['$scope', '$timeout', '$stateParams', 'ionicMaterialInk', function($scope, $timeout, $stateParams, ionicMaterialInk) {
     $scope.$parent.clearFabs();
     $timeout(function() {
         $scope.$parent.hideHeader();
     }, 0);
     ionicMaterialInk.displayEffect();
-})
+}])
 
-.controller('FriendsCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+.controller('FriendsCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -120,9 +121,9 @@ angular.module('ATLApp.controllers', [])
 
     // Set Ink
     ionicMaterialInk.displayEffect();
-})
+}])
 
-.controller('ProfileCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('ProfileCtrl', ['$scope', '$stateParams', '$timeout', 'ionicMaterialMotion', 'ionicMaterialInk', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     // Set Header
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
@@ -145,9 +146,9 @@ angular.module('ATLApp.controllers', [])
 
     // Set Ink
     ionicMaterialInk.displayEffect();
-})
+}])
 
-.controller('ActivityCtrl', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('ActivityCtrl',['$scope', '$stateParams', '$timeout', 'ionicMaterialMotion', 'ionicMaterialInk', function($scope, $stateParams, $timeout, ionicMaterialMotion, ionicMaterialInk) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
@@ -162,9 +163,9 @@ angular.module('ATLApp.controllers', [])
 
     // Activate ink for controller
     ionicMaterialInk.displayEffect();
-})
+}])
 
-.controller('GalleryCtrl', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
+.controller('GalleryCtrl',['$scope', '$stateParams', '$timeout', 'ionicMaterialInk', 'ionicMaterialMotion', function($scope, $stateParams, $timeout, ionicMaterialInk, ionicMaterialMotion) {
     $scope.$parent.showHeader();
     $scope.$parent.clearFabs();
     $scope.isExpanded = true;
@@ -181,6 +182,6 @@ angular.module('ATLApp.controllers', [])
         selector: '.animate-fade-slide-in .item'
     });
 
-})
+}])
 
 ;

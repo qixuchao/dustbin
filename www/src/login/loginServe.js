@@ -1,7 +1,8 @@
 /*
  * Created by gongke on 2016/3/14.
  */
-loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialogs, $cordovaNetwork, $cordovaInAppBrowser, $cordovaToast,$state) {
+loginModule.factory('LoginService', 
+    ['$cordovaAppVersion', '$cordovaDialogs', '$cordovaNetwork', '$cordovaInAppBrowser', '$cordovaToast','$state' ,function ($cordovaAppVersion, $cordovaDialogs, $cordovaNetwork, $cordovaInAppBrowser, $cordovaToast,$state) {
     var data;
     var data3;
     var type;
@@ -198,4 +199,4 @@ loginModule.factory('LoginService', function ($cordovaAppVersion, $cordovaDialog
         }
 
     }
-});
+}]);

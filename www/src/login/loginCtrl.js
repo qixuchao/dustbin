@@ -39,6 +39,7 @@ loginModule
             $scope.loginData = {
                 username: "",
                 password: window.localStorage.crmUserPassword
+                //password: ""
             };
             if(window.localStorage.crmUserAPPName==''||window.localStorage.crmUserAPPName==null ||window.localStorage.crmUserAPPName==undefined) {
                 $scope.loginData.username=window.localStorage.crmUserName;
@@ -46,6 +47,7 @@ loginModule
                 $scope.loginData.username=window.localStorage.crmUserAPPName;
             }
             $scope.loginradioimgflag = false;
+            //$scope.loginradioimgflag = true;
             $scope.loginradioSele = function () {
                 $scope.loginradioimgflag = !$scope.loginradioimgflag;
                 if ($scope.loginradioimgflag) {

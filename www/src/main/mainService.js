@@ -2,7 +2,7 @@
  * Created by zhangren on 16/4/11.
  */
 'use strict';
-mainModule.factory('saleActService', function () {
+mainModule.factory('saleActService', [function () {
     var saleArr2 = [{
         title: '销售活动测试1',
         year: 2016,
@@ -71,4 +71,4 @@ mainModule.factory('saleActService', function () {
     return {
 
     };
-});
+}]);

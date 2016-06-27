@@ -1,7 +1,7 @@
 /**
  * Created by admin on 16/5/1.
  */
-activityPlanModule.factory('activityPlanService',function(){
+activityPlanModule.factory('activityPlanService',[function(){
     return{
         //活动计划的单号
         activityList : "",
@@ -23,4 +23,4 @@ activityPlanModule.factory('activityPlanService',function(){
             name : ""
         }
     }
-});
+}]);

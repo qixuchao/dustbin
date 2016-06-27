@@ -2,7 +2,7 @@
  * Created by zhangren on 16/4/5.
  */
 'use strict';
-salesModule.factory('saleChanService', function () {
+salesModule.factory('saleChanService', [function () {
     var moneyTypes = [{
         value: 'CNY',
         text: '中国人民币'
@@ -643,4 +643,4 @@ salesModule.factory('saleChanService', function () {
         goOtherPage : "",
         otherPageDetail : ""
     }
-});
+}]);

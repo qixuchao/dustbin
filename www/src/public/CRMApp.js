@@ -63,7 +63,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlide
     'ng-mfb',
     'saleQuoteModule'
 ]);
-CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
+CRMApp.run(['$ionicPlatform', '$rootScope', '$ionicHistory', '$cordovaToast',function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
 
         function __onHardwareBackButton(e) {
             //判断处于哪个页面时双击退出
@@ -120,8 +120,8 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
         $rootScope.$on("$stateNotFound", function (event, toState, toParams, fromState, fromParam) {
             alert("rootScope: $stateNotFound :       to:" + toState.name + "     from:" + fromState.name);
         });
-})
-.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionGalleryConfigProvider, baiduMapApiProvider) {
+}])
+.config(['$stateProvider', '$urlRouterProvider', '$ionicConfigProvider', 'ionGalleryConfigProvider', 'baiduMapApiProvider', function ($stateProvider, $urlRouterProvider, $ionicConfigProvider, ionGalleryConfigProvider, baiduMapApiProvider) {
     ionGalleryConfigProvider.setGalleryConfig({
                           action_label: '关闭',
                           toggle: false,
@@ -656,4 +656,4 @@ CRMApp.run(function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
     $urlRouterProvider  // /home/login
         .when('','/login')
         .otherwise('/tabs');
-});
+}]);

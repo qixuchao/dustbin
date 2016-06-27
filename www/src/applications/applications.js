@@ -3,7 +3,8 @@
  */
 'use strict';
 appModule
-    .controller('AppCtrl',['LoginService','$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function(LoginService,$scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
+    .controller('AppCtrl',[
+        'LoginService','$scope','$state','ionicMaterialInk','ionicMaterialMotion','$timeout',function(LoginService,$scope,$state,ionicMaterialInk,ionicMaterialMotion,$timeout){
         //ionicMaterialInk.displayEffect();
         var menuList=LoginService.getMenulist();
         $scope.imgs = [{

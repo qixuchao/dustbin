@@ -73,11 +73,11 @@ visitModule.service('visitService', [
 }]);
 
 
-signinModule.filter('visitDateFilter', function(){
+signinModule.filter('visitDateFilter', [function(){
   return function (str) {
       return returnStr = str.substring(0,4) + "-" + str.substring(4,6) + "-" + str.substring(6,8);
   };
-});
+}]);
 
 visitModule.controller('absVisitCtrl', [
 	'$scope',

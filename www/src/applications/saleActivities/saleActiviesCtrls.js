@@ -1233,7 +1233,7 @@ salesModule
                 $scope.processModal.remove();
             });
         }])
-    .filter("highlight", function ($sce) {
+    .filter("highlight", ['$sce',function ($sce) {
 
         var fn = function (text, search) {
             if (!search) {
@@ -1251,8 +1251,8 @@ salesModule
             return $sce.trustAsHtml(result);
         };
         return fn;
-    })
-    .directive('focusMe', function ($timeout) {
+    }])
+    .directive('focusMe',['$timeout', function ($timeout) {
         return {
             link: function (scope, element, attrs) {
                 if (attrs.focusMeDisable === "true") {
@@ -1266,5 +1266,5 @@ salesModule
                 }, 350);
             }
         };
-    });
+    }]);
 ;

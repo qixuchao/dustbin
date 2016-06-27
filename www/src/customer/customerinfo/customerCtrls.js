@@ -1309,7 +1309,8 @@ customerModule
         $scope.customerDeleteListener('cusstreetedit','cusstreeteditimg');
         $scope.customerDeleteListener('cusboraod','cusboraodimg');
         $scope.customerDeleteListener('cuspostall','cuspostallimg');
-        $scope.customerDeleteListener('cuszhishiv','cuszhishivimg');
+        $scope.customerDeleteListener('textarea1','cuszhishivimg');
+        $scope.customerDeleteListener('cusmailval','cusmailvalimg');
 
 
         //delete
@@ -1355,8 +1356,8 @@ customerModule
                     $scope.customeredit.POST_CODE1 = '';
                     document.getElementById('cuspostallimg').style.display = "none";
                     break;
-                case 'BEZEI':
-                    $scope.customeredit.BEZEI = '';
+                case 'TDLINE':
+                    $scope.customeredit.TDLINE = '';
                     document.getElementById('cuszhishivimg').style.display = "none";
                     break;
             }

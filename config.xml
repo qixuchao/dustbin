@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="412" id="com.crmEnergy.catl" ios-CFBundleVersion="4.1.2" version="4.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.crmEnergy.catl" android-versionCode="413" ios-CFBundleVersion="4.1.3" version="4.1.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>CATL UAT</name>
-    <description> 
+    <description>
         新能源CRM应用
     </description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">

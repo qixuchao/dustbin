@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016/3/14 0014.
  */
-carModule.factory('CarService',function(){
+carModule.factory('CarService',[function(){
    var data;
    var data1;
    var data2;
@@ -152,4 +152,4 @@ carModule.factory('CarService',function(){
             return data2;
         }
     };
-});
+}]);
