@@ -206,7 +206,7 @@ worksheetModule.controller("worksheetTakePictureCtrl",[
 			    "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") },
 			    "IS_PAGE": {
 			    	"CURRPAGE": $scope.config.pageNum++,
-			    	"ITEMS": 10
+			    	"ITEMS": 100
 			    },
 			    "IS_URL": {
 			    	"OBJECT_ID": $scope.config.OBJECT_ID,//'5200000315',

@@ -13,13 +13,13 @@ worksheetModule.controller("WorksheetListCtrl",[
 	"CarService",
 	"$cordovaToast",
 	"$ionicHistory",
-	"$ionicModal",
+	"$ionicModal",'Prompter',
 	function($scope, $ionicScrollDelegate,
 		ionicMaterialInk, ionicMaterialMotion,$ionicPopup, $timeout,
 		$ionicPosition, $state, 
 		$cordovaDatePicker,
 		HttpAppService, worksheetHttpService, worksheetDataService, customeService, 
-		CarService, $cordovaToast, $ionicHistory, $ionicModal){
+		CarService, $cordovaToast, $ionicHistory, $ionicModal,Prompter){
 	
 	$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
         if(fromState && fromState.name == 'worksheetList' && toState && toState.name == "tabs"){
@@ -1003,7 +1003,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 				//PARTNER_NO: $scope.config.selectPe.PARTNER
 				item: [
 					{
-						PARTNER_NO: $scope.config.selectPe.PARTNER.substring(2)
+						PARTNER_NO: $scope.config.selectPe
 					}
 				]
 			};
@@ -1439,8 +1439,26 @@ worksheetModule.controller("WorksheetListCtrl",[
 		}, 1)
 	};
 	$scope.selectCon = function (x) {
-		$scope.config.selectPe= x;
-		$scope.selectContactModal.hide();
+		Prompter.showLoading();
+		var urlName = ROOTCONFIG.hempConfig.basePath + "STAFF_DETAIL"; //"http://117.28.248.23:9388/test/api/bty/login";
+		var querParams = {
+			"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
+			"IS_EMPLOYEE": { "PARTNER": x.PARTNER},
+			"IS_USER": { "BNAME": window.localStorage.crmUserName }
+		};
+		HttpAppService.post(urlName,querParams).success(function(response){
+			Prompter.hideLoading();
+			console.log(response);
+			if(response.ES_RESULT.ZFLAG == 'E') {
+				$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
+			} else if (response.ES_RESULT.ZFLAG == 'S') {
+				if(response.ES_EMPLOYEE){
+					$scope.config.selectPe= response.ES_EMPLOYEE.NAME_LAST+response.ES_EMPLOYEE.NAME_FIRST;
+					$scope.selectContactModal.hide();
+				}
+			}
+
+		});
 	};
 
 

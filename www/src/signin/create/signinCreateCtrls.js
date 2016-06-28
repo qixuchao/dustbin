@@ -83,7 +83,8 @@ signinModule.controller('signinCreateCtrl', [
 			var urlName = ROOTCONFIG.hempConfig.basePath + "STAFF_DETAIL"; //"http://117.28.248.23:9388/test/api/bty/login";
 			var querParams = {
 				"I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-				"IS_EMPLOYEE": { "PARTNER": LoginService.getBupaTypeUser() }
+				"IS_EMPLOYEE": { "PARTNER": LoginService.getBupaTypeUser() },
+				"IS_USER": { "BNAME": window.localStorage.crmUserName }
 			};
 			HttpAppService.post(urlName,querParams).success(function(response){
 				Prompter.hideLoading();
