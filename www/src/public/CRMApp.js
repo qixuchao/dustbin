@@ -64,7 +64,7 @@ var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlide
     'saleQuoteModule'
 ]);
 CRMApp.run(['$ionicPlatform', '$rootScope', '$ionicHistory', '$cordovaToast',function ($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
-
+        
         function __onHardwareBackButton(e) {
             //判断处于哪个页面时双击退出
             if ($rootScope.backButtonPressedOnceToExit) {
