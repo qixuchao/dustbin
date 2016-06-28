@@ -55,7 +55,7 @@ settingsModule.controller("ChangePassCtrl", [
 				newPassWord2: '',
 				cellphone: '',
 				valideCode: '',
-
+				personcode : "",
 				remoteValideCode: null
         	};
         }
@@ -76,7 +76,7 @@ settingsModule.controller("ChangePassCtrl", [
 			newPassWord2: '',
 			cellphone: '',
 			valideCode: '',
-
+			personcode : "",
 			remoteValideCode: null
 		};
 
@@ -135,6 +135,10 @@ settingsModule.controller("ChangePassCtrl", [
 			}
 			if($scope.config.newPassWord2 != $scope.config.newPassWord){
 				$cordovaToast.showShortBottom("两次密码不一致!");
+				return;
+			}
+			if($scope.config.personcode == '' || $scope.config.personcode == undefined){
+				$cordovaToast.showShortBottom("请输入身份证后六位!");
 				return;
 			}
 			//调用修改密码接口

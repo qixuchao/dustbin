@@ -397,7 +397,9 @@ employeeModule
             var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_DETAIL';
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_EMPLOYEE": { "PARTNER": employeeService.get_employeeListvalue().PARTNER}
+                "IS_EMPLOYEE": { "PARTNER": employeeService.get_employeeListvalue().PARTNER},
+                "IS_USER": { "BNAME": window.localStorage.crmUserName }
+
             };
             HttpAppService.post(url, data).success(function (response) {
                 if (response.ES_RESULT.ZFLAG == 'S') {
@@ -594,7 +596,8 @@ employeeModule
             var url = ROOTCONFIG.hempConfig.basePath + 'STAFF_DETAIL';
             var data = {
                 "I_SYSNAME": { "SysName": ROOTCONFIG.hempConfig.baseEnvironment },
-                "IS_EMPLOYEE": { "PARTNER": employeeService.get_employeeListvalue().PARTNER}
+                "IS_EMPLOYEE": { "PARTNER": employeeService.get_employeeListvalue().PARTNER},
+                "IS_USER": { "BNAME": window.localStorage.crmUserName }
             };
             HttpAppService.post(url, data).success(function (response) {
                 if (response.ES_RESULT.ZFLAG == 'S') {
