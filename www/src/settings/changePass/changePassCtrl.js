@@ -9,7 +9,7 @@ settingsModule.controller("ChangePassCtrl", [
 	'SettingsService',
 	'worksheetDataService',
 	'Prompter',
-	'$rootScope',
+	'$rootScope', 
 	function($scope, $state, $ionicHistory, $timeout, $interval, $cordovaToast, HttpAppService, SettingsService, worksheetDataService, Prompter, $rootScope){
 
 		$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){

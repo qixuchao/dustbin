@@ -128,16 +128,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "cn.jpush.phonegap.JPushPlugin": {
-        "source": {
-            "type": "local",
-            "path": "jpush-phonegap-plugin"
-        },
-        "is_top_level": true,
-        "variables": {
-            "API_KEY": "b3793e32c69f2945bb61ae2f"
-        }
-    },
     "cordova-plugin-imagepicker": {
         "source": {
             "type": "registry",
@@ -153,5 +143,15 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cn.jpush.phonegap.JPushPlugin": {
+        "source": {
+            "type": "local",
+            "path": "jpush-phonegap-plugin"
+        },
+        "is_top_level": true,
+        "variables": {
+            "API_KEY": "d5c769ed7f3b74b31933aafd"
+        }
     }
 }

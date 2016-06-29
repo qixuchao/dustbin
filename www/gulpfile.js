@@ -9,9 +9,9 @@ var stripDebug = require('gulp-strip-debug');
 var html2js = require('gulp-html2js');
 var uglify = require('gulp-uglify');
 //var group = require('gulp-group-files');
-
+ 
 //npm install -g node-sass
-//npm install --save-dev gulp gulp-clean gulp-minify-css  gulp-concat gulp-if gulp-ruby-sass
+//npm install --save-dev gulp-clean gulp-minify-css  gulp-concat gulp-if gulp-ruby-sass
 //npm install --save-dev gulp-rename gulp-strip-debug gulp-html2js gulp-uglify gulp-group-files
 
 var buildConfig = {
