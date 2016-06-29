@@ -40,7 +40,8 @@ myMapModule.controller('myBaiduMapCtrl', ['$scope', '$timeout', '$ionicHistory',
 
         HttpAppService.post(url, data).success(function (response, status, func, config) {
             if (response.ES_RESULT.ZFLAG === 'S') {
-                $scope.filterBtns = response.ES_RESULT.ZRESULT;
+                //$scope.filterBtns = response.ES_RESULT.ZRESULT;
+                $scope.filterBtns = [{"ICON":"ion-wrench","TAG":"服务商"},{"ICON":"ion-cube","TAG":"备件室"},{"ICON":"ion-ios-toggle","TAG":"客户"},{"ICON":"ion-android-map","TAG":"服务站"},{"ICON":"ion-android-car","TAG":"正式客户"},{"ICON":"ion-android-map","TAG":"2222222"},{"ICON":"ion-android-car","TAG":"11111111"}]
                 console.log('$scope.filterBtns = ' + angular.toJson($scope.filterBtns));
             }
         }).error(function (response, status, header, config) {
