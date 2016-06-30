@@ -522,9 +522,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 	                time: '2016-3-8  12:11'
             }];
 
-            $scope.init = function(){
-            	//console.log($stateParams.detailType);
-            	// newCar、siteRepair、batchUpdate
+            $scope.init = function(){ 
             	var type = $stateParams.detailType;
             	$scope.config.detailType = type;
             	if(type == "newCar"){
@@ -539,13 +537,28 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             	}else{
             		throw "type 不在预期范围内!";
             	}
-            	//alert("init");
-            	$scope.config.requestParams = worksheetDataService.worksheetList.toDetail;
-            	$scope.config.ydStatusNum = worksheetDataService.worksheetList.toDetail.ydStatusNum;
-            	$scope.config.typeStr = worksheetDataService.worksheetList.toDetail.IS_PROCESS_TYPE;
-            	$scope.config.statusStr = worksheetDataService.worksheetList.toDetail.ydStatusNum;
-            	//alert("init --2");
-            	__requestDetailDatas();
+            	if(worksheetDataService.jpushData != null){
+            		var objId = $scope.config.ydStatusNum = worksheetDataService.jpushData.OBJECT_ID;
+            		var proType = $scope.config.typeStr = worksheetDataService.jpushData.PROCESS_TYPE;
+            		worksheetDataService.jpushData = null;
+            		$scope.config.requestParams = {
+            			IS_OBJECT_ID: objId,
+            			IS_PROCESS_TYPE: proType
+            		};
+            		// alert(JSON.stringify($scope.config.requestParams));
+            		__requestDetailDatas();
+            	}else{
+            		//console.log($stateParams.detailType);
+	            	// newCar、siteRepair、batchUpdate
+	            	
+	            	//alert("init");
+	            	$scope.config.requestParams = worksheetDataService.worksheetList.toDetail;
+	            	$scope.config.ydStatusNum = worksheetDataService.worksheetList.toDetail.ydStatusNum;
+	            	$scope.config.typeStr = worksheetDataService.worksheetList.toDetail.IS_PROCESS_TYPE;
+	            	$scope.config.statusStr = worksheetDataService.worksheetList.toDetail.ydStatusNum;
+	            	//alert("init --2");
+	            	__requestDetailDatas();
+            	}
             };
 
             $scope.init();
@@ -568,6 +581,9 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
             function __requestDetailDatas(loadStr){
             	var loadingStr = loadStr ? loadStr : "正在加载" ;
 		        var params = $scope.config.requestParams;
+		        // alert(JSON.stringify(params));
+		        // alert(params.IS_OBJECT_ID);
+		        // alert(params.IS_PROCESS_TYPE);
 		        var queryParams = {
 				    "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
 				    "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") },
@@ -592,6 +608,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        	if(!$scope.datas.serviceListDatas){
 		        		$scope.datas.serviceListDatas = [];
 		        	}
+
 		        	var kyhuMingCheng = "";
 					var waifuRenyuan = ""; 
 		        	var tempResponse = response;

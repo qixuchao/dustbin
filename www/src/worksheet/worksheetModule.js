@@ -58,6 +58,11 @@ worksheetModule.filter('xbrWorksheetTime',['$filter', function($filter){
 
 worksheetModule.service('worksheetDataService', [function(){
   return {
+    jpushData: null,
+    // {
+    //   OBJECT_ID: '',
+    //   PROCESS_TYPE: ''
+    // },
     worksheetList:{
       toDetail:{
         //  "IS_OBJECT_ID": "5200000297"

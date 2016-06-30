@@ -3,7 +3,7 @@ var loginModule = angular.module('loginModule', []);
 var mainModule = angular.module('mainModule', []);
 var tabsModule = angular.module('tabsModule', []); 
 var appModule = angular.module('appModule', []);
-var carModule = angular.module('carModule', []);
+var carModule = angular.module('carModule', []);  
 var salesModule = angular.module('salesModule', []);
 var employeeModule = angular.module('employeeModule', []);
 var employeeModuleServive = angular.module('employeeModuleServive', []);
@@ -27,7 +27,7 @@ var settingsModule = angular.module('settingsModule', []);  //我的模块
 var activityPlanModule = angular.module('activityPlanModule', []);  //活动计划模块
 var myMapModule = angular.module('myMapModule', []);//服务地图模块
 var saleQuoteModule = angular.module('saleQuoteModule', []);  //销售报价模块
- 
+
 var CRMApp = angular.module('CRMApp', ['ngAnimate', 'ionic','ionic.ui.superSlideBox', 'ngCordova',
     'ionic-material',
     'utilsModule',
@@ -347,7 +347,7 @@ CRMApp.run(['$ionicPlatform', '$rootScope', '$ionicHistory', '$cordovaToast',fun
             templateUrl: 'src/worksheet/worksheetList.html',
             controller: 'WorksheetListCtrl'
         })
-        
+         
         .state('worksheetDetail', { // detailType取值: newCar、siteRepair、batchUpdate
             url: '/worksheetDetail/{detailType}',
             templateUrl: 'src/worksheet/detailAll/detailAll.html',
