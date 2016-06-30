@@ -7,8 +7,8 @@ loginModule
         '$ionicHistory', 'LoginService','Prompter','$cordovaToast',
         'HttpAppService','$scope','$state','ionicMaterialInk',
         '$ionicLoading','$timeout','$ionicPlatform',
-        '$rootScope',
-        function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading,$timeout, $ionicPlatform, $rootScope){
+        '$rootScope',"$cordovaDialogs",
+        function($ionicHistory, LoginService,Prompter,$cordovaToast,HttpAppService,$scope,$state,ionicMaterialInk,$ionicLoading,$timeout, $ionicPlatform, $rootScope, $cordovaDialogs){
             
             
             $scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
@@ -97,6 +97,15 @@ loginModule
             var userPassword = $scope.loginData.password;
             var timeForGetDeviceId = 3000;
             $scope.login = function(isNotFirst){
+                // var abc = Prompter.showPopupConfirm("推送消息", "顶起");
+                // abc.then(function(de,fg){
+                //     alert("a");
+                //     alert(de);
+                //     alert(fg);
+                // }, function(){
+                //     alert("b");
+                // });
+                
                 // navigator.contacts.chooseContact(function (successRes){
                 //     console.log(angular.toJson(successRes));
                 // }, {
@@ -135,8 +144,7 @@ loginModule
                 //http://117.28.248.23:9388/test/api/bty/login
                 //var url = ROOTCONFIG.hempConfig.LoginUrl; //"http://117.28.248.23:9388/test/api/bty/login";
                 var url = ROOTCONFIG.hempConfig.basePath + "login";
-                ///alert("loginReal: deviceId  "+ $scope.config.deviceId);
-                //console.log($scope.config.deviceId);
+
                 var data = {
                     "username": $scope.loginData.username,
                     "password": $scope.loginData.password,
@@ -329,6 +337,14 @@ loginModule
                     var alertContent = event.aps.alert;
                     //Prompter.showPopupAlert("消息推送",alertContent);
                     Prompter.alertWithTitle("消息推送", alertContent);
+                    var comfirm = $cordovaDialogs.confirm(alertContent, "提示", ["查看详情","确定"]);
+                    comfirm.then(function(ok){  // ok: 1, cacle:2
+                        if(ok == 1){ //查看详情
+
+                        }else{ // ok==2  确定
+
+                        }
+                    });
                 }
                 //alert(event.content);
                 //alert(JSON.stringify(event.extras));
@@ -361,6 +377,7 @@ loginModule
                     }
                     window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
                     Prompter.alertWithTitle("消息推送", alertContent);
+
                     //Prompter.showPopupAlert("消息推送2",alertContent);
                     //alert("title: "+title+"\ncontent: "+alertContent+"\nmsgId:  "+msgId+"\nnotificationId: "+notificationId);
                     //alert("extras: "+JSON.stringify(extras));

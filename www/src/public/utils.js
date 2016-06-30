@@ -13,7 +13,7 @@ utilsModule.service('HttpAppService', ['$log', '$http', '$rootScope', '$state', 
             return {
                 "token": token,
                 "timestamp": timestamp,
-                "userKey": window.localStorage.crmUserName
+                "userKey": window.localStorage.crmUserAPPName
             };
         };  
         var request = {

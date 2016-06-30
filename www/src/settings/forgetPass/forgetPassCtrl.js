@@ -126,10 +126,10 @@ settingsModule.controller("forgetPassCtrl", [
 				$cordovaToast.showShortBottom("两次密码不一致!");
 				return;
 			}
-			if($scope.config.personcode == '' || $scope.config.personcode == undefined){
-				$cordovaToast.showShortBottom("请输入身份证后六位!");
-				return;
-			}
+			//if($scope.config.personcode == '' || $scope.config.personcode == undefined){
+			//	$cordovaToast.showShortBottom("请输入身份证后六位!");
+			//	return;
+			//}
 			//调用修改密码接口
 			if($scope.config.isReset){
 				__requestResetPassword();
