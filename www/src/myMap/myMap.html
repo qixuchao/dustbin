@@ -22,11 +22,18 @@
         <mfb-menu active-icon="ion-close-round" resting-icon="ion-plus-round"
                   effect="slidein"
                   toggling-method="click"
-                  position="tr" ng-hide="searchFlag">
+                  position="tr" ng-hide="searchFlag" ng-click="showButton()">
 
-            <button mfb-button mfb-button-close icon="{{item.ICON}}" ng-click="menuBtnSelected('{{item.TAG}}');"
-                    label="{{item.TAG}}" ng-repeat="item in filterBtns"></button>
-
+            <!--<button mfb-button mfb-button-close icon="{{item.ICON}}" ng-click="menuBtnSelected('{{item.TAG}}');"-->
+                    <!--label="{{item.TAG}}" ng-repeat="item in filterBtns"></button>-->
+            <ion-scroll class="scrollStyle" direction="y" scrollbar-x="false" ng-if="buttonShowList">
+                <div ng-repeat="item in filterBtns " class="slideOutRight"   ng-click="menuBtnSelected(item.TAG);">
+                    <div class="itemFont"><a>{{item.TAG}}</a></div>
+                    <div class="divButton text-center">
+                        <i class="{{item.ICON}} iColor"></i>
+                    </div>
+                </div>
+            </ion-scroll>
         </mfb-menu>
 
         <ion-list class="list" ng-show="searchFlag">
