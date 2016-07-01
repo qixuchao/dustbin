@@ -164,7 +164,7 @@ settingsModule.controller("ChangePassCtrl", [
 
 	    function __requestChangePass(){
 	    	var queryParams = {
-			    userName: worksheetDataService.getStoredByKey("userName"),
+			    userName: window.localStorage.crmUserAPPName,
 			    oldPassword: $scope.config.oldPassWord,
 			    newPassword: $scope.config.newPassWord,
 			    newPassword2: $scope.config.newPassWord2,
@@ -200,7 +200,7 @@ settingsModule.controller("ChangePassCtrl", [
 
 	    function __requestResetPassword(){
 	    	var queryParams = {
-			    userName: worksheetDataService.getStoredByKey("userName"),
+			    userName: window.localStorage.crmUserAPPName,
 			    newPassword: $scope.config.newPassWord,
 			    newPassword2: $scope.config.newPassWord2,
 			    moduleCode: $scope.config.moduleCode, // 'RESET_PASS',
@@ -233,7 +233,7 @@ settingsModule.controller("ChangePassCtrl", [
 
 	    function __requestGetCheckCode(moduleCode){   //RESET_PASS 重置密码; CHANGE_PASS: 修改密码
 	        var queryParams = {
-			    userName: worksheetDataService.getStoredByKey("userName"),
+			    userName: window.localStorage.crmUserAPPName,
 			    system: worksheetDataService.getStoredByKey("sysName"),
 			    phoneNo: $scope.config.cellphone,
 			    moduleCode: moduleCode
