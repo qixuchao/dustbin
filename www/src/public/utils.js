@@ -137,8 +137,8 @@ utilsModule.service('Prompter', ['$ionicLoading','$ionicHistory', '$rootScope', 
             ;
             return dateTemp + " " + time;
         };
-        var getOptions = function (date, mode, title) {
-            return {
+        var getOptions = function (date, mode, title) { 
+            return { 
                 date: new Date(date),
                 mode: mode,
                 titleText: title,
