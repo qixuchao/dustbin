@@ -177,11 +177,11 @@ settingsModule.controller("ChangePassCtrl", [
 	        
 	        Prompter.showLoading("正在修改密码");
 
-	        promise.success(function(response){
+	        promise.success(function(response){ 
 	        	//Prompter.hideLoading();
 	        	//alert(response);
 	        	//alert(JSON.stringfy(response));
-	        	//alert(response.ES_RESULT);
+	        	//alert(response.ES_RESULT); 
 	        	if(response.ES_RESULT && response.ES_RESULT.ZFLAG == 'S'){
 	        		Prompter.showLoadingAutoHidden("密码修改成功!", false, 1000);
 	        		LoginService.needTabsCache = true;

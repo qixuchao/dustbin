@@ -57,7 +57,7 @@ worksheetModule.filter('xbrWorksheetTime',['$filter', function($filter){
 
 
 worksheetModule.service('worksheetDataService', [function(){
-  return {
+  return { 
     jpushData: null,
     // {
     //   OBJECT_ID: '',

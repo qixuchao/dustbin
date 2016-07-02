@@ -311,7 +311,7 @@ loginModule
                     //console.log(exception);
                 }
                 
-                //document.addEventListener("jpush.setTagsWithAlias", onTagsWithAlias, false);
+                document.addEventListener("jpush.setTagsWithAlias", onTagsWithAlias, false);
                 //document.addEventListener("deviceready", onDeviceReady, false);
                 document.addEventListener("jpush.openNotification", onOpenNotification, false);
                 document.addEventListener("jpush.backgroundNotification", onBackgroundNotification, false);
@@ -330,9 +330,19 @@ loginModule
                     }
                 */
             }
+            var onTagsWithAlias = function(event) {
+                try {
+                    // alert("onTagsWithAlias  :"+JSON.stringify(event));
+                    console.log("onTagsWithAlias  :"+JSON.stringify(event));
+                } catch(exception) {
+                   console.log(exception);
+                }
+            }
             function onReceiveNotification(event) {
+                // alert("...onReceiveNotification");
                 //alert("onReceiveNotification    event: "+JSON.stringify(event));
                 console.log("onReceiveNotification    event: "+JSON.stringify(event));
+                // alert("onReceiveNotification    event: "+JSON.stringify(event));
                 if(device.platform != "Android"){
                     var alertContent = event.aps.alert;
                     var OBJECT_ID = event.OBJECT_ID;
@@ -342,57 +352,64 @@ loginModule
                     // alert(JSON.stringify(event));
                     //Prompter.showPopupAlert("消息推送",alertContent);
                     //Prompter.alertWithTitle("消息推送", alertContent);
-                    var comfirm = $cordovaDialogs.confirm(alertContent, "提示", ["查看详情","确定"]);
-                    comfirm.then(function(ok){  // ok: 1, cacle:2
-                        if(ok == 1){ //查看详情
-                            //工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
-                            //            filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV           filterBatchUpdateFWS: ZPLV
-                            worksheetDataService.jpushData = {
-                                OBJECT_ID: OBJECT_ID,
-                                PROCESS_TYPE: PROCESS_TYPE
-                            };
-                            if(PROCESS_TYPE == "ZNCO" || PROCESS_TYPE == "ZNCV"){
-                                //alert("state.go ... newCar");
-                                $state.go("worksheetDetail", {
-                                    detailType: 'newCar'
-                                });
-                                //alert("state.go ... newCarf ...end");
-                            }else if(PROCESS_TYPE == "ZPRO" || PROCESS_TYPE == "ZPRV"){
-                                $state.go("worksheetDetail",{
-                                    detailType: 'siteRepair'
-                                });
-                            }else if(PROCESS_TYPE == "ZPLO" || PROCESS_TYPE == "ZPLV"){
-                                $state.go("worksheetDetail",{
-                                    detailType: 'batchUpdate'
-                                });
-                            }
-                        }else{ // ok==2  确定
+                    if(window.location.hash.indexOf("#/worksheetDetail") >= 0 
+                       || window.location.hash.indexOf("#/login") >= 0
+                       || window.location.hash.indexOf("#/baoGongDetail") >= 0){
+                        Prompter.alertWithTitle("消息推送", alertContent);
+                    }else{
+                        var comfirm = $cordovaDialogs.confirm(alertContent, "提示", ["查看详情","确定"]);
+                        comfirm.then(function(ok){  // ok: 1, cacle:2
+                            if(ok == 1){ //查看详情
+                                //工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
+                                //            filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV           filterBatchUpdateFWS: ZPLV
+                                worksheetDataService.jpushData = {
+                                    OBJECT_ID: OBJECT_ID,
+                                    PROCESS_TYPE: PROCESS_TYPE
+                                };
+                                if(PROCESS_TYPE == "ZNCO" || PROCESS_TYPE == "ZNCV"){
+                                    //alert("state.go ... newCar");
+                                    $state.go("worksheetDetail", {
+                                        detailType: 'newCar'
+                                    });
+                                    //alert("state.go ... newCarf ...end");
+                                }else if(PROCESS_TYPE == "ZPRO" || PROCESS_TYPE == "ZPRV"){
+                                    $state.go("worksheetDetail",{
+                                        detailType: 'siteRepair'
+                                    });
+                                }else if(PROCESS_TYPE == "ZPLO" || PROCESS_TYPE == "ZPLV"){
+                                    $state.go("worksheetDetail",{
+                                        detailType: 'batchUpdate'
+                                    });
+                                }
+                            }else{ // ok==2  确定
 
-                        }
-                    });
+                            }
+                        });
+                    }
                 }
                 //alert(event.content);
                 //alert(JSON.stringify(event.extras));
             }
-            function onBackgroundNotification(event){
+            function onBackgroundNotification(event){ 
                 //alert("onBackgroundNotification  evnet: "+event);
                 console.log("onBackgroundNotification  evnet: "+event);
-            }
+            } 
             function onOpenNotification(event) { // {isTrusted: false}
                 //alert("onOpenNotification");
                 //alert(JSON.stringify(event));
                 console.log(JSON.stringify(event));
-                console.log("onOpenNotification   event: "+event);
-                try {
+                console.log("onOpenNotification   event: "+event); 
+                try { 
                     var alertContent;
                     var extrasParams;
                     var title, extras, msgId, notificationId;
                     var OBJECT_ID;
                     var PROCESS_TYPE;
-                    OBJECT_ID = event.OBJECT_ID;
-                    PROCESS_TYPE = event.PROCESS_TYPE;
-                    if (device.platform == "Android") {
+                    
+                    if (device.platform == "Android") { 
                         var content = window.plugins.jPushPlugin.receiveNotification;
+                        // alert(JSON.stringify(content));
+                        console.log("onOpenNotification   ---:  "+JSON.stringify(content));
                         title = content.title;  //ATL Test
                         //alertContent = content.alert; //测试信息。。。
                         var extras = content.extras;
@@ -400,48 +417,53 @@ loginModule
                         var notificationId = extras["cn.jpush.android.NOTIFICATION_ID"];
                         alertContent = extras["cn.jpush.android.ALERT"];
                         extrasParams = extras["cn.jpush.android.EXTRA"];
-                    } else {
+                        OBJECT_ID = extrasParams.OBJECT_ID;
+                        PROCESS_TYPE = extrasParams.PROCESS_TYPE;
+                        // alert("android: "+OBJECT_ID);
+                        // alert("android: "+PROCESS_TYPE);
+                    } else { 
                         alertContent = event.aps.alert;
+                        OBJECT_ID = event.OBJECT_ID;
+                        PROCESS_TYPE = event.PROCESS_TYPE;
                         //alert(JSON.stringify(window.plugins.jPushPlugin.receiveNotification));
-                    }
+                    } 
                     window.plugins.jPushPlugin.setApplicationIconBadgeNumber(0);
-                    Prompter.alertWithTitle("消息推送", alertContent);
-                    
-                    
-                    //alert(OBJECT_ID);
-                    //alert(PROCESS_TYPE);
-                    // alert(JSON.stringify(event));
-                    //Prompter.showPopupAlert("消息推送",alertContent);
-                    //Prompter.alertWithTitle("消息推送", alertContent);
-                    var comfirm = $cordovaDialogs.confirm(alertContent, "提示", ["查看详情","确定"]);
-                    comfirm.then(function(ok){  // ok: 1, cacle:2
-                        if(ok == 1){ //查看详情
-                            //工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
-                            //            filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV           filterBatchUpdateFWS: ZPLV
-                            worksheetDataService.jpushData = {
-                                OBJECT_ID: OBJECT_ID,
-                                PROCESS_TYPE: PROCESS_TYPE
-                            };
-                            if(PROCESS_TYPE == "ZNCO" || PROCESS_TYPE == "ZNCV"){
-                                //alert("state.go ... newCar");
-                                $state.go("worksheetDetail", {
-                                    detailType: 'newCar'
-                                });
-                                //alert("state.go ... newCarf ...end");
-                            }else if(PROCESS_TYPE == "ZPRO" || PROCESS_TYPE == "ZPRV"){
-                                $state.go("worksheetDetail",{
-                                    detailType: 'siteRepair'
-                                });
-                            }else if(PROCESS_TYPE == "ZPLO" || PROCESS_TYPE == "ZPLV"){
-                                $state.go("worksheetDetail",{
-                                    detailType: 'batchUpdate'
-                                });
+
+                    if(window.location.hash.indexOf("#/worksheetDetail") >= 0
+                        || window.location.hash.indexOf("#/login") >= 0
+                        || window.location.hash.indexOf("#/baoGongDetail") >= 0){
+                        Prompter.alertWithTitle("消息推送", alertContent);
+                    }else{
+                        var comfirm = $cordovaDialogs.confirm(alertContent, "提示", ["查看详情","确定"]);
+                        comfirm.then(function(ok){  // ok: 1, cacle:2
+                            if(ok == 1){ //查看详情
+                                //工单类型：   filterNewCarOnline: ZNCO 新车档案收集工单    filterLocalService:ZPRO 现场维修工单    filterBatchUpdate:ZPLO 批量改进工单
+                                //            filterNewCarOnlineFWS: ZNCV                filterLocalServiceFWS: ZPRV           filterBatchUpdateFWS: ZPLV
+                                worksheetDataService.jpushData = {
+                                    OBJECT_ID: OBJECT_ID,
+                                    PROCESS_TYPE: PROCESS_TYPE
+                                };
+                                if(PROCESS_TYPE == "ZNCO" || PROCESS_TYPE == "ZNCV"){
+                                    //alert("state.go ... newCar");
+                                    $state.go("worksheetDetail", {
+                                        detailType: 'newCar'
+                                    });
+                                    //alert("state.go ... newCarf ...end");
+                                }else if(PROCESS_TYPE == "ZPRO" || PROCESS_TYPE == "ZPRV"){
+                                    $state.go("worksheetDetail",{
+                                        detailType: 'siteRepair'
+                                    });
+                                }else if(PROCESS_TYPE == "ZPLO" || PROCESS_TYPE == "ZPLV"){
+                                    $state.go("worksheetDetail",{
+                                        detailType: 'batchUpdate'
+                                    });
+                                }
+                            }else{ // ok==2  确定
+
                             }
-                        }else{ // ok==2  确定
-                            
-                        }
-                    });
-                    
+                        });
+                    }
+
                     //Prompter.showPopupAlert("消息推送2",alertContent);
                     //alert("title: "+title+"\ncontent: "+alertContent+"\nmsgId:  "+msgId+"\nnotificationId: "+notificationId);
                     //alert("extras: "+JSON.stringify(extras));
