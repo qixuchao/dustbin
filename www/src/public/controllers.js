@@ -11,7 +11,7 @@ angular.module('ATLApp.controllers', [])
         $ionicHistory.goBack();
     }
 
-    // Form data for the login modal
+        // Form data for the login modal
     $scope.loginData = {};
     $scope.isExpanded = false;
     $scope.hasHeaderFabLeft = false;

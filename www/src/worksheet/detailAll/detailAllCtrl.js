@@ -28,12 +28,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
                   , saleActService, $rootScope, $filter,CarService, $ionicActionSheet, baoGongService) {
 
         	$scope.$on("$stateChangeStart", function (event2, toState, toParams, fromState, fromParam){
-        		// alert("start "+worksheetDataService.jpushData);
-        		// if(worksheetDataService.jpushData != null){
-        		// 	alert("----");
-        		// 	__destroyMoreModal();
-        		// 	alert("---------");
-        		// }
 	            if(fromState && fromState.name == 'worksheetDetail' && toState && toState.name == "worksheetEdit"){
 	                /*if(window.event && window.event.type == "popstate"){
 	                	if($scope.config.__popstateFlag){
@@ -59,12 +53,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 	        });
         	
         	$scope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParam){
-        		// alert("success" + worksheetDataService.jpushData);
-        		// if(worksheetDataService.jpushData != null){
-        		// 	alert("----");
-        		// 	__destroyMoreModal();
-        		// 	alert("---------");
-        		// }
         		//从编辑界面返回  故障详情   ( || fromState.name == 'worksheetFaultInfosEdit')
         		if(fromState && toState && toState.name == 'worksheetDetail'){
         			if( fromState.name == 'worksheetEdit' || fromState.name == 'worksheetFaultInfos' 
@@ -93,8 +81,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
         	};
 
 			function __destroyMoreModal(){
-				if($scope.config.moreModal != null){
-					$scope.config.moreModal.hide();			
+				if($scope.config.moreModal != null){			
 					$scope.config.moreModal.remove();
 					$scope.config.moreModal = null;
 				}
@@ -135,7 +122,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				console.log(type);
 				if(!angular.isUndefined($scope.config.moreModal) && $scope.config.moreModal!=null){
 					$scope.config.moreModal.hide();
-					__destroyMoreModal();
 				}
 				if(type == 'paigong'){
 					//先选择处理员工
@@ -266,7 +252,6 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 				// return false;
 			};
 			$scope.showMoreModel = function($event, sourceClassName){
-				// __destroyMoreModal();
 			    if($scope.config.moreModal == null){
 			    	//$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content {{config.statusStr}} "+$scope.config.typeStr+" "+$scope.config.statusStr+"'>"+
 			    	$scope.config.moreModal = $ionicModal.fromTemplate("<div class='show-more-modal-content {{config.statusStr}} {{config.editFlagClass}} "+$scope.config.typeStr+"'>"+
@@ -599,7 +584,7 @@ worksheetModule.controller('worksheetDetailAllCtrl',[
 		        // alert(JSON.stringify(params));
 		        // alert(params.IS_OBJECT_ID);
 		        // alert(params.IS_PROCESS_TYPE);
-		        var queryParams = { 
+		        var queryParams = {
 				    "I_SYSNAME": { "SysName": worksheetDataService.getStoredByKey("sysName") },
 				    "IS_AUTHORITY": { "BNAME": worksheetDataService.getStoredByKey("userName") },
 				    "IS_OBJECT_ID": params.IS_OBJECT_ID,

@@ -1453,7 +1453,7 @@ worksheetModule.controller("WorksheetListCtrl",[
 				$cordovaToast.showShortBottom(response.ES_RESULT.ZRESULT);
 			} else if (response.ES_RESULT.ZFLAG == 'S') {
 				if(response.ES_EMPLOYEE){
-					$scope.config.selectPe= response.ES_EMPLOYEE.NAME_LAST+response.ES_EMPLOYEE.NAME_FIRST;
+					$scope.config.selectPe= response.ES_EMPLOYEE.NAME_LAST+response.ES_EMPLOYEE.UNAME;
 					$scope.selectContactModal.hide();
 				}
 			}
